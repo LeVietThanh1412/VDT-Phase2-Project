@@ -29,3 +29,7 @@ cesium-request-cache.sqlite-wal
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
