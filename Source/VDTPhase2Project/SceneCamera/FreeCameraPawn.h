@@ -26,7 +26,7 @@ public:
 private:
     void MoveForward(float Value);
     void MoveRight(float Value);
-    void MoveUp(float Value);
+    void AdjustSpeed(float Value);
     void Turn(float Value);
     void LookUp(float Value);
 

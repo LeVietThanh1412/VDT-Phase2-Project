@@ -4,6 +4,13 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
 
+namespace
+{
+    constexpr float MinFreeCameraSpeed = 25000.0f;
+    constexpr float MaxFreeCameraSpeed = 500000.0f;
+    constexpr float FreeCameraSpeedStep = 5000.0f;
+}
+
 AFreeCameraPawn::AFreeCameraPawn()
 {
     PrimaryActorTick.bCanEverTick = true;
@@ -21,7 +28,7 @@ AFreeCameraPawn::AFreeCameraPawn()
     Camera->bUsePawnControlRotation = true;
 
     Movement = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("Movement"));
-    Movement->MaxSpeed = 500000.0f;
+    Movement->MaxSpeed = 250000.0f;
     Movement->Acceleration = 100000.0f;
     Movement->Deceleration = 500000.0f;
 }
@@ -46,7 +53,7 @@ void AFreeCameraPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComp
 
     PlayerInputComponent->BindAxis(TEXT("FreeCamera_MoveForward"), this, &AFreeCameraPawn::MoveForward);
     PlayerInputComponent->BindAxis(TEXT("FreeCamera_MoveRight"), this, &AFreeCameraPawn::MoveRight);
-    PlayerInputComponent->BindAxis(TEXT("FreeCamera_MoveUp"), this, &AFreeCameraPawn::MoveUp);
+    PlayerInputComponent->BindAxis(TEXT("FreeCamera_AdjustSpeed"), this, &AFreeCameraPawn::AdjustSpeed);
     PlayerInputComponent->BindAxis(TEXT("FreeCamera_Turn"), this, &AFreeCameraPawn::Turn);
     PlayerInputComponent->BindAxis(TEXT("FreeCamera_LookUp"), this, &AFreeCameraPawn::LookUp);
 }
@@ -61,7 +68,8 @@ void AFreeCameraPawn::MoveForward(float Value)
 {
     if (!FMath::IsNearlyZero(Value))
     {
-        AddMovementInput(FRotationMatrix(FRotator(0.0f, GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
+        // Follow the complete view direction so looking up/down changes the flight path.
+        AddMovementInput(GetControlRotation().Vector(), Value);
     }
 }
 
@@ -73,12 +81,15 @@ void AFreeCameraPawn::MoveRight(float Value)
     }
 }
 
-void AFreeCameraPawn::MoveUp(float Value)
+void AFreeCameraPawn::AdjustSpeed(float Value)
 {
-    if (!FMath::IsNearlyZero(Value))
+    if (!Movement || FMath::IsNearlyZero(Value))
     {
-        AddMovementInput(FVector::UpVector, Value);
+        return;
     }
+
+    const float NewSpeed = Movement->MaxSpeed + FMath::Sign(Value) * FreeCameraSpeedStep;
+    Movement->MaxSpeed = FMath::Clamp(NewSpeed, MinFreeCameraSpeed, MaxFreeCameraSpeed);
 }
 
 void AFreeCameraPawn::Turn(float Value)
