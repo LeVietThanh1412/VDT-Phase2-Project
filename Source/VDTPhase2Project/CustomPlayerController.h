@@ -2,13 +2,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "FreeCameraPlayerController.generated.h"
+#include "CustomPlayerController.generated.h"
 
 class AFreeCameraPawn;
 
-/** Switches the player between the normal pawn and a bounded free-flight camera with F. */
+/** Switches between ship pawns with Q and a bounded free-flight camera with F. */
 UCLASS()
-class VDTPHASE2PROJECT_API AFreeCameraPlayerController : public APlayerController
+class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
 {
     GENERATED_BODY()
 
@@ -17,6 +17,7 @@ public:
 
 private:
     void ToggleFreeCamera();
+    void CycleShipCamera();
 
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;

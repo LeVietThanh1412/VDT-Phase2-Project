@@ -1,17 +1,76 @@
-#include "FreeCameraPlayerController.h"
+#include "CustomPlayerController.h"
 
-#include "FreeCameraPawn.h"
+#include "Actor/Pawn/FreeCameraPawn.h"
 #include "Engine/World.h"
+#include "EngineUtils.h"
 #include "InputCoreTypes.h"
 
-void AFreeCameraPlayerController::SetupInputComponent()
+void ACustomPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
     check(InputComponent);
-    InputComponent->BindKey(EKeys::F, IE_Pressed, this, &AFreeCameraPlayerController::ToggleFreeCamera);
+    InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ACustomPlayerController::ToggleFreeCamera);
+    InputComponent->BindKey(EKeys::Q, IE_Pressed, this, &ACustomPlayerController::CycleShipCamera);
 }
 
-void AFreeCameraPlayerController::ToggleFreeCamera()
+void ACustomPlayerController::CycleShipCamera()
+{
+    UWorld* World = GetWorld();
+    if (!World)
+    {
+        return;
+    }
+
+    // When Q is pressed in free camera, continue the cycle from the ship that was
+    // active before entering free camera.
+    APawn* CurrentShip = IsValid(FreeCameraPawn) ? PreviousPawn.Get() : GetPawn().Get();
+
+    TArray<APawn*> ShipPawns;
+    for (TActorIterator<APawn> It(World); It; ++It)
+    {
+        APawn* Candidate = *It;
+        if (IsValid(Candidate) && Candidate != FreeCameraPawn)
+        {
+            ShipPawns.Add(Candidate);
+        }
+    }
+
+    ShipPawns.Sort([](const APawn& Left, const APawn& Right)
+    {
+        return Left.GetPathName() < Right.GetPathName();
+    });
+
+    if (ShipPawns.Num() < 2)
+    {
+        return;
+    }
+
+    const int32 CurrentIndex = ShipPawns.IndexOfByKey(CurrentShip);
+    const int32 NextIndex = CurrentIndex == INDEX_NONE ? 0 : (CurrentIndex + 1) % ShipPawns.Num();
+    APawn* NextShip = ShipPawns[NextIndex];
+    if (!IsValid(NextShip) || NextShip == CurrentShip)
+    {
+        return;
+    }
+
+    if (IsValid(FreeCameraPawn))
+    {
+        SavedFreeCameraLocation = FreeCameraPawn->GetActorLocation();
+        SavedFreeCameraRotation = GetControlRotation();
+        bHasSavedFreeCameraTransform = true;
+        UnPossess();
+        FreeCameraPawn->Destroy();
+        FreeCameraPawn = nullptr;
+        PreviousPawn = nullptr;
+        PreviousControlRotation = FRotator::ZeroRotator;
+    }
+
+    const FRotator UprightRotation(0.0f, NextShip->GetActorRotation().Yaw, 0.0f);
+    Possess(NextShip);
+    SetControlRotation(UprightRotation);
+}
+
+void ACustomPlayerController::ToggleFreeCamera()
 {
     // Keep free-camera transform across toggles, but never possess the same pawn twice.
     if (IsValid(FreeCameraPawn))
@@ -27,7 +86,9 @@ void AFreeCameraPlayerController::ToggleFreeCamera()
         if (IsValid(PawnToRestore))
         {
             Possess(PawnToRestore);
-            SetControlRotation(PreviousControlRotation);
+            FRotator RestoredControlRotation = PreviousControlRotation;
+            RestoredControlRotation.Roll = 0.0f;
+            SetControlRotation(RestoredControlRotation);
         }
         PreviousPawn = nullptr;
         PreviousControlRotation = FRotator::ZeroRotator;

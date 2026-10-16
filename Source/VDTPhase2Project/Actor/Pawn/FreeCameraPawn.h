@@ -8,7 +8,7 @@ class UCameraComponent;
 class UFloatingPawnMovement;
 class USphereComponent;
 
-/** A temporary, collision-free inspection camera used by AFreeCameraPlayerController. */
+/** A temporary, collision-free inspection camera used by ACustomPlayerController. */
 UCLASS()
 class VDTPHASE2PROJECT_API AFreeCameraPawn : public APawn
 {
