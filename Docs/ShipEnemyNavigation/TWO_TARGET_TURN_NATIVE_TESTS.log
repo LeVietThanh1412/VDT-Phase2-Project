@@ -1,0 +1,6 @@
+[2026.10.17-17.54.03:169][418]LogLiveCoding: Display: Live coding succeeded
+[2026.10.17-17.54.34:608][218]LogLiveCoding: Display: Live coding succeeded
+[2026.10.17-17.54.50:047][119]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}
+[2026.10.17-17.54.50:074][121]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}
+[2026.10.17-17.54.50:107][123]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}
+[2026.10.17-17.54.50:140][125]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}

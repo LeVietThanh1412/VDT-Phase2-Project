@@ -1,0 +1,29 @@
+{
+  "enemy": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+  "destination": "TP_ShipEnemy_OpenSeaDestination",
+  "world": [
+    -5999.996148139235,
+    235069.98577958345,
+    0.0
+  ],
+  "llh": [
+    107.29583902306274,
+    20.971365353137905,
+    0.43582317806104254
+  ],
+  "mode": "<ShipNavigationMode.DESTINATION: 1>",
+  "debug": true,
+  "enemy_persistent": true,
+  "target_persistent": true,
+  "arrival_radius_m": 60.0,
+  "ship_world": [
+    -26270.000001758333,
+    194549.99999928474,
+    680.000006198883
+  ],
+  "validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "dirty_packages": [
+    "/Game/__ExternalActors__/Levels/MainMapLevel/1/MS/LC9BZZ0JPJBJN9U5MJNJTN"
+  ],
+  "active_target_saved": true
+}

@@ -1,0 +1,173 @@
+{
+  "status": "PASS_FOR_ENCODED_NAVIGATION_AND_BOUNDED_PIE_APPROACH",
+  "runtime_checks": {
+    "I_commands_match_blueprint": true,
+    "open_sea_target_uses_direct_two_point_route": true,
+    "A_live_actor_matches_request": true,
+    "C_exact_final_waypoint": true,
+    "D_stationary_route_reused": true,
+    "D_moving_actor_replanned": true,
+    "E_moving_into_exclusion_stops": true,
+    "D_recovers_after_target_returns_to_water": true,
+    "H_cesium_shift_retains_route_and_alignment": true,
+    "H_unreal_rebase_retains_route_and_alignment": true,
+    "I_physics_displacement_m": 66.7592588442404,
+    "physical_arrival_within_tolerance": true
+  },
+  "runtime_duration_s": 82.99228969961405,
+  "arrival_distance_m": 59.796758044250026,
+  "arrival_speed_mps": 0.29636192321777344,
+  "final_throttle": 0.0,
+  "final_rudder": 0.0,
+  "geometry": {
+    "accepted_water_cells": 41161,
+    "buffered_land_intersections": 0,
+    "safety_margin_m": 200.0,
+    "bathymetry": "UNKNOWN - no depth or shallow-water layer supplied; only encoded blocked cells and streamed hull collision can be checked",
+    "route_segments": 20,
+    "route_buffered_land_intersections": 0,
+    "goals_checked": [
+      {
+        "goal_cell": [
+          199,
+          176
+        ],
+        "water": true,
+        "node_en_m": [
+          -50.0,
+          -2350.0
+        ],
+        "requested_en_m": [
+          -59.999961480960934,
+          -2350.6998579184788
+        ],
+        "node_to_request_m": 10.02442171532901,
+        "safe_final_connection": true
+      },
+      {
+        "goal_cell": [
+          202,
+          191
+        ],
+        "water": true,
+        "node_en_m": [
+          250.0,
+          -850.0
+        ],
+        "requested_en_m": [
+          249.9999975754366,
+          -849.9999918324434
+        ],
+        "node_to_request_m": 8.519829178434416e-06,
+        "safe_final_connection": true
+      },
+      {
+        "goal_cell": [
+          202,
+          191
+        ],
+        "water": true,
+        "node_en_m": [
+          250.0,
+          -850.0
+        ],
+        "requested_en_m": [
+          259.9999975772945,
+          -849.9999918327142
+        ],
+        "node_to_request_m": 9.99999757729783,
+        "safe_final_connection": true
+      },
+      {
+        "goal_cell": [
+          202,
+          191
+        ],
+        "water": true,
+        "node_en_m": [
+          250.0,
+          -850.0
+        ],
+        "requested_en_m": [
+          249.9999975754366,
+          -849.9999918324434
+        ],
+        "node_to_request_m": 8.519829178434416e-06,
+        "safe_final_connection": true
+      },
+      {
+        "goal_cell": [
+          207,
+          194
+        ],
+        "water": true,
+        "node_en_m": [
+          750.0,
+          -550.0
+        ],
+        "requested_en_m": [
+          749.9999975762197,
+          -599.9999918328506
+        ],
+        "node_to_request_m": 49.99999183285065,
+        "safe_final_connection": true
+      },
+      {
+        "goal_cell": [
+          198,
+          181
+        ],
+        "water": true,
+        "node_en_m": [
+          -150.0,
+          -1850.0
+        ],
+        "requested_en_m": [
+          -190.51929596459294,
+          -1822.4898018210538
+        ],
+        "node_to_request_m": 48.97575266712267,
+        "safe_final_connection": true
+      }
+    ],
+    "unique_native_routes": 6,
+    "all_goals_valid": true
+  },
+  "final_config": {
+    "enemy": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+    "destination": "TP_ShipEnemy_OpenSeaDestination",
+    "world": [
+      -5999.996148139235,
+      235069.98577958345,
+      0.0
+    ],
+    "llh": [
+      107.29583902306274,
+      20.971365353137905,
+      0.43582317806104254
+    ],
+    "mode": "<ShipNavigationMode.DESTINATION: 1>",
+    "debug": true,
+    "enemy_persistent": true,
+    "target_persistent": true,
+    "arrival_radius_m": 60.0,
+    "ship_world": [
+      -26270.000001758333,
+      194549.99999928474,
+      680.000006198883
+    ],
+    "validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+    "dirty_packages": [
+      "/Game/__ExternalActors__/Levels/MainMapLevel/1/MS/LC9BZZ0JPJBJN9U5MJNJTN"
+    ],
+    "active_target_saved": true
+  },
+  "protected_player_unchanged": true,
+  "limitations": [
+    "No bathymetry/shallow-water layer supplied; unknown depths cannot be certified.",
+    "Full physical traversal of every long island detour and full Cesium-vs-OSM alignment are not proven by this bounded test.",
+    "Runtime georeference setter and Unreal rebasing were tested; the automatic CesiumOriginShift component distance trigger was not separately exercised in the final run.",
+    "Native changes are active through Live Coding in the running Editor. Base Editor DLL remains old; perform a normal Editor target build after closing Editor before a future launch.",
+    "Existing older target has unsaved user transform edits; these were preserved and not overwritten."
+  ]
+}

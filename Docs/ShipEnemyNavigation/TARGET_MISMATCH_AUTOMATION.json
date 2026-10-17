@@ -1,0 +1,10 @@
+{
+  "suites": [
+    "[2026.10.17-14.08.19:449][481]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}",
+    "[2026.10.17-14.08.19:483][483]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}",
+    "[2026.10.17-14.08.19:516][485]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}",
+    "[2026.10.17-14.08.19:549][487]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+  ],
+  "all_passed": true,
+  "fixture": "Disposable native Game world using real BP_ShipEnemy; tests do not tick ship physics"
+}

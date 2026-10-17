@@ -1,0 +1,31 @@
+Using bundled DotNet SDK version: 8.0.300 win-x64
+Running UnrealBuildTool: dotnet "..\..\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" VDTPhase2Project Win64 Development -Project=E:/LeVietThanh1412-Product/VDT-Phase2-Project/VDTPhase2Project.uproject -NoHotReloadFromIDE -WaitMutex
+Log file: C:\Users\ADMIN\AppData\Local\UnrealBuildTool\Log.txt
+Using 'git status' to determine working set for adaptive non-unity build (E:\LeVietThanh1412-Product\VDT-Phase2-Project).
+Creating makefile for VDTPhase2Project (command line arguments changed)
+Available x64 toolchains (2):
+ * C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231
+    (Family=14.51.36231, FamilyRank=1, Version=14.51.36252, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64)
+ * C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207
+    (Family=14.44.35207, FamilyRank=1, Version=14.44.35228, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64)
+Visual Studio 2022 compiler version 14.51.36252 is not a preferred version. Please use the latest preferred version 14.38.33130
+Building VDTPhase2Project...
+Using Visual Studio 2022 14.51.36252 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+Warning: Visual Studio 2022 compiler is not a preferred version
+[Adaptive Build] Excluded from VDTPhase2Project unity file: SeaNavigationMap.cpp, ShipEnemyNavigationComponent.cpp, ShipEnemyNavigationTests.cpp
+Determining max actions to execute in parallel (10 physical cores, 16 logical cores)
+  Executing up to 10 processes, one per physical core
+Using Unreal Build Accelerator local executor to run 4 action(s)
+  Storage capacity 40Gb
+---- Starting trace: 261017_214525 ----
+UbaSessionServer - Disable remote execution (remote sessions will finish current processes)
+------ Building 4 action(s) started ------
+[1/4] Compile [x64] ShipEnemyNavigationComponent.cpp
+[2/4] Compile [x64] ShipEnemyNavigationTests.cpp
+[3/4] Link [x64] VDTPhase2Project.exe
+[4/4] WriteMetadata VDTPhase2Project.target (UBA disabled)
+Trace written to file C:/Users/ADMIN/AppData/Local/UnrealBuildTool/Log.uba with size 6.6kb
+Total time in Unreal Build Accelerator local executor: 29.80 seconds
+
+Result: Succeeded
+Total execution time: 33.37 seconds

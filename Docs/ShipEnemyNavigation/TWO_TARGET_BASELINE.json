@@ -1,0 +1,15 @@
+{
+  "t": 30.895214706659317,
+  "mode": "<ShipNavigationMode.PATROL: 0>",
+  "state": "<ShipNavigationState.FAILED: 10>",
+  "failure": "Smoothed route validation failed",
+  "throttle": 0.0,
+  "rudder": 0.0,
+  "speed": 0.29134902612182345,
+  "position": "<Struct 'Vector' (0x00000294D0FD73F0) {x: -25231.670362, y: 190248.848544, z: -86.704112}>",
+  "route": [],
+  "recovery": 1,
+  "patrol_a": "None",
+  "patrol_b": "None",
+  "actual_target": "<Object '/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255' (0x0000029598FA5F00) Class 'TargetPoint'>"
+}

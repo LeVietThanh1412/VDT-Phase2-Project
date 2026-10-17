@@ -1,0 +1,38 @@
+{
+  "Source/VDTPhase2Project/ShipEnemyNavigationComponent.cpp": {
+    "before": "0f69297734a4e6ce93025d8fe93a6a8aad7617504e40fe20bbd1f34abd4f8162",
+    "after": "d97c2cefb1287305f9fb9fd40d6af237d98c871dd535648b80d97bd11bebd2a8"
+  },
+  "Source/VDTPhase2Project/ShipEnemyNavigationComponent.h": {
+    "before": "ddb5ca8f90b624112b6e60c8a3500a99c6e70329a3d299218559733e2eb603f4",
+    "after": "ddb5ca8f90b624112b6e60c8a3500a99c6e70329a3d299218559733e2eb603f4"
+  },
+  "Source/VDTPhase2Project/SeaNavigationMap.cpp": {
+    "before": "1e823e05349dcba881f3f71869b221d014c47f1b9a204e07ec2b84c77bff21c7",
+    "after": "51f0d6b7abb2146533e240bd91984cf2856e16cb8315570b40a314a40367d342"
+  },
+  "Source/VDTPhase2Project/SeaNavigationMap.h": {
+    "before": "0a2b48d4c80a46efe3325fa49414eff53f3814ae64e3bd82f7102c4a243d2b07",
+    "after": "0a2b48d4c80a46efe3325fa49414eff53f3814ae64e3bd82f7102c4a243d2b07"
+  },
+  "Source/VDTPhase2Project/ShipEnemyNavigationTests.cpp": {
+    "before": "c4af9e269ef6e4780f0ac0ecaa219c73d7e647cfeba5db8161cc9c00b13aed8d",
+    "after": "3850fe7e1f2d7d258d2f1d11bb23e1f69302b13bb10a1a6d0d0088e116612d48"
+  },
+  "Content/ShipEnemy/BluePrint/BP_ShipEnemy.uasset": {
+    "before": "7464311daa4c90630af63fa0cc9c4c2dbd00ee1e3763251970fb472cd84bfc9f",
+    "after": "69cd7e74e0723051cf9a4b518a6fdb9dd310a94ad08324235eb3f47d9dfd6504"
+  },
+  "Content/__ExternalActors__/Levels/MainMapLevel/B/8F/CHJKNRGBDUPAW44FPQ44PZ.uasset": {
+    "before": "28469d0ea85d2a4adb2b6a3e3943be1825f75815a4b3c447ffa801836b8d2e59",
+    "after": "250b46e8ba062e95b69dc4f16283559fd45aafc66416380b6e0afac05cc1cda8"
+  },
+  "Content/__ExternalActors__/Levels/MainMapLevel/1/MS/LC9BZZ0JPJBJN9U5MJNJTN.uasset": {
+    "before": "8029a943886e46df916c65bcbda9b3c82a3e812160784928f92f7ef546829914",
+    "after": "d90af52e64ef5386d8d9aa6379c60c50c0cbf57a5d71e3b413e76ba5da854018"
+  },
+  "Content/Ship/BluePrint/BP_Ship.uasset": {
+    "before": "28e992c9b100958388f584931b69f08d733b492fa33653ec5c165b2d3990b64a",
+    "after": "28e992c9b100958388f584931b69f08d733b492fa33653ec5c165b2d3990b64a"
+  }
+}

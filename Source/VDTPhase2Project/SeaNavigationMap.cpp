@@ -81,7 +81,7 @@ int32 FSeaNavigationMap::CellAt(const FVector2D& P) const
     return FMath::FloorToInt(GY)*Width+FMath::FloorToInt(GX);
 }
 bool FSeaNavigationMap::IsWater(const FVector2D& P) const
-{const int32 I=CellAt(P);return I!=INDEX_NONE && Cells[I]==1;}
+{const int32 I=CellAt(P);return Cells.IsValidIndex(I) && Cells[I]==1;}
 bool FSeaNavigationMap::SameWaterRegion(const FVector2D& A,const FVector2D& B) const
 {const int32 I=CellAt(A),J=CellAt(B);return IsWater(A) && IsWater(B) && ConnectedRegions.IsValidIndex(I) && ConnectedRegions.IsValidIndex(J) && ConnectedRegions[I]==ConnectedRegions[J];}
 FVector2D FSeaNavigationMap::Center(int32 I) const
@@ -128,11 +128,19 @@ FSeaRouteResult FSeaNavigationMap::FindPath(const FVector2D& Start,const FVector
 {
     FSeaRouteResult R;const double Beg=FPlatformTime::Seconds();
     auto Fail=[&](const TCHAR* S){R.Failure=S;R.Milliseconds=(FPlatformTime::Seconds()-Beg)*1000.;return R;};
+    if(Width<3 || Height<3 || Width>1024 || Height>1024 || !FMath::IsFinite(CellSize) || CellSize<=0 ||
+       Cells.Num()!=Width*Height || Clearance.Num()!=Cells.Num())return Fail(TEXT("Invalid or empty navigation grid"));
     const int32 S=CellAt(Start),Gid=CellAt(Goal);
-    if(!IsWater(Start) || !IsWater(Goal))return Fail(TEXT("Start or destination is blocked or outside coverage"));
+    if(!IsWater(Start))return Fail(TEXT("Ship start is blocked or outside navigation coverage"));
+    if(!IsWater(Goal))return Fail(*FString::Printf(TEXT("Destination is outside accepted water: coastline/exclusion buffer %.0f m, grid %.0f m (or outside coverage). No safe final approach."),SafetyMargin,CellSize));
     auto Excluded=[&](const FVector2D& P){for(const auto& E:Exclusions)if(FVector2D::DistSquared(P,E)<FMath::Square(CellSize*1.5))return true;return false;};
+    // Apply circular temporary exclusions to edges as well as nodes. Otherwise A*
+    // can select a diagonal grazing a circle that the smoothing validator rejects.
+    auto Shortcut=[&](const FVector2D& A,const FVector2D& B)
+    {if(!SegmentClear(A,B))return false;for(const auto& E:Exclusions){const FVector2D D=B-A;const double T=FMath::Clamp(FVector2D::DotProduct(E-A,D)/FMath::Max(D.SizeSquared(),1.e-9),0.,1.);if(FVector2D::DistSquared(E,A+D*T)<FMath::Square(CellSize*1.5))return false;}return true;};
+    if(Excluded(Start))return Fail(TEXT("Start lies in a temporarily failed corridor"));
     if(Excluded(Goal))return Fail(TEXT("Destination lies in a temporarily failed corridor"));
-    if(!SegmentClear(Start,Center(S)) || !SegmentClear(Center(Gid),Goal))return Fail(TEXT("Unsafe endpoint connector"));
+    if(!Shortcut(Start,Center(S)) || !Shortcut(Center(Gid),Goal))return Fail(TEXT("Unsafe endpoint connector"));
     TArray<double> Costs;Costs.Init(DBL_MAX,Cells.Num());Costs[S]=0;
     TArray<int32> Parents;Parents.Init(INDEX_NONE,Cells.Num());
     TBitArray<> Closed(false,Cells.Num());
@@ -152,8 +160,6 @@ FSeaRouteResult FSeaNavigationMap::FindPath(const FVector2D& Start,const FVector
             TArray<FVector2D> Raw;Raw.Add(Start);for(int32 I=Reverse.Num()-1;I>=0;--I)Raw.Add(Reverse[I]);Raw.Add(Goal);
             // Bounded line-of-sight string pulling, every shortcut uses the SAME conservative grid.
             R.Points.Add(Start);int32 Anchor=0;
-            auto Shortcut=[&](const FVector2D& A,const FVector2D& B)
-            {if(!SegmentClear(A,B))return false;for(const auto& E:Exclusions){const FVector2D D=B-A;const double T=FMath::Clamp(FVector2D::DotProduct(E-A,D)/FMath::Max(D.SizeSquared(),1.e-9),0.,1.);if(FVector2D::DistSquared(E,A+D*T)<FMath::Square(CellSize*1.5))return false;}return true;};
             while(Anchor<Raw.Num()-1)
             {
                 int32 Next=Anchor+1;
@@ -169,6 +175,7 @@ FSeaRouteResult FSeaNavigationMap::FindPath(const FVector2D& Start,const FVector
             const int32 NX=X+DX[D],NY=Y+DY[D];if(!IsWater(NX,NY))continue;
             const int32 Id=NY*Width+NX;if(Closed[Id] || Excluded(Center(Id)))continue;
             if(DX[D] && DY[D] && (!IsWater(X+DX[D],Y) || !IsWater(X,Y+DY[D])))continue;
+            if(!Exclusions.IsEmpty() && !Shortcut(Center(Cur.Id),Center(Id)))continue;
             const double Step=CellSize*(DX[D] && DY[D]?UE_SQRT_2:1.);
             const double NewCost=Cur.G+Step*(1.+0.15/(1.+Clearance[Id]));
             if(NewCost<Costs[Id])

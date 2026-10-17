@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "progress_toward_new_A_m": 535.537,
+  "initial_route_points": 2,
+  "temporary_A_en": [
+    240.00003851946724,
+    -2350.6998579158626
+  ],
+  "max_endpoint_error_m": 1.1038800327342432e-06,
+  "original_transform_restored": true,
+  "bounded_status": "BOUNDED_DEADLINE"
+}

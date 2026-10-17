@@ -1,0 +1,21 @@
+{
+  "validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "target": "TP_ShipEnemy_OpenSeaDestination",
+  "target_path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+  "world": [
+    -59999.99614778161,
+    219999.98577970266,
+    -40.96956384181976
+  ],
+  "llh": [
+    107.29064617466169,
+    20.97272638703816,
+    0.0
+  ],
+  "mode": "<ShipNavigationMode.DESTINATION: 1>",
+  "packages": [
+    "/Game/ShipEnemy/BluePrint/BP_ShipEnemy",
+    "/Game/__ExternalActors__/Levels/MainMapLevel/B/8F/CHJKNRGBDUPAW44FPQ44PZ",
+    "/Game/__ExternalActors__/Levels/MainMapLevel/6/KT/OKTK4YNX6YEY0QR4PIW9N0"
+  ]
+}

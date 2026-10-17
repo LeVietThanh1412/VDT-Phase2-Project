@@ -1,0 +1,70 @@
+{
+  "status": "COMPLETE_A_B_A",
+  "simulation_time_s": 1473.7212217524648,
+  "time_dilation": 2.0,
+  "samples": 2930,
+  "observed_route_generations": 10,
+  "completed_legs": 3,
+  "arrival_events": [
+    {
+      "t": 424.2361881174147,
+      "completed_legs": 1,
+      "previous_target": "A",
+      "active_target": "B",
+      "distance_a_m": 59.40361786614886,
+      "distance_b_m": 1241.9494411868855
+    },
+    {
+      "t": 988.404004599899,
+      "completed_legs": 2,
+      "previous_target": "B",
+      "active_target": "A",
+      "distance_a_m": 1211.4934356185217,
+      "distance_b_m": 59.85196215461838
+    },
+    {
+      "t": 1481.3420564495027,
+      "completed_legs": 3,
+      "previous_target": "A",
+      "active_target": "B",
+      "distance_a_m": 59.69190062319188,
+      "distance_b_m": 1240.422567290246
+    }
+  ],
+  "maximum_recovery_counter": 1,
+  "failed_state_samples": 0,
+  "minimum_distance_m": {
+    "A": 59.14506080760811,
+    "B": 59.62636761026435
+  },
+  "maximum_speed_mps": 10.569254755588522,
+  "hull_ecef_displacement_m": 804.7452072319298,
+  "physical_track_length_m": 8015.8419984407665,
+  "physical_track_land_intersection": false,
+  "physical_track_exclusion_intersection": false,
+  "minimum_track_coast_clearance_m": 185.48217011693956,
+  "physical_samples_in_blocked_cells": 0,
+  "route_land_intersections": 0,
+  "route_buffer_intersections": 0,
+  "commands_match_blueprint": true,
+  "targets": {
+    "A": {
+      "en_m": [
+        -406.20000243920015,
+        -1179.499991807299
+      ],
+      "water": true,
+      "coast_clearance_m": 186.0740187698753
+    },
+    "B": {
+      "en_m": [
+        -59.99996148031988,
+        -2350.699857916049
+      ],
+      "water": true,
+      "coast_clearance_m": 793.7104794813381
+    }
+  },
+  "failures": [],
+  "bathymetry": "UNKNOWN; supplied map contains coastline exclusions, not a depth survey"
+}

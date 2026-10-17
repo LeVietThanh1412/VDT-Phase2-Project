@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "level": "MainMapLevel",
+  "blueprint_validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "mode": "<ShipNavigationMode.PATROL: 0>",
+  "enabled": true,
+  "target_count": 2,
+  "A": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+  "B": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+  "transforms": {
+    "TP_ShipEnemy_AStarDestination": {
+      "world": [
+        -40620.00024402141,
+        117949.99916869402,
+        -6.1844401359558105
+      ],
+      "rotation": [
+        0.0038224860199132637,
+        -1.855396476457826e-07,
+        -0.00038205657693879386
+      ],
+      "scale": [
+        0.9999999999999996,
+        0.9999999999999999,
+        1.0000000000000002
+      ]
+    },
+    "TP_ShipEnemy_OpenSeaDestination": {
+      "world": [
+        -5999.996148139235,
+        235069.98577958345,
+        0.0
+      ],
+      "rotation": [
+        -0.0042014141075128455,
+        -1.671879601872206e-06,
+        0.0012229404562499222
+      ],
+      "scale": [
+        0.9999999999999999,
+        0.9999999999999999,
+        1.0
+      ]
+    },
+    "BP_ShipEnemy": {
+      "world": [
+        -26270.000001758333,
+        194549.99999928474,
+        680.000006198883
+      ],
+      "rotation": [
+        0.011520760584563094,
+        -99.99999897859891,
+        -0.0003359560913054347
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "original_transforms_preserved": true,
+  "required_assets_saved": true,
+  "builds": {
+    "EDITOR": "PASS",
+    "GAME": "PASS"
+  },
+  "native_tests": {
+    "succeeded": 4,
+    "failed": 0,
+    "notRun": 0
+  },
+  "fresh_editor_startup_samples": 71,
+  "fresh_startup_status": "BOUNDED_DEADLINE",
+  "player_sha256": "28e992c9b100958388f584931b69f08d733b492fa33653ec5c165b2d3990b64a",
+  "loaded_modules": {
+    "BuildId": "43139311",
+    "Modules": {
+      "VDTPhase2Project": "UnrealEditor-VDTPhase2Project.dll"
+    }
+  }
+}

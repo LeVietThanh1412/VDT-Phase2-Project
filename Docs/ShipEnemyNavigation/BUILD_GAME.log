@@ -1,0 +1,715 @@
+Log started at 10/17/2026 15:32:49 (2026-10-17T08:32:49Z)
+Resolved project argument E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject to E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject
+No config file at C:\ProgramData\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+No config file at C:\Users\ADMIN\AppData\Local\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+No config file at C:\Users\ADMIN\Documents\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+Configuration will be read from:
+  C:\Users\ADMIN\AppData\Roaming\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+Reading configuration file from cache (E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\XmlConfigCache.bin): C:\Users\ADMIN\AppData\Roaming\Unreal Engine\UnrealBuildTool\BuildConfiguration.xml
+Reading configuration file from cache (E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\XmlConfigCache.bin): E:\LeVietThanh1412-Product\VDT-Phase2-Project\Saved\UnrealBuildTool\BuildConfiguration.xml
+Reading configuration file from cache (E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\XmlConfigCache.bin): C:\Users\ADMIN\AppData\Local\UnrealEngine\Intermediate\Build\UnrealBuildTool.Env.BuildConfiguration.xml
+Setting temp directory to 'C:\Users\ADMIN\AppData\Local\Temp\UnrealBuildTool\7a184172'
+    Registering build platform: UnrealBuildTool.AndroidPlatformFactory
+    Registering build platform: UnrealBuildTool.IOSPlatformFactory
+    Registering build platform: UnrealBuildTool.LinuxPlatformFactory
+    Registering build platform: UnrealBuildTool.MacPlatformFactory
+    Registering build platform: UnrealBuildTool.TVOSPlatformFactory
+    Registering build platform: UnrealBuildTool.WindowsPlatformFactory
+Found Windows 10 SDK root at C:\Program Files (x86)\Windows Kits\10 (1)
+Found Windows 10 SDK root at C:\Program Files (x86)\Windows Kits\10 (2)
+Found Windows 10 SDK version 10.0.26100.0 at C:\Program Files (x86)\Windows Kits\10
+Found Universal CRT version 10.0.26100.0 at C:\Program Files (x86)\Windows Kits\10
+Win64 Installed SDK(s): MinVersion_Sdk=10.0.19041.0, MaxVersion_Sdk=10.9.99999.0, CurrentVersion_Sdk=10.0.26100.0, Version_AutoSdk=10.0.22621.0, CurrentVersion_AutoSdk=
+        Registering build platform: Win64 - buildable: True
+    Registering build platform: UnrealBuildTool.VisionOSPlatformFactory
+Command line: "F:\Epic Games\UE_5.6\Engine\Binaries\DotNET\UnrealBuildTool\UnrealBuildTool.dll" VDTPhase2Project Win64 Development -Project=E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject -WaitMutex -NoHotReloadFromIDE
+Log file: C:\Users\ADMIN\AppData\Local\UnrealBuildTool\Log.txt
+Deleting old log file: C:\Users\ADMIN\AppData\Local\UnrealBuildTool\Log-backup-2026.08.04-08.59.15.txt
+
+Using 'git status' to determine working set for adaptive non-unity build (E:\LeVietThanh1412-Product\VDT-Phase2-Project).
+Creating makefile for VDTPhase2Project (no existing makefile)
+Skipping F:\Epic Games\UE_5.6\Engine\Intermediate\Build\BuildRules\UE5Rules.dll: File is installed
+Skipping F:\Epic Games\UE_5.6\Engine\Intermediate\Build\BuildRules\UE5ProgramRules.dll: File is installed
+Found VisualStudio2022 installation: C:\Program Files\Microsoft Visual Studio\2022\Community (Product=Microsoft.VisualStudio.Product.Community, Version=17.14.37516.0)
+Found VisualStudio2022 installation: C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools (Product=Microsoft.VisualStudio.Product.BuildTools, Version=18.8.12023.21)
+Found Visual Studio toolchain: C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231 (Family=14.51.36231, FamilyRank=1, Version=14.51.36252, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64, Error=False, Redist=C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Redist\MSVC\14.51.36231)
+Found Visual Studio toolchain: C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207 (Family=14.44.35207, FamilyRank=1, Version=14.44.35228, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64, Error=False, Redist=C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Redist\MSVC\14.44.35112)
+Available x64 toolchains (2):
+ * C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231
+    (Family=14.51.36231, FamilyRank=1, Version=14.51.36252, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64)
+ * C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.44.35207
+    (Family=14.44.35207, FamilyRank=1, Version=14.44.35228, HostArchitecture=x64, ReleaseChannel=Latest, Architecture=x64)
+Visual Studio 2022 compiler version 14.51.36252 is not a preferred version. Please use the latest preferred version 14.38.33130
+Building UnrealGame - VDTPhase2Project - Win64 - Development
+Allowed circular dependency for 'Source\Runtime\AnimGraphRuntime\AnimGraphRuntime.Build.cs' detected:
+* AnimGraphRuntime -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\AudioLink\AudioLinkEngine\AudioLinkEngine.Build.cs' detected:
+* AudioLinkEngine -> Engine -> AudioMixer -> AudioLinkEngine (allowed via Engine -> AudioMixer)
+Allowed circular dependency for 'Source\Runtime\AudioMixer\AudioMixer.Build.cs' detected:
+* AudioMixer -> Engine -> AudioMixer (allowed via Engine -> AudioMixer)
+* AudioMixer -> NonRealtimeAudioRenderer -> AudioMixer (allowed via AudioMixer -> NonRealtimeAudioRenderer)
+* AudioMixer -> SoundFieldRendering -> AudioMixer (allowed via AudioMixer -> SoundFieldRendering)
+Allowed circular dependency for 'Source\Runtime\Experimental\ChaosSolverEngine\ChaosSolverEngine.Build.cs' detected:
+* ChaosSolverEngine -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> FieldSystemEngine -> ChaosSolverEngine (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\CinematicCamera\CinematicCamera.Build.cs' detected:
+* CinematicCamera -> Engine -> CinematicCamera (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Experimental\Animation\Constraints\Constraints.Build.cs' detected:
+* Constraints -> Engine -> CinematicCamera -> MovieSceneTracks -> Constraints (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Experimental\Dataflow\Engine\DataflowEngine.Build.cs' detected:
+* DataflowEngine -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> FieldSystemEngine -> ChaosSolverEngine -> DataflowEngine (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Experimental\Dataflow\Simulation\DataflowSimulation.Build.cs' detected:
+* DataflowSimulation -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> FieldSystemEngine -> ChaosSolverEngine -> DataflowSimulation (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Engine\Engine.Build.cs' detected:
+* Engine -> GameplayTags -> Engine (allowed via Engine -> GameplayTags)
+* Engine -> AudioMixer -> AudioLinkEngine -> Engine (allowed via Engine -> AudioMixer)
+* Engine -> Landscape -> Foliage -> Engine (allowed via Engine -> Landscape)
+* Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> Engine (allowed via Engine -> CinematicCamera)
+* Engine -> UMG -> MovieSceneTracks -> AnimGraphRuntime -> Engine (allowed via Engine -> UMG)
+Allowed circular dependency for 'Source\Runtime\Experimental\FieldSystem\Source\FieldSystemEngine\FieldSystemEngine.Build.cs' detected:
+* FieldSystemEngine -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> FieldSystemEngine (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Foliage\Foliage.Build.cs' detected:
+* Foliage -> Engine -> Landscape -> Foliage (allowed via Engine -> Landscape)
+Allowed circular dependency for 'Source\Runtime\GameplayTags\GameplayTags.Build.cs' detected:
+* GameplayTags -> Engine -> GameplayTags (allowed via Engine -> GameplayTags)
+Allowed circular dependency for 'Source\Runtime\Experimental\GeometryCollectionEngine\GeometryCollectionEngine.Build.cs' detected:
+* GeometryCollectionEngine -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\HeadMountedDisplay\HeadMountedDisplay.Build.cs' detected:
+* HeadMountedDisplay -> Engine -> AudioMixer -> HeadMountedDisplay (allowed via Engine -> AudioMixer)
+Allowed circular dependency for 'Source\Runtime\Experimental\ISMPool\ISMPool.Build.cs' detected:
+* ISMPool -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> ISMPool (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\ImageWriteQueue\ImageWriteQueue.Build.cs' detected:
+* ImageWriteQueue -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> Renderer -> ImageWriteQueue (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\Landscape\Landscape.Build.cs' detected:
+* Landscape -> Engine -> Landscape (allowed via Engine -> Landscape)
+Allowed circular dependency for 'Source\Runtime\MovieScene\MovieScene.Build.cs' detected:
+* MovieScene -> Engine -> CinematicCamera -> MovieScene (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\MovieSceneTracks\MovieSceneTracks.Build.cs' detected:
+* MovieSceneTracks -> Engine -> CinematicCamera -> MovieSceneTracks (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\NonRealtimeAudioRenderer\NonRealtimeAudioRenderer.Build.cs' detected:
+* NonRealtimeAudioRenderer -> AudioMixer -> NonRealtimeAudioRenderer (allowed via AudioMixer -> NonRealtimeAudioRenderer)
+Allowed circular dependency for 'Source\Runtime\PacketHandlers\PacketHandler\PacketHandler.Build.cs' detected:
+* PacketHandler -> ReliabilityHandlerComponent -> PacketHandler (allowed via PacketHandler -> ReliabilityHandlerComponent)
+Allowed circular dependency for 'Source\Runtime\PacketHandlers\ReliabilityHandlerComponent\ReliabilityHandlerComponent.Build.cs' detected:
+* ReliabilityHandlerComponent -> PacketHandler -> ReliabilityHandlerComponent (allowed via PacketHandler -> ReliabilityHandlerComponent)
+Allowed circular dependency for 'Source\Runtime\Renderer\Renderer.Build.cs' detected:
+* Renderer -> Engine -> CinematicCamera -> MovieSceneTracks -> AnimGraphRuntime -> GeometryCollectionEngine -> Renderer (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\SlateRHIRenderer\SlateRHIRenderer.Build.cs' detected:
+* SlateRHIRenderer -> Engine -> UMG -> SlateRHIRenderer (allowed via Engine -> UMG)
+Allowed circular dependency for 'Source\Runtime\SoundFieldRendering\SoundFieldRendering.Build.cs' detected:
+* SoundFieldRendering -> AudioMixer -> SoundFieldRendering (allowed via AudioMixer -> SoundFieldRendering)
+Allowed circular dependency for 'Source\Runtime\TimeManagement\TimeManagement.Build.cs' detected:
+* TimeManagement -> Engine -> CinematicCamera -> MovieScene -> TimeManagement (allowed via Engine -> CinematicCamera)
+Allowed circular dependency for 'Source\Runtime\UMG\UMG.Build.cs' detected:
+* UMG -> Engine -> UMG (allowed via Engine -> UMG)
+Compiler: C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\cl.exe
+Linker: C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\link.exe
+Library Manager: C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231\bin\Hostx64\x64\link.exe
+Resource Compiler: C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64\rc.exe
+Using EngineIncludeOrderVersion.Unreal5_6 for target VDTPhase2Project.Target.cs
+UnrealHeaderTool needs to run because no generated code directory was found for module VDTPhase2Project
+Parsing headers for VDTPhase2Project
+  Running Internal UnrealHeaderTool E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\VDTPhase2Project\Development\VDTPhase2Project.uhtmanifest -WarningsAsErrors -installed
+Reading engine version from file: F:\Epic Games\UE_5.6\Engine\Source\Runtime\Launch\Resources\Version.h
+Got engine version 5.6.1
+Step - Exports
+       Exporter Stats skipped
+       Exporter Json skipped
+       Running exporter CodeGen
+Total of 6 written
+Reflection code generated for VDTPhase2Project in 1.0610881 seconds
+Found 4 shared PCH headers (listed in order of preference):
+	Engine
+	Slate
+	CoreUObject
+	Core
+VerseVMBytecodeGenerator.Generate, generating CPP headers in: 'F:\Epic Games\UE_5.6\Engine\Intermediate\Build\Win64\UnrealGame\Inc\CoreUObject\VerseVMBytecode'
+	Writing out generated header file. Changed:False Path:'F:\Epic Games\UE_5.6\Engine\Intermediate\Build\Win64\UnrealGame\Inc\CoreUObject\VerseVMBytecode\VVMBytecodeOps.gen.h'
+	Writing out generated header file. Changed:False Path:'F:\Epic Games\UE_5.6\Engine\Intermediate\Build\Win64\UnrealGame\Inc\CoreUObject\VerseVMBytecode\VVMBytecodesAndCaptures.gen.h'
+	Writing out generated header file. Changed:False Path:'F:\Epic Games\UE_5.6\Engine\Intermediate\Build\Win64\UnrealGame\Inc\CoreUObject\VerseVMBytecode\VVMMakeCapturesFuncs.gen.h'
+	Writing out generated header file. Changed:False Path:'F:\Epic Games\UE_5.6\Engine\Intermediate\Build\Win64\UnrealGame\Inc\CoreUObject\VerseVMBytecode\VVMCaptureSwitch.gen.h'
+Compile module: BuildSettings
+Compile module: AutoRTFM
+Compile module: TraceLog
+Compile module: WinPixEventRuntime
+Compile module: zlib
+Compile module: AtomicQueue
+Compile module: BLAKE3
+Compile module: OodleDataCompression
+Compile module: xxhash
+Compile module: libpas
+Compile module: IntelTBB
+Compile module: IntelVTune
+Compile module: mimalloc
+Compile module: ICU
+Compile module: ConcurrencyVisualizer
+Compile module: SuperLuminal
+Compile module: VSPerfExternalProfiler
+Compile module: GuidelinesSupportLibrary
+Compile module: Core
+Compile module: RapidJSON
+Compile module: Json
+Compile module: Projects
+Compile module: CorePreciseFP
+Compile module: CoreUObject
+Compile module: EditorAnalyticsSession
+Compile module: AnimationCore
+Compile module: InputCore
+Compile module: XInput
+Compile module: ApplicationCore
+Compile module: Nanosvg
+Compile module: DeveloperSettings
+Compile module: UElibPNG
+Compile module: FreeType2
+Compile module: HarfBuzz
+Compile module: SlateCore
+Compile module: stb_image_resize2
+Compile module: ImageCore
+Compile module: Imath
+Compile module: UEOpenExr
+Compile module: LibJpegTurbo
+Compile module: LibTiff
+Compile module: UEJpegComp
+Compile module: ImageWrapper
+Compile module: Settings
+Compile module: Slate
+Compile module: TelemetryUtils
+Compile module: AssetRegistry
+Compile module: MessageLog
+Compile module: ToolMenus
+Compile module: TypedElementFramework
+Compile module: DesktopPlatform
+Compile module: Messaging
+Compile module: ToolWidgets
+Compile module: SlateReflector
+Compile module: AppFramework
+Compile module: NetCommon
+Compile module: Sockets
+Compile module: Networking
+Compile module: CookOnTheFly
+Compile module: Cbor
+Compile module: StateStream
+Compile module: EngineSettings
+Compile module: Analytics
+Compile module: EventLoop
+Compile module: OpenSSL
+Compile module: SSL
+Compile module: nghttp2
+Compile module: libcurl
+Compile module: WinHttp
+Compile module: HTTP
+Compile module: AnalyticsET
+Compile module: VirtualFileCache
+Compile module: BuildPatchServices
+Compile module: MathCore
+Compile module: GeometryCore
+Compile module: IntelISPC
+Compile module: ChaosCore
+Compile module: Voronoi
+Compile module: ChaosVDRuntime
+Compile module: NNE
+Compile module: Eigen
+Compile module: Chaos
+Compile module: PhysicsCore
+Compile module: FieldNotification
+Compile module: NetCore
+Compile module: IrisCore
+Compile module: UniversalObjectLocator
+Compile module: MeshDescription
+Compile module: MeshUtilitiesCommon
+Compile module: RawMesh
+Compile module: MikkTSpace
+Compile module: StaticMeshDescription
+Compile module: SkeletalMeshDescription
+Compile module: MeshConversion
+Compile module: DataflowCore
+Compile module: PropertyPath
+Compile module: UELibSampleRate
+Compile module: UEOgg
+Compile module: Vorbis
+Compile module: VorbisFile
+Compile module: libOpus
+Compile module: SignalProcessing
+Compile module: AudioMixerCore
+Compile module: AudioExtensions
+Compile module: AudioPlatformConfiguration
+Compile module: AudioLinkCore
+Compile module: TypedElementRuntime
+Compile module: MoviePlayerProxy
+Compile module: Icmp
+Compile module: XmlParser
+Compile module: IoStoreHttpClient
+Compile module: IoStoreOnDemandCore
+Compile module: IoStoreOnDemand
+Compile module: CoreOnline
+Compile module: JsonUtilities
+Compile module: MessagingCommon
+Compile module: EngineMessages
+Compile module: ReliabilityHandlerComponent
+Compile module: PacketHandler
+Compile module: RSA
+Compile module: PakFile
+Compile module: NetworkReplayStreaming
+Compile module: ClothingSystemRuntimeInterface
+Compile module: DirectShow
+Compile module: AVIWriter
+Compile module: Advertising
+Compile module: Navmesh
+Compile module: DirectX
+Compile module: DX11
+Compile module: DX12
+Compile module: OpenGL
+Compile module: AMD_AGS
+Compile module: IntelExtensionsFramework
+Compile module: NVAftermath
+Compile module: NVAPI
+Compile module: Vulkan
+Compile module: libWebSockets
+Compile module: NullDrv
+Compile module: RHICore
+Compile module: ImageWriteQueue
+Compile module: MaterialShaderQualitySettings
+Compile module: EyeTracker
+Compile module: Renderer
+Compile module: HeadMountedDisplay
+Compile module: D3D11RHI
+Compile module: D3D12RHI
+Compile module: PreLoadScreen
+Compile module: VulkanRHI
+Compile module: OpenGLDrv
+Compile module: RHI
+Compile module: RenderCore
+Compile module: Foliage
+Compile module: Landscape
+Compile module: SlateRHIRenderer
+Compile module: TimeManagement
+Compile module: MovieScene
+Compile module: DataflowEngine
+Compile module: DataflowSimulation
+Compile module: ChaosSolverEngine
+Compile module: FieldSystemEngine
+Compile module: ISMPool
+Compile module: GeometryCollectionEngine
+Compile module: AnimGraphRuntime
+Compile module: Constraints
+Compile module: NonRealtimeAudioRenderer
+Compile module: SoundFieldRendering
+Compile module: AudioLinkEngine
+Compile module: AudioMixer
+Compile module: MovieSceneTracks
+Compile module: UMG
+Compile module: CinematicCamera
+Compile module: SynthBenchmark
+Compile module: GameplayTags
+Compile module: SourceControl
+Compile module: LocalizationService
+Compile module: Localization
+Compile module: TranslationEditor
+Compile module: RadAudioDecoder
+Compile module: BinkAudioDecoder
+Compile module: VorbisAudioDecoder
+Compile module: OpusAudioDecoder
+Compile module: AdpcmAudioDecoder
+Compile module: MovieSceneCapture
+Compile module: Media
+Compile module: MediaUtils
+Compile module: MediaAssets
+Compile module: LevelSequence
+Compile module: MRMesh
+Compile module: MoviePlayer
+Compile module: StreamingPauseRendering
+Compile module: SlateNullRenderer
+Compile module: NullNetworkReplayStreaming
+Compile module: LocalFileNetworkReplayStreaming
+Compile module: HttpNetworkReplayStreaming
+Compile module: LiveCoding
+Compile module: GameplayTasks
+Compile module: DrawPrimitiveDebugger
+Compile module: GameplayDebugger
+Compile module: NavigationSystem
+Compile module: AIModule
+Compile module: AITestSuite
+Compile module: MassEntityTestSuite
+Compile module: MassEntity
+Compile module: Engine
+Compile module: SandboxFile
+Compile module: Serialization
+Compile module: Overlay
+Compile module: InstallBundleManager
+Compile module: NetworkFile
+Compile module: StreamingFile
+Compile module: AutomationTest
+Compile module: AutomationMessages
+Compile module: AutomationWorker
+Compile module: ClothingSystemRuntimeCommon
+Compile module: ClothingSystemRuntimeNv
+Compile module: UnrealEdMessages
+Compile module: ScreenShotComparisonTools
+Compile module: AutomationController
+Compile module: FunctionalTesting
+Compile module: StorageServerClient
+Compile module: StorageServerClientDebug
+Compile module: SessionMessages
+Compile module: SessionServices
+Compile module: CUDAHeader
+Compile module: CUDA
+Compile module: AVEncoder
+Compile module: GameplayMediaEncoder
+Compile module: WindowsPlatformFeatures
+Compile module: AudioMixerPlatformAudioLink
+Compile module: WindowsMMDeviceEnumeration
+Compile module: DX11Audio
+Compile module: XAudio2_9
+Compile module: AudioMixerXAudio2
+Compile module: AudioPlatformSupportWasapi
+Compile module: AudioMixerWasapi
+Compile module: ProfileVisualizer
+Compile module: Launch
+Compile module: SunPosition
+Compile module: VectorVM
+Compile module: NiagaraCore
+Compile module: NiagaraVertexFactories
+Compile module: NiagaraShader
+Compile module: Niagara
+Compile module: TinyXML2
+Compile module: CesiumRuntime
+Compile module: EnhancedInput
+Compile module: VDTPhase2Project
+Compile module: Landmass
+Compile module: GeometryAlgorithms
+Compile module: DynamicMesh
+Compile module: Water
+Compile module: NiagaraAnimNotifies
+Compile module: PythonScriptPluginPreload
+Compile module: MeshFileUtils
+Compile module: Paper2D
+Compile module: AISupportModule
+Compile module: ACLPlugin
+Compile module: RigVM
+Compile module: ControlRig
+Compile module: SequencerScripting
+Compile module: TweeningUtils
+Compile module: ControlRigSpline
+Compile module: PBIK
+Compile module: IKRig
+Compile module: FullBodyIK
+Compile module: MetaHumanSDKRuntime
+Compile module: GeometryCache
+Compile module: ChaosCaching
+Compile module: HairStrandsCore
+Compile module: ComputeFramework
+Compile module: OptimusSettings
+Compile module: OptimusCore
+Compile module: HairStrandsSolver
+Compile module: HairStrandsDeformer
+Compile module: HairStrandsRuntime
+Compile module: GeometryCacheTracks
+Compile module: InteractiveToolsFramework
+Compile module: GeometryFramework
+Compile module: DataflowEnginePlugin
+Compile module: DataflowAssetTools
+Compile module: DataflowNodes
+Compile module: ProceduralMeshComponent
+Compile module: TakeMovieScene
+Compile module: AudioCaptureCore
+Compile module: AudioCaptureWasapi
+Compile module: DirectSound
+Compile module: AudioCaptureRtAudio
+Compile module: AudioCapture
+Compile module: NamingTokens
+Compile module: RigLogicLib
+Compile module: GoogleTest
+Compile module: RigLogicLibTest
+Compile module: RigLogicModule
+Compile module: LiveLinkInterface
+Compile module: CameraCalibrationCore
+Compile module: PropertyBindingUtils
+Compile module: StateTreeModule
+Compile module: TemplateSequence
+Compile module: GameplayCameras
+Compile module: EngineCameras
+Compile module: ChaosCloth
+Compile module: ChaosVDBlueprint
+Compile module: OodleNetworkHandlerComponent
+Compile module: SignificanceManager
+Compile module: AnimationSharing
+Compile module: DumpGPUServices
+Compile module: InputDevice
+Compile module: PixWinPlugin
+Compile module: RenderDoc
+Compile module: RenderDocPlugin
+Compile module: UObjectPlugin
+Compile module: FacialAnimation
+Compile module: VariantManagerContent
+Compile module: DatasmithContent
+Compile module: InterchangeCore
+Compile module: InterchangeNodes
+Compile module: InterchangeCommon
+Compile module: InterchangeEngine
+Compile module: TextureUtilitiesCommon
+Compile module: InterchangeFactoryNodes
+Compile module: GLTFExporter
+Compile module: Draco
+Compile module: GLTFCore
+Compile module: InterchangeMessages
+Compile module: InterchangeDispatcher
+Compile module: InterchangeCommonParser
+Compile module: IESFile
+Compile module: InterchangeImport
+Compile module: InterchangeExport
+Compile module: InterchangePipelines
+Compile module: InterchangeAssets
+Compile module: AutomationUtils
+Compile module: BackChannel
+Compile module: GeometryCollectionTracks
+Compile module: PlanarCut
+Compile module: GeometryDataflowNodes
+Compile module: FractureEngine
+Compile module: MeshConversionEngineTypes
+Compile module: GeometryCollectionNodes
+Compile module: GeometryCollectionDepNodes
+Compile module: ChaosNiagara
+Compile module: ChaosUserDataPT
+Compile module: CharacterAI
+Compile module: LocalizableMessage
+Compile module: LocalizableMessageBlueprint
+Compile module: NFORDenoise
+Compile module: PlatformCryptoTypes
+Compile module: PlatformCryptoContext
+Compile module: PlatformCrypto
+Compile module: AnalyticsLog
+Compile module: AnalyticsHorde
+Compile module: StudioTelemetry
+Compile module: RuntimeTelemetry
+Compile module: NiagaraSimCaching
+Compile module: AvfMediaFactory
+Compile module: ImgMediaEngine
+Compile module: OpenExrWrapper
+Compile module: ExrReaderGpu
+Compile module: ImgMedia
+Compile module: ImgMediaFactory
+Compile module: MediaCompositing
+Compile module: CompositeCore
+Compile module: MediaPlate
+Compile module: WmfMedia
+Compile module: WmfMediaFactory
+Compile module: TcpMessaging
+Compile module: UdpMessaging
+Compile module: ActorSequence
+Compile module: NNEDenoiserShaders
+Compile module: NNEDenoiser
+Compile module: NNEOnnxruntime
+Compile module: DirectML
+Compile module: NNERuntimeORT
+Compile module: OnlineBase
+Compile module: OnlineSubsystem
+Compile module: OnlineServicesInterface
+Compile module: Voice
+Compile module: OnlineSubsystemUtils
+Compile module: OnlineSubsystemNull
+Compile module: OnlineServicesCommon
+Compile module: OnlineServicesCommonEngineUtils
+Compile module: LauncherChunkInstaller
+Compile module: ActorLayerUtilities
+Compile module: AndroidFileServer
+Compile module: AndroidPermission
+Compile module: AppleImageUtils
+Compile module: ArchVisCharacter
+Compile module: AssetTags
+Compile module: CableComponent
+Compile module: ChunkDownloader
+Compile module: CustomMeshComponent
+Compile module: ExampleDeviceProfileSelector
+Compile module: GooglePAD
+Compile module: InputDebugging
+Compile module: LocationServicesBPLibrary
+Compile module: MetasoundGraphCore
+Compile module: MetasoundFrontend
+Compile module: MetasoundStandardNodes
+Compile module: MetasoundGenerator
+Compile module: WaveTable
+Compile module: MetasoundEngine
+Compile module: AudioSynesthesiaCore
+Compile module: AudioAnalyzer
+Compile module: AudioSynesthesia
+Compile module: AdvancedWidgets
+Compile module: AudioWidgets
+Compile module: MobilePatchingUtils
+Compile module: MsQuic
+Compile module: MsQuicRuntime
+Compile module: ResonanceAudio
+Compile module: SoundFields
+Compile module: Synthesis
+Compile module: LibVpx
+Compile module: LibWebM
+Compile module: WebMMedia
+Compile module: WebMMediaFactory
+Compile module: WebMMoviePlayer
+Compile module: WindowsDeviceProfileSelector
+Compile module: WindowsMoviePlayer
+Compile module: XInputDevice
+Compile module: TraceUtilities
+Compile module: WorldMetricsCore
+Compile module: WorldMetricsTest
+Compile module: CsvMetrics
+     Linking: VDTPhase2Project.exe
+     Command: @"E:/LeVietThanh1412-Product/VDT-Phase2-Project/Intermediate/Build/Win64/x64/VDTPhase2Project/Development/VDTPhase2Project.exe.rsp"
+ShipEnemyNavigationComponent.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationComponent.cpp.obj" doesn't exist.
+ShipEnemyNavigationTests.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationTests.cpp.obj" doesn't exist.
+ShipEnemyNavigationEditor.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationEditor.cpp.obj" doesn't exist.
+ShipEnemyNavigationComponent.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationComponent.cpp.sarif" doesn't exist.
+Module.VDTPhase2Project.gen.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\Module.VDTPhase2Project.gen.cpp.obj" doesn't exist.
+ShipEnemyNavigationEditor.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationEditor.cpp.sarif" doesn't exist.
+ShipEnemyNavigationEditor.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationEditor.cpp.dep.json" doesn't exist.
+ShipEnemyProjectile.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyProjectile.cpp.obj" doesn't exist.
+ShipEnemyNavigationTests.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationTests.cpp.sarif" doesn't exist.
+Module.VDTPhase2Project.gen.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\Module.VDTPhase2Project.gen.cpp.sarif" doesn't exist.
+Module.VDTPhase2Project.gen.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\Module.VDTPhase2Project.gen.cpp.dep.json" doesn't exist.
+ShipEnemyNavigationTests.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationTests.cpp.dep.json" doesn't exist.
+VDTPhase2Project.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\VDTPhase2Project.cpp.obj" doesn't exist.
+ShipEnemyProjectile.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyProjectile.cpp.sarif" doesn't exist.
+SeaNavigationMap.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\SeaNavigationMap.cpp.obj" doesn't exist.
+VDTPhase2Project.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\VDTPhase2Project.cpp.sarif" doesn't exist.
+ShipEnemyProjectile.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyProjectile.cpp.dep.json" doesn't exist.
+SeaNavigationMap.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\SeaNavigationMap.cpp.sarif" doesn't exist.
+SeaNavigationMap.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\SeaNavigationMap.cpp.dep.json" doesn't exist.
+ShipEnemyNavigationComponent.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\ShipEnemyNavigationComponent.cpp.dep.json" doesn't exist.
+VDTPhase2Project.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\UnrealGame\Development\VDTPhase2Project\VDTPhase2Project.cpp.dep.json" doesn't exist.
+VDTPhase2Project.exe: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\VDTPhase2Project.exe" doesn't exist.
+Default.rc2: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\VDTPhase2Project\Development\VDTPhase2Project.exe\Default.rc2.res" doesn't exist.
+VDTPhase2Project.exe: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\VDTPhase2Project.pdb" doesn't exist.
+SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\VDTPhase2Project\Development\Engine\SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.obj" doesn't exist.
+SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\VDTPhase2Project\Development\Engine\SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.sarif" doesn't exist.
+SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\VDTPhase2Project\Development\Engine\SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.dep.json" doesn't exist.
+SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.cpp: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Intermediate\Build\Win64\x64\VDTPhase2Project\Development\Engine\SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.h.pch" doesn't exist.
+D3D12Core.dll: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\D3D12\x64\D3D12Core.dll" doesn't exist.
+VDTPhase2Project.target: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\VDTPhase2Project.target" doesn't exist.
+tbb12.dll: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\tbb12.dll" doesn't exist.
+tbbmalloc.dll: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\tbbmalloc.dll" doesn't exist.
+DirectML.dll: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\DML\x64\DirectML.dll" doesn't exist.
+d3d12SDKLayers.dll: Produced item "E:\LeVietThanh1412-Product\VDT-Phase2-Project\Binaries\Win64\D3D12\x64\d3d12SDKLayers.dll" doesn't exist.
+Building VDTPhase2Project...
+Using Visual Studio 2022 14.51.36252 toolchain (C:\Program Files (x86)\Microsoft Visual Studio\18\BuildTools\VC\Tools\MSVC\14.51.36231) and Windows 10.0.26100.0 SDK (C:\Program Files (x86)\Windows Kits\10).
+Warning: Visual Studio 2022 compiler is not a preferred version
+[Adaptive Build] Excluded from VDTPhase2Project unity file: SeaNavigationMap.cpp, ShipEnemyNavigationComponent.cpp, ShipEnemyNavigationEditor.cpp, ShipEnemyNavigationTests.cpp, ShipEnemyProjectile.cpp
+Determining max actions to execute in parallel (10 physical cores, 16 logical cores)
+  Executing up to 10 processes, one per physical core
+  Requested 1.5 GB memory per action, 11.67 GB available: limiting max parallel actions to 7
+Using Unreal Build Accelerator local executor to run 16 action(s)
+  Storage capacity 40Gb
+  RootDir C:\ProgramData\Epic\UnrealBuildAccelerator
+Deleting old log file: C:\Users\ADMIN\AppData\Local\UnrealBuildTool\Log-backup-2026.09.26-03.42.07.uba
+---- Starting trace: 261017_153255 ----
+UbaServer - Listening on 0.0.0.0:1345
+------ Building 16 action(s) started ------
+[1/16] Copy tbb12.dll
+[2/16] Copy tbbmalloc.dll
+[3/16] Copy D3D12Core.dll
+[4/16] Copy d3d12SDKLayers.dll
+[5/16] Copy DirectML.dll
+[6/16] Resource Default.rc2
+[7/16] Compile [x64] SharedPCH.Engine.Project.ValApi.ValExpApi.Cpp20.cpp
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\CoreUObject\Public\UObject\Class.h(3312,31): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	COREUOBJECT_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                             ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\CoreUObject\Public\UObject\LinkerLoad.h(1584,52): warning C4996: 'FArchiveState::GetSerializeContext': GetSerializeContext is not supported. Use FUObjectThreadContext::Get().GetSerializeContext(). - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	COREUOBJECT_API virtual FUObjectSerializeContext* GetSerializeContext() override;
+	                                                  ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\CoreUObject\Public\UObject\ObjectRedirector.h(39,15): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	             ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\BlueprintGeneratedClass.h(584,42): warning C4996: 'UObjectBaseUtility::GetVersePath': This API is internal to the engine. As such, there is no guarantee that it won't change or be removed in future releases. Please use at your own risk.
+	ENGINE_API virtual UE::Core::FVersePath GetVersePath() const override;
+	                                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\BlueprintGeneratedClass.h(591,26): warning C4996: 'UClass::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Public\Animation\AnimCompressionTypes.h(522,26): warning C4996: 'ICompressedAnimData::SerializeCompressedData': SerializeCompressedData now accepts the DataOwner as an argument - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void SerializeCompressedData(class FArchive& Ar) override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Animation\AnimSequence.h(390,26): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Components\SkeletalMeshComponent.h(2028,15): warning C4996: 'USkinnedMeshComponent::UpdateSlaveComponent': This method has been deprecated. Please use UpdateFollowerComponent instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual void UpdateSlaveComponent() override { UpdateFollowerComponent(); };
+	             ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Components\SkeletalMeshComponent.h(2036,26): warning C4996: 'USkinnedMeshComponent::SetSkeletalMesh': Use USkeletalMeshComponent::SetSkeletalMesh() or SetSkinnedAssetAndUpdate() instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void SetSkeletalMesh(class USkeletalMesh* NewMesh, bool bReinitPose = true) override;  // SetSkeletalMesh may remain and become a UFUNCTION but lose its virtual after it is removed from the SkinnedMeshComponent API
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\EdGraph\EdGraphSchema.h(629,26): warning C4996: 'FGraphActionListBuilderBase::AddAction': Overriding the schema action category is no longer supported, set the category via CosmeticUpdateRootCategory or CosmeticUpdateCategory - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void AddAction(const TSharedPtr<FEdGraphSchemaAction>& NewAction, FString const& Category) override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\EdGraph\EdGraphSchema.h(631,26): warning C4996: 'FGraphActionListBuilderBase::AddActionList': Collections of Action lists were ambiguous and unused - make a compound FEdGraphSchemaAction and Add it - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void AddActionList(const TArray<TSharedPtr<FEdGraphSchemaAction> >& NewActions, FString const& Category = FString()) override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\ChildConnection.h(64,16): warning C4996: 'UNetConnection::IsNetReady': Replaced with a version that doesn't have a saturate option. Call Saturate() directly if passing true before. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual int32 IsNetReady(bool Saturate) override
+	              ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Public\Subsystems\WorldSubsystem.h(66,26): warning C4996: 'FTickableObjectBase::IsAllowedToTick': Use IsTickable for conditional ticks and SetTickableTickType to change the tick type after initial registration - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual bool IsAllowedToTick() const override final;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\SkeletalMesh.h(2506,26): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\SkeletalMesh.h(2907,46): warning C4996: 'USkinnedAsset::GetLODInfoArray': Use GetLODInfo and GetLODNum instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual const TArray<FSkeletalMeshLODInfo>& GetLODInfoArray() const override
+	                                            ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\SkeletalMesh.h(2895,40): warning C4996: 'USkinnedAsset::GetLODInfoArray': Use GetLODInfo and GetLODNum instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual TArray<FSkeletalMeshLODInfo>& GetLODInfoArray() override
+	                                      ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\StaticMesh.h(1771,26): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Engine\Texture2D.h(125,15): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	             ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Engine\Classes\Sound\SoundWave.h(1153,26): warning C4996: 'UObject::GetAssetRegistryTags': Implement the version that takes FAssetRegistryTagsContext instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	ENGINE_API virtual void GetAssetRegistryTags(TArray<FAssetRegistryTag>& OutTags) const override;
+	                        ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\Box.h(104,17): warning C4996: 'Chaos::FImplicitObject::GetRadius': Please use GetRadiusf instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+		virtual FReal GetRadius() const override
+		              ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\Box.h(104,17): note: the template instantiation context (the oldest one first) is
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\GeometryParticles.h(151,8): note: while compiling class template 'Chaos::TGeometryParticlesImp'
+	class TGeometryParticlesImp : public TSimpleGeometryParticles<T, d>
+	      ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\GeometryParticles.h(585,21): note: see reference to class template instantiation 'Chaos::TBox<Chaos::FReal,3>' being compiled
+				TBox<FReal, 3>::SerializeAsAABBs(Ar, MLocalBounds);
+				                ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\ImplicitObjectTransformed.h(169,16): warning C4996: 'Chaos::FImplicitObject::GetMargin': Please use GetMarginf instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual FReal GetMargin() const override
+	              ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\ImplicitObjectTransformed.h(169,16): note: the template instantiation context (the oldest one first) is
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\ImplicitObjectTransformed.h(452,61): note: see reference to class template instantiation 'Chaos::TImplicitObjectTransformed<Chaos::FReal,3,true>' being compiled
+			TImplicitObjectTransformed<FReal, 3>* InnerTransformed = static_cast<TImplicitObjectTransformed<FReal, 3>*>(NewTransformed.GetReference());
+			                                                         ^
+F:\Epic Games\UE_5.6\Engine\Source\Runtime\Experimental\Chaos\Public\Chaos\ImplicitObjectTransformed.h(175,16): warning C4996: 'Chaos::FImplicitObject::GetRadius': Please use GetRadiusf instead. - Please update your code to the new API before upgrading to the next release, otherwise your project will no longer compile.
+	virtual FReal GetRadius() const override
+	              ^
+[8/16] Compile [x64] ShipEnemyNavigationEditor.cpp
+[9/16] Compile [x64] VDTPhase2Project.cpp
+[10/16] Compile [x64] Module.VDTPhase2Project.gen.cpp
+[11/16] Compile [x64] ShipEnemyNavigationTests.cpp
+[12/16] Compile [x64] ShipEnemyProjectile.cpp
+[13/16] Compile [x64] SeaNavigationMap.cpp
+[14/16] Compile [x64] ShipEnemyNavigationComponent.cpp
+[15/16] Link [x64] VDTPhase2Project.exe
+[16/16] WriteMetadata VDTPhase2Project.target (UBA disabled)
+Trace written to file C:/Users/ADMIN/AppData/Local/UnrealBuildTool/Log.uba with size 10.9kb
+Total time in Unreal Build Accelerator local executor: 57.25 seconds
+WriteFileIfChanged() wrote 49 changed files of 50 requested writes.
+
+Timeline:
+[  0.000]  +0.283 Main
+   0.073          [  0.072]  +0.085 Apply XmlConfig
+   0.207          [  0.206]  +0.076 RegisterPlatforms
+[  0.284] +62.916 BuildMode
+   0.320          [  0.035]  +5.230 Creating MakeFile for VDTPhase2Project
+   5.571          [  5.287]  +0.110 Preparing ActionGraph
+   5.707          [  5.422] +57.340 Executing ActionGraph
+  63.047          [ 62.763]  +0.000 Deploying targets
+  63.049          [ 62.764]  +0.151 Saving caches
+[ 63.200]  +0.000 TelemetryService.FlushEvents
+[ 63.203]
+
+Result: Succeeded
+Total execution time: 63.20 seconds

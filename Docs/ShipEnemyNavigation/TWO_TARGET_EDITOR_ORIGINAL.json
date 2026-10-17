@@ -1,0 +1,59 @@
+{
+  "TP_ShipEnemy_AStarDestination": {
+    "world": [
+      -40620.00024402141,
+      117949.99916869402,
+      -6.1844401359558105
+    ],
+    "rotation": [
+      0.0038224860199132633,
+      -1.8553964764578257e-07,
+      -0.00038205657693879386
+    ],
+    "scale": [
+      0.9999999999999996,
+      0.9999999999999999,
+      1.0
+    ],
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+    "package": "/Game/__ExternalActors__/Levels/MainMapLevel/1/MS/LC9BZZ0JPJBJN9U5MJNJTN"
+  },
+  "TP_ShipEnemy_OpenSeaDestination": {
+    "world": [
+      -5999.996148139235,
+      235069.98577958345,
+      0.0
+    ],
+    "rotation": [
+      -0.0042014141075128455,
+      -1.671879601872206e-06,
+      0.0012229404562499222
+    ],
+    "scale": [
+      0.9999999999999999,
+      0.9999999999999999,
+      1.0
+    ],
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+    "package": "/Game/__ExternalActors__/Levels/MainMapLevel/6/KT/OKTK4YNX6YEY0QR4PIW9N0"
+  },
+  "BP_ShipEnemy": {
+    "world": [
+      -26270.000001758333,
+      194549.99999928474,
+      680.000006198883
+    ],
+    "rotation": [
+      0.011520760584563094,
+      -99.99999897859891,
+      -0.0003359560913054347
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+    "package": "/Game/__ExternalActors__/Levels/MainMapLevel/B/8F/CHJKNRGBDUPAW44FPQ44PZ"
+  }
+}

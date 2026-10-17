@@ -1,6 +1,12 @@
 /.git
 /.vscode
 /Content
+/Data
 /DerivedDataCache
+/Docs
 /Intermediate
 /Saved
+/TextBP
+/Tools
+/Plugins/SpecialAgent/Content
+/Plugins/SpecialAgent/Intermediate
