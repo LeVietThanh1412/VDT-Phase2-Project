@@ -207,7 +207,10 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
             }
         }
         if(!bHasGoal || FVector2D::Distance(Proposed,GoalMetric)>150){GoalMetric=Proposed;bHasGoal=true;bNeedsPlan=true;}
-        CurrentFinalDestination=Georeference->GetEllipsoid()->EllipsoidCenteredEllipsoidFixedToLongitudeLatitudeHeight(Map->ToECEF(GoalMetric));
+        // A temporary engagement objective must not replace an explicit navigation command.
+        // GoalMetric holds the combat objective; retain the requested final destination for resumption.
+        if(NavigationMode!=EShipNavigationMode::Destination)
+            CurrentFinalDestination=Georeference->GetEllipsoid()->EllipsoidCenteredEllipsoidFixedToLongitudeLatitudeHeight(Map->ToECEF(GoalMetric));
         return;
     }
     if(NavigationMode==EShipNavigationMode::Patrol)
@@ -217,7 +220,11 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
         const FVector2D Target=LLHToMetric(LLH);
         if(!bHasGoal || !Target.Equals(GoalMetric,1)){GoalMetric=Target;CurrentFinalDestination=LLH;bNeedsPlan=true;bHasGoal=true;ArrivalTime=-1;}
     }
-    else if(bHasGoal)GoalMetric=LLHToMetric(CurrentFinalDestination);
+    else if(bHasGoal)
+    {
+        const FVector2D Target=LLHToMetric(CurrentFinalDestination);
+        if(!Target.Equals(GoalMetric,1)){GoalMetric=Target;bNeedsPlan=true;ArrivalTime=-1;}
+    }
 }
 bool UShipEnemyNavigationComponent::TryRecovery(const FVector2D& P,float Speed,float Dt,float& T,float& R)
 {

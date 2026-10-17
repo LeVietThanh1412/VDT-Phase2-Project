@@ -11,12 +11,16 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/Pawn.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/PlayerState.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "ShipEnemyProjectile.h"
 #include "Engine/Engine.h"
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
+#include "Engine/EngineBaseTypes.h"
 #include "Misc/ScopeExit.h"
+#include "UObject/Package.h"
 #include "UObject/UnrealType.h"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FSeaGridCases,"ShipEnemyNavigation.Planner.Geometry",EAutomationTestFlags::EditorContext|EAutomationTestFlags::EngineFilter)
@@ -89,8 +93,35 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
 {
     // This world is disposable. MainMapLevel and its actors/settings never participate.
     UWorld* W=UWorld::CreateWorld(EWorldType::Game,false,FName(TEXT("SeaNavigationAutomationWorld")));
-    GEngine->CreateNewWorldContext(EWorldType::Game).SetCurrentWorld(W);
-    ON_SCOPE_EXIT{GEngine->DestroyWorldContext(W);W->DestroyWorld(false);};
+    if(!TestNotNull(TEXT("Transient test world created"),W))return false;
+    W->GetPackage()->SetFlags(RF_Transient);
+    const int32 PreviousWorldContexts=GEngine->GetWorldContexts().Num();
+    UGameInstance* GameInstance=NewObject<UGameInstance>(GEngine);
+    FWorldContext& Context=GEngine->CreateNewWorldContext(EWorldType::Game);
+    Context.OwningGameInstance=GameInstance;
+    Context.SetCurrentWorld(W);
+    W->SetGameInstance(GameInstance);
+    W->SetShouldTick(false);
+    ON_SCOPE_EXIT
+    {
+        W->BeginTearingDown();
+        // No world BeginPlay/tick: inherited input, buoyancy and weapon graphs never execute.
+        GEngine->DestroyWorldContext(W);
+        W->DestroyWorld(false);
+        // Only this fixture's disposable package; never clear dirty flags on project assets.
+        W->GetPackage()->SetDirtyFlag(false);
+        TestEqual(TEXT("Transient world context removed during cleanup"),GEngine->GetWorldContexts().Num(),PreviousWorldContexts);
+        TestFalse(TEXT("Destroyed test world is no longer rooted"),W->IsRooted());
+        TestFalse(TEXT("Transient test package is clean after cleanup"),W->GetPackage()->IsDirty());
+    };
+    // Spawn through the real engine lifecycle. Possess alone does not register a controller
+    // or create its PlayerState in a world whose actors have never been initialized.
+    // Explicit native GameMode avoids loading the project's GMBP/default map.
+    FURL URL;
+    URL.AddOption(TEXT("game=/Script/Engine.GameModeBase"));
+    if(!TestTrue(TEXT("Native test GameMode created"),W->SetGameMode(URL)))return false;
+    W->InitializeActorsForPlay(URL);
+    TestTrue(TEXT("Test world actors initialized without starting gameplay"),W->AreActorsInitialized() && !W->HasBegunPlay());
     auto* Geo=W->SpawnActor<ACesiumGeoreference>();
     Geo->SetOriginLongitudeLatitudeHeight(FVector(107.296416,20.992597,0));
     Geo->Tags.AddUnique(FName(TEXT("DEFAULT_GEOREFERENCE")));
@@ -115,6 +146,14 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     TestTrue(TEXT("Live component holds real detour waypoints"),C->CurrentRoute.Num()>2);
     TestTrue(TEXT("Commands bounded"),FMath::Abs(C->DesiredThrottle)<=1 && FMath::Abs(C->DesiredRudder)<=1);
     C->SetDriveCommand(5,-5);TestEqual(TEXT("Active command clamp throttle"),C->DesiredThrottle,1.f);TestEqual(TEXT("Active command clamp rudder"),C->DesiredRudder,-1.f);
+    TestEqual(TEXT("Blueprint AIThrottle receives selected command"),C->ThrottleProperty->GetFloatingPointPropertyValue(C->ThrottleProperty->ContainerPtrToValuePtr<void>(Ship)),1.);
+    TestEqual(TEXT("Blueprint AIRudder receives selected command"),C->RudderProperty->GetFloatingPointPropertyValue(C->RudderProperty->ContainerPtrToValuePtr<void>(Ship)),-1.);
+    C->bNewNavigationEnabled=false;
+    TestFalse(TEXT("Legacy can be restored after using native navigation"),C->UpdateNavigation(.1f));
+    C->SetDriveCommand(0,0);
+    TestEqual(TEXT("Deselected native writer cannot overwrite legacy throttle"),C->ThrottleProperty->GetFloatingPointPropertyValue(C->ThrottleProperty->ContainerPtrToValuePtr<void>(Ship)),1.);
+    TestEqual(TEXT("Deselected native writer cannot overwrite legacy rudder"),C->RudderProperty->GetFloatingPointPropertyValue(C->RudderProperty->ContainerPtrToValuePtr<void>(Ship)),-1.);
+    C->bNewNavigationEnabled=true;
     C->StopNavigation();C->UpdateNavigation(.1f);C->UpdateNavigation(.1f);
     TestTrue(TEXT("Explicit stop remains idle"),C->NavigationState==EShipNavigationState::Idle);
     TestEqual(TEXT("Explicit stop writes zero throttle"),C->DesiredThrottle,0.f);
@@ -162,16 +201,65 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     TestTrue(TEXT("Independent enemies share same immutable chart"),C->Map.Get()==C2->Map.Get());
     TestTrue(TEXT("Independent enemy command state"),C!=C2 && C2->RecoveryAttemptCount==0);
     APawn* Player=W->SpawnActor<APawn>(PlayerClass,Ship->GetActorLocation()+FVector(20000,0,0),FRotator::ZeroRotator,Spawn);
-    auto* PC=W->SpawnActor<APlayerController>();PC->Possess(Player);
+    auto* PC=W->SpawnActor<APlayerController>();
+    if(!TestNotNull(TEXT("Player ship spawned"),Player) || !TestNotNull(TEXT("Player controller spawned"),PC))return false;
+    PC->Possess(Player);
+    TestTrue(TEXT("Controller genuinely possesses player ship"),PC->GetPawn()==Player && Player->GetController()==PC);
+    TestNotNull(TEXT("Possessed player has initialized non-bot PlayerState"),Player->GetPlayerState());
+    TestTrue(TEXT("Possessed ship is player controlled"),Player->IsPlayerControlled());
+    TestTrue(TEXT("World lookup returns the possessed player ship"),UGameplayStatics::GetPlayerPawn(C,0)==Player);
     C->PlayerShipClass=PlayerClass;C->UpdatePerception();
     AddInfo(FString::Printf(TEXT("Perception diagnostic: pawn=%s candidate=%s controller=%s playerControlled=%d ship=%s player=%s second=%s"),*GetNameSafe(Player),*GetNameSafe(UGameplayStatics::GetPlayerPawn(C,0)),*GetNameSafe(Player->GetController()),Player->IsPlayerControlled(),*Ship->GetActorLocation().ToString(),*Player->GetActorLocation().ToString(),*Second->GetActorLocation().ToString()));
     TestTrue(TEXT("Distance/visibility check acquires possessed player ship"),C->DetectedPlayer==Player);
+    auto ValidateBehaviorRoute=[&](const TCHAR* Behavior)
+    {
+        const FSeaRouteResult Route=C->Map->FindPath(C->PositionMetric(),C->GoalMetric,75000,1000);
+        TestTrue(FString(Behavior)+TEXT(" objective has an actual A* route"),Route.bSuccess);
+        for(int32 I=1;I<Route.Points.Num();++I)
+            TestTrue(FString(Behavior)+TEXT(" smoothed route clears buffered land"),C->Map->SegmentClear(Route.Points[I-1],Route.Points[I]));
+        TestTrue(FString(Behavior)+TEXT(" retains correct player target"),C->DetectedPlayer==Player);
+    };
     C->Role=EShipEnemyRole::Coward;C->bHasGoal=false;C->SelectObjective(C->PositionMetric());
     TestTrue(TEXT("Coward selects a connected water escape"),C->NavigationState==EShipNavigationState::Flee && C->Map->SameWaterRegion(C->PositionMetric(),C->GoalMetric));
+    ValidateBehaviorRoute(TEXT("Coward"));
     C->Role=EShipEnemyRole::Fighter;C->bHasGoal=false;C->SelectObjective(C->PositionMetric());
     TestTrue(TEXT("Fighter selects attack objective"),C->NavigationState==EShipNavigationState::Attack && C->Map->SameWaterRegion(C->PositionMetric(),C->GoalMetric));
+    ValidateBehaviorRoute(TEXT("Fighter"));
     C->Role=EShipEnemyRole::Hunter;C->bHasGoal=false;C->SelectObjective(C->PositionMetric());
     TestTrue(TEXT("Hunter selects pursuit objective"),C->NavigationState==EShipNavigationState::Chase && C->Map->SameWaterRegion(C->PositionMetric(),C->GoalMetric));
+    ValidateBehaviorRoute(TEXT("Hunter"));
+    const FVector NearPlayerLocation=Player->GetActorLocation();
+    const FVector FarPlayerLocation=Ship->GetActorLocation()+FVector((C->LoseTargetRadiusM+1000)*100,0,0);
+    for(EShipEnemyRole Role:{EShipEnemyRole::Coward,EShipEnemyRole::Fighter,EShipEnemyRole::Hunter})
+    {
+        C->Role=Role;
+        Player->SetActorLocation(NearPlayerLocation);
+        C->UpdatePerception();
+        TestTrue(TEXT("Each role reacquires possessed player"),C->DetectedPlayer==Player);
+        C->bHasGoal=false;C->SelectObjective(C->PositionMetric());
+        Player->SetActorLocation(FarPlayerLocation);
+        C->UpdatePerception();
+        TestNull(TEXT("Leaving loss radius clears player target"),C->DetectedPlayer.Get());
+        C->LastPlanTime=-1000;C->UpdateNavigation(.1f);
+        TestTrue(TEXT("Losing target returns each role to a valid patrol route"),C->bPathfindingSucceeded && C->NavigationState==EShipNavigationState::FollowRoute);
+        TestTrue(TEXT("Resumed goal is the current patrol endpoint"),C->GoalMetric.Equals(C->LLHToMetric(C->bTargetB?C->PatrolPointB:C->PatrolPointA),1));
+    }
+    Player->SetActorLocation(NearPlayerLocation);C->UpdatePerception();
+    PC->UnPossess();C->UpdatePerception();
+    TestNull(TEXT("Unpossessed player ship cannot remain an engagement target"),C->DetectedPlayer.Get());
+    PC->Possess(Player);C->UpdatePerception();
+    TestTrue(TEXT("Repossessed ship is acquired again"),C->DetectedPlayer==Player);
+    const FVector RequestedDestination=C->bTargetB?C->PatrolPointB:C->PatrolPointA;
+    C->SetGeographicDestination(RequestedDestination);
+    C->Role=EShipEnemyRole::Hunter;C->SelectObjective(C->PositionMetric());
+    TestTrue(TEXT("Combat retains the explicitly requested final destination"),C->CurrentFinalDestination.Equals(RequestedDestination,1.e-8));
+    // Commit the temporary combat route first, so resumption must invalidate a real stale route.
+    TestTrue(TEXT("Temporary pursuit objective can be planned"),C->PlanRoute(C->PositionMetric(),C->GoalMetric));
+    Player->SetActorLocation(FarPlayerLocation);C->UpdatePerception();
+    C->LastPlanTime=-1000;C->UpdateNavigation(.1f);
+    TestTrue(TEXT("Target loss restores explicit destination instead of last pursuit goal"),C->GoalMetric.Equals(C->LLHToMetric(RequestedDestination),1));
+    TestTrue(TEXT("Target loss replans the restored explicit destination"),C->bPathfindingSucceeded && C->LastGoal.Equals(C->GoalMetric,1) && C->NavigationState==EShipNavigationState::FollowRoute);
+    C->StartPatrol();
     FActorSpawnParameters ProjectileSpawn=Spawn;ProjectileSpawn.Owner=Ship;ProjectileSpawn.Instigator=Ship;
     auto* Projectile=W->SpawnActor<AShipEnemyProjectile>(AShipEnemyProjectile::StaticClass(),Ship->GetActorLocation(),FRotator::ZeroRotator,ProjectileSpawn);
     Projectile->LaunchVelocity=FVector(20000,0,0);Projectile->DispatchBeginPlay();
