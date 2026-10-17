@@ -31,3 +31,6 @@ ehthumbs.db
 Thumbs.db
 
 TextBP/
+
+# Offline navigation tooling caches (source data cache lives under Saved/).
+Tools/SeaNavigation/__pycache__/
