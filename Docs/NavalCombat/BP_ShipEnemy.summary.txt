@@ -1,0 +1,721 @@
+BP_ShipEnemy/EventGraph/K2Node_Event_0
+ EventReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="ReceiveBeginPlay")
+ then -> K2Node_CallParentFunction_0 62EB382E4C192016D4151F9CAD4DAB62,
+
+BP_ShipEnemy/EventGraph/K2Node_CallParentFunction_0
+ FunctionReference=(MemberParent="/Script/Engine.BlueprintGeneratedClass'/Game/Ship/BluePrint/BP_Ship.BP_Ship_C'",MemberName="ReceiveBeginPlay",MemberGuid=C92C588C455CE55EAB0BEA8993B416BE)
+ execute -> K2Node_Event_0 D174A06748EDFDBD1BEF3C974F75AD59,
+ then -> K2Node_CallFunction_6 D115928D4E874AF46BE5A99FE10846C2,
+
+BP_ShipEnemy/EventGraph/K2Node_Event_1
+ EventReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="ReceiveActorBeginOverlap")
+ then -> K2Node_CallParentFunction_1 10FD41714C0DDFC6FDBF6CB825DC2FC1,
+ OtherActor -> K2Node_CallParentFunction_1 5C8A0CAE490327690FF12BA2681D3F04,
+
+BP_ShipEnemy/EventGraph/K2Node_CallParentFunction_1
+ FunctionReference=(MemberParent="/Script/Engine.BlueprintGeneratedClass'/Game/Ship/BluePrint/BP_Ship.BP_Ship_C'",MemberName="ReceiveActorBeginOverlap",MemberGuid=DFE79DBB4A8634C386112BBC840FFC98)
+ execute -> K2Node_Event_1 6DD0756E4B9F651A356A1391010F1908,
+ OtherActor -> K2Node_Event_1 A1A6D2424AF382BB980FC08E4EBEB6E0,
+
+BP_ShipEnemy/EventGraph/K2Node_Event_2
+ EventReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="ReceiveTick")
+ then -> K2Node_CallParentFunction_2 3793FE8E459DB0C47467318036BE2B3F,
+ DeltaSeconds -> K2Node_CallParentFunction_2 768FFF8A40B6263E1D2B75AF154E0295,K2Node_CallFunction_1 1776370E46D6F58C200D9AA88B62B8F9, = 0.0
+
+BP_ShipEnemy/EventGraph/K2Node_CallParentFunction_2
+ FunctionReference=(MemberParent="/Script/Engine.BlueprintGeneratedClass'/Game/Ship/BluePrint/BP_Ship.BP_Ship_C'",MemberName="ReceiveTick",MemberGuid=F86147214D1E6A5F8F549687150F1C32)
+ execute -> K2Node_Event_2 53A6DDC34174AB9B66263F81BFA0A60F,
+ then -> K2Node_IfThenElse_0 30C73E24470BDF54BEF617BA324207CD,
+ DeltaSeconds -> K2Node_Event_2 F2022E694F84965CE439F7BDAA1E1267, = 0.0
+
+BP_ShipEnemy/EventGraph/K2Node_IfThenElse_0
+ execute -> K2Node_CallParentFunction_2 5FCC5F214DA9B5B64CB08B9E52641D5D,
+ Condition -> K2Node_VariableGet_0 E122A07E4A1A0FD24399609812E9DC2E, = true
+ then -> K2Node_CallFunction_1 ED7BA2354A9FA9E0E1E3D8985D5BDFE2,
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_0
+ FunctionReference=(MemberName="ApplyAIForward",MemberGuid=8E07ED9B4D8B2E1227D50CB53BE3F6DC,bSelfContext=True)
+ execute -> K2Node_CallFunction_8 99AA57D44B7C5231BDFA50ABD1F09EE8,K2Node_IfThenElse_1 7C9EECFC416659964C9E02B55CDFB885,
+ then -> K2Node_CallFunction_4 AE393CFE40C7C6627146ED8C0CEB4CB8,
+
+BP_ShipEnemy/EventGraph/K2Node_VariableGet_0
+ VariableReference=(MemberName="bAIEnabled",MemberGuid=3576578945CCAB45310447AB7E01669C,bSelfContext=True)
+ bAIEnabled -> K2Node_IfThenElse_0 C21D866D4A6F7AAB7B6302B804BEA0A1, = false
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_4
+ FunctionReference=(MemberName="ApplyAIRudder",MemberGuid=022C2FD842914E760BFFF58BE679EB0B,bSelfContext=True)
+ execute -> K2Node_CallFunction_0 53E23DCC44B3AF8569312D8D9EE5BCBA,
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_5
+ FunctionReference=(MemberName="UpdateMoveToDestination",MemberGuid=780549244EDFF810C9B59FBD9CF76FAB,bSelfContext=True)
+ execute -> K2Node_IfThenElse_1 278C107F4E731B16081D7186EFA7E12A,
+ then -> K2Node_CallFunction_8 323CFF474681D092BFDE4AA0D44FB838,
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_6
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetSystemLibrary'",MemberName="K2_SetTimer")
+ execute -> K2Node_CallParentFunction_0 7FA5C65C4BC833C2E978AB887607FAE3,
+ self = /Script/Engine.Default__KismetSystemLibrary
+ FunctionName = ScanSurroundings
+ Time = 0.200000
+ bLooping = true
+ bMaxOncePerFrame = false
+ InitialStartDelay = 0.000000
+ InitialStartDelayVariance = 0.000000
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_8
+ FunctionReference=(MemberName="UpdateObstacleAvoidance",MemberGuid=243346CC4FBDEB22067DE0A8E2EF0642,bSelfContext=True)
+ execute -> K2Node_CallFunction_5 4DE6FCCD4F2EAC94193A539FD9B120CE,
+ then -> K2Node_CallFunction_0 2F212D0B4E6C5DCE7E1FF994847F1D47,
+
+BP_ShipEnemy/EventGraph/K2Node_VariableGet_1
+ VariableReference=(MemberName="EnemyNavigation",bSelfContext=True)
+ EnemyNavigation -> K2Node_CallFunction_1 4FAD78254F2919C26420639FAAEC13E2,
+
+BP_ShipEnemy/EventGraph/K2Node_CallFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/VDTPhase2Project.ShipEnemyNavigationComponent'",MemberName="UpdateNavigation")
+ execute -> K2Node_IfThenElse_0 E61ABDD94D770C2EAF976E81192029F1,
+ then -> K2Node_IfThenElse_1 41F81BEB4284D569548F9AA1CBF52517,
+ self -> K2Node_VariableGet_1 F51E9B9143DC3E1BC7975B850ADF4DB5,
+ DeltaSeconds -> K2Node_Event_2 F2022E694F84965CE439F7BDAA1E1267, = 0.0
+ ReturnValue -> K2Node_IfThenElse_1 3F3D2E404CD542502603FD843DC66227, = false
+
+BP_ShipEnemy/EventGraph/K2Node_IfThenElse_1
+ execute -> K2Node_CallFunction_1 4EDF6FCB436226B814075E8888C28AC8,
+ Condition -> K2Node_CallFunction_1 112CE1224AE7E82982F8F793E3076A65, = true
+ then -> K2Node_CallFunction_0 2F212D0B4E6C5DCE7E1FF994847F1D47,
+ else -> K2Node_CallFunction_5 F2C820474FDD8D73A8DD59B0A5781D3C,
+
+BP_ShipEnemy/UserConstructionScript/K2Node_FunctionEntry_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="UserConstructionScript")
+ then -> K2Node_CallParentFunction_0 ABC07EE644B9ED6994161FAE23961C9E,
+
+BP_ShipEnemy/UserConstructionScript/K2Node_CallParentFunction_0
+ FunctionReference=(MemberParent="/Script/Engine.BlueprintGeneratedClass'/Game/Ship/BluePrint/BP_Ship.BP_Ship_C'",MemberName="UserConstructionScript",MemberGuid=134270DE4F9CC47825DD06BDEB3EA16C)
+ execute -> K2Node_FunctionEntry_0 FB959B4440392B1894E99FA17575FC57,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="ApplyAIForward")
+ then -> K2Node_CallFunction_1 6E15C4BE4922BC3C04500EBD5CEEC5D2,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_VariableGet_0
+ VariableReference=(MemberName="Arrow",bSelfContext=True)
+ Arrow -> K2Node_CallFunction_0 626832284E8A8F9EB2C472A7570F7943,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_CallFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="GetForwardVector")
+ self -> K2Node_VariableGet_0 9D1D97194B63FBCEA4EDDD8034509112,
+ ReturnValue -> K2Node_PromotableOperator_1 57E062BF4D1AA34340CC68A3B7774DBB, = 0
+
+BP_ShipEnemy/ApplyAIForward/K2Node_VariableGet_1
+ VariableReference=(MemberName="AIForwardForce",MemberGuid=BD9814C74D787F581A959A8102A0CCAD,bSelfContext=True)
+ AIForwardForce -> K2Node_PromotableOperator_0 B6BD2DB74AD5FB057C23AB82666A68CA, = 0.0
+
+BP_ShipEnemy/ApplyAIForward/K2Node_VariableGet_2
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ AIThrottle -> K2Node_PromotableOperator_0 F2334C97476A9878F4A5EB8C6CE09944, = 0.0
+
+BP_ShipEnemy/ApplyAIForward/K2Node_PromotableOperator_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_VectorVector")
+ A -> K2Node_VariableGet_2 81DE57B3489BC6E722F2EAAD93DF1CAE,
+ B -> K2Node_VariableGet_1 0394AAF34BF54757B45A23A921F45E88,
+ ReturnValue -> K2Node_PromotableOperator_1 09ED2C0248C498D1B6B42193DC5338E2,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_PromotableOperator_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_VectorVector")
+ A -> K2Node_PromotableOperator_0 CB8CC3CB4843ED0F9D9A9EACD7AF36BF,
+ B -> K2Node_CallFunction_0 CBC8AEE84A484D727CB3688B6A368094,
+ ReturnValue -> K2Node_CallFunction_1 0DD7B29244D3D8B3F5A0AA8322B2E2C8,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_VariableGet_3
+ VariableReference=(MemberName="ShipSM",bSelfContext=True)
+ ShipSM -> K2Node_CallFunction_1 BDF67F654FF539019616FD971CD3B264,
+
+BP_ShipEnemy/ApplyAIForward/K2Node_CallFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'",MemberName="AddForce")
+ execute -> K2Node_FunctionEntry_0 DC46BA72485C194F04B860AED7335DC1,
+ self -> K2Node_VariableGet_3 507251654A6E70831D68738E97750681,
+ Force -> K2Node_PromotableOperator_1 37046C074F6F0535E475C1B9EC59C344, = 0
+ BoneName = None
+ bAccelChange = false
+
+BP_ShipEnemy/ScanOneDirection/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="ScanOneDirection")
+ then -> K2Node_CallFunction_6 3B2B75484490C1C251F10898BC282F5C,
+ AngleDeg -> K2Node_CallFunction_1 FE6B2C58433441B48CD651877F061C9E,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_FunctionResult_0
+ FunctionReference=(MemberName="ScanOneDirection")
+ execute -> K2Node_CallFunction_6 D81762294DA93A2179AFE496157B5A35,
+ DistanceCm -> K2Node_CallFunction_8 7D1A86294D879B73B9BF78A536EC6A22, = 0.0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_VariableGet_0
+ VariableReference=(MemberName="Arrow",bSelfContext=True)
+ Arrow -> K2Node_CallFunction_0 777082F140F7D5AC984FCBA467EF8581,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="GetForwardVector")
+ self -> K2Node_VariableGet_0 A05F46B24278001783A9F1B3D1E0492D,
+ ReturnValue -> K2Node_CallFunction_1 028D2A354F4C8429FBFB808A15374457, = 0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="RotateAngleAxis")
+ self = /Script/Engine.Default__KismetMathLibrary
+ InVect -> K2Node_CallFunction_0 24FA14214D6FE34FEEFDADBC104FA336, = 0
+ AngleDeg -> K2Node_FunctionEntry_0 84D4B44943A15515083D7F8D690CA37D, = 0.0
+ Axis = 0.000000
+ ReturnValue -> K2Node_PromotableOperator_0 C36EAAD744E4655D89EB14B25CAEFBA1, = 0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_PromotableOperator_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_VectorVector")
+ A -> K2Node_CallFunction_1 657A8C974319D67817B9BB993776BF58,
+ B -> K2Node_VariableGet_1 A7F8DD39461530D22539BD92BE0B90DB,
+ ReturnValue -> K2Node_PromotableOperator_2 2CACBAE44EA0BCB872F20A8E1B90B827,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_VariableGet_1
+ VariableReference=(MemberName="ScanRangeCm",MemberGuid=38A433CC4AB6CBB70D15518C7A12216B,bSelfContext=True)
+ ScanRangeCm -> K2Node_PromotableOperator_0 A37619034F2EF48F67214C99A33BA853, = 0.0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_VariableGet_2
+ VariableReference=(MemberName="Arrow",bSelfContext=True)
+ Arrow -> K2Node_CallFunction_3 2EF2D2564CAE77ABDBB1ACB567BC7DAC,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_3
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="K2_GetComponentLocation")
+ self -> K2Node_VariableGet_2 076FF18A4DD60224D79F8CA25DCC4DA5,
+ ReturnValue -> K2Node_PromotableOperator_1 749DBDD44F8FC9FDF7D3D49CE8B38E93, = 0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_PromotableOperator_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_VectorVector")
+ A -> K2Node_CallFunction_3 421751B247206301D9B9CCA09EAC3808,
+ B = 0.000000
+ ReturnValue -> K2Node_PromotableOperator_2 CA64E74A4DE1A7244D3A8D91F513F852,K2Node_CallFunction_6 E07D1E994490E1E89049FDA035FE54BA,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_PromotableOperator_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Add_VectorVector")
+ A -> K2Node_PromotableOperator_0 668118794CC8A6CA05DE5995821FBB63,
+ B -> K2Node_PromotableOperator_1 A3A9B3F7458498B578EB51B2364CAD62,
+ ReturnValue -> K2Node_CallFunction_6 1F37A18149178717A8D0688BFF3548B0,
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_6
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetSystemLibrary'",MemberName="LineTraceSingle")
+ execute -> K2Node_FunctionEntry_0 A8FCC8F0486EAF61EC7426806E2814E2,
+ then -> K2Node_FunctionResult_0 7D3959E6416B540CE02655B411D74828,
+ self = /Script/Engine.Default__KismetSystemLibrary
+ Start -> K2Node_PromotableOperator_1 A3A9B3F7458498B578EB51B2364CAD62, = 0
+ End -> K2Node_PromotableOperator_2 DBCDC129429E97B85B4BC0BFF085E93A, = 0
+ TraceChannel = TraceTypeQuery1
+ bTraceComplex = true
+ DrawDebugType = ForDuration
+ OutHit -> K2Node_CallFunction_7 AF92CE3E445C30AB752D6B8D3377DA8E,
+ bIgnoreSelf = true
+ TraceColor = (R=1.000000
+ TraceHitColor = (R=0.000000
+ DrawTime = 0.250000
+ ReturnValue -> K2Node_CallFunction_8 9E2BB0B8402A11E90FBA8180B3035807, = false
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_7
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.GameplayStatics'",MemberName="BreakHitResult")
+ self = /Script/Engine.Default__GameplayStatics
+ Hit -> K2Node_CallFunction_6 5089DF134B1D875D5FF3F396C5D7BA11,
+ bBlockingHit = false
+ bInitialOverlap = false
+ Time = 0.0
+ Distance -> K2Node_CallFunction_8 5855228E41FB6C32DEB7388AE954AC12, = 0.0
+ Location = 0
+ ImpactPoint = 0
+ Normal = 0
+ ImpactNormal = 0
+ HitBoneName = None
+ BoneName = None
+ HitItem = 0
+ ElementIndex = 0
+ FaceIndex = 0
+ TraceStart = 0
+ TraceEnd = 0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_CallFunction_8
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="SelectFloat")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_CallFunction_7 B680891A465F657695954D8DD52BD941, = 0.0
+ B -> K2Node_VariableGet_3 5C2E605543D34AE963336AA33449BBAD, = 0.0
+ bPickA -> K2Node_CallFunction_6 711721DF452519B96ED2D18F1C1965B7, = false
+ ReturnValue -> K2Node_FunctionResult_0 AEFBC789429255A26F346DAF2B42E3C8, = 0.0
+
+BP_ShipEnemy/ScanOneDirection/K2Node_VariableGet_3
+ VariableReference=(MemberName="ScanRangeCm",MemberGuid=38A433CC4AB6CBB70D15518C7A12216B,bSelfContext=True)
+ ScanRangeCm -> K2Node_CallFunction_8 056DC0BD4F97FF02B35D61811A002018, = 0.0
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="ApplyAIRudder")
+ then -> K2Node_CallFunction_3 7F2BB93C425246A3279F91B0F681EB37,
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_VariableGet_0
+ VariableReference=(MemberName="ShipSM",bSelfContext=True)
+ ShipSM -> K2Node_CallFunction_0 0BC902B44E9A28A248701494A8614BBD,
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_CallFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="GetSocketTransform")
+ self -> K2Node_VariableGet_0 87F7D56F40CBC1D8259781A43E7E2CC2,
+ InSocketName = 5
+ TransformSpace = RTS_Component
+ ReturnValue -> K2Node_CallFunction_1 16AAE91244B3BDC00EF4308C70AB4F3A,
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_CallFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BreakTransform")
+ self = /Script/Engine.Default__KismetMathLibrary
+ InTransform -> K2Node_CallFunction_0 3837ED1F4DF7478F79E7EB9B8B5079EC,
+ Location -> K2Node_CallFunction_3 B036D9F44B9B4107E785A8B842012A77, = 0
+ Rotation -> K2Node_CallFunction_2 08E2E68C4A8F7DF3187213BC8EFEE675, = 0
+ Scale = 0
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_CallFunction_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="GetRightVector")
+ self = /Script/Engine.Default__KismetMathLibrary
+ InRot -> K2Node_CallFunction_1 37B0CA594AF1DAC5DFA2058F838F8FCB, = 0
+ ReturnValue -> K2Node_PromotableOperator_3 3F5E21964B1C8B277AB5948DFA967B97, = 0
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_VariableGet_2
+ VariableReference=(MemberName="ShipSM",bSelfContext=True)
+ ShipSM -> K2Node_CallFunction_3 1B0DAC9E4BF0688AC1571097908226B2,
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_CallFunction_3
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.PrimitiveComponent'",MemberName="AddForceAtLocationLocal")
+ execute -> K2Node_FunctionEntry_0 E71A80EA44DCA267294149947441A281,
+ self -> K2Node_VariableGet_2 F5D44A114EAD88F7982B7C883106B943,
+ Force -> K2Node_PromotableOperator_3 6E7696B14CFC2276D71841858BA82DA6, = 0
+ Location -> K2Node_CallFunction_1 95F5E48F4AB56223A9A851B109D87551, = 0
+ BoneName = None
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_VariableGet_3
+ VariableReference=(MemberName="AIRudder",MemberGuid=8FBC2E1A44F4383BE58F44AB89BA4AAE,bSelfContext=True)
+ AIRudder -> K2Node_PromotableOperator_2 9C0B0AB64A7E3C093FD885BADAAFF699, = 0.0
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_PromotableOperator_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_VectorVector")
+ A -> K2Node_VariableGet_3 9A7A4F4449C892D36B5041B91900CBEA,
+ B = 12000.000000
+ ReturnValue -> K2Node_PromotableOperator_3 CE5D66254A259475C13847B916E5640F,
+
+BP_ShipEnemy/ApplyAIRudder/K2Node_PromotableOperator_3
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Multiply_VectorVector")
+ A -> K2Node_CallFunction_2 02B1C61845985AC7A2394A85E6A9C98E,
+ B -> K2Node_PromotableOperator_2 58E683014E8817465E5E4E86286B38DE,
+ ReturnValue -> K2Node_CallFunction_3 DC302ABB4A1EC02D473102996352760F,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="UpdateMoveToDestination")
+ then -> K2Node_MacroInstance_0 EB32E19E4BF91061712D00BBD961B5AC,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_0
+ VariableReference=(MemberName="DestinationActor",MemberGuid=1D290EF847CA878184ED459DA94F46E7,bSelfContext=True)
+ DestinationActor -> K2Node_MacroInstance_0 B4F95ED3413D4D82659274A34A34B2FC,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_MacroInstance_0
+ exec -> K2Node_FunctionEntry_0 D150A7A94AF3B4F6DC08FB841BE84211,
+ InputObject -> K2Node_VariableGet_0 9E4FB7714E23E264BD6752BAD80EEE83,
+ Is Valid -> K2Node_IfThenElse_0 A98CD341483AF8D4EF4DD282037B67AE,
+ Is Not Valid -> K2Node_VariableSet_6 9C3887C54C7F5E7E7173D384805AC5AF,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_1
+ VariableReference=(MemberName="ShipSM",bSelfContext=True)
+ ShipSM -> K2Node_CallFunction_5 14BCB3E24AAE1A8B1FB36D96881D824E,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_2
+ VariableReference=(MemberName="DestinationActor",MemberGuid=1D290EF847CA878184ED459DA94F46E7,bSelfContext=True)
+ DestinationActor -> K2Node_CallFunction_3 D9F5A6F74379B8C2D84552B796C4CBD7,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_3
+ FunctionReference=(MemberName="K2_GetActorLocation",bSelfContext=True)
+ self -> K2Node_VariableGet_2 571342574E4F56E1EBBCEFABE7E26909,
+ ReturnValue -> K2Node_CallFunction_4 3E6417B047F8ADCA3E0677A43078644A, = 0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_4
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FindLookAtRotation")
+ self = /Script/Engine.Default__KismetMathLibrary
+ Start -> K2Node_CallFunction_5 70A8306F41C831EE2CF4FA85E8F5AB2B, = 0
+ Target -> K2Node_CallFunction_3 8E08D1AD4709C777100BABAB7EDC9348, = 0
+ ReturnValue -> K2Node_CallFunction_9 97FFEF854CA2191EE58EDDBF392B7784, = 0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_5
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="K2_GetComponentLocation")
+ self -> K2Node_VariableGet_1 17489F4B4417828063596D9C976F03B8,
+ ReturnValue -> K2Node_CallFunction_4 2517662C4E8C39A1BFB300A84BD21654, = 0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_3
+ VariableReference=(MemberName="Arrow",bSelfContext=True)
+ Arrow -> K2Node_CallFunction_7 C20695B443C5E77544D08993889DD9F0,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_7
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.SceneComponent'",MemberName="K2_GetComponentRotation")
+ self -> K2Node_VariableGet_3 0FDB086D44DEE7A8B314A2815202B43D,
+ ReturnValue -> K2Node_CallFunction_9 7E95055D485570E0EC73689537CDAFC9, = 0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_9
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="NormalizedDeltaRotator")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_CallFunction_4 80EB335D44A2FDA8DCC1EEBBE0DB311F, = 0
+ B -> K2Node_CallFunction_7 D0E3F41740126764F7E164BB45A2ED36, = 0
+ ReturnValue -> K2Node_CallFunction_10 CDA456894F5016128E2535A3976ABEA9, = 0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_10
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BreakRotator")
+ self = /Script/Engine.Default__KismetMathLibrary
+ InRot -> K2Node_CallFunction_9 7921CD674C609308A10B548206AF5C05, = 0
+ Roll = 0.0
+ Pitch = 0.0
+ Yaw -> K2Node_PromotableOperator_0 721DEF9E47112D3A339184BF61B45176, = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_PromotableOperator_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Divide_DoubleDouble")
+ A -> K2Node_CallFunction_10 9C4801104019E48D19FC788383EB12FC,
+ B = 45.000000
+ ReturnValue -> K2Node_CallFunction_11 436BDA7D46C8D357587D468893E303C3,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_11
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FClamp")
+ self = /Script/Engine.Default__KismetMathLibrary
+ Value -> K2Node_PromotableOperator_0 D769FD7F41B337C7AF766594B91936E4, = 0.0
+ Min = -1.000000
+ Max = 1.0
+ ReturnValue -> K2Node_VariableSet_0 F45E68304B2BC304113B798E50B8E97F, = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableSet_0
+ VariableReference=(MemberName="AIRudder",MemberGuid=8FBC2E1A44F4383BE58F44AB89BA4AAE,bSelfContext=True)
+ execute -> K2Node_VariableSet_2 D1987D5D4D30F9E719019D80EEB9A2A5,K2Node_VariableSet_3 82A73BB3478CC7F377E61D863D0F9161,
+ AIRudder -> K2Node_CallFunction_11 21DD20604A19E1959BC5AE96165F2555, = 0.0
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_CallFunction_13
+ FunctionReference=(MemberName="GetDistanceTo",bSelfContext=True)
+ OtherActor -> K2Node_VariableGet_4 4A0C1C9243D7A1818872AF8C66F1B29B,
+ ReturnValue -> K2Node_PromotableOperator_1 6D627A63422ADC7E41AA299D9A63C59E,K2Node_PromotableOperator_2 B8C577464E0FAC37BA7EF6BEE88A6549, = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_4
+ VariableReference=(MemberName="DestinationActor",MemberGuid=1D290EF847CA878184ED459DA94F46E7,bSelfContext=True)
+ DestinationActor -> K2Node_CallFunction_13 A652F1FF4D53C4A228CA59B25A095877,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_PromotableOperator_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Greater_DoubleDouble")
+ A -> K2Node_CallFunction_13 CF3435D948ACAB7C911583981792436F,
+ B -> K2Node_VariableGet_5 D95D15B14C9AF6D177B846A77BA65735,
+ ReturnValue -> K2Node_IfThenElse_0 EA3A5434441E0A777331DA9538D09ED0,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_5
+ VariableReference=(MemberName="ArrivalRadiusCm",MemberGuid=1A061BB3464704D3AF977486015BDAAB,bSelfContext=True)
+ ArrivalRadiusCm -> K2Node_PromotableOperator_1 654C443F493FC53F22823984F74E3CF6, = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_IfThenElse_0
+ execute -> K2Node_MacroInstance_0 9C8ED8F24FC3295ACF352B9FBF235659,
+ Condition -> K2Node_PromotableOperator_1 39CCD2C346FC10894532AE9D634D4665, = true
+ then -> K2Node_IfThenElse_1 298CE38E4CA37821E2F3AEA0BD6A92FE,
+ else -> K2Node_VariableSet_6 9C3887C54C7F5E7E7173D384805AC5AF,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_PromotableOperator_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Greater_DoubleDouble")
+ A -> K2Node_CallFunction_13 CF3435D948ACAB7C911583981792436F,
+ B -> K2Node_VariableGet_6 B8561C804DABB1025E0AB2BE03E20C43,
+ ReturnValue -> K2Node_IfThenElse_1 D01AF48049A0E54AF8AE168CB5E73079,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableGet_6
+ VariableReference=(MemberName="SlowdownRadiusCm",MemberGuid=ED2A983743F7778703D280A2A90BF551,bSelfContext=True)
+ SlowdownRadiusCm -> K2Node_PromotableOperator_2 C792D5F14DD12048EB6DD59FB02A016B, = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_IfThenElse_1
+ execute -> K2Node_IfThenElse_0 4971C75646DCF71854F0D4A0A9DFE8FB,
+ Condition -> K2Node_PromotableOperator_2 ABAFD633471857D96751B897359FBB30, = true
+ then -> K2Node_VariableSet_2 1126D20340C6DC023EEE04A9BF956F48,
+ else -> K2Node_VariableSet_3 31A45EFA47291F29AE3C4B83E2C34B64,
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableSet_2
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ execute -> K2Node_IfThenElse_1 8A3DDA60424789CD73C2378EA32996B6,
+ then -> K2Node_VariableSet_0 AB4F725F40BBFE7BB618F99BB74F1086,
+ AIThrottle = 0.400000
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableSet_3
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ execute -> K2Node_IfThenElse_1 B07568424361D74DF7F5AFBDA9BF4D40,
+ then -> K2Node_VariableSet_0 AB4F725F40BBFE7BB618F99BB74F1086,
+ AIThrottle = 0.120000
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableSet_6
+ VariableReference=(MemberName="AIRudder",MemberGuid=8FBC2E1A44F4383BE58F44AB89BA4AAE,bSelfContext=True)
+ execute -> K2Node_MacroInstance_0 A2559F9F4775B2E9E3E7FE87254D190C,K2Node_IfThenElse_0 A72B59414D9146D16C67189B32A1020F,
+ then -> K2Node_VariableSet_7 4870CE474FF8020BAB03AC8C65DA330D,
+ AIRudder = 0.0
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateMoveToDestination/K2Node_VariableSet_7
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ execute -> K2Node_VariableSet_6 24031E794C95A82DDB3332BEE5A9B272,
+ AIThrottle = 0.0
+ Output_Get = 0.0
+
+BP_ShipEnemy/ScanSurroundings/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="ScanSurroundings")
+ then -> K2Node_CallArrayFunction_0 4109CC564B39646EEB42A49B191108DE,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_VariableGet_0
+ VariableReference=(MemberName="ScanDistances",MemberGuid=30CFB43F4D8F7B76F01860B1D3CD0EBA,bSelfContext=True)
+ ScanDistances -> K2Node_CallArrayFunction_0 FD34C8AD4E6E613639CDF5A57B30030C,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallArrayFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'",MemberName="Array_Clear")
+ execute -> K2Node_FunctionEntry_0 8042523B4B96EB6FB99BE2BEA498FFCF,
+ then -> K2Node_MacroInstance_0 EC0E2BA844C67EA717597BAF0F6BD433,
+ self = /Script/Engine.Default__KismetArrayLibrary
+ TargetArray -> K2Node_VariableGet_0 6D9B9BE047A47DDE6D47B2AD2025A1B1,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_MacroInstance_0
+ Exec -> K2Node_CallArrayFunction_0 BFB8569045C38FFB8113F58B5A0FB8ED,
+ Array -> K2Node_VariableGet_1 E502DB0647FF8EC3B4A1959371127111,
+ LoopBody -> K2Node_CallFunction_0 B4FBA9FE42E0EB867C22F6A07568FDEE,
+ Array Element -> K2Node_CallFunction_0 C568FFD141890A9A052AF987B97F0DAD,
+ Completed -> K2Node_CallFunction_2 8A292D424EC10065F497F893AF086C87,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_VariableGet_1
+ VariableReference=(MemberName="ScanAngles",MemberGuid=286AC429433F2CD7F2E1BB9B6AA95155,bSelfContext=True)
+ ScanAngles -> K2Node_MacroInstance_0 5EE5D715470CC08E425B7E8126B42D13,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallFunction_0
+ FunctionReference=(MemberName="ScanOneDirection",MemberGuid=F51249DF4C3D09BF486972A6EA293912,bSelfContext=True)
+ execute -> K2Node_MacroInstance_0 B5BFA7CF44722D3F817536944F90A682,
+ then -> K2Node_CallArrayFunction_1 AB87C75F40BCD194A34129952B991C26,
+ AngleDeg -> K2Node_MacroInstance_0 7620506F45F20701A4D0988BDE9E86F8, = 0.0
+ DistanceCm -> K2Node_CallArrayFunction_1 CD2480A74D4ECA0EAABD8587D9DE037E, = 0.0
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallArrayFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'",MemberName="Array_Add")
+ execute -> K2Node_CallFunction_0 31F6CADB4A20DBA42027CDBB9E80C199,
+ self = /Script/Engine.Default__KismetArrayLibrary
+ TargetArray -> K2Node_VariableGet_2 6B8D4AF546D91A9C3CD6C584F42418C4,
+ NewItem -> K2Node_CallFunction_0 1147475E4D6E9288FA49028E13DEDD25,
+ ReturnValue = 0
+
+BP_ShipEnemy/ScanSurroundings/K2Node_VariableGet_2
+ VariableReference=(MemberName="ScanDistances",MemberGuid=30CFB43F4D8F7B76F01860B1D3CD0EBA,bSelfContext=True)
+ ScanDistances -> K2Node_CallArrayFunction_1 5D58F11D4B6DD6E4571864914DE7035C,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallFunction_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetSystemLibrary'",MemberName="PrintString")
+ execute -> K2Node_MacroInstance_0 1129DFA14712EABB10738BAD65EC8C9D,
+ self = /Script/Engine.Default__KismetSystemLibrary
+ InString -> K2Node_CallFunction_9 757114B443AE0C11DED6B2B862910854, = Hello
+ bPrintToScreen = true
+ bPrintToLog = true
+ TextColor = (R=0.000000
+ Duration = 2.000000
+ Key = None
+
+BP_ShipEnemy/ScanSurroundings/K2Node_VariableGet_3
+ VariableReference=(MemberName="ScanDistances",MemberGuid=30CFB43F4D8F7B76F01860B1D3CD0EBA,bSelfContext=True)
+ ScanDistances -> K2Node_CallArrayFunction_2 DD8FF44A4A023FCFA5383CB263D35858,
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallArrayFunction_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'",MemberName="Array_Length")
+ self = /Script/Engine.Default__KismetArrayLibrary
+ TargetArray -> K2Node_VariableGet_3 0D00408242443ECCBBF4DE86F461AD75,
+ ReturnValue -> K2Node_CallFunction_9 92E86BAC41AD24E45F5C2E9BC345B334, = 0
+
+BP_ShipEnemy/ScanSurroundings/K2Node_CallFunction_9
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetStringLibrary'",MemberName="Conv_IntToString")
+ self = /Script/Engine.Default__KismetStringLibrary
+ InInt -> K2Node_CallArrayFunction_2 778DAC3D41D83B2884BBE98CD4B49A8E, = 0
+ ReturnValue -> K2Node_CallFunction_2 A01606E842F8BEA583373EA024B5F03A,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="UpdateObstacleAvoidance")
+ then -> K2Node_IfThenElse_0 9508F5E143CA96FA47A8C78E39F070AC,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableGet_0
+ VariableReference=(MemberName="ScanDistances",MemberGuid=30CFB43F4D8F7B76F01860B1D3CD0EBA,bSelfContext=True)
+ ScanDistances -> K2Node_GetArrayItem_1 75B95F7B42C1C8D91C691988EC93C3CD,K2Node_GetArrayItem_2 75B95F7B42C1C8D91C691988EC93C3CD,K2Node_GetArrayItem_3 75B95F7B42C1C8D91C691988EC93C3CD,K2Node_GetArrayItem_4 75B95F7B42C1C8D91C691988EC93C3CD,K2Node_GetArrayItem_0 75B95F7B42C1C8D91C691988EC93C3CD,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_GetArrayItem_1
+ Array -> K2Node_VariableGet_0 CAF134964F7ACC122999C9BA4A3315A1,
+ Dimension 1 = 0
+ Output -> K2Node_CommutativeAssociativeBinaryOperator_3 D1FACEA8495C64A79B1F63B3F4AB103B,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_GetArrayItem_2
+ Array -> K2Node_VariableGet_0 CAF134964F7ACC122999C9BA4A3315A1,
+ Dimension 1 = 11
+ Output -> K2Node_CommutativeAssociativeBinaryOperator_2 B1E0BE824533B9C8E0DA77A20D8793C3,K2Node_CommutativeAssociativeBinaryOperator_4 9B97C23E4FC074CEE2BE20A09504E876,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_GetArrayItem_3
+ Array -> K2Node_VariableGet_0 CAF134964F7ACC122999C9BA4A3315A1,
+ Dimension 1 = 10
+ Output -> K2Node_CommutativeAssociativeBinaryOperator_2 B00C230042FD7BFFF5664D888FC23FD5,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_GetArrayItem_4
+ Array -> K2Node_VariableGet_0 CAF134964F7ACC122999C9BA4A3315A1,
+ Dimension 1 = 1
+ Output -> K2Node_CommutativeAssociativeBinaryOperator_0 B401CBEA46C89D3E3CCD33A2270D9E47,K2Node_CommutativeAssociativeBinaryOperator_3 3A30B2DB4D52ABD93E4C6B83BBB00327,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_GetArrayItem_0
+ Array -> K2Node_VariableGet_0 CAF134964F7ACC122999C9BA4A3315A1,
+ Dimension 1 = 2
+ Output -> K2Node_CommutativeAssociativeBinaryOperator_0 36C784D04627AA71B598D09D67B72B2F,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CommutativeAssociativeBinaryOperator_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_GetArrayItem_4 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ B -> K2Node_GetArrayItem_0 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ ReturnValue -> K2Node_PromotableOperator_4 143322954058BC47367FA9A9FAC6181F, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CommutativeAssociativeBinaryOperator_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_GetArrayItem_3 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ B -> K2Node_GetArrayItem_2 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ ReturnValue -> K2Node_PromotableOperator_4 E296E96A44D43DD158D6729DBFF76A72, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CommutativeAssociativeBinaryOperator_3
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_GetArrayItem_1 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ B -> K2Node_GetArrayItem_4 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ ReturnValue -> K2Node_CommutativeAssociativeBinaryOperator_4 07E629C24D3D895C00E882BB4117CA1D, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CommutativeAssociativeBinaryOperator_4
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_GetArrayItem_2 57385B3C4EEEE05B301E2C8ED76A8C6F, = 0.0
+ B -> K2Node_CommutativeAssociativeBinaryOperator_3 B3F044A84136DEA98B6AC9A817B24DAC, = 0.0
+ ReturnValue -> K2Node_PromotableOperator_2 2FF7DE82475709B3FACEDBB21A0C3F48, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_IfThenElse_0
+ execute -> K2Node_FunctionEntry_0 9AE5FC154D41E565ACBCD69DC0D22333,
+ Condition -> K2Node_PromotableOperator_3 E29F297D4E39F2F8F3AB20BF62BCCE13, = true
+ then -> K2Node_IfThenElse_1 1C10624846EDD3A2CE08C1A7B675B69A,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableGet_1
+ VariableReference=(MemberName="ScanDistances",MemberGuid=30CFB43F4D8F7B76F01860B1D3CD0EBA,bSelfContext=True)
+ ScanDistances -> K2Node_CallArrayFunction_0 2ABF73F04002185C4A0816B478936AA8,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CallArrayFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetArrayLibrary'",MemberName="Array_Length")
+ self = /Script/Engine.Default__KismetArrayLibrary
+ TargetArray -> K2Node_VariableGet_1 468245984EF59A4BC8480FA96FF2D2CA,
+ ReturnValue -> K2Node_PromotableOperator_3 180DA2C043BE1BAE95B47BB188036247, = 0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_PromotableOperator_2
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Less_DoubleDouble")
+ A -> K2Node_CommutativeAssociativeBinaryOperator_4 9D8A1AF24A524E2BF700C3B587A6CDAA,
+ B = 60000.000000
+ ReturnValue -> K2Node_IfThenElse_1 09F4562B4DE3D4B2D458B7A0BFCDC358,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_IfThenElse_1
+ execute -> K2Node_IfThenElse_0 93E24AEC44AE382FB748CEB43F452B73,
+ Condition -> K2Node_PromotableOperator_2 B472F45A4E2E504E9209638CA666B683, = true
+ then -> K2Node_VariableSet_0 20C17CAB45A6F8C8EC96ADBD12C852B1,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_PromotableOperator_3
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="GreaterEqual_IntInt")
+ A -> K2Node_CallArrayFunction_0 74E76ABA4089B3659ADCA29782846512,
+ B = 12
+ ReturnValue -> K2Node_IfThenElse_0 798E57C14DECA67133578BB4184D2544,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableGet_2
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ AIThrottle -> K2Node_CommutativeAssociativeBinaryOperator_5 0259056B4CB2BE117DE0868C52C518C2, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableGet_3
+ VariableReference=(MemberName="AvoidThrottle",MemberGuid=6BFD86894BD4C77A2EABFFA7BDF5E55F,bSelfContext=True)
+ AvoidThrottle -> K2Node_CommutativeAssociativeBinaryOperator_5 FF14FC954D3C772FDCF28C916833D2BD, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_CommutativeAssociativeBinaryOperator_5
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="FMin")
+ self = /Script/Engine.Default__KismetMathLibrary
+ A -> K2Node_VariableGet_2 277012F64BB55E6808E5C197499F7A7C, = 0.0
+ B -> K2Node_VariableGet_3 0C964EC847299E13C24A6EBF4C181C1A, = 0.0
+ ReturnValue -> K2Node_VariableSet_0 83639CC547F3994407BFFA8ABC1FB841, = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableSet_0
+ VariableReference=(MemberName="AIThrottle",MemberGuid=F13741054623DBFCDFADE8817DEC0BCE,bSelfContext=True)
+ execute -> K2Node_IfThenElse_1 E7B218A944BC78AAF7B86FB6E183C435,
+ then -> K2Node_IfThenElse_2 C0DEFF404781AEA63B4440AC71F9D4E9,
+ AIThrottle -> K2Node_CommutativeAssociativeBinaryOperator_5 9DFB2B8E41AEFC9EFF785E917CBA2538, = 0.0
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_PromotableOperator_4
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="Greater_DoubleDouble")
+ A -> K2Node_CommutativeAssociativeBinaryOperator_0 D5E4EED848C53A88A37BCCBF6FF997BD,
+ B -> K2Node_CommutativeAssociativeBinaryOperator_2 7CE0B5B9483BE1E49BF5BAABD4CD7D2F,
+ ReturnValue -> K2Node_IfThenElse_2 C6D936994433F1703477C1B8DDA514B9,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_IfThenElse_2
+ execute -> K2Node_VariableSet_0 4E7F37EC458DBC28F03560A7F0EDDF4C,
+ Condition -> K2Node_PromotableOperator_4 A215DB0F49A2F53644702FAABDAFF32B, = true
+ then -> K2Node_VariableSet_2 1CC2E8704B08FE04E5AE9B9BB227ACAA,
+ else -> K2Node_VariableSet_1 1CC2E8704B08FE04E5AE9B9BB227ACAA,
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableSet_2
+ VariableReference=(MemberName="AIRudder",MemberGuid=8FBC2E1A44F4383BE58F44AB89BA4AAE,bSelfContext=True)
+ execute -> K2Node_IfThenElse_2 D46F3B914C328CBF37949CAAEAE8ED64,
+ AIRudder = 0.800000
+ Output_Get = 0.0
+
+BP_ShipEnemy/UpdateObstacleAvoidance/K2Node_VariableSet_1
+ VariableReference=(MemberName="AIRudder",MemberGuid=8FBC2E1A44F4383BE58F44AB89BA4AAE,bSelfContext=True)
+ execute -> K2Node_IfThenElse_2 67C375BB4B8B8EC83F51AD8980FE55D9,
+ AIRudder = -0.800000
+ Output_Get = 0.0
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_FunctionEntry_0
+ FunctionReference=(MemberName="DebugSeaGeo")
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_VariableGet_1
+ VariableReference=(MemberName="CesiumGlobeAnchor",bSelfContext=True)
+ CesiumGlobeAnchor -> K2Node_CallFunction_0 97894F494C97B8B8E19DEBAA82F2799D,K2Node_VariableGet_3 A32C2E5B4960EB8948DE5BB4C44D642B,
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_CallFunction_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/CesiumRuntime.CesiumGlobeAnchorComponent'",MemberName="GetLongitudeLatitudeHeight")
+ self -> K2Node_VariableGet_1 1FD90F334F17013D0F5963A654A53688,
+ HeightReferenceOverride = None
+ ReturnValue -> K2Node_CallFunction_1 3CF7B6A24F99810F4D47C1B4C3270638, = 0
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_CallFunction_1
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.KismetMathLibrary'",MemberName="BreakVector")
+ self = /Script/Engine.Default__KismetMathLibrary
+ InVec -> K2Node_CallFunction_0 2D2E8D6A4328863A29A3F0B013CFBEFE, = 0
+ X = 0.0
+ Y = 0.0
+ Z = 0.0
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_VariableGet_2
+ VariableReference=(MemberName="DestinationActor",MemberGuid=1D290EF847CA878184ED459DA94F46E7,bSelfContext=True)
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_CallFunction_2
+ FunctionReference=(MemberName="K2_GetActorLocation",bSelfContext=True)
+ ReturnValue = 0
+
+BP_ShipEnemy/DebugSeaGeo/K2Node_VariableGet_3
+ VariableReference=(MemberParent="/Script/CoreUObject.Class'/Script/CesiumRuntime.CesiumGlobeAnchorComponent'",MemberName="ResolvedGeoreference")
+ self -> K2Node_VariableGet_1 1FD90F334F17013D0F5963A654A53688,
+
+BP_ShipEnemy/ReceiveTick/K2Node_FunctionEntry_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="ReceiveTick")
+ then -> K2Node_SetVariableOnPersistentFrame_0 5420B1904C3472BC95E6ED82CF979796,
+ DeltaSeconds -> K2Node_SetVariableOnPersistentFrame_0 294C926C4DB1B5895F879F92788F902B, = 0.0
+
+BP_ShipEnemy/ReceiveTick/K2Node_SetVariableOnPersistentFrame_0
+ execute -> K2Node_FunctionEntry_0 4E0190E34755D9BA5B545B9B9D278AD9,
+ then -> K2Node_CallFunction_0 89DF399F43946C28E7C329830DBA5CEF,
+ K2Node_Event_DeltaSeconds -> K2Node_FunctionEntry_0 29FA41534FA5AB8E327F2C91089C0632,
+
+BP_ShipEnemy/ReceiveTick/K2Node_CallFunction_0
+ FunctionReference=(MemberName="ExecuteUbergraph_BP_ShipEnemy",bSelfContext=True)
+ execute -> K2Node_SetVariableOnPersistentFrame_0 729BB0A445453603DCC59AB8749F25F8,
+ EntryPoint = 0
+
+BP_ShipEnemy/ReceiveBeginPlay/K2Node_FunctionEntry_0
+ FunctionReference=(MemberParent="/Script/CoreUObject.Class'/Script/Engine.Actor'",MemberName="ReceiveBeginPlay")
+ then -> K2Node_CallFunction_0 590C5A964C519457233EA286AA18778C,
+
+BP_ShipEnemy/ReceiveBeginPlay/K2Node_CallFunction_0
+ FunctionReference=(MemberName="ExecuteUbergraph_BP_ShipEnemy",bSelfContext=True)
+ execute -> K2Node_FunctionEntry_0 302FD9B147B56EB329EB49837E6A666E,
+ EntryPoint = 0

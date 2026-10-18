@@ -37,6 +37,9 @@ public:
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorA;
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorB;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolWaitSeconds = 2;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolStartupDelaySeconds = 0;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="0")) float SafeShipSeparationM = 300;
+    UPROPERTY(BlueprintReadOnly, Category="Status") bool bYieldingToShip=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m/s",ClampMin="0.1")) float CruiseSpeedMps = 12;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="10")) float ArrivalRadiusM = 60;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="20")) float MinimumTurnRadiusM = 250;
@@ -95,6 +98,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void StartPatrol();
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginRetreatFrom(AActor* Threat,float RetreatDistanceM);
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") void ReturnToPatrol();
+    UFUNCTION(BlueprintPure, Category="Navigation|Tactics") bool HasTacticalDestination() const { return bTacticalOverride; }
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector GeographicToWorld(FVector LLH) const;
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector WorldToGeographic(FVector WorldPosition) const;
     UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString InstallInEnemyBlueprint(bool bSave);
@@ -142,5 +148,8 @@ private:
     double LastPlanTime=-1000, LastSeenTime=-1000, LastShotTime=-1000, ArrivalTime=-1;
     int32 AvoidSide=0,RecoveryPhase=0,LastAvoidSide=0,AvoidSideChanges=0;
     bool bInitialized=false,bTargetB=true,bNeedsPlan=true,bHasGoal=false,bDead=false,bOriginChanged=false,bOwnsCommands=false,bExplicitStop=false;
+    bool bTacticalOverride=false;
+    FVector TacticalDestination=FVector::ZeroVector;
+    double PatrolReadyAt=0;
     FIntVector LastWorldOrigin=FIntVector::ZeroValue;
 };

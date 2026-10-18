@@ -1,4 +1,5 @@
 #include "ShipEnemyNavigationComponent.h"
+#include "ShipCombatComponent.h"
 #include "ShipEnemyProjectile.h"
 #include "CesiumGeoreference.h"
 #include "CesiumGlobeAnchorComponent.h"
@@ -354,7 +355,9 @@ void UShipEnemyNavigationComponent::UpdatePerception()
 }
 void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
 {
-    if(IsValid(DetectedPlayer) && Role!=EShipEnemyRole::Passive)
+    const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>();
+    const bool IndependentFighter=Role==EShipEnemyRole::Fighter && Combat && Combat->bEnableCombat;
+    if(IsValid(DetectedPlayer) && Role!=EShipEnemyRole::Passive && !IndependentFighter)
     {
         const FVector2D Player=Map->ToMetric(WorldToECEF(DetectedPlayer->GetActorLocation()));
         const FVector2D Away=(P-Player).GetSafeNormal();
@@ -551,7 +554,9 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
         if(Speed<0.5f)
         {
             if(ArrivalTime<0)ArrivalTime=Now;
-            if(NavigationMode==EShipNavigationMode::Patrol && (Role==EShipEnemyRole::Passive || !IsValid(DetectedPlayer)) && Now-ArrivalTime>=PatrolWaitSeconds)
+            const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>();
+            const bool IndependentFighter=Role==EShipEnemyRole::Fighter && Combat && Combat->bEnableCombat;
+            if(NavigationMode==EShipNavigationMode::Patrol && (IndependentFighter || Role==EShipEnemyRole::Passive || !IsValid(DetectedPlayer)) && Now-ArrivalTime>=PatrolWaitSeconds)
             {
                 if(bDrawDebug)UE_LOG(LogTemp,Display,TEXT("ShipNavigation ARRIVAL leg=%d target=%s distance=%.3fm speed=%.3fm/s switching=%s"),
                     PatrolLegsCompleted,*GetNameSafe(DestinationActor(this)),GoalDistance,Speed,bTargetB?TEXT("A"):TEXT("B"));
@@ -738,6 +743,9 @@ void UShipEnemyNavigationComponent::OnOwnerDamaged(AActor*,float Damage,const UD
 
 void UShipEnemyNavigationComponent::UpdateWeapon(float)
 {
+    // The shared BP weapon and independent animated turret own combat when installed.
+    // Preserve the legacy fallback only for actors without the new component.
+    if(GetOwner()->FindComponentByClass<UShipCombatComponent>())return;
     if(bDead || Role==EShipEnemyRole::Passive || Role==EShipEnemyRole::Coward || !IsValid(DetectedPlayer)){WeaponStatus=TEXT("No engagement");return;}
     if(!VisualMesh || !VisualMesh->DoesSocketExist(MuzzleSocket)){WeaponStatus=TEXT("Missing verified muzzle socket");return;}
     APawn* Pawn=Cast<APawn>(GetOwner());if(!Pawn)return;
