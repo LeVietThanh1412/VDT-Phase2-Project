@@ -1,4 +1,10 @@
 #include "ShipCombatComponent.h"
+#include "ShipProjectileDamageComponent.h"
+#include "NavalBattleUI.h"
+#include "Components/WidgetComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystem.h"
+#include "TimerManager.h"
 #include "ShipEnemyNavigationComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Components/PrimitiveComponent.h"
@@ -7,6 +13,7 @@
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/Pawn.h"
+#include "GameFramework/PlayerController.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "DrawDebugHelpers.h"
@@ -37,6 +44,91 @@ FVector VelocityOf(AActor* Ship)
 }
 
 UShipWeaponComponent::UShipWeaponComponent(){PrimaryComponentTick.bCanEverTick=false;}
+void UShipWeaponComponent::BeginPlay()
+{
+    Super::BeginPlay();CurrentHealth=FMath::Max(1.f,MaxHealth);bIsDestroyed=false;
+    GetOwner()->OnTakeAnyDamage.AddUniqueDynamic(this,&UShipWeaponComponent::OnDamaged);
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RegisterShip(this);
+    GetWorld()->GetTimerManager().SetTimer(PresentationTimer,this,&UShipWeaponComponent::UpdatePresentation,.5f,true);
+}
+void UShipWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
+{
+    GetWorld()->GetTimerManager().ClearTimer(PresentationTimer);
+    GetOwner()->OnTakeAnyDamage.RemoveAll(this);Super::EndPlay(Reason);
+}
+int32 UShipWeaponComponent::Team() const
+{if(const auto* C=GetOwner()->FindComponentByClass<UShipCombatComponent>())return C->Faction;return Faction;}
+void UShipWeaponComponent::OnDamaged(AActor*,float Damage,const UDamageType*,AController*,AActor* Causer)
+{ReceiveShipDamage(Damage,Causer);}
+bool UShipWeaponComponent::ReceiveShipDamage(float Damage,AActor* Causer)
+{
+    if(bIsDestroyed || !FMath::IsFinite(Damage) || Damage<=0 || !IsValid(Causer))return false;
+    auto* Round=Causer->FindComponentByClass<UShipProjectileDamageComponent>();
+    AActor* Source=Round?Round->SourceShip.Get():Causer;
+    if(!Round && !Causer->FindComponentByClass<UShipWeaponComponent>())Source=Causer->GetOwner();
+    auto* SourceWeapon=Source?Source->FindComponentByClass<UShipWeaponComponent>():nullptr;
+    const int32 SourceTeam=Round?Round->SourceTeam:SourceWeapon?SourceWeapon->Team():2;
+    // Final, non-bypassable faction guard. Neutral and unknown sources are inert.
+    // Cached projectile affiliation survives source-ship cleanup, including splash.
+    if(Source==GetOwner() || SourceTeam==Team() || SourceTeam<0 || SourceTeam>1 || Team()<0 || Team()>1)
+    {++RejectedTeamHits;return false;}
+    if(Round && !Round->ClaimVictim(GetOwner()))return false;
+    CurrentHealth=FMath::Clamp(CurrentHealth-Damage,0.f,FMath::Max(1.f,MaxHealth));++AcceptedDamageEvents;
+    if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>())N->Health=CurrentHealth;
+    UE_LOG(LogTemp,Display,TEXT("ShipBattle damage ship=%s team=%d sourceTeam=%d hp=%.1f damage=%.1f projectile=%s"),*GetNameSafe(GetOwner()),Team(),SourceTeam,CurrentHealth,Damage,*GetNameSafe(Causer));
+    if(CurrentHealth<=0)
+    {
+        bIsDestroyed=true;++DestructionEvents;GetOwner()->Tags.AddUnique(TEXT("Dead"));SetCanShoot(GetOwner(),false);
+        if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>()){N->StopNavigation();N->SetDriveCommand(0,0);}
+        if(auto* C=GetOwner()->FindComponentByClass<UShipCombatComponent>()){C->bEnableCombat=false;C->Target=nullptr;C->SetComponentTickEnabled(false);}
+        if(auto* Pawn=Cast<APawn>(GetOwner()))if(auto* PC=Cast<APlayerController>(Pawn->GetController()))
+        {GetOwner()->DisableInput(PC);PC->SetIgnoreMoveInput(true);PC->SetIgnoreLookInput(true);}
+        GetOwner()->SetActorTickEnabled(false);
+        // Stop buoyancy, then let the existing hull physics sink the wreck.
+        TArray<UActorComponent*> Components;GetOwner()->GetComponents(Components);
+        for(auto* C:Components)if(C->GetClass()->GetName().Contains(TEXT("Buoyancy"))){C->Deactivate();C->SetComponentTickEnabled(false);}
+        if(auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner()))
+        {Hull->SetPhysicsLinearVelocity(FVector(0,0,-150));Hull->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);}
+        if(HealthWidget)HealthWidget->SetVisibility(false);
+        if(auto* FX=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Ship/Assets/MsvFx_Niagara_Explosion_Pack_01/Prefabs/Niagara_Dust_Explosion_01.Niagara_Dust_Explosion_01")))
+            UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,FX,UShipCombatComponent::PhysicalHull(GetOwner())->Bounds.Origin,FRotator::ZeroRotator,FVector(12),true,true,ENCPoolMethod::None,false);
+        // Keep the player's inert camera/pawn as a spectator anchor. No respawn.
+        auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn || !Pawn->IsPlayerControlled())GetOwner()->SetLifeSpan(FMath::Max(2.f,DestructionDelaySeconds));
+        if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);
+        OnShipDestroyed.Broadcast(this,Source);
+        UE_LOG(LogTemp,Display,TEXT("ShipBattle destroyed ship=%s team=%d attacker=%s event=%d"),*GetNameSafe(GetOwner()),Team(),*GetNameSafe(Source),DestructionEvents);
+    }
+    OnHealthChanged.Broadcast(this,CurrentHealth,MaxHealth);RefreshHealthUI();return true;
+}
+void UShipWeaponComponent::RefreshHealthUI()
+{
+    if(HealthWidget)if(auto* Widget=Cast<UShipHealthBarWidget>(HealthWidget->GetUserWidgetObject()))Widget->Refresh(this);
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
+}
+void UShipWeaponComponent::UpdatePresentation()
+{
+    auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn)return;
+    if(Pawn->IsPlayerControlled())
+    {
+        if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->EnsureHUD();
+        GetWorld()->GetTimerManager().ClearTimer(PresentationTimer);return;
+    }
+    if(!HealthWidget && !bIsDestroyed)
+    {
+        auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner());if(!Hull)return;
+        HealthWidget=NewObject<UWidgetComponent>(GetOwner(),TEXT("BattleHealthBar"));GetOwner()->AddInstanceComponent(HealthWidget);
+        HealthWidget->SetupAttachment(Hull);HealthWidget->SetWidgetSpace(EWidgetSpace::Screen);HealthWidget->SetDrawSize(FVector2D(180,48));
+        UClass* Class=LoadClass<UShipHealthBarWidget>(nullptr,TEXT("/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar_C"));
+        HealthWidget->SetWidgetClass(Class?Class:UShipHealthBarWidget::StaticClass());HealthWidget->RegisterComponent();
+        HealthWidget->SetRelativeLocation(Hull->GetComponentTransform().InverseTransformPosition(Hull->Bounds.Origin+FVector(0,0,Hull->Bounds.BoxExtent.Z+1500)));
+        HealthWidget->InitWidget();RefreshHealthUI();
+    }
+    if(HealthWidget)
+    {
+        auto* PC=UGameplayStatics::GetPlayerController(this,0);FVector Eye;FRotator Rotation;if(PC)PC->GetPlayerViewPoint(Eye,Rotation);
+        HealthWidget->SetVisibility(!bIsDestroyed && PC && FVector::DistSquared(Eye,HealthWidget->GetComponentLocation())<FMath::Square(220000.f));
+    }
+}
 USkeletalMeshComponent* UShipWeaponComponent::Mesh() const
 {
     TArray<USkeletalMeshComponent*> Components;GetOwner()->GetComponents(Components);
@@ -57,6 +149,7 @@ bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FV
     RejectionReason.Empty();
     USkeletalMeshComponent* Visual=Mesh();
     if(!Visual || !Visual->DoesSocketExist(MuzzleSocket)){RejectionReason=TEXT("Missing muzzle");return false;}
+    if(bIsDestroyed){RejectionReason=TEXT("Destroyed");return false;}
     if(bDispatching || CooldownRemaining()>0 || !CanShoot(GetOwner())){RejectionReason=TEXT("Cooldown/recoil");return false;}
     FVector Launch=OptionalLaunchVelocity;
     const FVector Start=Visual->GetSocketLocation(MuzzleSocket);
@@ -90,6 +183,7 @@ void UShipWeaponComponent::FinishShot(AActor* Projectile)
 {
     if(!IsValid(Projectile))return;
     Projectile->SetOwner(GetOwner());Projectile->SetInstigator(Cast<APawn>(GetOwner()));
+    if(auto* Round=Projectile->FindComponentByClass<UShipProjectileDamageComponent>())Round->InitializeSource(GetOwner());
     TArray<UPrimitiveComponent*> Own,Shell;GetOwner()->GetComponents(Own);Projectile->GetComponents(Shell);
     for(auto* C:Shell){C->IgnoreActorWhenMoving(GetOwner(),true);for(auto* O:Own)C->IgnoreComponentWhenMoving(O,true);}
     if(auto* Movement=Projectile->FindComponentByClass<UProjectileMovementComponent>())
@@ -99,7 +193,10 @@ void UShipWeaponComponent::FinishShot(AActor* Projectile)
         Movement->Velocity=LastLaunchVelocity;Movement->UpdateComponentVelocity();
         Movement->OnProjectileStop.AddUniqueDynamic(this,&UShipWeaponComponent::OnProjectileStop);
     }
-    Projectile->SetLifeSpan(45);LastShotTime=GetWorld()->GetTimeSeconds();LastProjectile=Projectile;++ShotsFired;
+    // Bound AI rounds to the configured battle scale; keep player lifetime unchanged.
+    if(const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>())
+        Projectile->SetLifeSpan(FMath::Clamp(Combat->EngagementRadiusM*100/FMath::Max(1.f,MuzzleSpeedCmps)*1.3f+.5f,1.f,30.f));
+    LastShotTime=GetWorld()->GetTimeSeconds();LastProjectile=Projectile;++ShotsFired;
     UE_LOG(LogTemp,Display,TEXT("ShipWeapon shot=%d ship=%s projectile=%s muzzle=%s launch=%s owner=%s instigator=%s"),
         ShotsFired,*GetNameSafe(GetOwner()),*GetNameSafe(Projectile),*LastMuzzle.ToString(),*LastLaunchVelocity.ToString(),*GetNameSafe(Projectile->GetOwner()),*GetNameSafe(Projectile->GetInstigator()));
 }
@@ -123,6 +220,7 @@ void UShipCombatComponent::BeginPlay()
 {
     Super::BeginPlay();Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>();
     Navigation=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>();Visual=Weapon?Weapon->Mesh():nullptr;
+    if(Navigation && Weapon)Navigation->Health=Weapon->CurrentHealth;
     if(Visual && Visual->GetSkeletalMeshAsset())
     {
         // Verified existing graph applies pitch about component Y, then parent yaw
@@ -140,24 +238,27 @@ FVector UShipCombatComponent::AimPoint(AActor* Ship) const
 bool UShipCombatComponent::IsHostile(AActor* Candidate) const
 {
     if(!IsValid(Candidate) || Candidate==GetOwner() || Candidate->IsActorBeingDestroyed() || Candidate->ActorHasTag(TEXT("Dead")))return false;
-    if(const auto* N=Candidate->FindComponentByClass<UShipEnemyNavigationComponent>())if(N->Health<=0)return false;
-    if(const auto* C=Candidate->FindComponentByClass<UShipCombatComponent>())return C->Faction!=Faction;
-    if(const auto* W=Candidate->FindComponentByClass<UShipWeaponComponent>())return W->Faction!=Faction;
+    if(Faction==2)return false;
+    if(const auto* W=Candidate->FindComponentByClass<UShipWeaponComponent>())return !W->bIsDestroyed && W->Team()!=Faction && W->Team()!=2;
     return false;
 }
 bool UShipCombatComponent::Visible(AActor* Candidate) const
 {
     if(!Visual || !Candidate)return false;
     FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipCombatLOS),true,GetOwner());IgnoreWater(GetWorld(),Q);
-    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Visual->GetSocketLocation(Weapon->MuzzleSocket),AimPoint(Candidate),ECC_Visibility,Q) || Hit.GetActor()==Candidate;
+    const FVector Start=Visual->GetSocketLocation(Weapon->MuzzleSocket),Delta=AimPoint(Candidate)-Start;
+    const float Limit=FMath::Max(DetectionRadiusM,EngagementRadiusM)*100;
+    if(Delta.Size()>Limit)return false;
+    FHitResult Hit;return !GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Delta.GetClampedToMaxSize(Limit),ECC_Visibility,Q) || Hit.GetActor()==Candidate;
 }
 void UShipCombatComponent::ScanTargets()
 {
     if(!Weapon || !Visual)return;
     const FVector Origin=PhysicalHull(GetOwner())?PhysicalHull(GetOwner())->GetComponentLocation():GetOwner()->GetActorLocation();
-    if(IsHostile(Target) && FVector::Distance(Origin,AimPoint(Target))<=LoseTargetRadiusM*100)
-    {bTargetVisible=Visible(Target);return;}
-    Target=nullptr;bTargetVisible=false;double Best=DBL_MAX;
+    AActor* Previous=Target;
+    const bool Retain=IsHostile(Target) && FVector::Distance(Origin,AimPoint(Target))<=FMath::Max(LoseTargetRadiusM,DetectionRadiusM)*100;
+    if(Retain && Visible(Target)){bTargetVisible=true;return;}
+    Target=Retain?Target:nullptr;bTargetVisible=false;double Best=DBL_MAX;
     for(TActorIterator<APawn> I(GetWorld());I;++I)
     {
         if(!IsHostile(*I))continue;
@@ -166,6 +267,34 @@ void UShipCombatComponent::ScanTargets()
         if(bRequireLineOfSight && !Visible(*I))continue;
         Target=*I;Best=Distance;bTargetVisible=true;
     }
+    if(Target!=Previous)UE_LOG(LogTemp,Display,TEXT("ShipBattle target ship=%s team=%d old=%s new=%s"),*GetNameSafe(GetOwner()),Faction,*GetNameSafe(Previous),*GetNameSafe(Target));
+}
+void UShipCombatComponent::UpdateTactics()
+{
+    const double Now=GetWorld()->GetTimeSeconds();
+    const bool Valid=IsHostile(Target),Engage=Valid && DistanceToTargetM<=EngagementRadiusM;
+    auto Change=[&](EShipTacticalState State)
+    {
+        if(State==TacticalState)return;
+        UE_LOG(LogTemp,Display,TEXT("ShipBattle state ship=%s team=%d from=%s to=%s range=%.1f"),*GetNameSafe(GetOwner()),Faction,*UEnum::GetValueAsString(TacticalState),*UEnum::GetValueAsString(State),DistanceToTargetM);
+        TacticalState=State;StateSince=Now;
+    };
+    if(!bEnableHitAndRun || !bEnableCombat || Weapon->bIsDestroyed || Navigation->Role==EShipEnemyRole::Passive)
+    {if(Navigation->HasTacticalDestination())Navigation->ReturnToPatrol();Change(EShipTacticalState::Patrol);return;}
+    if(TacticalState==EShipTacticalState::Retreat)
+    {
+        if((Now-StateSince>=MinimumRetreatSeconds && (!Valid || DistanceToTargetM>=FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100))) || Now-StateSince>=FMath::Max(MaximumRetreatSeconds,MinimumRetreatSeconds))
+        {Navigation->ReturnToPatrol();++PatrolsResumed;LastRetreatEnded=Now;Change(EShipTacticalState::ReturnToPatrol);}
+        return;
+    }
+    if(TacticalState==EShipTacticalState::ReturnToPatrol)
+    {if(Now-StateSince>=3)Change(Engage?EShipTacticalState::Engage:EShipTacticalState::Patrol);return;}
+    if(Valid && DistanceToTargetM<MinimumRetreatDistanceM && Now-LastRetreatEnded>=RetreatCooldownSeconds)
+    {
+        if(Navigation->BeginRetreatFrom(Target,FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100)))
+        {++RetreatsStarted;Change(EShipTacticalState::Retreat);return;}
+    }
+    if(Now-StateSince>=3)Change(Engage?EShipTacticalState::Engage:EShipTacticalState::Patrol);
 }
 bool UShipCombatComponent::Solve(FVector Start,FVector Aim,FVector Velocity,FVector& Launch,FVector& Intercept) const
 {
@@ -199,6 +328,7 @@ bool UShipCombatComponent::ClearArc(FVector Start,FVector Launch,float Flight,FS
     for(int32 I=1;I<=Steps;++I)
     {
         const double T=Flight*I/Steps;const FVector Next=Start+Launch*T+FVector(0,0,.5*GetWorld()->GetGravityZ()*T*T);
+        if(bDrawDebug)DrawDebugLine(GetWorld(),Previous,Next,FColor::Cyan,false,.15f,0,3);
         FHitResult Hit;
         if(GetWorld()->SweepSingleByChannel(Hit,Previous,Next,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(12.5),Q))
         {
@@ -226,7 +356,7 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
     Super::TickComponent(Dt,Type,Tick);
     bHasFiringSolution=false;CooldownSecondsRemaining=FMath::Max(0.,LastFire+FireCooldownSeconds-GetWorld()->GetTimeSeconds());
     if(!Weapon || !Visual || !Navigation || !bVerifiedAxes){FiringStatus=TEXT("Missing verified shared weapon/animation binding");return;}
-    const bool Alive=Navigation->Health>0;
+    const bool Alive=!Weapon->bIsDestroyed;
     const bool CanEngage=bEnableCombat && Alive && Navigation->Role!=EShipEnemyRole::Passive;
     ScanClock+=Dt;if(CanEngage && ScanClock>=FMath::Max(.05f,TargetScanInterval)){ScanClock=0;ScanTargets();}
     if(!CanEngage){Target=nullptr;FiringStatus=Alive?TEXT("Disabled/passive"):TEXT("Dead");}
@@ -246,6 +376,7 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
         else FiringStatus=TEXT("No ballistic intercept at original projectile speed");
     }
     else{Target=nullptr;DistanceToTargetM=0;DesiredTurretYaw=0;DesiredBarrelPitch=0;if(CanEngage)FiringStatus=TEXT("No hostile target");}
+    UpdateTactics();
     const float YawGoal=FMath::Clamp(DesiredTurretYaw,MinTurretYaw,MaxTurretYaw),PitchGoal=FMath::Clamp(DesiredBarrelPitch,MinBarrelElevation,MaxBarrelElevation);
     // This bounded mechanical arc cannot wrap through the forbidden rear sector.
     TurretYaw=FMath::FInterpConstantTo(TurretYaw,YawGoal,Dt,FMath::Max(0.f,TurretYawSpeedDegPerSec));
@@ -279,11 +410,16 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
     {
         DrawDebugLine(GetWorld(),Start,Start+Visual->GetSocketRotation(Weapon->MuzzleSocket).Vector()*10000,FColor::Green,false,0,0,15);
         if(Target){DrawDebugLine(GetWorld(),Start,PredictedIntercept,FColor::Orange,false,0,0,10);DrawDebugSphere(GetWorld(),PredictedIntercept,500,12,FColor::Red,false,0);}
-        DrawDebugString(GetWorld(),Start+FVector(0,0,1200),FString::Printf(TEXT("Combat %s | %s %.0fm | yaw %.1f/%.1f pitch %.1f/%.1f | shots %d hits %d | %s"),
-            *UEnum::GetValueAsString(Navigation->Role),*GetNameSafe(Target),DistanceToTargetM,TurretYaw,DesiredTurretYaw,BarrelPitch,DesiredBarrelPitch,Weapon->ShotsFired,Weapon->Hits,*FiringStatus),nullptr,FColor::White,0);
+        const FColor TeamColor=Faction==0?FColor::Blue:FColor::Red;
+        DrawDebugString(GetWorld(),Start+FVector(0,0,1200),FString::Printf(TEXT("Team %s | %s | HP %.0f | %s %.0fm | yaw %.1f/%.1f pitch %.1f/%.1f | shots %d hits %d | %s"),
+            Faction==0?TEXT("BLUE"):TEXT("RED"),*UEnum::GetValueAsString(TacticalState),Weapon->CurrentHealth,*GetNameSafe(Target),DistanceToTargetM,TurretYaw,DesiredTurretYaw,BarrelPitch,DesiredBarrelPitch,Weapon->ShotsFired,Weapon->Hits,*FiringStatus),nullptr,TeamColor,0);
         if(GetWorld()->GetTimeSeconds()-LastLog>=2)
         {
             LastLog=GetWorld()->GetTimeSeconds();
+            const FVector X=Visual->GetForwardVector(),Y=Visual->GetRightVector();
+            DrawDebugCircle(GetWorld(),Start,DetectionRadiusM*100,64,TeamColor,false,2.05,0,4,X,Y,false);
+            DrawDebugCircle(GetWorld(),Start,EngagementRadiusM*100,64,FColor::Orange,false,2.05,0,4,X,Y,false);
+            DrawDebugCircle(GetWorld(),Start,MinimumRetreatDistanceM*100,32,FColor::Yellow,false,2.05,0,4,X,Y,false);
             UE_LOG(LogTemp,Display,TEXT("ShipCombat role=%s nav=%s waypoint=%d target=%s range=%.1fm yaw=%.2f/%.2f pitch=%.2f/%.2f shots=%d hits=%d status=%s"),
                 *UEnum::GetValueAsString(Navigation->Role),*UEnum::GetValueAsString(Navigation->NavigationState),Navigation->CurrentWaypointIndex,*GetNameSafe(Target),DistanceToTargetM,TurretYaw,DesiredTurretYaw,BarrelPitch,DesiredBarrelPitch,Weapon->ShotsFired,Weapon->Hits,*FiringStatus);
         }
@@ -293,4 +429,22 @@ FRotator UShipCombatLibrary::SelectGunAim(APawn* Ship,FRotator ManualAim)
 {
     if(Ship && !Ship->IsPlayerControlled())if(const auto* C=Ship->FindComponentByClass<UShipCombatComponent>())return FRotator(C->BarrelPitch,C->TurretYaw,0);
     return ManualAim;
+}
+
+void UShipCombatLibrary::ApplyProjectileImpact(AActor* Projectile,FHitResult Impact)
+{
+    if(!IsValid(Projectile))return;
+    auto* Round=Projectile->FindComponentByClass<UShipProjectileDamageComponent>();if(!Round || Round->bImpacted)return;
+    Round->bImpacted=true;Round->InitializeSource(Projectile->GetOwner());
+    // A direct hull hit always delivers one full hit, even if visibility/splash
+    // traces start inside its collision. Nearby hulls share the same final guard.
+    if(auto* Hit=Impact.GetActor())if(auto* W=Hit->FindComponentByClass<UShipWeaponComponent>())W->ReceiveShipDamage(Round->ProjectileDamage,Projectile);
+    for(TActorIterator<APawn> I(Projectile->GetWorld());I;++I)
+    {
+        if(*I==Impact.GetActor())continue;auto* W=I->FindComponentByClass<UShipWeaponComponent>();auto* Hull=UShipCombatComponent::PhysicalHull(*I);
+        if(!W || !Hull || FVector::Distance(Hull->Bounds.Origin,Impact.ImpactPoint)>Round->SplashRadiusCm+Hull->Bounds.SphereRadius)continue;
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipSplash),true,Projectile);Q.AddIgnoredActor(Projectile->GetOwner());FHitResult Hit;
+        if(!Projectile->GetWorld()->LineTraceSingleByChannel(Hit,Impact.ImpactPoint,Hull->Bounds.Origin,ECC_Visibility,Q) || Hit.GetActor()==*I)
+            W->ReceiveShipDamage(Round->ProjectileDamage,Projectile);
+    }
 }

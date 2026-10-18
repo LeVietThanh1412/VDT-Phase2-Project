@@ -9,6 +9,11 @@ class USkeletalMeshComponent;
 class UPrimitiveComponent;
 class UProjectileMovementComponent;
 class UShipEnemyNavigationComponent;
+class UWidgetComponent;
+class UShipWeaponComponent;
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FShipHealthChanged,UShipWeaponComponent*,Ship,float,Current,float,Maximum);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FShipDestroyed,UShipWeaponComponent*,Ship,AActor*,Attacker);
 
 UENUM(BlueprintType)
 enum class EShipTacticalState : uint8 { Patrol, Engage, Retreat, ReturnToPatrol };
@@ -24,9 +29,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float ShotCooldownSeconds=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") int32 Faction=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") FName MuzzleSocket=TEXT("front_gun_v_socket");
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health",meta=(ClampMin="1")) float MaxHealth=500000;
-    UPROPERTY(BlueprintReadOnly, Category="Health") float CurrentHealth=500000;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health",meta=(ClampMin="1")) float MaxHealth=100;
+    UPROPERTY(BlueprintReadOnly, Category="Health") float CurrentHealth=100;
     UPROPERTY(BlueprintReadOnly, Category="Health") bool bIsDestroyed=false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") float DestructionDelaySeconds=7;
+    UPROPERTY(BlueprintAssignable, Category="Health") FShipHealthChanged OnHealthChanged;
+    UPROPERTY(BlueprintAssignable, Category="Health") FShipDestroyed OnShipDestroyed;
+    UPROPERTY(BlueprintReadOnly, Category="Health") int32 DestructionEvents=0;
+    UPROPERTY(BlueprintReadOnly, Category="Health") int32 AcceptedDamageEvents=0;
+    UPROPERTY(BlueprintReadOnly, Category="Health") int32 RejectedTeamHits=0;
+    UPROPERTY(BlueprintReadOnly, Category="Health") TObjectPtr<UWidgetComponent> HealthWidget;
+    /** Single final damage authority, shared by manual player fire, AI and splash. */
+    UFUNCTION(BlueprintCallable, Category="Health") bool ReceiveShipDamage(float Damage,AActor* Causer);
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") int32 ShotsFired=0;
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") int32 Hits=0;
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") TObjectPtr<AActor> LastProjectile;
@@ -43,11 +57,15 @@ public:
     USkeletalMeshComponent* Mesh() const;
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     UFUNCTION() void OnProjectileStop(const FHitResult& Hit);
     UFUNCTION() void OnDamaged(AActor* Actor,float Damage,const class UDamageType* Type,class AController* Instigator,AActor* Causer);
 private:
     double LastShotTime=-1000;
     bool bDispatching=false;
+    FTimerHandle PresentationTimer;
+    void UpdatePresentation();
+    void RefreshHealthUI();
 };
 
 /** Independent gun controller. Never writes ControlRotation, transforms, throttle, or rudder. */
@@ -128,4 +146,7 @@ public:
     /** Player input is returned unchanged; AI angles feed the SAME two existing bone nodes. */
     UFUNCTION(BlueprintPure, Category="Combat") static FRotator SelectGunAim(APawn* Ship,FRotator ManualAim);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallCombatIntegration();
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallBattlePresentation();
+    /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */
+    UFUNCTION(BlueprintCallable, Category="Combat") static void ApplyProjectileImpact(AActor* Projectile,FHitResult Impact);
 };

@@ -8,12 +8,12 @@ public class VDTPhase2Project : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "CesiumRuntime", "AIModule" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "CesiumRuntime", "AIModule", "UMG" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities", "Slate", "SlateCore", "Niagara" });
 		if (Target.bBuildEditor)
 		{
-			PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "BlueprintGraph", "KismetCompiler" });
+			PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "BlueprintGraph", "KismetCompiler", "UMGEditor" });
 		}
 		// Compact offline regional map is staged into packaged games; no gameplay network service.
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/halong_navigation.json", StagedFileType.UFS);

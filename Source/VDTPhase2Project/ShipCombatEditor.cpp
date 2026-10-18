@@ -1,5 +1,10 @@
 #include "ShipCombatComponent.h"
+#include "ShipProjectileDamageComponent.h"
+#include "NavalBattleUI.h"
 #if WITH_EDITOR
+#include "WidgetBlueprint.h"
+#include "Blueprint/WidgetBlueprintGeneratedClass.h"
+#include "Blueprint/WidgetTree.h"
 #include "Engine/Blueprint.h"
 #include "Engine/SimpleConstructionScript.h"
 #include "Engine/SCS_Node.h"
@@ -25,6 +30,7 @@ UK2Node_CallFunction* Call(UEdGraph* G,UClass* Class,FName Function,int32 X,int3
     auto* N=NewObject<UK2Node_CallFunction>(G);G->AddNode(N,false,false);N->SetFromFunction(Class->FindFunctionByName(Function));
     N->CreateNewGuid();N->AllocateDefaultPins();N->NodePosX=X;N->NodePosY=Y;return N;
 }
+
 UK2Node_VariableGet* Get(UEdGraph* G,FName Property,int32 X,int32 Y)
 {
     auto* N=NewObject<UK2Node_VariableGet>(G);G->AddNode(N,false,false);N->VariableReference.SetSelfMember(Property);
@@ -106,5 +112,46 @@ FString UShipCombatLibrary::InstallCombatIntegration()
     return TEXT("OK: shared original BP spawn/FX/recoil graph installed; manual aim preserved; AI angle selection installed; all three Blueprints compiled and saved");
 #else
     return TEXT("ERROR: editor operation");
+#endif
+}
+
+FString UShipCombatLibrary::InstallBattlePresentation()
+{
+#if WITH_EDITOR
+    for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile"),TEXT("/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed")})
+    {
+        auto* BP=LoadObject<UBlueprint>(nullptr,Path);if(!BP)return TEXT("ERROR: projectile missing");
+        BP->Modify();Component(BP,UShipProjectileDamageComponent::StaticClass(),TEXT("TeamDamage"));
+        auto* G=FBlueprintEditorUtils::FindEventGraph(BP);auto* Old=Node(G,TEXT("K2Node_CallFunction_1"));
+        bool Installed=false;
+        for(UEdGraphNode* N:G->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))if(C->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,ApplyProjectileImpact))Installed=true;
+        if(!Installed)
+        {
+            if(!Old)return TEXT("ERROR: expected original radial damage node missing");
+            auto* Impact=Call(G,UShipCombatLibrary::StaticClass(),GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,ApplyProjectileImpact),Old->NodePosX,Old->NodePosY+240);
+            auto* Schema=GetDefault<UEdGraphSchema_K2>();bool OK=true;
+            auto Wire=[&](UEdGraphPin* A,UEdGraphPin* B){if(!A || !B){OK=false;return;}OK &= Schema->TryCreateConnection(A,B);};
+            auto* Input=Old->FindPin(TEXT("execute"));auto* Output=Old->FindPin(TEXT("then"));const auto Inputs=Input->LinkedTo;const auto Outputs=Output->LinkedTo;
+            Input->BreakAllPinLinks();Output->BreakAllPinLinks();for(auto* P:Inputs)Wire(P,Impact->GetExecPin());for(auto* P:Outputs)Wire(Impact->GetThenPin(),P);
+            auto* Self=Node(G,TEXT("K2Node_Self_0"));auto* Hit=Node(G,TEXT("K2Node_ComponentBoundEvent_0"));
+            Wire(Self?Self->FindPin(TEXT("self")):nullptr,Impact->FindPin(TEXT("Projectile")));
+            Wire(Hit?Hit->FindPin(TEXT("ImpactResult")):nullptr,Impact->FindPin(TEXT("Impact")));
+            // Unused old radial node is removed to prevent accidental unfiltered AOE.
+            FBlueprintEditorUtils::RemoveNode(BP,Old,true);
+            if(!OK)return TEXT("ERROR: projectile impact wiring");
+        }
+        if(!Compile(BP) || !Save(BP))return TEXT("ERROR: projectile compile/save");
+    }
+    struct FWidgetDefinition {const TCHAR* Name;UClass* Parent;};
+    for(auto D:{FWidgetDefinition{TEXT("WBP_ShipHUD"),UShipHUDWidget::StaticClass()},FWidgetDefinition{TEXT("WBP_ShipHealthBar"),UShipHealthBarWidget::StaticClass()}})
+    {
+        FString PackageName=FString(TEXT("/Game/NavalBattle/UI/"))+D.Name;
+        auto* BP=LoadObject<UBlueprint>(nullptr,*(PackageName+TEXT(".")+D.Name));
+        if(!BP)BP=FKismetEditorUtilities::CreateBlueprint(D.Parent,CreatePackage(*PackageName),FName(D.Name),BPTYPE_Normal,UWidgetBlueprint::StaticClass(),UWidgetBlueprintGeneratedClass::StaticClass(),TEXT("NavalBattle"));
+        if(!BP || !Compile(BP) || !Save(BP))return TEXT("ERROR: widget compile/save");
+    }
+    return TEXT("OK: both original projectiles use cached team damage; WBP_ShipHUD and WBP_ShipHealthBar compiled and saved");
+#else
+    return TEXT("ERROR: editor required");
 #endif
 }
