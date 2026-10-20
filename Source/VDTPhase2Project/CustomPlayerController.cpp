@@ -92,17 +92,31 @@ void ACustomPlayerController::CycleShipCamera()
         return Left.GetPathName() < Right.GetPathName();
     });
 
-    if (ShipPawns.IsEmpty())
+    if (ShipPawns.Num() == 0)
     {
         return;
     }
 
-    const int32 CurrentIndex = ShipPawns.IndexOfByKey(Cast<APawn>(CurrentShip));
-    const int32 NextIndex = CurrentIndex == INDEX_NONE ? 0 : (CurrentIndex + 1) % ShipPawns.Num();
-    APawn* NextShip = ShipPawns[NextIndex];
-    if (!IsValid(NextShip) || NextShip == CurrentShip)
+    APawn* NextShip = nullptr;
+    if (ShipPawns.Num() == 1)
     {
-        return;
+        // Only one ship exists: Q has no target to cycle to, but it must still pull the
+        // camera back out of free camera and onto that ship.
+        NextShip = ShipPawns[0];
+        if (!IsValid(FreeCameraPawn))
+        {
+            return;
+        }
+    }
+    else
+    {
+        const int32 CurrentIndex = ShipPawns.IndexOfByKey(CurrentShip);
+        const int32 NextIndex = CurrentIndex == INDEX_NONE ? 0 : (CurrentIndex + 1) % ShipPawns.Num();
+        NextShip = ShipPawns[NextIndex];
+        if (!IsValid(NextShip) || NextShip == CurrentShip)
+        {
+            return;
+        }
     }
 
     if (IsValid(FreeCameraPawn))

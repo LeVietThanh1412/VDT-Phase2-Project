@@ -274,7 +274,9 @@ void UShipDetailsUI::UpdateDetails()
         return;
     }
 
-    ShipNameText->SetText(FText::FromString(MakeShipDisplayName(Ship->GetActorNameOrLabel())));
+    // GetName() (not GetActorNameOrLabel()) keeps the editor label from overriding the
+    // engine name, so "BP_Ship_C_0" always resolves to "ShipC0" in both editor and packaged builds.
+    ShipNameText->SetText(FText::FromString(MakeShipDisplayName(Ship->GetName())));
 
     FVector GeographicCoordinates = Ship->GetActorLocation();
     ACesiumGeoreference* Georeference = nullptr;
