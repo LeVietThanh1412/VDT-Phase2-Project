@@ -19,7 +19,9 @@ public:
     UPROPERTY(BlueprintReadOnly) FLinearColor HealthColor=FLinearColor::Green;
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
+    virtual void NativeConstruct() override;
 private:
+    UPROPERTY(Transient) TObjectPtr<UShipWeaponComponent> BoundShip;
     UPROPERTY(Transient) TObjectPtr<UProgressBar> Bar;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Label;
 };

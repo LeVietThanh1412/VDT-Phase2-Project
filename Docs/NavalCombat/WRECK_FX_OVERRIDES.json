@@ -1,0 +1,59 @@
+{
+  "Constants.AftVentFire.SpawnRate.Spawn Probability": [
+    1
+  ],
+  "Constants.AftVentFire.SpawnRate.SpawnRate": [
+    18
+  ],
+  "Constants.AftVentFire.InitializeParticle.Lifetime Min": [
+    1.2
+  ],
+  "Constants.AftVentFire.InitializeParticle.Lifetime Max": [
+    2.5
+  ],
+  "Constants.AftVentFire.InitializeParticle.Uniform Sprite Size Min": [
+    600
+  ],
+  "Constants.AftVentFire.InitializeParticle.Uniform Sprite Size Max": [
+    1000
+  ],
+  "Constants.AftVentFire.StaticMeshLocation.Normal Offset": [
+    150
+  ],
+  "Constants.BodySmoke.SpawnRate.Spawn Probability": [
+    1
+  ],
+  "Constants.BodySmoke.SpawnRate.SpawnRate": [
+    35
+  ],
+  "Constants.BodySmoke.InitializeParticle.Lifetime Min": [
+    4
+  ],
+  "Constants.BodySmoke.InitializeParticle.Lifetime Max": [
+    7
+  ],
+  "Constants.BodySmoke.InitializeParticle.Uniform Sprite Size Min": [
+    600
+  ],
+  "Constants.BodySmoke.InitializeParticle.Uniform Sprite Size Max": [
+    1200
+  ],
+  "Constants.BodySmoke.RandomRangeLinearColor.Minimum": [
+    0.02,
+    0.02,
+    0.02,
+    0.75
+  ],
+  "Constants.BodySmoke.RandomRangeLinearColor.Maximum": [
+    0.07,
+    0.07,
+    0.07,
+    0.85
+  ],
+  "Constants.BodySmoke.StaticMeshLocation.Normal Offset": [
+    150
+  ],
+  "Constants.CabinEmbers.SpawnRate.SpawnRate": [
+    25
+  ]
+}

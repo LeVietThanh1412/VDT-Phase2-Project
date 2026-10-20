@@ -12,6 +12,8 @@ descs=unreal.WorldPartitionBlueprintLibrary.get_actor_descs()
 names=[x['label'] for x in plan['ships']]+list(plan['targets'])+['PlayerStart','BP_AntiShip']
 unreal.WorldPartitionBlueprintLibrary.load_actors([d.guid for d in descs if str(d.label) in names])
 actors=api.get_all_level_actors();lookup={a.get_actor_label():a for a in actors}
+assert not any(name in lookup for name in ['BP_ShipEnemy2','BP_ShipEnemy3','TP_Blue02_A']), \
+    'V2 layout detected. Use configure_patrol_v2.py; the legacy actor names would create duplicate ships.'
 original=lookup['BP_ShipEnemy'];cls=original.get_class()
 geo=original.get_component_by_class(unreal.CesiumGlobeAnchorComponent).resolve_georeference()
 v=lambda x:[x.x,x.y,x.z]
@@ -54,11 +56,14 @@ for i,spec in enumerate(plan['ships'][1:]):
     # Each SCS edit may reconstruct all components. Resolve every time.
     settings=dict(new_navigation_enabled=True,navigation_mode=unreal.ShipNavigationMode.PATROL,role=unreal.ShipEnemyRole.FIGHTER,
         patrol_actor_a=anchors[spec['patrol_a']],patrol_actor_b=anchors[spec['patrol_b']],patrol_point_a=unreal.Vector(),patrol_point_b=unreal.Vector(),
-        cruise_speed_mps=8,patrol_wait_seconds=4+i*2,patrol_startup_delay_seconds=i*4,safe_ship_separation_m=300,draw_debug=True)
+        cruise_speed_mps=8,patrol_wait_seconds=4+i*2,patrol_startup_delay_seconds=i*4,safe_ship_separation_m=400,draw_debug=False)
+    offsets={'Friendly_AI_1':(150,0),'Friendly_AI_2':(-150,-150),'BP_ShipEnemy':(0,0),'Enemy_AI_2':(250,150),'Enemy_AI_3':(450,150)}
+    ox,oy=offsets[spec['label']]
+    settings.update(patrol_offset_a=unreal.Vector(ox,oy,0),patrol_offset_b=unreal.Vector(ox,oy,0),start_at_patrol_b=spec.get('start_at_b',False),arrival_radius_m=100)
     for key,value in settings.items():
         component=ship.get_component_by_class(unreal.ShipEnemyNavigationComponent);component.modify();component.set_editor_property(key,value)
     combat=dict(faction=spec['team'],enable_combat=True,enable_hit_and_run=True,detection_radius_m=1800,engagement_radius_m=1200,
-        lose_target_radius_m=2200,minimum_retreat_distance_m=250,safe_reengagement_distance_m=600,fire_cooldown_seconds=4,target_scan_interval=.5,draw_debug=True)
+        lose_target_radius_m=2200,minimum_retreat_distance_m=450,safe_reengagement_distance_m=800,fire_cooldown_seconds=8,target_scan_interval=.5,draw_debug=False)
     for key,value in combat.items():
         component=ship.get_component_by_class(unreal.ShipCombatComponent);component.modify();component.set_editor_property(key,value)
     weapon=ship.get_component_by_class(unreal.ShipWeaponComponent)
@@ -78,11 +83,23 @@ ships=[x for x in all_actors if x.get_class()==cls]
 assert len(ships)==5 and len([x for x in all_actors if x.get_class().get_name()=='BP_Ship_C'])==0
 assert all(len([x for x in all_actors if x.get_actor_label()==name])==1 for name in anchors)
 assert unreal.ShipEnemyNavigationComponent.validate_installed_blueprint().startswith('OK:')
-packages=list({x.get_package() for x in changed})
+# Balance the original projectile assets, keeping their movement and impact graph.
+projectile_packages=[]
+for name in ['BP_ShipProjectile','BP_ShipProjectileWithSpeed']:
+    bp=unreal.load_asset('/Game/Ship/BluePrint/'+name);bp.modify()
+    found=False
+    for handle in sub.k2_gather_subobject_data_for_blueprint(bp):
+        obj=unreal.SubobjectDataBlueprintFunctionLibrary.get_object(unreal.SubobjectDataBlueprintFunctionLibrary.get_data(handle))
+        if isinstance(obj,unreal.ShipProjectileDamageComponent):
+            obj.modify();obj.set_editor_property('projectile_damage',10);found=True
+    assert found,name
+    unreal.BlueprintEditorLibrary.compile_blueprint(bp)
+    projectile_packages.append(bp.get_package())
+packages=list({x.get_package() for x in changed})+projectile_packages
 assert unreal.EditorLoadingAndSavingUtils.save_packages(packages,False)
 report=dict(ships=[dict(label=x.get_actor_label(),pose=pose(x),team=x.get_component_by_class(unreal.ShipCombatComponent).faction,
     a=x.get_component_by_class(unreal.ShipEnemyNavigationComponent).patrol_actor_a.get_actor_label(),
-    b=x.get_component_by_class(unreal.ShipEnemyNavigationComponent).patrol_actor_b.get_actor_label(),package=x.get_package().get_name()) for x in ships],
+    b=x.get_component_by_class(unreal.ShipEnemyNavigationComponent).patrol_actor_b.get_actor_label(),offset_a=v(x.get_component_by_class(unreal.ShipEnemyNavigationComponent).patrol_offset_a),offset_b=v(x.get_component_by_class(unreal.ShipEnemyNavigationComponent).patrol_offset_b),safe_separation_m=x.get_component_by_class(unreal.ShipEnemyNavigationComponent).safe_ship_separation_m,max_health=x.get_component_by_class(unreal.ShipWeaponComponent).max_health,package=x.get_package().get_name()) for x in ships],
     player_start=pose(player_start),enemy_anchors_unchanged=before,packages=[p.get_name() for p in packages])
 (root/'Docs/NavalCombat/BATTLE_SAVED_CONFIGURATION.json').write_text(json.dumps(report,indent=2),encoding='utf8')
 print(json.dumps(report,indent=2))

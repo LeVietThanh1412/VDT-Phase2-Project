@@ -1,0 +1,3913 @@
+{
+  "phase": "reverse",
+  "rows": [
+    {
+      "t": 1.0142670087516308,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.047600407153368,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.0809338055551052,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.1094572059810162,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.1427907086908817,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.176124207675457,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.2094576060771942,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.2427910082042217,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.276124507188797,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.3094580061733723,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.3427914083003998,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.376124907284975,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.4094584062695503,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.4427918083965778,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.476125206798315,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.5094587057828903,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.5427923053503036,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.5761258080601692,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.6094593070447445,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.6444465070962906,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.6800570078194141,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.7183019071817398,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.7590069063007832,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.7955915071070194,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.8289249055087566,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.8622583076357841,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.8955917060375214,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.928925208747387,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.962265506386757,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 1.9955989085137844,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.0289325080811977,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.0624731071293354,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.095807906240225,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.1291414052248,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.1624748073518276,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.195808205753565,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.2291416078805923,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.2624752074480057,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.295808605849743,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.3291420079767704,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.3624754063785076,
+      "phase": "settle",
+      "speed": -0.0,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.395808808505535,
+      "phase": "settle",
+      "speed": -7.645750156370923e-05,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.4291423074901104,
+      "phase": "settle",
+      "speed": -0.0002614588011056185,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.4624757058918476,
+      "phase": "settle",
+      "speed": -0.00016718042024876922,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.495809208601713,
+      "phase": "settle",
+      "speed": 0.0009036106639541686,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.5291426070034504,
+      "phase": "settle",
+      "speed": 0.0031122765503823757,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.5624760054051876,
+      "phase": "settle",
+      "speed": 0.005999373737722635,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.5958096086978912,
+      "phase": "settle",
+      "speed": 0.00883820652961731,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.6291430070996284,
+      "phase": "settle",
+      "speed": 0.01123339869081974,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.6624764055013657,
+      "phase": "settle",
+      "speed": 0.013149743899703026,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.6958099082112312,
+      "phase": "settle",
+      "speed": 0.01459389179944992,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.7291433066129684,
+      "phase": "settle",
+      "speed": 0.015571365132927895,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.762476708739996,
+      "phase": "settle",
+      "speed": 0.016087722033262253,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.795810107141733,
+      "phase": "settle",
+      "speed": 0.016148466616868973,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.8291435055434704,
+      "phase": "settle",
+      "speed": 0.015759119763970375,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.862477008253336,
+      "phase": "settle",
+      "speed": 0.014925150200724602,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.8958106078207493,
+      "phase": "settle",
+      "speed": 0.013652035035192966,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.9291441068053246,
+      "phase": "settle",
+      "speed": 0.011945215053856373,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.9624775052070618,
+      "phase": "settle",
+      "speed": 0.009810110554099083,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 2.9958110079169273,
+      "phase": "settle",
+      "speed": 0.007252073846757412,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 3.0291444063186646,
+      "phase": "forward",
+      "speed": 0.004276467487215996,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.06247790530324,
+      "phase": "forward",
+      "speed": 1.5370612144470215,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.0958113074302673,
+      "phase": "forward",
+      "speed": 3.044038772583008,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.1291448064148426,
+      "phase": "forward",
+      "speed": 4.526304721832275,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.162478305399418,
+      "phase": "forward",
+      "speed": 5.984375,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.1958118081092834,
+      "phase": "forward",
+      "speed": 7.418610572814941,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.2291452065110207,
+      "phase": "forward",
+      "speed": 8.82934284210205,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.262478608638048,
+      "phase": "forward",
+      "speed": 10.21690559387207,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.2958120070397854,
+      "phase": "forward",
+      "speed": 11.58162784576416,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.3291454054415226,
+      "phase": "forward",
+      "speed": 12.923837661743164,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.362478908151388,
+      "phase": "forward",
+      "speed": 14.243875503540039,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.3958123065531254,
+      "phase": "forward",
+      "speed": 15.542068481445312,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.4291458055377007,
+      "phase": "forward",
+      "speed": 16.81876564025879,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.462479207664728,
+      "phase": "forward",
+      "speed": 18.07429313659668,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.4958127066493034,
+      "phase": "forward",
+      "speed": 19.308998107910156,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.5291462056338787,
+      "phase": "forward",
+      "speed": 20.523212432861328,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.56249250844121,
+      "phase": "forward",
+      "speed": 21.717716217041016,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.595826007425785,
+      "phase": "forward",
+      "speed": 22.891931533813477,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.6291594058275223,
+      "phase": "forward",
+      "speed": 24.0466365814209,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.66249280795455,
+      "phase": "forward",
+      "speed": 25.18215560913086,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.695826306939125,
+      "phase": "forward",
+      "speed": 25.694913864135742,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.7337054051458836,
+      "phase": "forward",
+      "speed": 25.720415115356445,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.767038907855749,
+      "phase": "forward",
+      "speed": 25.72107696533203,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.8003724068403244,
+      "phase": "forward",
+      "speed": 25.721115112304688,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.8337059058248997,
+      "phase": "forward",
+      "speed": 25.721118927001953,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.867370907217264,
+      "phase": "forward",
+      "speed": 25.721118927001953,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.9007043056190014,
+      "phase": "forward",
+      "speed": 25.721214294433594,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.934037808328867,
+      "phase": "forward",
+      "speed": 25.721378326416016,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 3.967371206730604,
+      "phase": "forward",
+      "speed": 25.721595764160156,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.000704705715179,
+      "phase": "forward",
+      "speed": 25.721839904785156,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.034038107842207,
+      "phase": "forward",
+      "speed": 25.72208595275879,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.067371606826782,
+      "phase": "forward",
+      "speed": 25.722179412841797,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.100705005228519,
+      "phase": "forward",
+      "speed": 25.722257614135742,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.134038407355547,
+      "phase": "forward",
+      "speed": 25.722354888916016,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.167371805757284,
+      "phase": "forward",
+      "speed": 25.72246742248535,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.20070530846715,
+      "phase": "forward",
+      "speed": 25.72260856628418,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.234038807451725,
+      "phase": "forward",
+      "speed": 25.72279930114746,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.267372407019138,
+      "phase": "forward",
+      "speed": 25.723007202148438,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.300705906003714,
+      "phase": "forward",
+      "speed": 25.723203659057617,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.334039308130741,
+      "phase": "forward",
+      "speed": 25.723356246948242,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.367372807115316,
+      "phase": "forward",
+      "speed": 25.72344207763672,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.400706205517054,
+      "phase": "forward",
+      "speed": 25.723453521728516,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.434039607644081,
+      "phase": "forward",
+      "speed": 25.72335433959961,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.4673732072114944,
+      "phase": "forward",
+      "speed": 25.723196029663086,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.500706806778908,
+      "phase": "forward",
+      "speed": 25.723066329956055,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.534040305763483,
+      "phase": "forward",
+      "speed": 25.722959518432617,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.567373808473349,
+      "phase": "forward",
+      "speed": 25.722869873046875,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.600707206875086,
+      "phase": "forward",
+      "speed": 25.722797393798828,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.634040705859661,
+      "phase": "forward",
+      "speed": 25.72273826599121,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.667374208569527,
+      "phase": "forward",
+      "speed": 25.72269058227539,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.700707606971264,
+      "phase": "forward",
+      "speed": 25.722618103027344,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.734041005373001,
+      "phase": "forward",
+      "speed": 25.722549438476562,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.767374508082867,
+      "phase": "forward",
+      "speed": 25.722490310668945,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.80070810765028,
+      "phase": "forward",
+      "speed": 25.722434997558594,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.834041506052017,
+      "phase": "forward",
+      "speed": 25.722375869750977,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.8673751056194305,
+      "phase": "forward",
+      "speed": 25.722307205200195,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.900708608329296,
+      "phase": "forward",
+      "speed": 25.722217559814453,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.934042006731033,
+      "phase": "forward",
+      "speed": 25.72210693359375,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 4.967375505715609,
+      "phase": "forward",
+      "speed": 25.721973419189453,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.000709008425474,
+      "phase": "forward",
+      "speed": 25.72182273864746,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.034042507410049,
+      "phase": "forward",
+      "speed": 25.72165298461914,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.067376006394625,
+      "phase": "forward",
+      "speed": 25.721477508544922,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.100709408521652,
+      "phase": "forward",
+      "speed": 25.721284866333008,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.1340429075062275,
+      "phase": "forward",
+      "speed": 25.72107696533203,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.167376305907965,
+      "phase": "forward",
+      "speed": 25.72088050842285,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.200709708034992,
+      "phase": "forward",
+      "speed": 25.72069549560547,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.2340432070195675,
+      "phase": "forward",
+      "speed": 25.720544815063477,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.267376806586981,
+      "phase": "forward",
+      "speed": 25.720434188842773,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.300710305571556,
+      "phase": "forward",
+      "speed": 25.720380783081055,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.334043707698584,
+      "phase": "forward",
+      "speed": 25.72041130065918,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.367377206683159,
+      "phase": "forward",
+      "speed": 25.72049903869629,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.400710605084896,
+      "phase": "forward",
+      "speed": 25.720632553100586,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.434044007211924,
+      "phase": "forward",
+      "speed": 25.72080421447754,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.467377506196499,
+      "phase": "forward",
+      "speed": 25.721010208129883,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.503077108412981,
+      "phase": "forward",
+      "speed": 25.721189498901367,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.536410506814718,
+      "phase": "forward",
+      "speed": 25.721403121948242,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.5697439052164555,
+      "phase": "forward",
+      "speed": 25.72152328491211,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.603077307343483,
+      "phase": "forward",
+      "speed": 25.721681594848633,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.636410806328058,
+      "phase": "forward",
+      "speed": 25.721879959106445,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.6697443053126335,
+      "phase": "forward",
+      "speed": 25.722089767456055,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.703077707439661,
+      "phase": "forward",
+      "speed": 25.722291946411133,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.736411105841398,
+      "phase": "forward",
+      "speed": 25.72245979309082,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.769744507968426,
+      "phase": "forward",
+      "speed": 25.722585678100586,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.803078006953001,
+      "phase": "forward",
+      "speed": 25.72265625,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.836411606520414,
+      "phase": "forward",
+      "speed": 25.722667694091797,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.869745008647442,
+      "phase": "forward",
+      "speed": 25.722572326660156,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.903078507632017,
+      "phase": "forward",
+      "speed": 25.722482681274414,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.936411906033754,
+      "phase": "forward",
+      "speed": 25.72240447998047,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 5.969745308160782,
+      "phase": "forward",
+      "speed": 25.722341537475586,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.003078706562519,
+      "phase": "forward",
+      "speed": 25.722286224365234,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.036412108689547,
+      "phase": "forward",
+      "speed": 25.722240447998047,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.069745607674122,
+      "phase": "forward",
+      "speed": 25.722204208374023,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.103079006075859,
+      "phase": "forward",
+      "speed": 25.72209930419922,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.136412508785725,
+      "phase": "forward",
+      "speed": 25.72197914123535,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.169745907187462,
+      "phase": "forward",
+      "speed": 25.72186279296875,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.203079506754875,
+      "phase": "forward",
+      "speed": 25.721742630004883,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.2364130057394505,
+      "phase": "forward",
+      "speed": 25.721620559692383,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.269746407866478,
+      "phase": "forward",
+      "speed": 25.72149658203125,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.303079806268215,
+      "phase": "forward",
+      "speed": 25.721389770507812,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.336413208395243,
+      "phase": "forward",
+      "speed": 25.721370697021484,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.369746707379818,
+      "phase": "forward",
+      "speed": 25.721416473388672,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.403080105781555,
+      "phase": "forward",
+      "speed": 25.72150993347168,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.436413608491421,
+      "phase": "forward",
+      "speed": 25.721662521362305,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.469747208058834,
+      "phase": "forward",
+      "speed": 25.72183609008789,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.5030992068350315,
+      "phase": "forward",
+      "speed": 25.721899032592773,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.536432605236769,
+      "phase": "forward",
+      "speed": 25.721925735473633,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.569766107946634,
+      "phase": "forward",
+      "speed": 25.7220516204834,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.6030995063483715,
+      "phase": "forward",
+      "speed": 25.722251892089844,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.636432908475399,
+      "phase": "forward",
+      "speed": 25.72249412536621,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.669766407459974,
+      "phase": "forward",
+      "speed": 25.72272491455078,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.703100007027388,
+      "phase": "forward",
+      "speed": 25.7229061126709,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.736433506011963,
+      "phase": "forward",
+      "speed": 25.72299575805664,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.76976690813899,
+      "phase": "forward",
+      "speed": 25.723060607910156,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.8031153082847595,
+      "phase": "forward",
+      "speed": 25.723278045654297,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.836448706686497,
+      "phase": "forward",
+      "speed": 25.723575592041016,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.869782105088234,
+      "phase": "forward",
+      "speed": 25.72385597229004,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.9031155072152615,
+      "phase": "forward",
+      "speed": 25.724103927612305,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.936449006199837,
+      "phase": "forward",
+      "speed": 25.72429847717285,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 6.969782408326864,
+      "phase": "forward",
+      "speed": 25.724424362182617,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.0031158067286015,
+      "phase": "forward",
+      "speed": 25.724458694458008,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.036449205130339,
+      "phase": "forward",
+      "speed": 25.72439193725586,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.069782607257366,
+      "phase": "forward",
+      "speed": 25.724220275878906,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.103116005659103,
+      "phase": "forward",
+      "speed": 25.72393798828125,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.136449508368969,
+      "phase": "forward",
+      "speed": 25.723514556884766,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.169782906770706,
+      "phase": "forward",
+      "speed": 25.722936630249023,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.203116305172443,
+      "phase": "forward",
+      "speed": 25.72222900390625,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.236449707299471,
+      "phase": "forward",
+      "speed": 25.721433639526367,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.269783206284046,
+      "phase": "forward",
+      "speed": 25.720613479614258,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.303165107965469,
+      "phase": "forward",
+      "speed": 25.719823837280273,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.336498707532883,
+      "phase": "forward",
+      "speed": 25.71915626525879,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.36983210593462,
+      "phase": "forward",
+      "speed": 25.71866798400879,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.403165508061647,
+      "phase": "forward",
+      "speed": 25.718416213989258,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.436499007046223,
+      "phase": "forward",
+      "speed": 25.718429565429688,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.46983240544796,
+      "phase": "forward",
+      "speed": 25.71870231628418,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.5031659081578255,
+      "phase": "forward",
+      "speed": 25.71984100341797,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.536499407142401,
+      "phase": "forward",
+      "speed": 25.72090721130371,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.569832805544138,
+      "phase": "forward",
+      "speed": 25.721744537353516,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.6031663082540035,
+      "phase": "forward",
+      "speed": 25.72234535217285,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.636499706655741,
+      "phase": "forward",
+      "speed": 25.722728729248047,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.669833205640316,
+      "phase": "forward",
+      "speed": 25.722930908203125,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.703166708350182,
+      "phase": "forward",
+      "speed": 25.72294044494629,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.736500207334757,
+      "phase": "forward",
+      "speed": 25.7229061126709,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.769833605736494,
+      "phase": "forward",
+      "speed": 25.72284698486328,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.80316710844636,
+      "phase": "forward",
+      "speed": 25.72277069091797,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.836500708013773,
+      "phase": "forward",
+      "speed": 25.722675323486328,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.869834206998348,
+      "phase": "forward",
+      "speed": 25.72256088256836,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.9031677059829235,
+      "phase": "forward",
+      "speed": 25.722434997558594,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.936501108109951,
+      "phase": "forward",
+      "speed": 25.72229766845703,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 7.969834607094526,
+      "phase": "forward",
+      "speed": 25.722152709960938,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 8.003168005496264,
+      "phase": "forward",
+      "speed": 25.722002029418945,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 8.036501508206129,
+      "phase": "brake",
+      "speed": 25.721853256225586,
+      "input": 1,
+      "player": true
+    },
+    {
+      "t": 8.069835007190704,
+      "phase": "brake",
+      "speed": 24.73582649230957,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.10316850617528,
+      "phase": "brake",
+      "speed": 22.78836441040039,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.136501908302307,
+      "phase": "brake",
+      "speed": 20.873096466064453,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.169835407286882,
+      "phase": "brake",
+      "speed": 18.989540100097656,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.203169006854296,
+      "phase": "brake",
+      "speed": 17.137237548828125,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.236502405256033,
+      "phase": "brake",
+      "speed": 15.315756797790527,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.269835907965899,
+      "phase": "brake",
+      "speed": 13.52463150024414,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.303175307810307,
+      "phase": "brake",
+      "speed": 11.763091087341309,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.336508806794882,
+      "phase": "brake",
+      "speed": 10.03121566772461,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.369854606688023,
+      "phase": "brake",
+      "speed": 8.327580451965332,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.40318800508976,
+      "phase": "brake",
+      "speed": 6.652964115142822,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.436521407216787,
+      "phase": "brake",
+      "speed": 5.006261348724365,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.469854906201363,
+      "phase": "brake",
+      "speed": 3.387004852294922,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.50318830832839,
+      "phase": "brake",
+      "speed": 1.7947475910186768,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 8.536521807312965,
+      "phase": "rest",
+      "speed": 0.2290368527173996,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.56985530629754,
+      "phase": "rest",
+      "speed": 0.2254067361354828,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.603188708424568,
+      "phase": "rest",
+      "speed": 0.22161976993083954,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.636522106826305,
+      "phase": "rest",
+      "speed": 0.21769368648529053,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.66985560581088,
+      "phase": "rest",
+      "speed": 0.21366915106773376,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.703189108520746,
+      "phase": "rest",
+      "speed": 0.209613636136055,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.736522506922483,
+      "phase": "rest",
+      "speed": 0.20559951663017273,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.76985590532422,
+      "phase": "rest",
+      "speed": 0.20170117914676666,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.803189508616924,
+      "phase": "rest",
+      "speed": 0.19798843562602997,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.836523208767176,
+      "phase": "rest",
+      "speed": 0.19451627135276794,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.869856707751751,
+      "phase": "rest",
+      "speed": 0.1913231909275055,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.903190106153488,
+      "phase": "rest",
+      "speed": 0.18842749297618866,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.936523605138063,
+      "phase": "rest",
+      "speed": 0.18582522869110107,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 8.969857007265091,
+      "phase": "rest",
+      "speed": 0.18348996341228485,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.00319130718708,
+      "phase": "rest",
+      "speed": 0.18137487769126892,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.036524906754494,
+      "phase": "rest",
+      "speed": 0.17942024767398834,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.069858405739069,
+      "phase": "rest",
+      "speed": 0.1775612235069275,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.103191908448935,
+      "phase": "rest",
+      "speed": 0.175726056098938,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.136525508016348,
+      "phase": "rest",
+      "speed": 0.17385071516036987,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.169858906418085,
+      "phase": "rest",
+      "speed": 0.1718883067369461,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.20319240540266,
+      "phase": "rest",
+      "speed": 0.1698121726512909,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.236525908112526,
+      "phase": "rest",
+      "speed": 0.16766324639320374,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.26985950767994,
+      "phase": "rest",
+      "speed": 0.1654883176088333,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.303193107247353,
+      "phase": "rest",
+      "speed": 0.16327965259552002,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.336526606231928,
+      "phase": "rest",
+      "speed": 0.16105002164840698,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.369860008358955,
+      "phase": "rest",
+      "speed": 0.15882693231105804,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.40319350734353,
+      "phase": "rest",
+      "speed": 0.1566532999277115,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.436527006328106,
+      "phase": "rest",
+      "speed": 0.15458199381828308,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.469860505312681,
+      "phase": "rest",
+      "speed": 0.1526717096567154,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.503193907439709,
+      "phase": "rest",
+      "speed": 0.1509820520877838,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.536527305841446,
+      "phase": "rest",
+      "speed": 0.14956922829151154,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.569860707968473,
+      "phase": "rest",
+      "speed": 0.14848209917545319,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.60319410637021,
+      "phase": "rest",
+      "speed": 0.14775769412517548,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.636527508497238,
+      "phase": "rest",
+      "speed": 0.14741599559783936,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.669861007481813,
+      "phase": "rest",
+      "speed": 0.14745476841926575,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.703194506466389,
+      "phase": "rest",
+      "speed": 0.14784401655197144,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.736527908593416,
+      "phase": "rest",
+      "speed": 0.14852210879325867,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.769861306995153,
+      "phase": "rest",
+      "speed": 0.14939431846141815,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.80319470539689,
+      "phase": "rest",
+      "speed": 0.15033744275569916,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.836528107523918,
+      "phase": "rest",
+      "speed": 0.15120431780815125,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.869861606508493,
+      "phase": "rest",
+      "speed": 0.15183556079864502,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.903195105493069,
+      "phase": "rest",
+      "speed": 0.1520753651857376,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.936528507620096,
+      "phase": "rest",
+      "speed": 0.15178704261779785,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 9.969861906021833,
+      "phase": "rest",
+      "speed": 0.1508687287569046,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.003195308148861,
+      "phase": "rest",
+      "speed": 0.14926360547542572,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.036528807133436,
+      "phase": "rest",
+      "speed": 0.14695625007152557,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.069862306118011,
+      "phase": "rest",
+      "speed": 0.14397624135017395,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.103195708245039,
+      "phase": "rest",
+      "speed": 0.14039386808872223,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.136529207229614,
+      "phase": "rest",
+      "speed": 0.13631202280521393,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.16986270621419,
+      "phase": "rest",
+      "speed": 0.13185542821884155,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.203196205198765,
+      "phase": "rest",
+      "speed": 0.1271616518497467,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.236529607325792,
+      "phase": "rest",
+      "speed": 0.1223742887377739,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.269863206893206,
+      "phase": "rest",
+      "speed": 0.11763092875480652,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.303196605294943,
+      "phase": "rest",
+      "speed": 0.11305531114339828,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.33653000742197,
+      "phase": "rest",
+      "speed": 0.10875041037797928,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.369863606989384,
+      "phase": "rest",
+      "speed": 0.1047942265868187,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.403197105973959,
+      "phase": "rest",
+      "speed": 0.10123758018016815,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.436530705541372,
+      "phase": "rest",
+      "speed": 0.09810454398393631,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.4698641076684,
+      "phase": "rest",
+      "speed": 0.09539642184972763,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.503197506070137,
+      "phase": "rest",
+      "speed": 0.09309526532888412,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.536531008780003,
+      "phase": "rest",
+      "speed": 0.09117058664560318,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.569864507764578,
+      "phase": "rest",
+      "speed": 0.08958445489406586,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.603197906166315,
+      "phase": "rest",
+      "speed": 0.08829609304666519,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.63653140515089,
+      "phase": "rest",
+      "speed": 0.08726844936609268,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.669864907860756,
+      "phase": "rest",
+      "speed": 0.08646398782730103,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.703198306262493,
+      "phase": "rest",
+      "speed": 0.08584760129451752,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.736565805971622,
+      "phase": "rest",
+      "speed": 0.08538632839918137,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.769899308681488,
+      "phase": "rest",
+      "speed": 0.08505494147539139,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.803232908248901,
+      "phase": "rest",
+      "speed": 0.08483175188302994,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.836566407233477,
+      "phase": "rest",
+      "speed": 0.08470053970813751,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.869899906218052,
+      "phase": "rest",
+      "speed": 0.0846434086561203,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.90323330834508,
+      "phase": "rest",
+      "speed": 0.08463770151138306,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.936566807329655,
+      "phase": "rest",
+      "speed": 0.08465498685836792,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 10.96990030631423,
+      "phase": "rest",
+      "speed": 0.0846620723605156,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.003233805298805,
+      "phase": "rest",
+      "speed": 0.08462021499872208,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.03656730800867,
+      "phase": "rest",
+      "speed": 0.08449441939592361,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.069900806993246,
+      "phase": "rest",
+      "speed": 0.08425240963697433,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.103234305977821,
+      "phase": "rest",
+      "speed": 0.08386631309986115,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.136567708104849,
+      "phase": "rest",
+      "speed": 0.08331348747015,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.169901106506586,
+      "phase": "rest",
+      "speed": 0.08257744461297989,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.203234508633614,
+      "phase": "rest",
+      "speed": 0.08165135979652405,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.236568007618189,
+      "phase": "rest",
+      "speed": 0.08053571730852127,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.269901506602764,
+      "phase": "rest",
+      "speed": 0.07923664897680283,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.303234908729792,
+      "phase": "rest",
+      "speed": 0.07777091860771179,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.336576107889414,
+      "phase": "rest",
+      "speed": 0.07616257667541504,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.369909506291151,
+      "phase": "rest",
+      "speed": 0.07444285601377487,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.403243105858564,
+      "phase": "rest",
+      "speed": 0.0726442039012909,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.43657660856843,
+      "phase": "rest",
+      "speed": 0.07079903036355972,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.469910107553005,
+      "phase": "rest",
+      "speed": 0.06894079595804214,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.50324360653758,
+      "phase": "rest",
+      "speed": 0.0671001449227333,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.536577008664608,
+      "phase": "rest",
+      "speed": 0.06528681516647339,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.569910407066345,
+      "phase": "rest",
+      "speed": 0.0634976476430893,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.603243805468082,
+      "phase": "rest",
+      "speed": 0.06172117218375206,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.63657720759511,
+      "phase": "rest",
+      "speed": 0.05993602052330971,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.669910605996847,
+      "phase": "rest",
+      "speed": 0.058113474398851395,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.703244008123875,
+      "phase": "rest",
+      "speed": 0.05622202530503273,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.736577607691288,
+      "phase": "rest",
+      "speed": 0.05423347279429436,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.769911106675863,
+      "phase": "rest",
+      "speed": 0.05212271958589554,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.803244605660439,
+      "phase": "rest",
+      "speed": 0.049870725721120834,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.836578108370304,
+      "phase": "rest",
+      "speed": 0.04746877774596214,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.86991160735488,
+      "phase": "rest",
+      "speed": 0.044924698770046234,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.903245106339455,
+      "phase": "rest",
+      "speed": 0.04232025891542435,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.936578508466482,
+      "phase": "rest",
+      "speed": 0.03999658301472664,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 11.96991190686822,
+      "phase": "rest",
+      "speed": 0.03798758238554001,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.003245405852795,
+      "phase": "rest",
+      "speed": 0.03626890853047371,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.036578807979822,
+      "phase": "rest",
+      "speed": 0.03478853031992912,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.06991220638156,
+      "phase": "rest",
+      "speed": 0.033502981066703796,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.103245705366135,
+      "phase": "rest",
+      "speed": 0.03242059424519539,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.136579208076,
+      "phase": "rest",
+      "speed": 0.031539902091026306,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.169912707060575,
+      "phase": "rest",
+      "speed": 0.03085126355290413,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.203246306627989,
+      "phase": "rest",
+      "speed": 0.030338667333126068,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.236579708755016,
+      "phase": "rest",
+      "speed": 0.029975246638059616,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.26991330832243,
+      "phase": "rest",
+      "speed": 0.029672855511307716,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.303246706724167,
+      "phase": "rest",
+      "speed": 0.02939332276582718,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.336603906005621,
+      "phase": "rest",
+      "speed": 0.029116585850715637,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.369937505573034,
+      "phase": "rest",
+      "speed": 0.028824832290410995,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.403271105140448,
+      "phase": "rest",
+      "speed": 0.028508201241493225,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.436604607850313,
+      "phase": "rest",
+      "speed": 0.02816229686141014,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.46993800625205,
+      "phase": "rest",
+      "speed": 0.027786189690232277,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.503271505236626,
+      "phase": "rest",
+      "speed": 0.027380652725696564,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.536605007946491,
+      "phase": "rest",
+      "speed": 0.026947876438498497,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.569938506931067,
+      "phase": "rest",
+      "speed": 0.026489680632948875,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.603271905332804,
+      "phase": "rest",
+      "speed": 0.026007840409874916,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.636605307459831,
+      "phase": "rest",
+      "speed": 0.025502583011984825,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.669938806444407,
+      "phase": "rest",
+      "speed": 0.02497323788702488,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.703272208571434,
+      "phase": "rest",
+      "speed": 0.02442041039466858,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.736605808138847,
+      "phase": "rest",
+      "speed": 0.023842724040150642,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.769939206540585,
+      "phase": "rest",
+      "speed": 0.023239433765411377,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.803272608667612,
+      "phase": "rest",
+      "speed": 0.02261095494031906,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.83660600706935,
+      "phase": "rest",
+      "speed": 0.021958930417895317,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.869939405471087,
+      "phase": "rest",
+      "speed": 0.021286388859152794,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.903272908180952,
+      "phase": "rest",
+      "speed": 0.02059907652437687,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.936606407165527,
+      "phase": "rest",
+      "speed": 0.019905172288417816,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 12.969939906150103,
+      "phase": "rest",
+      "speed": 0.019198866561055183,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.003273405134678,
+      "phase": "rest",
+      "speed": 0.018461864441633224,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.036607008427382,
+      "phase": "rest",
+      "speed": 0.0177200585603714,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.069940406829119,
+      "phase": "rest",
+      "speed": 0.016998471692204475,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.103274006396532,
+      "phase": "rest",
+      "speed": 0.016323035582900047,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.13660740852356,
+      "phase": "rest",
+      "speed": 0.01571625843644142,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.169940806925297,
+      "phase": "rest",
+      "speed": 0.015196387656033039,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.203274205327034,
+      "phase": "rest",
+      "speed": 0.01477695070207119,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.236607607454062,
+      "phase": "rest",
+      "speed": 0.014467115513980389,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.269941005855799,
+      "phase": "rest",
+      "speed": 0.014274798333644867,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.303274407982826,
+      "phase": "rest",
+      "speed": 0.014197931624948978,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.336607906967402,
+      "phase": "rest",
+      "speed": 0.014227844774723053,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.369941305369139,
+      "phase": "rest",
+      "speed": 0.014348067343235016,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.403274908661842,
+      "phase": "rest",
+      "speed": 0.014494265429675579,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.437262907624245,
+      "phase": "rest",
+      "speed": 0.014646670781075954,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.47059640660882,
+      "phase": "rest",
+      "speed": 0.014790930785238743,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.503930006176233,
+      "phase": "rest",
+      "speed": 0.014920279383659363,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.537263505160809,
+      "phase": "reverse",
+      "speed": 0.01502620242536068,
+      "input": 0,
+      "player": true
+    },
+    {
+      "t": 13.570597007870674,
+      "phase": "reverse",
+      "speed": -0.3447662591934204,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.603930406272411,
+      "phase": "reverse",
+      "speed": -1.0300235748291016,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.637263808399439,
+      "phase": "reverse",
+      "speed": -1.7039421796798706,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.670597407966852,
+      "phase": "reverse",
+      "speed": -2.366717576980591,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.70393080636859,
+      "phase": "reverse",
+      "speed": -3.018526792526245,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.737264208495617,
+      "phase": "reverse",
+      "speed": -3.6595571041107178,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.770597606897354,
+      "phase": "reverse",
+      "speed": -4.289977550506592,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.80393110588193,
+      "phase": "reverse",
+      "speed": -4.909952163696289,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.837264608591795,
+      "phase": "reverse",
+      "speed": -5.519639015197754,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.871049907058477,
+      "phase": "reverse",
+      "speed": -6.127214431762695,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.904383305460215,
+      "phase": "reverse",
+      "speed": -6.54133415222168,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.937716707587242,
+      "phase": "reverse",
+      "speed": -6.71336555480957,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 13.97105010598898,
+      "phase": "reverse",
+      "speed": -6.784799575805664,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.004383608698845,
+      "phase": "reverse",
+      "speed": -6.814423561096191,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.037717007100582,
+      "phase": "reverse",
+      "speed": -6.826664924621582,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.07105040550232,
+      "phase": "reverse",
+      "speed": -6.831675052642822,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.104383908212185,
+      "phase": "reverse",
+      "speed": -6.833675861358643,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.13771740719676,
+      "phase": "reverse",
+      "speed": -6.834388256072998,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.171050805598497,
+      "phase": "reverse",
+      "speed": -6.83448600769043,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.204384207725525,
+      "phase": "reverse",
+      "speed": -6.83431339263916,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.2377177067101,
+      "phase": "reverse",
+      "speed": -6.834018707275391,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.271051205694675,
+      "phase": "reverse",
+      "speed": -6.833662509918213,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.304384607821703,
+      "phase": "reverse",
+      "speed": -6.833280563354492,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.337718106806278,
+      "phase": "reverse",
+      "speed": -6.832891941070557,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.371051605790854,
+      "phase": "reverse",
+      "speed": -6.832514762878418,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.404385108500719,
+      "phase": "reverse",
+      "speed": -6.8321661949157715,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.437718607485294,
+      "phase": "reverse",
+      "speed": -6.831858158111572,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.471052005887032,
+      "phase": "reverse",
+      "speed": -6.831606388092041,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.504385508596897,
+      "phase": "reverse",
+      "speed": -6.831424236297607,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.537910308688879,
+      "phase": "reverse",
+      "speed": -6.83132266998291,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.571243707090616,
+      "phase": "reverse",
+      "speed": -6.831337928771973,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.604577105492353,
+      "phase": "reverse",
+      "speed": -6.831477642059326,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.637910708785057,
+      "phase": "reverse",
+      "speed": -6.831756114959717,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.671244107186794,
+      "phase": "reverse",
+      "speed": -6.832191467285156,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.704577505588531,
+      "phase": "reverse",
+      "speed": -6.8327813148498535,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.738495506346226,
+      "phase": "reverse",
+      "speed": -6.833529472351074,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.771828908473253,
+      "phase": "reverse",
+      "speed": -6.834451198577881,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.805162508040667,
+      "phase": "reverse",
+      "speed": -6.835512638092041,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.838501207530499,
+      "phase": "reverse",
+      "speed": -6.836699485778809,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.871834605932236,
+      "phase": "reverse",
+      "speed": -6.837989330291748,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.905168008059263,
+      "phase": "reverse",
+      "speed": -6.839347839355469,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.938503008335829,
+      "phase": "reverse",
+      "speed": -6.8407416343688965,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 14.971836507320404,
+      "phase": "reverse",
+      "speed": -6.842127323150635,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.00517000630498,
+      "phase": "reverse",
+      "speed": -6.8434624671936035,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.038503408432007,
+      "phase": "reverse",
+      "speed": -6.84469747543335,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.07183700799942,
+      "phase": "reverse",
+      "speed": -6.8455305099487305,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.105170406401157,
+      "phase": "reverse",
+      "speed": -6.84509801864624,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.138503905385733,
+      "phase": "reverse",
+      "speed": -6.844098091125488,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.171837408095598,
+      "phase": "reverse",
+      "speed": -6.842957973480225,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.205170806497335,
+      "phase": "reverse",
+      "speed": -6.841858386993408,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.23850430548191,
+      "phase": "reverse",
+      "speed": -6.840875148773193,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.271837707608938,
+      "phase": "reverse",
+      "speed": -6.840039253234863,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.305171307176352,
+      "phase": "reverse",
+      "speed": -6.839352607727051,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.338504705578089,
+      "phase": "reverse",
+      "speed": -6.838799953460693,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.371838208287954,
+      "phase": "reverse",
+      "speed": -6.838362693786621,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.40517170727253,
+      "phase": "reverse",
+      "speed": -6.838020324707031,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.438505206257105,
+      "phase": "reverse",
+      "speed": -6.837749004364014,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.471847508102655,
+      "phase": "reverse",
+      "speed": -6.837524890899658,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.505180906504393,
+      "phase": "reverse",
+      "speed": -6.837336540222168,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.538514405488968,
+      "phase": "reverse",
+      "speed": -6.837178707122803,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.571847908198833,
+      "phase": "reverse",
+      "speed": -6.837042808532715,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.60518130660057,
+      "phase": "reverse",
+      "speed": -6.836917400360107,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.638514906167984,
+      "phase": "reverse",
+      "speed": -6.836792469024658,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.671848308295012,
+      "phase": "reverse",
+      "speed": -6.836667537689209,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.705181706696749,
+      "phase": "reverse",
+      "speed": -6.836535453796387,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.738515205681324,
+      "phase": "reverse",
+      "speed": -6.8363752365112305,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.771848607808352,
+      "phase": "reverse",
+      "speed": -6.836196422576904,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.805182006210089,
+      "phase": "reverse",
+      "speed": -6.836000442504883,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.838515408337116,
+      "phase": "reverse",
+      "speed": -6.835777759552002,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.873151805251837,
+      "phase": "reverse",
+      "speed": -6.835493087768555,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.906485207378864,
+      "phase": "reverse",
+      "speed": -6.835281848907471,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.93981870636344,
+      "phase": "reverse",
+      "speed": -6.83506441116333,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 15.973152205348015,
+      "phase": "reverse",
+      "speed": -6.8348517417907715,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.006485607475042,
+      "phase": "reverse",
+      "speed": -6.834650993347168,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.03981900587678,
+      "phase": "reverse",
+      "speed": -6.834463596343994,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.073152508586645,
+      "phase": "reverse",
+      "speed": -6.83428955078125,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.10648600757122,
+      "phase": "reverse",
+      "speed": -6.834114074707031,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.139819607138634,
+      "phase": "reverse",
+      "speed": -6.833942890167236,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.174282506108284,
+      "phase": "reverse",
+      "speed": -6.833746910095215,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.20761600509286,
+      "phase": "reverse",
+      "speed": -6.833593368530273,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.240949507802725,
+      "phase": "reverse",
+      "speed": -6.83346700668335,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.274282906204462,
+      "phase": "reverse",
+      "speed": -6.833422660827637,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.307616405189037,
+      "phase": "reverse",
+      "speed": -6.833394527435303,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.340949807316065,
+      "phase": "reverse",
+      "speed": -6.833377838134766,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.374992307275534,
+      "phase": "reverse",
+      "speed": -6.833381175994873,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.40832570567727,
+      "phase": "reverse",
+      "speed": -6.833491325378418,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.4416591078043,
+      "phase": "reverse",
+      "speed": -6.833680152893066,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.474992506206036,
+      "phase": "reverse",
+      "speed": -6.8339457511901855,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.50832600519061,
+      "phase": "reverse",
+      "speed": -6.834262847900391,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.54165940731764,
+      "phase": "reverse",
+      "speed": -6.834619522094727,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.574992805719376,
+      "phase": "reverse",
+      "speed": -6.834944725036621,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.608326207846403,
+      "phase": "reverse",
+      "speed": -6.835196018218994,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.64165970683098,
+      "phase": "reverse",
+      "speed": -6.835353851318359,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.67499330639839,
+      "phase": "reverse",
+      "speed": -6.835456371307373,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.708326805382967,
+      "phase": "reverse",
+      "speed": -6.8355183601379395,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.741660308092833,
+      "phase": "reverse",
+      "speed": -6.8355512619018555,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.77499370649457,
+      "phase": "reverse",
+      "speed": -6.835556507110596,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.808327306061983,
+      "phase": "reverse",
+      "speed": -6.835538387298584,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.84166070818901,
+      "phase": "reverse",
+      "speed": -6.83549690246582,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.874994106590748,
+      "phase": "reverse",
+      "speed": -6.8354339599609375,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.908327605575323,
+      "phase": "reverse",
+      "speed": -6.835350036621094,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.94166110828519,
+      "phase": "reverse",
+      "speed": -6.835247039794922,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 16.974994607269764,
+      "phase": "reverse",
+      "speed": -6.835124492645264,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.0083280056715,
+      "phase": "reverse",
+      "speed": -6.834981918334961,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.041661605238914,
+      "phase": "reverse",
+      "speed": -6.8348212242126465,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.074995007365942,
+      "phase": "reverse",
+      "speed": -6.8346405029296875,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.108550008386374,
+      "phase": "reverse",
+      "speed": -6.834432125091553,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.14188350737095,
+      "phase": "reverse",
+      "speed": -6.834214687347412,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.175216905772686,
+      "phase": "reverse",
+      "speed": -6.83397102355957,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.20855040848255,
+      "phase": "reverse",
+      "speed": -6.833698749542236,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.24188380688429,
+      "phase": "reverse",
+      "speed": -6.8333964347839355,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.275217205286026,
+      "phase": "reverse",
+      "speed": -6.833065509796143,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.308550607413054,
+      "phase": "reverse",
+      "speed": -6.832711696624756,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.34188400581479,
+      "phase": "reverse",
+      "speed": -6.83234167098999,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.375217605382204,
+      "phase": "reverse",
+      "speed": -6.831972122192383,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.40855110809207,
+      "phase": "reverse",
+      "speed": -6.8316569328308105,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.441884506493807,
+      "phase": "reverse",
+      "speed": -6.831470489501953,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.4753560051322,
+      "phase": "reverse",
+      "speed": -6.831485748291016,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.508689507842064,
+      "phase": "reverse",
+      "speed": -6.831775188446045,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.54202300682664,
+      "phase": "reverse",
+      "speed": -6.832367420196533,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.577241707593203,
+      "phase": "reverse",
+      "speed": -6.833281517028809,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.61057510599494,
+      "phase": "reverse",
+      "speed": -6.834463119506836,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.643908705562353,
+      "phase": "reverse",
+      "speed": -6.835803508758545,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.67724220827222,
+      "phase": "reverse",
+      "speed": -6.837202072143555,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.710575707256794,
+      "phase": "reverse",
+      "speed": -6.838547229766846,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.743910808116198,
+      "phase": "reverse",
+      "speed": -6.839732646942139,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.777244206517935,
+      "phase": "reverse",
+      "speed": -6.840671539306641,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.81057770550251,
+      "phase": "reverse",
+      "speed": -6.841301441192627,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.843911208212376,
+      "phase": "reverse",
+      "speed": -6.841583728790283,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.87724470719695,
+      "phase": "reverse",
+      "speed": -6.841506481170654,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.910578105598688,
+      "phase": "reverse",
+      "speed": -6.84107780456543,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.943911608308554,
+      "phase": "reverse",
+      "speed": -6.840333461761475,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 17.97724500671029,
+      "phase": "reverse",
+      "speed": -6.839280605316162,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.010578505694866,
+      "phase": "reverse",
+      "speed": -6.837905406951904,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.043964505195618,
+      "phase": "reverse",
+      "speed": -6.8366241455078125,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.077297907322645,
+      "phase": "reverse",
+      "speed": -6.835647106170654,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.11063140630722,
+      "phase": "reverse",
+      "speed": -6.83502197265625,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.143964808434248,
+      "phase": "reverse",
+      "speed": -6.83472204208374,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.177298206835985,
+      "phase": "reverse",
+      "speed": -6.834691047668457,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.210631605237722,
+      "phase": "reverse",
+      "speed": -6.8348612785339355,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.24396500736475,
+      "phase": "reverse",
+      "speed": -6.835165023803711,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.277298506349325,
+      "phase": "reverse",
+      "speed": -6.83554220199585,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.3106320053339,
+      "phase": "reverse",
+      "speed": -6.835943698883057,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.343965608626604,
+      "phase": "reverse",
+      "speed": -6.836362361907959,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.37729900702834,
+      "phase": "reverse",
+      "speed": -6.836795330047607,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.410632506012917,
+      "phase": "reverse",
+      "speed": -6.837239742279053,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.443965908139944,
+      "phase": "reverse",
+      "speed": -6.837686538696289,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.47729930654168,
+      "phase": "reverse",
+      "speed": -6.838117599487305,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.510632906109095,
+      "phase": "reverse",
+      "speed": -6.838501930236816,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.54396940767765,
+      "phase": "reverse",
+      "speed": -6.838801860809326,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.577303007245064,
+      "phase": "reverse",
+      "speed": -6.839005470275879,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.610950008034706,
+      "phase": "reverse",
+      "speed": -6.839151859283447,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.64428350701928,
+      "phase": "reverse",
+      "speed": -6.839236259460449,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.67761690542102,
+      "phase": "reverse",
+      "speed": -6.839249610900879,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.710950307548046,
+      "phase": "reverse",
+      "speed": -6.839248180389404,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.744283705949783,
+      "phase": "reverse",
+      "speed": -6.8394904136657715,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.77761710807681,
+      "phase": "reverse",
+      "speed": -6.839864253997803,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.810950506478548,
+      "phase": "reverse",
+      "speed": -6.840245246887207,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.844283908605576,
+      "phase": "reverse",
+      "speed": -6.840556621551514,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.87761740759015,
+      "phase": "reverse",
+      "speed": -6.840750694274902,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.913402006030083,
+      "phase": "reverse",
+      "speed": -6.8407063484191895,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.94673540815711,
+      "phase": "reverse",
+      "speed": -6.840623378753662,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 18.981251507997513,
+      "phase": "reverse",
+      "speed": -6.840320587158203,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.018268905580044,
+      "phase": "reverse",
+      "speed": -6.839793682098389,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.055745605379343,
+      "phase": "reverse",
+      "speed": -6.839260101318359,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.09261480718851,
+      "phase": "reverse",
+      "speed": -6.838780403137207,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.125948406755924,
+      "phase": "reverse",
+      "speed": -6.838489055633545,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.1592819057405,
+      "phase": "reverse",
+      "speed": -6.838202953338623,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.192615307867527,
+      "phase": "reverse",
+      "speed": -6.837954521179199,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.225948806852102,
+      "phase": "reverse",
+      "speed": -6.837759017944336,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.259282305836678,
+      "phase": "reverse",
+      "speed": -6.837618350982666,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.292615808546543,
+      "phase": "reverse",
+      "speed": -6.837528705596924,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.32594930753112,
+      "phase": "reverse",
+      "speed": -6.837486743927002,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.35928290709853,
+      "phase": "reverse",
+      "speed": -6.837484836578369,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.39261630550027,
+      "phase": "reverse",
+      "speed": -6.837515830993652,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.425949808210135,
+      "phase": "reverse",
+      "speed": -6.837560653686523,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.45928320661187,
+      "phase": "reverse",
+      "speed": -6.837620258331299,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.492616705596447,
+      "phase": "reverse",
+      "speed": -6.837693214416504,
+      "input": -1,
+      "player": true
+    },
+    {
+      "t": 19.525950107723475,
+      "phase": "reverse",
+      "speed": -6.837774276733398,
+      "input": -1,
+      "player": true
+    }
+  ],
+  "events": [
+    {
+      "phase": "forward",
+      "t": 3.0291444063186646,
+      "start_speed": 0.004276467487215996
+    },
+    {
+      "phase": "reverse",
+      "t": 13.537263505160809,
+      "start_speed": 0.01502620242536068
+    }
+  ],
+  "at": 13.537263505160809,
+  "last": 19.525950107723475,
+  "error": null,
+  "peak_forward": 25.724458694458008,
+  "peak_reverse": -6.8455305099487305,
+  "measured_acceleration_mps2": {
+    "forward": 44.128935114489636,
+    "reverse": 18.27113243091366
+  },
+  "acceleration_ratio": 0.41403973115395604,
+  "status": "PROPULSION_CHECKS_PASSED"
+}

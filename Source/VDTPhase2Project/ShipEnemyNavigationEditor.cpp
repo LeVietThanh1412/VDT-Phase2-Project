@@ -58,6 +58,58 @@ FString UShipEnemyNavigationComponent::ValidateInstalledBlueprint()
     return TEXT("ERROR: editor-only operation");
 #endif
 }
+FString UShipEnemyNavigationComponent::CompileBattleBlueprints()
+{
+#if WITH_EDITOR
+    FString Result=TEXT("OK: affected battle Blueprints compiled\n");
+    for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_Ship.BP_Ship"),EnemyPath,
+        TEXT("/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile"),TEXT("/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed"),
+        TEXT("/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD"),TEXT("/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar"),TEXT("/Game/Ship/BluePrint/GMBP.GMBP")})
+    {
+        UBlueprint* BP=LoadObject<UBlueprint>(nullptr,Path);
+        if(!BP)return FString::Printf(TEXT("ERROR: missing Blueprint %s"),Path);
+        FKismetEditorUtilities::CompileBlueprint(BP);
+        if(!BP->GeneratedClass || (BP->Status!=BS_UpToDate && BP->Status!=BS_UpToDateWithWarnings))
+            return FString::Printf(TEXT("ERROR: compile failed for %s; inspect compiler log"),Path);
+        Result+=FString::Printf(TEXT("%s: %s\n"),Path,BP->Status==BS_UpToDateWithWarnings?TEXT("compiled with warnings"):TEXT("compiled"));
+    }
+    return Result;
+#else
+    return TEXT("ERROR: editor-only operation");
+#endif
+}
+FString UShipEnemyNavigationComponent::InspectMovementBlueprints()
+{
+#if WITH_EDITOR
+    FString Result;
+    for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_Ship.BP_Ship"),EnemyPath})
+    {
+        UBlueprint* BP=LoadObject<UBlueprint>(nullptr,Path);if(!BP)continue;
+        TArray<UEdGraph*> Graphs;BP->GetAllGraphs(Graphs);
+        for(UEdGraph* Graph:Graphs)
+        {
+            bool Physics=false;
+            for(UEdGraphNode* Node:Graph->Nodes)if(auto* Call=Cast<UK2Node_CallFunction>(Node))
+                if(Call->FunctionReference.GetMemberName().ToString().Contains(TEXT("Force")))Physics=true;
+            if(!Physics)continue;
+            Result+=FString::Printf(TEXT("\nASSET %s GRAPH %s\n"),Path,*Graph->GetName());
+            for(UEdGraphNode* Node:Graph->Nodes)
+            {
+                Result+=FString::Printf(TEXT("NODE %s %s\n"),*Node->GetName(),*Node->GetNodeTitle(ENodeTitleType::ListView).ToString());
+                for(const UEdGraphPin* Pin:Node->Pins)
+                {
+                    Result+=FString::Printf(TEXT("  %s %s default=%s"),Pin->Direction==EGPD_Input?TEXT("IN"):TEXT("OUT"),*Pin->PinName.ToString(),*Pin->DefaultValue);
+                    for(const auto* Link:Pin->LinkedTo)Result+=FString::Printf(TEXT(" -> %s.%s"),*Link->GetOwningNode()->GetName(),*Link->PinName.ToString());
+                    Result+=TEXT("\n");
+                }
+            }
+        }
+    }
+    return Result;
+#else
+    return TEXT("Editor only");
+#endif
+}
 FString UShipEnemyNavigationComponent::InstallNavigationBlueprint(const FString& Path,bool bSave)
 {
 #if WITH_EDITOR

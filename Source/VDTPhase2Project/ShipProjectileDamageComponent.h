@@ -9,7 +9,7 @@ class VDTPHASE2PROJECT_API UShipProjectileDamageComponent : public UActorCompone
 {
     GENERATED_BODY()
 public:
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Damage",meta=(ClampMin="0")) float ProjectileDamage=25;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Damage",meta=(ClampMin="0")) float ProjectileDamage=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Damage",meta=(Units="cm")) float SplashRadiusCm=1000;
     UPROPERTY(BlueprintReadOnly,Category="Damage") int32 SourceTeam=2;
     UPROPERTY(BlueprintReadOnly,Category="Damage") TWeakObjectPtr<AActor> SourceShip;

@@ -118,6 +118,17 @@ FString UShipCombatLibrary::InstallCombatIntegration()
 FString UShipCombatLibrary::InstallBattlePresentation()
 {
 #if WITH_EDITOR
+    if(auto* Enemy=LoadObject<UBlueprint>(nullptr,TEXT("/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy")))
+    {
+        Enemy->Modify();TArray<UEdGraph*> Graphs;Enemy->GetAllGraphs(Graphs);
+        for(auto* G:Graphs)for(UEdGraphNode* N:G->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))
+        {
+            if(C->FunctionReference.GetMemberName()==TEXT("PrintString"))
+                for(auto Name:{TEXT("bPrintToScreen"),TEXT("bPrintToLog")})if(auto* P=C->FindPin(Name);P && P->LinkedTo.IsEmpty())P->DefaultValue=TEXT("false");
+            if(auto* P=C->FindPin(TEXT("DrawDebugType"));P && P->LinkedTo.IsEmpty())P->DefaultValue=TEXT("None");
+        }
+        if(!Compile(Enemy) || !Save(Enemy))return TEXT("ERROR: enemy debug defaults compile/save");
+    }
     for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile"),TEXT("/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed")})
     {
         auto* BP=LoadObject<UBlueprint>(nullptr,Path);if(!BP)return TEXT("ERROR: projectile missing");

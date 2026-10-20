@@ -1,0 +1,803 @@
+{
+  "initialization": {
+    "count": 6,
+    "teams": {
+      "0": 3,
+      "1": 3
+    },
+    "players": 1,
+    "controllers": {
+      "AIController": 5,
+      "PlayerController": 1
+    },
+    "total_pawns": 6,
+    "all_physics_buoyancy": true,
+    "hud": [
+      {
+        "score": "BLUE 3   |   RED 3",
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "viewport": true
+      }
+    ]
+  },
+  "patrol": {
+    "status": "PROBE_ERROR",
+    "seconds": 721.2484421506524,
+    "error": "Traceback (most recent call last):\n  File \"<string>\", line 52, in tick\n  File \"<string>\", line 12, in save\n  File \"F:\\Epic Games\\UE_5.6\\Engine\\Binaries\\ThirdParty\\Python3\\Win64\\Lib\\pathlib.py\", line 1078, in write_text\n    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"F:\\Epic Games\\UE_5.6\\Engine\\Binaries\\ThirdParty\\Python3\\Win64\\Lib\\pathlib.py\", line 1044, in open\n    return io.open(self, mode, buffering, encoding, errors, newline)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nOSError: [Errno 22] Invalid argument: 'E:\\\\LeVietThanh1412-Product\\\\VDT-Phase2-Project\\\\Docs\\\\NavalCombat\\\\VALIDATION_PATROL.json'\n",
+    "ships": {
+      "BP_Ship0": {
+        "legs": 0,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "player": 720
+        },
+        "tactical_states": {
+          "player": 720
+        },
+        "initialized_path": false,
+        "max_displacement_m": 1.2915410669461993,
+        "minimum_coast_distance_m": 571.4727837111092,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 1.9153884252239484,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "BP_ShipEnemy": {
+        "legs": 0,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 8,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 703,
+          "<ShipNavigationState.AVOID: 3>": 9
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 720
+        },
+        "initialized_path": true,
+        "max_displacement_m": 1316.006637359519,
+        "minimum_coast_distance_m": 227.97015112251526,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.189019559591482,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Enemy_AI_2": {
+        "legs": 1,
+        "shots": 1,
+        "hits": 1,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 12,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 646,
+          "<ShipNavigationState.AVOID: 3>": 52,
+          "<ShipNavigationState.ARRIVED: 9>": 10
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 720
+        },
+        "initialized_path": true,
+        "max_displacement_m": 1421.5926710393758,
+        "minimum_coast_distance_m": 465.8521394405427,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.2341942621869455,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Enemy_AI_3": {
+        "legs": 1,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 16,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 677,
+          "<ShipNavigationState.REPLAN: 4>": 3,
+          "<ShipNavigationState.AVOID: 3>": 12,
+          "<ShipNavigationState.ARRIVED: 9>": 12
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 720
+        },
+        "initialized_path": true,
+        "max_displacement_m": 815.8300088302884,
+        "minimum_coast_distance_m": 185.70242550472963,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.08530305772606,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Friendly_AI_1": {
+        "legs": 3,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 691,
+          "<ShipNavigationState.AVOID: 3>": 17,
+          "<ShipNavigationState.ARRIVED: 9>": 12
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 720
+        },
+        "initialized_path": true,
+        "max_displacement_m": 502.73253668153984,
+        "minimum_coast_distance_m": 329.01257705614205,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.14808064361829,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Friendly_AI_2": {
+        "legs": 1,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 1,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 4,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 702,
+          "<ShipNavigationState.AVOID: 3>": 8,
+          "<ShipNavigationState.ARRIVED: 9>": 6
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 720
+        },
+        "initialized_path": true,
+        "max_displacement_m": 971.5236099977078,
+        "minimum_coast_distance_m": 420.04672720418193,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.133817036911098,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      }
+    },
+    "minimum_pair_spacing_m": 181.45075916009264,
+    "final_hud": [
+      {
+        "score": "BLUE 3   |   RED 3",
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "result": ""
+      }
+    ]
+  },
+  "battle": {
+    "status": "BATTLE_FINISHED",
+    "seconds": 24.57289769873023,
+    "error": null,
+    "ships": {
+      "BP_Ship0": {
+        "legs": 0,
+        "shots": 0,
+        "hits": 0,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 4,
+        "deaths": 1,
+        "nav_states": {
+          "player": 25
+        },
+        "tactical_states": {
+          "player": 25
+        },
+        "initialized_path": false,
+        "max_displacement_m": 1.2385472028238453,
+        "minimum_coast_distance_m": 571.6773729927373,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 1.9015386112701311,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "BP_ShipEnemy": {
+        "legs": 0,
+        "shots": 6,
+        "hits": 3,
+        "retreats": 0,
+        "resumed": 0,
+        "damage_events": 0,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 8,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 15,
+          "<ShipNavigationState.AVOID: 3>": 2
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 4,
+          "<ShipTacticalState.ENGAGE: 1>": 21
+        },
+        "initialized_path": true,
+        "max_displacement_m": 101.83966166665104,
+        "minimum_coast_distance_m": 317.8953010368742,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 6.9092154262450345,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Enemy_AI_2": {
+        "legs": 0,
+        "shots": 6,
+        "hits": 4,
+        "retreats": 1,
+        "resumed": 0,
+        "damage_events": 4,
+        "deaths": 1,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 12,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 9,
+          "<ShipNavigationState.IDLE: 0>": 4
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 3,
+          "<ShipTacticalState.ENGAGE: 1>": 10,
+          "<ShipTacticalState.RETREAT: 2>": 12
+        },
+        "initialized_path": true,
+        "max_displacement_m": 10.156429022583094,
+        "minimum_coast_distance_m": 466.10818039276523,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 4.277716924020168,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Enemy_AI_3": {
+        "legs": 0,
+        "shots": 5,
+        "hits": 5,
+        "retreats": 1,
+        "resumed": 0,
+        "damage_events": 3,
+        "deaths": 0,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 16,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 8,
+          "<ShipNavigationState.AVOID: 3>": 1
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 3,
+          "<ShipTacticalState.ENGAGE: 1>": 15,
+          "<ShipTacticalState.RETREAT: 2>": 7
+        },
+        "initialized_path": true,
+        "max_displacement_m": 173.41352937103255,
+        "minimum_coast_distance_m": 345.0533871776068,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 81.38445733051105,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Friendly_AI_1": {
+        "legs": 0,
+        "shots": 5,
+        "hits": 3,
+        "retreats": 1,
+        "resumed": 0,
+        "damage_events": 4,
+        "deaths": 1,
+        "nav_states": {
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 19,
+          "<ShipNavigationState.AVOID: 3>": 1,
+          "<ShipNavigationState.IDLE: 0>": 5
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 3,
+          "<ShipTacticalState.ENGAGE: 1>": 8,
+          "<ShipTacticalState.RETREAT: 2>": 14
+        },
+        "initialized_path": true,
+        "max_displacement_m": 68.9854674080377,
+        "minimum_coast_distance_m": 529.4174326647137,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 6.825458102507309,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      },
+      "Friendly_AI_2": {
+        "legs": 0,
+        "shots": 5,
+        "hits": 4,
+        "retreats": 1,
+        "resumed": 0,
+        "damage_events": 4,
+        "deaths": 1,
+        "nav_states": {
+          "<ShipNavigationState.PATROL: 1>": 4,
+          "<ShipNavigationState.FOLLOW_ROUTE: 2>": 17,
+          "<ShipNavigationState.IDLE: 0>": 4
+        },
+        "tactical_states": {
+          "<ShipTacticalState.PATROL: 0>": 3,
+          "<ShipTacticalState.ENGAGE: 1>": 10,
+          "<ShipTacticalState.RETREAT: 2>": 12
+        },
+        "initialized_path": true,
+        "max_displacement_m": 111.3528775424702,
+        "minimum_coast_distance_m": 436.54618750661405,
+        "land_samples": 0,
+        "maximum_sample_speed_mps": 7.027848243743004,
+        "navigation_failures": {},
+        "invalid_target_samples": 0
+      }
+    },
+    "minimum_pair_spacing_m": 400.01383311169843,
+    "final_hud": [
+      {
+        "score": "BLUE 0   |   RED 2",
+        "hp": "YOUR SHIP   0 / 100 HP",
+        "result": "DEFEAT"
+      }
+    ]
+  },
+  "damage_ui": {
+    "phase": "done",
+    "rows": [
+      {
+        "name": "initial",
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "ships": [
+          {
+            "name": "Friendly_AI_2",
+            "hp": 100.0,
+            "team": 0,
+            "bar": {
+              "fraction": 1.0,
+              "color": [
+                0.07999999821186066,
+                0.8500000238418579,
+                0.2199999988079071
+              ],
+              "visible": true
+            }
+          },
+          {
+            "name": "BP_ShipEnemy",
+            "hp": 100.0,
+            "team": 1,
+            "bar": {
+              "fraction": 1.0,
+              "color": [
+                0.07999999821186066,
+                0.8500000238418579,
+                0.2199999988079071
+              ],
+              "visible": true
+            }
+          },
+          {
+            "name": "Enemy_AI_2",
+            "hp": 100.0,
+            "team": 1,
+            "bar": {
+              "fraction": 1.0,
+              "color": [
+                0.07999999821186066,
+                0.8500000238418579,
+                0.2199999988079071
+              ],
+              "visible": true
+            }
+          },
+          {
+            "name": "Enemy_AI_3",
+            "hp": 100.0,
+            "team": 1,
+            "bar": {
+              "fraction": 1.0,
+              "color": [
+                0.07999999821186066,
+                0.8500000238418579,
+                0.2199999988079071
+              ],
+              "visible": true
+            }
+          },
+          {
+            "name": "Friendly_AI_1",
+            "hp": 100.0,
+            "team": 0,
+            "bar": {
+              "fraction": 1.0,
+              "color": [
+                0.07999999821186066,
+                0.8500000238418579,
+                0.2199999988079071
+              ],
+              "visible": true
+            }
+          },
+          {
+            "name": "BP_Ship0",
+            "hp": 100.0,
+            "team": 0,
+            "bar": null
+          }
+        ]
+      },
+      {
+        "name": "player_to_friendly",
+        "fired": true,
+        "hp": 100.0,
+        "expected": 100,
+        "before_hp": 100.0,
+        "damage_events": 0,
+        "new_damage_events": 0,
+        "rejected": 1,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 1.0,
+          "color": [
+            0.07999999821186066,
+            0.8500000238418579,
+            0.2199999988079071
+          ],
+          "visible": true
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "enemy_to_enemy",
+        "fired": true,
+        "hp": 100.0,
+        "expected": 100,
+        "before_hp": 100.0,
+        "damage_events": 0,
+        "new_damage_events": 0,
+        "rejected": 1,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 1.0,
+          "color": [
+            0.07999999821186066,
+            0.8500000238418579,
+            0.2199999988079071
+          ],
+          "visible": false
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "player_to_enemy",
+        "fired": true,
+        "hp": 75.0,
+        "expected": 75,
+        "before_hp": 100.0,
+        "damage_events": 1,
+        "new_damage_events": 1,
+        "rejected": 0,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 0.75,
+          "color": [
+            0.07999999821186066,
+            0.8500000238418579,
+            0.2199999988079071
+          ],
+          "visible": true
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "enemy_to_friendly",
+        "fired": true,
+        "hp": 75.0,
+        "expected": 75,
+        "before_hp": 100.0,
+        "damage_events": 1,
+        "new_damage_events": 1,
+        "rejected": 1,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 0.75,
+          "color": [
+            0.07999999821186066,
+            0.8500000238418579,
+            0.2199999988079071
+          ],
+          "visible": false
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "yellow_hp",
+        "fired": true,
+        "hp": 50.0,
+        "expected": 50,
+        "before_hp": 75.0,
+        "damage_events": 2,
+        "new_damage_events": 1,
+        "rejected": 0,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 0.5,
+          "color": [
+            1.0,
+            0.7799999713897705,
+            0.029999999329447746
+          ],
+          "visible": true
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "red_hp",
+        "fired": true,
+        "hp": 25.0,
+        "expected": 25,
+        "before_hp": 50.0,
+        "damage_events": 3,
+        "new_damage_events": 1,
+        "rejected": 0,
+        "destruction_events": 0,
+        "destroyed": false,
+        "bar": {
+          "fraction": 0.25,
+          "color": [
+            0.949999988079071,
+            0.05999999865889549,
+            0.05000000074505806
+          ],
+          "visible": true
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 3",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "enemy_destroyed",
+        "fired": true,
+        "hp": 0.0,
+        "expected": 0,
+        "before_hp": 25.0,
+        "damage_events": 4,
+        "new_damage_events": 1,
+        "rejected": 0,
+        "destruction_events": 1,
+        "destroyed": true,
+        "bar": {
+          "fraction": 0.0,
+          "color": [
+            0.949999988079071,
+            0.05999999865889549,
+            0.05000000074505806
+          ],
+          "visible": false
+        },
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 2",
+          "result": "",
+          "viewport": true
+        },
+        "passed": true
+      },
+      {
+        "name": "destruction_once",
+        "passed": true,
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 2",
+          "result": "",
+          "viewport": true
+        }
+      },
+      {
+        "name": "victory",
+        "hud": {
+          "hp": "YOUR SHIP   100 / 100 HP",
+          "score": "BLUE 3   |   RED 0",
+          "result": "VICTORY",
+          "viewport": true
+        },
+        "passed": true
+      }
+    ],
+    "error": null
+  },
+  "defeat": {
+    "stage": 2,
+    "rows": [
+      {
+        "name": "player_death",
+        "hud": {
+          "score": "BLUE 2   |   RED 3",
+          "hp": "YOUR SHIP   0 / 100 HP",
+          "result": "PLAYER DESTROYED\nFleet battle continues"
+        },
+        "death_events": 1,
+        "can_fire": false,
+        "tick": false,
+        "move_ignored": true,
+        "look_ignored": true
+      },
+      {
+        "name": "defeat",
+        "hud": {
+          "score": "BLUE 0   |   RED 3",
+          "hp": "YOUR SHIP   0 / 100 HP",
+          "result": "DEFEAT"
+        },
+        "players": 1,
+        "valid_targets": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    ],
+    "error": null,
+    "at": 8.02783240750432
+  },
+  "ranges_turrets": {
+    "outside_detection": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "detected_outside_engagement": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "left_tracking": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "right_tracking": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "barrel_elevation": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "barrel_lowering": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "inside_engagement": {
+      "passed": true,
+      "shots": 3,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "friendly_rejected": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "invalid_rejected": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "island_like_blocker": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "mechanical_yaw_limit": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    },
+    "mechanical_pitch_limit": {
+      "passed": true,
+      "shots": 0,
+      "file": "RANGES_TURRETS_PIE.json"
+    }
+  },
+  "player_controls": {
+    "error": null,
+    "moved_m": 416.07311007039425,
+    "yaw_delta_degrees": 20.64147271843933,
+    "look_before": [
+      0.0,
+      -30.00000000000001
+    ],
+    "look_after": [
+      330.5,
+      29.0
+    ],
+    "shots": 1,
+    "used_gun_camera": true,
+    "always_player_controlled": true,
+    "no_navigation_component": true
+  },
+  "focused_retreat": {
+    "status": "RETURNED_TO_ORIGINAL_PATROL",
+    "error": null,
+    "states": {
+      "<ShipTacticalState.PATROL: 0>": 8,
+      "<ShipTacticalState.ENGAGE: 1>": 35,
+      "<ShipTacticalState.RETREAT: 2>": 292,
+      "<ShipTacticalState.RETURN_TO_PATROL: 3>": 12
+    },
+    "shots": 3,
+    "retreats": 1,
+    "resumed": 1,
+    "retreat_start_distance_m": 336.48451148065124,
+    "maximum_retreat_distance_m": 612.1640691885071,
+    "original_anchors_retained": true,
+    "final_tactical_override": false
+  },
+  "real_island_occlusion": {
+    "passed": false,
+    "error": null,
+    "last": {
+      "t": 14.64824179187417,
+      "target": "BP_Ship0",
+      "visible": false,
+      "shots": 0,
+      "status": "Line of sight blocked",
+      "distance_m": 1125.7546827958704
+    }
+  }
+}

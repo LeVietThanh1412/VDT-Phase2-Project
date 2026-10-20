@@ -1,0 +1,989 @@
+
+ASSET /Game/Ship/BluePrint/BP_Ship.BP_Ship GRAPH EventGraph
+NODE K2Node_Event_0 Event BeginPlay
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_CallFunction_1.execute
+NODE K2Node_Event_1 Event ActorBeginOverlap
+  OUT OutputDelegate default=
+  OUT then default=
+  OUT OtherActor default=
+NODE K2Node_Event_2 Event Tick
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_CallFunction_8.execute
+  OUT DeltaSeconds default=0.0
+NODE K2Node_CallFunction_0 Get Player Controller
+  IN self default=
+  IN WorldContextObject default=
+  IN PlayerIndex default=0
+  OUT ReturnValue default= -> K2Node_GetSubsystemFromPC_0.PlayerController
+NODE K2Node_GetSubsystemFromPC_0 Get EnhancedInputLocalPlayerSubsystem
+  IN PlayerController default= -> K2Node_CallFunction_0.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_1.self
+NODE K2Node_CallFunction_1 Add Mapping Context
+  IN execute default= -> K2Node_Event_0.then
+  OUT then default= -> K2Node_CallFunction_19.execute
+  IN self default= -> K2Node_GetSubsystemFromPC_0.ReturnValue
+  IN MappingContext default=
+  IN Priority default=0
+  IN Options default=(bIgnoreAllPressedKeysUntilRelease=True,bForceImmediately=False,bNotifyUserSettings=False)
+NODE K2Node_EnhancedInputAction_0 EnhancedInputAction IA_LookAround
+  OUT Triggered default= -> K2Node_CallFunction_3.execute
+  OUT Started default=
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default=
+  OUT ActionValue default= -> K2Node_CallFunction_2.InVec
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_LookAround
+NODE K2Node_CallFunction_2 Break Vector 2D
+  IN self default=
+  IN InVec default= -> K2Node_EnhancedInputAction_0.ActionValue
+  OUT X default=0.0 -> K2Node_CallFunction_3.Val
+  OUT Y default=0.0 -> K2Node_CallFunction_4.Val
+NODE K2Node_CallFunction_3 Add Controller Yaw Input
+  IN execute default= -> K2Node_EnhancedInputAction_0.Triggered
+  OUT then default= -> K2Node_CallFunction_4.execute
+  IN self default=
+  IN Val default=0.0 -> K2Node_CallFunction_2.X
+NODE K2Node_CallFunction_4 Add Controller Pitch Input
+  IN execute default= -> K2Node_CallFunction_3.then
+  OUT then default=
+  IN self default=
+  IN Val default=0.0 -> K2Node_CallFunction_2.Y
+NODE K2Node_EnhancedInputAction_1 EnhancedInputAction IA_MoveForwardBackward
+  OUT Triggered default= -> K2Node_IfThenElse_0.execute
+  OUT Started default=
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default=
+  OUT ActionValue default=0.0 -> K2Node_PromotableOperator_1.B
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_MoveForwardBackward
+NODE K2Node_VariableGet_0 Get Buoyancy
+  OUT Buoyancy default= -> K2Node_CallFunction_5.self
+  IN self default=
+NODE K2Node_CallFunction_5 Is in Water Body
+  IN self default= -> K2Node_VariableGet_0.Buoyancy
+  OUT ReturnValue default=false -> K2Node_IfThenElse_0.Condition
+NODE K2Node_IfThenElse_0 Branch
+  IN execute default= -> K2Node_EnhancedInputAction_1.Triggered
+  IN Condition default=true -> K2Node_CallFunction_5.ReturnValue
+  OUT then default= -> K2Node_CallFunction_6.execute
+  OUT else default=
+NODE K2Node_VariableGet_1 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_6.self
+  IN self default=
+NODE K2Node_CallFunction_6 Add Force
+  IN execute default= -> K2Node_IfThenElse_0.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_1.ShipSM
+  IN Force default=0, 0, 0 -> K2Node_CallFunction_80.ReturnValue
+  IN BoneName default=None
+  IN bAccelChange default=false
+NODE K2Node_VariableGet_2 Get Arrow
+  OUT Arrow default= -> K2Node_CallFunction_7.self
+  IN self default=
+NODE K2Node_CallFunction_7 Get Forward Vector
+  IN self default= -> K2Node_VariableGet_2.Arrow
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_0.A
+NODE K2Node_PromotableOperator_0 vector * vector
+  IN A default= -> K2Node_CallFunction_7.ReturnValue
+  IN B default=700000.000000
+  OUT ReturnValue default= -> K2Node_PromotableOperator_1.A
+NODE K2Node_PromotableOperator_1 vector * vector
+  IN A default= -> K2Node_PromotableOperator_0.ReturnValue
+  IN B default= -> K2Node_EnhancedInputAction_1.ActionValue
+  OUT ReturnValue default= -> K2Node_CallFunction_80.OriginalForce
+NODE K2Node_CustomEvent_0 EngineManager
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_IfThenElse_1.execute
+NODE K2Node_CallFunction_8 EngineManager
+  IN execute default= -> K2Node_Event_2.then
+  OUT then default= -> K2Node_CallFunction_42.execute
+  IN self default=
+NODE K2Node_GetInputActionValue_1 Get IA_MoveForwardBackward
+  OUT ReturnValue default= -> K2Node_PromotableOperator_3.A
+NODE K2Node_PromotableOperator_3 float > float
+  IN A default= -> K2Node_GetInputActionValue_1.ReturnValue
+  IN B default=
+  OUT ReturnValue default= -> K2Node_IfThenElse_1.Condition
+  IN ErrorTolerance default=
+NODE K2Node_IfThenElse_1 Branch
+  IN execute default= -> K2Node_CustomEvent_0.then
+  IN Condition default=true -> K2Node_PromotableOperator_3.ReturnValue
+  OUT then default= -> K2Node_VariableSet_1.execute
+  OUT else default= -> K2Node_IfThenElse_2.execute
+NODE K2Node_CallFunction_11 FInterp To
+  IN self default=
+  IN Current default=0.0 -> K2Node_VariableGet_4.ForceFactor
+  IN Target default=1.000000
+  IN DeltaTime default=0.0 -> K2Node_CallFunction_12.ReturnValue
+  IN InterpSpeed default=20.000000
+  OUT ReturnValue default=0.0 -> K2Node_VariableSet_1.ForceFactor
+NODE K2Node_VariableGet_4 Get ForceFactor
+  OUT ForceFactor default=0.0 -> K2Node_CallFunction_11.Current
+  IN self default=
+NODE K2Node_CallFunction_12 Get World Delta Seconds
+  IN self default=
+  IN WorldContextObject default=
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_11.DeltaTime
+NODE K2Node_VariableSet_1 Set ForceFactor
+  IN execute default= -> K2Node_IfThenElse_1.then
+  OUT then default=
+  IN ForceFactor default=0.0 -> K2Node_CallFunction_11.ReturnValue
+  OUT Output_Get default=0.0
+  IN self default=
+NODE K2Node_GetInputActionValue_0 Get IA_MoveForwardBackward
+  OUT ReturnValue default= -> K2Node_PromotableOperator_4.A
+NODE K2Node_PromotableOperator_4 Equal (Float)
+  IN A default= -> K2Node_GetInputActionValue_0.ReturnValue
+  IN B default=
+  OUT ReturnValue default= -> K2Node_IfThenElse_2.Condition
+  IN ErrorTolerance default=
+NODE K2Node_IfThenElse_2 Branch
+  IN execute default= -> K2Node_IfThenElse_1.else
+  IN Condition default=true -> K2Node_PromotableOperator_4.ReturnValue
+  OUT then default= -> K2Node_VariableSet_2.execute
+  OUT else default= -> K2Node_VariableSet_0.execute
+NODE K2Node_CallFunction_13 FInterp To
+  IN self default=
+  IN Current default=0.0 -> K2Node_VariableGet_5.ForceFactor
+  IN Target default=0.0
+  IN DeltaTime default=0.0 -> K2Node_CallFunction_14.ReturnValue
+  IN InterpSpeed default=2.000000
+  OUT ReturnValue default=0.0 -> K2Node_VariableSet_2.ForceFactor
+NODE K2Node_VariableGet_5 Get ForceFactor
+  OUT ForceFactor default=0.0 -> K2Node_CallFunction_13.Current
+  IN self default=
+NODE K2Node_CallFunction_14 Get World Delta Seconds
+  IN self default=
+  IN WorldContextObject default=
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_13.DeltaTime
+NODE K2Node_VariableSet_2 Set ForceFactor
+  IN execute default= -> K2Node_IfThenElse_2.then
+  OUT then default=
+  IN ForceFactor default=0.0 -> K2Node_CallFunction_13.ReturnValue
+  OUT Output_Get default=0.0
+  IN self default=
+NODE K2Node_CallFunction_9 FInterp To
+  IN self default=
+  IN Current default=0.0 -> K2Node_VariableGet_3.ForceFactor
+  IN Target default=-1.000000
+  IN DeltaTime default=0.0 -> K2Node_CallFunction_10.ReturnValue
+  IN InterpSpeed default=2.000000
+  OUT ReturnValue default=0.0 -> K2Node_VariableSet_0.ForceFactor
+NODE K2Node_VariableGet_3 Get ForceFactor
+  OUT ForceFactor default=0.0 -> K2Node_CallFunction_9.Current
+  IN self default=
+NODE K2Node_CallFunction_10 Get World Delta Seconds
+  IN self default=
+  IN WorldContextObject default=
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_9.DeltaTime
+NODE K2Node_VariableSet_0 Set ForceFactor
+  IN execute default= -> K2Node_IfThenElse_2.else
+  OUT then default=
+  IN ForceFactor default=0.0 -> K2Node_CallFunction_9.ReturnValue
+  OUT Output_Get default=0.0
+  IN self default=
+NODE K2Node_CallFunction_15 Print String
+  IN execute default=
+  OUT then default= -> K2Node_CallFunction_42.execute
+  IN self default=
+  IN WorldContextObject default=
+  IN InString default=Hello -> K2Node_CallFunction_16.ReturnValue
+  IN bPrintToScreen default=true
+  IN bPrintToLog default=true
+  IN TextColor default=(R=0.000000,G=0.660000,B=1.000000,A=1.000000)
+  IN Duration default=2.000000
+  IN Key default=None
+NODE K2Node_VariableGet_6 Get ForceFactor
+  OUT ForceFactor default=0.0 -> K2Node_CallFunction_16.InDouble
+  IN self default=
+NODE K2Node_CallFunction_16 To String (Float)
+  IN self default=
+  IN InDouble default=0.0 -> K2Node_VariableGet_6.ForceFactor
+  OUT ReturnValue default= -> K2Node_CallFunction_15.InString
+NODE K2Node_EnhancedInputAction_3 EnhancedInputAction IA_MoveLeftRight
+  OUT Triggered default= -> K2Node_IfThenElse_3.execute
+  OUT Started default=
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default=
+  OUT ActionValue default=0.0 -> K2Node_PromotableOperator_14.A
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_MoveLeftRight
+NODE K2Node_VariableGet_7 Get Buoyancy
+  OUT Buoyancy default= -> K2Node_CallFunction_17.self
+  IN self default=
+NODE K2Node_CallFunction_17 Is in Water Body
+  IN self default= -> K2Node_VariableGet_7.Buoyancy
+  OUT ReturnValue default=false -> K2Node_CommutativeAssociativeBinaryOperator_0.A
+NODE K2Node_IfThenElse_3 Branch
+  IN execute default= -> K2Node_EnhancedInputAction_3.Triggered
+  IN Condition default=true -> K2Node_CommutativeAssociativeBinaryOperator_0.ReturnValue
+  OUT then default= -> K2Node_IfThenElse_4.execute
+  OUT else default=
+NODE K2Node_CallFunction_22 GetSpeed
+  IN self default=
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_2.A
+NODE K2Node_PromotableOperator_2 float > float
+  IN A default= -> K2Node_CallFunction_22.ReturnValue
+  IN B default=5.000000
+  OUT ReturnValue default= -> K2Node_CommutativeAssociativeBinaryOperator_0.B
+  IN ErrorTolerance default=
+NODE K2Node_CommutativeAssociativeBinaryOperator_0 AND Boolean
+  IN self default=
+  IN A default=false -> K2Node_CallFunction_17.ReturnValue
+  IN B default=false -> K2Node_PromotableOperator_2.ReturnValue
+  OUT ReturnValue default=false -> K2Node_IfThenElse_3.Condition
+NODE K2Node_IfThenElse_4 Branch
+  IN execute default= -> K2Node_IfThenElse_3.then
+  IN Condition default=true -> K2Node_PromotableOperator_5.ReturnValue
+  OUT then default= -> K2Node_CallFunction_36.execute
+  OUT else default= -> K2Node_CallFunction_26.execute
+NODE K2Node_CallFunction_23 Sign (Float)
+  IN self default=
+  IN A default=0.0 -> K2Node_PromotableOperator_14.ReturnValue
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_5.A
+NODE K2Node_PromotableOperator_5 float > float
+  IN A default= -> K2Node_CallFunction_23.ReturnValue
+  IN B default=
+  OUT ReturnValue default= -> K2Node_IfThenElse_4.Condition
+  IN ErrorTolerance default=
+NODE K2Node_VariableGet_11 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_36.self
+  IN self default=
+NODE K2Node_CallFunction_36 Add Force at Location Local
+  IN execute default= -> K2Node_IfThenElse_4.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_11.ShipSM
+  IN Force default=0, 0, 0 -> K2Node_PromotableOperator_7.ReturnValue
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_45.ReturnValue
+  IN BoneName default=None
+NODE K2Node_VariableGet_13 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_44.self -> K2Node_CallFunction_46.self
+  IN self default=
+NODE K2Node_CallFunction_44 Get Socket Location
+  IN self default= -> K2Node_VariableGet_13.ShipSM
+  IN InSocketName default=5
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_45.Location
+NODE K2Node_CallFunction_45 Inverse Transform Location
+  IN self default=
+  IN T default= -> K2Node_CallFunction_46.ReturnValue
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_44.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_36.Location
+NODE K2Node_CallFunction_46 Get World Transform
+  IN self default= -> K2Node_VariableGet_13.ShipSM
+  OUT ReturnValue default= -> K2Node_CallFunction_45.T
+NODE K2Node_VariableGet_12 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_37.self -> K2Node_CallFunction_39.self
+  IN self default=
+NODE K2Node_CallFunction_37 Get Socket Rotation
+  IN self default= -> K2Node_VariableGet_12.ShipSM
+  IN InSocketName default=5
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_38.Rotation
+NODE K2Node_CallFunction_38 Inverse Transform Rotation
+  IN self default=
+  IN T default= -> K2Node_CallFunction_39.ReturnValue
+  IN Rotation default=0, 0, 0 -> K2Node_CallFunction_37.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_40.InRot
+NODE K2Node_CallFunction_39 Get World Transform
+  IN self default= -> K2Node_VariableGet_12.ShipSM
+  OUT ReturnValue default= -> K2Node_CallFunction_38.T
+NODE K2Node_CallFunction_40 Get Right Vector
+  IN self default=
+  IN InRot default=0, 0, 0 -> K2Node_CallFunction_38.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_7.A
+NODE K2Node_PromotableOperator_7 vector * vector
+  IN A default= -> K2Node_CallFunction_40.ReturnValue
+  IN B default= -> K2Node_CallFunction_50.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_36.Force
+NODE K2Node_VariableGet_8 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_26.self
+  IN self default=
+NODE K2Node_CallFunction_26 Add Force at Location Local
+  IN execute default= -> K2Node_IfThenElse_4.else
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_8.ShipSM
+  IN Force default=0, 0, 0 -> K2Node_PromotableOperator_6.ReturnValue
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_29.ReturnValue
+  IN BoneName default=None
+NODE K2Node_VariableGet_10 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_32.self -> K2Node_CallFunction_30.self
+  IN self default=
+NODE K2Node_CallFunction_32 Get Socket Rotation
+  IN self default= -> K2Node_VariableGet_10.ShipSM
+  IN InSocketName default=4
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_33.Rotation
+NODE K2Node_CallFunction_33 Inverse Transform Rotation
+  IN self default=
+  IN T default= -> K2Node_CallFunction_30.ReturnValue
+  IN Rotation default=0, 0, 0 -> K2Node_CallFunction_32.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_35.InRot
+NODE K2Node_CallFunction_30 Get World Transform
+  IN self default= -> K2Node_VariableGet_10.ShipSM
+  OUT ReturnValue default= -> K2Node_CallFunction_33.T
+NODE K2Node_CallFunction_35 Get Right Vector
+  IN self default=
+  IN InRot default=0, 0, 0 -> K2Node_CallFunction_33.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_43.A
+NODE K2Node_PromotableOperator_6 vector * vector
+  IN A default= -> K2Node_CallFunction_43.ReturnValue
+  IN B default= -> K2Node_CallFunction_48.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_26.Force
+NODE K2Node_CallFunction_43 Negate Vector
+  IN self default=
+  IN A default=0, 0, 0 -> K2Node_CallFunction_35.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_6.A
+NODE K2Node_VariableGet_9 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_27.self -> K2Node_CallFunction_34.self
+  IN self default=
+NODE K2Node_CallFunction_27 Get Socket Location
+  IN self default= -> K2Node_VariableGet_9.ShipSM
+  IN InSocketName default=4
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_29.Location
+NODE K2Node_CallFunction_29 Inverse Transform Location
+  IN self default=
+  IN T default= -> K2Node_CallFunction_34.ReturnValue
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_27.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_26.Location
+NODE K2Node_CallFunction_34 Get World Transform
+  IN self default= -> K2Node_VariableGet_9.ShipSM
+  OUT ReturnValue default= -> K2Node_CallFunction_29.T
+NODE K2Node_CallFunction_49 GetSpeed
+  IN self default=
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_50.Value
+NODE K2Node_CallFunction_50 Map Range Clamped
+  IN self default=
+  IN Value default=0.0 -> K2Node_CallFunction_49.ReturnValue
+  IN InRangeA default=0.0
+  IN InRangeB default=20.000000
+  IN OutRangeA default=5000.000000
+  IN OutRangeB default=16000.000000
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_7.B
+NODE K2Node_CallFunction_47 GetSpeed
+  IN self default=
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_48.Value
+NODE K2Node_CallFunction_48 Map Range Clamped
+  IN self default=
+  IN Value default=0.0 -> K2Node_CallFunction_47.ReturnValue
+  IN InRangeA default=0.0
+  IN InRangeB default=20.000000
+  IN OutRangeA default=5000.000000
+  IN OutRangeB default=16000.000000
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_6.B
+NODE K2Node_EnhancedInputAction_2 EnhancedInputAction IA_Aim
+  OUT Triggered default=
+  OUT Started default= -> K2Node_CallFunction_24.execute
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default= -> K2Node_CallFunction_28.execute
+  OUT ActionValue default=false
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_Aim
+NODE K2Node_VariableGet_16 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_24.self
+  IN self default=
+NODE K2Node_CallFunction_24 Set Active
+  IN execute default= -> K2Node_EnhancedInputAction_2.Started
+  OUT then default= -> K2Node_CallFunction_25.execute
+  IN self default= -> K2Node_VariableGet_16.GunCamera
+  IN bNewActive default=true
+  IN bReset default=false
+NODE K2Node_VariableGet_17 Get Camera
+  OUT Camera default= -> K2Node_CallFunction_25.self
+  IN self default=
+NODE K2Node_CallFunction_25 Set Active
+  IN execute default= -> K2Node_CallFunction_24.then
+  OUT then default= -> K2Node_CallFunction_62.execute
+  IN self default= -> K2Node_VariableGet_17.Camera
+  IN bNewActive default=false
+  IN bReset default=false
+NODE K2Node_VariableGet_18 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_28.self
+  IN self default=
+NODE K2Node_CallFunction_28 Set Active
+  IN execute default= -> K2Node_EnhancedInputAction_2.Completed
+  OUT then default= -> K2Node_CallFunction_41.execute
+  IN self default= -> K2Node_VariableGet_18.GunCamera
+  IN bNewActive default=false
+  IN bReset default=false
+NODE K2Node_VariableGet_19 Get Camera
+  OUT Camera default= -> K2Node_CallFunction_41.self
+  IN self default=
+NODE K2Node_CallFunction_41 Set Active
+  IN execute default= -> K2Node_CallFunction_28.then
+  OUT then default= -> K2Node_CallFunction_63.execute
+  IN self default= -> K2Node_VariableGet_19.Camera
+  IN bNewActive default=true
+  IN bReset default=false
+NODE K2Node_VariableGet_14 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_19.self
+  IN self default=
+NODE K2Node_CallFunction_19 Set Active
+  IN execute default= -> K2Node_CallFunction_1.then
+  OUT then default= -> K2Node_CallFunction_20.execute
+  IN self default= -> K2Node_VariableGet_14.GunCamera
+  IN bNewActive default=false
+  IN bReset default=false
+NODE K2Node_VariableGet_15 Get Camera
+  OUT Camera default= -> K2Node_CallFunction_20.self
+  IN self default=
+NODE K2Node_CallFunction_20 Set Active
+  IN execute default= -> K2Node_CallFunction_19.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_15.Camera
+  IN bNewActive default=true
+  IN bReset default=false
+NODE K2Node_CustomEvent_1 ManageAiming
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_IfThenElse_5.execute
+NODE K2Node_CallFunction_42 ManageAiming
+  IN execute default= -> K2Node_CallFunction_8.then -> K2Node_CallFunction_15.then
+  OUT then default=
+  IN self default=
+NODE K2Node_IfThenElse_5 Branch
+  IN execute default= -> K2Node_CustomEvent_1.then
+  IN Condition default=true -> K2Node_CallFunction_51.ReturnValue
+  OUT then default= -> K2Node_CallFunction_52.execute
+  OUT else default=
+NODE K2Node_VariableGet_20 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_51.self
+  IN self default=
+NODE K2Node_CallFunction_51 Is Active
+  IN self default= -> K2Node_VariableGet_20.GunCamera
+  OUT ReturnValue default=false -> K2Node_IfThenElse_5.Condition
+NODE K2Node_CallFunction_52 Line Trace By Channel
+  IN execute default= -> K2Node_IfThenElse_5.then
+  OUT then default= -> K2Node_VariableSet_3.execute
+  IN self default=
+  IN WorldContextObject default=
+  IN Start default=0, 0, 0 -> K2Node_CallFunction_66.ReturnValue
+  IN End default=0, 0, 0 -> K2Node_PromotableOperator_9.ReturnValue
+  IN TraceChannel default=TraceTypeQuery1
+  IN bTraceComplex default=false
+  IN ActorsToIgnore default=
+  IN DrawDebugType default=None
+  OUT OutHit default= -> K2Node_CallFunction_18.Hit
+  IN bIgnoreSelf default=false
+  IN TraceColor default=(R=1.000000,G=0.000000,B=0.000000,A=1.000000)
+  IN TraceHitColor default=(R=0.000000,G=1.000000,B=0.000000,A=1.000000)
+  IN DrawTime default=5.000000
+  OUT ReturnValue default=false
+NODE K2Node_VariableGet_31 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_66.self -> K2Node_CallFunction_54.self
+  IN self default=
+NODE K2Node_CallFunction_66 Get Socket Location
+  IN self default= -> K2Node_VariableGet_31.Ship
+  IN InSocketName default=front_gun_v_socket
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_52.Start -> K2Node_PromotableOperator_9.A
+NODE K2Node_CallFunction_54 Get Socket Rotation
+  IN self default= -> K2Node_VariableGet_31.Ship
+  IN InSocketName default=front_gun_v_socket
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_55.InRot
+NODE K2Node_CallFunction_55 Get Forward Vector
+  IN self default=
+  IN InRot default=0, 0, 0 -> K2Node_CallFunction_54.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_8.A
+NODE K2Node_PromotableOperator_8 vector * vector
+  IN A default= -> K2Node_CallFunction_55.ReturnValue
+  IN B default=50000.000000
+  OUT ReturnValue default= -> K2Node_PromotableOperator_9.B
+NODE K2Node_PromotableOperator_9 vector + vector
+  IN A default= -> K2Node_CallFunction_66.ReturnValue
+  IN B default= -> K2Node_PromotableOperator_8.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_52.End
+NODE K2Node_CallFunction_18 Break Hit Result
+  IN self default=
+  IN Hit default= -> K2Node_CallFunction_52.OutHit
+  OUT bBlockingHit default=false -> K2Node_VariableSet_3.Is Hit
+  OUT bInitialOverlap default=false
+  OUT Time default=0.0
+  OUT Distance default=0.0
+  OUT Location default=0, 0, 0
+  OUT ImpactPoint default=0, 0, 0 -> K2Node_VariableSet_7.Impact Point
+  OUT Normal default=0, 0, 0
+  OUT ImpactNormal default=0, 0, 0
+  OUT PhysMat default=
+  OUT HitActor default= -> K2Node_PromotableOperator_10.A
+  OUT HitComponent default=
+  OUT HitBoneName default=None
+  OUT BoneName default=None
+  OUT HitItem default=0
+  OUT ElementIndex default=0
+  OUT FaceIndex default=0
+  OUT TraceStart default=0, 0, 0
+  OUT TraceEnd default=0, 0, 0 -> K2Node_VariableSet_4.Impact Point
+NODE K2Node_VariableSet_3 Set Is Hit
+  IN execute default= -> K2Node_CallFunction_52.then
+  OUT then default= -> K2Node_IfThenElse_6.execute
+  IN Is Hit default=false -> K2Node_CallFunction_18.bBlockingHit
+  OUT Output_Get default=false -> K2Node_IfThenElse_6.Condition
+  IN self default=
+NODE K2Node_IfThenElse_6 Branch
+  IN execute default= -> K2Node_VariableSet_3.then
+  IN Condition default=true -> K2Node_VariableSet_3.Output_Get
+  OUT then default= -> K2Node_IfThenElse_7.execute
+  OUT else default= -> K2Node_VariableSet_4.execute
+NODE K2Node_VariableSet_7 Set Impact Point
+  IN execute default= -> K2Node_IfThenElse_7.else
+  OUT then default= -> K2Node_CallFunction_56.execute
+  IN Impact Point default=0, 0, 0 -> K2Node_CallFunction_18.ImpactPoint
+  OUT Output_Get default=0, 0, 0
+  IN self default=
+NODE K2Node_CallFunction_56 Set World Location
+  IN execute default= -> K2Node_VariableSet_7.then -> K2Node_VariableSet_4.then
+  OUT then default= -> K2Node_CallFunction_57.execute
+  IN self default= -> K2Node_VariableGet_25.Crosshair
+  IN NewLocation default=0, 0, 0 -> K2Node_VariableGet_24.Impact Point
+  IN bSweep default=false
+  OUT SweepHitResult default=
+  IN bTeleport default=false
+NODE K2Node_VariableGet_24 Get Impact Point
+  OUT Impact Point default=0, 0, 0 -> K2Node_CallFunction_56.NewLocation
+  IN self default=
+NODE K2Node_VariableGet_25 Get Crosshair
+  OUT Crosshair default= -> K2Node_CallFunction_56.self
+  IN self default=
+NODE K2Node_VariableSet_4 Set Impact Point
+  IN execute default= -> K2Node_IfThenElse_6.else
+  OUT then default= -> K2Node_CallFunction_56.execute
+  IN Impact Point default=0, 0, 0 -> K2Node_CallFunction_18.TraceEnd
+  OUT Output_Get default=0, 0, 0
+  IN self default=
+NODE K2Node_PromotableOperator_10 Equal (Object)
+  IN A default= -> K2Node_CallFunction_18.HitActor
+  IN B default= -> K2Node_Self_0.self
+  OUT ReturnValue default= -> K2Node_IfThenElse_7.Condition
+  IN ErrorTolerance default=
+NODE K2Node_Self_0 Self-Reference
+  OUT self default= -> K2Node_PromotableOperator_10.B
+NODE K2Node_IfThenElse_7 Branch
+  IN execute default= -> K2Node_IfThenElse_6.then
+  IN Condition default=true -> K2Node_PromotableOperator_10.ReturnValue
+  OUT then default= -> K2Node_CallFunction_58.execute
+  OUT else default= -> K2Node_VariableSet_7.execute
+NODE K2Node_VariableGet_27 Get Crosshair
+  OUT Crosshair default= -> K2Node_CallFunction_58.self
+  IN self default=
+NODE K2Node_CallFunction_58 Set Visibility
+  IN execute default= -> K2Node_IfThenElse_7.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_27.Crosshair
+  IN bNewVisibility default=false
+  IN bPropagateToChildren default=false
+NODE K2Node_VariableGet_26 Get Crosshair
+  OUT Crosshair default= -> K2Node_CallFunction_57.self
+  IN self default=
+NODE K2Node_CallFunction_57 Set Visibility
+  IN execute default= -> K2Node_CallFunction_56.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_26.Crosshair
+  IN bNewVisibility default=true
+  IN bPropagateToChildren default=false
+NODE K2Node_EnhancedInputAction_4 EnhancedInputAction IA_Fire
+  OUT Triggered default=
+  OUT Started default= -> K2Node_IfThenElse_8.execute
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default=
+  OUT ActionValue default=false
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_Fire
+NODE K2Node_IfThenElse_8 Branch
+  IN execute default= -> K2Node_EnhancedInputAction_4.Started
+  IN Condition default=true -> K2Node_CommutativeAssociativeBinaryOperator_1.ReturnValue
+  OUT then default= -> K2Node_CallFunction_77.execute
+  OUT else default=
+NODE K2Node_VariableGet_22 Get Crosshair
+  OUT Crosshair default= -> K2Node_CallFunction_21.self
+  IN self default=
+NODE K2Node_CallFunction_21 Is Visible
+  IN self default= -> K2Node_VariableGet_22.Crosshair
+  OUT ReturnValue default=false -> K2Node_CommutativeAssociativeBinaryOperator_1.A
+NODE K2Node_CommutativeAssociativeBinaryOperator_1 AND Boolean
+  IN self default=
+  IN A default=false -> K2Node_CallFunction_21.ReturnValue
+  IN B default=false -> K2Node_CallFunction_60.ReturnValue
+  OUT ReturnValue default=false -> K2Node_IfThenElse_8.Condition
+  IN C default= -> K2Node_VariableGet_37.CanShoot
+NODE K2Node_VariableGet_23 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_60.self
+  IN self default=
+NODE K2Node_CallFunction_60 Is Active
+  IN self default= -> K2Node_VariableGet_23.GunCamera
+  OUT ReturnValue default=false -> K2Node_CommutativeAssociativeBinaryOperator_1.B
+NODE K2Node_VariableGet_28 Get Crosshair
+  OUT Crosshair default= -> K2Node_CallFunction_62.self -> K2Node_CallFunction_63.self
+  IN self default=
+NODE K2Node_CallFunction_62 Set Visibility
+  IN execute default= -> K2Node_CallFunction_25.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_28.Crosshair
+  IN bNewVisibility default=true
+  IN bPropagateToChildren default=false
+NODE K2Node_CallFunction_63 Set Visibility
+  IN execute default= -> K2Node_CallFunction_41.then
+  OUT then default= -> K2Node_CallFunction_73.execute
+  IN self default= -> K2Node_VariableGet_28.Crosshair
+  IN bNewVisibility default=false
+  IN bPropagateToChildren default=false
+NODE K2Node_SpawnActorFromClass_0 SpawnActor BP Ship Projectile
+  IN execute default= -> K2Node_IfThenElse_9.else
+  OUT then default= -> K2Node_CallFunction_78.execute
+  IN Class default=
+  OUT ReturnValue default= -> K2Node_CallFunction_78.Projectile
+  IN SpawnTransform default= -> K2Node_CallFunction_68.ReturnValue
+  IN CollisionHandlingOverride default=AlwaysSpawn
+  IN TransformScaleMethod default=MultiplyWithRoot
+  IN Owner default= -> K2Node_Self_1.self
+  IN Instigator default= -> K2Node_Self_1.self
+NODE K2Node_VariableGet_33 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_68.self
+  IN self default=
+NODE K2Node_CallFunction_68 Get Socket Transform
+  IN self default= -> K2Node_VariableGet_33.Ship
+  IN InSocketName default=front_gun_v_socket
+  IN TransformSpace default=RTS_World
+  OUT ReturnValue default= -> K2Node_SpawnActorFromClass_0.SpawnTransform
+NODE K2Node_IfThenElse_9 Branch
+  IN execute default= -> K2Node_CustomEvent_2.then
+  IN Condition default=true -> K2Node_CustomEvent_2.bBallistic
+  OUT then default= -> K2Node_SpawnActorFromClass_3.execute
+  OUT else default= -> K2Node_SpawnActorFromClass_0.execute
+NODE K2Node_VariableGet_30 Get Is Hit
+  OUT Is Hit default=false
+  IN self default=
+NODE K2Node_CallFunction_65 Suggest Projectile Velocity
+  IN execute default=
+  OUT then default=
+  IN self default=
+  IN WorldContextObject default=
+  OUT TossVelocity default=0, 0, 0
+  IN StartLocation default=0, 0, 0 -> K2Node_CallFunction_53.ReturnValue
+  IN EndLocation default=0, 0, 0 -> K2Node_VariableGet_32.Impact Point
+  IN LaunchSpeed default=20000.000000
+  IN OverrideGravityZ default=0.0
+  IN TraceOption default=DoNotTrace
+  IN CollisionRadius default=0.0
+  IN bFavorHighArc default=false
+  IN bDrawDebug default=false
+  IN bAcceptClosestOnNoSolutions default=false
+  OUT ReturnValue default=false
+NODE K2Node_VariableGet_21 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_53.self
+  IN self default=
+NODE K2Node_CallFunction_53 Get Socket Location
+  IN self default= -> K2Node_VariableGet_21.Ship
+  IN InSocketName default=front_gun_v_socket
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_65.StartLocation
+NODE K2Node_VariableGet_32 Get Impact Point
+  OUT Impact Point default=0, 0, 0 -> K2Node_CallFunction_65.EndLocation
+  IN self default=
+NODE K2Node_SpawnActorFromClass_3 SpawnActor BP Ship Projectile with Speed
+  IN execute default= -> K2Node_IfThenElse_9.then
+  OUT then default= -> K2Node_CallFunction_79.execute
+  IN Class default=
+  OUT ReturnValue default= -> K2Node_CallFunction_79.Projectile
+  IN SpawnTransform default= -> K2Node_CallFunction_64.ReturnValue
+  IN CollisionHandlingOverride default=AlwaysSpawn
+  IN TransformScaleMethod default=MultiplyWithRoot
+  IN Owner default= -> K2Node_Self_1.self
+  IN Speed default=0.000000,0.000000,0.000000 -> K2Node_CustomEvent_2.LaunchVelocity
+  IN Instigator default= -> K2Node_Self_1.self
+NODE K2Node_VariableGet_29 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_64.self
+  IN self default=
+NODE K2Node_CallFunction_64 Get Socket Transform
+  IN self default= -> K2Node_VariableGet_29.Ship
+  IN InSocketName default=front_gun_v_socket
+  IN TransformSpace default=RTS_World
+  OUT ReturnValue default= -> K2Node_SpawnActorFromClass_3.SpawnTransform
+NODE K2Node_CallFunction_31 Spawn System Attached
+  IN execute default= -> K2Node_CallFunction_78.then -> K2Node_CallFunction_79.then
+  OUT then default= -> K2Node_CallFunction_69.execute
+  IN self default=
+  IN SystemTemplate default=
+  IN AttachToComponent default= -> K2Node_VariableGet_34.Ship
+  IN AttachPointName default=front_gun_v_socket
+  IN Location default=0, 0, 0
+  IN Rotation default=0, 0, 0
+  IN LocationType default=KeepRelativeOffset
+  IN bAutoDestroy default=false
+  IN bAutoActivate default=true
+  IN PoolingMethod default=None
+  IN bPreCullCheck default=true
+  OUT ReturnValue default=
+NODE K2Node_VariableGet_34 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_31.AttachToComponent
+  IN self default=
+NODE K2Node_VariableGet_35 Get Ship
+  OUT Ship default= -> K2Node_CallFunction_67.self
+  IN self default=
+NODE K2Node_CallFunction_67 Get Socket Location
+  IN self default= -> K2Node_VariableGet_35.Ship
+  IN InSocketName default=None
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_69.Location
+NODE K2Node_CallFunction_69 Spawn Sound at Location
+  IN execute default= -> K2Node_CallFunction_31.then
+  OUT then default= -> K2Node_Timeline_0.PlayFromStart
+  IN self default=
+  IN WorldContextObject default=
+  IN Sound default=
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_67.ReturnValue
+  IN Rotation default=0, 0, 0
+  IN VolumeMultiplier default=1.000000
+  IN PitchMultiplier default=1.000000
+  IN StartTime default=0.000000
+  IN AttenuationSettings default=
+  IN ConcurrencySettings default=
+  IN bAutoDestroy default=true
+  OUT ReturnValue default=
+NODE K2Node_Timeline_0 Recoil
+  IN Play default=
+  IN PlayFromStart default= -> K2Node_CallFunction_69.then
+  IN Stop default=
+  IN Reverse default=
+  IN ReverseFromEnd default=
+  OUT Update default= -> K2Node_VariableSet_5.execute
+  OUT Finished default= -> K2Node_VariableSet_8.execute
+  IN SetNewTime default=
+  IN NewTime default=0.0
+  OUT Direction default=
+  OUT RecoilValue default= -> K2Node_VariableSet_5.Recoil Value
+NODE K2Node_VariableSet_5 Set Recoil Value
+  IN execute default= -> K2Node_Timeline_0.Update
+  OUT then default= -> K2Node_VariableSet_6.execute
+  IN Recoil Value default=0.0 -> K2Node_Timeline_0.RecoilValue
+  OUT Output_Get default=0.0
+  IN self default=
+NODE K2Node_VariableSet_6 Set CanShoot
+  IN execute default= -> K2Node_VariableSet_5.then
+  OUT then default=
+  IN CanShoot default=false
+  OUT Output_Get default=false
+  IN self default=
+NODE K2Node_VariableSet_8 Set CanShoot
+  IN execute default= -> K2Node_Timeline_0.Finished
+  OUT then default=
+  IN CanShoot default=true
+  OUT Output_Get default=false
+  IN self default=
+NODE K2Node_VariableGet_37 Get CanShoot
+  OUT CanShoot default=false -> K2Node_CommutativeAssociativeBinaryOperator_1.C
+  IN self default=
+NODE K2Node_EnhancedInputAction_5 EnhancedInputAction IA_Zoom
+  OUT Triggered default= -> K2Node_CallFunction_74.execute
+  OUT Started default=
+  OUT Ongoing default=
+  OUT Canceled default=
+  OUT Completed default=
+  OUT ActionValue default=0.0 -> K2Node_PromotableOperator_12.A
+  OUT ElapsedSeconds default=
+  OUT TriggeredSeconds default=
+  OUT InputAction default=IA_Zoom
+NODE K2Node_VariableGet_40 Get GunCamera
+  OUT GunCamera default= -> K2Node_VariableGet_38.self
+  IN self default=
+NODE K2Node_VariableGet_38 Get FieldOfView
+  OUT FieldOfView default=0.0 -> K2Node_PromotableOperator_11.A
+  IN self default= -> K2Node_VariableGet_40.GunCamera
+NODE K2Node_PromotableOperator_11 float + float
+  IN A default= -> K2Node_VariableGet_38.FieldOfView
+  IN B default= -> K2Node_PromotableOperator_12.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_72.Value
+NODE K2Node_CallFunction_72 Clamp (Float)
+  IN self default=
+  IN Value default=0.0 -> K2Node_PromotableOperator_11.ReturnValue
+  IN Min default=60.000000
+  IN Max default=120.000000
+  OUT ReturnValue default=0.0 -> K2Node_CallFunction_74.InFieldOfView
+NODE K2Node_VariableGet_41 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_74.self
+  IN self default=
+NODE K2Node_CallFunction_74 Set Field Of View
+  IN execute default= -> K2Node_EnhancedInputAction_5.Triggered
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_41.GunCamera
+  IN InFieldOfView default=0.0 -> K2Node_CallFunction_72.ReturnValue
+NODE K2Node_PromotableOperator_12 float * float
+  IN A default= -> K2Node_EnhancedInputAction_5.ActionValue
+  IN B default=5.000000
+  OUT ReturnValue default= -> K2Node_PromotableOperator_11.B
+NODE K2Node_VariableGet_39 Get GunCamera
+  OUT GunCamera default= -> K2Node_CallFunction_73.self
+  IN self default=
+NODE K2Node_CallFunction_73 Set Field Of View
+  IN execute default= -> K2Node_CallFunction_63.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_39.GunCamera
+  IN InFieldOfView default=90.000000
+NODE K2Node_CallFunction_59 Get Velocity
+  IN self default=
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_71.A
+NODE K2Node_CallFunction_61 Get Actor Forward Vector
+  IN self default=
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_71.B
+NODE K2Node_CallFunction_71 Dot Product
+  IN self default=
+  IN A default=0, 0, 0 -> K2Node_CallFunction_59.ReturnValue
+  IN B default=0, 0, 0 -> K2Node_CallFunction_61.ReturnValue
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_13.A
+NODE K2Node_PromotableOperator_13 float < float
+  IN A default= -> K2Node_CallFunction_71.ReturnValue
+  IN B default=
+  OUT ReturnValue default= -> K2Node_CallFunction_76.bPickA
+  IN ErrorTolerance default=
+NODE K2Node_CallFunction_76 Select Float
+  IN self default=
+  IN A default=-1.000000
+  IN B default=1.000000
+  IN bPickA default=false -> K2Node_PromotableOperator_13.ReturnValue
+  OUT ReturnValue default=0.0 -> K2Node_PromotableOperator_14.B
+NODE K2Node_PromotableOperator_14 float * float
+  IN A default= -> K2Node_EnhancedInputAction_3.ActionValue
+  IN B default= -> K2Node_CallFunction_76.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_23.A
+NODE K2Node_Event_3 Event AnyDamage
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_CallFunction_70.execute
+  OUT Damage default=0.0 -> K2Node_CallFunction_75.InDouble
+  OUT DamageType default=
+  OUT InstigatedBy default=
+  OUT DamageCauser default=
+NODE K2Node_CallFunction_70 Print String
+  IN execute default= -> K2Node_Event_3.then
+  OUT then default=
+  IN self default=
+  IN WorldContextObject default=
+  IN InString default=Hello -> K2Node_CallFunction_75.ReturnValue
+  IN bPrintToScreen default=true
+  IN bPrintToLog default=true
+  IN TextColor default=(R=0.000000,G=0.660000,B=1.000000,A=1.000000)
+  IN Duration default=2.000000
+  IN Key default=None
+NODE K2Node_CallFunction_75 To String (Float)
+  IN self default=
+  IN InDouble default=0.0 -> K2Node_Event_3.Damage
+  OUT ReturnValue default= -> K2Node_CallFunction_70.InString
+NODE K2Node_VariableGet_36 Get ShipWeapon
+  OUT ShipWeapon default= -> K2Node_CallFunction_77.self -> K2Node_CallFunction_78.self -> K2Node_CallFunction_79.self
+  IN self default=
+NODE K2Node_CallFunction_77 FirePlayer
+  IN execute default= -> K2Node_IfThenElse_8.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_36.ShipWeapon
+  OUT ReturnValue default=false
+NODE K2Node_CustomEvent_2 ExecuteWeaponShot
+  OUT OutputDelegate default=
+  OUT then default= -> K2Node_IfThenElse_9.execute
+  OUT LaunchVelocity default= -> K2Node_SpawnActorFromClass_3.Speed
+  OUT bBallistic default= -> K2Node_IfThenElse_9.Condition
+NODE K2Node_Self_1 Self-Reference
+  OUT self default= -> K2Node_SpawnActorFromClass_0.Owner -> K2Node_SpawnActorFromClass_0.Instigator -> K2Node_SpawnActorFromClass_3.Owner -> K2Node_SpawnActorFromClass_3.Instigator
+NODE K2Node_CallFunction_78 FinishShot
+  IN execute default= -> K2Node_SpawnActorFromClass_0.then
+  OUT then default= -> K2Node_CallFunction_31.execute
+  IN self default= -> K2Node_VariableGet_36.ShipWeapon
+  IN Projectile default= -> K2Node_SpawnActorFromClass_0.ReturnValue
+NODE K2Node_CallFunction_79 FinishShot
+  IN execute default= -> K2Node_SpawnActorFromClass_3.then
+  OUT then default= -> K2Node_CallFunction_31.execute
+  IN self default= -> K2Node_VariableGet_36.ShipWeapon
+  IN Projectile default= -> K2Node_SpawnActorFromClass_3.ReturnValue
+NODE K2Node_CallFunction_80 FilterPropulsion
+  IN self default=
+  IN Ship default= -> K2Node_Self_2.self
+  IN OriginalForce default=0, 0, 0 -> K2Node_PromotableOperator_1.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_6.Force
+NODE K2Node_Self_2 Self-Reference
+  OUT self default= -> K2Node_CallFunction_80.Ship
+
+ASSET /Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy GRAPH ApplyAIForward
+NODE K2Node_FunctionEntry_0 ApplyAIForward
+  OUT then default= -> K2Node_CallFunction_1.execute
+NODE K2Node_VariableGet_0 Get Arrow
+  OUT Arrow default= -> K2Node_CallFunction_0.self
+  IN self default=
+NODE K2Node_CallFunction_0 Get Forward Vector
+  IN self default= -> K2Node_VariableGet_0.Arrow
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_1.B
+NODE K2Node_VariableGet_1 Get AIForwardForce
+  OUT AIForwardForce default=0.0 -> K2Node_PromotableOperator_0.B
+  IN self default=
+NODE K2Node_VariableGet_2 Get AIThrottle
+  OUT AIThrottle default=0.0 -> K2Node_PromotableOperator_0.A
+  IN self default=
+NODE K2Node_PromotableOperator_0 vector * vector
+  IN A default= -> K2Node_VariableGet_2.AIThrottle
+  IN B default= -> K2Node_VariableGet_1.AIForwardForce
+  OUT ReturnValue default= -> K2Node_PromotableOperator_1.A
+NODE K2Node_PromotableOperator_1 vector * vector
+  IN A default= -> K2Node_PromotableOperator_0.ReturnValue
+  IN B default= -> K2Node_CallFunction_0.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_2.OriginalForce
+NODE K2Node_VariableGet_3 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_1.self
+  IN self default=
+NODE K2Node_CallFunction_1 Add Force
+  IN execute default= -> K2Node_FunctionEntry_0.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_3.ShipSM
+  IN Force default=0, 0, 0 -> K2Node_CallFunction_2.ReturnValue
+  IN BoneName default=None
+  IN bAccelChange default=false
+NODE K2Node_CallFunction_2 FilterPropulsion
+  IN self default=
+  IN Ship default= -> K2Node_Self_0.self
+  IN OriginalForce default=0, 0, 0 -> K2Node_PromotableOperator_1.ReturnValue
+  OUT ReturnValue default=0, 0, 0 -> K2Node_CallFunction_1.Force
+NODE K2Node_Self_0 Self-Reference
+  OUT self default= -> K2Node_CallFunction_2.Ship
+
+ASSET /Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy GRAPH ApplyAIRudder
+NODE K2Node_FunctionEntry_0 ApplyAIRudder
+  OUT then default= -> K2Node_CallFunction_3.execute
+NODE K2Node_VariableGet_0 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_0.self
+  IN self default=
+NODE K2Node_CallFunction_0 Get Socket Transform
+  IN self default= -> K2Node_VariableGet_0.ShipSM
+  IN InSocketName default=5
+  IN TransformSpace default=RTS_Component
+  OUT ReturnValue default= -> K2Node_CallFunction_1.InTransform
+NODE K2Node_CallFunction_1 Break Transform
+  IN self default=
+  IN InTransform default= -> K2Node_CallFunction_0.ReturnValue
+  OUT Location default=0, 0, 0 -> K2Node_CallFunction_3.Location
+  OUT Rotation default=0, 0, 0 -> K2Node_CallFunction_2.InRot
+  OUT Scale default=0, 0, 0
+NODE K2Node_CallFunction_2 Get Right Vector
+  IN self default=
+  IN InRot default=0, 0, 0 -> K2Node_CallFunction_1.Rotation
+  OUT ReturnValue default=0, 0, 0 -> K2Node_PromotableOperator_3.A
+NODE K2Node_VariableGet_2 Get ShipSM
+  OUT ShipSM default= -> K2Node_CallFunction_3.self
+  IN self default=
+NODE K2Node_CallFunction_3 Add Force at Location Local
+  IN execute default= -> K2Node_FunctionEntry_0.then
+  OUT then default=
+  IN self default= -> K2Node_VariableGet_2.ShipSM
+  IN Force default=0, 0, 0 -> K2Node_PromotableOperator_3.ReturnValue
+  IN Location default=0, 0, 0 -> K2Node_CallFunction_1.Location
+  IN BoneName default=None
+NODE K2Node_VariableGet_3 Get AIRudder
+  OUT AIRudder default=0.0 -> K2Node_PromotableOperator_2.A
+  IN self default=
+NODE K2Node_PromotableOperator_2 vector * vector
+  IN A default= -> K2Node_VariableGet_3.AIRudder
+  IN B default=12000.000000
+  OUT ReturnValue default= -> K2Node_PromotableOperator_3.B
+NODE K2Node_PromotableOperator_3 vector * vector
+  IN A default= -> K2Node_CallFunction_2.ReturnValue
+  IN B default= -> K2Node_PromotableOperator_2.ReturnValue
+  OUT ReturnValue default= -> K2Node_CallFunction_3.Force

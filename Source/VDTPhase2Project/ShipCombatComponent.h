@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "ShipEnemyNavigationComponent.h"
 #include "ShipCombatComponent.generated.h"
 
 class USkeletalMeshComponent;
@@ -11,12 +12,23 @@ class UProjectileMovementComponent;
 class UShipEnemyNavigationComponent;
 class UWidgetComponent;
 class UShipWeaponComponent;
+class UShipProjectileDamageComponent;
+class UNiagaraComponent;
+class UCesiumGlobeAnchorComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FShipHealthChanged,UShipWeaponComponent*,Ship,float,Current,float,Maximum);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FShipDestroyed,UShipWeaponComponent*,Ship,AActor*,Attacker);
 
 UENUM(BlueprintType)
-enum class EShipTacticalState : uint8 { Patrol, Engage, Retreat, ReturnToPatrol };
+enum class EShipTacticalState : uint8 { Patrol, Engage, Retreat, ReturnToPatrol, Passive, Pursuit, Dead, BackwardRetreat, Escape };
+UENUM(BlueprintType)
+enum class EShipAISkill : uint8 { Easy, Normal, Hard, Custom };
+UENUM(BlueprintType)
+enum class EShipHitRegion : uint8 { Bow, Midship, Stern };
+UENUM(BlueprintType)
+enum class EShipDeathReason : uint8 { HealthDepleted, Capsized, Other };
+UENUM(BlueprintType)
+enum class EShipDestructionStage : uint8 { Alive, Dying, Burning, Sinking, Submerged, Cleanup };
 
 /** Shared by player input and AI. Executes the ORIGINAL BP projectile/FX/recoil graph. */
 UCLASS(ClassGroup=(Combat), meta=(BlueprintSpawnableComponent))
@@ -33,6 +45,21 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Health") float CurrentHealth=100;
     UPROPERTY(BlueprintReadOnly, Category="Health") bool bIsDestroyed=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") float DestructionDelaySeconds=7;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction") bool bEnableCapsizeDeath=true;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction",meta=(ClampMin="90",ClampMax="175",Units="deg")) float CapsizeAngleDegrees=105;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction",meta=(ClampMin="0.1")) float CapsizeConfirmSeconds=.65f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction",meta=(ClampMin="1")) float BurningSeconds=4;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction",meta=(ClampMin="3")) float SinkingSeconds=12;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Destruction",meta=(ClampMin="20",Units="m")) float SinkDepthM=65;
+    UPROPERTY(BlueprintReadOnly, Category="Destruction") EShipDeathReason DeathReason=EShipDeathReason::Other;
+    UPROPERTY(BlueprintReadOnly, Category="Destruction") EShipDestructionStage DestructionStage=EShipDestructionStage::Alive;
+    UPROPERTY(BlueprintReadOnly, Category="Destruction") float CurrentCapsizeAngle=0;
+    UPROPERTY(BlueprintReadOnly, Category="Destruction") float SunkDistanceM=0;
+    UPROPERTY(BlueprintReadOnly, Category="Destruction") TObjectPtr<UNiagaraComponent> DestructionFX;
+    UFUNCTION(BlueprintCallable, Category="Destruction") bool Die(EShipDeathReason Reason,AActor* Attacker);
+    UFUNCTION(BlueprintCallable, Category="Destruction|Debug") FString DescribeDestructionFX() const;
+    UFUNCTION(BlueprintCallable, Category="Destruction|Editor",meta=(DevelopmentOnly)) static FString InspectWreckEffectParameters();
+    UFUNCTION(BlueprintCallable, Category="Destruction|Editor",meta=(DevelopmentOnly)) static FString ConfigureWreckEffect(const FString& OverridesJson);
     UPROPERTY(BlueprintAssignable, Category="Health") FShipHealthChanged OnHealthChanged;
     UPROPERTY(BlueprintAssignable, Category="Health") FShipDestroyed OnShipDestroyed;
     UPROPERTY(BlueprintReadOnly, Category="Health") int32 DestructionEvents=0;
@@ -41,6 +68,18 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Health") TObjectPtr<UWidgetComponent> HealthWidget;
     /** Single final damage authority, shared by manual player fire, AI and splash. */
     UFUNCTION(BlueprintCallable, Category="Health") bool ReceiveShipDamage(float Damage,AActor* Causer);
+    UFUNCTION(BlueprintCallable, Category="Health") bool ReceiveHullImpact(AActor* Projectile,FVector ImpactWorld);
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions",meta=(ClampMin="0",ClampMax="0.45")) float BowLengthFraction=.25f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions",meta=(ClampMin="0",ClampMax="0.45")) float SternLengthFraction=.25f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions",meta=(ClampMin="0",ClampMax="3")) float BowDamageMultiplier=.8f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions",meta=(ClampMin="0",ClampMax="3")) float MidshipDamageMultiplier=1;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions",meta=(ClampMin="0",ClampMax="3")) float SternDamageMultiplier=.8f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health|Regions") bool bDebugDamage=false;
+    UPROPERTY(BlueprintReadOnly, Category="Health|Regions") EShipHitRegion LastImpactRegion=EShipHitRegion::Midship;
+    UPROPERTY(BlueprintReadOnly, Category="Health|Regions") FVector LastImpactWorld=FVector::ZeroVector;
+    UPROPERTY(BlueprintReadOnly, Category="Health|Regions") FVector LastImpactLocal=FVector::ZeroVector;
+    UPROPERTY(BlueprintReadOnly, Category="Health|Regions") float LastNormalizedImpactX=.5f;
+    UPROPERTY(BlueprintReadOnly, Category="Health|Regions") float LastAppliedImpactDamage=0;
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") int32 ShotsFired=0;
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") int32 Hits=0;
     UPROPERTY(BlueprintReadOnly, Category="Weapon|Status") TObjectPtr<AActor> LastProjectile;
@@ -64,6 +103,13 @@ private:
     double LastShotTime=-1000;
     bool bDispatching=false;
     FTimerHandle PresentationTimer;
+    FTimerHandle DestructionTimer;
+    double LastDestructionUpdate=0,DeathStartedAt=0,CapsizeElapsed=0;
+    FVector WreckStartLLH=FVector::ZeroVector;
+    FQuat WreckESURotation=FQuat::Identity;
+    UPROPERTY(Transient) TObjectPtr<UCesiumGlobeAnchorComponent> WreckAnchor;
+    void UpdateDestruction();
+    void ProtectWreckCamera();
     void UpdatePresentation();
     void RefreshHealthUI();
 };
@@ -87,14 +133,47 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Combat") bool bAllowFriendlyFire=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Combat") bool bDefensiveFire=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Combat") float FireCooldownSeconds=4;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy") EShipAISkill ShootingSkill=EShipAISkill::Normal;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="1")) float AIAccuracy=.6f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="10",Units="deg")) float AimErrorDegrees=2.2f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="2")) float TargetTrackingDelay=.35f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0.05",ClampMax="2")) float AimUpdateInterval=.4f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="2")) float TargetAcquisitionSeconds=.6f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="3")) float DistanceAccuracyPenalty=.7f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="3")) float MovementAccuracyPenalty=.5f;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy",meta=(ClampMin="0",ClampMax="3")) float OptionalSuppressionPenalty=0;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Accuracy") int32 AccuracySeed=1337;
+    UPROPERTY(BlueprintReadOnly, Category="Accuracy") FVector2D CurrentAimErrorDegrees=FVector2D::ZeroVector;
+    UPROPERTY(BlueprintReadOnly, Category="Accuracy") int32 AimSamples=0;
+    UFUNCTION(BlueprintCallable, Category="Accuracy") void SetShootingSkill(EShipAISkill Skill);
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics") bool bEnableHitAndRun=true;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Retreat") bool bPreferBackwardRetreat=true;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Retreat",meta=(ClampMin="0")) float LowHealthRetreatThreshold=30;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Retreat",meta=(ClampMin="0")) float CriticalHealthThreshold=15;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Retreat",meta=(Units="m",ClampMin="80",ClampMax="500")) float BackwardRetreatDistanceM=300;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics",meta=(Units="m")) float MinimumRetreatDistanceM=250;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics",meta=(Units="m")) float SafeReengagementDistanceM=600;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics") float MinimumRetreatSeconds=12;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics") float MaximumRetreatSeconds=75;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics") float RetreatCooldownSeconds=25;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Roles") bool bPromotePassiveOnDamage=true;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Roles") bool bPromotePassiveOnThreatAlert=false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Roles",meta=(Units="m",ClampMin="0")) float ThreatAlertRadiusM=800;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Hunter",meta=(Units="m",ClampMin="100")) float HunterMaxPursuitDistanceM=1700;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Hunter",meta=(ClampMin="3")) float HunterMaxPursuitSeconds=30;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Hunter",meta=(ClampMin="1")) float HunterLostTargetSeconds=3;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Hunter",meta=(ClampMin="1")) float HunterReplanSeconds=3;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Tactics|Hunter",meta=(ClampMin="0",ClampMax="1")) float HunterToFighterHealthRatio=.4f;
+    UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 RoleTransitions=0;
+    UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 HunterRoutesStarted=0;
+    UPROPERTY(BlueprintReadOnly, Category="Tactics") FString LastRoleTransition;
+    UFUNCTION(BlueprintCallable, Category="Tactics") void SetCombatRole(EShipEnemyRole NewRole);
+    UFUNCTION(BlueprintCallable, Category="Tactics") bool RaiseThreatAlert(AActor* Threat);
+    void OnHostileHit(AActor* Source);
     UPROPERTY(BlueprintReadOnly, Category="Tactics") EShipTacticalState TacticalState=EShipTacticalState::Patrol;
     UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 RetreatsStarted=0;
+    UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 BackwardRetreatsStarted=0;
+    UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 UnsafeReverseFallbacks=0;
     UPROPERTY(BlueprintReadOnly, Category="Tactics") int32 PatrolsResumed=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Turret") float TurretYawSpeedDegPerSec=30;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Turret") float BarrelPitchSpeedDegPerSec=15;
@@ -126,8 +205,10 @@ protected:
 private:
     bool Visible(AActor* Candidate) const;
     bool Solve(FVector Start,FVector Aim,FVector Velocity,FVector& Launch,FVector& Intercept) const;
+    bool UpdateAimSolution(float Dt,FVector Start);
     bool ClearArc(FVector Start,FVector Launch,float FlightTime,FString& Reason) const;
     void UpdateTactics();
+    void ChangeRole(EShipEnemyRole NewRole,const TCHAR* Reason);
     FVector AimPoint(AActor* Ship) const;
     UPROPERTY(Transient) TObjectPtr<UShipWeaponComponent> Weapon;
     UPROPERTY(Transient) TObjectPtr<UShipEnemyNavigationComponent> Navigation;
@@ -135,7 +216,15 @@ private:
     float ScanClock=1000,FireCheckClock=0;
     double LastFire=-1000,LastLog=-1000;
     double StateSince=0,LastRetreatEnded=-1000;
+    double HunterSince=-1,HunterLostSince=-1,LastHunterPlan=-1000;
+    bool bHunterPursuitActive=false;
     bool bVerifiedAxes=false;
+    struct FAimObservation { double Time;FVector Position,Velocity; };
+    TArray<FAimObservation> AimHistory;
+    FRandomStream AimRandom;
+    TWeakObjectPtr<AActor> ObservedTarget;
+    double TargetObservedAt=0,LastAimUpdate=-1000;
+    bool bCachedAimSolution=false;
 };
 
 UCLASS()

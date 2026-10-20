@@ -124,7 +124,7 @@ bool FSeaNavigationMap::SegmentClear(const FVector2D& A,const FVector2D& B) cons
 }
 
 FSeaRouteResult FSeaNavigationMap::FindPath(const FVector2D& Start,const FVector2D& Goal,
-    int32 MaxExpansions,double MaxMilliseconds,const TArray<FVector2D>& Exclusions) const
+    int32 MaxExpansions,double MaxMilliseconds,const TArray<FVector2D>& Exclusions,double ExclusionRadiusM) const
 {
     FSeaRouteResult R;const double Beg=FPlatformTime::Seconds();
     auto Fail=[&](const TCHAR* S){R.Failure=S;R.Milliseconds=(FPlatformTime::Seconds()-Beg)*1000.;return R;};
@@ -133,11 +133,12 @@ FSeaRouteResult FSeaNavigationMap::FindPath(const FVector2D& Start,const FVector
     const int32 S=CellAt(Start),Gid=CellAt(Goal);
     if(!IsWater(Start))return Fail(TEXT("Ship start is blocked or outside navigation coverage"));
     if(!IsWater(Goal))return Fail(*FString::Printf(TEXT("Destination is outside accepted water: coastline/exclusion buffer %.0f m, grid %.0f m (or outside coverage). No safe final approach."),SafetyMargin,CellSize));
-    auto Excluded=[&](const FVector2D& P){for(const auto& E:Exclusions)if(FVector2D::DistSquared(P,E)<FMath::Square(CellSize*1.5))return true;return false;};
+    const double ExclusionRadius=ExclusionRadiusM>0?ExclusionRadiusM:CellSize*1.5;
+    auto Excluded=[&](const FVector2D& P){for(const auto& E:Exclusions)if(FVector2D::DistSquared(P,E)<FMath::Square(ExclusionRadius))return true;return false;};
     // Apply circular temporary exclusions to edges as well as nodes. Otherwise A*
     // can select a diagonal grazing a circle that the smoothing validator rejects.
     auto Shortcut=[&](const FVector2D& A,const FVector2D& B)
-    {if(!SegmentClear(A,B))return false;for(const auto& E:Exclusions){const FVector2D D=B-A;const double T=FMath::Clamp(FVector2D::DotProduct(E-A,D)/FMath::Max(D.SizeSquared(),1.e-9),0.,1.);if(FVector2D::DistSquared(E,A+D*T)<FMath::Square(CellSize*1.5))return false;}return true;};
+    {if(!SegmentClear(A,B))return false;for(const auto& E:Exclusions){const FVector2D D=B-A;const double T=FMath::Clamp(FVector2D::DotProduct(E-A,D)/FMath::Max(D.SizeSquared(),1.e-9),0.,1.);if(FVector2D::DistSquared(E,A+D*T)<FMath::Square(ExclusionRadius))return false;}return true;};
     if(Excluded(Start))return Fail(TEXT("Start lies in a temporarily failed corridor"));
     if(Excluded(Goal))return Fail(TEXT("Destination lies in a temporarily failed corridor"));
     if(!Shortcut(Start,Center(S)) || !Shortcut(Center(Gid),Goal))return Fail(TEXT("Unsafe endpoint connector"));

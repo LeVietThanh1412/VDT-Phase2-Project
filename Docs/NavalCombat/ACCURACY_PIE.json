@@ -1,0 +1,7514 @@
+{
+  "phase": "drain",
+  "rows": [
+    {
+      "t": 1.028276689350605,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "No hostile target",
+      "target": "Friendly_AI_1",
+      "aim_samples": 0
+    },
+    {
+      "t": 1.5335228890180588,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.2937622070312,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 0
+    },
+    {
+      "t": 2.036130789667368,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.2937622070312,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 0
+    },
+    {
+      "t": 2.6328264884650707,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4199829101562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 1
+    },
+    {
+      "t": 3.146125089377165,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.5363159179688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 2
+    },
+    {
+      "t": 3.646126989275217,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.9666137695312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 3
+    },
+    {
+      "t": 4.146128587424755,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4166870117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 4
+    },
+    {
+      "t": 4.646134689450264,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4166870117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 4
+    },
+    {
+      "t": 5.146275486797094,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4561767578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 5
+    },
+    {
+      "t": 5.6463617868721485,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.41748046875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 6
+    },
+    {
+      "t": 6.146382287144661,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4811401367188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 7
+    },
+    {
+      "t": 6.646383989602327,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.486572265625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 8
+    },
+    {
+      "t": 7.1463857889175415,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.55810546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 8
+    },
+    {
+      "t": 7.716438386589289,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4436645507812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 9
+    },
+    {
+      "t": 8.222681686282158,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.5867309570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 10
+    },
+    {
+      "t": 8.722698587924242,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.412353515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 11
+    },
+    {
+      "t": 9.223023686558008,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.6492309570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 11
+    },
+    {
+      "t": 9.72303318977356,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3932495117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 12
+    },
+    {
+      "t": 10.223207086324692,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 846.4140625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 13
+    },
+    {
+      "t": 10.723212789744139,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3545532226562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 14
+    },
+    {
+      "t": 11.223218988627195,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3602294921875,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 15
+    },
+    {
+      "t": 11.723411489278078,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4154052734375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 15
+    },
+    {
+      "t": 12.22341988608241,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4467163085938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 16
+    },
+    {
+      "t": 12.72346368804574,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.8118286132812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 17
+    },
+    {
+      "t": 13.223530288785696,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4697875976562,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 18
+    },
+    {
+      "t": 13.723541587591171,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.9085693359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 18
+    },
+    {
+      "t": 14.223546888679266,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.5010986328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 19
+    },
+    {
+      "t": 14.723624687641859,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 846.3143310546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 20
+    },
+    {
+      "t": 15.223670989274979,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4695434570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 21
+    },
+    {
+      "t": 15.723678089678288,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4695434570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 21
+    },
+    {
+      "t": 16.223691787570715,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4714965820312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 22
+    },
+    {
+      "t": 16.73159558698535,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.506591796875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 23
+    },
+    {
+      "t": 17.231597289443016,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.42626953125,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 24
+    },
+    {
+      "t": 17.73159918934107,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3674926757812,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 25
+    },
+    {
+      "t": 18.231605388224125,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 846.1740112304688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 25
+    },
+    {
+      "t": 18.731606788933277,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4322509765625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 26
+    },
+    {
+      "t": 19.232398089021444,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.018310546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 27
+    },
+    {
+      "t": 19.73242998868227,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.466552734375,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 28
+    },
+    {
+      "t": 20.23243248835206,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4575805664062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 28
+    },
+    {
+      "t": 20.73246268928051,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.5257568359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 29
+    },
+    {
+      "t": 21.23249228671193,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4337158203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 30
+    },
+    {
+      "t": 21.732533387839794,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3851928710938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 31
+    },
+    {
+      "t": 22.232535287737846,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.384033203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 31
+    },
+    {
+      "t": 22.732537787407637,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4228515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 32
+    },
+    {
+      "t": 23.232865788042545,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4827270507812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 33
+    },
+    {
+      "t": 23.732873287051916,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.437255859375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 34
+    },
+    {
+      "t": 24.232938688248396,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4376220703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 35
+    },
+    {
+      "t": 24.738734487444162,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 846.362060546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 35
+    },
+    {
+      "t": 25.23873668909073,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4306640625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 36
+    },
+    {
+      "t": 25.738738987594843,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.3607788085938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 37
+    },
+    {
+      "t": 26.238743487745523,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.3703002929688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 38
+    },
+    {
+      "t": 26.739020187407732,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.372802734375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 38
+    },
+    {
+      "t": 27.239141888916492,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.475830078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 39
+    },
+    {
+      "t": 27.740110486745834,
+      "case": 0,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.3837890625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 40
+    },
+    {
+      "t": 28.24108398705721,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 28.745337087661028,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 29.254225488752127,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 29.754889588803053,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 30.25857148692012,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 30.76363228634,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 31.26497618854046,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 31.76548508927226,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 32.265486888587475,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 32.765493389219046,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 33.2663078866899,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 33.767179388552904,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 34.26733688637614,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 34.775938387960196,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 35.278678689152,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 35.77870958670974,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 36.27905348688364,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 36.779079888015985,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 37.28041158616543,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 37.795649487525225,
+      "case": 0,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 40
+    },
+    {
+      "t": 38.309023287147284,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.2937622070312,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 40
+    },
+    {
+      "t": 38.82192688807845,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.3846435546875,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 41
+    },
+    {
+      "t": 39.32929118722677,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.47265625,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 43
+    },
+    {
+      "t": 39.8394983895123,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.42529296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 44
+    },
+    {
+      "t": 40.35252518951893,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.1129150390625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 45
+    },
+    {
+      "t": 40.85622888803482,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4246826171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 46
+    },
+    {
+      "t": 41.36732978746295,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 846.2467651367188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 47
+    },
+    {
+      "t": 41.877838388085365,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4366455078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 49
+    },
+    {
+      "t": 42.38316188752651,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 845.51025390625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 50
+    },
+    {
+      "t": 42.8908785879612,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.421875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 51
+    },
+    {
+      "t": 43.3966605886817,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.4154663085938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 52
+    },
+    {
+      "t": 43.903994388878345,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.3978881835938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 54
+    },
+    {
+      "t": 44.40601158887148,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.42431640625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 55
+    },
+    {
+      "t": 44.90648448839784,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4387817382812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 56
+    },
+    {
+      "t": 45.424806989729404,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4600219726562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 57
+    },
+    {
+      "t": 45.93931658938527,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4572143554688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 59
+    },
+    {
+      "t": 46.46046368777752,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.45068359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 60
+    },
+    {
+      "t": 46.97515768930316,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 845.171142578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 61
+    },
+    {
+      "t": 47.47715598717332,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.447021484375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 62
+    },
+    {
+      "t": 47.977454487234354,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 846.3760986328125,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 64
+    },
+    {
+      "t": 48.492458287626505,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4603881835938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 65
+    },
+    {
+      "t": 49.0103967897594,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 845.600341796875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 66
+    },
+    {
+      "t": 49.511640187352896,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4593505859375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 67
+    },
+    {
+      "t": 50.024293288588524,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.464599609375,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 69
+    },
+    {
+      "t": 50.52798908948898,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.4330444335938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 70
+    },
+    {
+      "t": 51.02929828688502,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.4116821289062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 71
+    },
+    {
+      "t": 51.53755658864975,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.4112548828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 72
+    },
+    {
+      "t": 52.05439818650484,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.436767578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 74
+    },
+    {
+      "t": 52.563151087611914,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.4620971679688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 75
+    },
+    {
+      "t": 53.07515228912234,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 844.4319458007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 76
+    },
+    {
+      "t": 53.585759188979864,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 845.4832763671875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 77
+    },
+    {
+      "t": 54.09473678842187,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 844.422119140625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 79
+    },
+    {
+      "t": 54.60065498948097,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 845.7131958007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 80
+    },
+    {
+      "t": 55.11794988811016,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 844.4307250976562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 81
+    },
+    {
+      "t": 55.63804808631539,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 5,
+      "target_speed": 0.0,
+      "distance": 844.4490966796875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 82
+    },
+    {
+      "t": 56.147737089544535,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 5,
+      "target_speed": 0.0,
+      "distance": 844.4258422851562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 84
+    },
+    {
+      "t": 56.66224918887019,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 6,
+      "target_speed": 0.0,
+      "distance": 844.4571533203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 85
+    },
+    {
+      "t": 57.17426838725805,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 6,
+      "target_speed": 0.0,
+      "distance": 844.4608764648438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 86
+    },
+    {
+      "t": 57.681999787688255,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 7,
+      "target_speed": 0.0,
+      "distance": 844.4391479492188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 87
+    },
+    {
+      "t": 58.191423289477825,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 7,
+      "target_speed": 0.0,
+      "distance": 844.415771484375,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 89
+    },
+    {
+      "t": 58.70162068679929,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 844.4293823242188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 90
+    },
+    {
+      "t": 59.211811289191246,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 844.5490112304688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 91
+    },
+    {
+      "t": 59.720504589378834,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 844.4346313476562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 92
+    },
+    {
+      "t": 60.22958578914404,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 845.6122436523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 94
+    },
+    {
+      "t": 60.733506087213755,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 844.4132080078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 95
+    },
+    {
+      "t": 61.236062586307526,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 9,
+      "target_speed": 0.0,
+      "distance": 845.8307495117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 96
+    },
+    {
+      "t": 61.75516318902373,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 9,
+      "target_speed": 0.0,
+      "distance": 844.4375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 97
+    },
+    {
+      "t": 62.27779048681259,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 10,
+      "target_speed": 0.0,
+      "distance": 844.46337890625,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 99
+    },
+    {
+      "t": 62.787101589143276,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 10,
+      "target_speed": 0.0,
+      "distance": 844.4083251953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 100
+    },
+    {
+      "t": 63.30037998780608,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 844.43798828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 101
+    },
+    {
+      "t": 63.81441688910127,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 844.405517578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 102
+    },
+    {
+      "t": 64.33085048943758,
+      "case": 1,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 844.435302734375,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 104
+    },
+    {
+      "t": 64.8365200869739,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 65.34142768755555,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 65.84863898903131,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 66.34940138831735,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 66.86677018925548,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 67.37147038802505,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 67.88544748723507,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 68.3960581868887,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 68.89770258963108,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 69.41364678740501,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 69.92047108709812,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 70.44629488885403,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 70.96221528947353,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 71.48366668820381,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 71.99274818971753,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 72.49722228944302,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 73.01817838847637,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 73.52452838793397,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 74.03788218647242,
+      "case": 1,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 104
+    },
+    {
+      "t": 74.55478738620877,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.2937622070312,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 104
+    },
+    {
+      "t": 75.0718319863081,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4323120117188,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 108
+    },
+    {
+      "t": 75.58675668761134,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4335327148438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 112
+    },
+    {
+      "t": 76.09564058855176,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4324340820312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 115
+    },
+    {
+      "t": 76.61383558809757,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4325561523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 119
+    },
+    {
+      "t": 77.13393558934331,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4337768554688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 123
+    },
+    {
+      "t": 77.64032008871436,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.433837890625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 127
+    },
+    {
+      "t": 78.15116768702865,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.432861328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 131
+    },
+    {
+      "t": 78.6590242870152,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.8645629882812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 134
+    },
+    {
+      "t": 79.17704388871789,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 0.0,
+      "distance": 844.4329833984375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 138
+    },
+    {
+      "t": 79.69628248736262,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 845.7623291015625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 142
+    },
+    {
+      "t": 80.21150608733296,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 0.0,
+      "distance": 844.4334106445312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 146
+    },
+    {
+      "t": 80.73297068849206,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 846.415771484375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 150
+    },
+    {
+      "t": 81.24281528964639,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 2,
+      "target_speed": 0.0,
+      "distance": 844.4327392578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 154
+    },
+    {
+      "t": 81.76243498921394,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 845.3433227539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 158
+    },
+    {
+      "t": 82.27178328856826,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 3,
+      "target_speed": 0.0,
+      "distance": 844.4329833984375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 161
+    },
+    {
+      "t": 82.78128818795085,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 844.4330444335938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 165
+    },
+    {
+      "t": 83.29078498855233,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 4,
+      "target_speed": 0.0,
+      "distance": 844.4335327148438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 169
+    },
+    {
+      "t": 83.80410198867321,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 5,
+      "target_speed": 0.0,
+      "distance": 844.4337768554688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 173
+    },
+    {
+      "t": 84.30993668735027,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 5,
+      "target_speed": 0.0,
+      "distance": 844.4337158203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 177
+    },
+    {
+      "t": 84.8167842887342,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 6,
+      "target_speed": 0.0,
+      "distance": 844.4325561523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 181
+    },
+    {
+      "t": 85.32438948750496,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 6,
+      "target_speed": 0.0,
+      "distance": 844.46484375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 185
+    },
+    {
+      "t": 85.84641578793526,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 7,
+      "target_speed": 0.0,
+      "distance": 844.4334106445312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 189
+    },
+    {
+      "t": 86.36263658851385,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 7,
+      "target_speed": 0.0,
+      "distance": 845.069580078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 193
+    },
+    {
+      "t": 86.87375208735466,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 7,
+      "target_speed": 0.0,
+      "distance": 844.4326782226562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 197
+    },
+    {
+      "t": 87.38388078659773,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 846.1079711914062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 201
+    },
+    {
+      "t": 87.91159818693995,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 8,
+      "target_speed": 0.0,
+      "distance": 844.432373046875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 205
+    },
+    {
+      "t": 88.4223630875349,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 9,
+      "target_speed": 0.0,
+      "distance": 846.0355224609375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 209
+    },
+    {
+      "t": 88.9224446862936,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 9,
+      "target_speed": 0.0,
+      "distance": 844.4329223632812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 213
+    },
+    {
+      "t": 89.42969788610935,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 10,
+      "target_speed": 0.0,
+      "distance": 844.4320068359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 217
+    },
+    {
+      "t": 89.94480488821864,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 10,
+      "target_speed": 0.0,
+      "distance": 844.4338989257812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 220
+    },
+    {
+      "t": 90.45673138648272,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 844.4320678710938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 225
+    },
+    {
+      "t": 90.96712118759751,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 11,
+      "target_speed": 0.0,
+      "distance": 844.4334106445312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 228
+    },
+    {
+      "t": 91.47591798752546,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 844.43310546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 232
+    },
+    {
+      "t": 91.98286158964038,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 12,
+      "target_speed": 0.0,
+      "distance": 844.4323120117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 236
+    },
+    {
+      "t": 92.5015616863966,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 13,
+      "target_speed": 0.0,
+      "distance": 844.4331665039062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 240
+    },
+    {
+      "t": 93.01754638925195,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 13,
+      "target_speed": 0.0,
+      "distance": 844.4475708007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 244
+    },
+    {
+      "t": 93.53141318634152,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 14,
+      "target_speed": 0.0,
+      "distance": 844.4331665039062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 248
+    },
+    {
+      "t": 94.0383700877428,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 14,
+      "target_speed": 0.0,
+      "distance": 845.3674926757812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 252
+    },
+    {
+      "t": 94.54507758840919,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 14,
+      "target_speed": 0.0,
+      "distance": 844.4324951171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 256
+    },
+    {
+      "t": 95.05361938849092,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 15,
+      "target_speed": 0.0,
+      "distance": 846.420654296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 260
+    },
+    {
+      "t": 95.56542418897152,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 15,
+      "target_speed": 0.0,
+      "distance": 844.4319458007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 264
+    },
+    {
+      "t": 96.07652888819575,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 16,
+      "target_speed": 0.0,
+      "distance": 844.7131958007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 268
+    },
+    {
+      "t": 96.58951288834214,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 16,
+      "target_speed": 0.0,
+      "distance": 844.4319458007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 272
+    },
+    {
+      "t": 97.09176888689399,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 17,
+      "target_speed": 0.0,
+      "distance": 844.4339599609375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 276
+    },
+    {
+      "t": 97.61606218665838,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 17,
+      "target_speed": 0.0,
+      "distance": 844.4332275390625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 280
+    },
+    {
+      "t": 98.13354878872633,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 18,
+      "target_speed": 0.0,
+      "distance": 844.4319458007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 284
+    },
+    {
+      "t": 98.64842868968844,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 18,
+      "target_speed": 0.0,
+      "distance": 844.43359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 288
+    },
+    {
+      "t": 99.16984158754349,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 19,
+      "target_speed": 0.0,
+      "distance": 844.4321899414062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 292
+    },
+    {
+      "t": 99.68180628865957,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 19,
+      "target_speed": 0.0,
+      "distance": 844.43310546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 295
+    },
+    {
+      "t": 100.18468918651342,
+      "case": 2,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 20,
+      "target_speed": 0.0,
+      "distance": 844.4317016601562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 299
+    },
+    {
+      "t": 100.69192448630929,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 20,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 101.20976378768682,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 20,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 101.71894508972764,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 21,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 102.2221655882895,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 21,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 102.73516708612442,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 22,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 103.25837678834796,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 22,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 103.77077608928084,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 23,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 104.2914832867682,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 23,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 104.81094048917294,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 105.33760768920183,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 105.85744158923626,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 106.36226948723197,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 106.87304458767176,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 107.39626938849688,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 107.92219488695264,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 108.4249302893877,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 108.94734228774905,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 109.47005028650165,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 109.97479798644781,
+      "case": 2,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 24,
+      "target_speed": 0.0,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 301
+    },
+    {
+      "t": 110.49267318844795,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 0.892145439706112,
+      "distance": 843.3192138671875,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 301
+    },
+    {
+      "t": 110.99550879374146,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 2.1902491899789753,
+      "distance": 843.3180541992188,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 301
+    },
+    {
+      "t": 111.51359969377518,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 7.289393936752277,
+      "distance": 843.3299560546875,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 302
+    },
+    {
+      "t": 112.03916869312525,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 12.42311377392767,
+      "distance": 845.0413818359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 302
+    },
+    {
+      "t": 112.54918269440532,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 14.798197120879081,
+      "distance": 843.5841064453125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 303
+    },
+    {
+      "t": 113.0624549947679,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 7.650110462746593,
+      "distance": 843.2577514648438,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 304
+    },
+    {
+      "t": 113.57593789324164,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.4569352416084715,
+      "distance": 843.63232421875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 305
+    },
+    {
+      "t": 114.08984739333391,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 2.426710930014146,
+      "distance": 844.1588745117188,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 306
+    },
+    {
+      "t": 114.60574259608984,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 4.063670420478203,
+      "distance": 846.5374755859375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 306
+    },
+    {
+      "t": 115.11941849440336,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.5575210475769614,
+      "distance": 844.955322265625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 307
+    },
+    {
+      "t": 115.63266649469733,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 3.3307104131575085,
+      "distance": 844.9541625976562,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 308
+    },
+    {
+      "t": 116.15481059625745,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 3.2327689719536226,
+      "distance": 844.6189575195312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 309
+    },
+    {
+      "t": 116.65803879499435,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 0,
+      "target_speed": 3.2475211572927676,
+      "distance": 843.6887817382812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 309
+    },
+    {
+      "t": 117.17479039356112,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 0,
+      "target_speed": 2.2458232925150496,
+      "distance": 842.564208984375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 310
+    },
+    {
+      "t": 117.69918049499393,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 0,
+      "target_speed": 1.9173507838635941,
+      "distance": 841.573486328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 311
+    },
+    {
+      "t": 118.21895069628954,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 0,
+      "target_speed": 3.302282991162082,
+      "distance": 841.8818359375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 312
+    },
+    {
+      "t": 118.7396477945149,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 0,
+      "target_speed": 3.1176429842169373,
+      "distance": 840.864501953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 313
+    },
+    {
+      "t": 119.2433416955173,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 3.162166991921274,
+      "distance": 842.944091796875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 313
+    },
+    {
+      "t": 119.76068959385157,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 2.7815271076325554,
+      "distance": 841.9146728515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 314
+    },
+    {
+      "t": 120.26834769546986,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 0.3737043377146164,
+      "distance": 842.2443237304688,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 315
+    },
+    {
+      "t": 120.78411639481783,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 0,
+      "target_speed": 0.31713095906440847,
+      "distance": 842.4901123046875,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 316
+    },
+    {
+      "t": 121.29321399331093,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 0,
+      "target_speed": 1.8980860136943871,
+      "distance": 842.8925170898438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 316
+    },
+    {
+      "t": 121.81247299537063,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 0,
+      "target_speed": 3.1163128228709667,
+      "distance": 843.1948852539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 317
+    },
+    {
+      "t": 122.3289615958929,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 0,
+      "target_speed": 3.206729508071318,
+      "distance": 843.052001953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 318
+    },
+    {
+      "t": 122.85180339589715,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 0,
+      "target_speed": 3.2552541892688596,
+      "distance": 842.5323486328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 319
+    },
+    {
+      "t": 123.35739849507809,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 0,
+      "target_speed": 3.239588424712628,
+      "distance": 842.3203125,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 320
+    },
+    {
+      "t": 123.870117995888,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 0,
+      "target_speed": 3.216854215488821,
+      "distance": 842.0704345703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 320
+    },
+    {
+      "t": 124.37786369398236,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 0,
+      "target_speed": 3.219605315918489,
+      "distance": 842.1880493164062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 321
+    },
+    {
+      "t": 124.87938299402595,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 0,
+      "target_speed": 1.866209274508112,
+      "distance": 840.8473510742188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 322
+    },
+    {
+      "t": 125.39208479598165,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 1,
+      "target_speed": 1.678501039858642,
+      "distance": 842.2493286132812,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 323
+    },
+    {
+      "t": 125.90872489288449,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 1,
+      "target_speed": 0.8255528249879092,
+      "distance": 839.2286987304688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 323
+    },
+    {
+      "t": 126.42653159424663,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 1,
+      "target_speed": 2.5671841358377856,
+      "distance": 839.5512084960938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 324
+    },
+    {
+      "t": 126.94550739601254,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 1,
+      "target_speed": 3.1291241117692006,
+      "distance": 838.2012329101562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 325
+    },
+    {
+      "t": 127.46610199287534,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 2,
+      "target_speed": 3.2142425157396253,
+      "distance": 838.837158203125,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 326
+    },
+    {
+      "t": 127.969162594527,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 2,
+      "target_speed": 3.1192806821651793,
+      "distance": 839.950439453125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 326
+    },
+    {
+      "t": 128.47134789451957,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 2,
+      "target_speed": 2.9065942647764955,
+      "distance": 841.074951171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 327
+    },
+    {
+      "t": 128.9723573960364,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 2,
+      "target_speed": 3.1808285797469504,
+      "distance": 844.2737426757812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 328
+    },
+    {
+      "t": 129.47594989463687,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 2,
+      "target_speed": 3.3040801103882824,
+      "distance": 841.4824829101562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 329
+    },
+    {
+      "t": 129.98818169534206,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 2,
+      "target_speed": 3.1379270203774237,
+      "distance": 840.533203125,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 330
+    },
+    {
+      "t": 130.5097787939012,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 2,
+      "target_speed": 2.25725341732903,
+      "distance": 839.491455078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 330
+    },
+    {
+      "t": 131.0134420953691,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 2,
+      "target_speed": 3.0566256328354044,
+      "distance": 839.291015625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 331
+    },
+    {
+      "t": 131.52267579361796,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 2,
+      "target_speed": 3.13478408257208,
+      "distance": 839.1098022460938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 332
+    },
+    {
+      "t": 132.04096699506044,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 2,
+      "target_speed": 3.1612494416762713,
+      "distance": 839.051513671875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 333
+    },
+    {
+      "t": 132.54721309617162,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 2,
+      "target_speed": 3.2279112970414165,
+      "distance": 839.438232421875,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 333
+    },
+    {
+      "t": 133.05742729455233,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 2,
+      "target_speed": 2.5712047584596456,
+      "distance": 842.1884155273438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 334
+    },
+    {
+      "t": 133.58258839324117,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 2,
+      "target_speed": 0.6365152470466208,
+      "distance": 840.9103393554688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 335
+    },
+    {
+      "t": 134.09531969577074,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 2,
+      "target_speed": 0.4365021689864289,
+      "distance": 843.2945556640625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 336
+    },
+    {
+      "t": 134.60457389429212,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 2,
+      "target_speed": 2.3038828335577395,
+      "distance": 841.5489501953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 336
+    },
+    {
+      "t": 135.12004909291863,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 2,
+      "target_speed": 2.959907239366672,
+      "distance": 841.0501708984375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 337
+    },
+    {
+      "t": 135.64151219278574,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 3,
+      "target_speed": 0.9004034199530243,
+      "distance": 841.2842407226562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 338
+    },
+    {
+      "t": 136.161552593112,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 3,
+      "target_speed": 0.7249226659159039,
+      "distance": 841.9530029296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 339
+    },
+    {
+      "t": 136.6853549964726,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 3,
+      "target_speed": 1.4406693882620922,
+      "distance": 842.5045166015625,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 340
+    },
+    {
+      "t": 137.18744529411197,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 3,
+      "target_speed": 3.1362770172681063,
+      "distance": 843.0651245117188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 340
+    },
+    {
+      "t": 137.71222299337387,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 3,
+      "target_speed": 3.16666593857659,
+      "distance": 841.9608154296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 341
+    },
+    {
+      "t": 138.23690079525113,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 4,
+      "target_speed": 3.559548507866362,
+      "distance": 839.6837158203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 342
+    },
+    {
+      "t": 138.73956959322095,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 4,
+      "target_speed": 3.1806000821128397,
+      "distance": 838.4816284179688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 343
+    },
+    {
+      "t": 139.25633039325476,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 5,
+      "target_speed": 3.1887616846663542,
+      "distance": 839.9226684570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 343
+    },
+    {
+      "t": 139.78200689330697,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 5,
+      "target_speed": 2.98935442437589,
+      "distance": 840.1524047851562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 344
+    },
+    {
+      "t": 140.29926989600062,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 5,
+      "target_speed": 2.173653779094318,
+      "distance": 841.0520629882812,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 345
+    },
+    {
+      "t": 140.8221736960113,
+      "case": 3,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 5,
+      "target_speed": 2.824694300249084,
+      "distance": 842.0870971679688,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 346
+    },
+    {
+      "t": 141.324957896024,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.0189506188410142,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 141.84139359369874,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.17854558018028,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 142.34731079638004,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 2.6684847442144064,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 142.87407299503684,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.2034319673184153,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 143.38018779456615,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.220588838324371,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 143.9029845930636,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.397236935055956,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 144.43219339475036,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 5.97726617584255,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 144.9557158946991,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 8.135299081749574,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 145.46798449382186,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 6.418071606575303,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 145.98154279589653,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.5974372638939953,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 146.50054709613323,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 3.1063353192323677,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 147.0065280944109,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 2.6942161157650784,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 147.51080179587007,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 2.842921866591688,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 148.04831019416451,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 1.8239005254594043,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 148.5522571951151,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 0.6855098066908191,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 149.05851639434695,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 1.0045969736588924,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 149.57855439558625,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 0.27880250488080144,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 150.09223599359393,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 1.2612021218126659,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 150.60100739449263,
+      "case": 3,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 5,
+      "target_speed": 0.6499267976095198,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 346
+    },
+    {
+      "t": 151.11323639377952,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 2.063718728682282,
+      "distance": 843.3203125,
+      "status": "No ballistic intercept at original projectile speed",
+      "target": "Friendly_AI_1",
+      "aim_samples": 346
+    },
+    {
+      "t": 151.61667719483376,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 6.5429160941499696,
+      "distance": 843.345947265625,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 347
+    },
+    {
+      "t": 152.13810289278626,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 11.546431408620428,
+      "distance": 844.817138671875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 348
+    },
+    {
+      "t": 152.64358849450946,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 14.61778452353723,
+      "distance": 843.4971923828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 349
+    },
+    {
+      "t": 153.15609339624643,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 9.439176505347792,
+      "distance": 844.0117797851562,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 350
+    },
+    {
+      "t": 153.68649349361658,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 4.730608807828413,
+      "distance": 844.3443603515625,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 352
+    },
+    {
+      "t": 154.18901269510388,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.4130390383850244,
+      "distance": 844.4697875976562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 353
+    },
+    {
+      "t": 154.71771969646215,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.232102973411534,
+      "distance": 843.530029296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 354
+    },
+    {
+      "t": 155.23850059509277,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.1557658306135425,
+      "distance": 840.8351440429688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 355
+    },
+    {
+      "t": 155.76276499405503,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.191145881147763,
+      "distance": 839.5592041015625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 357
+    },
+    {
+      "t": 156.2658940963447,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.254059054313664,
+      "distance": 841.3269653320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 358
+    },
+    {
+      "t": 156.78264229372144,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.1652179761163124,
+      "distance": 842.8950805664062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 359
+    },
+    {
+      "t": 157.29496839642525,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 3.1787133209801577,
+      "distance": 847.364501953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 360
+    },
+    {
+      "t": 157.81044099479914,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 3.2777632209084246,
+      "distance": 847.4114990234375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 362
+    },
+    {
+      "t": 158.3187301941216,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.3022601568172236,
+      "distance": 848.2019653320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 363
+    },
+    {
+      "t": 158.83411989361048,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.5059784701307035,
+      "distance": 845.2418823242188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 364
+    },
+    {
+      "t": 159.3630432933569,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 3.285734745892829,
+      "distance": 843.3408203125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 365
+    },
+    {
+      "t": 159.87140119448304,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 2.903970547081033,
+      "distance": 841.354736328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 367
+    },
+    {
+      "t": 160.38431049510837,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 2,
+      "target_speed": 3.3026229297628102,
+      "distance": 839.75830078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 368
+    },
+    {
+      "t": 160.8961767964065,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 3.670480679957313,
+      "distance": 839.483642578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 369
+    },
+    {
+      "t": 161.41366629302502,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 3.4381306966608833,
+      "distance": 840.290771484375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 370
+    },
+    {
+      "t": 161.91706289350986,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 2,
+      "target_speed": 3.108491309430859,
+      "distance": 841.5900268554688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 372
+    },
+    {
+      "t": 162.42320599406958,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 2,
+      "target_speed": 2.6826054835415634,
+      "distance": 843.1216430664062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 373
+    },
+    {
+      "t": 162.941863194108,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 2,
+      "target_speed": 3.0889512127891874,
+      "distance": 845.2352294921875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 374
+    },
+    {
+      "t": 163.4442562945187,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 2,
+      "target_speed": 3.1998459885101904,
+      "distance": 845.4179077148438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 375
+    },
+    {
+      "t": 163.95742009580135,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 2,
+      "target_speed": 3.1425788024015784,
+      "distance": 846.7160034179688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 376
+    },
+    {
+      "t": 164.4736806936562,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 2,
+      "target_speed": 3.194122428625151,
+      "distance": 843.7778930664062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 378
+    },
+    {
+      "t": 165.001042496413,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 2,
+      "target_speed": 3.1073511861803307,
+      "distance": 843.83154296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 379
+    },
+    {
+      "t": 165.52603309601545,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 2,
+      "target_speed": 1.1485044932160688,
+      "distance": 843.1168823242188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 380
+    },
+    {
+      "t": 166.0415323935449,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 3,
+      "target_speed": 0.43336727811567394,
+      "distance": 842.6312255859375,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 381
+    },
+    {
+      "t": 166.5616233944893,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 3,
+      "target_speed": 2.3113239474690364,
+      "distance": 842.3527221679688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 383
+    },
+    {
+      "t": 167.08365119621158,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 3,
+      "target_speed": 3.0683482389720016,
+      "distance": 842.121826171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 384
+    },
+    {
+      "t": 167.5934982933104,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 3,
+      "target_speed": 3.174460413716304,
+      "distance": 842.2471923828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 385
+    },
+    {
+      "t": 168.09965129569173,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 4,
+      "target_speed": 3.024335366776711,
+      "distance": 842.9773559570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 386
+    },
+    {
+      "t": 168.61771469563246,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 4,
+      "target_speed": 1.119741469785061,
+      "distance": 843.8211669921875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 388
+    },
+    {
+      "t": 169.1317410953343,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 4,
+      "target_speed": 0.6525487571410811,
+      "distance": 844.3617553710938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 389
+    },
+    {
+      "t": 169.6469395942986,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 4,
+      "target_speed": 1.803510786334578,
+      "distance": 844.7565307617188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 390
+    },
+    {
+      "t": 170.1516749933362,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 4,
+      "target_speed": 3.166870256463741,
+      "distance": 844.11767578125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 391
+    },
+    {
+      "t": 170.66454319283366,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 5,
+      "target_speed": 3.065268476911432,
+      "distance": 845.0065307617188,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 393
+    },
+    {
+      "t": 171.19152919575572,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 5,
+      "target_speed": 3.0334835630890087,
+      "distance": 844.32861328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 394
+    },
+    {
+      "t": 171.72217129543424,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 5,
+      "target_speed": 0.9637867611618687,
+      "distance": 844.7607421875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 395
+    },
+    {
+      "t": 172.24712759628892,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 5,
+      "target_speed": 0.5216593256333468,
+      "distance": 845.0792236328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 396
+    },
+    {
+      "t": 172.7580021955073,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 6,
+      "target_speed": 1.2113268250040072,
+      "distance": 845.7251586914062,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 398
+    },
+    {
+      "t": 173.27517699450254,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 6,
+      "target_speed": 3.1735598490495365,
+      "distance": 846.08544921875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 399
+    },
+    {
+      "t": 173.7753067947924,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 7,
+      "target_speed": 3.218708899028251,
+      "distance": 845.6192626953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 400
+    },
+    {
+      "t": 174.29084899649024,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 7,
+      "target_speed": 3.1954677228986,
+      "distance": 844.830078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 401
+    },
+    {
+      "t": 174.80220729485154,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 7,
+      "target_speed": 2.2360101741772724,
+      "distance": 843.9037475585938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 403
+    },
+    {
+      "t": 175.30864849314094,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 7,
+      "target_speed": 2.2261779918368974,
+      "distance": 842.9375610351562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 404
+    },
+    {
+      "t": 175.81151219457388,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 7,
+      "target_speed": 2.9712645980503902,
+      "distance": 841.6416625976562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 405
+    },
+    {
+      "t": 176.33916939422488,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 7,
+      "target_speed": 3.1256053215135897,
+      "distance": 843.2528686523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 406
+    },
+    {
+      "t": 176.84912809357047,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 7,
+      "target_speed": 3.350537467217761,
+      "distance": 843.4942626953125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 408
+    },
+    {
+      "t": 177.38078459352255,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 7,
+      "target_speed": 3.0830269196053606,
+      "distance": 846.6594848632812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 409
+    },
+    {
+      "t": 177.884517993778,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 7,
+      "target_speed": 3.2181336430355647,
+      "distance": 845.121826171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 410
+    },
+    {
+      "t": 178.38642609491944,
+      "case": 4,
+      "phase": "shoot",
+      "shots": 24,
+      "hits": 7,
+      "target_speed": 3.190605084968323,
+      "distance": 844.8800659179688,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 411
+    },
+    {
+      "t": 178.90385529398918,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 7,
+      "target_speed": 3.1951650431419414,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 179.42674749344587,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 8,
+      "target_speed": 3.2179940815107573,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 179.94591059535742,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 8,
+      "target_speed": 3.190105288093197,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 180.4487467929721,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 8,
+      "target_speed": 2.8924809893486207,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 180.96516959369183,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 8,
+      "target_speed": 0.7064266384878402,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 181.49210339412093,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 0.5996009825113329,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 181.99964809417725,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 1.5619242120725445,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 182.50402449443936,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.3494585246843713,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 183.0270918942988,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 2.973549622361393,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 183.53862019628286,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 2.9848412150510906,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 184.04657039418817,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 1.6093152252400715,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 184.56522689387202,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 1.4099445500457706,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 185.0786600932479,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 2.8782188481350373,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 185.6049672961235,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.1701354141877682,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 186.10850239545107,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.138707172651354,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 186.63471429422498,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.147846778389956,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 187.16720509529114,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.211357151379116,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 187.69339529424906,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.1687835395372796,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 188.20257699489594,
+      "case": 4,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 9,
+      "target_speed": 3.356376611395691,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 411
+    },
+    {
+      "t": 188.71487269550562,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 3.0584986338240197,
+      "distance": 843.3528442382812,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 413
+    },
+    {
+      "t": 189.22723239287734,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 8.089345910269618,
+      "distance": 844.2506103515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 416
+    },
+    {
+      "t": 189.7378757931292,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 12.703542274802041,
+      "distance": 843.4503173828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 420
+    },
+    {
+      "t": 190.25645009428263,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 14.545259032740955,
+      "distance": 843.529296875,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 424
+    },
+    {
+      "t": 190.78256579488516,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 6.210216265141259,
+      "distance": 844.5122680664062,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 428
+    },
+    {
+      "t": 191.3036021962762,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.5634115780618663,
+      "distance": 844.888671875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 432
+    },
+    {
+      "t": 191.82358719408512,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.282401526552297,
+      "distance": 844.0877685546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 436
+    },
+    {
+      "t": 192.3335453942418,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.217629897911063,
+      "distance": 841.7946166992188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 440
+    },
+    {
+      "t": 192.84051459282637,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.017293544402425,
+      "distance": 839.9832153320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 444
+    },
+    {
+      "t": 193.35494369640946,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.144570961481405,
+      "distance": 841.07470703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 448
+    },
+    {
+      "t": 193.8689450956881,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.139148379180113,
+      "distance": 842.2037963867188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 452
+    },
+    {
+      "t": 194.38387609645724,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 2.6819368096437723,
+      "distance": 847.6490478515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 456
+    },
+    {
+      "t": 194.89043549448252,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 3.0992321273268635,
+      "distance": 847.1113891601562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 460
+    },
+    {
+      "t": 195.40547079592943,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.151290439737068,
+      "distance": 847.0520629882812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 464
+    },
+    {
+      "t": 195.9333403930068,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.165298087409612,
+      "distance": 844.0261840820312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 468
+    },
+    {
+      "t": 196.46901359409094,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 3.100647652712921,
+      "distance": 841.5870971679688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 472
+    },
+    {
+      "t": 196.98253379389644,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 3.202240169015114,
+      "distance": 841.541748046875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 476
+    },
+    {
+      "t": 197.5111889950931,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 2,
+      "target_speed": 3.1493962078625555,
+      "distance": 842.407470703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 480
+    },
+    {
+      "t": 198.0269417949021,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 3.4160162460057517,
+      "distance": 842.6484985351562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 483
+    },
+    {
+      "t": 198.54119799286127,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 3,
+      "target_speed": 3.267404268614496,
+      "distance": 843.2976684570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 487
+    },
+    {
+      "t": 199.07039969414473,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 3,
+      "target_speed": 3.1809756368476814,
+      "distance": 843.5009765625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 491
+    },
+    {
+      "t": 199.57155949622393,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 4,
+      "target_speed": 3.2047730502976064,
+      "distance": 843.47509765625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 495
+    },
+    {
+      "t": 200.0985424928367,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 4,
+      "target_speed": 3.2146227109672445,
+      "distance": 843.41357421875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 499
+    },
+    {
+      "t": 200.62225129455328,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 5,
+      "target_speed": 2.993895796560727,
+      "distance": 843.8217163085938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 503
+    },
+    {
+      "t": 201.14053239300847,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 5,
+      "target_speed": 2.9722762311789785,
+      "distance": 845.3848266601562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 507
+    },
+    {
+      "t": 201.65974559634924,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 5,
+      "target_speed": 2.488414711323435,
+      "distance": 846.7252197265625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 511
+    },
+    {
+      "t": 202.16331139579415,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 5,
+      "target_speed": 1.848512992940834,
+      "distance": 849.0372924804688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 515
+    },
+    {
+      "t": 202.67986649647355,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 5,
+      "target_speed": 3.170014267367421,
+      "distance": 847.8524780273438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 519
+    },
+    {
+      "t": 203.1850570961833,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 6,
+      "target_speed": 3.2935074807104456,
+      "distance": 849.9683227539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 523
+    },
+    {
+      "t": 203.68964509293437,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 6,
+      "target_speed": 3.3113465941367677,
+      "distance": 849.1401977539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 527
+    },
+    {
+      "t": 204.2226613946259,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 7,
+      "target_speed": 3.1623888931328916,
+      "distance": 849.4608154296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 530
+    },
+    {
+      "t": 204.736870393157,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 7,
+      "target_speed": 3.3430773147463198,
+      "distance": 848.15478515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 534
+    },
+    {
+      "t": 205.27017939463258,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 8,
+      "target_speed": 4.301563140272686,
+      "distance": 846.6495361328125,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 538
+    },
+    {
+      "t": 205.79010899364948,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 8,
+      "target_speed": 3.4914649638169353,
+      "distance": 846.4423217773438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 542
+    },
+    {
+      "t": 206.31822579354048,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 9,
+      "target_speed": 3.2192036046505206,
+      "distance": 847.1480102539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 546
+    },
+    {
+      "t": 206.83068349584937,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 9,
+      "target_speed": 2.6098737701169608,
+      "distance": 848.5638427734375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 550
+    },
+    {
+      "t": 207.35970429331064,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 9,
+      "target_speed": 2.742502816814122,
+      "distance": 849.2542114257812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 554
+    },
+    {
+      "t": 207.87491889297962,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 9,
+      "target_speed": 3.015709080561061,
+      "distance": 848.8839111328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 558
+    },
+    {
+      "t": 208.4002344943583,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 9,
+      "target_speed": 2.4170463274377076,
+      "distance": 847.7390747070312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 562
+    },
+    {
+      "t": 208.92481019347906,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 9,
+      "target_speed": 3.0003537857143017,
+      "distance": 847.4821166992188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 565
+    },
+    {
+      "t": 209.45601549372077,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 10,
+      "target_speed": 3.1343349936365734,
+      "distance": 847.6590576171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 569
+    },
+    {
+      "t": 209.95961919426918,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 10,
+      "target_speed": 3.1414294000185534,
+      "distance": 848.378173828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 573
+    },
+    {
+      "t": 210.4800991937518,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 10,
+      "target_speed": 2.243683513624423,
+      "distance": 849.3570556640625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 577
+    },
+    {
+      "t": 211.00928289443254,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 11,
+      "target_speed": 2.9447657153808535,
+      "distance": 849.8117065429688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 581
+    },
+    {
+      "t": 211.53467279300094,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 11,
+      "target_speed": 3.1233553630955164,
+      "distance": 849.7606811523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 585
+    },
+    {
+      "t": 212.04335159435868,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 12,
+      "target_speed": 2.337276922714398,
+      "distance": 850.2210083007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 589
+    },
+    {
+      "t": 212.56568779423833,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 12,
+      "target_speed": 0.5591472702118471,
+      "distance": 849.5961303710938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 593
+    },
+    {
+      "t": 213.09407989308238,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 13,
+      "target_speed": 0.7176798018587643,
+      "distance": 850.7842407226562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 597
+    },
+    {
+      "t": 213.6016594953835,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 13,
+      "target_speed": 1.0292003794178421,
+      "distance": 848.9522705078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 600
+    },
+    {
+      "t": 214.11712789535522,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 14,
+      "target_speed": 3.1268789992390147,
+      "distance": 850.8504028320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 604
+    },
+    {
+      "t": 214.6364375948906,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 14,
+      "target_speed": 3.1675399171937193,
+      "distance": 849.6560668945312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 608
+    },
+    {
+      "t": 215.1523976959288,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 15,
+      "target_speed": 2.5569366778553566,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 215.6655001938343,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 15,
+      "target_speed": 0.9127213790820672,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 216.19164449349046,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 16,
+      "target_speed": 1.7946056884761032,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 216.71245259419084,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 16,
+      "target_speed": 3.09529213887797,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 217.2241574935615,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 17,
+      "target_speed": 3.205141934356045,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 217.72514709457755,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 17,
+      "target_speed": 3.1609039250950097,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 218.2546246945858,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 1.459372427969267,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 218.7875660955906,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 0.909880307671047,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 219.29559249430895,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 1.6330362990263987,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 219.79612889513373,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.181723561387303,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 220.31204809620976,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.1761220966221164,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 220.8307585939765,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.148103964695057,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 221.34423319622874,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 2.9244691366717834,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 221.86784909293056,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.156791315052349,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 222.370590493083,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.2218623313527694,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 222.8887250944972,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.264468212615516,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 223.39108849316835,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.287667278933043,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 223.89624489471316,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.2538337897303866,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 224.402464594692,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.1093373744149737,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 224.91174789518118,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 1.5754144533632175,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    }
+  ],
+  "results": [
+    {
+      "mode": "stationary",
+      "skill": "Easy",
+      "count": 24,
+      "shots": 24,
+      "hits": 1,
+      "misses": 23,
+      "hit_ratio": 0.041666666666666664,
+      "max_target_speed": 0.0
+    },
+    {
+      "mode": "stationary",
+      "skill": "Normal",
+      "count": 24,
+      "shots": 24,
+      "hits": 12,
+      "misses": 12,
+      "hit_ratio": 0.5,
+      "max_target_speed": 0.0
+    },
+    {
+      "mode": "stationary",
+      "skill": "Hard",
+      "count": 24,
+      "shots": 24,
+      "hits": 24,
+      "misses": 0,
+      "hit_ratio": 1.0,
+      "max_target_speed": 0.0
+    },
+    {
+      "mode": "moving",
+      "skill": "Easy",
+      "count": 24,
+      "shots": 24,
+      "hits": 5,
+      "misses": 19,
+      "hit_ratio": 0.20833333333333334,
+      "max_target_speed": 14.798197120879081
+    },
+    {
+      "mode": "moving",
+      "skill": "Normal",
+      "count": 24,
+      "shots": 24,
+      "hits": 9,
+      "misses": 15,
+      "hit_ratio": 0.375,
+      "max_target_speed": 14.61778452353723
+    },
+    {
+      "mode": "moving",
+      "skill": "Hard",
+      "count": 24,
+      "shots": 24,
+      "hits": 19,
+      "misses": 5,
+      "hit_ratio": 0.7916666666666666,
+      "max_target_speed": 14.545259032740955
+    }
+  ],
+  "index": 5,
+  "last": 224.91174789518118,
+  "at": 215.08503559604287,
+  "error": null,
+  "shots": [
+    {
+      "t": 2.5029065869748592,
+      "case": 0,
+      "error": [
+        -1.4390791654586792,
+        -0.5879760384559631
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 3.596126686781645,
+      "case": 0,
+      "error": [
+        -1.5435220003128052,
+        0.6066018342971802
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 4.679468087852001,
+      "case": 0,
+      "error": [
+        -1.7103835344314575,
+        -0.6743714213371277
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 5.763028688728809,
+      "case": 0,
+      "error": [
+        2.426243782043457,
+        -0.7781385779380798
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 6.846384886652231,
+      "case": 0,
+      "error": [
+        -1.6956697702407837,
+        2.5666592121124268
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 7.939347188919783,
+      "case": 0,
+      "error": [
+        -1.5528517961502075,
+        0.29176759719848633
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 9.022699788212776,
+      "case": 0,
+      "error": [
+        -2.861309766769409,
+        -1.0588834285736084
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 10.106367889791727,
+      "case": 0,
+      "error": [
+        2.4586997032165527,
+        -0.532436192035675
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 11.37321948632598,
+      "case": 0,
+      "error": [
+        -2.059743642807007,
+        -0.8106288909912109
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 12.456793889403343,
+      "case": 0,
+      "error": [
+        1.4642813205718994,
+        0.3686465919017792
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 13.540207587182522,
+      "case": 0,
+      "error": [
+        1.69645357131958,
+        0.002532442333176732
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 14.623624086380005,
+      "case": 0,
+      "error": [
+        1.2476056814193726,
+        1.4225587844848633
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 15.707011386752129,
+      "case": 0,
+      "error": [
+        -1.2547006607055664,
+        1.1396241188049316
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 16.798262488096952,
+      "case": 0,
+      "error": [
+        -0.5730279088020325,
+        2.2834322452545166
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 18.06493378803134,
+      "case": 0,
+      "error": [
+        1.361171841621399,
+        2.127197265625
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 19.18163738772273,
+      "case": 0,
+      "error": [
+        0.9397294521331787,
+        2.0504839420318604
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 20.265765886753798,
+      "case": 0,
+      "error": [
+        -2.9670653343200684,
+        0.49743908643722534
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 21.349159687757492,
+      "case": 0,
+      "error": [
+        0.797784686088562,
+        0.02829817868769169
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 22.43253618851304,
+      "case": 0,
+      "error": [
+        -1.265397071838379,
+        -1.8866287469863892
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 23.516205489635468,
+      "case": 0,
+      "error": [
+        2.1860804557800293,
+        1.40065598487854
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 24.603600289672613,
+      "case": 0,
+      "error": [
+        1.8473875522613525,
+        -0.5911284685134888
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 25.722072187811136,
+      "case": 0,
+      "error": [
+        0.8063415884971619,
+        -2.7768216133117676
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 26.805687189102173,
+      "case": 0,
+      "error": [
+        -1.8943485021591187,
+        -2.4340391159057617
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 27.890713188797235,
+      "case": 0,
+      "error": [
+        1.2047936916351318,
+        -1.8495794534683228
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 39.00765518844128,
+      "case": 1,
+      "error": [
+        0.05498884245753288,
+        1.277819275856018
+      ],
+      "muzzle_launch_dot": 0.9999999529676424
+    },
+    {
+      "t": 40.11083468794823,
+      "case": 1,
+      "error": [
+        -0.7053515911102295,
+        -0.27810660004615784
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 41.21018798649311,
+      "case": 1,
+      "error": [
+        -0.5726832747459412,
+        0.6660918593406677
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 42.312529489398,
+      "case": 1,
+      "error": [
+        -0.9917665123939514,
+        0.0013006561202928424
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 43.43312908709049,
+      "case": 1,
+      "error": [
+        1.0139703750610352,
+        -0.21957723796367645
+      ],
+      "muzzle_launch_dot": 0.9999797517152809
+    },
+    {
+      "t": 44.529333889484406,
+      "case": 1,
+      "error": [
+        -0.8494498133659363,
+        -0.3343079090118408
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 45.61343048885465,
+      "case": 1,
+      "error": [
+        0.6995964050292969,
+        0.0010443477658554912
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 46.73937038704753,
+      "case": 1,
+      "error": [
+        -0.5174267888069153,
+        0.4699702858924866
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 47.84044758975506,
+      "case": 1,
+      "error": [
+        -0.23631179332733154,
+        0.9416678547859192
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 48.93289878964424,
+      "case": 1,
+      "error": [
+        0.03613578528165817,
+        -0.001427452894859016
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 50.06319188699126,
+      "case": 1,
+      "error": [
+        0.3601410984992981,
+        1.1529039144515991
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 51.15639488771558,
+      "case": 1,
+      "error": [
+        -0.21631288528442383,
+        -0.7409510612487793
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 52.26373938843608,
+      "case": 1,
+      "error": [
+        0.4819397032260895,
+        0.1268845796585083
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 53.37248298898339,
+      "case": 1,
+      "error": [
+        0.3325325846672058,
+        -1.145151972770691
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 54.51913168653846,
+      "case": 1,
+      "error": [
+        0.4968457818031311,
+        -0.7627494931221008
+      ],
+      "muzzle_launch_dot": 0.9999980621089126
+    },
+    {
+      "t": 55.616974487900734,
+      "case": 1,
+      "error": [
+        -0.27866411209106445,
+        0.5321568250656128
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 56.721933986991644,
+      "case": 1,
+      "error": [
+        0.03208396956324577,
+        0.7874231338500977
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 57.8397406861186,
+      "case": 1,
+      "error": [
+        -0.8109617233276367,
+        -0.945866584777832
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 58.92366038635373,
+      "case": 1,
+      "error": [
+        0.740943193435669,
+        -0.12972301244735718
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 60.02337288856506,
+      "case": 1,
+      "error": [
+        0.4072025418281555,
+        0.5699589252471924
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 61.15308988839388,
+      "case": 1,
+      "error": [
+        1.1072813272476196,
+        -0.6603845953941345
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 62.252919886261225,
+      "case": 1,
+      "error": [
+        -0.6925204396247864,
+        0.9760811924934387
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 63.34317868947983,
+      "case": 1,
+      "error": [
+        -0.5397493839263916,
+        0.1493988186120987
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 64.45908548682928,
+      "case": 1,
+      "error": [
+        -0.6527900099754333,
+        0.4469938576221466
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 75.09394478797913,
+      "case": 2,
+      "error": [
+        -0.023424461483955383,
+        -0.009235815145075321
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 76.1899624876678,
+      "case": 2,
+      "error": [
+        -0.015084418468177319,
+        -0.0204455628991127
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 77.29601728916168,
+      "case": 2,
+      "error": [
+        0.017086179926991463,
+        0.019482193514704704
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 78.39789968729019,
+      "case": 2,
+      "error": [
+        -0.04063451290130615,
+        0.006812521256506443
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 79.49493608623743,
+      "case": 2,
+      "error": [
+        0.011043345555663109,
+        -0.038030289113521576
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 80.59100598841906,
+      "case": 2,
+      "error": [
+        0.0010655134683474898,
+        0.02615043893456459
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 81.6910901889205,
+      "case": 2,
+      "error": [
+        0.013523105531930923,
+        0.018928207457065582
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 82.80739478766918,
+      "case": 2,
+      "error": [
+        -0.017925212159752846,
+        0.0049615721218287945
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 83.91123398765922,
+      "case": 2,
+      "error": [
+        -0.002671550726518035,
+        0.009010053239762783
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 85.01490058749914,
+      "case": 2,
+      "error": [
+        -0.012554177083075047,
+        0.00015347727457992733
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 86.11386638879776,
+      "case": 2,
+      "error": [
+        -0.004693483002483845,
+        0.007772805634886026
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 87.2077387869358,
+      "case": 2,
+      "error": [
+        -0.024223586544394493,
+        -0.035591721534729004
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 88.32159098610282,
+      "case": 2,
+      "error": [
+        0.013047192245721817,
+        0.008466990664601326
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 89.40151458978653,
+      "case": 2,
+      "error": [
+        -0.020314298570156097,
+        -0.02909446693956852
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 90.48310618847609,
+      "case": 2,
+      "error": [
+        0.011110879480838776,
+        0.03364936634898186
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 91.5821272879839,
+      "case": 2,
+      "error": [
+        -0.01955343969166279,
+        -0.0024937482085078955
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 92.70034908875823,
+      "case": 2,
+      "error": [
+        -0.022707952186465263,
+        0.014253320172429085
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 93.80836368724704,
+      "case": 2,
+      "error": [
+        -0.00907957274466753,
+        0.03334940969944
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 94.92096888646483,
+      "case": 2,
+      "error": [
+        -0.03452324494719505,
+        0.009462028741836548
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 96.02127418667078,
+      "case": 2,
+      "error": [
+        0.014053091406822205,
+        0.03640691563487053
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 97.11912368610501,
+      "case": 2,
+      "error": [
+        -0.008288135752081871,
+        0.03598184511065483
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 98.22039818763733,
+      "case": 2,
+      "error": [
+        -0.016559340059757233,
+        0.017730366438627243
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 99.31465128809214,
+      "case": 2,
+      "error": [
+        0.006241858005523682,
+        -0.009197837673127651
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 100.39767238870263,
+      "case": 2,
+      "error": [
+        -0.008642064407467842,
+        -0.022802630439400673
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 111.85148319602013,
+      "case": 3,
+      "error": [
+        -1.4488710165023804,
+        -0.5919768214225769
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 113.0624549947679,
+      "case": 3,
+      "error": [
+        -1.751615047454834,
+        0.688382089138031
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 114.42810689285398,
+      "case": 3,
+      "error": [
+        -3.1631338596343994,
+        0.437930166721344
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 115.63266649469733,
+      "case": 3,
+      "error": [
+        -1.4428975582122803,
+        1.6782439947128296
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 116.87457129359245,
+      "case": 3,
+      "error": [
+        -1.6070021390914917,
+        0.30194196105003357
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 117.97303949296474,
+      "case": 3,
+      "error": [
+        -2.4875800609588623,
+        0.0032623466104269028
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 119.085544295609,
+      "case": 3,
+      "error": [
+        -1.1349915266036987,
+        -1.538378119468689
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 120.82523489370942,
+      "case": 3,
+      "error": [
+        -2.0984740257263184,
+        -0.8258715867996216
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 121.94187449291348,
+      "case": 3,
+      "error": [
+        1.4691025018692017,
+        0.36986035108566284
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 123.03701099380851,
+      "case": 3,
+      "error": [
+        1.7527157068252563,
+        0.0026164299342781305
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 124.13706619292498,
+      "case": 3,
+      "error": [
+        1.2897204160690308,
+        1.4705792665481567
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 125.25390769541264,
+      "case": 3,
+      "error": [
+        -1.2964495420455933,
+        1.1775438785552979
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 126.34121679514647,
+      "case": 3,
+      "error": [
+        -0.5809975862503052,
+        2.315190315246582
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 127.69925419613719,
+      "case": 3,
+      "error": [
+        1.4020313024520874,
+        2.1910510063171387
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 128.83272499591112,
+      "case": 3,
+      "error": [
+        0.9690415263175964,
+        2.114442825317383
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 129.93202669546008,
+      "case": 3,
+      "error": [
+        -3.059974431991577,
+        0.513015627861023
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 131.0482719950378,
+      "case": 3,
+      "error": [
+        0.823165237903595,
+        0.029198450967669487
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 132.89621219411492,
+      "case": 3,
+      "error": [
+        2.25451922416687,
+        1.4445059299468994
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 133.9841510951519,
+      "case": 3,
+      "error": [
+        1.8776025772094727,
+        -0.6007967591285706
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 135.08838989585638,
+      "case": 3,
+      "error": [
+        0.09240394085645676,
+        -0.0846252590417862
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 136.82448329403996,
+      "case": 3,
+      "error": [
+        -2.623229742050171,
+        1.1226893663406372
+      ],
+      "muzzle_launch_dot": 0.9999695239708069
+    },
+    {
+      "t": 137.93255069479346,
+      "case": 3,
+      "error": [
+        1.218218207359314,
+        -1.870188593864441
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 139.0297722928226,
+      "case": 3,
+      "error": [
+        -0.6985397934913635,
+        1.3339813947677612
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 140.8806004934013,
+      "case": 3,
+      "error": [
+        0.0798259750008583,
+        1.959134578704834
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 151.9294976964593,
+      "case": 4,
+      "error": [
+        -0.6049419045448303,
+        -0.24716594815254211
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 153.77845059335232,
+      "case": 4,
+      "error": [
+        1.072730541229248,
+        -0.3440433144569397
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 154.91988329589367,
+      "case": 4,
+      "error": [
+        -0.6587051153182983,
+        0.12376506626605988
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 156.02837999537587,
+      "case": 4,
+      "error": [
+        -1.209641695022583,
+        -0.4476515054702759
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 157.1197942942381,
+      "case": 4,
+      "error": [
+        0.06761094927787781,
+        -1.2825491428375244
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 158.23284809291363,
+      "case": 4,
+      "error": [
+        -0.3574957251548767,
+        0.9080252051353455
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 159.33013969287276,
+      "case": 4,
+      "error": [
+        -0.1235690638422966,
+        0.9000508189201355
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 160.4429905936122,
+      "case": 4,
+      "error": [
+        0.9366742968559265,
+        0.4510239064693451
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 161.58486669510603,
+      "case": 4,
+      "error": [
+        0.5789859890937805,
+        0.9048213958740234
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 162.68767169490457,
+      "case": 4,
+      "error": [
+        0.39721012115478516,
+        0.8667100667953491
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 163.79189829528332,
+      "case": 4,
+      "error": [
+        0.33766868710517883,
+        0.011977427639067173
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 164.940792594105,
+      "case": 4,
+      "error": [
+        0.9253647327423096,
+        0.5928956866264343
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 166.0415323935449,
+      "case": 4,
+      "error": [
+        0.7759247422218323,
+        -0.24828101694583893
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 167.14139749482274,
+      "case": 4,
+      "error": [
+        -0.7935516834259033,
+        -1.0196306705474854
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 168.25314469635487,
+      "case": 4,
+      "error": [
+        0.7590376734733582,
+        -0.10372243076562881
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 169.352530695498,
+      "case": 4,
+      "error": [
+        0.2958625257015228,
+        0.2977098524570465
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 170.45934109389782,
+      "case": 4,
+      "error": [
+        -0.6840438842773438,
+        0.9088278412818909
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 171.69034529477358,
+      "case": 4,
+      "error": [
+        -0.5129501223564148,
+        1.215983510017395
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 172.79427549615502,
+      "case": 4,
+      "error": [
+        -0.44491350650787354,
+        0.04847520962357521
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 173.87640099599957,
+      "case": 4,
+      "error": [
+        0.6441315412521362,
+        0.3876308798789978
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 175.0001325942576,
+      "case": 4,
+      "error": [
+        1.0780261754989624,
+        0.10797106474637985
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 176.14618809521198,
+      "case": 4,
+      "error": [
+        -0.01450054906308651,
+        -1.2759206295013428
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 177.27895889431238,
+      "case": 4,
+      "error": [
+        1.032376766204834,
+        0.035067118704319
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 178.38642609491944,
+      "case": 4,
+      "error": [
+        0.014990262687206268,
+        0.6649879813194275
+      ],
+      "muzzle_launch_dot": 0.9999999999999997
+    },
+    {
+      "t": 188.98327409476042,
+      "case": 5,
+      "error": [
+        -0.02141951397061348,
+        0.008417836390435696
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 190.90489629283547,
+      "case": 5,
+      "error": [
+        0.024012908339500427,
+        3.584614023566246e-05
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 192.0131815932691,
+      "case": 5,
+      "error": [
+        0.013039047829806805,
+        0.02845112420618534
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 193.12904789298773,
+      "case": 5,
+      "error": [
+        0.025584815070033073,
+        -0.008186649531126022
+      ],
+      "muzzle_launch_dot": 1.0000000000000002
+    },
+    {
+      "t": 194.25098749622703,
+      "case": 5,
+      "error": [
+        -0.022072171792387962,
+        -0.03316548466682434
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 195.33779609575868,
+      "case": 5,
+      "error": [
+        -0.014908808283507824,
+        0.0016243777936324477
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 196.43315309286118,
+      "case": 5,
+      "error": [
+        -0.00047630019253119826,
+        -0.04191022366285324
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 197.55687569454312,
+      "case": 5,
+      "error": [
+        0.0005516572273336351,
+        0.02968274988234043
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 198.6726804934442,
+      "case": 5,
+      "error": [
+        -0.02459278143942356,
+        -0.011112404055893421
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 199.74475449323654,
+      "case": 5,
+      "error": [
+        0.0014274009736254811,
+        0.017723990604281425
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 200.85121929645538,
+      "case": 5,
+      "error": [
+        -0.029075047001242638,
+        0.0013218960957601666
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 201.97490729391575,
+      "case": 5,
+      "error": [
+        -0.04139552265405655,
+        -0.013549343682825565
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 203.08128349483013,
+      "case": 5,
+      "error": [
+        0.02305087074637413,
+        0.012909597717225552
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 204.18352039530873,
+      "case": 5,
+      "error": [
+        0.024422425776720047,
+        0.024238398298621178
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 205.27017939463258,
+      "case": 5,
+      "error": [
+        0.004159197211265564,
+        0.00705391401425004
+      ],
+      "muzzle_launch_dot": 0.9999999999999998
+    },
+    {
+      "t": 206.35459319502115,
+      "case": 5,
+      "error": [
+        0.03617808222770691,
+        -0.02148829773068428
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 207.42836689576507,
+      "case": 5,
+      "error": [
+        0.02247203141450882,
+        0.02163134515285492
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 208.50182599574327,
+      "case": 5,
+      "error": [
+        -0.014135023579001427,
+        0.012195982038974762
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 209.59871079400182,
+      "case": 5,
+      "error": [
+        0.029102478176355362,
+        -0.00523612042888999
+      ],
+      "muzzle_launch_dot": 1.0
+    },
+    {
+      "t": 210.70112289488316,
+      "case": 5,
+      "error": [
+        -0.0018887107726186514,
+        -0.0328657329082489
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 211.77894609421492,
+      "case": 5,
+      "error": [
+        -0.019376667216420174,
+        0.012446851469576359
+      ],
+      "muzzle_launch_dot": 0.9999999999999996
+    },
+    {
+      "t": 212.90220329537988,
+      "case": 5,
+      "error": [
+        0.0024996937718242407,
+        -0.033992949873209
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 213.98730279505253,
+      "case": 5,
+      "error": [
+        0.0031348983757197857,
+        -0.036000631749629974
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    },
+    {
+      "t": 215.08503559604287,
+      "case": 5,
+      "error": [
+        0.013932149857282639,
+        0.029655257239937782
+      ],
+      "muzzle_launch_dot": 0.9999999999999999
+    }
+  ],
+  "checks": [
+    {
+      "name": "stationary real misses",
+      "passed": true
+    },
+    {
+      "name": "stationary Hard more accurate than Easy",
+      "passed": true
+    },
+    {
+      "name": "moving real misses",
+      "passed": true
+    },
+    {
+      "name": "moving Hard more accurate than Easy",
+      "passed": true
+    },
+    {
+      "name": "moving target uses actual physical velocity",
+      "passed": true
+    },
+    {
+      "name": "all launches follow animated muzzle",
+      "passed": true
+    }
+  ],
+  "initial_shots": 120,
+  "initial_hits": 51,
+  "last_shots": 144,
+  "case": {
+    "mode": "moving",
+    "skill": "Hard",
+    "count": 24
+  },
+  "case_rows": [
+    {
+      "t": 188.71487269550562,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 0,
+      "hits": 0,
+      "target_speed": 3.0584986338240197,
+      "distance": 843.3528442382812,
+      "status": "Tracking: waiting for actual animated muzzle alignment",
+      "target": "Friendly_AI_1",
+      "aim_samples": 413
+    },
+    {
+      "t": 189.22723239287734,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 8.089345910269618,
+      "distance": 844.2506103515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 416
+    },
+    {
+      "t": 189.7378757931292,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 12.703542274802041,
+      "distance": 843.4503173828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 420
+    },
+    {
+      "t": 190.25645009428263,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 14.545259032740955,
+      "distance": 843.529296875,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 424
+    },
+    {
+      "t": 190.78256579488516,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 1,
+      "hits": 0,
+      "target_speed": 6.210216265141259,
+      "distance": 844.5122680664062,
+      "status": "Trajectory blocked by Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "target": "Friendly_AI_1",
+      "aim_samples": 428
+    },
+    {
+      "t": 191.3036021962762,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.5634115780618663,
+      "distance": 844.888671875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 432
+    },
+    {
+      "t": 191.82358719408512,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 2,
+      "hits": 0,
+      "target_speed": 3.282401526552297,
+      "distance": 844.0877685546875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 436
+    },
+    {
+      "t": 192.3335453942418,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.217629897911063,
+      "distance": 841.7946166992188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 440
+    },
+    {
+      "t": 192.84051459282637,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 3,
+      "hits": 0,
+      "target_speed": 3.017293544402425,
+      "distance": 839.9832153320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 444
+    },
+    {
+      "t": 193.35494369640946,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.144570961481405,
+      "distance": 841.07470703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 448
+    },
+    {
+      "t": 193.8689450956881,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 4,
+      "hits": 1,
+      "target_speed": 3.139148379180113,
+      "distance": 842.2037963867188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 452
+    },
+    {
+      "t": 194.38387609645724,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 2.6819368096437723,
+      "distance": 847.6490478515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 456
+    },
+    {
+      "t": 194.89043549448252,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 5,
+      "hits": 1,
+      "target_speed": 3.0992321273268635,
+      "distance": 847.1113891601562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 460
+    },
+    {
+      "t": 195.40547079592943,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.151290439737068,
+      "distance": 847.0520629882812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 464
+    },
+    {
+      "t": 195.9333403930068,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 6,
+      "hits": 1,
+      "target_speed": 3.165298087409612,
+      "distance": 844.0261840820312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 468
+    },
+    {
+      "t": 196.46901359409094,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 3.100647652712921,
+      "distance": 841.5870971679688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 472
+    },
+    {
+      "t": 196.98253379389644,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 1,
+      "target_speed": 3.202240169015114,
+      "distance": 841.541748046875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 476
+    },
+    {
+      "t": 197.5111889950931,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 7,
+      "hits": 2,
+      "target_speed": 3.1493962078625555,
+      "distance": 842.407470703125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 480
+    },
+    {
+      "t": 198.0269417949021,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 2,
+      "target_speed": 3.4160162460057517,
+      "distance": 842.6484985351562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 483
+    },
+    {
+      "t": 198.54119799286127,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 8,
+      "hits": 3,
+      "target_speed": 3.267404268614496,
+      "distance": 843.2976684570312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 487
+    },
+    {
+      "t": 199.07039969414473,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 3,
+      "target_speed": 3.1809756368476814,
+      "distance": 843.5009765625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 491
+    },
+    {
+      "t": 199.57155949622393,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 9,
+      "hits": 4,
+      "target_speed": 3.2047730502976064,
+      "distance": 843.47509765625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 495
+    },
+    {
+      "t": 200.0985424928367,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 4,
+      "target_speed": 3.2146227109672445,
+      "distance": 843.41357421875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 499
+    },
+    {
+      "t": 200.62225129455328,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 10,
+      "hits": 5,
+      "target_speed": 2.993895796560727,
+      "distance": 843.8217163085938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 503
+    },
+    {
+      "t": 201.14053239300847,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 5,
+      "target_speed": 2.9722762311789785,
+      "distance": 845.3848266601562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 507
+    },
+    {
+      "t": 201.65974559634924,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 11,
+      "hits": 5,
+      "target_speed": 2.488414711323435,
+      "distance": 846.7252197265625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 511
+    },
+    {
+      "t": 202.16331139579415,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 5,
+      "target_speed": 1.848512992940834,
+      "distance": 849.0372924804688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 515
+    },
+    {
+      "t": 202.67986649647355,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 12,
+      "hits": 5,
+      "target_speed": 3.170014267367421,
+      "distance": 847.8524780273438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 519
+    },
+    {
+      "t": 203.1850570961833,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 6,
+      "target_speed": 3.2935074807104456,
+      "distance": 849.9683227539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 523
+    },
+    {
+      "t": 203.68964509293437,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 13,
+      "hits": 6,
+      "target_speed": 3.3113465941367677,
+      "distance": 849.1401977539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 527
+    },
+    {
+      "t": 204.2226613946259,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 7,
+      "target_speed": 3.1623888931328916,
+      "distance": 849.4608154296875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 530
+    },
+    {
+      "t": 204.736870393157,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 14,
+      "hits": 7,
+      "target_speed": 3.3430773147463198,
+      "distance": 848.15478515625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 534
+    },
+    {
+      "t": 205.27017939463258,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 8,
+      "target_speed": 4.301563140272686,
+      "distance": 846.6495361328125,
+      "status": "Fired shared BP weapon",
+      "target": "Friendly_AI_1",
+      "aim_samples": 538
+    },
+    {
+      "t": 205.79010899364948,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 8,
+      "target_speed": 3.4914649638169353,
+      "distance": 846.4423217773438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 542
+    },
+    {
+      "t": 206.31822579354048,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 15,
+      "hits": 9,
+      "target_speed": 3.2192036046505206,
+      "distance": 847.1480102539062,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 546
+    },
+    {
+      "t": 206.83068349584937,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 9,
+      "target_speed": 2.6098737701169608,
+      "distance": 848.5638427734375,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 550
+    },
+    {
+      "t": 207.35970429331064,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 16,
+      "hits": 9,
+      "target_speed": 2.742502816814122,
+      "distance": 849.2542114257812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 554
+    },
+    {
+      "t": 207.87491889297962,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 9,
+      "target_speed": 3.015709080561061,
+      "distance": 848.8839111328125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 558
+    },
+    {
+      "t": 208.4002344943583,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 17,
+      "hits": 9,
+      "target_speed": 2.4170463274377076,
+      "distance": 847.7390747070312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 562
+    },
+    {
+      "t": 208.92481019347906,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 9,
+      "target_speed": 3.0003537857143017,
+      "distance": 847.4821166992188,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 565
+    },
+    {
+      "t": 209.45601549372077,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 18,
+      "hits": 10,
+      "target_speed": 3.1343349936365734,
+      "distance": 847.6590576171875,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 569
+    },
+    {
+      "t": 209.95961919426918,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 10,
+      "target_speed": 3.1414294000185534,
+      "distance": 848.378173828125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 573
+    },
+    {
+      "t": 210.4800991937518,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 19,
+      "hits": 10,
+      "target_speed": 2.243683513624423,
+      "distance": 849.3570556640625,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 577
+    },
+    {
+      "t": 211.00928289443254,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 11,
+      "target_speed": 2.9447657153808535,
+      "distance": 849.8117065429688,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 581
+    },
+    {
+      "t": 211.53467279300094,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 20,
+      "hits": 11,
+      "target_speed": 3.1233553630955164,
+      "distance": 849.7606811523438,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 585
+    },
+    {
+      "t": 212.04335159435868,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 12,
+      "target_speed": 2.337276922714398,
+      "distance": 850.2210083007812,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 589
+    },
+    {
+      "t": 212.56568779423833,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 21,
+      "hits": 12,
+      "target_speed": 0.5591472702118471,
+      "distance": 849.5961303710938,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 593
+    },
+    {
+      "t": 213.09407989308238,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 13,
+      "target_speed": 0.7176798018587643,
+      "distance": 850.7842407226562,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 597
+    },
+    {
+      "t": 213.6016594953835,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 22,
+      "hits": 13,
+      "target_speed": 1.0292003794178421,
+      "distance": 848.9522705078125,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 600
+    },
+    {
+      "t": 214.11712789535522,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 14,
+      "target_speed": 3.1268789992390147,
+      "distance": 850.8504028320312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 604
+    },
+    {
+      "t": 214.6364375948906,
+      "case": 5,
+      "phase": "shoot",
+      "shots": 23,
+      "hits": 14,
+      "target_speed": 3.1675399171937193,
+      "distance": 849.6560668945312,
+      "status": "Cooldown/recoil",
+      "target": "Friendly_AI_1",
+      "aim_samples": 608
+    },
+    {
+      "t": 215.1523976959288,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 15,
+      "target_speed": 2.5569366778553566,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 215.6655001938343,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 15,
+      "target_speed": 0.9127213790820672,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 216.19164449349046,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 16,
+      "target_speed": 1.7946056884761032,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 216.71245259419084,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 16,
+      "target_speed": 3.09529213887797,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 217.2241574935615,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 17,
+      "target_speed": 3.205141934356045,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 217.72514709457755,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 17,
+      "target_speed": 3.1609039250950097,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 218.2546246945858,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 1.459372427969267,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 218.7875660955906,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 0.909880307671047,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 219.29559249430895,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 18,
+      "target_speed": 1.6330362990263987,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 219.79612889513373,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.181723561387303,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 220.31204809620976,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.1761220966221164,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 220.8307585939765,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.148103964695057,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 221.34423319622874,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 2.9244691366717834,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 221.86784909293056,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.156791315052349,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 222.370590493083,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.2218623313527694,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 222.8887250944972,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.264468212615516,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 223.39108849316835,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.287667278933043,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 223.89624489471316,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.2538337897303866,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 224.402464594692,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 3.1093373744149737,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    },
+    {
+      "t": 224.91174789518118,
+      "case": 5,
+      "phase": "drain",
+      "shots": 24,
+      "hits": 19,
+      "target_speed": 1.5754144533632175,
+      "distance": 0.0,
+      "status": "Disabled/passive",
+      "target": null,
+      "aim_samples": 612
+    }
+  ],
+  "status": "ACCURACY_CHECKS_PASSED"
+}

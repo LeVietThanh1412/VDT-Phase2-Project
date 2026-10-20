@@ -37,6 +37,7 @@ TSharedRef<SWidget> UShipHealthBarWidget::RebuildWidget()
 }
 void UShipHealthBarWidget::Refresh(UShipWeaponComponent* Ship)
 {
+    BoundShip=Ship;
     if(!Ship || !Bar)return;
     DisplayedFraction=FMath::Clamp(Ship->CurrentHealth/FMath::Max(Ship->MaxHealth,1.f),0.f,1.f);HealthColor=HPColor(DisplayedFraction);
     Bar->SetPercent(DisplayedFraction);Bar->SetFillColorAndOpacity(HealthColor);
@@ -44,6 +45,7 @@ void UShipHealthBarWidget::Refresh(UShipWeaponComponent* Ship)
     Label->SetColorAndOpacity(Ship->Team()==0?FLinearColor(.15f,.55f,1):FLinearColor(1,.18f,.18f));
     SetVisibility(Ship->bIsDestroyed?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
 }
+void UShipHealthBarWidget::NativeConstruct(){Super::NativeConstruct();if(BoundShip)Refresh(BoundShip);}
 TSharedRef<SWidget> UShipHUDWidget::RebuildWidget()
 {
     if(!WidgetTree)WidgetTree=NewObject<UWidgetTree>(this);

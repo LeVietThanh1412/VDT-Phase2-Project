@@ -1,0 +1,490 @@
+{
+  "phase": "done",
+  "rows": [
+    {
+      "name": "initial",
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "ships": [
+        {
+          "name": "Friendly_AI_2",
+          "hp": 100.0,
+          "team": 0,
+          "bar": {
+            "fraction": 1.0,
+            "color": [
+              0.07999999821186066,
+              0.8500000238418579,
+              0.2199999988079071
+            ],
+            "visible": true
+          }
+        },
+        {
+          "name": "BP_ShipEnemy",
+          "hp": 100.0,
+          "team": 1,
+          "bar": {
+            "fraction": 1.0,
+            "color": [
+              0.07999999821186066,
+              0.8500000238418579,
+              0.2199999988079071
+            ],
+            "visible": true
+          }
+        },
+        {
+          "name": "Enemy_AI_2",
+          "hp": 100.0,
+          "team": 1,
+          "bar": {
+            "fraction": 1.0,
+            "color": [
+              0.07999999821186066,
+              0.8500000238418579,
+              0.2199999988079071
+            ],
+            "visible": true
+          }
+        },
+        {
+          "name": "Enemy_AI_3",
+          "hp": 100.0,
+          "team": 1,
+          "bar": {
+            "fraction": 1.0,
+            "color": [
+              0.07999999821186066,
+              0.8500000238418579,
+              0.2199999988079071
+            ],
+            "visible": true
+          }
+        },
+        {
+          "name": "Friendly_AI_1",
+          "hp": 100.0,
+          "team": 0,
+          "bar": {
+            "fraction": 1.0,
+            "color": [
+              0.07999999821186066,
+              0.8500000238418579,
+              0.2199999988079071
+            ],
+            "visible": true
+          }
+        },
+        {
+          "name": "BP_Ship0",
+          "hp": 100.0,
+          "team": 0,
+          "bar": null
+        }
+      ]
+    },
+    {
+      "name": "player_to_friendly",
+      "fired": true,
+      "hp": 100.0,
+      "expected": 100,
+      "before_hp": 100.0,
+      "damage_events": 0,
+      "new_damage_events": 0,
+      "rejected": 1,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 1.0,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "enemy_to_enemy",
+      "fired": true,
+      "hp": 100.0,
+      "expected": 100,
+      "before_hp": 100.0,
+      "damage_events": 0,
+      "new_damage_events": 0,
+      "rejected": 1,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 1.0,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": false
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "player_to_enemy",
+      "fired": true,
+      "hp": 90.0,
+      "expected": 90,
+      "before_hp": 100.0,
+      "damage_events": 1,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.8999999761581421,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "enemy_to_friendly",
+      "fired": true,
+      "hp": 90.0,
+      "expected": 90,
+      "before_hp": 100.0,
+      "damage_events": 1,
+      "new_damage_events": 1,
+      "rejected": 1,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.8999999761581421,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": false
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_80",
+      "fired": true,
+      "hp": 80.0,
+      "expected": 80,
+      "before_hp": 90.0,
+      "damage_events": 2,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.800000011920929,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_70",
+      "fired": true,
+      "hp": 70.0,
+      "expected": 70,
+      "before_hp": 80.0,
+      "damage_events": 3,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.699999988079071,
+        "color": [
+          0.07999999821186066,
+          0.8500000238418579,
+          0.2199999988079071
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_60",
+      "fired": true,
+      "hp": 60.0,
+      "expected": 60,
+      "before_hp": 70.0,
+      "damage_events": 4,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.6000000238418579,
+        "color": [
+          1.0,
+          0.7799999713897705,
+          0.029999999329447746
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "yellow_hp",
+      "fired": true,
+      "hp": 50.0,
+      "expected": 50,
+      "before_hp": 60.0,
+      "damage_events": 5,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.5,
+        "color": [
+          1.0,
+          0.7799999713897705,
+          0.029999999329447746
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_40",
+      "fired": true,
+      "hp": 40.0,
+      "expected": 40,
+      "before_hp": 50.0,
+      "damage_events": 6,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.4000000059604645,
+        "color": [
+          1.0,
+          0.7799999713897705,
+          0.029999999329447746
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_30",
+      "fired": true,
+      "hp": 30.0,
+      "expected": 30,
+      "before_hp": 40.0,
+      "damage_events": 7,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.30000001192092896,
+        "color": [
+          0.949999988079071,
+          0.05999999865889549,
+          0.05000000074505806
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "red_hp",
+      "fired": true,
+      "hp": 20.0,
+      "expected": 20,
+      "before_hp": 30.0,
+      "damage_events": 8,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.20000000298023224,
+        "color": [
+          0.949999988079071,
+          0.05999999865889549,
+          0.05000000074505806
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "hostile_hit_10",
+      "fired": true,
+      "hp": 10.0,
+      "expected": 10,
+      "before_hp": 20.0,
+      "damage_events": 9,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 0,
+      "destroyed": false,
+      "bar": {
+        "fraction": 0.10000000149011612,
+        "color": [
+          0.949999988079071,
+          0.05999999865889549,
+          0.05000000074505806
+        ],
+        "visible": true
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 3",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "enemy_destroyed",
+      "fired": true,
+      "hp": 0.0,
+      "expected": 0,
+      "before_hp": 10.0,
+      "damage_events": 10,
+      "new_damage_events": 1,
+      "rejected": 0,
+      "destruction_events": 1,
+      "destroyed": true,
+      "bar": {
+        "fraction": 0.0,
+        "color": [
+          0.949999988079071,
+          0.05999999865889549,
+          0.05000000074505806
+        ],
+        "visible": false
+      },
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 2",
+        "result": "",
+        "viewport": true
+      },
+      "passed": true
+    },
+    {
+      "name": "destruction_once",
+      "passed": true,
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 2",
+        "result": "",
+        "viewport": true
+      }
+    },
+    {
+      "name": "victory",
+      "hud": {
+        "hp": "YOUR SHIP   100 / 100 HP",
+        "score": "BLUE 3   |   RED 0",
+        "result": "VICTORY",
+        "viewport": true
+      },
+      "passed": true
+    }
+  ],
+  "stage": 12,
+  "at": 73.71510630473495,
+  "error": null,
+  "events": [
+    {
+      "event": "health",
+      "ship": "BP_ShipEnemy",
+      "hp": 90.0,
+      "maximum": 100.0
+    }
+  ],
+  "before": 9,
+  "before_hp": 10.0,
+  "fired": true
+}

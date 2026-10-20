@@ -64,7 +64,7 @@ def tick(dt):
     if t-s['last']<1:return
     s['last']=t
     try:
-        rows=[sample(x) for x in ships]
+        rows=[sample(x) for x in unreal.GameplayStatics.get_all_actors_of_class(w,cls)]
         minimum=min(math.dist(a['en_m'],b['en_m']) for i,a in enumerate(rows) for b in rows[i+1:])
         s['minimum_pair_m']=min(minimum,s['minimum_pair_m']);s['rows'].append(dict(t=t,ships=rows,minimum_pair_m=minimum))
         if len(s['rows'])%5==0:save()

@@ -62,6 +62,17 @@ bool FSeaGridCases::RunTest(const FString&)
         TestTrue(TEXT("All temporary-exclusion detour edges clear the entire circle"),FVector2D::Distance(TemporaryBlock,A+D*T)>=150.);
     }
     TestFalse(TEXT("Temporary exclusion covering start fails safely"),M.FindPath(TemporaryBlock,FVector2D(2650,1450),75000,1000,{TemporaryBlock}).bSuccess);
+    for(double Radius:{80.,262.5,350.})
+    {
+        const auto Traffic=M.FindPath(FVector2D(250,1450),FVector2D(2650,1450),75000,1000,{TemporaryBlock},Radius);
+        Certify(M,Traffic);
+        for(int32 I=1;I<Traffic.Points.Num();++I)
+        {
+            const FVector2D A=Traffic.Points[I-1],D=Traffic.Points[I]-A;
+            const double T=FMath::Clamp(FVector2D::DotProduct(TemporaryBlock-A,D)/FMath::Max(D.SizeSquared(),1.e-9),0.,1.);
+            TestTrue(TEXT("Traffic detour honors the requested full hull/separation radius"),FVector2D::Distance(TemporaryBlock,A+D*T)>=Radius);
+        }
+    }
     TestFalse(TEXT("Invalid distant endpoint rejected"),M.FindPath(FVector2D(1.e100,0),FVector2D(250,250)).bSuccess);
     M.Cells.Reset();
     const auto Empty=M.FindPath(FVector2D(250,250),FVector2D(2650,1450));

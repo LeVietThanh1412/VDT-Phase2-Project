@@ -1,0 +1,1444 @@
+{
+  "phase": "escape",
+  "rows": [
+    {
+      "t": 1.012612298130989,
+      "position": [
+        350.00077983964616,
+        -2450.0054909416112
+      ],
+      "speed": 5.224280312606254,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 0,
+      "fallbacks": 0,
+      "route": 0,
+      "failure": ""
+    },
+    {
+      "t": 1.2768523953855038,
+      "position": [
+        350.20745125100046,
+        -2449.551246314937
+      ],
+      "speed": 6.94174310857079,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 1.526853296905756,
+      "position": [
+        350.2791880498288,
+        -2449.081152285024
+      ],
+      "speed": 8.372012332763463,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 1.776854194700718,
+      "position": [
+        350.3726004464012,
+        -2448.6933933943114
+      ],
+      "speed": 9.6029938822455,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 2.0272290967404842,
+      "position": [
+        350.5507971229373,
+        -2448.432444263417
+      ],
+      "speed": 10.743261330719058,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 2.42246750369668,
+      "position": [
+        350.67582702515546,
+        -2448.2800788750915
+      ],
+      "speed": 11.43558809192597,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 2.673580802977085,
+      "position": [
+        350.86100532271405,
+        -2448.0579162037543
+      ],
+      "speed": 12.382094963529344,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 2.9235815033316612,
+      "position": [
+        351.0236114098825,
+        -2447.8894515345264
+      ],
+      "speed": 10.23257194997938,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 3.1735831052064896,
+      "position": [
+        351.16276786187507,
+        -2447.7714668524104
+      ],
+      "speed": 4.860859641089034,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 3.4235839024186134,
+      "position": [
+        351.29901924765744,
+        -2447.6571601593314
+      ],
+      "speed": 1.0552905645376336,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 3.680958904325962,
+      "position": [
+        351.4240315104417,
+        -2447.5535902410975
+      ],
+      "speed": 2.1995931779837172,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 3.930959902703762,
+      "position": [
+        351.5519745612256,
+        -2447.4470526948558
+      ],
+      "speed": 2.3369411753100864,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 4.183243904262781,
+      "position": [
+        351.6771315407253,
+        -2447.3422773066854
+      ],
+      "speed": 2.3414660284826057,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 4.433279104530811,
+      "position": [
+        351.7971637302493,
+        -2447.2417241982344
+      ],
+      "speed": 2.3373573267204035,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 4.683280002325773,
+      "position": [
+        351.9139876818715,
+        -2447.139503469687
+      ],
+      "speed": 2.1994493034313543,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 4.9332820028066635,
+      "position": [
+        352.05352603759195,
+        -2446.9837748108407
+      ],
+      "speed": 2.0501495973019406,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 5.183294903486967,
+      "position": [
+        352.2232725601497,
+        -2446.7600229605773
+      ],
+      "speed": 2.021600807916828,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 5.433318804949522,
+      "position": [
+        352.44303339451073,
+        -2446.464721983727
+      ],
+      "speed": 1.8060784213771175,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 5.6833754032850266,
+      "position": [
+        352.766970353876,
+        -2446.1028235087683
+      ],
+      "speed": 1.8360540890360144,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 5.933410502970219,
+      "position": [
+        353.18315910235776,
+        -2445.710843346976
+      ],
+      "speed": 1.9002705933448245,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 6.183411102741957,
+      "position": [
+        353.67348888286523,
+        -2445.3073068466733
+      ],
+      "speed": 1.6216540564377606,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 6.433411903679371,
+      "position": [
+        354.1084677405837,
+        -2444.9613395828633
+      ],
+      "speed": 1.2228499843780014,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 6.683413203805685,
+      "position": [
+        354.3738173485393,
+        -2444.7168653395056
+      ],
+      "speed": 1.0256520957704813,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 6.933414403349161,
+      "position": [
+        354.4630735527488,
+        -2444.5775403338284
+      ],
+      "speed": 0.9677941340376843,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 7.191435404121876,
+      "position": [
+        354.40787297579914,
+        -2444.541035018887
+      ],
+      "speed": 1.1103848791734796,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 7.448095504194498,
+      "position": [
+        354.2943211463476,
+        -2444.586429420766
+      ],
+      "speed": 2.0396376172871267,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 7.69809640571475,
+      "position": [
+        354.2306018240463,
+        -2444.6364996058305
+      ],
+      "speed": 2.2420881676181263,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 7.948097702115774,
+      "position": [
+        354.3359320530801,
+        -2444.550600303959
+      ],
+      "speed": 1.2517135525620189,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 8.198098804801702,
+      "position": [
+        354.6038860677845,
+        -2444.3045607422882
+      ],
+      "speed": 1.0962357657808803,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 8.448141105473042,
+      "position": [
+        354.9557691267398,
+        -2443.9756751177097
+      ],
+      "speed": 1.1260725363979196,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 8.698142103850842,
+      "position": [
+        355.2701271844527,
+        -2443.714278951917
+      ],
+      "speed": 0.9952536397731879,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 8.948198303580284,
+      "position": [
+        355.4592798001273,
+        -2443.593579277023
+      ],
+      "speed": 0.9602317283642692,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 9.198261205106974,
+      "position": [
+        355.528762286788,
+        -2443.5608824267047
+      ],
+      "speed": 0.953796299325857,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 9.448262605816126,
+      "position": [
+        355.58096170452257,
+        -2443.510370398888
+      ],
+      "speed": 0.9574592706125472,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 9.698753904551268,
+      "position": [
+        355.7401362748167,
+        -2443.38380500476
+      ],
+      "speed": 0.9529290771843784,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 9.948768503963947,
+      "position": [
+        356.033266768321,
+        -2443.1891487887306
+      ],
+      "speed": 0.9544436269754902,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 10.199110202491283,
+      "position": [
+        356.3768477396959,
+        -2442.9645706480023
+      ],
+      "speed": 0.9552171216959918,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 10.449974995106459,
+      "position": [
+        356.4879467979284,
+        -2442.886220604094
+      ],
+      "speed": 0.9532218251865459,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 10.700058296322823,
+      "position": [
+        356.73527503848777,
+        -2442.671527904691
+      ],
+      "speed": 0.9686471094306498,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 10.950060196220875,
+      "position": [
+        356.89776306008093,
+        -2442.498049938483
+      ],
+      "speed": 0.9998913944278363,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 11.2046177983284,
+      "position": [
+        357.011209010551,
+        -2442.379159913916
+      ],
+      "speed": 1.049226185445822,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 11.454618595540524,
+      "position": [
+        357.0894615428537,
+        -2442.3152389939955
+      ],
+      "speed": 1.1634758185408638,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 11.704634096473455,
+      "position": [
+        357.14836069988576,
+        -2442.2546580094304
+      ],
+      "speed": 1.034194034157246,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 11.954635698348284,
+      "position": [
+        357.2330639744298,
+        -2442.140292519185
+      ],
+      "speed": 0.9915302079809257,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 12.20463639497757,
+      "position": [
+        357.38748235085325,
+        -2441.981021552187
+      ],
+      "speed": 1.076376876194878,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 12.456138394773006,
+      "position": [
+        357.6097538569976,
+        -2441.812800197807
+      ],
+      "speed": 1.110668508511099,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 12.70613969489932,
+      "position": [
+        357.853337993064,
+        -2441.645337981902
+      ],
+      "speed": 1.1446070558772756,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 12.956140898168087,
+      "position": [
+        358.08263976868824,
+        -2441.4674487971583
+      ],
+      "speed": 1.2069304471352806,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 13.206141795963049,
+      "position": [
+        358.2968620950496,
+        -2441.2823889905208
+      ],
+      "speed": 1.2439343054228558,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 13.456172198057175,
+      "position": [
+        358.5285688159569,
+        -2441.10576754693
+      ],
+      "speed": 1.2991440790635804,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 13.706172995269299,
+      "position": [
+        358.7986259143446,
+        -2440.9382811804735
+      ],
+      "speed": 1.3454750521011336,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 13.956174194812775,
+      "position": [
+        359.08620060657006,
+        -2440.7630402213686
+      ],
+      "speed": 1.3538768641922425,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 14.206175096333027,
+      "position": [
+        359.3617943811437,
+        -2440.580528588521
+      ],
+      "speed": 1.3058594221472115,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 14.456176094710827,
+      "position": [
+        359.61638533619765,
+        -2440.419472478796
+      ],
+      "speed": 1.1886525752112875,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 14.706176996231079,
+      "position": [
+        359.85472088911143,
+        -2440.2943823361547
+      ],
+      "speed": 1.031023449880062,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 14.956177797168493,
+      "position": [
+        360.08021168355117,
+        -2440.182078611555
+      ],
+      "speed": 0.9489917119050092,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 15.206178896129131,
+      "position": [
+        360.2970513631477,
+        -2440.06058388754
+      ],
+      "speed": 1.195397115224161,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 15.45618299767375,
+      "position": [
+        360.51080936323734,
+        -2439.9397608879503
+      ],
+      "speed": 1.897668211638142,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 15.706231094896793,
+      "position": [
+        360.72360536153514,
+        -2439.8400235962963
+      ],
+      "speed": 2.3382955868064665,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 15.957003697752953,
+      "position": [
+        360.91642950751844,
+        -2439.76893650533
+      ],
+      "speed": 2.2335141835682313,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 16.220610298216343,
+      "position": [
+        361.07012206609886,
+        -2439.708350824667
+      ],
+      "speed": 1.7958365777364287,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 16.47061099484563,
+      "position": [
+        361.17576592149175,
+        -2439.6421411068172
+      ],
+      "speed": 1.5294293399708305,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 16.721706796437502,
+      "position": [
+        361.28285561896655,
+        -2439.572683672415
+      ],
+      "speed": 1.5223579559743532,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 16.97224209830165,
+      "position": [
+        361.4234063068885,
+        -2439.5002359542455
+      ],
+      "speed": 1.5469512456482952,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 17.224483996629715,
+      "position": [
+        361.6053788927949,
+        -2439.4097012264237
+      ],
+      "speed": 1.338087402371724,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 17.47464309632778,
+      "position": [
+        361.8179488668717,
+        -2439.2937071436786
+      ],
+      "speed": 1.0077471168952232,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 17.724643897265196,
+      "position": [
+        362.05434888010893,
+        -2439.164779242203
+      ],
+      "speed": 0.973855392706361,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 17.974650397896767,
+      "position": [
+        362.30609112998116,
+        -2439.0414100378885
+      ],
+      "speed": 1.013998107876948,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 18.22465129569173,
+      "position": [
+        362.55989078379446,
+        -2438.9240566637013
+      ],
+      "speed": 1.1111480645880514,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 18.48893339559436,
+      "position": [
+        362.7384004157393,
+        -2438.837012421413
+      ],
+      "speed": 1.2917434577706404,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 18.74634389579296,
+      "position": [
+        362.985399718626,
+        -2438.7064729054664
+      ],
+      "speed": 1.6454328084261474,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 18.996345095336437,
+      "position": [
+        363.208030997571,
+        -2438.5876656557107
+      ],
+      "speed": 1.7884912767476009,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 19.246346198022366,
+      "position": [
+        363.4014484142706,
+        -2438.489207320665
+      ],
+      "speed": 1.8578508871434867,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 19.496347296983004,
+      "position": [
+        363.56599399846505,
+        -2438.4034715170437
+      ],
+      "speed": 1.8540267840129017,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 19.74657729640603,
+      "position": [
+        363.71722408903787,
+        -2438.315871502713
+      ],
+      "speed": 1.7864393403175782,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 19.99890609830618,
+      "position": [
+        363.88993528023707,
+        -2438.222343585959
+      ],
+      "speed": 1.6622525965743975,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 20.248907394707203,
+      "position": [
+        364.11759156563437,
+        -2438.1297439100094
+      ],
+      "speed": 1.4964798244491766,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 20.49890809506178,
+      "position": [
+        364.4064292387166,
+        -2438.0373802650033
+      ],
+      "speed": 1.3060190476843005,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 20.74982799589634,
+      "position": [
+        364.7206738649377,
+        -2437.9396025414026
+      ],
+      "speed": 1.1231096610102538,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 20.999829195439816,
+      "position": [
+        365.0085919933357,
+        -2437.8438006249717
+      ],
+      "speed": 0.9938954942332583,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 21.249898094683886,
+      "position": [
+        365.24598719159263,
+        -2437.7668208364857
+      ],
+      "speed": 0.9498062355303399,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 21.50227039679885,
+      "position": [
+        365.4434366839972,
+        -2437.70904069193
+      ],
+      "speed": 1.12570864481646,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 21.7522828951478,
+      "position": [
+        365.63201793937344,
+        -2437.6492281573146
+      ],
+      "speed": 1.656698949734433,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 22.00356089696288,
+      "position": [
+        365.8467398507613,
+        -2437.548964399801
+      ],
+      "speed": 2.0621963298953974,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 22.25559789687395,
+      "position": [
+        366.0806351528689,
+        -2437.284967131542
+      ],
+      "speed": 2.2422554432987494,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 22.505656495690346,
+      "position": [
+        366.29288172581533,
+        -2436.7321305258465
+      ],
+      "speed": 2.9446127077359954,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 22.755657598376274,
+      "position": [
+        366.45419816485594,
+        -2435.9065771190867
+      ],
+      "speed": 3.5715566243503356,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 23.00581869482994,
+      "position": [
+        366.5600193450207,
+        -2434.944466036448
+      ],
+      "speed": 4.139888394532222,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 23.257670797407627,
+      "position": [
+        366.5867552289092,
+        -2433.753418094477
+      ],
+      "speed": 5.351105453880576,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 23.50767169520259,
+      "position": [
+        366.53187266493796,
+        -2432.215140448165
+      ],
+      "speed": 7.069955802054079,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 23.75781239569187,
+      "position": [
+        366.3948343328475,
+        -2430.1950709488597
+      ],
+      "speed": 9.205328276233637,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 24.00835359469056,
+      "position": [
+        366.1782276776656,
+        -2427.6653270576608
+      ],
+      "speed": 10.88698443070367,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 24.26451349630952,
+      "position": [
+        365.90943042190145,
+        -2424.7592204256825
+      ],
+      "speed": 11.720136022409747,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 24.51451439782977,
+      "position": [
+        365.6351578494624,
+        -2421.8284084168017
+      ],
+      "speed": 11.74642801192858,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 24.764515597373247,
+      "position": [
+        365.3847419559563,
+        -2418.9900419342466
+      ],
+      "speed": 11.089591572377085,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 25.017010796815157,
+      "position": [
+        365.19074741659244,
+        -2416.3698558954484
+      ],
+      "speed": 9.81542052563405,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 25.26750549674034,
+      "position": [
+        365.0880311900412,
+        -2414.147586322619
+      ],
+      "speed": 8.02013173390054,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 25.518847797065973,
+      "position": [
+        365.09715861168684,
+        -2412.425196450057
+      ],
+      "speed": 5.772405265200742,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 25.769112195819616,
+      "position": [
+        365.22320606143217,
+        -2411.332946791056
+      ],
+      "speed": 3.2971598313046564,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    },
+    {
+      "t": 26.019539795815945,
+      "position": [
+        365.4446024215721,
+        -2410.866237146127
+      ],
+      "speed": 1.8791176152550548,
+      "state": "<ShipTacticalState.ESCAPE: 8>",
+      "reverse": false,
+      "retreats": 1,
+      "fallbacks": 1,
+      "route": 2,
+      "failure": ""
+    }
+  ],
+  "checks": [
+    {
+      "name": "island blocks full rear commitment",
+      "passed": true
+    },
+    {
+      "name": "critical 15 HP event",
+      "passed": true
+    },
+    {
+      "name": "unsafe reverse uses forward escape",
+      "passed": true
+    },
+    {
+      "name": "escape physically moves",
+      "passed": true
+    },
+    {
+      "name": "escape route avoids blocked cells",
+      "passed": true
+    }
+  ],
+  "last": 26.019539795815945,
+  "at": 1.012612298130989,
+  "error": null,
+  "fixture_actual": {
+    "position": [
+      350.00077983964616,
+      -2450.0054909416112
+    ],
+    "actor_rotation": "<Struct 'Rotator' (0x00000253BFA3D3C0) {pitch: 0.000000, yaw: -135.000000, roll: 0.000000}>",
+    "forward": "<Struct 'Vector' (0x00000253BFA3D3C0) {x: -0.707107, y: -0.707107, z: 0.000000}>",
+    "reverse_goal": "<Struct 'Vector' (0x00000254D4D63E20) {x: 107.306514, y: 20.978597, z: 0.275755}>"
+  },
+  "start": [
+    350.00077983964616,
+    -2450.0054909416112
+  ],
+  "status": "ISLAND_CRITICAL_RETREAT_PASSED"
+}

@@ -36,10 +36,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolPointB = FVector::ZeroVector;
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorA;
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorB;
+    /** Formation offsets in fixed-chart East/North meters, validated against water. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetA=FVector::ZeroVector;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetB=FVector::ZeroVector;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") bool bStartAtPatrolB=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolWaitSeconds = 2;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolStartupDelaySeconds = 0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="0")) float SafeShipSeparationM = 300;
     UPROPERTY(BlueprintReadOnly, Category="Status") bool bYieldingToShip=false;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(ClampMin="5")) float TrafficPriorityWaitSeconds=15;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(ClampMin="10")) float TrafficPriorityHoldSeconds=40;
+    UPROPERTY(BlueprintReadOnly, Category="Status") float TrafficWaitSeconds=0;
+    UPROPERTY(BlueprintReadOnly, Category="Status") bool bTemporaryTrafficPriority=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m/s",ClampMin="0.1")) float CruiseSpeedMps = 12;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="10")) float ArrivalRadiusM = 60;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="20")) float MinimumTurnRadiusM = 250;
@@ -99,13 +107,23 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginRetreatFrom(AActor* Threat,float RetreatDistanceM);
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginBackwardRetreat(AActor* Threat,float DistanceM);
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Navigation|Tactics",meta=(Units="m/s",ClampMin="1",ClampMax="7")) float BackwardRetreatSpeedMps=6;
+    UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatActive=false;
+    UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatBlocked=false;
+    UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatCompleted=false;
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginPursuitOf(AActor* Threat,float StandOffDistanceM);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") void ReturnToPatrol();
     UFUNCTION(BlueprintPure, Category="Navigation|Tactics") bool HasTacticalDestination() const { return bTacticalOverride; }
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector GeographicToWorld(FVector LLH) const;
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector WorldToGeographic(FVector WorldPosition) const;
+    /** Conservative chart fallback for unloaded terrain collision. */
+    bool WaterLineClear(const FVector& Start,const FVector& End) const;
     UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString InstallInEnemyBlueprint(bool bSave);
     UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString InstallNavigationBlueprint(const FString& BlueprintPath, bool bSave);
     UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString ValidateInstalledBlueprint();
+    UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString InspectMovementBlueprints();
+    UFUNCTION(BlueprintCallable, Category="Navigation|Editor", meta=(DevelopmentOnly)) static FString CompileBattleBlueprints();
 
 protected:
     virtual void BeginPlay() override;
@@ -121,6 +139,8 @@ private:
     float SensorDistance(float RelativeAngleDegrees) const;
     bool ReadSensors();
     bool SweepClear(const FVector& Start,const FVector& End,float RadiusM) const;
+    bool RearPathClear(float DistanceM) const;
+    bool UpdateBackwardRetreat(float Dt);
     bool CollisionCoverageAvailable() const;
     FVector2D PositionMetric() const;
     FVector2D LLHToMetric(const FVector& LLH) const;
@@ -150,6 +170,9 @@ private:
     bool bInitialized=false,bTargetB=true,bNeedsPlan=true,bHasGoal=false,bDead=false,bOriginChanged=false,bOwnsCommands=false,bExplicitStop=false;
     bool bTacticalOverride=false;
     FVector TacticalDestination=FVector::ZeroVector;
+    TWeakObjectPtr<AActor> ReverseThreat;
+    FVector2D ReverseStart=FVector2D::ZeroVector;
+    float ReverseDistanceM=250;
     double PatrolReadyAt=0;
     FIntVector LastWorldOrigin=FIntVector::ZeroValue;
 };

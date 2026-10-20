@@ -30,5 +30,5 @@ struct VDTPHASE2PROJECT_API FSeaNavigationMap
     FVector ToECEF(const FVector2D& P) const;
     FSeaRouteResult FindPath(const FVector2D& Start, const FVector2D& Goal,
                             int32 MaxExpansions = 75000, double MaxMilliseconds = 20,
-                            const TArray<FVector2D>& TemporaryExclusions = {}) const;
+                            const TArray<FVector2D>& TemporaryExclusions = {}, double ExclusionRadiusM = 0) const;
 };
