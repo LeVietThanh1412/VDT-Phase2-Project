@@ -1,0 +1,9 @@
+{
+  "nav_validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "battle_compile": "OK: affected battle Blueprints compiled\n/Game/Ship/BluePrint/BP_Ship.BP_Ship: compiled\n/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy: compiled\n/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile: compiled\n/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed: compiled\n/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD: compiled\n/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar: compiled\n/Game/Ship/BluePrint/GMBP.GMBP: compiled\n",
+  "extra_compile": [
+    "/Game/Game/UI/Minimap/Widgets/WBP_MainMinimap",
+    "/Game/Game/UI/Minimap/Widgets/WBP_ShipMarker",
+    "/Game/Ship/BluePrint/ABP_Ship"
+  ]
+}

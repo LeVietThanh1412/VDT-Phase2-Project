@@ -26,6 +26,21 @@
 				"IOS"
 			],
 			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/87b0d05800a545d49bf858ef3458c4f7"
+		},
+		{
+			"Name": "UnrealMCPBridge",
+			"Enabled": false
+		},
+		{
+			"Name": "VisualStudioTools",
+			"Enabled": false,
+			"SupportedTargetPlatforms": [
+				"Win64"
+			]
+		},
+		{
+			"Name": "Water",
+			"Enabled": true
 		}
 	]
 }

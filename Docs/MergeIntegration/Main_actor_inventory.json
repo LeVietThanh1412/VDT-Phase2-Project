@@ -1,0 +1,536 @@
+[
+  {
+    "label": "WorldDataLayers",
+    "name": "WorldDataLayers",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WorldDataLayers",
+    "class_path": "/Script/Engine.WorldDataLayers",
+    "guid": "706B0C0C4B030E2DC0824DBFB1A4E7E7",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "CesiumGeoreference",
+    "name": "CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "class_path": "/Script/CesiumRuntime.CesiumGeoreference",
+    "guid": "8970110B4F18E281ABD2448D5F8B2199",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [
+      "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163",
+      "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050"
+    ],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": "107.426513",
+      "origin_latitude": "20.944218999999993",
+      "origin_height": "4.656612873077393e-10",
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "Root",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "SubLevelSwitcher",
+        "type": "/Script/CesiumRuntime.CesiumSubLevelSwitcherComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WaterZone",
+    "name": "WaterZone_UAID_F4F19E4F59E20D0503_1561792407",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WaterZone_UAID_F4F19E4F59E20D0503_1561792407",
+    "class_path": "/Script/Water.WaterZone",
+    "guid": "11AAC4A54756901A90201C8DC263CF9A",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "WaterMesh",
+        "type": "/Script/Water.WaterMeshComponent"
+      },
+      {
+        "name": "BoundsComponent",
+        "type": "/Script/Engine.BoxComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "PlayerStart",
+    "name": "PlayerStart_UAID_40C2BA430821020603_1444926521",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.PlayerStart_UAID_40C2BA430821020603_1444926521",
+    "class_path": "/Script/Engine.PlayerStart",
+    "guid": "13E6946444CED675A853638686088F07",
+    "location": [
+      -848320.0,
+      238700.0,
+      3950.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "CollisionCapsule",
+        "type": "/Script/Engine.CapsuleComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Sprite2",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WaterBodyOcean",
+    "name": "WaterBodyOcean_UAID_F4F19E4F59E20D0503_1561784406",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WaterBodyOcean_UAID_F4F19E4F59E20D0503_1561784406",
+    "class_path": "/Script/Water.WaterBodyOcean",
+    "guid": "CD5DC56D40B80C1FD028488F518AB376",
+    "location": [
+      0.0,
+      0.0,
+      300.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "WaterSpline",
+        "type": "/Script/Water.WaterSplineComponent"
+      },
+      {
+        "name": "WaterInfoMeshComponent",
+        "type": "/Script/Water.WaterBodyInfoMeshComponent"
+      },
+      {
+        "name": "DilatedWaterInfoMeshComponent",
+        "type": "/Script/Water.WaterBodyInfoMeshComponent"
+      },
+      {
+        "name": "WaterBodyOceanComponent",
+        "type": "/Script/Water.WaterBodyOceanComponent"
+      },
+      {
+        "name": "OceanCollisionBoxComponent_1",
+        "type": "/Script/Water.OceanBoxCollisionComponent"
+      },
+      {
+        "name": "BillboardComponent_0",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "CesiumCameraManager",
+    "name": "CesiumCameraManager_UAID_F4F19E4F59E20C0503_1220358228",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumCameraManager_UAID_F4F19E4F59E20C0503_1220358228",
+    "class_path": "/Script/CesiumRuntime.CesiumCameraManager",
+    "guid": "66566B9541A85C5C3AFB1294B0C4A6A4",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "CesiumCreditSystemBP",
+    "name": "CesiumCreditSystemBP_C_UAID_F4F19E4F59E20C0503_1220373229",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumCreditSystemBP_C_UAID_F4F19E4F59E20C0503_1220373229",
+    "class_path": "/CesiumForUnreal/CesiumCreditSystemBP.CesiumCreditSystemBP_C",
+    "guid": "E8A3436A43598A7FB77A1889716F454F",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "DefaultSceneRoot",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "BillboardComponent_1",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WorldPartitionMiniMap",
+    "name": "WorldPartitionMiniMap_UAID_F4F19E4F59E20B0503_1928193047",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WorldPartitionMiniMap_UAID_F4F19E4F59E20B0503_1928193047",
+    "class_path": "/Script/Engine.WorldPartitionMiniMap",
+    "guid": "BEFA3F0D42A6C981749941A19D25DE55",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "CesiumSunSky",
+    "name": "CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050",
+    "class_path": "/Script/CesiumRuntime.CesiumSunSky",
+    "guid": "D2DE982E492E0A6DDFE5E6ACA0CE922B",
+    "location": [
+      0.0,
+      -1426034.144749,
+      -637540852.930104
+    ],
+    "rotation": [
+      -30.286551,
+      -167.083017,
+      115.809791
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "Scene",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "DirectionalLight",
+        "type": "/Script/Engine.DirectionalLightComponent"
+      },
+      {
+        "name": "SkyLight",
+        "type": "/Script/Engine.SkyLightComponent"
+      },
+      {
+        "name": "SkyAtmosphere",
+        "type": "/Script/Engine.SkyAtmosphereComponent"
+      },
+      {
+        "name": "GlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "BillboardComponent_0",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "BillboardComponent_1",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "QuangNinh_Terrain",
+    "name": "Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163",
+    "class_path": "/Script/CesiumRuntime.Cesium3DTileset",
+    "guid": "6FEE40EE4AE69EFF5A42139D9980A944",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": "file:///E:/UnrealTerrainSet/QuangNinh/Terrain/layer.json",
+      "tileset_source": "<TilesetSource.FROM_URL: 1>",
+      "ion_asset_id": "0"
+    },
+    "components": [
+      {
+        "name": "Tileset",
+        "type": "/Script/CesiumRuntime.Cesium3DTilesetRoot"
+      },
+      {
+        "name": "QuangNinh_Imagery",
+        "type": "/Script/CesiumRuntime.CesiumTileMapServiceRasterOverlay"
+      }
+    ],
+    "export": true
+  }
+]

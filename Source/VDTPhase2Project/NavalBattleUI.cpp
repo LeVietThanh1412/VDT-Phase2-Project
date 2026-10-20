@@ -12,6 +12,7 @@
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "UObject/UnrealType.h"
 
 namespace
 {
@@ -26,6 +27,48 @@ UProgressBar* Progress(UWidgetTree* Tree,UVerticalBox* Box,float Height)
     auto* Size=Tree->ConstructWidget<USizeBox>();Size->SetHeightOverride(Height);Box->AddChildToVerticalBox(Size);
     auto* Bar=Tree->ConstructWidget<UProgressBar>();Bar->SetPercent(1);Size->AddChild(Bar);return Bar;
 }
+}
+void UShipMinimapWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    RefreshNavalMarkers();
+    GetWorld()->GetTimerManager().SetTimer(MarkerTimer,this,&UShipMinimapWidget::RefreshNavalMarkers,.1f,true);
+}
+void UShipMinimapWidget::NativeDestruct()
+{
+    if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(MarkerTimer);
+    Super::NativeDestruct();
+}
+void UShipMinimapWidget::RefreshNavalMarkers()
+{
+    // Keep the teammate's geographic projection, texture, canvas and update timer.
+    // These three parallel arrays are authored by WBP_MainMinimap's Construct graph.
+    auto* ActorsProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipActors"));
+    auto* MarkersProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipMarkerWidgets"));
+    auto* SlotsProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipMarkerSlots"));
+    if(!ActorsProperty || !MarkersProperty || !SlotsProperty)return;
+    auto* ActorInner=CastField<FObjectPropertyBase>(ActorsProperty->Inner);
+    auto* MarkerInner=CastField<FObjectPropertyBase>(MarkersProperty->Inner);
+    if(!ActorInner || !MarkerInner)return;
+    FScriptArrayHelper Actors(ActorsProperty,ActorsProperty->ContainerPtrToValuePtr<void>(this));
+    FScriptArrayHelper Markers(MarkersProperty,MarkersProperty->ContainerPtrToValuePtr<void>(this));
+    FScriptArrayHelper Slots(SlotsProperty,SlotsProperty->ContainerPtrToValuePtr<void>(this));
+    if(Actors.Num()!=Markers.Num() || Actors.Num()!=Slots.Num())return;
+    for(int32 Index=Actors.Num()-1;Index>=0;--Index)
+    {
+        AActor* Ship=Cast<AActor>(ActorInner->GetObjectPropertyValue(Actors.GetRawPtr(Index)));
+        UUserWidget* Marker=Cast<UUserWidget>(MarkerInner->GetObjectPropertyValue(Markers.GetRawPtr(Index)));
+        const UShipWeaponComponent* Weapon=IsValid(Ship)?Ship->FindComponentByClass<UShipWeaponComponent>():nullptr;
+        if(!Weapon || Weapon->bIsDestroyed)
+        {
+            if(IsValid(Marker))Marker->RemoveFromParent();
+            Actors.RemoveValues(Index);Markers.RemoveValues(Index);Slots.RemoveValues(Index);
+        }
+        else if(IsValid(Marker))
+        {
+            Marker->SetColorAndOpacity(Weapon->Team()==0?FLinearColor(.15f,.55f,1):FLinearColor(1,.18f,.18f));
+        }
+    }
 }
 TSharedRef<SWidget> UShipHealthBarWidget::RebuildWidget()
 {

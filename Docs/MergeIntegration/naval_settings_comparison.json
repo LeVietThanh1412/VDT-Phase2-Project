@@ -1,0 +1,27 @@
+[
+  {
+    "ship": "BP_ShipEnemy2",
+    "mismatches": {},
+    "position_error_m": 7.799839765762204e-10
+  },
+  {
+    "ship": "BP_ShipEnemy3",
+    "mismatches": {},
+    "position_error_m": 0.0
+  },
+  {
+    "ship": "Friendly_AI_2",
+    "mismatches": {},
+    "position_error_m": 4.347384674474597e-10
+  },
+  {
+    "ship": "BP_ShipEnemy",
+    "mismatches": {},
+    "position_error_m": 4.347384674474597e-10
+  },
+  {
+    "ship": "Friendly_AI_1",
+    "mismatches": {},
+    "position_error_m": 8.694769348949194e-10
+  }
+]

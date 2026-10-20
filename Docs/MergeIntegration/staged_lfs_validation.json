@@ -1,0 +1,116 @@
+[
+  {
+    "path": "Content/Game/UI/Minimap/Textures/MainMinimap.uasset",
+    "oid": "d88a0b66f47cd27f997cbb152abe00e15f2fc13f257791f6ad8498e8ba7e1f86",
+    "size": 468669,
+    "valid": true
+  },
+  {
+    "path": "Content/Game/UI/Minimap/Textures/ObjectTextures/ShipMarkerIcon-1.uasset",
+    "oid": "46bf2f61015681dbefe00a933fe8c04c12385a5f1df889622783c4d8e30ee43f",
+    "size": 11744,
+    "valid": true
+  },
+  {
+    "path": "Content/Game/UI/Minimap/Textures/ObjectTextures/ShipMarkerIcon-2.uasset",
+    "oid": "3233b6e0077892b0c194fe82c088aae894549313777294c06ec5b358bd340a68",
+    "size": 11565,
+    "valid": true
+  },
+  {
+    "path": "Content/Game/UI/Minimap/Widgets/WBP_MainMinimap.uasset",
+    "oid": "6859ea9680b3a188d7d59e59b9e19050f5efdd51c64f35753b40721242a0db58",
+    "size": 176233,
+    "valid": true
+  },
+  {
+    "path": "Content/Game/UI/Minimap/Widgets/WBP_ShipMarker.uasset",
+    "oid": "dcf50879c1bd2ad20d9374c0ade9904828bdc78470afa324d5892b360bd44e7e",
+    "size": 25922,
+    "valid": true
+  },
+  {
+    "path": "Content/Levels/MainMapLevel.umap",
+    "oid": "f7c8dbd001454d45abf22e85d2233c3230a3c54afc0007d5f8564ac180a82aef",
+    "size": 36565,
+    "valid": true
+  },
+  {
+    "path": "Content/Ship/BluePrint/BP_Ship.uasset",
+    "oid": "6268644f5a868e303ecf8660e5543db0024ae6227931e1dd0cf3080200a9be7d",
+    "size": 558835,
+    "valid": true
+  },
+  {
+    "path": "Content/Ship/BluePrint/GMBP.uasset",
+    "oid": "2fc82c34bbbcab9bd6b58115c7108302a3166f34c45bde74487992156fa20934",
+    "size": 21199,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/1/06/KNCLXDEOKR8VCQZUTF9UI5.uasset",
+    "oid": "1be85ca26ed56e760e831e18e9cdb8f192e9bf8382d6dd1ebaaeb2751a756854",
+    "size": 15147,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/2/84/4QCB91H4RTL2XUXXHXHL2N.uasset",
+    "oid": "c23f0705ea227a84c3dc93e073af61d75018e769b97e9890279e04bcbfea135c",
+    "size": 5863,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/5/KI/KQB0BSM8A71UVZST3A1BWS.uasset",
+    "oid": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112",
+    "size": 3399,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/5/S1/N3XR225AU972IEWKZ5VIKH.uasset",
+    "oid": "29b488d7ff2f908364a06ecb8036b90f6ce788eb74cbf595ad3701d7a1914530",
+    "size": 15147,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/7/L6/7T25OG97O148W27EMK8JRX.uasset",
+    "oid": "e8659c3e57551d7ac499930ad33cc0c53c0f6f3879e305e39b52d353c9c189b5",
+    "size": 151590,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/8/BG/R5ML2YWL23227PXNQ95T99.uasset",
+    "oid": "49b9f99cad34439407babaaa79e2730939a4b1870fc3a6e8b9c12937b26af496",
+    "size": 15199,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/8/VM/T46938KARG8V5IZOPUYDUD.uasset",
+    "oid": "02b752d6539f492b797f4c1e454d7f93c0079fb8410030a50ebe4339a90fc175",
+    "size": 4698,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/B/8F/CHJKNRGBDUPAW44FPQ44PZ.uasset",
+    "oid": "c57c61385a01e01773c64af2f3883b3f66d6ab7e15cebc0f4312be68a620400a",
+    "size": 15108,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/E/J0/6O09QJSI5YZVUTK9AQK3FX.uasset",
+    "oid": "cf92d27aba2a35eea80217a3e3d85d3a5c6b5119ae6830de94752a463fa08452",
+    "size": 4523,
+    "valid": true
+  },
+  {
+    "path": "Content/__ExternalActors__/Levels/MainMapLevel/E/M0/0V8JDM2KMQQMNKFS3GB6UL.uasset",
+    "oid": "7bc3952c6d6019f43c0fb33f7e7a4a49b6e376a149b7639a3ceb633806069c0d",
+    "size": 15136,
+    "valid": true
+  },
+  {
+    "path": "Docs/MergeIntegration/candidate00000.png",
+    "oid": "3c14a20722a0074f83a2b4603f6cc446c243f1ef55023c1ec24627034da66e6f",
+    "size": 1528379,
+    "valid": true
+  }
+]

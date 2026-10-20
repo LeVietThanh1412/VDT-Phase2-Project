@@ -6,6 +6,8 @@ from pathlib import Path
 import unreal
 root=Path(unreal.Paths.project_dir());st=dict(handle=None,phase='init',rows=[],checks=[],stage=0,at=0,error=None)
 output=globals().get('OUTPUT','HULL_DAMAGE_PIE.json');profile=globals().get('PROFILE_CLASS')
+# Isolate hit-zone collision from a map's sea height while retaining real projectiles.
+clearance_cm=globals().get('CLEARANCE_CM',0)
 builtins.hull_damage_test=st
 cases=[('bow',.9,8),('midship',.5,10),('stern',.1,8),('rotated_midship',.5,10),('friendly',.5,0),('lethal_bow',.9,8)]
 def hull(s):return next(c for c in s.get_components_by_class(unreal.PrimitiveComponent) if c.get_name()=='ShipSM')
@@ -49,6 +51,7 @@ def tick(dt):
                 if c:c.enable_combat=False;c.enable_hit_and_run=False
                 if n:n.stop_navigation()
                 hull(s).set_simulate_physics(False)
+                if s in [source,victim] and clearance_cm:s.set_actor_location(s.get_actor_location()+unreal.Vector(0,0,clearance_cm),False,True)
                 if s not in [source,victim]:s.set_actor_location(s.get_actor_location()+unreal.Vector(0,0,1000000),False,True)
             guard_victim=next(s for s in ships if s.get_actor_label()=='Friendly_AI_2')
             guard_probes(w,source,guard_victim,next(s for s in ships if s.is_player_controlled()))

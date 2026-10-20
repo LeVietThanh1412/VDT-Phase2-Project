@@ -1,0 +1,1814 @@
+[
+  {
+    "label": "WorldDataLayers",
+    "name": "WorldDataLayers",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WorldDataLayers",
+    "class_path": "/Script/Engine.WorldDataLayers",
+    "guid": "706B0C0C4B030E2DC0824DBFB1A4E7E7",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "BP_ShipEnemy2",
+    "name": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+    "class_path": "/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C",
+    "guid": "1872F9654055CC8F33C20A8B45644A46",
+    "location": [
+      35000.036934,
+      85000.090212,
+      673.345387
+    ],
+    "rotation": [
+      0.0,
+      45.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "ShipSM",
+        "type": "/Script/Engine.StaticMeshComponent"
+      },
+      {
+        "name": "Ship",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "GunSpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "GunCamera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "SpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "Camera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "Crosshair",
+        "type": "/Script/UMG.WidgetComponent"
+      },
+      {
+        "name": "Buoyancy",
+        "type": "/Script/Water.BuoyancyComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "ShipWeapon",
+        "type": "/Script/VDTPhase2Project.ShipWeaponComponent"
+      },
+      {
+        "name": "ShipMovement",
+        "type": "/Script/VDTPhase2Project.ShipMovementComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      },
+      {
+        "name": "EnemyNavigation",
+        "type": "/Script/VDTPhase2Project.ShipEnemyNavigationComponent"
+      },
+      {
+        "name": "EnemyCombat",
+        "type": "/Script/VDTPhase2Project.ShipCombatComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Red02_A",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "062AA9B943A3DBCED2E3409A800046AF",
+    "location": [
+      34999.999635,
+      84999.999096,
+      -6.654605
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Red02_B",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "DA1B9B874536ACE7CBE3D6BE5A8409B1",
+    "location": [
+      64999.995951,
+      214999.986518,
+      -39.744984
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Blue02_B",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "F8FD5A1F4AAB6EEC119F78BB657B5816",
+    "location": [
+      74999.998034,
+      124999.996693,
+      -16.723244
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_ShipEnemy_AStarDestination",
+    "name": "TargetPoint_UAID_40C2BA430821150C03_1217123199",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "CF2F108340BE635DFA4582944D92DE49",
+    "location": [
+      -40620.0,
+      117950.0,
+      -6.18444
+    ],
+    "rotation": [
+      0.005309,
+      0.0,
+      -0.000382
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "CesiumGeoreference",
+    "name": "CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "class_path": "/Script/CesiumRuntime.CesiumGeoreference",
+    "guid": "8970110B4F18E281ABD2448D5F8B2199",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [
+      "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+      "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050"
+    ],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": "107.29641600000001",
+      "origin_latitude": "20.992597",
+      "origin_height": "0.0",
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "Root",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "SubLevelSwitcher",
+        "type": "/Script/CesiumRuntime.CesiumSubLevelSwitcherComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Friendly_Patrol_B",
+    "name": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "BEB9AFAF438C47929F0BC9AAE8396EF5",
+    "location": [
+      104999.995462,
+      154999.99325,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "PlayerStart",
+    "name": "PlayerStart_UAID_40C2BA430821C80A03_1616674591",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.PlayerStart_UAID_40C2BA430821C80A03_1616674591",
+    "class_path": "/Script/Engine.PlayerStart",
+    "guid": "1FE83FE74383B18DB62E52B6FBD7BF17",
+    "location": [
+      62660.011209,
+      205000.463669,
+      1434.835313
+    ],
+    "rotation": [
+      0.0,
+      -90.000001,
+      0.003788
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "CollisionCapsule",
+        "type": "/Script/Engine.CapsuleComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Sprite2",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Friendly_Patrol_A",
+    "name": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "B3A6817F454DECA8B63350B004ADEC36",
+    "location": [
+      34999.99756,
+      234999.983508,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WaterZone",
+    "name": "WaterZone_UAID_F4F19E4F59E20D0503_1561792407",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WaterZone_UAID_F4F19E4F59E20D0503_1561792407",
+    "class_path": "/Script/Water.WaterZone",
+    "guid": "11AAC4A54756901A90201C8DC263CF9A",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "WaterMesh",
+        "type": "/Script/Water.WaterMeshComponent"
+      },
+      {
+        "name": "BoundsComponent",
+        "type": "/Script/Engine.BoxComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "BP_ShipEnemy3",
+    "name": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+    "class_path": "/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C",
+    "guid": "A7D030E142C6A32DB60A6A80D1044BAE",
+    "location": [
+      75000.078739,
+      85000.08975,
+      669.897582
+    ],
+    "rotation": [
+      0.0,
+      90.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "ShipSM",
+        "type": "/Script/Engine.StaticMeshComponent"
+      },
+      {
+        "name": "Ship",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "GunSpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "GunCamera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "SpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "Camera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "Crosshair",
+        "type": "/Script/UMG.WidgetComponent"
+      },
+      {
+        "name": "Buoyancy",
+        "type": "/Script/Water.BuoyancyComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "ShipWeapon",
+        "type": "/Script/VDTPhase2Project.ShipWeaponComponent"
+      },
+      {
+        "name": "ShipMovement",
+        "type": "/Script/VDTPhase2Project.ShipMovementComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      },
+      {
+        "name": "EnemyNavigation",
+        "type": "/Script/VDTPhase2Project.ShipEnemyNavigationComponent"
+      },
+      {
+        "name": "EnemyCombat",
+        "type": "/Script/VDTPhase2Project.ShipCombatComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Red03_A",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "546C9F0E450D7D71504DE39B588EC415",
+    "location": [
+      74999.998813,
+      84999.998634,
+      -10.102407
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Red03_B",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "F6A3BF6B4DDADBC98A286C9CF5E08239",
+    "location": [
+      94999.994485,
+      194999.988601,
+      -37.043024
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_Blue02_A",
+    "name": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "CF0CA4934F9E8CA2213BC79C4007BB02",
+    "location": [
+      4999.999629,
+      244999.981708,
+      -47.330993
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_ShipEnemy_OpenSeaDestination",
+    "name": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "82859CB6412F7B5B7E0D6E8DCFAF1D61",
+    "location": [
+      14999.998383,
+      294999.968008,
+      -68.768984
+    ],
+    "rotation": [
+      -0.004675,
+      -2e-06,
+      0.005105
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WaterBodyOcean",
+    "name": "WaterBodyOcean_UAID_F4F19E4F59E20D0503_1561784406",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WaterBodyOcean_UAID_F4F19E4F59E20D0503_1561784406",
+    "class_path": "/Script/Water.WaterBodyOcean",
+    "guid": "CD5DC56D40B80C1FD028488F518AB376",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "WaterSpline",
+        "type": "/Script/Water.WaterSplineComponent"
+      },
+      {
+        "name": "WaterInfoMeshComponent",
+        "type": "/Script/Water.WaterBodyInfoMeshComponent"
+      },
+      {
+        "name": "DilatedWaterInfoMeshComponent",
+        "type": "/Script/Water.WaterBodyInfoMeshComponent"
+      },
+      {
+        "name": "WaterBodyOceanComponent",
+        "type": "/Script/Water.WaterBodyOceanComponent"
+      },
+      {
+        "name": "OceanCollisionBoxComponent_1",
+        "type": "/Script/Water.OceanBoxCollisionComponent"
+      },
+      {
+        "name": "BillboardComponent_0",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "Friendly_AI_2",
+    "name": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+    "class_path": "/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C",
+    "guid": "45F04E944C857CC57D92FE8B324B7FD4",
+    "location": [
+      5000.004957,
+      245000.244335,
+      632.668957
+    ],
+    "rotation": [
+      0.0,
+      -45.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "ShipSM",
+        "type": "/Script/Engine.StaticMeshComponent"
+      },
+      {
+        "name": "Ship",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "GunSpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "GunCamera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "SpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "Camera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "Crosshair",
+        "type": "/Script/UMG.WidgetComponent"
+      },
+      {
+        "name": "Buoyancy",
+        "type": "/Script/Water.BuoyancyComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "ShipWeapon",
+        "type": "/Script/VDTPhase2Project.ShipWeaponComponent"
+      },
+      {
+        "name": "ShipMovement",
+        "type": "/Script/VDTPhase2Project.ShipMovementComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      },
+      {
+        "name": "EnemyNavigation",
+        "type": "/Script/VDTPhase2Project.ShipEnemyNavigationComponent"
+      },
+      {
+        "name": "EnemyCombat",
+        "type": "/Script/VDTPhase2Project.ShipCombatComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "CesiumCameraManager",
+    "name": "CesiumCameraManager_UAID_F4F19E4F59E20C0503_1220358228",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumCameraManager_UAID_F4F19E4F59E20C0503_1220358228",
+    "class_path": "/Script/CesiumRuntime.CesiumCameraManager",
+    "guid": "66566B9541A85C5C3AFB1294B0C4A6A4",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "CesiumCreditSystemBP",
+    "name": "CesiumCreditSystemBP_C_UAID_F4F19E4F59E20C0503_1220373229",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumCreditSystemBP_C_UAID_F4F19E4F59E20C0503_1220373229",
+    "class_path": "/CesiumForUnreal/CesiumCreditSystemBP.CesiumCreditSystemBP_C",
+    "guid": "E8A3436A43598A7FB77A1889716F454F",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "DefaultSceneRoot",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "BillboardComponent_1",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "BP_ShipEnemy",
+    "name": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+    "class_path": "/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C",
+    "guid": "06DDF18E4D8297BBC0824985192F0E03",
+    "location": [
+      -5000.00526,
+      105000.111101,
+      671.290555
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "ShipSM",
+        "type": "/Script/Engine.StaticMeshComponent"
+      },
+      {
+        "name": "Ship",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "GunSpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "GunCamera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "SpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "Camera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "Crosshair",
+        "type": "/Script/UMG.WidgetComponent"
+      },
+      {
+        "name": "Buoyancy",
+        "type": "/Script/Water.BuoyancyComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "ShipWeapon",
+        "type": "/Script/VDTPhase2Project.ShipWeaponComponent"
+      },
+      {
+        "name": "ShipMovement",
+        "type": "/Script/VDTPhase2Project.ShipMovementComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      },
+      {
+        "name": "EnemyNavigation",
+        "type": "/Script/VDTPhase2Project.ShipEnemyNavigationComponent"
+      },
+      {
+        "name": "EnemyCombat",
+        "type": "/Script/VDTPhase2Project.ShipCombatComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "Friendly_AI_1",
+    "name": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+    "class_path": "/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C",
+    "guid": "59C01B16415ABC62CA61A3890BB777A0",
+    "location": [
+      45000.044507,
+      245000.24373,
+      631.101771
+    ],
+    "rotation": [
+      0.0,
+      -45.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "ShipSM",
+        "type": "/Script/Engine.StaticMeshComponent"
+      },
+      {
+        "name": "Ship",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "GunSpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "GunCamera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "SpringArm",
+        "type": "/Script/Engine.SpringArmComponent"
+      },
+      {
+        "name": "Camera",
+        "type": "/Script/Engine.CameraComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      },
+      {
+        "name": "Crosshair",
+        "type": "/Script/UMG.WidgetComponent"
+      },
+      {
+        "name": "Buoyancy",
+        "type": "/Script/Water.BuoyancyComponent"
+      },
+      {
+        "name": "CesiumGlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "ShipWeapon",
+        "type": "/Script/VDTPhase2Project.ShipWeaponComponent"
+      },
+      {
+        "name": "ShipMovement",
+        "type": "/Script/VDTPhase2Project.ShipMovementComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      },
+      {
+        "name": "EnemyNavigation",
+        "type": "/Script/VDTPhase2Project.ShipEnemyNavigationComponent"
+      },
+      {
+        "name": "EnemyCombat",
+        "type": "/Script/VDTPhase2Project.ShipCombatComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "WorldPartitionMiniMap",
+    "name": "WorldPartitionMiniMap_UAID_F4F19E4F59E20B0503_1928193047",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.WorldPartitionMiniMap_UAID_F4F19E4F59E20B0503_1928193047",
+    "class_path": "/Script/Engine.WorldPartitionMiniMap",
+    "guid": "BEFA3F0D42A6C981749941A19D25DE55",
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [],
+    "export": true
+  },
+  {
+    "label": "CesiumSunSky",
+    "name": "CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumSunSky_UAID_F4F19E4F59E20B0503_1996016050",
+    "class_path": "/Script/CesiumRuntime.CesiumSunSky",
+    "guid": "D2DE982E492E0A6DDFE5E6ACA0CE922B",
+    "location": [
+      0.0,
+      -1428719.838136,
+      -637539647.716368
+    ],
+    "rotation": [
+      -30.157335,
+      -167.1179,
+      115.786602
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "Scene",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "DirectionalLight",
+        "type": "/Script/Engine.DirectionalLightComponent"
+      },
+      {
+        "name": "SkyLight",
+        "type": "/Script/Engine.SkyLightComponent"
+      },
+      {
+        "name": "SkyAtmosphere",
+        "type": "/Script/Engine.SkyAtmosphereComponent"
+      },
+      {
+        "name": "GlobeAnchor",
+        "type": "/Script/CesiumRuntime.CesiumGlobeAnchorComponent"
+      },
+      {
+        "name": "BillboardComponent_0",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "BillboardComponent_1",
+        "type": "/Script/Engine.BillboardComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "Ha Long - Cat Ba Terrain",
+    "name": "Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E20C0503_1220357227",
+    "class_path": "/Script/CesiumRuntime.Cesium3DTileset",
+    "guid": null,
+    "location": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "False",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": "",
+      "tileset_source": "<TilesetSource.FROM_CESIUM_ION: 0>",
+      "ion_asset_id": "5931409"
+    },
+    "components": [
+      {
+        "name": "Tileset",
+        "type": "/Script/CesiumRuntime.Cesium3DTilesetRoot"
+      },
+      {
+        "name": "Ha Long - Cat Ba Imagery",
+        "type": "/Script/CesiumRuntime.CesiumIonRasterOverlay"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "BP_SeaGraph",
+    "name": "BP_SeaGraph_C_UAID_40C2BA430821710A03_1654449281",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_SeaGraph_C_UAID_40C2BA430821710A03_1654449281",
+    "class_path": "/Game/SeaGraph/BP_SeaGraph.BP_SeaGraph_C",
+    "guid": "640982BE480EDDFE25BB7B8C02EF5F18",
+    "location": [
+      0.0,
+      0.0,
+      -150.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "True",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "DefaultSceneRoot",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "BillboardComponent_1",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "DebugNodes_ISM",
+        "type": "/Script/Engine.InstancedStaticMeshComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "TP_ShipDestination",
+    "name": "TargetPoint_UAID_40C2BA4308211A0B03_1093200023",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211A0B03_1093200023",
+    "class_path": "/Script/Engine.TargetPoint",
+    "guid": "952CD1FD49BAE29A267724BAD3926EFB",
+    "location": [
+      -44418.397924,
+      99947.030647,
+      0.0
+    ],
+    "rotation": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "True",
+      "auto_possess_player": null,
+      "auto_possess_ai": null,
+      "ai_controller_class": null,
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SceneComp",
+        "type": "/Script/Engine.SceneComponent"
+      },
+      {
+        "name": "Sprite",
+        "type": "/Script/Engine.BillboardComponent"
+      },
+      {
+        "name": "Arrow",
+        "type": "/Script/Engine.ArrowComponent"
+      }
+    ],
+    "export": true
+  },
+  {
+    "label": "BP_AntiShip",
+    "name": "BP_AntiShip_C_UAID_40C2BA430821C60A03_1806148239",
+    "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_AntiShip_C_UAID_40C2BA430821C60A03_1806148239",
+    "class_path": "/Game/AntiShip/BluePrint/BP_AntiShip.BP_AntiShip_C",
+    "guid": "010F76994705B344861AA9B555E0A569",
+    "location": [
+      51640.0,
+      11950.0,
+      280.0
+    ],
+    "rotation": [
+      0.0,
+      89.999999,
+      0.0
+    ],
+    "scale": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "level": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel",
+    "parent": null,
+    "attached": [],
+    "properties": {
+      "is_spatially_loaded": "True",
+      "auto_possess_player": "<AutoReceiveInput.DISABLED: 0>",
+      "auto_possess_ai": "<AutoPossessAI.PLACED_IN_WORLD: 1>",
+      "ai_controller_class": "/Script/AIModule.AIController",
+      "default_game_mode": null,
+      "water_zone_override": null,
+      "location": null,
+      "origin_longitude": null,
+      "origin_latitude": null,
+      "origin_height": null,
+      "url": null,
+      "tileset_source": null,
+      "ion_asset_id": null
+    },
+    "components": [
+      {
+        "name": "SkeletalMesh",
+        "type": "/Script/Engine.SkeletalMeshComponent"
+      },
+      {
+        "name": "MuzzleFlash",
+        "type": "/Script/Niagara.NiagaraComponent"
+      },
+      {
+        "name": "ShellEjection",
+        "type": "/Script/Niagara.NiagaraComponent"
+      },
+      {
+        "name": "Recoil",
+        "type": "/Script/Engine.TimelineComponent"
+      }
+    ],
+    "export": true
+  }
+]

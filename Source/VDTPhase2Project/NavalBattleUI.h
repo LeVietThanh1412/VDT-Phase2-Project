@@ -8,6 +8,19 @@ class UShipWeaponComponent;
 class UProgressBar;
 class UTextBlock;
 
+/** Adds naval team/death presentation to the map team's existing marker widgets. */
+UCLASS()
+class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
+{
+    GENERATED_BODY()
+protected:
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
+private:
+    void RefreshNavalMarkers();
+    FTimerHandle MarkerTimer;
+};
+
 /** Presentation is inherited by the saved WBP assets; all values are event driven. */
 UCLASS()
 class VDTPHASE2PROJECT_API UShipHealthBarWidget : public UUserWidget
