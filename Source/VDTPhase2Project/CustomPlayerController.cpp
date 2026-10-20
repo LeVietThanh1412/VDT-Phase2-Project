@@ -1,10 +1,29 @@
 #include "CustomPlayerController.h"
 
 #include "Actor/Pawn/FreeCameraPawn.h"
+#include "UI/ShipDetailsUI.h"
+#include "Blueprint/UserWidget.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "InputCoreTypes.h"
 #include "ShipCombatComponent.h"
+
+void ACustomPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+
+    if (!IsLocalController() || IsValid(ShipDetailsUI))
+    {
+        return;
+    }
+
+    ShipDetailsUI = CreateWidget<UShipDetailsUI>(this, UShipDetailsUI::StaticClass());
+    if (IsValid(ShipDetailsUI))
+    {
+        ShipDetailsUI->AddToViewport();
+        ShipDetailsUI->SetVisibility(ESlateVisibility::Collapsed);
+    }
+}
 
 void ACustomPlayerController::SetupInputComponent()
 {
@@ -12,6 +31,38 @@ void ACustomPlayerController::SetupInputComponent()
     check(InputComponent);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ACustomPlayerController::ToggleFreeCamera);
     InputComponent->BindKey(EKeys::Q, IE_Pressed, this, &ACustomPlayerController::CycleShipCamera);
+    InputComponent->BindKey(EKeys::I, IE_Pressed, this, &ACustomPlayerController::ToggleShipDetailsUI);
+}
+
+APawn* ACustomPlayerController::GetSelectedShip() const
+{
+    return IsValid(FreeCameraPawn) ? PreviousPawn.Get() : GetPawn().Get();
+}
+
+void ACustomPlayerController::ToggleShipDetailsUI()
+{
+    if (!IsLocalController())
+    {
+        return;
+    }
+
+    const bool bCreatedWidget = !IsValid(ShipDetailsUI);
+    if (bCreatedWidget)
+    {
+        ShipDetailsUI = CreateWidget<UShipDetailsUI>(this, UShipDetailsUI::StaticClass());
+        if (!IsValid(ShipDetailsUI))
+        {
+            return;
+        }
+
+        ShipDetailsUI->AddToViewport();
+    }
+
+    ShipDetailsUI->SetSelectedShip(GetSelectedShip());
+    const ESlateVisibility NewVisibility = bCreatedWidget || ShipDetailsUI->GetVisibility() != ESlateVisibility::Visible
+        ? ESlateVisibility::Visible
+        : ESlateVisibility::Collapsed;
+    ShipDetailsUI->SetVisibility(NewVisibility);
 }
 
 void ACustomPlayerController::CycleShipCamera()

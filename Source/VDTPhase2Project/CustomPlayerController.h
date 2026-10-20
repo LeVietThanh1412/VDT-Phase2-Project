@@ -5,6 +5,7 @@
 #include "CustomPlayerController.generated.h"
 
 class AFreeCameraPawn;
+class UShipDetailsUI;
 
 /** Views ships with Q without taking their AI controllers; F toggles free flight. */
 UCLASS()
@@ -13,11 +14,17 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
     GENERATED_BODY()
 
 public:
+    virtual void BeginPlay() override;
     virtual void SetupInputComponent() override;
-    UFUNCTION(BlueprintCallable, Category="Camera")
+
+    /** Returns the ship selected by the controller, including while free camera is active. */
+    APawn* GetSelectedShip() const;
+
+private:
     void ToggleFreeCamera();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
+    void ToggleShipDetailsUI();
 
 private:
     UPROPERTY()
@@ -25,6 +32,9 @@ private:
 
     UPROPERTY()
     TObjectPtr<AFreeCameraPawn> FreeCameraPawn;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UShipDetailsUI> ShipDetailsUI;
 
     // The normal pawn's camera rotation must survive a round trip through free camera.
     FRotator PreviousControlRotation = FRotator::ZeroRotator;
