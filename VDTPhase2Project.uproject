@@ -1,35 +1,45 @@
 {
-	"FileVersion": 3,
-	"EngineAssociation": "5.6",
-	"Category": "",
-	"Description": "",
-	"Modules": [
-		{
-			"Name": "VDTPhase2Project",
-			"Type": "Runtime",
-			"LoadingPhase": "Default"
-		}
-	],
-	"Plugins": [
-		{
-			"Name": "ModelingToolsEditorMode",
-			"Enabled": true
-		},
-		{
-			"Name": "CesiumForUnreal",
-			"Enabled": true,
-			"SupportedTargetPlatforms": [
-				"Win64",
-				"Mac",
-				"Linux",
-				"Android",
-				"IOS"
-			],
-			"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/content/87b0d05800a545d49bf858ef3458c4f7"
-		},
-		{
-			"Name": "UnrealMCPBridge",
-			"Enabled": false
-		}
-	]
+  "FileVersion": 3,
+  "EngineAssociation": "5.6",
+  "Category": "",
+  "Description": "",
+  "Modules": [
+    {
+      "Name": "VDTPhase2Project",
+      "Type": "Runtime",
+      "LoadingPhase": "Default"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "ModelingToolsEditorMode",
+      "Enabled": true
+    },
+    {
+      "Name": "CesiumForUnreal",
+      "Enabled": true,
+      "SupportedTargetPlatforms": [
+        "Win64",
+        "Mac",
+        "Linux",
+        "Android",
+        "IOS"
+      ]
+    },
+    {
+      "Name": "UnrealMCPBridge",
+      "Enabled": false
+    },
+    {
+      "Name": "VisualStudioTools",
+      "Enabled": true,
+      "SupportedTargetPlatforms": [
+        "Win64"
+      ]
+    }
+  ],
+  "TargetPlatforms": [],
+  "AdditionalRootDirectories": [],
+  "AdditionalPluginDirectories": [],
+  "EpicSampleNameHash": ""
 }
