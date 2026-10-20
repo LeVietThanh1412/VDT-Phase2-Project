@@ -58,4 +58,4 @@ The selected packages have Unreal package magic `c1832a9e` and pass a byte-ident
 
 ## Publication
 
-Publication hashes and final ref/status verification are recorded in publication.json after completion. Remote main will be advanced only by a normal non-force push containing both original histories. No existing PR is closed or recreated.
+The existing merge completed as `f4acea342d4c1131c6f75e3bf9a981dbb7a7684c` with both original commits as parents. Both remote main and Thanh were advanced to that merge by normal non-force pushes. The adjacent publication.json records that verified publication. A follow-up documentation commit records this evidence; both branches contain the merge. No PR was closed or recreated.
