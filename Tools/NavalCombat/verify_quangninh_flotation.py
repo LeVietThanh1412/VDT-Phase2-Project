@@ -8,13 +8,14 @@ from pathlib import Path
 import unreal
 
 root = Path(unreal.Paths.project_dir())
+output = globals().get('OUTPUT','FLOTATION_FINAL_FILTER.json')
 st = dict(handle=None, rows=[], ships={}, error=None, last=-1)
 builtins.flotation_probe = st
 
 def finish(status):
     st['status'] = status
     unreal.unregister_slate_post_tick_callback(st['handle'])
-    (root/'Docs/QuangNinhIntegration/FLOTATION_FINAL_FILTER.json').write_text(json.dumps({k:v for k,v in st.items() if k!='handle'},indent=2))
+    (root/'Docs/QuangNinhIntegration'/output).write_text(json.dumps({k:v for k,v in st.items() if k!='handle'},indent=2))
     unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
 
 def tick(dt):

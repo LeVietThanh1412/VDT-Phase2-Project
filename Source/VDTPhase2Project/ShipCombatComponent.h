@@ -216,6 +216,10 @@ private:
     float ScanClock=1000,FireCheckClock=0;
     double LastFire=-1000,LastLog=-1000;
     double StateSince=0,LastRetreatEnded=-1000;
+    // Navigation remembers the threat while the gun correctly drops an
+    // occluded target. A brief LOS change must not reverse an escape turn.
+    TWeakObjectPtr<AActor> RetreatThreat;
+    float RetreatStartSeparationM=0;
     double HunterSince=-1,HunterLostSince=-1,LastHunterPlan=-1000;
     bool bHunterPursuitActive=false;
     bool bVerifiedAxes=false;
