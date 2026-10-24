@@ -1,0 +1,111 @@
+{
+  "last": 139.98406090959907,
+  "checks": [
+    {
+      "name": "Original player controls accelerate physical hull",
+      "passed": true
+    },
+    {
+      "name": "Actual hull collision query reaches retained island geometry",
+      "passed": true
+    },
+    {
+      "name": "Positive propulsion cannot drive through land",
+      "passed": false
+    },
+    {
+      "name": "Ship stays on water side of geographic shoreline",
+      "passed": true
+    }
+  ],
+  "initialized": true,
+  "error": null,
+  "initial": [
+    -57948.83053511381,
+    -220122.8974761963,
+    1429.1773105859756
+  ],
+  "status": "ASSERTION_FAILURE",
+  "plan": {
+    "start_en_m": [
+      12950,
+      -3150
+    ],
+    "shore_en_m": [
+      13962.343044810945,
+      -3115.0982463473315
+    ],
+    "direction_en": [
+      0.9976877516299487,
+      0.06796433070058
+    ],
+    "blocked_end_en_m": [
+      14161.587562237424,
+      -3101.5253421490715
+    ],
+    "coast_distance_m": 1020.97,
+    "fixture": "steep island with prior 65 m physical support probe"
+  },
+  "samples": 270,
+  "raw_evidence": "SHIP_SHORE_FINAL_APPROACH.json.gz",
+  "first_sample": {
+    "t": 1.123217411339283,
+    "world": [
+      -57948.83053511381,
+      -220122.8974761963,
+      1429.1773104667664
+    ],
+    "en_m": [
+      12950.001576706349,
+      -3150.000385780134
+    ],
+    "input": 0,
+    "speed_mps": 0.0,
+    "velocity": [
+      0.0,
+      0.0,
+      -175.17440795898438
+    ],
+    "physics": true,
+    "dead": false,
+    "in_water": false,
+    "terrain_contact": false,
+    "contact_component": null,
+    "contact_point": null,
+    "contact_normal": null
+  },
+  "last_sample": {
+    "t": 139.98406090959907,
+    "world": [
+      -16886.701860688983,
+      -220156.32362763974,
+      652.5230045099114
+    ],
+    "en_m": [
+      13360.60506391711,
+      -3149.3255563820544
+    ],
+    "input": 0.2,
+    "speed_mps": 5.56593132019043,
+    "velocity": [
+      556.4012451171875,
+      -15.556991577148438,
+      3.666020393371582
+    ],
+    "physics": true,
+    "dead": false,
+    "in_water": true,
+    "terrain_contact": true,
+    "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_51",
+    "contact_point": [
+      -22892.275409257738,
+      -220962.51792918704,
+      -43.66624166071415
+    ],
+    "contact_normal": [
+      0.0005194495578690264,
+      -0.000499837951105877,
+      0.999999740167056
+    ]
+  }
+}

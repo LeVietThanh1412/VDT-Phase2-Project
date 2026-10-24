@@ -1,6 +1,32 @@
 # Naval Battle V2 — progress ledger
 
-Current work (2026-10-22): QuangNinh integration on `feature/quangninh-battle-integration`, based on merged `28b7f7b`. Terrain source access is restored; the near-origin layout is saved. Actual five-AI patrol on the restored terrain FAILED because of sea-level DEM collision. Selective collision restored all five ships and passed B/A/B loops; a narrower final filter preserving nonzero submerged geometry is undergoing the final recheck. The previous map's results below are historical, not a current-map pass. Spectator, optional turns and pre-match settings remain outstanding.
+Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.
+
+| Master phase | Status | Current evidence / next action |
+|---|---|---|
+| 0 Recovery | PASSED | Source/assets/evidence already preserved in f16b5bb and PR #6; fetched refs and audited clean tree |
+| 1 Final narrowed collision | PASSED | Rebuilt cache fix: 415.22 s saved-level soak, all five B/A/B, 15 arrivals, independent 9/9 assertions passed including strict contact metric. Forced eviction 10/10, source records/proxies stable at 221, 12 supported probes. Shore obstruction 4/4, frame flotation 4/4, cleanup passed; 2031 external source hashes unchanged |
+| 2 Core Git delivery | PASSED | Already delivered by f16b5bb / PR #6 / 920936b. Follow-up validation evidence will be committed and pushed before new gameplay work |
+| 3 Current-map 3v3 | IN_PROGRESS | Earlier current-map 20/20 candidate-filter integration retained; final-filter targeted regression next |
+| 4 Combat/tactics | IN_PROGRESS | Existing implementation retained; current-map accuracy/roles/reverse regression pending |
+| 5 Profiles | IN_PROGRESS | Current-map Small/Large real input and 33/33 damage each passed; destruction regression pending |
+| 6 Destruction | IN_PROGRESS | Existing staged sinking/capsize preserved; current-map lifecycle and visible VFX pending |
+| 7 Spectator | NOT_STARTED | Existing Q/F only; automatic teammate follow required |
+| 8 Optional turns | NOT_STARTED | No turn scheduler yet |
+| 9 Prematch | NOT_STARTED | No configuration UI yet |
+| 10 Final QA | NOT_STARTED | Depends on remaining features |
+| 11 Delivery | IN_PROGRESS | Existing integration branch retained for focused follow-up commits/PR |
+| 12 Thanh cleanup | SKIPPED_WITH_REASON | Optional; retained safely while active development continues |
+
+Current files: `SeaTerrainCollisionComponent.cpp`, `PATROL_SUMMARY.json`, regression/flotation/shore fixtures and final-filter evidence. Commands: `python Tools/NavalCombat/summarize_quangninh_patrol.py`; run test files through `Tools/SeaNavigation/mcp_client.py` using file-based `exec(compile(...))` (the installed bridge rewrites literal multiline strings). Blueprint compile: seven assets explicitly OK. The original strict 99% summary assertion remains false; it has not been silently relaxed. Frame-resolution flotation passed 4/4, maximum contact loss 0.404 s. Extended seaward shore approach passed 4/4 at 320 s, after shorter fixtures failed due to preserved shallow collision/insufficient approach time. These raw failures are preserved with compressed telemetry.
+
+**Immediate next step (2026-10-24):** deliberate runtime `MaximumCachedBytes=1` eviction test confirmed stale-source metadata growth: 669 records versus 230 reused proxies after 125 s; physical island checks remained passed (9/10 overall). Evidence `LAND_COLLISION_EVICTION_BEFORE_FIX.json[.gz]`. Implemented a small expired-source-slot rebind in SeaTerrainCollisionComponent.cpp; geometry/filter/forces unchanged. Normal native build PASSED (4 actions / 45.67 s), editor fully restarted, seven Blueprint compiles PASSED. Saved-state comparison PASSED 7/7 (numeric tolerance 1e-6; world transforms exact, sub-nanometre EN conversion rounding only). Repeated forced eviction PASSED 10/10: both metadata and geometry settled at 221, all 12 island probes supported. `LAND_COLLISION_FORCED_EVICTION.json[.gz]`, `COLLISION_CACHE_BUILD.json`, `SAVED_STATE_VERIFICATION.json`.
+
+The rebuilt cache fix's full saved-level patrol completed naturally at **415.21699 s**, 411 samples, **15 arrivals**, **all five three legs**, **0 errors**, **9/9 independent assertions PASSED** (`PATROL_CACHE_SUMMARY.json`). Each travelled 2971–3677 m; cruise medians 18.34–18.91 m/s; no chart-land/Failed samples; exact-target errors below 4e-9 m. All five physics/controllers and six-pawn/one-player counts persisted. Post-match GC left only eight class-default procedural component templates, no PIE proxies (`COLLISION_CACHE_CLEANUP.json`). Existing `PATROL_SUMMARY.json` remains the earlier strict 99% failure and is preserved. Reproduction: `summarize_quangninh_patrol.py --input Docs/NavalCombat/QUANGNINH_CACHE_PATROL_SOAK.json --output Docs/QuangNinhIntegration/PATROL_CACHE_SUMMARY.json`; the reader transparently opens the adjacent lossless raw gzip when input is a compact summary.
+
+Next: commit/push this verified cache repair and evidence, create the follow-up PR, then run final-filter 3v3 integration and current-map combat/tactics regressions using `run_quangninh_combat_regression.py`. That wrapper, occlusion fixture and island-reverse fixture parameterization are prepared but not yet gameplay-tested, so excluded from the core commit. A concurrent external save reformatted `NavalBattleUI.cpp`; lexical tokens were compared with HEAD and match exactly. Preserve that unrelated formatting, exclude it from the collision commit, and incorporate it when editing UI later. One authoritative editor remains (PID 30840); no other editor was launched.
+
+The sections below are historical phase records; their passes do not replace final QuangNinh acceptance.
 
 ## Phase 1 — PASSED (audit/baseline)
 

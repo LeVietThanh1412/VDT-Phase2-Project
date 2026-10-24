@@ -1,0 +1,453 @@
+{
+  "status": "ALL_FIVE_LOOPS_VERIFIED",
+  "error": null,
+  "seconds": 415.21698762476444,
+  "samples": 411,
+  "ships": [
+    {
+      "max_consecutive_out_of_water_samples": 1,
+      "water_contact_ratio": 0.9949874686716792,
+      "name": "BP_ShipEnemy",
+      "first_world": [
+        -137916.02627420425,
+        -260187.6742299199,
+        901.4664355990453
+      ],
+      "last_world": [
+        -137089.12253115012,
+        -138126.77067717005,
+        415.27691211165177
+      ],
+      "legs": 3,
+      "distance_m": 3677.315336270144,
+      "peak_speed_mps": 19.267225130934463,
+      "cruise_median_mps": 18.34492824660097,
+      "moving_turn_median_mps": 12.453290654218055,
+      "min_coast_distance_m": 441.6578324618024,
+      "min_route_coast_distance_m": 489.97319688136093,
+      "land_entries": 0,
+      "physical_all": true,
+      "ai_controller_all": true,
+      "out_of_water_after_settling": 2,
+      "failed_state_samples": 0,
+      "recovery_samples": 0,
+      "max_live_target_error_m": 1.1920928955078125e-09,
+      "max_route_endpoint_error_m": 4.347384674474597e-10,
+      "arrivals": [
+        {
+          "ship": "BP_ShipEnemy",
+          "t": 81.44361643120646,
+          "leg": 1,
+          "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+          "distance_m": 79.83463069583594,
+          "allowed_m": 80.0,
+          "speed_mps": 0.1622693166773397
+        },
+        {
+          "ship": "BP_ShipEnemy",
+          "t": 243.16060992330313,
+          "leg": 2,
+          "arrived_at": "TP_ShipEnemy_AStarDestination",
+          "distance_m": 79.57409389787317,
+          "allowed_m": 80.0,
+          "speed_mps": 0.07522531980440952
+        },
+        {
+          "ship": "BP_ShipEnemy",
+          "t": 413.18092952668667,
+          "leg": 3,
+          "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+          "distance_m": 79.67168818511708,
+          "allowed_m": 80.0,
+          "speed_mps": 0.03851986448106042
+        }
+      ]
+    },
+    {
+      "max_consecutive_out_of_water_samples": 1,
+      "water_contact_ratio": 0.9949874686716792,
+      "name": "BP_ShipEnemy2",
+      "first_world": [
+        -87924.29490378499,
+        -250147.06229230762,
+        914.3520690676733
+      ],
+      "last_world": [
+        -84485.35241549944,
+        -139876.51153911866,
+        369.1667592866539
+      ],
+      "legs": 3,
+      "distance_m": 3471.073976276834,
+      "peak_speed_mps": 18.930736684218747,
+      "cruise_median_mps": 18.785541669939715,
+      "moving_turn_median_mps": 13.444617741262089,
+      "min_coast_distance_m": 805.0410494254651,
+      "min_route_coast_distance_m": 795.5055382534872,
+      "land_entries": 0,
+      "physical_all": true,
+      "ai_controller_all": true,
+      "out_of_water_after_settling": 2,
+      "failed_state_samples": 0,
+      "recovery_samples": 0,
+      "max_live_target_error_m": 2.4027400458748783e-09,
+      "max_route_endpoint_error_m": 1.5414945853065081e-09,
+      "arrivals": [
+        {
+          "ship": "BP_ShipEnemy2",
+          "t": 78.39595913141966,
+          "leg": 1,
+          "arrived_at": "TP_Red02_B",
+          "distance_m": 79.43197095472236,
+          "allowed_m": 80.0,
+          "speed_mps": 0.13940590736401773
+        },
+        {
+          "ship": "BP_ShipEnemy2",
+          "t": 228.9681534357369,
+          "leg": 2,
+          "arrived_at": "TP_Red02_A",
+          "distance_m": 79.52004973289937,
+          "allowed_m": 80.0,
+          "speed_mps": 0.3916017889043219
+        },
+        {
+          "ship": "BP_ShipEnemy2",
+          "t": 366.6653445735574,
+          "leg": 3,
+          "arrived_at": "TP_Red02_B",
+          "distance_m": 79.554917931436,
+          "allowed_m": 80.0,
+          "speed_mps": 0.09025519718873659
+        }
+      ]
+    },
+    {
+      "max_consecutive_out_of_water_samples": 0,
+      "water_contact_ratio": 1.0,
+      "name": "BP_ShipEnemy3",
+      "first_world": [
+        -38013.920229166746,
+        -140106.58017909527,
+        953.1255133626028
+      ],
+      "last_world": [
+        -44484.62612149203,
+        -221134.3139605896,
+        358.0321833491504
+      ],
+      "legs": 3,
+      "distance_m": 2971.4993234458193,
+      "peak_speed_mps": 19.160643956814745,
+      "cruise_median_mps": 18.89806460250881,
+      "moving_turn_median_mps": 13.109180847654214,
+      "min_coast_distance_m": 577.7659257302311,
+      "min_route_coast_distance_m": 631.9181614692532,
+      "land_entries": 0,
+      "physical_all": true,
+      "ai_controller_all": true,
+      "out_of_water_after_settling": 0,
+      "failed_state_samples": 0,
+      "recovery_samples": 0,
+      "max_live_target_error_m": 1.7120004153672014e-09,
+      "max_route_endpoint_error_m": 9.21163694395415e-10,
+      "arrivals": [
+        {
+          "ship": "BP_ShipEnemy3",
+          "t": 68.32494953274727,
+          "leg": 1,
+          "arrived_at": "TP_Red03_B",
+          "distance_m": 79.48512982262673,
+          "allowed_m": 80.0,
+          "speed_mps": 0.04672832604674027
+        },
+        {
+          "ship": "BP_ShipEnemy3",
+          "t": 210.82704493775964,
+          "leg": 2,
+          "arrived_at": "TP_Red03_A",
+          "distance_m": 78.88328639790835,
+          "allowed_m": 80.0,
+          "speed_mps": 0.16740098753865168
+        },
+        {
+          "ship": "BP_ShipEnemy3",
+          "t": 340.3081185929477,
+          "leg": 3,
+          "arrived_at": "TP_Red03_B",
+          "distance_m": 79.4020222087939,
+          "allowed_m": 80.0,
+          "speed_mps": 0.10105163430484929
+        }
+      ]
+    },
+    {
+      "max_consecutive_out_of_water_samples": 1,
+      "water_contact_ratio": 0.9974937343358395,
+      "name": "Friendly_AI_1",
+      "first_world": [
+        -298021.3999963701,
+        -130317.72254633904,
+        886.7482991692586
+      ],
+      "last_world": [
+        -277075.1175633573,
+        -222458.2262454648,
+        154.61437470744949
+      ],
+      "legs": 3,
+      "distance_m": 3317.4446608661515,
+      "peak_speed_mps": 19.73663639161527,
+      "cruise_median_mps": 18.91180711648172,
+      "moving_turn_median_mps": 13.066800635152509,
+      "min_coast_distance_m": 303.3871468543859,
+      "min_route_coast_distance_m": 340.4551131890702,
+      "land_entries": 0,
+      "physical_all": true,
+      "ai_controller_all": true,
+      "out_of_water_after_settling": 1,
+      "failed_state_samples": 0,
+      "recovery_samples": 0,
+      "max_live_target_error_m": 3.5886748369909215e-09,
+      "max_route_endpoint_error_m": 5.888374174243734e-10,
+      "arrivals": [
+        {
+          "ship": "Friendly_AI_1",
+          "t": 69.32700093090534,
+          "leg": 1,
+          "arrived_at": "TP_Friendly_Patrol_B",
+          "distance_m": 79.40841047694012,
+          "allowed_m": 80.0,
+          "speed_mps": 0.04352435411161548
+        },
+        {
+          "ship": "Friendly_AI_1",
+          "t": 216.89569934085011,
+          "leg": 2,
+          "arrived_at": "TP_Friendly_Patrol_A",
+          "distance_m": 79.21220484275302,
+          "allowed_m": 80.0,
+          "speed_mps": 0.07737614504075933
+        },
+        {
+          "ship": "Friendly_AI_1",
+          "t": 349.4224079884589,
+          "leg": 3,
+          "arrived_at": "TP_Friendly_Patrol_B",
+          "distance_m": 79.28636372749992,
+          "allowed_m": 80.0,
+          "speed_mps": 0.1919710239099213
+        }
+      ]
+    },
+    {
+      "max_consecutive_out_of_water_samples": 1,
+      "water_contact_ratio": 0.9949874686716792,
+      "name": "Friendly_AI_2",
+      "first_world": [
+        -188021.63259601593,
+        -130228.40144383907,
+        928.6610453602834
+      ],
+      "last_world": [
+        -169357.07423786743,
+        -242398.9112121585,
+        432.92346560125014
+      ],
+      "legs": 3,
+      "distance_m": 3386.435280167401,
+      "peak_speed_mps": 19.10434331548001,
+      "cruise_median_mps": 18.736840996826732,
+      "moving_turn_median_mps": 13.086270300677597,
+      "min_coast_distance_m": 236.7017672815767,
+      "min_route_coast_distance_m": 249.39970997336266,
+      "land_entries": 0,
+      "physical_all": true,
+      "ai_controller_all": true,
+      "out_of_water_after_settling": 2,
+      "failed_state_samples": 0,
+      "recovery_samples": 0,
+      "max_live_target_error_m": 2.421152116249788e-09,
+      "max_route_endpoint_error_m": 5.287663673901517e-10,
+      "arrivals": [
+        {
+          "ship": "Friendly_AI_2",
+          "t": 75.37919353321195,
+          "leg": 1,
+          "arrived_at": "TP_Blue02_B",
+          "distance_m": 79.58678548937944,
+          "allowed_m": 80.0,
+          "speed_mps": 0.03634152481068382
+        },
+        {
+          "ship": "Friendly_AI_2",
+          "t": 245.18386632576585,
+          "leg": 2,
+          "arrived_at": "TP_Blue02_A",
+          "distance_m": 79.64538934838103,
+          "allowed_m": 80.0,
+          "speed_mps": 0.0535223079874176
+        },
+        {
+          "ship": "Friendly_AI_2",
+          "t": 415.21698762476444,
+          "leg": 3,
+          "arrived_at": "TP_Blue02_B",
+          "distance_m": 79.43330184855073,
+          "allowed_m": 80.0,
+          "speed_mps": 0.0678411058369232
+        }
+      ]
+    }
+  ],
+  "arrivals": [
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 68.32494953274727,
+      "leg": 1,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.48512982262673,
+      "allowed_m": 80.0,
+      "speed_mps": 0.04672832604674027
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 69.32700093090534,
+      "leg": 1,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.40841047694012,
+      "allowed_m": 80.0,
+      "speed_mps": 0.04352435411161548
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 75.37919353321195,
+      "leg": 1,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.58678548937944,
+      "allowed_m": 80.0,
+      "speed_mps": 0.03634152481068382
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 78.39595913141966,
+      "leg": 1,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.43197095472236,
+      "allowed_m": 80.0,
+      "speed_mps": 0.13940590736401773
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 81.44361643120646,
+      "leg": 1,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.83463069583594,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1622693166773397
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 210.82704493775964,
+      "leg": 2,
+      "arrived_at": "TP_Red03_A",
+      "distance_m": 78.88328639790835,
+      "allowed_m": 80.0,
+      "speed_mps": 0.16740098753865168
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 216.89569934085011,
+      "leg": 2,
+      "arrived_at": "TP_Friendly_Patrol_A",
+      "distance_m": 79.21220484275302,
+      "allowed_m": 80.0,
+      "speed_mps": 0.07737614504075933
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 228.9681534357369,
+      "leg": 2,
+      "arrived_at": "TP_Red02_A",
+      "distance_m": 79.52004973289937,
+      "allowed_m": 80.0,
+      "speed_mps": 0.3916017889043219
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 243.16060992330313,
+      "leg": 2,
+      "arrived_at": "TP_ShipEnemy_AStarDestination",
+      "distance_m": 79.57409389787317,
+      "allowed_m": 80.0,
+      "speed_mps": 0.07522531980440952
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 245.18386632576585,
+      "leg": 2,
+      "arrived_at": "TP_Blue02_A",
+      "distance_m": 79.64538934838103,
+      "allowed_m": 80.0,
+      "speed_mps": 0.0535223079874176
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 340.3081185929477,
+      "leg": 3,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.4020222087939,
+      "allowed_m": 80.0,
+      "speed_mps": 0.10105163430484929
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 349.4224079884589,
+      "leg": 3,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.28636372749992,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1919710239099213
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 366.6653445735574,
+      "leg": 3,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.554917931436,
+      "allowed_m": 80.0,
+      "speed_mps": 0.09025519718873659
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 413.18092952668667,
+      "leg": 3,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.67168818511708,
+      "allowed_m": 80.0,
+      "speed_mps": 0.03851986448106042
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 415.21698762476444,
+      "leg": 3,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.43330184855073,
+      "allowed_m": 80.0,
+      "speed_mps": 0.0678411058369232
+    }
+  ],
+  "errors": [],
+  "assertions": {
+    "all_five_completed_three_arrivals": true,
+    "correct_six_pawns_one_player": true,
+    "five_independent_ai_controllers": true,
+    "physical_movement_over_2km_each": true,
+    "no_land_entries_or_failed_state": true,
+    "live_target_conversion_correct": true,
+    "every_switch_inside_actual_arrival_radius": true,
+    "sustained_water_contact_after_settling": true,
+    "no_probe_or_location_errors": true
+  },
+  "passed": true
+}

@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "five_saved_AI": true,
+    "eleven_existing_targets": true,
+    "fleet_and_live_endpoint_settings_unchanged": true,
+    "player_start_unchanged": true,
+    "final_filter_saved": true,
+    "original_force_graph_valid": true,
+    "single_georeference": true
+  },
+  "differences": [],
+  "validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "passed": true,
+  "coordinate_absolute_tolerance": 1e-06
+}

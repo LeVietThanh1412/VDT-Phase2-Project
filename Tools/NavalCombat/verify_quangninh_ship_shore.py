@@ -7,6 +7,8 @@ import builtins,json,math,traceback
 from pathlib import Path
 import unreal
 root=Path(unreal.Paths.project_dir());plan=json.loads((root/'Docs/QuangNinhIntegration/SHIP_SHORE_PROBE_PLAN.json').read_text())
+plan=globals().get('PLAN',plan)
+output=globals().get('OUTPUT','SHIP_SHORE_COLLISION_PIE.json')
 duration=globals().get('DURATION',85)
 chart=json.loads((root/'Content/SeaNavigation/halong_navigation.json').read_text())
 st=dict(handle=None,last=-1,rows=[],checks=[],initialized=False,error=None)
@@ -14,7 +16,8 @@ builtins.ship_shore_probe=st
 vec=lambda p:[p.x,p.y,p.z]
 def finish(status):
     st['status']=status;unreal.unregister_slate_post_tick_callback(st['handle'])
-    (root/'Docs/QuangNinhIntegration/SHIP_SHORE_COLLISION_PIE.json').write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','player','inputs']},indent=2))
+    st['plan']=plan
+    (root/'Docs/QuangNinhIntegration'/output).write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','player','inputs']},indent=2))
     unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
 def tick(dt):
     w=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_game_world()
@@ -36,6 +39,7 @@ def tick(dt):
                 if c:c.enable_combat=False
                 if n:n.stop_navigation()
                 if other!=p:
+                    other.set_actor_tick_enabled(False) # Parked fixture must not spam AddForce warnings.
                     body=next(x for x in other.get_components_by_class(unreal.PrimitiveComponent) if x.get_name()=='ShipSM');body.set_simulate_physics(False)
                     other.set_actor_location(other.get_actor_location()+unreal.Vector(0,0,1000000),False,True)
             start=world(plan['start_en_m']);end=world(plan['blocked_end_en_m']);rotation=unreal.MathLibrary.find_look_at_rotation(start,end);rotation.pitch=0;rotation.roll=0
