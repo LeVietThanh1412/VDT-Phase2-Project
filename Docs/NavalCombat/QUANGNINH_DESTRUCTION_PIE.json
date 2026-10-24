@@ -1,0 +1,347 @@
+{
+  "phase": "deaths",
+  "checks": [
+    {
+      "name": "Large class applied",
+      "passed": true
+    },
+    {
+      "name": "Large class applied",
+      "passed": true
+    },
+    {
+      "name": "brief roll does not kill",
+      "passed": true
+    },
+    {
+      "name": "health depletion accepted",
+      "passed": true
+    },
+    {
+      "name": "health depletion accepted",
+      "passed": true
+    },
+    {
+      "name": "health depletion accepted",
+      "passed": true
+    },
+    {
+      "name": "all five deaths confirmed",
+      "passed": true
+    },
+    {
+      "name": "capsize uses shared reason",
+      "passed": true
+    },
+    {
+      "name": "health death uses shared reason",
+      "passed": true
+    },
+    {
+      "name": "live hull retained during burn",
+      "passed": true
+    },
+    {
+      "name": "burning FX active",
+      "passed": true
+    },
+    {
+      "name": "rigid body disabled before animation",
+      "passed": true
+    },
+    {
+      "name": "death cannot repeat",
+      "passed": true
+    },
+    {
+      "name": "live hull retained during burn",
+      "passed": true
+    },
+    {
+      "name": "burning FX active",
+      "passed": true
+    },
+    {
+      "name": "rigid body disabled before animation",
+      "passed": true
+    },
+    {
+      "name": "death cannot repeat",
+      "passed": true
+    },
+    {
+      "name": "live hull retained during burn",
+      "passed": true
+    },
+    {
+      "name": "burning FX active",
+      "passed": true
+    },
+    {
+      "name": "rigid body disabled before animation",
+      "passed": true
+    },
+    {
+      "name": "death cannot repeat",
+      "passed": true
+    },
+    {
+      "name": "live hull retained during burn",
+      "passed": true
+    },
+    {
+      "name": "burning FX active",
+      "passed": true
+    },
+    {
+      "name": "rigid body disabled before animation",
+      "passed": true
+    },
+    {
+      "name": "death cannot repeat",
+      "passed": true
+    },
+    {
+      "name": "live hull retained during burn",
+      "passed": true
+    },
+    {
+      "name": "burning FX active",
+      "passed": true
+    },
+    {
+      "name": "rigid body disabled before animation",
+      "passed": true
+    },
+    {
+      "name": "death cannot repeat",
+      "passed": true
+    },
+    {
+      "name": "all wreck actors cleaned after stages",
+      "passed": true
+    },
+    {
+      "name": "death counts stable",
+      "passed": true
+    },
+    {
+      "name": "BP_Ship0 visible burning interval",
+      "passed": true
+    },
+    {
+      "name": "BP_Ship0 progressive sinking",
+      "passed": true
+    },
+    {
+      "name": "BP_Ship0 geographic height decreases",
+      "passed": true
+    },
+    {
+      "name": "BP_Ship0 longitude latitude stable",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy visible burning interval",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy progressive sinking",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy geographic height decreases",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy longitude latitude stable",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy2 visible burning interval",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy2 progressive sinking",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy2 geographic height decreases",
+      "passed": true
+    },
+    {
+      "name": "BP_ShipEnemy2 longitude latitude stable",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_1 visible burning interval",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_1 progressive sinking",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_1 geographic height decreases",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_1 longitude latitude stable",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_2 visible burning interval",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_2 progressive sinking",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_2 geographic height decreases",
+      "passed": true
+    },
+    {
+      "name": "Friendly_AI_2 longitude latitude stable",
+      "passed": true
+    }
+  ],
+  "last": 29.575974814593792,
+  "error": null,
+  "shots": [
+    "BURN",
+    "SINK",
+    "SUBMERGED"
+  ],
+  "focus_llh": [
+    107.41325093743141,
+    20.96771881165679,
+    9.514367907750012
+  ],
+  "at": 1.0761747099459171,
+  "death_at": 2.5916166119277477,
+  "initial": {},
+  "confirmed": true,
+  "rebased": true,
+  "status": "DESTRUCTION_V2_CHECKS_PASSED",
+  "samples": 130,
+  "raw_evidence": "QUANGNINH_DESTRUCTION_PIE.json.gz",
+  "first_sample": {
+    "t": 2.5916166119277477,
+    "elapsed": 0.0,
+    "ships": [
+      {
+        "name": "BP_Ship0",
+        "stage": "<ShipDestructionStage.DYING: 1>",
+        "dead": true,
+        "deaths": 1,
+        "hp": 0.0,
+        "llh": [
+          107.41035104778794,
+          20.94785023981868,
+          9.309678156476986
+        ],
+        "sunk": 0.0,
+        "roll": 0.01509374769827785,
+        "pitch": 0.0036321888904360887,
+        "fx": true,
+        "physics": false,
+        "buoyancy_tick": false,
+        "hidden": false
+      },
+      {
+        "name": "BP_ShipEnemy",
+        "stage": "<ShipDestructionStage.DYING: 1>",
+        "dead": true,
+        "deaths": 1,
+        "hp": 0.0,
+        "llh": [
+          107.41325070764582,
+          20.96771890739303,
+          4.3577455404982555
+        ],
+        "sunk": 0.0,
+        "roll": -0.28833397353785484,
+        "pitch": -0.12601773692883492,
+        "fx": true,
+        "physics": false,
+        "buoyancy_tick": false,
+        "hidden": false
+      },
+      {
+        "name": "BP_ShipEnemy2",
+        "stage": "<ShipDestructionStage.DYING: 1>",
+        "dead": true,
+        "deaths": 1,
+        "hp": 0.0,
+        "llh": [
+          107.4180582122345,
+          20.966812259669275,
+          4.407130354614672
+        ],
+        "sunk": 0.0,
+        "roll": -0.0005799789180136725,
+        "pitch": -0.01881323039182394,
+        "fx": true,
+        "physics": false,
+        "buoyancy_tick": false,
+        "hidden": false
+      },
+      {
+        "name": "Friendly_AI_1",
+        "stage": "<ShipDestructionStage.ALIVE: 0>",
+        "dead": false,
+        "deaths": 0,
+        "hp": 100.0,
+        "llh": [
+          107.39785755873464,
+          20.95598783238119,
+          4.396241330217822
+        ],
+        "sunk": 0.0,
+        "roll": 135.02843963945702,
+        "pitch": 0.006771296420814868,
+        "fx": false,
+        "physics": true,
+        "buoyancy_tick": false,
+        "hidden": false
+      },
+      {
+        "name": "Friendly_AI_2",
+        "stage": "<ShipDestructionStage.ALIVE: 0>",
+        "dead": false,
+        "deaths": 0,
+        "hp": 100.0,
+        "llh": [
+          107.40843475792953,
+          20.95597967190962,
+          5.9061657194593025
+        ],
+        "sunk": 0.0,
+        "roll": 135.01859403327532,
+        "pitch": 0.008810118277281067,
+        "fx": false,
+        "physics": true,
+        "buoyancy_tick": false,
+        "hidden": false
+      }
+    ],
+    "hud": [
+      {
+        "score": "BLUE 2   |   RED 1",
+        "result": "PLAYER DESTROYED\nFleet battle continues"
+      }
+    ]
+  },
+  "last_sample": {
+    "t": 29.575974814593792,
+    "elapsed": 26.984358202666044,
+    "ships": [],
+    "hud": [
+      {
+        "score": "BLUE 0   |   RED 1",
+        "result": "DEFEAT"
+      }
+    ]
+  }
+}

@@ -19,6 +19,7 @@ options = {
     'profile_large': ('test_profile_physics.py','PROFILE_LARGE_PHYSICS.json','QUANGNINH_FINAL_PROFILE_LARGE_PHYSICS.json'),
     'damage_small': ('test_hull_damage.py','HULL_DAMAGE_PIE.json','QUANGNINH_FINAL_SMALL_DAMAGE.json'),
     'damage_large': ('test_hull_damage.py','HULL_DAMAGE_PIE.json','QUANGNINH_FINAL_LARGE_DAMAGE.json'),
+    'mixed_profiles': ('run_battle_validation.py','VALIDATION_PATROL.json','QUANGNINH_FINAL_MIXED_PROFILES.json'),
 }
 assert unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_game_world() is None, 'Stop the previous PIE first'
 filename, old_output, output = options[fixture]
@@ -44,6 +45,9 @@ if fixture.startswith('profile_'):
 if fixture.startswith('damage_'):
     scope.update(PROFILE_CLASS='Small' if fixture.endswith('small') else 'Large',CLEARANCE_CM=100000,OUTPUT=output)
     code=code.replace('hull(s).set_simulate_physics(False)', 'hull(s).set_simulate_physics(False);s.set_actor_tick_enabled(False)')
+if fixture == 'mixed_profiles':
+    scope.update(MODE='patrol',LIMIT=60,SHIP_CLASSES={'Friendly_AI_2':'Large','BP_ShipEnemy2':'Large'})
+    code=code.replace("('VALIDATION_'+mode.upper()+'.json')",repr(output))
 if fixture == 'accuracy':
     # Same 900 m / 400 m geometry and seeded 144 shots, translated into the
     # actual operating bay. All four positions clear the supplied coast by
@@ -54,5 +58,6 @@ if fixture == 'accuracy':
     code = code.replace('hull(v).set_simulate_physics(True)', 'hull(v).set_simulate_physics(True);v.set_actor_tick_enabled(True)')
 if fixture == 'destruction':
     code = code.replace('V2_WRECK_', 'QUANGNINH_WRECK_')
+    code = code.replace("('V2_'+name+'.png')", "('QUANGNINH_'+name+'.png')")
 scope.update(__name__='quangninh_'+fixture, __file__=str(path))
 exec(compile(code, str(path), 'exec'), scope)

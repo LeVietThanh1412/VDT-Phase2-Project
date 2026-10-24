@@ -8,6 +8,12 @@ root=Path(unreal.Paths.project_dir());st=dict(handle=None,phase='init',rows=[],c
 builtins.destruction_test=st
 def hull(s):return next(c for c in s.get_components_by_class(unreal.PrimitiveComponent) if c.get_name()=='ShipSM')
 def hp(s):return s.get_component_by_class(unreal.ShipWeaponComponent)
+
+def valid(s):
+    # UE 5.6 may reject a stale PyUObject during argument marshaling instead of
+    # returning false from IsValid after the native actor has been cleaned up.
+    try:return unreal.SystemLibrary.is_valid(s)
+    except TypeError:return False
 def check(name,value):st['checks'].append(dict(name=name,passed=bool(value)));assert value,name
 def save():
     (root/'Docs/NavalCombat/DESTRUCTION_V2_PIE.json').write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','ships','victims','capsize','brief','camera','geo']},indent=2))
@@ -57,14 +63,14 @@ def tick(dt):
                 st.update(phase='deaths',death_at=t,initial={})
         if st['phase']=='deaths':
             for s in st['capsize']:
-                if unreal.SystemLibrary.is_valid(s) and hp(s) and not hp(s).is_destroyed:roll(s,135)
+                if valid(s) and hp(s) and not hp(s).is_destroyed:roll(s,135)
             elapsed=t-st['death_at']
             if elapsed>2 and not st.get('confirmed'):
                 check('all five deaths confirmed',all(hp(s).is_destroyed and hp(s).destruction_events==1 for s in st['victims']))
                 check('capsize uses shared reason',all(hp(s).death_reason==unreal.ShipDeathReason.CAPSIZED for s in st['capsize']))
                 check('health death uses shared reason',all(hp(s).death_reason==unreal.ShipDeathReason.HEALTH_DEPLETED for s in st['victims'][:3]))
                 for s in st['victims']:
-                    check('live hull retained during burn',unreal.SystemLibrary.is_valid(s) and not s.get_editor_property('hidden'))
+                    check('live hull retained during burn',valid(s) and not s.get_editor_property('hidden'))
                     check('burning FX active',hp(s).destruction_fx is not None and hp(s).destruction_fx.is_active())
                     check('rigid body disabled before animation',not hull(s).is_simulating_physics())
                     check('death cannot repeat',not hp(s).die(unreal.ShipDeathReason.OTHER,None) and hp(s).destruction_events==1)
@@ -74,7 +80,7 @@ def tick(dt):
             if t-st['last']>.2:
                 st['last']=t;rows=[]
                 for s in st['victims']:
-                    if not unreal.SystemLibrary.is_valid(s):continue
+                    if not valid(s):continue
                     weapon=hp(s);anchor=s.get_component_by_class(unreal.CesiumGlobeAnchorComponent);p=anchor.get_longitude_latitude_height()
                     q=anchor.get_east_south_up_rotation().rotator()
                     rows.append(dict(name=s.get_actor_label(),stage=str(weapon.destruction_stage),dead=weapon.is_destroyed,deaths=weapon.destruction_events,hp=weapon.current_health,
