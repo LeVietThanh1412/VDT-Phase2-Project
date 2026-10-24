@@ -1,0 +1,466 @@
+{
+  "level": "/Game/Levels/MainMapLevel.MainMapLevel",
+  "ships": [
+    {
+      "label": "BP_ShipEnemy2",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+      "class_name": "BP_ShipEnemy_C",
+      "world": [
+        -87924.29490378499,
+        -250147.06229230762,
+        914.6220238208771
+      ],
+      "en_m": [
+        12649.993102084734,
+        -2849.998436898265
+      ],
+      "yaw": 90.04656219482422,
+      "ai_enabled": "True",
+      "auto_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "auto_player": "<AutoReceiveInput.DISABLED: 0>",
+      "controller_class": "<Object '/Script/AIModule.AIController' (0x00007FF445ED32E8) Class 'Class'>",
+      "spatial": "False",
+      "new_navigation": true,
+      "mode": "<ShipNavigationMode.PATROL: 0>",
+      "role": "<ShipEnemyRole.FIGHTER: 2>",
+      "start_b": true,
+      "offset_a": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "offset_b": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cruise_mps": 20.0,
+      "arrival_m": 80.0,
+      "start_delay": 6.0,
+      "wait": 3.0,
+      "team": 1,
+      "combat": true,
+      "physics": true,
+      "mass_kg": 150.0,
+      "linear_damping": 0.5,
+      "angular_damping": 0.5,
+      "a": {
+        "label": "TP_Red02_A",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+        "world": [
+          -87924.2025822401,
+          -250146.79809105396,
+          244.62208211421967
+        ],
+        "en_m": [
+          12649.97981944525,
+          -2849.9954267568623
+        ]
+      },
+      "b": {
+        "label": "TP_Red02_B",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+        "world": [
+          -88021.80660685897,
+          -130147.05965289474,
+          280.57815384864807
+        ],
+        "en_m": [
+          12649.978525608814,
+          -4049.993084478365
+        ]
+      }
+    },
+    {
+      "label": "BP_ShipEnemy3",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+      "class_name": "BP_ShipEnemy_C",
+      "world": [
+        -38013.920229166746,
+        -140106.58017909527,
+        953.3954681158066
+      ],
+      "en_m": [
+        13149.989531253059,
+        -3949.996837015146
+      ],
+      "yaw": -89.953369140625,
+      "ai_enabled": "True",
+      "auto_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "auto_player": "<AutoReceiveInput.DISABLED: 0>",
+      "controller_class": "<Object '/Script/AIModule.AIController' (0x00007FF445ED32E8) Class 'Class'>",
+      "spatial": "False",
+      "new_navigation": true,
+      "mode": "<ShipNavigationMode.PATROL: 0>",
+      "role": "<ShipEnemyRole.FIGHTER: 2>",
+      "start_b": true,
+      "offset_a": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "offset_b": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cruise_mps": 20.0,
+      "arrival_m": 80.0,
+      "start_delay": 8.0,
+      "wait": 3.0,
+      "team": 1,
+      "combat": true,
+      "physics": true,
+      "mass_kg": 150.0,
+      "linear_damping": 0.5,
+      "angular_damping": 0.5,
+      "a": {
+        "label": "TP_Red03_A",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+        "world": [
+          -38013.88031408191,
+          -140106.43220075965,
+          283.39548575878143
+        ],
+        "en_m": [
+          13149.975723606603,
+          -3949.99266507153
+        ]
+      },
+      "b": {
+        "label": "TP_Red03_B",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+        "world": [
+          -37932.5393782258,
+          -240106.19843116403,
+          253.4321244955063
+        ],
+        "en_m": [
+          13149.976844419556,
+          -2949.99477494945
+        ]
+      }
+    },
+    {
+      "label": "Friendly_AI_2",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+      "class_name": "BP_ShipEnemy_C",
+      "world": [
+        -188021.63259601593,
+        -130228.40144383907,
+        928.9310001134872
+      ],
+      "en_m": [
+        11649.995932307296,
+        -4049.9985777128372
+      ],
+      "yaw": -80.4909896850586,
+      "ai_enabled": "True",
+      "auto_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "auto_player": "<AutoReceiveInput.DISABLED: 0>",
+      "controller_class": "<Object '/Script/AIModule.AIController' (0x00007FF445ED32E8) Class 'Class'>",
+      "spatial": "False",
+      "new_navigation": true,
+      "mode": "<ShipNavigationMode.PATROL: 0>",
+      "role": "<ShipEnemyRole.FIGHTER: 2>",
+      "start_b": true,
+      "offset_a": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "offset_b": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cruise_mps": 20.0,
+      "arrival_m": 80.0,
+      "start_delay": 2.0,
+      "wait": 3.0,
+      "team": 0,
+      "combat": true,
+      "physics": true,
+      "mass_kg": 150.0,
+      "linear_damping": 0.5,
+      "angular_damping": 0.5,
+      "a": {
+        "label": "TP_Blue02_A",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+        "world": [
+          -188021.4351710081,
+          -130228.26389867067,
+          258.93104326725006
+        ],
+        "en_m": [
+          11649.983699671746,
+          -4049.9943001561305
+        ]
+      },
+      "b": {
+        "label": "TP_Blue02_B",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+        "world": [
+          -167923.90914788842,
+          -250211.79080078006,
+          228.55807387828827
+        ],
+        "en_m": [
+          11849.983947900206,
+          -2849.9961167736765
+        ]
+      }
+    },
+    {
+      "label": "BP_ShipEnemy",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+      "class_name": "BP_ShipEnemy_C",
+      "world": [
+        -137916.02627420425,
+        -260187.6742299199,
+        901.7363903522491
+      ],
+      "en_m": [
+        12149.99530892216,
+        -2749.9989321052226
+      ],
+      "yaw": 90.04653930664064,
+      "ai_enabled": "True",
+      "auto_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "auto_player": "<AutoReceiveInput.DISABLED: 0>",
+      "controller_class": "<Object '/Script/AIModule.AIController' (0x00007FF445ED32E8) Class 'Class'>",
+      "spatial": "False",
+      "new_navigation": true,
+      "mode": "<ShipNavigationMode.PATROL: 0>",
+      "role": "<ShipEnemyRole.FIGHTER: 2>",
+      "start_b": true,
+      "offset_a": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "offset_b": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cruise_mps": 20.0,
+      "arrival_m": 80.0,
+      "start_delay": 4.0,
+      "wait": 3.0,
+      "team": 1,
+      "combat": true,
+      "physics": true,
+      "mass_kg": 150.0,
+      "linear_damping": 0.5,
+      "angular_damping": 0.5,
+      "a": {
+        "label": "TP_ShipEnemy_AStarDestination",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+        "world": [
+          -137915.88146072626,
+          -260187.39942410588,
+          231.73646211624146
+        ],
+        "en_m": [
+          12149.982551287412,
+          -2749.9960275826593
+        ]
+      },
+      "b": {
+        "label": "TP_ShipEnemy_OpenSeaDestination",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+        "world": [
+          -138021.6138524115,
+          -130187.66217169166,
+          271.71356654167175
+        ],
+        "en_m": [
+          12149.981224543913,
+          -4049.9937048249435
+        ]
+      }
+    },
+    {
+      "label": "Friendly_AI_1",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+      "class_name": "BP_ShipEnemy_C",
+      "world": [
+        -298021.3999963701,
+        -130317.72254633904,
+        887.0182539224625
+      ],
+      "en_m": [
+        10549.999480164732,
+        -4049.9997993889683
+      ],
+      "yaw": -79.64840698242188,
+      "ai_enabled": "True",
+      "auto_ai": "<AutoPossessAI.PLACED_IN_WORLD_OR_SPAWNED: 3>",
+      "auto_player": "<AutoReceiveInput.DISABLED: 0>",
+      "controller_class": "<Object '/Script/AIModule.AIController' (0x00007FF445ED32E8) Class 'Class'>",
+      "spatial": "False",
+      "new_navigation": true,
+      "mode": "<ShipNavigationMode.PATROL: 0>",
+      "role": "<ShipEnemyRole.FIGHTER: 2>",
+      "start_b": true,
+      "offset_a": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "offset_b": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "cruise_mps": 20.0,
+      "arrival_m": 80.0,
+      "start_delay": 0.0,
+      "wait": 3.0,
+      "team": 0,
+      "combat": true,
+      "physics": true,
+      "mass_kg": 150.0,
+      "linear_damping": 0.5,
+      "angular_damping": 0.5,
+      "a": {
+        "label": "TP_Friendly_Patrol_A",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+        "world": [
+          -298021.0870703161,
+          -130317.5849069655,
+          217.01834094524384
+        ],
+        "en_m": [
+          10549.98840253834,
+          -4049.9955218353766
+        ]
+      },
+      "b": {
+        "label": "TP_Friendly_Patrol_B",
+        "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984",
+        "world": [
+          -277931.6938557923,
+          -240301.16505512595,
+          193.9564481973648
+        ],
+        "en_m": [
+          10749.988642791346,
+          -2949.996865157939
+        ]
+      }
+    }
+  ],
+  "targets": [
+    {
+      "label": "TP_Red02_A",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+      "world": [
+        -87924.2025822401,
+        -250146.79809105396,
+        244.62208211421967
+      ]
+    },
+    {
+      "label": "TP_Red02_B",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+      "world": [
+        -88021.80660685897,
+        -130147.05965289474,
+        280.57815384864807
+      ]
+    },
+    {
+      "label": "TP_Blue02_B",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+      "world": [
+        -167923.90914788842,
+        -250211.79080078006,
+        228.55807387828827
+      ]
+    },
+    {
+      "label": "TP_ShipEnemy_AStarDestination",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+      "world": [
+        -137915.88146072626,
+        -260187.39942410588,
+        231.73646211624146
+      ]
+    },
+    {
+      "label": "TP_Friendly_Patrol_B",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984",
+      "world": [
+        -277931.6938557923,
+        -240301.16505512595,
+        193.9564481973648
+      ]
+    },
+    {
+      "label": "TP_Friendly_Patrol_A",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+      "world": [
+        -298021.0870703161,
+        -130317.5849069655,
+        217.01834094524384
+      ]
+    },
+    {
+      "label": "TP_Red03_A",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+      "world": [
+        -38013.88031408191,
+        -140106.43220075965,
+        283.39548575878143
+      ]
+    },
+    {
+      "label": "TP_Red03_B",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+      "world": [
+        -37932.5393782258,
+        -240106.19843116403,
+        253.4321244955063
+      ]
+    },
+    {
+      "label": "TP_Blue02_A",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+      "world": [
+        -188021.4351710081,
+        -130228.26389867067,
+        258.93104326725006
+      ]
+    },
+    {
+      "label": "TP_ShipEnemy_OpenSeaDestination",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+      "world": [
+        -138021.6138524115,
+        -130187.66217169166,
+        271.71356654167175
+      ]
+    },
+    {
+      "label": "TP_ShipDestination",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211A0B03_1093200023",
+      "world": [
+        -188021.4351710081,
+        -130228.26389870048,
+        258.93104326725006
+      ]
+    }
+  ],
+  "player_starts": [
+    {
+      "label": "PlayerStart",
+      "world": [
+        -168095.00619474053,
+        -40212.28710561991,
+        1446.5843781232834
+      ]
+    }
+  ]
+}

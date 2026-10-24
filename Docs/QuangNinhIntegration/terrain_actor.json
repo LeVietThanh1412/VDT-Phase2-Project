@@ -1,0 +1,8 @@
+{
+  "url": "file:///E:/UnrealTerrainSet/QuangNinh/Terrain/layer.json",
+  "imagery": [
+    "file:///E:/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml"
+  ],
+  "origin": "<Struct 'Vector' (0x000001F253898560) {x: 107.426513, y: 20.944219, z: 0.000000}>",
+  "actor_count": 28
+}

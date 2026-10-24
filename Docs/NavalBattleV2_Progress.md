@@ -1,6 +1,6 @@
 # Naval Battle V2 — progress ledger
 
-Current work: the user's requested possession/actual Target Point/A-B loops passed. Master-task phases 1–7 now have runtime evidence. Staged destruction is next; later features remain outstanding.
+Current work (2026-10-22): QuangNinh integration on `feature/quangninh-battle-integration`, based on merged `28b7f7b`. Terrain source access is restored; the near-origin layout is saved. Actual five-AI patrol on the restored terrain FAILED because of sea-level DEM collision. Selective collision restored all five ships and passed B/A/B loops; a narrower final filter preserving nonzero submerged geometry is undergoing the final recheck. The previous map's results below are historical, not a current-map pass. Spectator, optional turns and pre-match settings remain outstanding.
 
 ## Phase 1 — PASSED (audit/baseline)
 
@@ -134,3 +134,49 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - Future profile fields cover visual/animation/physics assets, static hull collision, pontoon setup, movement, camera and weapon settings. /Game/NavalBattle is explicitly included in cook settings because native code loads its assets. New art still requires compatible rig/socket/collision configuration and water validation.
 - Default saved ships remain Small until the later prematch class selector chooses otherwise; no original level placements/target references were changed by class fixtures.
 - Phase 8 unified death/capsize/burning/geographic-sinking source patch is applied. Native build and real visual/runtime validation are pending. Do not claim the new destruction sequence passed yet.
+
+
+## 2026-10-22 continuation — Phase 0 / terrain restoration
+
+- Fetched origin; main and Thanh remain 28b7f7b, clean tree, no merge/rebase or unmerged paths. Created feature/quangninh-battle-integration; main will not be pushed automatically.
+- Source/assets actually contain the completed accuracy presets, angular error, chart occlusion, 8/10/8 damage, Small/Large profiles, role/retreat logic, capsize/staged sinking and copied NS_ShipBurn/M_ShipBurnFire. They are committed through cd50c54 and the merge. The old top-level phase table is historical; visual VFX remains partial, automatic spectator/turn mode/setup menu are absent.
+- No Unreal Editor was running at audit start. Two Codex front ends are present; no other editor writer identified. Do not stop unrelated app servers solely from process names.
+- Recovery: path in Saved/active_quangninh_recovery.txt contains source/config/Blueprint/level/actor copies and hashes of all 2031 source dataset files.
+- Dataset exists at E:/LeVietThanh1412-Product/QuangNinh: 919 quantized-mesh terrain tiles, 1110 PNG imagery tiles, layer.json and tilemapresource.xml. EPSG:4326/TMS; matching terrain/imagery bounds. All advertised terrain tiles exist. Source files were not modified.
+- Created an initially absent compatibility junction E:/UnrealTerrainSet/QuangNinh to the actual folder. Map URLs remain authored by main, avoiding personal-path edits to shared assets. Repeatable setup: Tools/SeaNavigation/setup_quangninh.ps1. This data is a runtime file dependency, not just import metadata.
+- Baseline C++ Development Editor build PASSED. Starting one editor; terrain visual/collision acceptance and real-map gameplay are not yet claimed passed.
+
+| Continuation phase | Status | Next gate |
+|---|---|---|
+| 0 Baseline/protection | PASSED | Snapshot and source audit recorded |
+| 1 Terrain | IN PROGRESS | Live visual, collision and geographic alignment checks |
+| 2 Real-map regression | PENDING | Genuine full five-AI A/B soak and controls/camera tests |
+| 3 Existing V2 verification | PENDING | Repeat meaningful current-map fixtures |
+| 4 Destruction visuals | PARTIAL | Focused material/effect inspection, practical-camera screenshots |
+| 5 Automatic spectator | MISSING | Follow teammate / Tab / M without stealing possession |
+| 6 Optional turns | MISSING | Alternating teams/10 s action windows; physics continues |
+| 7 Prematch setup | MISSING | Counts, profiles, difficulty, mode; direct PIE defaults |
+| 8 Integrated test | PENDING | Saved real level end-to-end |
+| 9 Handoff/commits | IN PROGRESS | Focused commits; no main push |
+
+
+## 2026-10-22 critical continuation — grounding and Cesium audit
+
+- Latest controlling task: `Docs/QuangNinhIntegration/CRITICAL_TASK.md`. Restore physical movement before additional gameplay. Reviewed the full chat and official Cesium placing-objects documentation. No merge or reset; all existing changes protected.
+- Saved layout uses the existing five AI and target identities, within 3.3 km of main georeference. All routes clear original coast polygons by at least 250 m. World origin itself is land; ships use the adjacent bay.
+- `COLLISION_BASELINE.json`: five valid A* paths and intact controllers, but final speed 0.000–0.004 m/s, no water immersion; downward traces hit actual Cesium sea-level triangles.
+- `COLLISION_ISOLATED.json`: identical fresh PIE with only terrain interaction temporarily removed; all five enter water and move physically. This is diagnosis, NOT an acceptable final collision solution or patrol pass. Both fixtures ran at editor background throttling; displacement is limited by physics maximum delta time. Subsequent acceptance runs use unattended editor automation without focus throttling.
+- Coordinate round trips are below 0.000001 cm; final geographic destination versus live Target Point below 0.000001 m. One shared inherited GlobeAnchor per ship; no duplicate required. Audit file: `CESIUM_CONFIGURATION_AUDIT.json`.
+- Audit found origin-shift components enabled on every ship and on the georeference after the earlier snapshot. No shift observed in the compact bay, but these compete if their distance limits are crossed and water is unanchored. Preserve components/anchors and restore fixed-frame mode for the local battlefield.
+- Native selective DEM filter compiled. It reads current Cesium CPU physics geometry (TriMeshGeometries), creates invisible runtime collision from retained land triangles, and removes only submerged triangles whose entire conservative bounding cell region is chart water. Ambiguous coastline/land stays solid. No plugin or dataset edits. Runtime and island/streaming acceptance are PENDING.
+- New game features remain gated until terrain collision and five-AI movement pass.
+
+
+## 2026-10-23 — physical repair and current-map evidence
+
+- Read the full conversation and latest critical task; its three repeated attachments have identical SHA-256. The latest no-main/new-feature-branch instruction supersedes older merge requests. Official Cesium placing-objects guidance was read and applied.
+- The 0.5 m collision candidate passed 12 physical island probes through view/LOD changes (5 assertions), actual player-hull island obstruction (4), 405.9-second five-AI B/A/B soak (15 arrivals, 3193–3662 m each), 20 integration checks, 66 real projectile/profile damage checks and two profile input/flotation comparisons. Planner Geometry/RealOSM automation both passed.
+- The control fixture initially selected a stale input subsystem retained from a prior PIE. All input fixtures now resolve the subsystem from the active PlayerController; no gameplay input graph was changed.
+- Full header inventory found negative elevations in 149 terrain tiles. The FINAL filter was narrowed to +/-0.05 m zero-level surfaces plus identified zero-level tile skirts, preserving other negative geometry. Native build and seven Blueprint compiles passed. The actor's tolerance is saved as 0.05 m. A fresh full patrol recheck is running; initial telemetry: five ships near 19 m/s, 1104 submerged triangles retained.
+- Core source: SeaTerrainCollisionComponent; no source dataset or Cesium plugin edit. Persistent report: Docs/QuangNinhIntegration/CESIUM_TERRAIN_COLLISION_FIX.md.
+- Pending: finish final 0.05 m repeat, record final collision evidence, focused core commit; then complete wider accuracy/tactical/VFX/spectator/turn/setup work. No new feature is marked complete prematurely.

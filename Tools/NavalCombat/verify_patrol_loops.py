@@ -5,7 +5,7 @@ import unreal
 root=Path(unreal.Paths.project_dir());chart=json.loads((root/'Content/SeaNavigation/halong_navigation.json').read_text())
 out=root/'Docs/NavalCombat'/globals().get('OUTPUT','PATROL_LOOP_VERIFICATION.json')
 limit=globals().get('LIMIT',1500);required=globals().get('REQUIRED_LEGS',3)
-state=dict(handle=None,status='RUNNING',last=-1,rows=[],arrivals=[],errors=[],last_ships={},error=None,limit_seconds=limit,required_arrivals=required)
+state=dict(handle=None,status='RUNNING',last=-1,rows=[],arrivals=[],errors=[],last_ships={},distance_traveled_m={},error=None,limit_seconds=limit,required_arrivals=required)
 builtins.patrol_loop_probe=state
 vec=lambda p:[p.x,p.y,p.z]
 def metric(p,g,w):
@@ -52,6 +52,13 @@ def tick(dt):
                 endpoint_error_m=math.dist(vec(n.current_route[-1])[:2],target) if n.current_route and target else None,
                 goal_world_error_m=(n.geographic_to_world(n.current_final_destination)-active.get_actor_location()).length()/100 if n.pathfinding_succeeded and active else None)
             previous=state['last_ships'].get(label)
+            buoyancy=a.get_component_by_class(unreal.BuoyancyComponent)
+            r.update(geographic=vec(g.transform_unreal_position_to_longitude_latitude_height(hull.get_world_location())),
+                actor_world=vec(a.get_actor_location()),angular_velocity=vec(hull.get_physics_angular_velocity_in_degrees()),
+                rotation=str(hull.get_world_rotation()),in_water=buoyancy.is_in_water_body() if buoyancy else False,
+                collision_coverage_uncertain=n.collision_data_uncertain,waypoint_count=len(n.current_route))
+            traveled=state['distance_traveled_m'].get(label,0)+(math.dist(p,previous['en_m']) if previous else 0)
+            state['distance_traveled_m'][label]=traveled;r['distance_traveled_m']=traveled
             if previous and r['legs']>previous['legs']:
                 arrival=dict(ship=label,t=t,leg=r['legs'],arrived_at=previous['active'],distance_m=math.dist(p,previous['target_en_m']),allowed_m=r['arrival_radius_m'],speed_mps=r['speed_mps'])
                 state['arrivals'].append(arrival)

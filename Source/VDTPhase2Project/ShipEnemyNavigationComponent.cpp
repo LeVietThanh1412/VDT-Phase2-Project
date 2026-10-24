@@ -1,6 +1,7 @@
 #include "ShipEnemyNavigationComponent.h"
 #include "ShipCombatComponent.h"
 #include "ShipEnemyProjectile.h"
+#include "SeaTerrainCollisionComponent.h"
 #include "CesiumGeoreference.h"
 #include "CesiumGlobeAnchorComponent.h"
 #include "CesiumEllipsoid.h"
@@ -471,6 +472,7 @@ bool UShipEnemyNavigationComponent::CollisionCoverageAvailable() const
     for(TActorIterator<AActor> I(GetWorld());I;++I)
     {
         if(!I->GetClass()->GetName().Contains(TEXT("Cesium3DTileset")))continue;
+        if(const auto* Filter=I->FindComponentByClass<USeaTerrainCollisionComponent>();Filter && Filter->HasCollisionCoverageAt(Hull->GetComponentLocation()))return true;
         TArray<UPrimitiveComponent*> Cs;I->GetComponents(Cs);
         for(auto* C:Cs)if(C->GetClass()->GetName().Contains(TEXT("CesiumGltf")) && C->IsQueryCollisionEnabled() &&
             C->Bounds.GetBox().ComputeSquaredDistanceToPoint(Hull->GetComponentLocation())<FMath::Square(80000.))return true;
