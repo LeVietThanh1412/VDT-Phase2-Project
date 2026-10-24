@@ -69,8 +69,7 @@ def tick(dt):
         else:
             for s in ships:
                 s.can_be_damaged = True
-        inputs = next(x for x in unreal.ObjectIterator(unreal.EnhancedInputLocalPlayerSubsystem)
-                      if not x.get_name().startswith('Default__'))
+        inputs = unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBlueprintLibrary')).call_method('GetLocalPlayerSubSystemFromPlayerController',args=(unreal.GameplayStatics.get_player_controller(world,0),unreal.EnhancedInputLocalPlayerSubsystem.static_class()))
         def inject(name, values):
             inputs.inject_input_vector_for_action(actions[name], unreal.Vector(*values), [], [])
         if 3 < t < 9:

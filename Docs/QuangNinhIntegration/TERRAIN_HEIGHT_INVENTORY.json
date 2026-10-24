@@ -1,0 +1,8 @@
+{
+  "tiles": 919,
+  "minimum_header_height_m": -85.19244384765625,
+  "maximum_header_height_m": 441.5482177734375,
+  "tiles_with_negative_minimum": 149,
+  "tiles_with_zero_minimum": 761,
+  "conclusion": "Mixed terrain heights, including negative elevations. Header extrema alone cannot establish bathymetric validity. Preserve nonzero submerged geometry; only confirmed near-zero DEM surfaces should be filtered."
+}

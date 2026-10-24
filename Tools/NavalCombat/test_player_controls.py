@@ -11,7 +11,7 @@ def tick(dt):
     if t<1:return
     try:
         p=unreal.GameplayStatics.get_player_pawn(w,0);pc=p.get_controller();weapon=p.get_component_by_class(unreal.ShipWeaponComponent)
-        inputs=next(x for x in unreal.ObjectIterator(unreal.EnhancedInputLocalPlayerSubsystem) if not x.get_name().startswith('Default__'))
+        inputs=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBlueprintLibrary')).call_method('GetLocalPlayerSubSystemFromPlayerController',args=(unreal.GameplayStatics.get_player_controller(w,0),unreal.EnhancedInputLocalPlayerSubsystem.static_class()))
         if not st['initialized']:
             for s in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.load_class(None,'/Game/Ship/BluePrint/BP_Ship.BP_Ship_C')):
                 s.can_be_damaged=False;c=s.get_component_by_class(unreal.ShipCombatComponent);n=s.get_component_by_class(unreal.ShipEnemyNavigationComponent)

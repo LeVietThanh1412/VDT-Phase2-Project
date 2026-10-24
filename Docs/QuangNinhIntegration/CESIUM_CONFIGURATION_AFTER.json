@@ -1,0 +1,384 @@
+{
+  "georeference": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048",
+  "origin": "<Struct 'Vector' (0x0000013076285DC0) {x: 107.426513, y: 20.944219, z: 0.000000}>",
+  "georeference_count": 1,
+  "shifters": [
+    {
+      "actor": "CesiumGeoreference",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "BP_ShipEnemy2",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "Friendly_AI_1",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "Friendly_AI_2",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "BP_ShipEnemy3",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "BP_ShipEnemy",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    },
+    {
+      "actor": "BP_Ship0",
+      "mode": "<CesiumOriginShiftMode.DISABLED: 0>",
+      "active": true
+    }
+  ],
+  "actors": [
+    {
+      "actor": "TP_Red02_A",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -87924.2025822401,
+        -250146.79809105396,
+        244.62208211421967
+      ],
+      "llh": [
+        107.41805821441191,
+        20.966812243161296,
+        2.9999999994756497
+      ],
+      "roundtrip_cm": 1.519626234052415e-07
+    },
+    {
+      "actor": "TP_Red02_B",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -88021.80660685897,
+        -130147.05965289474,
+        280.57815384864807
+      ],
+      "llh": [
+        107.41804943859223,
+        20.95597378060615,
+        2.999999997163006
+      ],
+      "roundtrip_cm": 2.4027400458748785e-07
+    },
+    {
+      "actor": "TP_Blue02_B",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -167923.90914788842,
+        -250211.79080078006,
+        228.55807387828827
+      ],
+      "llh": [
+        107.41036544711825,
+        20.966817558815315,
+        2.999999998589848
+      ],
+      "roundtrip_cm": 1.2644054553268208e-07
+    },
+    {
+      "actor": "TP_ShipEnemy_AStarDestination",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -137915.88146072626,
+        -260187.39942410588,
+        231.73646211624146
+      ],
+      "llh": [
+        107.41325093781731,
+        20.967718810969135,
+        2.99999999645359
+      ],
+      "roundtrip_cm": 1.1920928955078125e-07
+    },
+    {
+      "actor": "TP_ShipEnemy_OpenSeaDestination",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -138021.6138524115,
+        -130187.66217169166,
+        271.71356654167175
+      ],
+      "llh": [
+        107.41324180639744,
+        20.955977141671692,
+        2.9999999963229618
+      ],
+      "roundtrip_cm": 1.1920928955078125e-07
+    },
+    {
+      "actor": "TP_Friendly_Patrol_B",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -277931.6938557923,
+        -240301.16505512595,
+        193.9564481973648
+      ],
+      "llh": [
+        107.39978726392008,
+        20.965921095687662,
+        2.9999999968924778
+      ],
+      "roundtrip_cm": 3.5886748369909214e-07
+    },
+    {
+      "actor": "PlayerStart",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -168095.00619474053,
+        -40212.28710561991,
+        1446.5843781232834
+      ],
+      "llh": [
+        107.41035106144125,
+        20.94785023673377,
+        14.699999998867977
+      ],
+      "roundtrip_cm": 8.940696716308594e-08
+    },
+    {
+      "actor": "TP_Friendly_Patrol_A",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -298021.0870703161,
+        -130317.5849069655,
+        217.01834094524384
+      ],
+      "llh": [
+        107.39785737265277,
+        20.95598698635041,
+        2.9999999972047906
+      ],
+      "roundtrip_cm": 1.2644054553268208e-07
+    },
+    {
+      "actor": "TP_Blue02_A",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -188021.4351710081,
+        -130228.26389867067,
+        258.93104326725006
+      ],
+      "llh": [
+        107.40843417255756,
+        20.95598036721192,
+        2.9999999976222664
+      ],
+      "roundtrip_cm": 2.421152116249788e-07
+    },
+    {
+      "actor": "TP_Red03_A",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -38013.88031408191,
+        -140106.43220075965,
+        283.39548575878143
+      ],
+      "llh": [
+        107.42285782924787,
+        20.956873489500317,
+        2.9999999978723735
+      ],
+      "roundtrip_cm": 1.228781230931777e-07
+    },
+    {
+      "actor": "TP_Red03_B",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -37932.5393782258,
+        -240106.19843116403,
+        253.4321244955063
+      ],
+      "llh": [
+        107.42286543148677,
+        20.96590553999181,
+        2.9999999963988504
+      ],
+      "roundtrip_cm": 1.7120004153672014e-07
+    },
+    {
+      "actor": "TP_ShipDestination",
+      "anchors": 0,
+      "georeferences": [],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -188021.4351710081,
+        -130228.26389870048,
+        258.93104326725006
+      ],
+      "llh": [
+        107.40843417255756,
+        20.95598036721192,
+        2.9999999976222664
+      ],
+      "roundtrip_cm": 2.4755668231600746e-07
+    },
+    {
+      "actor": "BP_ShipEnemy2",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -75466.82754895899,
+        -164148.5042960047,
+        361.8506907771255
+      ],
+      "llh": [
+        107.41925649048466,
+        20.95904487027296,
+        3.8755121650634656
+      ],
+      "roundtrip_cm": 2.454925248408949e-07
+    },
+    {
+      "actor": "Friendly_AI_1",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -286625.1378306991,
+        -231156.51208914327,
+        385.3536767389512
+      ],
+      "llh": [
+        107.39895146744033,
+        20.96509500520846,
+        4.9184485232981086
+      ],
+      "roundtrip_cm": 1.3012293171569035e-07
+    },
+    {
+      "actor": "Friendly_AI_2",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -167246.5497039428,
+        -163219.58303321633,
+        278.90283829360726
+      ],
+      "llh": [
+        107.41043142250628,
+        20.95896036746382,
+        3.2181909796875536
+      ],
+      "roundtrip_cm": 2.1256735375474244e-07
+    },
+    {
+      "actor": "BP_ShipEnemy3",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -52173.52022036381,
+        -188790.9406409968,
+        198.4578120787287
+      ],
+      "llh": [
+        107.42149618197436,
+        20.961270677543215,
+        2.2868377902043773
+      ],
+      "roundtrip_cm": 2.568919212136702e-07
+    },
+    {
+      "actor": "BP_ShipEnemy",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -154275.21851531806,
+        -207140.62132317442,
+        399.376674989245
+      ],
+      "llh": [
+        107.41167829161094,
+        20.962927456213045,
+        4.518462011278382
+      ],
+      "roundtrip_cm": 1.071365645408209e-07
+    },
+    {
+      "actor": "BP_Ship0",
+      "anchors": 1,
+      "georeferences": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CesiumGeoreference_UAID_F4F19E4F59E20B0503_1937990048"
+      ],
+      "mobility": "<ComponentMobility.MOVABLE: 2>",
+      "world": [
+        -168085.34278017693,
+        -40204.80922839071,
+        464.6894719066256
+      ],
+      "llh": [
+        107.4103519657589,
+        20.947849567033188,
+        4.881021101870986
+      ],
+      "roundtrip_cm": 9.72565899828968e-08
+    }
+  ]
+}

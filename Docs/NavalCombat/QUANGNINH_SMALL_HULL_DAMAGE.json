@@ -1,0 +1,236 @@
+{
+  "phase": "impact",
+  "rows": [
+    {
+      "case": "bow",
+      "hp": 92.0,
+      "before_hp": 100.0,
+      "damage": 8.0,
+      "events": 1,
+      "region": "<ShipHitRegion.BOW: 0>",
+      "normalized_x": 0.9000006914138794,
+      "local": [
+        6406.958332087423,
+        664.8672422283634,
+        47.62302794212897
+      ],
+      "deaths": 0
+    },
+    {
+      "case": "midship",
+      "hp": 82.0,
+      "before_hp": 92.0,
+      "damage": 10.0,
+      "events": 1,
+      "region": "<ShipHitRegion.MIDSHIP: 1>",
+      "normalized_x": 0.4999999701976776,
+      "local": [
+        103.4475269020185,
+        664.8673704086507,
+        49.1930961609221
+      ],
+      "deaths": 0
+    },
+    {
+      "case": "stern",
+      "hp": 74.0,
+      "before_hp": 82.0,
+      "damage": 8.0,
+      "events": 1,
+      "region": "<ShipHitRegion.STERN: 2>",
+      "normalized_x": 0.09999988973140717,
+      "local": [
+        -6200.052813444233,
+        664.8673707887101,
+        49.15531158244791
+      ],
+      "deaths": 0
+    },
+    {
+      "case": "rotated_midship",
+      "hp": 64.0,
+      "before_hp": 74.0,
+      "damage": 10.0,
+      "events": 1,
+      "region": "<ShipHitRegion.MIDSHIP: 1>",
+      "normalized_x": 0.5000001788139343,
+      "local": [
+        103.4505108822709,
+        664.8672920128273,
+        49.1568336480485
+      ],
+      "deaths": 0
+    },
+    {
+      "case": "friendly",
+      "hp": 64.0,
+      "before_hp": 64.0,
+      "damage": 0.0,
+      "events": 0,
+      "region": "<ShipHitRegion.MIDSHIP: 1>",
+      "normalized_x": 0.5000001788139343,
+      "local": [
+        103.4505108822709,
+        664.8672920128273,
+        49.1568336480485
+      ],
+      "deaths": 0
+    },
+    {
+      "case": "lethal_bow",
+      "hp": 0.0,
+      "before_hp": 8.0,
+      "damage": 8.0,
+      "events": 1,
+      "region": "<ShipHitRegion.BOW: 0>",
+      "normalized_x": 0.9000000357627869,
+      "local": [
+        6406.947125036612,
+        664.8672278818013,
+        49.12378692661566
+      ],
+      "deaths": 1
+    }
+  ],
+  "checks": [
+    {
+      "name": "Small profile applied for combat",
+      "passed": true
+    },
+    {
+      "name": "Small profile applied for combat",
+      "passed": true
+    },
+    {
+      "name": "guard probe first hostile hit",
+      "passed": true
+    },
+    {
+      "name": "same projectile victim claim only once",
+      "passed": true
+    },
+    {
+      "name": "self impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "friendly impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "unknown impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "bow original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "bow measured health delta",
+      "passed": true
+    },
+    {
+      "name": "bow single impact event",
+      "passed": true
+    },
+    {
+      "name": "bow correct local region",
+      "passed": true
+    },
+    {
+      "name": "midship original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "midship measured health delta",
+      "passed": true
+    },
+    {
+      "name": "midship single impact event",
+      "passed": true
+    },
+    {
+      "name": "midship correct local region",
+      "passed": true
+    },
+    {
+      "name": "stern original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "stern measured health delta",
+      "passed": true
+    },
+    {
+      "name": "stern single impact event",
+      "passed": true
+    },
+    {
+      "name": "stern correct local region",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship measured health delta",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship single impact event",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship correct local region",
+      "passed": true
+    },
+    {
+      "name": "friendly original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "friendly measured health delta",
+      "passed": true
+    },
+    {
+      "name": "friendly single impact event",
+      "passed": true
+    },
+    {
+      "name": "prepare lethal 8 HP",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow measured health delta",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow single impact event",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow correct local region",
+      "passed": true
+    },
+    {
+      "name": "one death event",
+      "passed": true
+    },
+    {
+      "name": "dead rejects further damage",
+      "passed": true
+    }
+  ],
+  "stage": 5,
+  "at": 30.21192879974842,
+  "error": null,
+  "combat_profile": "Small",
+  "before_hp": 8.0,
+  "before_events": 5,
+  "status": "HULL_COLLISION_CHECKS_PASSED"
+}

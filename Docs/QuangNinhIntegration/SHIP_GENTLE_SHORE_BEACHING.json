@@ -1,0 +1,2431 @@
+{
+  "last": 41.619708113372326,
+  "rows": [
+    {
+      "t": 1.0900698192417622,
+      "world": [
+        -108152.05602905154,
+        29836.375367432833,
+        1460.1327809095383
+      ],
+      "en_m": [
+        12450.0000741732,
+        -5650.000033859705
+      ],
+      "input": 0,
+      "speed_mps": 0.0,
+      "velocity": [
+        0.0,
+        0.0,
+        -175.87509155273438
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": false,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 1.816749420017004,
+      "world": [
+        -108152.05602905154,
+        29836.375367432833,
+        1421.3713469435916
+      ],
+      "en_m": [
+        12449.999252199175,
+        -5649.999706910249
+      ],
+      "input": 0,
+      "speed_mps": 0.0,
+      "velocity": [
+        0.0,
+        0.0,
+        -305.9910888671875
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": false,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 2.3268881142139435,
+      "world": [
+        -108152.05602905154,
+        29836.375367432833,
+        1285.3310278433714
+      ],
+      "en_m": [
+        12449.996367332744,
+        -5649.998559419916
+      ],
+      "input": 0,
+      "speed_mps": 0.0,
+      "velocity": [
+        0.0,
+        0.0,
+        -542.81787109375
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": false,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 2.843882415443659,
+      "world": [
+        -108152.05602905154,
+        29836.375367432833,
+        915.2341396428312
+      ],
+      "en_m": [
+        12449.988519070417,
+        -5649.99543767956
+      ],
+      "input": 0,
+      "speed_mps": 0.0,
+      "velocity": [
+        0.0,
+        0.0,
+        -862.515869140625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": false,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 3.3559643141925335,
+      "world": [
+        -108152.30698432238,
+        29834.533550214644,
+        411.2896307107491
+      ],
+      "en_m": [
+        12449.975307944334,
+        -5649.972770825455
+      ],
+      "input": 0,
+      "speed_mps": 0.018801242113113403,
+      "velocity": [
+        0.0,
+        0.0,
+        -1016.314208984375
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 3.8644561134278774,
+      "world": [
+        -108154.53155766566,
+        29791.445080098652,
+        101.58739545093715
+      ],
+      "en_m": [
+        12449.946145003893,
+        -5649.539292199761
+      ],
+      "input": 0,
+      "speed_mps": 0.05749743804335594,
+      "velocity": [
+        0.0,
+        0.0,
+        -151.81639099121094
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 4.3654997162520885,
+      "world": [
+        -108151.29912144567,
+        29744.39049514148,
+        161.44562029922503
+      ],
+      "en_m": [
+        12449.97935671458,
+        -5649.0692252788895
+      ],
+      "input": 0,
+      "speed_mps": -0.1072070524096489,
+      "velocity": [
+        0.0,
+        0.0,
+        162.4838409423828
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 4.86753711476922,
+      "world": [
+        -108134.17883755211,
+        29720.742519325944,
+        241.65314729604341
+      ],
+      "en_m": [
+        12450.152068051017,
+        -5648.833282964176
+      ],
+      "input": 0,
+      "speed_mps": -0.06514431536197662,
+      "velocity": [
+        0.0,
+        0.0,
+        133.852294921875
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 5.378773115575314,
+      "world": [
+        -108131.23528634707,
+        29753.060494602876,
+        292.4015714638579
+      ],
+      "en_m": [
+        12450.182841966352,
+        -5649.156866610188
+      ],
+      "input": 0,
+      "speed_mps": -0.01813528873026371,
+      "velocity": [
+        0.0,
+        0.0,
+        99.66043853759766
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 5.881668716669083,
+      "world": [
+        -108160.00943648956,
+        29849.04030721398,
+        327.1217461984235
+      ],
+      "en_m": [
+        12449.896616504697,
+        -5650.11719100066
+      ],
+      "input": 0,
+      "speed_mps": -0.004240476060658693,
+      "velocity": [
+        0.0,
+        0.0,
+        58.77167892456055
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 6.385491214692593,
+      "world": [
+        -108135.00576801563,
+        29938.571005589572,
+        345.21746957476586
+      ],
+      "en_m": [
+        12450.147762960374,
+        -5651.012446615445
+      ],
+      "input": 0.2,
+      "speed_mps": 3.2207117080688477,
+      "velocity": [
+        305.98541259765625,
+        106.9556884765625,
+        49.335655212402344
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 6.897103313356638,
+      "world": [
+        -107893.3063059852,
+        30058.076978808404,
+        391.27417567933225
+      ],
+      "en_m": [
+        12452.566698000843,
+        -5652.205927924402
+      ],
+      "input": 0.2,
+      "speed_mps": 6.679030418395996,
+      "velocity": [
+        632.2264404296875,
+        221.04891967773438,
+        71.49053955078125
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 7.414521716535091,
+      "world": [
+        -107469.67837135907,
+        30152.337355440235,
+        425.78114816259927
+      ],
+      "en_m": [
+        12456.804463247225,
+        -5653.145376134823
+      ],
+      "input": 0,
+      "speed_mps": 9.07303524017334,
+      "velocity": [
+        856.3207397460938,
+        299.605712890625,
+        97.369384765625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 7.93062561377883,
+      "world": [
+        -106989.1806047965,
+        30197.972672783184,
+        434.0352012674037
+      ],
+      "en_m": [
+        12461.60997396214,
+        -5653.597890040755
+      ],
+      "input": 0.2,
+      "speed_mps": 8.986945152282715,
+      "velocity": [
+        848.7195434570312,
+        297.59539794921875,
+        -73.13343811035156
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 8.436513416469097,
+      "world": [
+        -106557.00447255127,
+        30296.358651685496,
+        382.18484680886127
+      ],
+      "en_m": [
+        12465.931423158994,
+        -5654.577796293278
+      ],
+      "input": 0.2,
+      "speed_mps": 8.973668098449707,
+      "velocity": [
+        845.140625,
+        297.50250244140625,
+        -68.21358489990234
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 8.939012113958597,
+      "world": [
+        -106148.09413771855,
+        30475.78081799523,
+        404.64326462909304
+      ],
+      "en_m": [
+        12470.022448504664,
+        -5656.368879905875
+      ],
+      "input": 0.2,
+      "speed_mps": 8.96846866607666,
+      "velocity": [
+        849.8407592773438,
+        300.2199401855469,
+        85.47447204589844
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 9.44478551670909,
+      "world": [
+        -105732.26966459806,
+        30681.57702503306,
+        395.75067911540845
+      ],
+      "en_m": [
+        12474.182164291236,
+        -5658.4233830591975
+      ],
+      "input": 0,
+      "speed_mps": 9.020676612854004,
+      "velocity": [
+        846.4989013671875,
+        299.9290466308594,
+        -139.2259979248047
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 9.950969614088535,
+      "world": [
+        -105322.1218285373,
+        30877.233173625442,
+        285.0807197824124
+      ],
+      "en_m": [
+        12478.282873264186,
+        -5660.37567338906
+      ],
+      "input": 0,
+      "speed_mps": 9.025470733642578,
+      "velocity": [
+        845.406982421875,
+        300.14605712890625,
+        -182.5729522705078
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 10.463424514979124,
+      "world": [
+        -104887.52714290876,
+        31009.306192223077,
+        285.2476607988817
+      ],
+      "en_m": [
+        12482.62988443178,
+        -5661.6928688957405
+      ],
+      "input": 0,
+      "speed_mps": 9.028292655944824,
+      "velocity": [
+        856.4315185546875,
+        304.426513671875,
+        104.37295532226562
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 10.97926401346922,
+      "world": [
+        -104440.34186385655,
+        31154.45954634362,
+        321.90355865892565
+      ],
+      "en_m": [
+        12487.103681160177,
+        -5663.141073031755
+      ],
+      "input": 0.2,
+      "speed_mps": 8.938010215759277,
+      "velocity": [
+        845.595947265625,
+        300.6663818359375,
+        71.99553680419922
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 11.49521591514349,
+      "world": [
+        -104001.36108096433,
+        31324.244321186008,
+        366.78640012269335
+      ],
+      "en_m": [
+        12491.49580751962,
+        -5664.835727338549
+      ],
+      "input": 0,
+      "speed_mps": 9.042407035827637,
+      "velocity": [
+        855.1710205078125,
+        303.9946594238281,
+        93.2330093383789
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 11.996507413685322,
+      "world": [
+        -103569.13926624774,
+        31482.666409082653,
+        433.0212285708012
+      ],
+      "en_m": [
+        12495.82070493582,
+        -5666.4169899369945
+      ],
+      "input": 0,
+      "speed_mps": 9.026829719543457,
+      "velocity": [
+        853.4788818359375,
+        303.19268798828125,
+        165.93907165527344
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 12.507590916007757,
+      "world": [
+        -103108.56804085214,
+        31603.80415019544,
+        504.53471966684907
+      ],
+      "en_m": [
+        12500.428905047655,
+        -5667.625223242458
+      ],
+      "input": 0.2,
+      "speed_mps": 8.98154354095459,
+      "velocity": [
+        845.55908203125,
+        300.1663513183594,
+        83.54951477050781
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 13.025719914585352,
+      "world": [
+        -102627.63734854345,
+        31682.938429736732,
+        474.20076075122574
+      ],
+      "en_m": [
+        12505.238198607858,
+        -5668.4123975318935
+      ],
+      "input": 0.2,
+      "speed_mps": 8.913473129272461,
+      "velocity": [
+        849.4309692382812,
+        301.86968994140625,
+        -262.186767578125
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 13.52981961518526,
+      "world": [
+        -102186.0173339107,
+        31799.157076149877,
+        323.1204807762675
+      ],
+      "en_m": [
+        12509.652126858831,
+        -5669.569716518559
+      ],
+      "input": 0,
+      "speed_mps": 9.053948402404785,
+      "velocity": [
+        861.3978271484375,
+        307.5517578125,
+        -356.72222900390625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 14.03061381354928,
+      "world": [
+        -101791.54340275453,
+        31967.7809870098,
+        143.30422296909762
+      ],
+      "en_m": [
+        12513.594411464608,
+        -5671.251228910841
+      ],
+      "input": 0,
+      "speed_mps": 9.0036039352417,
+      "velocity": [
+        842.0396118164062,
+        302.42010498046875,
+        -222.77210998535156
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 14.547848615795374,
+      "world": [
+        -101390.57158678163,
+        32201.843035885973,
+        143.5084783122661
+      ],
+      "en_m": [
+        12517.606023390788,
+        -5673.58858783753
+      ],
+      "input": 0.2,
+      "speed_mps": 8.934170722961426,
+      "velocity": [
+        847.67236328125,
+        307.3394470214844,
+        157.27835083007812
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 15.051366813480854,
+      "world": [
+        -100988.26498963362,
+        32452.376926270314,
+        238.52521790850722
+      ],
+      "en_m": [
+        12521.633127378642,
+        -5676.091453945077
+      ],
+      "input": 0.2,
+      "speed_mps": 8.921648025512695,
+      "velocity": [
+        843.36865234375,
+        309.1936340332031,
+        195.25379943847656
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 15.56506011635065,
+      "world": [
+        -100567.7038030728,
+        32666.256040296896,
+        325.81629765404006
+      ],
+      "en_m": [
+        12525.842315450747,
+        -5678.227558884156
+      ],
+      "input": 0,
+      "speed_mps": 9.008728981018066,
+      "velocity": [
+        846.7106323242188,
+        313.82281494140625,
+        104.63536071777344
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 16.07952531427145,
+      "world": [
+        -100122.71166268698,
+        32799.999940349,
+        357.50324306531576
+      ],
+      "en_m": [
+        12530.293982871797,
+        -5679.561644486066
+      ],
+      "input": 0,
+      "speed_mps": 9.083891868591309,
+      "velocity": [
+        852.1223754882812,
+        318.64703369140625,
+        56.10502243041992
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 16.584795616567135,
+      "world": [
+        -99668.51076952301,
+        32869.332709415496,
+        382.48271497483876
+      ],
+      "en_m": [
+        12534.837072550157,
+        -5680.251487733956
+      ],
+      "input": 0.2,
+      "speed_mps": 8.96269702911377,
+      "velocity": [
+        842.2312622070312,
+        316.9068298339844,
+        90.44407653808594
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 17.09534241631627,
+      "world": [
+        -99209.29656024616,
+        32984.07881277291,
+        393.61333015563883
+      ],
+      "en_m": [
+        12539.430370180722,
+        -5681.395306418662
+      ],
+      "input": 0.2,
+      "speed_mps": 8.933520317077637,
+      "velocity": [
+        835.2957763671875,
+        315.50579833984375,
+        -39.27019500732422
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 17.608168613165617,
+      "world": [
+        -98767.81061325531,
+        33158.05390637732,
+        373.21047251056723
+      ],
+      "en_m": [
+        12543.846197681536,
+        -5683.131292826593
+      ],
+      "input": 0,
+      "speed_mps": 9.026148796081543,
+      "velocity": [
+        844.564453125,
+        319.80792236328125,
+        -30.77159881591797
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 18.11380561441183,
+      "world": [
+        -98354.46518437448,
+        33312.100737302884,
+        319.10224421856424
+      ],
+      "en_m": [
+        12547.979744222905,
+        -5684.667941349065
+      ],
+      "input": 0,
+      "speed_mps": 9.074250221252441,
+      "velocity": [
+        846.478271484375,
+        320.96527099609375,
+        -145.9171905517578
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 18.628770913928747,
+      "world": [
+        -97928.39006491283,
+        33501.8676787075,
+        307.5781994223744
+      ],
+      "en_m": [
+        12552.24178030444,
+        -5686.562046376491
+      ],
+      "input": 0.2,
+      "speed_mps": 8.970627784729004,
+      "velocity": [
+        839.2166137695312,
+        318.3958435058594,
+        51.715328216552734
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 19.147561516612768,
+      "world": [
+        -97528.15229490292,
+        33760.9700559142,
+        343.1266075687701
+      ],
+      "en_m": [
+        12556.247004537534,
+        -5689.150112510948
+      ],
+      "input": 0,
+      "speed_mps": 9.049572944641113,
+      "velocity": [
+        847.5289306640625,
+        321.4323425292969,
+        106.91515350341797
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 19.657278414815664,
+      "world": [
+        -97129.64018217921,
+        33981.75103439377,
+        420.9315610562675
+      ],
+      "en_m": [
+        12560.235557296344,
+        -5691.355335389518
+      ],
+      "input": 0.2,
+      "speed_mps": 8.98562240600586,
+      "velocity": [
+        844.22216796875,
+        320.0851135253906,
+        107.7281494140625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 20.173102114349604,
+      "world": [
+        -96691.86265424537,
+        34120.79005448332,
+        465.6925638103136
+      ],
+      "en_m": [
+        12564.615399005062,
+        -5692.742541119852
+      ],
+      "input": 0,
+      "speed_mps": 9.002686500549316,
+      "velocity": [
+        847.8941650390625,
+        321.8755798339844,
+        99.27518463134766
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 20.687545616179705,
+      "world": [
+        -96224.05133301647,
+        34192.10224353604,
+        478.1645028751178
+      ],
+      "en_m": [
+        12569.294343444682,
+        -5693.451962341412
+      ],
+      "input": 0.2,
+      "speed_mps": 8.92176342010498,
+      "velocity": [
+        834.760498046875,
+        317.35528564453125,
+        -10.6151762008667
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 21.190808814018965,
+      "world": [
+        -95737.59307997249,
+        34236.078984267704,
+        431.4626533541794
+      ],
+      "en_m": [
+        12574.158280015452,
+        -5693.887378458891
+      ],
+      "input": 0.2,
+      "speed_mps": 8.956354141235352,
+      "velocity": [
+        831.6282348632812,
+        316.83428955078125,
+        -293.6614074707031
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": false,
+      "contact_component": null,
+      "contact_point": null,
+      "contact_normal": null
+    },
+    {
+      "t": 21.694485116750002,
+      "world": [
+        -95274.64630492487,
+        34332.619705378376,
+        297.6256744268498
+      ],
+      "en_m": [
+        12578.785681265237,
+        -5694.8478902924535
+      ],
+      "input": 0,
+      "speed_mps": 9.001692771911621,
+      "velocity": [
+        841.6810913085938,
+        323.2342224121094,
+        -236.50961303710938
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -83155.24078850777,
+        37649.905994522385,
+        -7.422636469302233
+      ],
+      "contact_normal": [
+        -0.9858177717209338,
+        -0.0008038224002481337,
+        -0.1678173853589722
+      ]
+    },
+    {
+      "t": 22.195914015173912,
+      "world": [
+        -94854.14894551698,
+        34518.39458031684,
+        233.13287054546828
+      ],
+      "en_m": [
+        12582.990784234238,
+        -5696.701673267579
+      ],
+      "input": 0.2,
+      "speed_mps": 8.971634864807129,
+      "velocity": [
+        836.57421875,
+        325.4543151855469,
+        -7.100578308105469
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -83155.35584563084,
+        37801.309723730985,
+        -7.439232689561322
+      ],
+      "contact_normal": [
+        -0.9865737181519297,
+        -0.0008042967327236469,
+        -0.16331457913683836
+      ]
+    },
+    {
+      "t": 22.69592761620879,
+      "world": [
+        -94469.69871123083,
+        34774.00300702755,
+        236.44900426293498
+      ],
+      "en_m": [
+        12586.837421641645,
+        -5699.254656466558
+      ],
+      "input": 0.2,
+      "speed_mps": 8.920963287353516,
+      "velocity": [
+        828.0404663085938,
+        326.8802185058594,
+        98.08722686767578
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -83155.64986290486,
+        38156.72719940019,
+        -7.4472046537848655
+      ],
+      "contact_normal": [
+        -0.996571350966949,
+        -0.0008103275745869075,
+        -0.08273382501209703
+      ]
+    },
+    {
+      "t": 23.208903815597296,
+      "world": [
+        -94101.67769213226,
+        35032.915815697,
+        292.60225862239844
+      ],
+      "en_m": [
+        12590.520914603223,
+        -5701.841262781723
+      ],
+      "input": 0,
+      "speed_mps": 9.037931442260742,
+      "velocity": [
+        842.114990234375,
+        338.24127197265625,
+        142.9892578125
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83155.90256115134,
+        38474.88846708462,
+        -6.883258169400506
+      ],
+      "contact_normal": [
+        -0.9989450150787467,
+        -0.0008080692881250574,
+        0.04591518129495408
+      ]
+    },
+    {
+      "t": 23.71614621579647,
+      "world": [
+        -93716.19054145445,
+        35284.171344168106,
+        367.8636240263484
+      ],
+      "en_m": [
+        12594.379411485566,
+        -5704.3513154468665
+      ],
+      "input": 0.2,
+      "speed_mps": 8.978963851928711,
+      "velocity": [
+        834.7608032226562,
+        341.8414306640625,
+        101.19518280029297
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.07437916502,
+        38688.90994987327,
+        -6.888756848784396
+      ],
+      "contact_normal": [
+        -0.9911116991879085,
+        -0.0007972804390826405,
+        0.13302993676897884
+      ]
+    },
+    {
+      "t": 24.217823214828968,
+      "world": [
+        -93298.38784843542,
+        35476.099042986294,
+        422.4944432619991
+      ],
+      "en_m": [
+        12598.560143931756,
+        -5706.267653336891
+      ],
+      "input": 0.2,
+      "speed_mps": 8.96531867980957,
+      "velocity": [
+        828.7672119140625,
+        347.00146484375,
+        100.34994506835938
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.23086760948,
+        38882.70975779477,
+        -6.902071715798229
+      ],
+      "contact_normal": [
+        -0.9908473053993674,
+        -0.0007969928781485005,
+        0.13498511838408414
+      ]
+    },
+    {
+      "t": 24.72151891514659,
+      "world": [
+        -92848.65281158655,
+        35595.78031036639,
+        457.03372971517996
+      ],
+      "en_m": [
+        12603.059186541872,
+        -5707.461098186585
+      ],
+      "input": 0,
+      "speed_mps": 9.044288635253906,
+      "velocity": [
+        831.8018798828125,
+        356.5916442871094,
+        78.90262603759766
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.25941901273,
+        38915.1835332052,
+        -6.901869765963056
+      ],
+      "contact_normal": [
+        -0.9979865357341308,
+        -0.0008064227924729671,
+        0.06342100736876162
+      ]
+    },
+    {
+      "t": 25.225821014493704,
+      "world": [
+        -92394.45449789014,
+        35677.32399922663,
+        439.13822018929005
+      ],
+      "en_m": [
+        12607.601440330523,
+        -5708.272688922539
+      ],
+      "input": 0.2,
+      "speed_mps": 8.954894065856934,
+      "velocity": [
+        818.1898803710938,
+        358.32781982421875,
+        -153.56549072265625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_45",
+      "contact_point": [
+        -83154.0427457355,
+        38719.288507741876,
+        -563.2245541368611
+      ],
+      "contact_normal": [
+        -0.9998615858066324,
+        -0.000827614900364879,
+        -0.016616987748171413
+      ]
+    },
+    {
+      "t": 25.729436714202166,
+      "world": [
+        -91970.9063165945,
+        35819.34214188986,
+        344.5430572975062
+      ],
+      "en_m": [
+        12611.83605793756,
+        -5709.688626146772
+      ],
+      "input": 0.2,
+      "speed_mps": 8.996352195739746,
+      "velocity": [
+        815.744873046875,
+        364.29638671875,
+        -194.28402709960938
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_45",
+      "contact_point": [
+        -83153.62597699836,
+        38622.82440134324,
+        -563.478055479005
+      ],
+      "contact_normal": [
+        -0.9992400535131645,
+        -0.0008028471726750505,
+        -0.03897012819359836
+      ]
+    },
+    {
+      "t": 26.233938813209534,
+      "world": [
+        -91577.11717313656,
+        36058.99480650387,
+        265.11912259857166
+      ],
+      "en_m": [
+        12615.774200107202,
+        -5712.081277961379
+      ],
+      "input": 0,
+      "speed_mps": 9.041447639465332,
+      "velocity": [
+        822.5145263671875,
+        373.17657470703125,
+        -60.042518615722656
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.15863105368,
+        38790.20939171359,
+        -6.896867454051971
+      ],
+      "contact_normal": [
+        -0.9999996628204488,
+        -0.0008112350824036711,
+        0.00012750149017927442
+      ]
+    },
+    {
+      "t": 26.739289414137602,
+      "world": [
+        -91203.33183413831,
+        36341.773419042576,
+        313.48765231007116
+      ],
+      "en_m": [
+        12619.515364743904,
+        -5714.906429598716
+      ],
+      "input": 0.2,
+      "speed_mps": 8.966134071350098,
+      "velocity": [
+        816.8201293945312,
+        374.4703674316406,
+        120.02357482910156
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.24029470645,
+        38890.925206853426,
+        -6.899916888651205
+      ],
+      "contact_normal": [
+        -0.9962147513737166,
+        -0.0008037770473841191,
+        0.08692251197395554
+      ]
+    },
+    {
+      "t": 27.251769214868546,
+      "world": [
+        -90790.9726263231,
+        36545.59524959392,
+        371.36613099968065
+      ],
+      "en_m": [
+        12623.641827886897,
+        -5716.941780398186
+      ],
+      "input": 0,
+      "speed_mps": 9.038291931152344,
+      "velocity": [
+        822.7142944335938,
+        379.7637634277344,
+        102.9119873046875
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.26539781278,
+        38916.29596361083,
+        -6.902237921211054
+      ],
+      "contact_normal": [
+        -0.9946291537892962,
+        -0.0008016583113217507,
+        0.10349977669705612
+      ]
+    },
+    {
+      "t": 27.76122871413827,
+      "world": [
+        -90588.42045756808,
+        36670.27067669884,
+        418.60458801015943
+      ],
+      "en_m": [
+        12625.669358022118,
+        -5718.187284619152
+      ],
+      "input": 0.2,
+      "speed_mps": 4.153739929199219,
+      "velocity": [
+        284.60931396484375,
+        364.228759765625,
+        95.95118713378906
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.5433474377,
+        39269.183930772226,
+        -6.918619484495139
+      ],
+      "contact_normal": [
+        -0.9973251444391964,
+        -0.0008053823758626223,
+        0.0730883549449914
+      ]
+    },
+    {
+      "t": 28.2785467132926,
+      "world": [
+        -90440.78036410641,
+        36768.018866817714,
+        441.7871976401239
+      ],
+      "en_m": [
+        12627.147040136182,
+        -5719.163760424899
+      ],
+      "input": 0.2,
+      "speed_mps": 1.8842687606811523,
+      "velocity": [
+        81.29021453857422,
+        239.7746124267578,
+        -1.0134259462356567
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83156.86445153676,
+        39659.797135879475,
+        -6.939715458021965
+      ],
+      "contact_normal": [
+        -0.9999536746090107,
+        -0.0008117115626402173,
+        -0.00959112924924811
+      ]
+    },
+    {
+      "t": 28.796119414269924,
+      "world": [
+        -90267.42900861872,
+        36911.02420617662,
+        416.6219875142088
+      ],
+      "en_m": [
+        12628.881176276756,
+        -5720.592190454967
+      ],
+      "input": 0.2,
+      "speed_mps": 5.726667881011963,
+      "velocity": [
+        428.4033508300781,
+        397.5002746582031,
+        -128.99951171875
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -83157.10798362171,
+        39950.65911824003,
+        -7.494818956416566
+      ],
+      "contact_normal": [
+        -0.9965262286481433,
+        -0.0008103022066537198,
+        -0.0832755608005275
+      ]
+    },
+    {
+      "t": 29.297830816358328,
+      "world": [
+        -90252.67247595609,
+        36967.74164593375,
+        451.11012233477584
+      ],
+      "en_m": [
+        12629.029932926367,
+        -5721.15953533192
+      ],
+      "input": 0.2,
+      "speed_mps": -4.016685485839844,
+      "velocity": [
+        -408.1044006347656,
+        -106.91883087158203,
+        86.0335464477539
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.56701551624,
+        40524.514606928,
+        -6.98707808268955
+      ],
+      "contact_normal": [
+        -0.4068194170564916,
+        -0.0002836478562607755,
+        0.9135085557616359
+      ]
+    },
+    {
+      "t": 29.81650321558118,
+      "world": [
+        -90330.29342703486,
+        36960.12538105478,
+        475.8322291494783
+      ],
+      "en_m": [
+        12628.254187854967,
+        -5721.084212667105
+      ],
+      "input": 0.2,
+      "speed_mps": 0.6648289561271667,
+      "velocity": [
+        2.4881598949432373,
+        121.36698150634766,
+        1.6827465295791626
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.42572760247,
+        40354.02761143906,
+        -6.976360278684297
+      ],
+      "contact_normal": [
+        -0.47821424802043677,
+        -0.0003433207310463479,
+        0.8782431412320415
+      ]
+    },
+    {
+      "t": 30.332214515656233,
+      "world": [
+        -90290.69126431529,
+        37029.428929047775,
+        482.224355713086
+      ],
+      "en_m": [
+        12628.650906516841,
+        -5721.776979447024
+      ],
+      "input": 0.2,
+      "speed_mps": 1.9475234746932983,
+      "velocity": [
+        104.30101013183594,
+        199.8951416015625,
+        24.240358352661133
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.52420598887,
+        40471.329282040984,
+        -6.9855022572301095
+      ],
+      "contact_normal": [
+        -0.530515809941065,
+        -0.00038733030116216527,
+        0.8476749526662997
+      ]
+    },
+    {
+      "t": 30.834598015993834,
+      "world": [
+        -90222.12491911322,
+        37138.31761584036,
+        508.53980223460616
+      ],
+      "en_m": [
+        12629.338010043917,
+        -5722.865529787818
+      ],
+      "input": 0.2,
+      "speed_mps": 2.794800281524658,
+      "velocity": [
+        174.5989990234375,
+        246.57713317871094,
+        70.8001937866211
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.70368075605,
+        40693.27882329996,
+        -6.996615883152117
+      ],
+      "contact_normal": [
+        -0.5368259094073327,
+        -0.00039267777936799334,
+        0.8436929469855439
+      ]
+    },
+    {
+      "t": 31.35348681360483,
+      "world": [
+        -90106.11589704757,
+        37304.8163818901,
+        542.2098443328935
+      ],
+      "en_m": [
+        12630.500162672115,
+        -5724.529856642199
+      ],
+      "input": 0.2,
+      "speed_mps": 4.229992866516113,
+      "velocity": [
+        299.1153259277344,
+        317.08038330078125,
+        83.05684661865234
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83158.00522221645,
+        41073.3376576672,
+        -7.0111567076528445
+      ],
+      "contact_normal": [
+        -0.4768125832156277,
+        -0.00034214676193280964,
+        0.8790049166090219
+      ]
+    },
+    {
+      "t": 31.85847931355238,
+      "world": [
+        -89944.6496649756,
+        37521.33648131878,
+        564.6187963772409
+      ],
+      "en_m": [
+        12632.11705342585,
+        -5726.693931731357
+      ],
+      "input": 0.2,
+      "speed_mps": 5.536930561065674,
+      "velocity": [
+        416.9644470214844,
+        375.0589599609375,
+        55.7437629699707
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83158.45392546726,
+        41613.44887898759,
+        -7.044793699897127
+      ],
+      "contact_normal": [
+        -0.3273818497125257,
+        -0.00021757069979929427,
+        0.9448920981476118
+      ]
+    },
+    {
+      "t": 32.36516271531582,
+      "world": [
+        -89729.61761975255,
+        37799.33694881278,
+        574.1121549103381
+      ],
+      "en_m": [
+        12634.269826049336,
+        -5729.472265410218
+      ],
+      "input": 0.2,
+      "speed_mps": 7.518022060394287,
+      "velocity": [
+        600.4343872070312,
+        456.5232849121094,
+        32.88246154785156
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83159.0544136365,
+        42361.905199967296,
+        -7.074559690285241
+      ],
+      "contact_normal": [
+        -0.023190639643935522,
+        3.199539931575723e-05,
+        0.9997310604403565
+      ]
+    },
+    {
+      "t": 32.879153314977884,
+      "world": [
+        -89414.80446261978,
+        38089.88981608141,
+        628.1556494933179
+      ],
+      "en_m": [
+        12637.421453830675,
+        -5732.375687114775
+      ],
+      "input": 0.2,
+      "speed_mps": 8.976560592651367,
+      "velocity": [
+        728.4085083007812,
+        526.1804809570312,
+        69.82255554199219
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.75174507438,
+        40753.18230637227,
+        -6.995829056220828
+      ],
+      "contact_normal": [
+        -0.020686538314346505,
+        3.4032217947035326e-05,
+        0.9997860100913482
+      ]
+    },
+    {
+      "t": 33.398818016052246,
+      "world": [
+        -89024.1264601211,
+        38334.78902496763,
+        648.226886090442
+      ],
+      "en_m": [
+        12641.330637146237,
+        -5734.8216688779075
+      ],
+      "input": 0.2,
+      "speed_mps": 8.974823951721191,
+      "velocity": [
+        721.3742065429688,
+        538.9530029296875,
+        7.630525588989258
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.68316919514,
+        40669.03817223068,
+        -6.992194310660125
+      ],
+      "contact_normal": [
+        -0.010160994722960288,
+        4.257283573339774e-05,
+        0.9999483748543189
+      ]
+    },
+    {
+      "t": 33.899708315730095,
+      "world": [
+        -88635.48794261985,
+        38570.6846680838,
+        614.6649269187034
+      ],
+      "en_m": [
+        12645.21821524296,
+        -5737.17717924317
+      ],
+      "input": 0.2,
+      "speed_mps": 8.990937232971191,
+      "velocity": [
+        724.4998168945312,
+        543.2412719726562,
+        -194.680908203125
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83159.83294063406,
+        43315.0132679557,
+        -7.133545925302315
+      ],
+      "contact_normal": [
+        -0.021812978243737523,
+        3.311194484600906e-05,
+        0.9997620681360827
+      ]
+    },
+    {
+      "t": 34.41849431395531,
+      "world": [
+        -88247.6156645796,
+        38847.444369306264,
+        510.41553182917227
+      ],
+      "en_m": [
+        12649.096963643522,
+        -5739.940739898467
+      ],
+      "input": 0.2,
+      "speed_mps": 8.972445487976074,
+      "velocity": [
+        728.0794067382812,
+        534.0376586914062,
+        -97.25433349609375
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83159.90503760942,
+        43408.988788009796,
+        -7.131227867357666
+      ],
+      "contact_normal": [
+        -0.044561604227971965,
+        1.4590283626790659e-05,
+        0.9990066382240677
+      ]
+    },
+    {
+      "t": 34.93691811338067,
+      "world": [
+        -87898.01173698205,
+        39146.92217836563,
+        520.6837892541882
+      ],
+      "en_m": [
+        12652.595642376245,
+        -5742.932758715558
+      ],
+      "input": 0.2,
+      "speed_mps": 8.961418151855469,
+      "velocity": [
+        737.6480712890625,
+        505.352294921875,
+        79.08712005615234
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.86761407221,
+        40897.85553105317,
+        -7.003333760978421
+      ],
+      "contact_normal": [
+        -0.03916212380293998,
+        1.8986973352766294e-05,
+        0.9992328696048475
+      ]
+    },
+    {
+      "t": 35.45571901649237,
+      "world": [
+        -87526.02904637998,
+        39425.4385758968,
+        542.446028872128
+      ],
+      "en_m": [
+        12656.318181768658,
+        -5745.715078473714
+      ],
+      "input": 0.2,
+      "speed_mps": 8.968804359436035,
+      "velocity": [
+        728.673095703125,
+        521.9158325195312,
+        44.98845291137695
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.95206779844,
+        40998.82138786389,
+        -7.00877188584127
+      ],
+      "contact_normal": [
+        -0.04167724855526575,
+        1.69463765354054e-05,
+        0.9991311258617074
+      ]
+    },
+    {
+      "t": 35.963656313717365,
+      "world": [
+        -87153.94542772624,
+        39682.64240071189,
+        556.3780211141401
+      ],
+      "en_m": [
+        12660.041391407489,
+        -5748.284205782714
+      ],
+      "input": 0,
+      "speed_mps": 9.060921669006348,
+      "velocity": [
+        723.8466186523438,
+        548.4620971679688,
+        -14.487380027770996
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_103",
+      "contact_point": [
+        -83157.94617184189,
+        40997.885586790566,
+        -7.005895086404053
+      ],
+      "contact_normal": [
+        -0.036397540219544985,
+        2.1267162836252042e-05,
+        0.9993373897806858
+      ]
+    },
+    {
+      "t": 36.48204871639609,
+      "world": [
+        -86784.25514282442,
+        39960.68785640919,
+        559.4502566843003
+      ],
+      "en_m": [
+        12663.74060663989,
+        -5751.061677124558
+      ],
+      "input": 0.2,
+      "speed_mps": 8.8145751953125,
+      "velocity": [
+        698.9105834960938,
+        538.184814453125,
+        30.278425216674805
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -79607.38299398503,
+        43546.99648143258,
+        117.13905288896058
+      ],
+      "contact_normal": [
+        -0.2800892434956827,
+        1.2340592198005993e-05,
+        0.9599739660666461
+      ]
+    },
+    {
+      "t": 36.9865140132606,
+      "world": [
+        -86432.0475380916,
+        40238.396754974674,
+        580.2750950526088
+      ],
+      "en_m": [
+        12667.265369250805,
+        -5753.836074850672
+      ],
+      "input": 0.2,
+      "speed_mps": 8.823978424072266,
+      "velocity": [
+        684.0223999023438,
+        558.9155883789062,
+        57.23031997680664
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -79298.17348449078,
+        43881.86361676594,
+        207.33709570544306
+      ],
+      "contact_normal": [
+        -0.2800892492242699,
+        1.2396258951669457e-05,
+        0.9599739643945129
+      ]
+    },
+    {
+      "t": 37.50056421384215,
+      "world": [
+        -86083.64670490567,
+        40543.54875146915,
+        620.7349784791265
+      ],
+      "en_m": [
+        12670.752703367685,
+        -5756.885099953709
+      ],
+      "input": 0.2,
+      "speed_mps": 8.93496036529541,
+      "velocity": [
+        680.5338745117188,
+        577.504638671875,
+        113.61795806884766
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -79000.88354755114,
+        44287.03176546094,
+        294.0816582866828
+      ],
+      "contact_normal": [
+        -0.2800892492242699,
+        1.2396258951669457e-05,
+        0.9599739643945129
+      ]
+    },
+    {
+      "t": 38.01863371580839,
+      "world": [
+        -85736.43228311742,
+        40850.67940905992,
+        687.2669620107488
+      ],
+      "en_m": [
+        12674.22874234525,
+        -5759.954141221171
+      ],
+      "input": 0.2,
+      "speed_mps": 8.942604064941406,
+      "velocity": [
+        672.2730102539062,
+        587.2714233398438,
+        126.43951416015625
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -78706.10661703441,
+        44692.16610800606,
+        380.0822261428111
+      ],
+      "contact_normal": [
+        -0.2800892434956827,
+        1.2340592198005993e-05,
+        0.9599739660666461
+      ]
+    },
+    {
+      "t": 38.53783921524882,
+      "world": [
+        -85388.23000728448,
+        41160.45434212639,
+        734.3089658248226
+      ],
+      "en_m": [
+        12677.714267995903,
+        -5763.049452793095
+      ],
+      "input": 0.2,
+      "speed_mps": 8.966394424438477,
+      "velocity": [
+        670.0525512695312,
+        597.2120361328125,
+        60.81885528564453
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -78408.02455621524,
+        45098.1559477851,
+        467.0503138474014
+      ],
+      "contact_normal": [
+        -0.2800892492242699,
+        1.2396258951669457e-05,
+        0.9599739643945129
+      ]
+    },
+    {
+      "t": 39.054235115647316,
+      "world": [
+        -85036.50166574039,
+        41464.13143920858,
+        757.5732598262364
+      ],
+      "en_m": [
+        12681.234500489976,
+        -5766.0835568014945
+      ],
+      "input": 0.2,
+      "speed_mps": 8.956514358520508,
+      "velocity": [
+        659.6390380859375,
+        608.4058227539062,
+        48.18732833862305
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -78094.04460598386,
+        45484.18723840901,
+        558.6539252785442
+      ],
+      "contact_normal": [
+        -0.2800892492242699,
+        1.2396258951669457e-05,
+        0.9599739643945129
+      ]
+    },
+    {
+      "t": 39.56881511583924,
+      "world": [
+        -84688.27344583813,
+        41762.75993634486,
+        790.9604275368945
+      ],
+      "en_m": [
+        12684.719905546564,
+        -5769.067288701659
+      ],
+      "input": 0.2,
+      "speed_mps": 8.808414459228516,
+      "velocity": [
+        635.6278686523438,
+        610.330078125,
+        76.09468078613281
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -77779.91648713179,
+        45859.87931103504,
+        650.3016832081485
+      ],
+      "contact_normal": [
+        -0.2800892492242699,
+        1.2396258951669457e-05,
+        0.9599739643945129
+      ]
+    },
+    {
+      "t": 40.07592251524329,
+      "world": [
+        -84337.60166055594,
+        42047.80135125362,
+        816.983779430619
+      ],
+      "en_m": [
+        12688.229479757076,
+        -5771.915067883095
+      ],
+      "input": 0.2,
+      "speed_mps": 8.958003044128418,
+      "velocity": [
+        639.7616577148438,
+        634.0189208984375,
+        -5.107361316680908
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -77447.1947464748,
+        46204.120092254394,
+        747.3744847862399
+      ],
+      "contact_normal": [
+        -0.2800892434956827,
+        1.2340592198005993e-05,
+        0.9599739660666461
+      ]
+    },
+    {
+      "t": 40.59114361554384,
+      "world": [
+        -83985.47975755179,
+        42363.06716797635,
+        787.5375259055638
+      ],
+      "en_m": [
+        12691.752624137607,
+        -5775.064611197303
+      ],
+      "input": 0.2,
+      "speed_mps": 8.884340286254883,
+      "velocity": [
+        643.8208618164062,
+        632.3724975585938,
+        -137.8110809326172
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -78610.1284320286,
+        48324.685164774564,
+        476.59369875796256
+      ],
+      "contact_normal": [
+        -0.27936390753300605,
+        -0.07174800578561043,
+        0.9575009299388058
+      ]
+    },
+    {
+      "t": 41.10217431560159,
+      "world": [
+        -83663.01178088403,
+        42712.18018221222,
+        719.3651035291616
+      ],
+      "en_m": [
+        12694.978683515623,
+        -5778.552540819384
+      ],
+      "input": 0,
+      "speed_mps": 9.025107383728027,
+      "velocity": [
+        670.6143188476562,
+        619.421142578125,
+        -75.66393280029297
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -76918.65577054454,
+        47117.328797449445,
+        901.5796147023502
+      ],
+      "contact_normal": [
+        -0.2800892434956827,
+        1.2340592198005993e-05,
+        0.9599739660666461
+      ]
+    },
+    {
+      "t": 41.619708113372326,
+      "world": [
+        -83348.72885878592,
+        43053.055281593704,
+        747.3847506699476
+      ],
+      "en_m": [
+        12698.124865541358,
+        -5781.9589693037415
+      ],
+      "input": 0,
+      "speed_mps": 9.004877090454102,
+      "velocity": [
+        648.40673828125,
+        615.0276489257812,
+        113.69461059570312
+      ],
+      "physics": true,
+      "dead": false,
+      "in_water": true,
+      "terrain_contact": true,
+      "contact_component": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.Cesium3DTileset_UAID_F4F19E4F59E2820803_1812687163.ProceduralMeshComponent_59",
+      "contact_point": [
+        -76672.6604051516,
+        47534.41423093682,
+        982.6554048210673
+      ],
+      "contact_normal": [
+        -0.27936390753300605,
+        -0.07174800578561043,
+        0.9575009299388058
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "Original player controls accelerate physical hull",
+      "passed": true
+    },
+    {
+      "name": "Actual hull collision query reaches retained island geometry",
+      "passed": true
+    },
+    {
+      "name": "Positive propulsion cannot drive through land",
+      "passed": false
+    },
+    {
+      "name": "Ship stays on water side of geographic shoreline",
+      "passed": true
+    }
+  ],
+  "initialized": true,
+  "error": null,
+  "initial": [
+    -108152.05602905154,
+    29836.375367432833,
+    1460.1327809095383
+  ],
+  "status": "ASSERTION_FAILURE"
+}
