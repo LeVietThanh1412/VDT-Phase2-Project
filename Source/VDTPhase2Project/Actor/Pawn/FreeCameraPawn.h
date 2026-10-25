@@ -7,6 +7,7 @@
 class UCameraComponent;
 class UFloatingPawnMovement;
 class USphereComponent;
+class UCesiumGlobeAnchorComponent;
 
 /** A temporary, collision-free inspection camera used by ACustomPlayerController. */
 UCLASS()
@@ -38,6 +39,11 @@ private:
 
     UPROPERTY(VisibleAnywhere, Category = "Free Camera")
     TObjectPtr<UFloatingPawnMovement> Movement;
+
+    UPROPERTY(VisibleAnywhere, Category="Free Camera") TObjectPtr<UCesiumGlobeAnchorComponent> GlobeAnchor;
+    bool bGeographicHeightLimits=false;
+    double MinimumHeightM=0;
+    double MaximumHeightM=0;
 
     float MinimumZ = -TNumericLimits<float>::Max();
     float MaximumZ = TNumericLimits<float>::Max();

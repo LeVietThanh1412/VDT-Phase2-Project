@@ -14,12 +14,20 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
 
 public:
     virtual void SetupInputComponent() override;
+    virtual void PlayerTick(float DeltaTime) override;
+    virtual void OnPossess(APawn* InPawn) override;
+    UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
+    UFUNCTION(BlueprintCallable, Category="Spectator") void ShowBattlefieldOverview();
+    UPROPERTY(BlueprintReadOnly, Category="Spectator") bool bDeathSpectating=false;
+    UPROPERTY(BlueprintReadOnly, Category="Spectator") TObjectPtr<APawn> FollowedTeammate;
     UFUNCTION(BlueprintCallable, Category="Camera")
     void ToggleFreeCamera();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
 
 private:
+    void EnterDeathSpectator();
+    UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;
 

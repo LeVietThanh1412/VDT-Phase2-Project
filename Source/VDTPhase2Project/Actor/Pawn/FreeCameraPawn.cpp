@@ -3,6 +3,8 @@
 #include "Camera/CameraComponent.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/FloatingPawnMovement.h"
+#include "CesiumGlobeAnchorComponent.h"
+#include "CesiumGeoreference.h"
 
 namespace
 {
@@ -22,6 +24,8 @@ AFreeCameraPawn::AFreeCameraPawn()
     CollisionRoot->InitSphereRadius(16.0f);
     CollisionRoot->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     RootComponent = CollisionRoot;
+    GlobeAnchor=CreateDefaultSubobject<UCesiumGlobeAnchorComponent>(TEXT("GlobeAnchor"));
+    GlobeAnchor->SetAdjustOrientationForGlobeWhenMoving(false);
 
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
     Camera->SetupAttachment(RootComponent);
@@ -38,6 +42,15 @@ void AFreeCameraPawn::Tick(float DeltaSeconds)
     Super::Tick(DeltaSeconds);
 
     FVector Location = GetActorLocation();
+    if(bGeographicHeightLimits && GlobeAnchor)
+        if(auto* Geo=GlobeAnchor->ResolveGeoreference())
+        {
+            FVector LLH=Geo->TransformUnrealPositionToLongitudeLatitudeHeight(Location);
+            const double Height=FMath::Clamp(LLH.Z,MinimumHeightM,MaximumHeightM);
+            if(!FMath::IsNearlyEqual(LLH.Z,Height,.01))
+            {LLH.Z=Height;SetActorLocation(Geo->TransformLongitudeLatitudeHeightPositionToUnreal(LLH),false,nullptr,ETeleportType::TeleportPhysics);}
+            return;
+        }
     const float ClampedZ = FMath::Clamp(Location.Z, MinimumZ, MaximumZ);
     if (!FMath::IsNearlyEqual(Location.Z, ClampedZ))
     {
@@ -62,6 +75,13 @@ void AFreeCameraPawn::SetHeightLimits(float InMinimumZ, float InMaximumZ)
 {
     MinimumZ = FMath::Min(InMinimumZ, InMaximumZ);
     MaximumZ = FMath::Max(InMinimumZ, InMaximumZ);
+    if(GlobeAnchor)if(auto* Geo=GlobeAnchor->ResolveGeoreference())
+    {
+        FVector Position=GetActorLocation();Position.Z=MinimumZ;
+        MinimumHeightM=Geo->TransformUnrealPositionToLongitudeLatitudeHeight(Position).Z;
+        Position.Z=MaximumZ;MaximumHeightM=Geo->TransformUnrealPositionToLongitudeLatitudeHeight(Position).Z;
+        bGeographicHeightLimits=true;
+    }
 }
 
 void AFreeCameraPawn::MoveForward(float Value)

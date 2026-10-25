@@ -5,6 +5,9 @@
 #include "EngineUtils.h"
 #include "InputCoreTypes.h"
 #include "ShipCombatComponent.h"
+#include "NavalBattleUI.h"
+#include "CesiumGlobeAnchorComponent.h"
+#include "CesiumGeoreference.h"
 
 void ACustomPlayerController::SetupInputComponent()
 {
@@ -12,10 +15,86 @@ void ACustomPlayerController::SetupInputComponent()
     check(InputComponent);
     InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ACustomPlayerController::ToggleFreeCamera);
     InputComponent->BindKey(EKeys::Q, IE_Pressed, this, &ACustomPlayerController::CycleShipCamera);
+    InputComponent->BindKey(EKeys::Tab, IE_Pressed, this, &ACustomPlayerController::NextTeammate);
+    InputComponent->BindKey(EKeys::M, IE_Pressed, this, &ACustomPlayerController::ShowBattlefieldOverview);
+}
+
+void ACustomPlayerController::OnPossess(APawn* InPawn)
+{
+    Super::OnPossess(InPawn);
+    if(InPawn && InPawn->FindComponentByClass<UShipWeaponComponent>() && !bDeathSpectating)
+        OriginalPlayerShip=InPawn;
+}
+
+void ACustomPlayerController::PlayerTick(float DeltaTime)
+{
+    Super::PlayerTick(DeltaTime);
+    const auto* Weapon=IsValid(OriginalPlayerShip)?OriginalPlayerShip->FindComponentByClass<UShipWeaponComponent>():nullptr;
+    if(!bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
+    if(bDeathSpectating && FollowedTeammate)
+    {
+        const auto* FollowWeapon=IsValid(FollowedTeammate)?FollowedTeammate->FindComponentByClass<UShipWeaponComponent>():nullptr;
+        if(!FollowWeapon || FollowWeapon->bIsDestroyed)NextTeammate();
+    }
+}
+
+void ACustomPlayerController::EnterDeathSpectator()
+{
+    bDeathSpectating=true;
+    ResetIgnoreMoveInput();ResetIgnoreLookInput();
+    // Only our own inspection pawn is possessed. Teammate controllers never change.
+    if(!IsValid(FreeCameraPawn))
+    {
+        FVector Eye;FRotator Rotation;GetPlayerViewPoint(Eye,Rotation);
+        FActorSpawnParameters Params;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        FreeCameraPawn=GetWorld()->SpawnActor<AFreeCameraPawn>(Eye,Rotation,Params);
+    }
+    if(IsValid(FreeCameraPawn))Possess(FreeCameraPawn);
+    PreviousPawn=nullptr;
+    NextTeammate();
+}
+
+void ACustomPlayerController::NextTeammate()
+{
+    if(!bDeathSpectating)return;
+    TArray<APawn*> Friends;
+    for(TActorIterator<APawn> It(GetWorld());It;++It)
+        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && W->Team()==0 && !W->bIsDestroyed)Friends.Add(*It);
+    Friends.Sort([](const APawn& A,const APawn& B){return A.GetPathName()<B.GetPathName();});
+    if(Friends.IsEmpty()){ShowBattlefieldOverview();return;}
+    const int32 Index=Friends.IndexOfByKey(FollowedTeammate);
+    FollowedTeammate=Friends[(Index+1)%Friends.Num()];
+    SetViewTargetWithBlend(FollowedTeammate,.25f);
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
+}
+
+void ACustomPlayerController::ShowBattlefieldOverview()
+{
+    if(!bDeathSpectating || !IsValid(FreeCameraPawn))return;
+    FVector Focus=FVector::ZeroVector;int32 Count=0;
+    for(TActorIterator<APawn> It(GetWorld());It;++It)
+        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && !W->bIsDestroyed){Focus+=It->GetActorLocation();++Count;}
+    if(Count)Focus/=Count;
+    else if(IsValid(OriginalPlayerShip))Focus=OriginalPlayerShip->GetActorLocation();
+    else Focus=FreeCameraPawn->GetActorLocation();
+    FVector Up=FVector::UpVector;
+    if(auto* Anchor=FreeCameraPawn->FindComponentByClass<UCesiumGlobeAnchorComponent>())
+        if(auto* Geo=Anchor->ResolveGeoreference())
+        {
+            const FVector LLH=Geo->TransformUnrealPositionToLongitudeLatitudeHeight(Focus);
+            Up=(Geo->TransformLongitudeLatitudeHeightPositionToUnreal(LLH+FVector(0,0,1))-Focus).GetSafeNormal();
+        }
+    const FVector Eye=Focus+Up*180000-FVector::VectorPlaneProject(FVector(1,0,0),Up).GetSafeNormal()*65000;
+    FreeCameraPawn->SetActorLocation(Eye,false,nullptr,ETeleportType::TeleportPhysics);
+    FreeCameraPawn->SetHeightLimits(Eye.Z-180000,Eye.Z+180000);
+    SetControlRotation((Focus-Eye).Rotation());FollowedTeammate=nullptr;
+    SetViewTargetWithBlend(FreeCameraPawn,.25f);
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
 }
 
 void ACustomPlayerController::CycleShipCamera()
 {
+    if(bDeathSpectating){NextTeammate();return;}
     UWorld* World = GetWorld();
     if (!World)
     {
@@ -67,6 +146,7 @@ void ACustomPlayerController::CycleShipCamera()
 
 void ACustomPlayerController::ToggleFreeCamera()
 {
+    if(bDeathSpectating){ShowBattlefieldOverview();return;}
     // Keep free-camera transform across toggles, but never possess the same pawn twice.
     if (IsValid(FreeCameraPawn))
     {
