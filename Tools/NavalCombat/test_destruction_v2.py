@@ -53,8 +53,9 @@ def tick(dt):
             st.update(phase='brief_roll',at=t)
         if st['phase']=='brief_roll':
             if t-st['at']<.22:roll(st['brief'],130)
-            elif t-st['at']<.3:
+            elif not st.get('brief_restored'):
                 roll(st['brief'],0);hull(st['brief']).set_physics_angular_velocity_in_degrees(unreal.Vector(),False)
+                st['brief_restored']=True
             elif t-st['at']>=1.5:
                 check('brief roll does not kill',not hp(st['brief']).is_destroyed)
                 for s in st['victims'][:3]:

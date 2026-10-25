@@ -1,5 +1,44 @@
 # Naval Battle V2 — progress ledger
 
+## Active checkpoint — 2026-10-25
+
+Branch `feature/quangninh-battle-integration`, HEAD `aefaea6` (pushed). Earlier
+verified commits `d4a8b38` / `84a6210` / `aefaea6` are in open, unmerged PR #7.
+Main and Thanh were not changed by this agent. The dated records below are
+historical; use this active checkpoint for the next action.
+
+- Phase 6 destruction: PASSED. Standalone native billboard fallback built
+  successfully (21.69 s / 5 actions). Two materials and five hidden shared
+  BP_Ship components saved with recovery copies and exact original force-graph
+  validation. First low-emission visual attempt failed despite activation flags;
+  daylight emissive correction shows actual fire on a rolled wreck. Warm tint
+  and radial smoke opacity are saved; final screenshot A00002 visibly shows
+  orange flames and dark smoke. Existing Niagara and staged sinking are preserved.
+  Final five-wreck health/capsize/rebase/sinking/cleanup regression PASSED 66/66;
+  short-roll fixture missed a narrow reset window once, failure preserved and
+  deterministic one-time reset fixed; gameplay capsize unchanged. Saved
+  runtime health/capsize spectator tests also pass effect activation, hiding
+  at Submerged and actor cleanup. See WRECK_BILLBOARD_REPORT.md and JSON files.
+- Phase 7 spectator: PASSED focused functional gate, source compiled (35.70 s / 7 actions), editor
+  restarted, seven BPs compiled, original force graph validated. Current-map
+  health, original-projectile and confirmed-player-capsize cases PASSED. Each
+  checks automatic Blue follow, Tab/M handlers, preserved five AI controllers,
+  follow-target death, no-teammate overview, explicit geographic rebase and
+  cleanup. Death while F free camera PASSED too. Results: 22/24/22/23 checks.
+  Physical keyboard
+  routing and final visual integration are still pending. Initial projectile
+  fixture checked before PlayerTick; failed raw result preserved, bounded
+  0.2 s next-tick observation added, actual projectile repeat passed.
+- Phase 8 turns / 9 prematch / 10 final QA: NOT_STARTED.
+- Modified source: ShipWreckBillboardComponent.h/.cpp, CustomPlayerController.h/.cpp,
+  Actor/Pawn/FreeCameraPawn.h/.cpp, NavalBattleUI.cpp (preserves pre-existing
+  formatting). Assets: BP_Ship and two M_Wreck*Billboard materials. Tools:
+  setup_wreck_billboards.py, probe_wreck_billboards.py, test_spectator.py.
+- Reproduction: execute each file through Tools/SeaNavigation/mcp_client.py using
+  file-based exec; never start an editor-only operation while PIE is active.
+- Next: save, commit/push verified VFX and spectator independently, then implement the
+  single optional turn scheduler and prematch UI. Do not stop at this checkpoint.
+
 Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.
 
 | Master phase | Status | Current evidence / next action |
