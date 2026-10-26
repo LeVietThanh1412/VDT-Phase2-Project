@@ -1,0 +1,627 @@
+{
+  "phase": "fresh",
+  "checks": [
+    {
+      "name": "direct PIE development defaults",
+      "passed": true
+    },
+    {
+      "name": "direct PIE menu closed",
+      "passed": true
+    },
+    {
+      "name": "menu defaults 3v3 Normal RealTime",
+      "passed": true
+    },
+    {
+      "name": "configuration menu pauses match",
+      "passed": true
+    },
+    {
+      "name": "cancel closes menu",
+      "passed": true
+    },
+    {
+      "name": "cancel preserves settings",
+      "passed": true
+    },
+    {
+      "name": "cancel resumes match",
+      "passed": true
+    },
+    {
+      "name": "setup widget opens",
+      "passed": true
+    },
+    {
+      "name": "unused class selectors disabled",
+      "passed": true
+    },
+    {
+      "name": "selected match configured after actual travel",
+      "passed": true
+    },
+    {
+      "name": "exact selected ship count",
+      "passed": true
+    },
+    {
+      "name": "exactly one Blue player",
+      "passed": true
+    },
+    {
+      "name": "no duplicate AI controllers",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected mode retained",
+      "passed": true
+    },
+    {
+      "name": "settings persist through level travel",
+      "passed": true
+    },
+    {
+      "name": "preselected turn starts with player only",
+      "passed": true
+    },
+    {
+      "name": "setup widget opens",
+      "passed": true
+    },
+    {
+      "name": "unused class selectors disabled",
+      "passed": true
+    },
+    {
+      "name": "selected match configured after actual travel",
+      "passed": true
+    },
+    {
+      "name": "exact selected ship count",
+      "passed": true
+    },
+    {
+      "name": "exactly one Blue player",
+      "passed": true
+    },
+    {
+      "name": "no duplicate AI controllers",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected mode retained",
+      "passed": true
+    },
+    {
+      "name": "settings persist through level travel",
+      "passed": true
+    },
+    {
+      "name": "selected real time permits every ship",
+      "passed": true
+    },
+    {
+      "name": "setup widget opens",
+      "passed": true
+    },
+    {
+      "name": "unused class selectors disabled",
+      "passed": true
+    },
+    {
+      "name": "selected match configured after actual travel",
+      "passed": true
+    },
+    {
+      "name": "exact selected ship count",
+      "passed": true
+    },
+    {
+      "name": "exactly one Blue player",
+      "passed": true
+    },
+    {
+      "name": "no duplicate AI controllers",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected mode retained",
+      "passed": true
+    },
+    {
+      "name": "settings persist through level travel",
+      "passed": true
+    },
+    {
+      "name": "selected real time permits every ship",
+      "passed": true
+    },
+    {
+      "name": "setup widget opens",
+      "passed": true
+    },
+    {
+      "name": "unused class selectors disabled",
+      "passed": true
+    },
+    {
+      "name": "selected match configured after actual travel",
+      "passed": true
+    },
+    {
+      "name": "exact selected ship count",
+      "passed": true
+    },
+    {
+      "name": "exactly one Blue player",
+      "passed": true
+    },
+    {
+      "name": "no duplicate AI controllers",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected mode retained",
+      "passed": true
+    },
+    {
+      "name": "settings persist through level travel",
+      "passed": true
+    },
+    {
+      "name": "preselected turn starts with player only",
+      "passed": true
+    },
+    {
+      "name": "setup widget opens",
+      "passed": true
+    },
+    {
+      "name": "unused class selectors disabled",
+      "passed": true
+    },
+    {
+      "name": "selected match configured after actual travel",
+      "passed": true
+    },
+    {
+      "name": "exact selected ship count",
+      "passed": true
+    },
+    {
+      "name": "exactly one Blue player",
+      "passed": true
+    },
+    {
+      "name": "no duplicate AI controllers",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected per-slot physics class",
+      "passed": true
+    },
+    {
+      "name": "selected AI shooting preset",
+      "passed": true
+    },
+    {
+      "name": "100 HP maximum retained",
+      "passed": true
+    },
+    {
+      "name": "existing patrol references retained",
+      "passed": true
+    },
+    {
+      "name": "selected mode retained",
+      "passed": true
+    },
+    {
+      "name": "settings persist through level travel",
+      "passed": true
+    },
+    {
+      "name": "selected real time permits every ship",
+      "passed": true
+    },
+    {
+      "name": "fresh PIE resets to unselected development defaults",
+      "passed": true
+    }
+  ],
+  "matches": [
+    {
+      "blue": 1,
+      "red": 1,
+      "skill": 0,
+      "mode": 1,
+      "classes": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "ships": [
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "BP_Ship_C_0"
+      ],
+      "ai_controllers": 1
+    },
+    {
+      "blue": 2,
+      "red": 2,
+      "skill": 2,
+      "mode": 0,
+      "classes": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "ships": [
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "BP_Ship_C_0"
+      ],
+      "ai_controllers": 3
+    },
+    {
+      "blue": 3,
+      "red": 3,
+      "skill": 1,
+      "mode": 0,
+      "classes": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "ships": [
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "BP_Ship_C_0"
+      ],
+      "ai_controllers": 5
+    },
+    {
+      "blue": 2,
+      "red": 3,
+      "skill": 0,
+      "mode": 1,
+      "classes": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "ships": [
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "BP_Ship_C_0"
+      ],
+      "ai_controllers": 4
+    },
+    {
+      "blue": 3,
+      "red": 1,
+      "skill": 2,
+      "mode": 0,
+      "classes": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "ships": [
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+        "BP_Ship_C_0"
+      ],
+      "ai_controllers": 3
+    }
+  ],
+  "case": 5,
+  "error": null,
+  "wall_started": 12429.031,
+  "paused_time": 3.002735711634159,
+  "at": 12447.281,
+  "status": "PASSED"
+}

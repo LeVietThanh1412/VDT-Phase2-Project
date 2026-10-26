@@ -1,5 +1,6 @@
 #include "ShipMovementComponent.h"
 #include "ShipCombatComponent.h"
+#include "NavalBattleUI.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -73,6 +74,7 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
 FVector UShipMovementComponent::FilterRudder(AActor* Ship,FVector Force)
 {
     if(!IsValid(Ship) || Force.ContainsNaN())return FVector::ZeroVector;
+    if(!UNavalBattleSubsystem::CanShipAct(Ship))return FVector::ZeroVector;
     if(const auto* W=Ship->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)return FVector::ZeroVector;
     if(const auto* M=Ship->FindComponentByClass<UShipMovementComponent>())return Force*M->AppliedRudderScale;
     return Force;
@@ -85,6 +87,7 @@ float UShipMovementComponent::SignedForwardSpeed() const
 FVector UShipMovementComponent::FilterPropulsion(AActor* Ship,FVector Force)
 {
     if(!IsValid(Ship) || Force.ContainsNaN())return FVector::ZeroVector;
+    if(!UNavalBattleSubsystem::CanShipAct(Ship))return FVector::ZeroVector;
     if(const auto* W=Ship->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)return FVector::ZeroVector;
     const auto* M=Ship->FindComponentByClass<UShipMovementComponent>();if(!M)return Force;
     const float Speed=M->SignedForwardSpeed(),Thrust=FVector::DotProduct(Force,Forward(Ship));

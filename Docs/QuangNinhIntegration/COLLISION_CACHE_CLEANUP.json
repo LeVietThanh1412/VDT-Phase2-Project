@@ -1,0 +1,15 @@
+{
+  "test": "cache fix teardown after forced eviction and full patrol",
+  "remaining_procedural_components": [
+    "/Script/ProceduralMeshComponent.Default__ProceduralMeshComponent",
+    "/Script/CameraCalibrationCore.Default__CalibrationPointComponent",
+    "/Script/CameraCalibrationCore.Default__CameraCalibrationCheckerboard:TopLeft",
+    "/Script/CameraCalibrationCore.Default__CameraCalibrationCheckerboard:TopRight",
+    "/Script/CameraCalibrationCore.Default__CameraCalibrationCheckerboard:BottomLeft",
+    "/Script/CameraCalibrationCore.Default__CameraCalibrationCheckerboard:BottomRight",
+    "/Script/CameraCalibrationCore.Default__CameraCalibrationCheckerboard:Center",
+    "/Script/ResonanceAudio.Default__ResonanceAudioDirectivityVisualizer:VisualizationMesh"
+  ],
+  "game_world_active": false,
+  "passed": true
+}

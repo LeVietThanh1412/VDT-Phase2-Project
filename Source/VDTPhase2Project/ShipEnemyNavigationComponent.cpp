@@ -1,4 +1,5 @@
 #include "ShipEnemyNavigationComponent.h"
+#include "NavalBattleUI.h"
 #include "ShipCombatComponent.h"
 #include "ShipEnemyProjectile.h"
 #include "SeaTerrainCollisionComponent.h"
@@ -623,6 +624,12 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     if(const auto* W=GetOwner()->FindComponentByClass<UShipWeaponComponent>())if(W->bIsDestroyed){bDead=true;NavigationState=EShipNavigationState::Dead;SetDriveCommand(0,0);return true;}
     if(!bNewNavigationEnabled && !bDead){bOwnsCommands=false;return false;}
     bOwnsCommands=true;
+    if(!UNavalBattleSubsystem::CanShipAct(GetOwner()))
+    {
+        SetDriveCommand(0,0);TimeSinceProgress=0;
+        if(ArrivalTime>=0)ArrivalTime+=FMath::Max(0.f,Dt);
+        return true;
+    }
     // A cached boolean alone cannot certify non-reflected shared data after a
     // streaming lifecycle transition or editor component reconstruction.
     if(!bInitialized || !Map.IsValid() || !IsValid(Hull) || !IsValid(Heading) || !IsValid(GlobeAnchor) || !IsValid(Georeference) || GlobeAnchor->ResolveGeoreference()!=Georeference)

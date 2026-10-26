@@ -1,0 +1,370 @@
+{
+  "ships": {
+    "BP_ShipEnemy2": {
+      "last_t": 65.0033375248313,
+      "frames": 3124,
+      "contact_frames": 2994,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.4672253988683224,
+      "max_abs_vertical_speed_mps": 5.60437744140625,
+      "max_speed_mps": 18.10004940870074,
+      "min_root_z_m": 2.358152761401761,
+      "max_root_z_m": 6.457900927592672,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -87924.29490378499,
+        -250147.06229230762
+      ],
+      "last": [
+        -89431.28361787747,
+        -204777.91195037842
+      ],
+      "floor_hits_during_contact_loss": 0,
+      "last_loss_floor": {
+        "t": 33.776917424052954,
+        "root_z_m": 3.9736876222441486,
+        "vertical_speed_mps": -4.101258850097656,
+        "terrain": false,
+        "floor_world_z_m": null,
+        "component": null
+      },
+      "contact_ratio": 0.9583866837387964
+    },
+    "Friendly_AI_1": {
+      "last_t": 65.0033375248313,
+      "frames": 3124,
+      "contact_frames": 3124,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 3.0724642944335936,
+      "max_speed_mps": 19.125059575461805,
+      "min_root_z_m": 1.8416469261500845,
+      "max_root_z_m": 4.871460677812533,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -298021.3999963701,
+        -130317.72254633904
+      ],
+      "last": [
+        -279605.57138161175,
+        -232495.73090929873
+      ],
+      "contact_ratio": 1.0
+    },
+    "Friendly_AI_2": {
+      "last_t": 65.0033375248313,
+      "frames": 3124,
+      "contact_frames": 3124,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 2.0994175720214843,
+      "max_speed_mps": 17.755178326093915,
+      "min_root_z_m": 2.74893923561276,
+      "max_root_z_m": 5.645599117410156,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -188021.63259601593,
+        -130228.40144383907
+      ],
+      "last": [
+        -176462.50929886935,
+        -185951.4898361801
+      ],
+      "contact_ratio": 1.0
+    },
+    "BP_ShipEnemy3": {
+      "last_t": 65.0033375248313,
+      "frames": 3124,
+      "contact_frames": 3124,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 1.7701666259765625,
+      "max_speed_mps": 18.86708619014217,
+      "min_root_z_m": 2.188658942104929,
+      "max_root_z_m": 5.4409291938384845,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -38013.920229166746,
+        -140106.58017909527
+      ],
+      "last": [
+        -40474.03820502086,
+        -182327.73289616604
+      ],
+      "contact_ratio": 1.0
+    },
+    "BP_ShipEnemy": {
+      "last_t": 65.0033375248313,
+      "frames": 3124,
+      "contact_frames": 3115,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.13672680035233498,
+      "max_abs_vertical_speed_mps": 3.5227066040039063,
+      "max_speed_mps": 19.134595047967036,
+      "min_root_z_m": 2.1659210346688837,
+      "max_root_z_m": 4.88368803522489,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -137916.02627420425,
+        -260187.6742299199
+      ],
+      "last": [
+        -139217.24566157616,
+        -208911.4094443069
+      ],
+      "floor_hits_during_contact_loss": 0,
+      "last_loss_floor": {
+        "t": 21.536671824753284,
+        "root_z_m": 4.499709071913074,
+        "vertical_speed_mps": -2.2849832153320313,
+        "terrain": false,
+        "floor_world_z_m": null,
+        "component": null
+      },
+      "contact_ratio": 0.9971190781049936
+    }
+  },
+  "error": null,
+  "last": 64.78435522690415,
+  "profile_configured": {
+    "BP_ShipEnemy2": "Large",
+    "Friendly_AI_2": "Large"
+  },
+  "checks": {
+    "five_physical_AI": true,
+    "all_move_under_original_propulsion": true,
+    "no_sustained_pontoon_contact_loss": true,
+    "hulls_remain_near_authored_ocean": true
+  },
+  "status": "FLOTATION_VERIFIED",
+  "samples": 65,
+  "raw_evidence": "FLOTATION_MIXED_AFTER_DAMPING.json.gz",
+  "first_sample": {
+    "t": 0.016666702926158905,
+    "ships": {
+      "BP_ShipEnemy2": {
+        "last_t": 0.016666702926158905,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -87924.29490378499,
+          -250147.06229230762
+        ],
+        "last": []
+      },
+      "Friendly_AI_1": {
+        "last_t": 0.016666702926158905,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -298021.3999963701,
+          -130317.72254633904
+        ],
+        "last": []
+      },
+      "Friendly_AI_2": {
+        "last_t": 0.016666702926158905,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -188021.63259601593,
+          -130228.40144383907
+        ],
+        "last": []
+      },
+      "BP_ShipEnemy3": {
+        "last_t": 0.016666702926158905,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -38013.920229166746,
+          -140106.58017909527
+        ],
+        "last": []
+      },
+      "BP_ShipEnemy": {
+        "last_t": 0.016666702926158905,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -137916.02627420425,
+          -260187.6742299199
+        ],
+        "last": []
+      }
+    }
+  },
+  "last_sample": {
+    "t": 64.78435522690415,
+    "ships": {
+      "BP_ShipEnemy2": {
+        "last_t": 64.78435522690415,
+        "frames": 3111,
+        "contact_frames": 2981,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0.4672253988683224,
+        "max_abs_vertical_speed_mps": 5.60437744140625,
+        "max_speed_mps": 18.10004940870074,
+        "min_root_z_m": 2.358152761401761,
+        "max_root_z_m": 6.457900927592672,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -87924.29490378499,
+          -250147.06229230762
+        ],
+        "last": [
+          -89417.72844254831,
+          -204789.53580987063
+        ],
+        "floor_hits_during_contact_loss": 0,
+        "last_loss_floor": {
+          "t": 33.776917424052954,
+          "root_z_m": 3.9736876222441486,
+          "vertical_speed_mps": -4.101258850097656,
+          "terrain": false,
+          "floor_world_z_m": null,
+          "component": null
+        }
+      },
+      "Friendly_AI_1": {
+        "last_t": 64.78435522690415,
+        "frames": 3111,
+        "contact_frames": 3111,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 3.0724642944335936,
+        "max_speed_mps": 19.125059575461805,
+        "min_root_z_m": 1.8416469261500845,
+        "max_root_z_m": 4.871460677812533,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -298021.3999963701,
+          -130317.72254633904
+        ],
+        "last": [
+          -279604.4352249577,
+          -232494.62027646136
+        ]
+      },
+      "Friendly_AI_2": {
+        "last_t": 64.78435522690415,
+        "frames": 3111,
+        "contact_frames": 3111,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 2.0994175720214843,
+        "max_speed_mps": 17.755178326093915,
+        "min_root_z_m": 2.74893923561276,
+        "max_root_z_m": 5.645599117410156,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -188021.63259601593,
+          -130228.40144383907
+        ],
+        "last": [
+          -176486.21177668,
+          -185899.78886468554
+        ]
+      },
+      "BP_ShipEnemy3": {
+        "last_t": 64.78435522690415,
+        "frames": 3111,
+        "contact_frames": 3111,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 1.7701666259765625,
+        "max_speed_mps": 18.86708619014217,
+        "min_root_z_m": 2.188658942104929,
+        "max_root_z_m": 5.4409291938384845,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -38013.920229166746,
+          -140106.58017909527
+        ],
+        "last": [
+          -40474.30189522052,
+          -182330.20242610338
+        ]
+      },
+      "BP_ShipEnemy": {
+        "last_t": 64.78435522690415,
+        "frames": 3111,
+        "contact_frames": 3102,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0.13672680035233498,
+        "max_abs_vertical_speed_mps": 3.5227066040039063,
+        "max_speed_mps": 19.134595047967036,
+        "min_root_z_m": 2.1659210346688837,
+        "max_root_z_m": 4.88368803522489,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -137916.02627420425,
+          -260187.6742299199
+        ],
+        "last": [
+          -139210.12969555796,
+          -208974.35690955736
+        ],
+        "floor_hits_during_contact_loss": 0,
+        "last_loss_floor": {
+          "t": 21.536671824753284,
+          "root_z_m": 4.499709071913074,
+          "vertical_speed_mps": -2.2849832153320313,
+          "terrain": false,
+          "floor_world_z_m": null,
+          "component": null
+        }
+      }
+    }
+  }
+}

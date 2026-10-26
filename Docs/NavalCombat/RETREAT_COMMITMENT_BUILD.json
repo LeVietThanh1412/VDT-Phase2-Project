@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-24",
+  "result": "Succeeded",
+  "target": "VDTPhase2ProjectEditor Win64 Development",
+  "normal_build": true,
+  "seconds": 20.86,
+  "actions": 12,
+  "source_sha256": {
+    "Source/VDTPhase2Project/ShipCombatComponent.cpp": "3f0102aedc1f14484880c7ac4037256752b2a9e943b4250a9a6b1ca7e9453910",
+    "Source/VDTPhase2Project/ShipCombatComponent.h": "360a3dfc0f05f4b669dd6e5c39cbd3f853901d54485c50e4dfaa333c1b23e17e"
+  },
+  "warnings": "Existing engine/Niagara deprecations and non-preferred MSVC; no errors"
+}

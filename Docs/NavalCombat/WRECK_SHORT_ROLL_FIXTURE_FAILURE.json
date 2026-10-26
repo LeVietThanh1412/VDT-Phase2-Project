@@ -1,0 +1,28 @@
+{
+  "phase": "brief_roll",
+  "rows": [],
+  "checks": [
+    {
+      "name": "Large class applied",
+      "passed": true
+    },
+    {
+      "name": "Large class applied",
+      "passed": true
+    },
+    {
+      "name": "brief roll does not kill",
+      "passed": false
+    }
+  ],
+  "last": -1,
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_destruction_v2.py\", line 59, in tick\n    check('brief roll does not kill',not hp(st['brief']).is_destroyed)\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_destruction_v2.py\", line 17, in check\n    def check(name,value):st['checks'].append(dict(name=name,passed=bool(value)));assert value,name\n                                                                                  ^^^^^^^^^^^^^^^^^\nAssertionError: brief roll does not kill\n",
+  "shots": [],
+  "focus_llh": [
+    107.4132509374332,
+    20.96771881165361,
+    9.515225423911417
+  ],
+  "at": 1.0630400143563747,
+  "status": "FAILED"
+}

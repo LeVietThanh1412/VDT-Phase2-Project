@@ -302,8 +302,22 @@ void USeaTerrainCollisionComponent::TickComponent(float Delta, ELevelTick Type, 
             FTile Added;
             if (BuildTile(Source, Added))
             {
-                Tiles.Add(Added);
-                Tile = &Tiles.Last();
+                // A reloaded tile already reuses its collision proxy in
+                // BuildTile. Rebind its expired source slot too: appending a
+                // weak-source record on every eviction grows metadata forever
+                // even though the actual collision geometry stays constant.
+                Tile = Tiles.FindByPredicate([&](const FTile &Cached)
+                {
+                    return !Cached.Source.IsValid() && Cached.GeometryHash == Added.GeometryHash &&
+                        Cached.RootRelative.Equals(Added.RootRelative, .001) && Cached.Collision == Added.Collision;
+                });
+                if (Tile)
+                    *Tile = Added;
+                else
+                {
+                    Tiles.Add(Added);
+                    Tile = &Tiles.Last();
+                }
             }
         }
         if (!Tile)

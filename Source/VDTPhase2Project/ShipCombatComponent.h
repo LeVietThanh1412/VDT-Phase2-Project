@@ -35,6 +35,8 @@ UCLASS(ClassGroup=(Combat), meta=(BlueprintSpawnableComponent))
 class VDTPHASE2PROJECT_API UShipWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UShipCombatLibrary;
+    FRotator LastPermittedManualAim=FRotator::ZeroRotator;
 public:
     UShipWeaponComponent();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float MuzzleSpeedCmps=20000;
@@ -216,6 +218,10 @@ private:
     float ScanClock=1000,FireCheckClock=0;
     double LastFire=-1000,LastLog=-1000;
     double StateSince=0,LastRetreatEnded=-1000;
+    // Navigation remembers the threat while the gun correctly drops an
+    // occluded target. A brief LOS change must not reverse an escape turn.
+    TWeakObjectPtr<AActor> RetreatThreat;
+    float RetreatStartSeparationM=0;
     double HunterSince=-1,HunterLostSince=-1,LastHunterPlan=-1000;
     bool bHunterPursuitActive=false;
     bool bVerifiedAxes=false;
@@ -236,6 +242,7 @@ public:
     UFUNCTION(BlueprintPure, Category="Combat") static FRotator SelectGunAim(APawn* Ship,FRotator ManualAim);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallCombatIntegration();
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallBattlePresentation();
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString DisableSensorDebugDefaults();
     /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */
     UFUNCTION(BlueprintCallable, Category="Combat") static void ApplyProjectileImpact(AActor* Projectile,FHitResult Impact);
 };
