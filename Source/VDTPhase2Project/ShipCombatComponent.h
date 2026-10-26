@@ -242,6 +242,7 @@ public:
     UFUNCTION(BlueprintPure, Category="Combat") static FRotator SelectGunAim(APawn* Ship,FRotator ManualAim);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallCombatIntegration();
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallBattlePresentation();
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString DisableSensorDebugDefaults();
     /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */
     UFUNCTION(BlueprintCallable, Category="Combat") static void ApplyProjectileImpact(AActor* Projectile,FHitResult Impact);
 };

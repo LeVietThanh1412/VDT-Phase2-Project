@@ -1,0 +1,78 @@
+{
+  "pid": 32412,
+  "status": "ALL_FIVE_LOOPS_VERIFIED",
+  "samples": [
+    {
+      "seconds": 5.6200000472017564e-05,
+      "rss_bytes": 2359742464,
+      "private_bytes": 9905246208,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11173.499999999998,
+      "cpu_system": 2121.390625
+    },
+    {
+      "seconds": 5.059336600001188,
+      "rss_bytes": 2360008704,
+      "private_bytes": 9905242112,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11187.421874999998,
+      "cpu_system": 2123.4375
+    },
+    {
+      "seconds": 10.143601499999932,
+      "rss_bytes": 2360606720,
+      "private_bytes": 9905242112,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11202.499999999998,
+      "cpu_system": 2125.640625
+    },
+    {
+      "seconds": 15.23021929999959,
+      "rss_bytes": 2370289664,
+      "private_bytes": 9913647104,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11216.562499999998,
+      "cpu_system": 2127.859375
+    },
+    {
+      "seconds": 20.289722900000925,
+      "rss_bytes": 2370977792,
+      "private_bytes": 9913647104,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11229.890624999998,
+      "cpu_system": 2130.0625
+    },
+    {
+      "seconds": 25.354433500000596,
+      "rss_bytes": 2363854848,
+      "private_bytes": 9906290688,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11244.093749999998,
+      "cpu_system": 2132.1875
+    },
+    {
+      "seconds": 30.459118700000545,
+      "rss_bytes": 2381627392,
+      "private_bytes": 10078990336,
+      "threads": 114,
+      "handles": 2629,
+      "cpu_user": 11258.124999999998,
+      "cpu_system": 2134.828125
+    },
+    {
+      "seconds": 35.52115340000091,
+      "rss_bytes": 2574249984,
+      "private_bytes": 8534630400,
+      "threads": 111,
+      "handles": 2607,
+      "cpu_user": 11268.937499999998,
+      "cpu_system": 2136.4375
+    }
+  ]
+}

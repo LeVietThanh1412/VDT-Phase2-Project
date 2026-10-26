@@ -1,0 +1,14 @@
+{
+  "result": "OK: changed=5 linked_debug_pins_preserved=0; compile passed; caller must save",
+  "compile": "OK: affected battle Blueprints compiled\n/Game/Ship/BluePrint/BP_Ship.BP_Ship: compiled\n/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy: compiled\n/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile: compiled\n/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed: compiled\n/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD: compiled\n/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar: compiled\n/Game/Ship/BluePrint/GMBP.GMBP: compiled\n",
+  "force_graph": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "backup": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SensorDebugRecovery_20261026_095945",
+  "before": {
+    "Ship/BluePrint/BP_Ship": "03c591b5cf3e51b2c71a2dea28b3d8ce2d91f059ed5acdd83dd4ed4d1ed3c44d",
+    "ShipEnemy/BluePrint/BP_ShipEnemy": "38355e3a4c781f2794dab058a2e3878fb0280b6b3cbc7ff224a6fc6a9754e585"
+  },
+  "after": {
+    "Ship/BluePrint/BP_Ship": "f7f65420fe632bc6ada5ac5ed1466bae94f8b0fd3003dd0fdeb0f68b486daec1",
+    "ShipEnemy/BluePrint/BP_ShipEnemy": "b2f3c377b53410064011af84d1a9a1d255bfddb5dc10d4658a781859c9ce50bf"
+  }
+}
