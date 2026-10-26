@@ -4,6 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "CustomPlayerController.generated.h"
 
+class ACameraActor;
 class AFreeCameraPawn;
 class UShipDetailsUI;
 class USpringArmComponent;
@@ -16,6 +17,7 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
 
 public:
     virtual void BeginPlay() override;
+    virtual void PlayerTick(float DeltaTime) override;
     virtual void SetupInputComponent() override;
 
     /** Returns the ship selected by the controller, including while free camera is active. */
@@ -29,6 +31,12 @@ private:
 
     /** Makes the viewed ship the selection used by the camera and the details panel. */
     void ApplyShipView(APawn* InShip);
+
+    /** Uses an orbit camera for AI ships so the player can look around without possessing them. */
+    void SetShipViewTarget(APawn* InShip, float BlendTime);
+    void UpdateShipViewCamera(ACameraActor* Camera);
+    ACameraActor* GetNextShipViewCamera();
+    ACameraActor* CreateShipViewCamera();
 
     /**
      * AI controllers keep the hull's roll in their control rotation, and the ship's
@@ -44,6 +52,19 @@ private:
     /** Ship the player is currently watching with Q (not necessarily the possessed pawn). */
     UPROPERTY()
     TObjectPtr<APawn> ViewedShip;
+
+    /**
+     * Orbit cameras alternate as view targets. Reusing one camera for every
+     * AI ship makes SetViewTargetWithBlend a no-op, so enemy-to-enemy switches
+     * would cut instead of blending. Three cameras also let a rapid Q press
+     * replace a blend that is still running.
+     */
+    UPROPERTY()
+    TArray<TObjectPtr<ACameraActor>> ShipViewCameras;
+
+    /** Incoming camera while a blend is running; the outgoing camera must stay put. */
+    UPROPERTY()
+    TObjectPtr<ACameraActor> ActiveShipViewCamera;
 
     TMap<TWeakObjectPtr<USpringArmComponent>, bool> SavedSpringArmRollInheritance;
 

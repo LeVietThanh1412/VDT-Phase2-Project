@@ -3,6 +3,8 @@
 #include "Actor/Pawn/FreeCameraPawn.h"
 #include "UI/ShipDetailsUI.h"
 #include "Blueprint/UserWidget.h"
+#include "Camera/CameraActor.h"
+#include "Camera/CameraComponent.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -142,7 +144,147 @@ void ACustomPlayerController::CycleShipCamera()
     }
 
     ApplyShipView(NextShip);
-    SetViewTargetWithBlend(NextShip, 0.25f);
+    SetShipViewTarget(NextShip, 0.25f);
+}
+
+void ACustomPlayerController::PlayerTick(float DeltaTime)
+{
+    Super::PlayerTick(DeltaTime);
+
+    if (!IsValid(ActiveShipViewCamera))
+    {
+        return;
+    }
+
+    if (!IsValid(ViewedShip) || ViewedShip->IsPlayerControlled())
+    {
+        // The observed AI wreck was cleaned up; never leave the player staring
+        // at a camera that no longer follows anything.
+        ActiveShipViewCamera = nullptr;
+        if (APawn* PlayerPawn = GetPawn())
+        {
+            ApplyShipView(PlayerPawn);
+            SetViewTargetWithBlend(PlayerPawn, 0.25f);
+        }
+        return;
+    }
+
+    // Update the incoming camera, not GetViewTarget(): while the camera manager
+    // blends, the view target is still the outgoing camera and moving it would
+    // collapse the transition into a cut.
+    UpdateShipViewCamera(ActiveShipViewCamera);
+}
+
+ACameraActor* ACustomPlayerController::CreateShipViewCamera()
+{
+    UWorld* World = GetWorld();
+    if (!World)
+    {
+        return nullptr;
+    }
+
+    FActorSpawnParameters SpawnParameters;
+    SpawnParameters.Owner = this;
+    SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+    ACameraActor* Camera = World->SpawnActor<ACameraActor>(ACameraActor::StaticClass(), FTransform::Identity, SpawnParameters);
+    if (IsValid(Camera))
+    {
+        Camera->SetActorEnableCollision(false);
+        Camera->GetCameraComponent()->SetFieldOfView(90.0f);
+    }
+
+    return Camera;
+}
+
+ACameraActor* ACustomPlayerController::GetNextShipViewCamera()
+{
+    // The view target must actually change for ViewTarget blending to play.
+    // Keep three cameras so a rapid Q press never has to reuse the outgoing
+    // camera (which would turn the next blend into a no-op).
+    constexpr int32 CameraCount = 3;
+    if (ShipViewCameras.Num() < CameraCount)
+    {
+        ShipViewCameras.SetNum(CameraCount);
+    }
+
+    for (TObjectPtr<ACameraActor>& Camera : ShipViewCameras)
+    {
+        if (!IsValid(Camera))
+        {
+            Camera = CreateShipViewCamera();
+        }
+    }
+
+    AActor* CurrentViewTarget = GetViewTarget();
+    for (const TObjectPtr<ACameraActor>& Camera : ShipViewCameras)
+    {
+        if (IsValid(Camera.Get()) && Camera.Get() != CurrentViewTarget && Camera.Get() != ActiveShipViewCamera.Get())
+        {
+            return Camera.Get();
+        }
+    }
+
+    return nullptr;
+}
+
+void ACustomPlayerController::SetShipViewTarget(APawn* InShip, float BlendTime)
+{
+    if (!IsValid(InShip))
+    {
+        return;
+    }
+
+    // AI ships keep their own controller. Their spring arm follows the AI control
+    // rotation, so a separate camera is needed to give the player mouse look.
+    if (!InShip->IsPlayerControlled())
+    {
+        if (ACameraActor* Camera = GetNextShipViewCamera())
+        {
+            ActiveShipViewCamera = Camera;
+            UpdateShipViewCamera(Camera);
+            SetViewTargetWithBlend(Camera, BlendTime);
+            return;
+        }
+    }
+
+    ActiveShipViewCamera = nullptr;
+    SetViewTargetWithBlend(InShip, BlendTime);
+}
+
+void ACustomPlayerController::UpdateShipViewCamera(ACameraActor* Camera)
+{
+    if (!IsValid(Camera) || !IsValid(ViewedShip) || ViewedShip->IsPlayerControlled())
+    {
+        return;
+    }
+
+    FVector Focus = ViewedShip->GetActorLocation();
+    float PreferredDistance = 15000.0f;
+    TArray<USpringArmComponent*> SpringArms;
+    ViewedShip->GetComponents<USpringArmComponent>(SpringArms);
+    for (USpringArmComponent* SpringArm : SpringArms)
+    {
+        if (IsValid(SpringArm) && !SpringArm->GetName().Contains(TEXT("Gun")))
+        {
+            Focus += ViewedShip->GetActorUpVector() * SpringArm->SocketOffset.Z;
+            PreferredDistance = FMath::Clamp(SpringArm->TargetArmLength, 2000.0f, 30000.0f);
+            break;
+        }
+    }
+
+    FRotator ViewRotation = GetControlRotation();
+    ViewRotation.Roll = 0.0f;
+    // Keeping the orbit at or above the focus height avoids dropping the camera
+    // under the sea when the player looks up. Controller pitch can arrive
+    // unnormalised (for example 350 instead of -10), so normalise it first.
+    ViewRotation.Pitch = FMath::Clamp(FRotator::NormalizeAxis(ViewRotation.Pitch), -80.0f, 0.0f);
+    const FVector CameraLocation = Focus - ViewRotation.Vector() * PreferredDistance;
+    Camera->SetActorLocationAndRotation(CameraLocation, ViewRotation);
+
+    if (UCameraComponent* CameraComponent = Camera->GetCameraComponent())
+    {
+        CameraComponent->SetFieldOfView(90.0f);
+    }
 }
 
 void ACustomPlayerController::ApplyShipView(APawn* InShip)
