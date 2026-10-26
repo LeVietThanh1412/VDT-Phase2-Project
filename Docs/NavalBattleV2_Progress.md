@@ -2,7 +2,7 @@
 
 ## Active checkpoint — 2026-10-26
 
-Branch `feature/quangninh-battle-integration`, HEAD `49d874d` (pushed). Earlier
+Branch `feature/quangninh-battle-integration`, HEAD `24705ec` (pushed). Earlier
 verified commits `d4a8b38` / `84a6210` / `aefaea6` are in open, unmerged PR #7.
 Main and Thanh were not changed by this agent. The dated records below are
 historical; use this active checkpoint for the next action.
@@ -29,18 +29,28 @@ historical; use this active checkpoint for the next action.
   routing and final visual integration are still pending. Initial projectile
   fixture checked before PlayerTick; failed raw result preserved, bounded
   0.2 s next-tick observation added, actual projectile repeat passed.
-- Phase 8 turns: IN_PROGRESS. One timer in the existing battle subsystem;
+- Phase 8 turns: PASSED focused gate. One timer in the existing battle subsystem;
   10-second alternating living-ship windows, action gates in the original force
   filters, shared weapon and aim selector, inactive AI decisions/nav held while
   physics/projectiles/damage/sinking continue. Match settings backend retains
   direct PIE defaults and will reuse the six existing ships for selected counts.
-  Normal native build PASSED (13 actions / 33.07 s). Fresh PIE initially entered
+  Normal native build PASSED (13 actions / 33.07 s). Three full six-ship
+  rotations, 18 original projectiles crossing turn boundaries, inactive gates,
+  continued physics, active-death skip, victory and sinking/cleanup PASSED.
+  All 2932 assertions passed (includes repeated per-frame/ship invariants).
+  Window durations 10.001-10.190 s. Separate 90 s real-time integration PASSED
+  20/20. Evidence TURN_MODE_REPORT.md and TURN_* JSON/gzip. Fresh PIE initially entered
   built-in spectator mode: standard PlayerController + SpectatorPawn, five AI,
   no player ship. Fixture correctly failed the six-ship assertion. Engine
   PlayLevel.cpp:2867 also starts spectators when Ctrl is held; do not patch
-  gameplay to hide an editor-start condition. Restarting a single editor to
-  retry genuine normal play; no turn runtime pass claimed yet.
-- Phase 9 prematch / 10 final QA: NOT_STARTED.
+  gameplay to hide an editor-start condition. Fresh normal play configured six
+  ships. Two other fixture failures (player AI-only probe and unbounded upward
+  test rounds) are preserved; the final bounded fixture passed without native
+  physics/capsize changes. Zen DDC startup crashed once before gameplay; current
+  editor uses built-in -DDC=InstalledNoZenLocalFallback after cold shaders.
+- Phase 9 prematch: IN_PROGRESS preparation. ShipSetupWidget.h/.cpp and PC P/menu
+  integration are source only, UNCOMPILED/UNTESTED and excluded from turn commit.
+- Phase 10 final QA: NOT_STARTED.
 - Modified source: ShipWreckBillboardComponent.h/.cpp, CustomPlayerController.h/.cpp,
   Actor/Pawn/FreeCameraPawn.h/.cpp, NavalBattleUI.cpp (preserves pre-existing
   formatting). Assets: BP_Ship and two M_Wreck*Billboard materials. Tools:
@@ -52,8 +62,7 @@ historical; use this active checkpoint for the next action.
 - Saving inherited wreck defaults also resaved the five existing external ship
   actor packages. Saved-state audit PASSED 7/7, no actor/target/controller/patrol
   setting differences. Persist these reviewed packages in a focused follow-up.
-- Next: obtain normal six-ship PIE, run full turn rotations and real-time
-  regression, commit/push verified turns, implement prematch UI, then final
+- Next: commit/push verified turns, build/test the prepared prematch UI, then final
   end-to-end/input/debug/performance/soak QA. Do not stop at this checkpoint.
 
 Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.

@@ -1,0 +1,16 @@
+{
+  "result": "Succeeded",
+  "seconds": 33.07,
+  "actions": 13,
+  "normal_build": true,
+  "source_sha256": {
+    "Source/VDTPhase2Project/NavalBattleUI.h": "143e6054bb5f322bdec32bb5c268680ec26f35c6fe7821f86ed468631df214ad",
+    "Source/VDTPhase2Project/NavalBattleUI.cpp": "fef8d869406f07b38047fa7a498d2629e24084b045dddc27feeb6811facb9741",
+    "Source/VDTPhase2Project/NavalMatchSettings.h": "30e08d4645be633aebde6f70e8233fd4f3b224e76ad476601a9c57b8d964c1cc",
+    "Source/VDTPhase2Project/NavalMatchSettings.cpp": "2a4c032ac21a441dc47265f8ddde4f512684ee5170ff4aa2344601f4ebca70a5",
+    "Source/VDTPhase2Project/ShipMovementComponent.cpp": "875753ebd49b357338a0bed438b2588b3215086eeb93c7eee5ece21fbf84eb0c",
+    "Source/VDTPhase2Project/ShipEnemyNavigationComponent.cpp": "11ba7157821e59f4bf05d34421c6f576d14ec0fc316df8b3534de07df3a5bbfc",
+    "Source/VDTPhase2Project/ShipCombatComponent.h": "1989ddebd836063b438f4ecbd012e00e041e0e7f0b2ccd2509bb23c58b937f04",
+    "Source/VDTPhase2Project/ShipCombatComponent.cpp": "5ca26741901afca9affd88d5574a96c6a978ab709d15a8749a178221fda1a234"
+  }
+}

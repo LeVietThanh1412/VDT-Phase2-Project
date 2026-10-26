@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "NavalMatchSettings.h"
 #include "NavalBattleUI.generated.h"
 
 class UShipWeaponComponent;
@@ -56,6 +57,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Score;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Notice;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Result;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> Turn;
 };
 
 UCLASS()
@@ -64,11 +66,22 @@ class VDTPHASE2PROJECT_API UNavalBattleSubsystem : public UWorldSubsystem
     GENERATED_BODY()
 public:
     virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
+    virtual void OnWorldBeginPlay(UWorld& World) override;
     virtual void Deinitialize() override;
     void RegisterShip(UShipWeaponComponent* Ship);
     void ShipDestroyed(UShipWeaponComponent* Ship);
     void RefreshHUD();
     UFUNCTION(BlueprintCallable) void EnsureHUD();
+    UFUNCTION(BlueprintCallable) void SetBattleMode(ENavalBattleMode Mode);
+    UFUNCTION(BlueprintPure) float TurnSecondsRemaining() const;
+    UFUNCTION(BlueprintPure) bool IsShipActive(AActor* Ship) const;
+    static bool CanShipAct(AActor* Ship);
+    UPROPERTY(BlueprintReadOnly) ENavalBattleMode BattleMode=ENavalBattleMode::RealTime;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<AActor> ActiveTurnShip;
+    UPROPERTY(BlueprintReadOnly) int32 TurnNumber=0;
+    UPROPERTY(BlueprintReadOnly) FString ActiveTurnLabel;
+    UPROPERTY(BlueprintReadOnly) bool bMatchConfigured=false;
+    UPROPERTY(BlueprintReadOnly) FString ConfigurationError;
     UPROPERTY(BlueprintReadOnly) int32 BlueAlive=0;
     UPROPERTY(BlueprintReadOnly) int32 RedAlive=0;
     UPROPERTY(BlueprintReadOnly) FString Notification;
@@ -79,4 +92,13 @@ private:
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Registered;
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Fallen;
     FTimerHandle NoticeTimer;
+    FTimerHandle MatchTimer;
+    TArray<TWeakObjectPtr<UShipWeaponComponent>> TurnRoster;
+    TArray<FString> TurnLabels;
+    int32 NextTeam=0;
+    int32 TeamCursor[2]={0,0};
+    double TurnEndsAt=0;
+    void UpdateMatch();
+    bool ConfigureRoster();
+    void AdvanceTurn();
 };

@@ -281,6 +281,7 @@ bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FV
     USkeletalMeshComponent* Visual=Mesh();
     if(!Visual || !Visual->DoesSocketExist(MuzzleSocket)){RejectionReason=TEXT("Missing muzzle");return false;}
     if(bIsDestroyed){RejectionReason=TEXT("Destroyed");return false;}
+    if(!UNavalBattleSubsystem::CanShipAct(GetOwner())){RejectionReason=TEXT("Inactive action window");return false;}
     if(bDispatching || CooldownRemaining()>0 || !CanShoot(GetOwner())){RejectionReason=TEXT("Cooldown/recoil");return false;}
     FVector Launch=OptionalLaunchVelocity;
     const FVector Start=Visual->GetSocketLocation(MuzzleSocket);
@@ -616,6 +617,18 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
     Super::TickComponent(Dt,Type,Tick);
     bHasFiringSolution=false;CooldownSecondsRemaining=FMath::Max(0.,LastFire+FireCooldownSeconds-GetWorld()->GetTimeSeconds());
     if(!Weapon || !Visual || !Navigation || !bVerifiedAxes){FiringStatus=TEXT("Missing verified shared weapon/animation binding");return;}
+    if(!UNavalBattleSubsystem::CanShipAct(GetOwner()))
+    {
+        // Decision durations count action time. Cooldowns, damage, physics and
+        // already spawned rounds continue on normal world time.
+        StateSince+=Dt;
+        if(HunterSince>=0)HunterSince+=Dt;
+        if(HunterLostSince>=0)HunterLostSince+=Dt;
+        if(LastHunterPlan>=0)LastHunterPlan+=Dt;
+        if(LastRetreatEnded>=0)LastRetreatEnded+=Dt;
+        ObservedTarget.Reset();AimHistory.Reset();bCachedAimSolution=false;
+        FiringStatus=TEXT("Inactive action window");return;
+    }
     const bool Alive=!Weapon->bIsDestroyed;
     const bool CanEngage=bEnableCombat && Alive && Navigation->Role!=EShipEnemyRole::Passive;
     ScanClock+=Dt;if(CanEngage && ScanClock>=FMath::Max(.05f,TargetScanInterval)){ScanClock=0;ScanTargets();}
@@ -688,6 +701,11 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
 FRotator UShipCombatLibrary::SelectGunAim(APawn* Ship,FRotator ManualAim)
 {
     if(Ship && !Ship->IsPlayerControlled())if(const auto* C=Ship->FindComponentByClass<UShipCombatComponent>())return FRotator(C->BarrelPitch,C->TurretYaw,0);
+    if(Ship)if(auto* W=Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        if(UNavalBattleSubsystem::CanShipAct(Ship))W->LastPermittedManualAim=ManualAim;
+        return W->LastPermittedManualAim;
+    }
     return ManualAim;
 }
 

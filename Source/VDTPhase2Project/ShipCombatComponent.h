@@ -35,6 +35,8 @@ UCLASS(ClassGroup=(Combat), meta=(BlueprintSpawnableComponent))
 class VDTPHASE2PROJECT_API UShipWeaponComponent : public UActorComponent
 {
     GENERATED_BODY()
+    friend class UShipCombatLibrary;
+    FRotator LastPermittedManualAim=FRotator::ZeroRotator;
 public:
     UShipWeaponComponent();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float MuzzleSpeedCmps=20000;
