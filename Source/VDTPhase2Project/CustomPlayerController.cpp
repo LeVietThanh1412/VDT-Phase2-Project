@@ -8,6 +8,9 @@
 #include "NavalBattleUI.h"
 #include "CesiumGlobeAnchorComponent.h"
 #include "CesiumGeoreference.h"
+#include "ShipSetupWidget.h"
+#include "Engine/GameInstance.h"
+#include "TimerManager.h"
 
 void ACustomPlayerController::SetupInputComponent()
 {
@@ -17,6 +20,35 @@ void ACustomPlayerController::SetupInputComponent()
     InputComponent->BindKey(EKeys::Q, IE_Pressed, this, &ACustomPlayerController::CycleShipCamera);
     InputComponent->BindKey(EKeys::Tab, IE_Pressed, this, &ACustomPlayerController::NextTeammate);
     InputComponent->BindKey(EKeys::M, IE_Pressed, this, &ACustomPlayerController::ShowBattlefieldOverview);
+    InputComponent->BindKey(EKeys::P, IE_Pressed, this, &ACustomPlayerController::ToggleMatchSetup).bExecuteWhenPaused=true;
+}
+
+void ACustomPlayerController::BeginPlay()
+{
+    Super::BeginPlay();
+    const auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    // Direct PIE remains a development 3v3; standalone opens the setup first.
+    if(IsLocalController() && GetWorld()->WorldType==EWorldType::Game && Settings && !Settings->bExplicitSelection)
+        GetWorld()->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this,[this](){ToggleMatchSetup();}));
+}
+
+void ACustomPlayerController::ToggleMatchSetup()
+{
+    if(SetupWidget){CloseMatchSetup();return;}
+    if(!IsLocalController())return;
+    SetupWidget=CreateWidget<UShipSetupWidget>(this,UShipSetupWidget::StaticClass());
+    if(!SetupWidget)return;
+    bMenuPausedWorld=!GetWorld()->IsPaused();
+    SetPause(true);SetupWidget->AddToViewport(100);bShowMouseCursor=true;
+    FInputModeGameAndUI Mode;Mode.SetWidgetToFocus(SetupWidget->TakeWidget());Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    SetInputMode(Mode);SetupWidget->SetKeyboardFocus();
+}
+
+void ACustomPlayerController::CloseMatchSetup()
+{
+    if(SetupWidget)SetupWidget->RemoveFromParent();SetupWidget=nullptr;
+    bShowMouseCursor=false;SetInputMode(FInputModeGameOnly());
+    if(bMenuPausedWorld)SetPause(false);bMenuPausedWorld=false;
 }
 
 void ACustomPlayerController::OnPossess(APawn* InPawn)

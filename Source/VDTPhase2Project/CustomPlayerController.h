@@ -5,6 +5,7 @@
 #include "CustomPlayerController.generated.h"
 
 class AFreeCameraPawn;
+class UShipSetupWidget;
 
 /** Views ships with Q without taking their AI controllers; F toggles free flight. */
 UCLASS()
@@ -14,6 +15,10 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
 
 public:
     virtual void SetupInputComponent() override;
+    virtual void BeginPlay() override;
+    UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
+    UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
+    UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void OnPossess(APawn* InPawn) override;
     UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
@@ -27,6 +32,7 @@ public:
 
 private:
     void EnterDeathSpectator();
+    bool bMenuPausedWorld=false;
     UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;

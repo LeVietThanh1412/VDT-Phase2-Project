@@ -2,7 +2,7 @@
 
 ## Active checkpoint — 2026-10-26
 
-Branch `feature/quangninh-battle-integration`, HEAD `24705ec` (pushed). Earlier
+Branch `feature/quangninh-battle-integration`, HEAD `faa966c` (pushed). Earlier
 verified commits `d4a8b38` / `84a6210` / `aefaea6` are in open, unmerged PR #7.
 Main and Thanh were not changed by this agent. The dated records below are
 historical; use this active checkpoint for the next action.
@@ -48,8 +48,20 @@ historical; use this active checkpoint for the next action.
   test rounds) are preserved; the final bounded fixture passed without native
   physics/capsize changes. Zen DDC startup crashed once before gameplay; current
   editor uses built-in -DDC=InstalledNoZenLocalFallback after cold shaders.
-- Phase 9 prematch: IN_PROGRESS preparation. ShipSetupWidget.h/.cpp and PC P/menu
-  integration are source only, UNCOMPILED/UNTESTED and excluded from turn commit.
+- Phase 9 prematch: PASSED functional/visual gates. ShipSetupWidget.h/.cpp and PC P/menu integration
+  compiled after two C++ API fixes (explicit graph-node pointer type; renamed
+  locals that hid UWidget::Slot). Build PASSED 5 actions / 4.32 s. Actual menu
+  pause/cancel/level-travel matches 1v1, 2v2, 3v3, 2v3, 3v1 PASSED **127/127**:
+  per-slot classes, skill, selected mode, exact pawn/controller counts, one Blue
+  player, original patrol references and fresh-PIE defaults. Screenshot inspection
+  caught clipped bottom buttons; height 490→560 and shorter turn label built
+  successfully (4 actions / 4.18 s), repeated 127/127 and corrected screenshot
+  inspected: both buttons fully visible. Physical key/mouse injection unavailable
+  because hidden editor window is not targetable by computer-use; native
+  bindings/delegates source-inspected, their handlers live-tested. Standalone
+  auto-open branch source-inspected only; PIE menu/travel behavior executed.
+  New ShipDebugEditor.cpp helper compiled too, but has NOT been invoked or
+  verified; excludes it and its header declaration from the eventual menu commit.
 - Phase 10 final QA: NOT_STARTED.
 - Modified source: ShipWreckBillboardComponent.h/.cpp, CustomPlayerController.h/.cpp,
   Actor/Pawn/FreeCameraPawn.h/.cpp, NavalBattleUI.cpp (preserves pre-existing
@@ -62,7 +74,9 @@ historical; use this active checkpoint for the next action.
 - Saving inherited wreck defaults also resaved the five existing external ship
   actor packages. Saved-state audit PASSED 7/7, no actor/target/controller/patrol
   setting differences. Persist these reviewed packages in a focused follow-up.
-- Next: commit/push verified turns, build/test the prepared prematch UI, then final
+- Turns delivered: `faa966c`, normally pushed; PR #7 body includes its evidence.
+- Next: save/commit/push verified menu, apply and
+  verify the narrow sensor-debug default cleanup, then final
   end-to-end/input/debug/performance/soak QA. Do not stop at this checkpoint.
 
 Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.
