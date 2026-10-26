@@ -1,8 +1,8 @@
 # Naval Battle V2 — progress ledger
 
-## Active checkpoint — 2026-10-25
+## Active checkpoint — 2026-10-26
 
-Branch `feature/quangninh-battle-integration`, HEAD `aefaea6` (pushed). Earlier
+Branch `feature/quangninh-battle-integration`, HEAD `49d874d` (pushed). Earlier
 verified commits `d4a8b38` / `84a6210` / `aefaea6` are in open, unmerged PR #7.
 Main and Thanh were not changed by this agent. The dated records below are
 historical; use this active checkpoint for the next action.
@@ -29,15 +29,32 @@ historical; use this active checkpoint for the next action.
   routing and final visual integration are still pending. Initial projectile
   fixture checked before PlayerTick; failed raw result preserved, bounded
   0.2 s next-tick observation added, actual projectile repeat passed.
-- Phase 8 turns / 9 prematch / 10 final QA: NOT_STARTED.
+- Phase 8 turns: IN_PROGRESS. One timer in the existing battle subsystem;
+  10-second alternating living-ship windows, action gates in the original force
+  filters, shared weapon and aim selector, inactive AI decisions/nav held while
+  physics/projectiles/damage/sinking continue. Match settings backend retains
+  direct PIE defaults and will reuse the six existing ships for selected counts.
+  Normal native build PASSED (13 actions / 33.07 s). Fresh PIE initially entered
+  built-in spectator mode: standard PlayerController + SpectatorPawn, five AI,
+  no player ship. Fixture correctly failed the six-ship assertion. Engine
+  PlayLevel.cpp:2867 also starts spectators when Ctrl is held; do not patch
+  gameplay to hide an editor-start condition. Restarting a single editor to
+  retry genuine normal play; no turn runtime pass claimed yet.
+- Phase 9 prematch / 10 final QA: NOT_STARTED.
 - Modified source: ShipWreckBillboardComponent.h/.cpp, CustomPlayerController.h/.cpp,
   Actor/Pawn/FreeCameraPawn.h/.cpp, NavalBattleUI.cpp (preserves pre-existing
   formatting). Assets: BP_Ship and two M_Wreck*Billboard materials. Tools:
   setup_wreck_billboards.py, probe_wreck_billboards.py, test_spectator.py.
 - Reproduction: execute each file through Tools/SeaNavigation/mcp_client.py using
   file-based exec; never start an editor-only operation while PIE is active.
-- Next: save, commit/push verified VFX and spectator independently, then implement the
-  single optional turn scheduler and prematch UI. Do not stop at this checkpoint.
+- VFX and spectator delivered: `9b0a350` and `49d874d`, normal push succeeded
+  (18 LFS objects / 16 MB). Main unchanged; PR #7 remains open/unmerged.
+- Saving inherited wreck defaults also resaved the five existing external ship
+  actor packages. Saved-state audit PASSED 7/7, no actor/target/controller/patrol
+  setting differences. Persist these reviewed packages in a focused follow-up.
+- Next: obtain normal six-ship PIE, run full turn rotations and real-time
+  regression, commit/push verified turns, implement prematch UI, then final
+  end-to-end/input/debug/performance/soak QA. Do not stop at this checkpoint.
 
 Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.
 
