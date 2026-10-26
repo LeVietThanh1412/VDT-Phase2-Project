@@ -6,6 +6,7 @@
 
 class AFreeCameraPawn;
 class UShipDetailsUI;
+class USpringArmComponent;
 
 /** Views ships with Q without taking their AI controllers; F toggles free flight. */
 UCLASS()
@@ -26,9 +27,25 @@ private:
     void CycleShipCamera();
     void ToggleShipDetailsUI();
 
+    /** Makes the viewed ship the selection used by the camera and the details panel. */
+    void ApplyShipView(APawn* InShip);
+
+    /**
+     * AI controllers keep the hull's roll in their control rotation, and the ship's
+     * spring arms inherit it, which tilts the view. Level only the arms of the ship
+     * being observed, then restore their authored values when the player looks away.
+     */
+    void SetHorizonLock(APawn* InShip, bool bEnabled);
+
 private:
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;
+
+    /** Ship the player is currently watching with Q (not necessarily the possessed pawn). */
+    UPROPERTY()
+    TObjectPtr<APawn> ViewedShip;
+
+    TMap<TWeakObjectPtr<USpringArmComponent>, bool> SavedSpringArmRollInheritance;
 
     UPROPERTY()
     TObjectPtr<AFreeCameraPawn> FreeCameraPawn;

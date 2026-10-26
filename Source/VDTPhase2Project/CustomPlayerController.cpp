@@ -5,12 +5,15 @@
 #include "Blueprint/UserWidget.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "InputCoreTypes.h"
 #include "ShipCombatComponent.h"
 
 void ACustomPlayerController::BeginPlay()
 {
     Super::BeginPlay();
+
+    ViewedShip = GetPawn();
 
     if (!IsLocalController() || IsValid(ShipDetailsUI))
     {
@@ -36,6 +39,13 @@ void ACustomPlayerController::SetupInputComponent()
 
 APawn* ACustomPlayerController::GetSelectedShip() const
 {
+    // Q only changes the view target so AI stays in control of its ship. The details
+    // panel must follow that view target, not the pawn the controller still possesses.
+    if (IsValid(ViewedShip))
+    {
+        return ViewedShip.Get();
+    }
+
     return IsValid(FreeCameraPawn) ? PreviousPawn.Get() : GetPawn().Get();
 }
 
@@ -74,7 +84,11 @@ void ACustomPlayerController::CycleShipCamera()
     }
 
     // A camera change must not unpossess an independently controlled AI ship.
-    AActor* CurrentShip = IsValid(FreeCameraPawn) ? PreviousPawn.Get() : GetViewTarget();
+    APawn* CurrentShip = ViewedShip.Get();
+    if (!IsValid(CurrentShip))
+    {
+        CurrentShip = IsValid(FreeCameraPawn) ? PreviousPawn.Get() : Cast<APawn>(GetViewTarget());
+    }
 
     TArray<APawn*> ShipPawns;
     for (TActorIterator<APawn> It(World); It; ++It)
@@ -103,7 +117,7 @@ void ACustomPlayerController::CycleShipCamera()
         // Only one ship exists: Q has no target to cycle to, but it must still pull the
         // camera back out of free camera and onto that ship.
         NextShip = ShipPawns[0];
-        if (!IsValid(FreeCameraPawn))
+        if (!IsValid(FreeCameraPawn) && NextShip == CurrentShip)
         {
             return;
         }
@@ -127,7 +141,62 @@ void ACustomPlayerController::CycleShipCamera()
         ToggleFreeCamera();
     }
 
+    ApplyShipView(NextShip);
     SetViewTargetWithBlend(NextShip, 0.25f);
+}
+
+void ACustomPlayerController::ApplyShipView(APawn* InShip)
+{
+    if (!IsValid(InShip) || ViewedShip == InShip)
+    {
+        return;
+    }
+
+    SetHorizonLock(ViewedShip.Get(), false);
+    ViewedShip = InShip;
+    // The player's own spring arms already use the (roll-free) player control
+    // rotation, so only observed AI ships need the horizon correction.
+    SetHorizonLock(InShip, !InShip->IsPlayerControlled());
+}
+
+void ACustomPlayerController::SetHorizonLock(APawn* InShip, bool bEnabled)
+{
+    for (auto It = SavedSpringArmRollInheritance.CreateIterator(); It; ++It)
+    {
+        if (!It.Key().IsValid())
+        {
+            It.RemoveCurrent();
+        }
+    }
+
+    if (!IsValid(InShip))
+    {
+        return;
+    }
+
+    TArray<USpringArmComponent*> SpringArms;
+    InShip->GetComponents<USpringArmComponent>(SpringArms);
+    for (USpringArmComponent* SpringArm : SpringArms)
+    {
+        if (!IsValid(SpringArm))
+        {
+            continue;
+        }
+
+        if (bEnabled)
+        {
+            if (!SavedSpringArmRollInheritance.Contains(SpringArm))
+            {
+                SavedSpringArmRollInheritance.Add(SpringArm, SpringArm->bInheritRoll);
+            }
+            SpringArm->bInheritRoll = false;
+        }
+        else if (const bool* SavedInheritRoll = SavedSpringArmRollInheritance.Find(SpringArm))
+        {
+            SpringArm->bInheritRoll = *SavedInheritRoll;
+            SavedSpringArmRollInheritance.Remove(SpringArm);
+        }
+    }
 }
 
 void ACustomPlayerController::ToggleFreeCamera()
@@ -149,6 +218,9 @@ void ACustomPlayerController::ToggleFreeCamera()
             FRotator RestoredControlRotation = PreviousControlRotation;
             RestoredControlRotation.Roll = 0.0f;
             SetControlRotation(RestoredControlRotation);
+            // Free camera owns no ship: hand both the view and the details panel
+            // back to the possessed pawn.
+            ApplyShipView(PawnToRestore);
         }
         PreviousPawn = nullptr;
         PreviousControlRotation = FRotator::ZeroRotator;

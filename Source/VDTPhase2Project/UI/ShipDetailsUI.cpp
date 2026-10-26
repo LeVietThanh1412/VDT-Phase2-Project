@@ -1,6 +1,7 @@
 #include "ShipDetailsUI.h"
 
 #include "../CustomPlayerController.h"
+#include "../ShipCombatComponent.h"
 #include "Brushes/SlateRoundedBoxBrush.h"
 #include "CesiumGeoreference.h"
 #include "EngineUtils.h"
@@ -292,11 +293,30 @@ void UShipDetailsUI::UpdateDetails()
 
     // Horizontal (surface) speed only; vertical bobbing along the waves is ignored.
     const double SpeedKnots = Ship->GetVelocity().Size2D() * 0.0194384449;
+
+    // Hull health lives on the shared weapon component, which is the final damage
+    // authority for both the player ship and AI ships. Keep the actor-property
+    // fallback for blueprints that have not installed that component yet.
     double HealthValue = 0.0;
-    const bool bHasHealth = TryGetNumericProperty(
-        Ship,
-        { TEXT("Health"), TEXT("CurrentHealth"), TEXT("HullHealth"), TEXT("HP"), TEXT("HitPoints") },
-        HealthValue);
+    double MaximumHealthValue = 0.0;
+    bool bHasHealth = false;
+    if (const UShipWeaponComponent* Weapon = Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        HealthValue = Weapon->CurrentHealth;
+        MaximumHealthValue = Weapon->MaxHealth;
+        bHasHealth = true;
+    }
+    else
+    {
+        bHasHealth = TryGetNumericProperty(
+            Ship,
+            { TEXT("Health"), TEXT("CurrentHealth"), TEXT("HullHealth"), TEXT("HP"), TEXT("HitPoints") },
+            HealthValue);
+        TryGetNumericProperty(
+            Ship,
+            { TEXT("MaxHealth"), TEXT("MaximumHealth"), TEXT("MaxHP"), TEXT("MaxHitPoints") },
+            MaximumHealthValue);
+    }
 
     // Azimuth relative to the map's true directions. Cesium maps the world as East-South-Up,
     // so the georeference's +X is East and its -Y is North. Fall back to the Unreal convention
@@ -325,9 +345,25 @@ void UShipDetailsUI::UpdateDetails()
     LongitudeText->SetText(FText::FromString(FString::Printf(TEXT("%.6f"), GeographicCoordinates.X)));
     LatitudeText->SetText(FText::FromString(FString::Printf(TEXT("%.6f"), GeographicCoordinates.Y)));
     SpeedText->SetText(FText::FromString(FString::Printf(TEXT("%.1f knots"), SpeedKnots)));
-    HealthText->SetText(bHasHealth
-        ? FText::FromString(FString::Printf(TEXT("%.0f"), HealthValue))
-        : FText::FromString(TEXT("--")));
+    if (bHasHealth)
+    {
+        HealthText->SetText(FText::FromString(MaximumHealthValue > 0.0
+            ? FString::Printf(TEXT("%.0f / %.0f"), HealthValue, MaximumHealthValue)
+            : FString::Printf(TEXT("%.0f"), HealthValue)));
+
+        const double HealthFraction = MaximumHealthValue > 0.0 ? HealthValue / MaximumHealthValue : 1.0;
+        const FLinearColor HealthColor = HealthFraction <= 0.3
+            ? FLinearColor(1.0f, 0.36f, 0.30f, 1.0f)
+            : HealthFraction <= 0.6
+                ? FLinearColor(1.0f, 0.78f, 0.30f, 1.0f)
+                : ValueColor;
+        HealthText->SetColorAndOpacity(FSlateColor(HealthColor));
+    }
+    else
+    {
+        HealthText->SetText(FText::FromString(TEXT("--")));
+        HealthText->SetColorAndOpacity(FSlateColor(ValueColor));
+    }
     DirectionText->SetText(FText::FromString(FString::Printf(
         TEXT("%d\u00B0 (%s)"),
         AzimuthRounded,
