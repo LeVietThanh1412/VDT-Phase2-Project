@@ -275,9 +275,22 @@ void UShipDetailsUI::UpdateDetails()
         return;
     }
 
-    // GetName() (not GetActorNameOrLabel()) keeps the editor label from overriding the
-    // engine name, so "BP_Ship_C_0" always resolves to "ShipC0" in both editor and packaged builds.
-    ShipNameText->SetText(FText::FromString(MakeShipDisplayName(Ship->GetName())));
+    // Show the same designer-authored identity as the minimap instead of the
+    // long engine object name (for example, "BP_ShipEnemy_C_UAID_...").
+    FString DisplayName;
+    if (const UShipWeaponComponent* Weapon = Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        DisplayName = Weapon->GetShipName();
+    }
+    else if (const UShipIdentityComponent* Identity = Ship->FindComponentByClass<UShipIdentityComponent>())
+    {
+        DisplayName = Identity->GetDisplayName();
+    }
+    else
+    {
+        DisplayName = MakeShipDisplayName(Ship->GetName());
+    }
+    ShipNameText->SetText(FText::FromString(DisplayName));
 
     FVector GeographicCoordinates = Ship->GetActorLocation();
     ACesiumGeoreference* Georeference = nullptr;

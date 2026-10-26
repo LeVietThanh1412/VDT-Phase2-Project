@@ -12,6 +12,7 @@
 #include "EdGraphSchema_K2.h"
 #include "K2Node_CallFunction.h"
 #include "K2Node_CustomEvent.h"
+#include "K2Node_GenericToText.h"
 #include "K2Node_SpawnActorFromClass.h"
 #include "K2Node_VariableGet.h"
 #include "K2Node_Self.h"
@@ -47,6 +48,83 @@ bool Save(UBlueprint* BP)
 {
     FSavePackageArgs Args;Args.TopLevelFlags=RF_Public|RF_Standalone;Args.SaveFlags=SAVE_NoError;
     return UPackage::SavePackage(BP->GetOutermost(),BP,*FPackageName::LongPackageNameToFilename(BP->GetOutermost()->GetName(),FPackageName::GetAssetPackageExtension()),Args);
+}
+FString PatchMinimapTeamIcons()
+{
+    UBlueprint* Marker=LoadObject<UBlueprint>(nullptr,TEXT("/Game/Game/UI/Minimap/Widgets/WBP_ShipMarker.WBP_ShipMarker"));
+    if(!Marker)return TEXT("ERROR: WBP_ShipMarker missing");
+    if(Marker->ParentClass==UShipMarkerWidget::StaticClass())return TEXT("OK: minimap team marker icons already installed");
+    Marker->Modify();
+    Marker->ParentClass=UShipMarkerWidget::StaticClass();
+    FBlueprintEditorUtils::RefreshAllNodes(Marker);
+    FBlueprintEditorUtils::MarkBlueprintAsModified(Marker);
+    if(!Compile(Marker) || !Save(Marker))return TEXT("ERROR: WBP_ShipMarker team icon reparent compile/save");
+    return TEXT("OK: minimap team marker icons installed");
+}
+FString PatchMinimapShipNames()
+{
+    UBlueprint* Marker=LoadObject<UBlueprint>(nullptr,TEXT("/Game/Game/UI/Minimap/Widgets/WBP_ShipMarker.WBP_ShipMarker"));
+    if(!Marker)return TEXT("ERROR: WBP_ShipMarker missing");
+    UEdGraph* MG=FBlueprintEditorUtils::FindEventGraph(Marker);
+    if(!MG)return TEXT("ERROR: WBP_ShipMarker event graph missing");
+    bool NameInstalled=false;
+    for(UEdGraphNode* N:MG->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))
+        if(C->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,GetShipNameForObject))NameInstalled=true;
+    if(NameInstalled)
+    {
+        UK2Node_CallFunction* NameNode=nullptr;
+        for(UEdGraphNode* N:MG->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))
+            if(C->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,GetShipNameForObject)){NameNode=C;break;}
+        UEdGraphPin* NameInput=NameNode?NameNode->FindPin(TEXT("Object")):nullptr;
+        if(NameInput && NameInput->LinkedTo.Num()>0)return TEXT("OK: minimap names already installed");
+        UK2Node_VariableGet* ShipVar=nullptr;
+        for(UEdGraphNode* N:MG->Nodes)if(auto* V=Cast<UK2Node_VariableGet>(N))
+            if(V->VariableReference.GetMemberName()==TEXT("ShipActor")){ShipVar=V;break;}
+        if(!NameInput || !ShipVar)return TEXT("ERROR: minimap name repair prerequisites missing");
+        Marker->Modify();MG->Modify();
+        if(!GetDefault<UEdGraphSchema_K2>()->TryCreateConnection(ShipVar->GetValuePin(),NameInput))
+            return TEXT("ERROR: minimap name repair connection failed");
+        if(!Compile(Marker) || !Save(Marker))return TEXT("ERROR: WBP_ShipMarker repair compile/save");
+        return TEXT("OK: minimap names repaired");
+    }
+    UK2Node_CallFunction* SetText=nullptr;
+    for(UEdGraphNode* N:MG->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))
+        if(C->FunctionReference.GetMemberName()==TEXT("SetText"))
+        {
+            for(UEdGraphPin* P:C->Pins)if(P->Direction==EGPD_Input && P->LinkedTo.Num()==1)
+                if(auto* V=Cast<UK2Node_VariableGet>(P->LinkedTo[0]->GetOwningNode()))
+                    if(V->VariableReference.GetMemberName()==TEXT("Text_ShipName")){SetText=C;break;}
+            if(SetText)break;
+        }
+    if(!SetText)return TEXT("ERROR: WBP_ShipMarker SetText(Text_ShipName) not found");
+    UEdGraphPin* TextInput=nullptr;
+    for(UEdGraphPin* P:SetText->Pins)if(P->Direction==EGPD_Input && P->LinkedTo.Num()==1)
+        if(Cast<UK2Node_GenericToText>(P->LinkedTo[0]->GetOwningNode())){TextInput=P;break;}
+    if(!TextInput)return TEXT("ERROR: WBP_ShipMarker string-to-text input not found");
+    UEdGraphNode* Conv=TextInput->LinkedTo[0]->GetOwningNode();
+    UEdGraphPin* ConvInput=nullptr;UK2Node_CallFunction* OldName=nullptr;
+    for(UEdGraphPin* P:Conv->Pins)if(P->Direction==EGPD_Input && P->LinkedTo.Num()==1)
+        if(auto* C=Cast<UK2Node_CallFunction>(P->LinkedTo[0]->GetOwningNode())){ConvInput=P;OldName=C;break;}
+    if(!ConvInput || !OldName)return TEXT("ERROR: WBP_ShipMarker name source not found");
+    UEdGraphPin* OldInput=nullptr;
+    for(UEdGraphPin* P:OldName->Pins)if(P->Direction==EGPD_Input && P->LinkedTo.Num()==1){OldInput=P;break;}
+    if(!OldInput)return TEXT("ERROR: WBP_ShipMarker ShipActor input not found");
+    UEdGraphPin* Source=OldInput->LinkedTo[0];
+    UFunction* NameFunction=UShipCombatLibrary::StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,GetShipNameForObject));
+    if(!NameFunction)return TEXT("ERROR: GetShipNameForObject not reflected; restart the editor and retry");
+    Marker->Modify();MG->Modify();
+    auto* NewName=Call(MG,UShipCombatLibrary::StaticClass(),GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,GetShipNameForObject),OldName->NodePosX,OldName->NodePosY);
+    if(!NewName || !NewName->GetReturnValuePin())return TEXT("ERROR: minimap name function node failed");
+    UEdGraphPin* NewInput=NewName->FindPin(TEXT("Object"));
+    if(!NewInput)return TEXT("ERROR: minimap name Object pin missing");
+    FBlueprintEditorUtils::RemoveNode(Marker,OldName,true);
+    const UEdGraphSchema_K2* Schema=GetDefault<UEdGraphSchema_K2>();
+    const bool OKSource=Schema->TryCreateConnection(Source,NewInput);
+    ConvInput->BreakAllPinLinks();
+    const bool OKReturn=Schema->TryCreateConnection(NewName->GetReturnValuePin(),ConvInput);
+    if(!OKSource || !OKReturn)return TEXT("ERROR: minimap name wiring failed; WBP_ShipMarker NOT saved");
+    if(!Compile(Marker) || !Save(Marker))return TEXT("ERROR: WBP_ShipMarker compile/save");
+    return TEXT("OK: minimap marker names use ship identity");
 }
 }
 #endif
@@ -118,6 +196,10 @@ FString UShipCombatLibrary::InstallCombatIntegration()
 FString UShipCombatLibrary::InstallBattlePresentation()
 {
 #if WITH_EDITOR
+    const FString MarkerResult=PatchMinimapTeamIcons();
+    if(MarkerResult.StartsWith(TEXT("ERROR")))return MarkerResult;
+    const FString MinimapResult=PatchMinimapShipNames();
+    if(MinimapResult.StartsWith(TEXT("ERROR")))return MinimapResult;
     if(auto* Enemy=LoadObject<UBlueprint>(nullptr,TEXT("/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy")))
     {
         Enemy->Modify();TArray<UEdGraph*> Graphs;Enemy->GetAllGraphs(Graphs);
@@ -135,7 +217,31 @@ FString UShipCombatLibrary::InstallBattlePresentation()
         BP->Modify();Component(BP,UShipProjectileDamageComponent::StaticClass(),TEXT("TeamDamage"));
         auto* G=FBlueprintEditorUtils::FindEventGraph(BP);auto* Old=Node(G,TEXT("K2Node_CallFunction_1"));
         bool Installed=false;
-        for(UEdGraphNode* N:G->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))if(C->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,ApplyProjectileImpact))Installed=true;
+        UK2Node_CallFunction* OldImpact=nullptr;UEdGraph* ImpactGraph=nullptr;
+        {
+            TArray<UEdGraph*> AllGraphs;BP->GetAllGraphs(AllGraphs);
+            for(UEdGraph* AG:AllGraphs)for(UEdGraphNode* N:AG->Nodes)if(auto* C=Cast<UK2Node_CallFunction>(N))
+                if(C->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,ApplyProjectileImpact))
+                {OldImpact=C;ImpactGraph=AG;break;}
+        }
+        if(OldImpact)
+        {
+            // Rebuild the old pre-static impact node from scratch; a stale
+            // Target pin on the existing node can survive SetFromFunction.
+            auto* Impact=Call(ImpactGraph,UShipCombatLibrary::StaticClass(),GET_FUNCTION_NAME_CHECKED(UShipCombatLibrary,ApplyProjectileImpact),OldImpact->NodePosX,OldImpact->NodePosY);
+            auto* Schema=GetDefault<UEdGraphSchema_K2>();bool OK=true;
+            auto Wire=[&](UEdGraphPin* A,UEdGraphPin* B){if(!A || !B){OK=false;return;}OK &= Schema->TryCreateConnection(A,B);};
+            auto* OldExec=OldImpact->GetExecPin();auto* NewExec=Impact->GetExecPin();const auto ExecInputs=OldExec->LinkedTo;OldExec->BreakAllPinLinks();for(auto* P:ExecInputs)Wire(P,NewExec);
+            auto* OldThen=OldImpact->GetThenPin();auto* NewThen=Impact->GetThenPin();const auto ExecOutputs=OldThen->LinkedTo;OldThen->BreakAllPinLinks();for(auto* P:ExecOutputs)Wire(NewThen,P);
+            for(const TCHAR* PinName:{TEXT("Projectile"),TEXT("Impact")})
+            {
+                auto* OldPin=OldImpact->FindPin(PinName);auto* NewPin=Impact->FindPin(PinName);
+                if(OldPin && NewPin){const auto Links=OldPin->LinkedTo;OldPin->BreakAllPinLinks();for(auto* P:Links)Wire(P,NewPin);}
+            }
+            FBlueprintEditorUtils::RemoveNode(BP,OldImpact,true);
+            if(!OK)return TEXT("ERROR: projectile impact rewire");
+            Installed=true;
+        }
         if(!Installed)
         {
             if(!Old)return TEXT("ERROR: expected original radial damage node missing");
@@ -154,14 +260,14 @@ FString UShipCombatLibrary::InstallBattlePresentation()
         if(!Compile(BP) || !Save(BP))return TEXT("ERROR: projectile compile/save");
     }
     struct FWidgetDefinition {const TCHAR* Name;UClass* Parent;};
-    for(auto D:{FWidgetDefinition{TEXT("WBP_ShipHUD"),UShipHUDWidget::StaticClass()},FWidgetDefinition{TEXT("WBP_ShipHealthBar"),UShipHealthBarWidget::StaticClass()}})
+    for(auto D:{FWidgetDefinition{TEXT("WBP_ShipHealthBar"),UShipHealthBarWidget::StaticClass()}})
     {
         FString PackageName=FString(TEXT("/Game/NavalBattle/UI/"))+D.Name;
         auto* BP=LoadObject<UBlueprint>(nullptr,*(PackageName+TEXT(".")+D.Name));
         if(!BP)BP=FKismetEditorUtilities::CreateBlueprint(D.Parent,CreatePackage(*PackageName),FName(D.Name),BPTYPE_Normal,UWidgetBlueprint::StaticClass(),UWidgetBlueprintGeneratedClass::StaticClass(),TEXT("NavalBattle"));
         if(!BP || !Compile(BP) || !Save(BP))return TEXT("ERROR: widget compile/save");
     }
-    return TEXT("OK: both original projectiles use cached team damage; WBP_ShipHUD and WBP_ShipHealthBar compiled and saved");
+    return TEXT("OK: both original projectiles use cached team damage; WBP_ShipHealthBar compiled and saved; ")+MarkerResult+TEXT("; ")+MinimapResult;
 #else
     return TEXT("ERROR: editor required");
 #endif

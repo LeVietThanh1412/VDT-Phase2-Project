@@ -2,15 +2,13 @@
 #include "ShipCombatComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
-#include "Components/CanvasPanel.h"
-#include "Components/CanvasPanelSlot.h"
+#include "Components/Image.h"
 #include "Components/ProgressBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
-#include "GameFramework/Pawn.h"
-#include "Kismet/GameplayStatics.h"
+#include "Engine/Texture2D.h"
 #include "TimerManager.h"
 #include "UObject/UnrealType.h"
 
@@ -26,6 +24,21 @@ UProgressBar* Progress(UWidgetTree* Tree,UVerticalBox* Box,float Height)
 {
     auto* Size=Tree->ConstructWidget<USizeBox>();Size->SetHeightOverride(Height);Box->AddChildToVerticalBox(Size);
     auto* Bar=Tree->ConstructWidget<UProgressBar>();Bar->SetPercent(1);Size->AddChild(Bar);return Bar;
+}
+AActor* MarkerShip(const UUserWidget* Marker)
+{
+    if(!Marker)return nullptr;
+    const FObjectPropertyBase* ShipActorProperty=FindFProperty<FObjectPropertyBase>(Marker->GetClass(),TEXT("ShipActor"));
+    return ShipActorProperty?Cast<AActor>(ShipActorProperty->GetObjectPropertyValue_InContainer(Marker)):nullptr;
+}
+UTexture2D* TeamMarkerIcon(const FString& TeamName,const UShipWeaponComponent* Weapon)
+{
+    bool bRed=TeamName.Equals(TEXT("Red"),ESearchCase::IgnoreCase) || TeamName.Equals(TEXT("Enemy"),ESearchCase::IgnoreCase);
+    if(!bRed && !TeamName.Equals(TEXT("Blue"),ESearchCase::IgnoreCase) && Weapon)bRed=Weapon->Team()!=0;
+    static TWeakObjectPtr<UTexture2D> BlueIcon,RedIcon;
+    TWeakObjectPtr<UTexture2D>& Icon=bRed?RedIcon:BlueIcon;
+    if(!Icon.IsValid())Icon=LoadObject<UTexture2D>(nullptr,bRed?TEXT("/Game/Game/UI/Minimap/Textures/ObjectTextures/ShipMarkerIcon-2.ShipMarkerIcon-2"):TEXT("/Game/Game/UI/Minimap/Textures/ObjectTextures/ShipMarkerIcon-1.ShipMarkerIcon-1"));
+    return Icon.Get();
 }
 }
 void UShipMinimapWidget::NativeConstruct()
@@ -66,9 +79,28 @@ void UShipMinimapWidget::RefreshNavalMarkers()
         }
         else if(IsValid(Marker))
         {
-            Marker->SetColorAndOpacity(Weapon->Team()==0?FLinearColor(.15f,.55f,1):FLinearColor(1,.18f,.18f));
+            // The two marker textures already carry their own team colours; a white
+            // widget tint preserves them instead of multiplying the old blue/red tint.
+            Marker->SetColorAndOpacity(FLinearColor::White);
+            if(UImage* MarkerImage=Cast<UImage>(Marker->GetWidgetFromName(TEXT("Image_ShipMarker"))))
+                if(UTexture2D* Icon=TeamMarkerIcon(Weapon->GetTeamName(),Weapon))
+                    if(MarkerImage->GetBrush().GetResourceObject()!=Icon)
+                        MarkerImage->SetBrushFromTexture(Icon,false);
+            if(UTextBlock* NameText=Cast<UTextBlock>(Marker->GetWidgetFromName(TEXT("Text_ShipName"))))
+                NameText->SetText(FText::FromString(Weapon->GetShipName()));
         }
     }
+}
+void UShipMarkerWidget::NativeTick(const FGeometry& MyGeometry,float InDeltaTime)
+{
+    Super::NativeTick(MyGeometry,InDeltaTime);
+    if(!MarkerImage)MarkerImage=Cast<UImage>(GetWidgetFromName(TEXT("Image_ShipMarker")));
+    const AActor* Ship=MarkerShip(this);
+    const UShipWeaponComponent* Weapon=IsValid(Ship)?Ship->FindComponentByClass<UShipWeaponComponent>():nullptr;
+    if(!MarkerImage || !Weapon)return;
+    if(UTexture2D* Icon=TeamMarkerIcon(Weapon->GetTeamName(),Weapon))
+        if(MarkerImage->GetBrush().GetResourceObject()!=Icon)
+            MarkerImage->SetBrushFromTexture(Icon,false);
 }
 TSharedRef<SWidget> UShipHealthBarWidget::RebuildWidget()
 {
@@ -89,63 +121,3 @@ void UShipHealthBarWidget::Refresh(UShipWeaponComponent* Ship)
     SetVisibility(Ship->bIsDestroyed?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
 }
 void UShipHealthBarWidget::NativeConstruct(){Super::NativeConstruct();if(BoundShip)Refresh(BoundShip);}
-TSharedRef<SWidget> UShipHUDWidget::RebuildWidget()
-{
-    if(!WidgetTree)WidgetTree=NewObject<UWidgetTree>(this);
-    auto* Canvas=WidgetTree->ConstructWidget<UCanvasPanel>();WidgetTree->RootWidget=Canvas;
-    auto* Frame=WidgetTree->ConstructWidget<UBorder>();Frame->SetBrushColor(FLinearColor(.008f,.015f,.03f,.88f));Frame->SetPadding(FMargin(18,12));
-    auto* FrameSlot=Canvas->AddChildToCanvas(Frame);FrameSlot->SetPosition(FVector2D(24,24));FrameSlot->SetSize(FVector2D(340,160));
-    auto* Box=WidgetTree->ConstructWidget<UVerticalBox>();Frame->AddChild(Box);
-    Text(WidgetTree,Box,12,FLinearColor(.3f,.7f,1))->SetText(FText::FromString(TEXT("NAVAL BATTLE  /  BLUE FLEET")));
-    Score=Text(WidgetTree,Box,23,FLinearColor::White);Health=Text(WidgetTree,Box,16,FLinearColor::White);Bar=Progress(WidgetTree,Box,16);
-    Notice=Text(WidgetTree,Box,14,FLinearColor(1,.8f,.35f));
-    Result=WidgetTree->ConstructWidget<UTextBlock>();FSlateFontInfo Font=Result->GetFont();Font.Size=38;Result->SetFont(Font);Result->SetJustification(ETextJustify::Center);
-    Result->SetShadowColorAndOpacity(FLinearColor::Black);Result->SetShadowOffset(FVector2D(3,3));
-    auto* Center=Canvas->AddChildToCanvas(Result);Center->SetAnchors(FAnchors(.5f,.35f));Center->SetAlignment(FVector2D(.5f,.5f));Center->SetAutoSize(true);
-    SetVisibility(ESlateVisibility::HitTestInvisible);return Super::RebuildWidget();
-}
-void UShipHUDWidget::Refresh(UNavalBattleSubsystem* Battle)
-{
-    if(!Battle || !Bar)return;
-    ScoreText=FString::Printf(TEXT("BLUE %d   |   RED %d"),Battle->BlueAlive,Battle->RedAlive);Score->SetText(FText::FromString(ScoreText));
-    if(auto* Ship=Battle->PlayerShip.Get())
-    {
-        HealthText=FString::Printf(TEXT("YOUR SHIP   %.0f / %.0f HP"),Ship->CurrentHealth,Ship->MaxHealth);Health->SetText(FText::FromString(HealthText));
-        float Fraction=Ship->CurrentHealth/FMath::Max(Ship->MaxHealth,1.f);Bar->SetPercent(Fraction);Bar->SetFillColorAndOpacity(HPColor(Fraction));
-    }
-    Notice->SetText(FText::FromString(Battle->Notification));ResultText=Battle->Outcome;
-    if(ResultText.IsEmpty() && Battle->PlayerShip && Battle->PlayerShip->bIsDestroyed)ResultText=TEXT("PLAYER DESTROYED\nFleet battle continues");
-    Result->SetText(FText::FromString(ResultText));Result->SetColorAndOpacity(Battle->Outcome==TEXT("VICTORY")?FLinearColor(.1f,1,.4f):FLinearColor(1,.3f,.15f));
-}
-bool UNavalBattleSubsystem::DoesSupportWorldType(EWorldType::Type Type) const {return Type==EWorldType::Game || Type==EWorldType::PIE;}
-void UNavalBattleSubsystem::Deinitialize()
-{
-    GetWorld()->GetTimerManager().ClearTimer(NoticeTimer);if(HUD)HUD->RemoveFromParent();HUD=nullptr;PlayerShip=nullptr;Registered.Empty();Fallen.Empty();Super::Deinitialize();
-}
-void UNavalBattleSubsystem::RegisterShip(UShipWeaponComponent* Ship)
-{
-    if(Registered.Contains(Ship))return;Registered.Add(Ship);
-    if(Ship->Team()==0)++BlueAlive;else if(Ship->Team()==1)++RedAlive;
-    EnsureHUD();
-}
-void UNavalBattleSubsystem::EnsureHUD()
-{
-    auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0);if(!PC || !PC->IsLocalController())return;
-    if(APawn* Pawn=PC->GetPawn())if(auto* W=Pawn->FindComponentByClass<UShipWeaponComponent>())PlayerShip=W;
-    if(!HUD)
-    {
-        UClass* Class=LoadClass<UShipHUDWidget>(nullptr,TEXT("/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD_C"));
-        if(!Class)Class=UShipHUDWidget::StaticClass();HUD=CreateWidget<UShipHUDWidget>(PC,Class);if(HUD)HUD->AddToViewport(20);
-    }
-    RefreshHUD();
-}
-void UNavalBattleSubsystem::RefreshHUD(){if(HUD)HUD->Refresh(this);}
-void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent* Ship)
-{
-    if(Fallen.Contains(Ship) || !Registered.Contains(Ship))return;Fallen.Add(Ship);
-    if(Ship->Team()==0)BlueAlive=FMath::Max(0,BlueAlive-1);else if(Ship->Team()==1)RedAlive=FMath::Max(0,RedAlive-1);
-    Notification=Ship->Team()==0?TEXT("Friendly ship destroyed"):TEXT("Enemy ship destroyed");
-    if(RedAlive==0)Outcome=TEXT("VICTORY");else if(BlueAlive==0)Outcome=TEXT("DEFEAT");
-    GetWorld()->GetTimerManager().SetTimer(NoticeTimer,FTimerDelegate::CreateWeakLambda(this,[this](){Notification.Empty();RefreshHUD();}),4,false);
-    RefreshHUD();
-}
