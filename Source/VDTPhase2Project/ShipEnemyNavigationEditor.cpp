@@ -64,7 +64,7 @@ FString UShipEnemyNavigationComponent::CompileBattleBlueprints()
     FString Result=TEXT("OK: affected battle Blueprints compiled\n");
     for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_Ship.BP_Ship"),EnemyPath,
         TEXT("/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile"),TEXT("/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed"),
-        TEXT("/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD"),TEXT("/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar"),TEXT("/Game/Ship/BluePrint/GMBP.GMBP")})
+        TEXT("/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar"),TEXT("/Game/Ship/BluePrint/GMBP.GMBP")})
     {
         UBlueprint* BP=LoadObject<UBlueprint>(nullptr,Path);
         if(!BP)return FString::Printf(TEXT("ERROR: missing Blueprint %s"),Path);

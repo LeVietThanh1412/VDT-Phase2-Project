@@ -30,6 +30,25 @@ enum class EShipDeathReason : uint8 { HealthDepleted, Capsized, Other };
 UENUM(BlueprintType)
 enum class EShipDestructionStage : uint8 { Alive, Dying, Burning, Sinking, Submerged, Cleanup };
 
+/** Designer-authored ship identity. Add to any ship Blueprint to expose a name on the minimap. */
+UCLASS(ClassGroup=(Combat), meta=(BlueprintSpawnableComponent))
+class VDTPHASE2PROJECT_API UShipIdentityComponent : public UActorComponent
+{
+    GENERATED_BODY()
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Identity")
+    FString ShipName;
+    /** Designer-authored team name. Empty falls back to Blue/Red from the ship's faction. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Identity")
+    FString TeamName;
+    /** Returns ShipName, or a readable fallback (player ship / actor label). */
+    UFUNCTION(BlueprintPure, Category="Identity") FString GetDisplayName() const;
+    /** Returns TeamName, or Blue/Red based on the ship's faction. */
+    UFUNCTION(BlueprintPure, Category="Identity") FString GetTeamName() const;
+protected:
+    virtual void BeginPlay() override;
+};
+
 /** Shared by player input and AI. Executes the ORIGINAL BP projectile/FX/recoil graph. */
 UCLASS(ClassGroup=(Combat), meta=(BlueprintSpawnableComponent))
 class VDTPHASE2PROJECT_API UShipWeaponComponent : public UActorComponent
@@ -39,6 +58,10 @@ class VDTPHASE2PROJECT_API UShipWeaponComponent : public UActorComponent
     FRotator LastPermittedManualAim=FRotator::ZeroRotator;
 public:
     UShipWeaponComponent();
+    /** Reads the ship's UShipIdentityComponent, falling back to the actor label. */
+    UFUNCTION(BlueprintPure, Category="Identity") FString GetShipName() const;
+    /** Reads TeamName from the ship identity, falling back to Blue/Red by team. */
+    UFUNCTION(BlueprintPure, Category="Identity") FString GetTeamName() const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float MuzzleSpeedCmps=20000;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float ShotCooldownSeconds=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") int32 Faction=0;
@@ -245,4 +268,6 @@ public:
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString DisableSensorDebugDefaults();
     /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */
     UFUNCTION(BlueprintCallable, Category="Combat") static void ApplyProjectileImpact(AActor* Projectile,FHitResult Impact);
+    /** Resolves a ship actor's designer-authored name for minimap markers. */
+    UFUNCTION(BlueprintPure, Category="Ship|Identity") static FString GetShipNameForObject(UObject* Object);
 };

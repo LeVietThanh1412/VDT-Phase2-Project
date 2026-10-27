@@ -6,6 +6,7 @@
 #include "NavalBattleUI.generated.h"
 
 class UShipWeaponComponent;
+class UImage;
 class UProgressBar;
 class UTextBlock;
 
@@ -20,6 +21,17 @@ protected:
 private:
     void RefreshNavalMarkers();
     FTimerHandle MarkerTimer;
+};
+
+/** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's TeamName. */
+UCLASS(Blueprintable)
+class VDTPHASE2PROJECT_API UShipMarkerWidget : public UUserWidget
+{
+    GENERATED_BODY()
+protected:
+    virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+private:
+    UPROPERTY(Transient) TObjectPtr<UImage> MarkerImage;
 };
 
 /** Presentation is inherited by the saved WBP assets; all values are event driven. */
