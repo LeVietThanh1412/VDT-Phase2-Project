@@ -1,0 +1,176 @@
+{
+  "phase": "impact",
+  "checks": [
+    {
+      "name": "Small profile applied for combat",
+      "passed": true
+    },
+    {
+      "name": "Small profile applied for combat",
+      "passed": true
+    },
+    {
+      "name": "guard probe first hostile hit",
+      "passed": true
+    },
+    {
+      "name": "same projectile victim claim only once",
+      "passed": true
+    },
+    {
+      "name": "self impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "friendly impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "unknown impact guard rejects",
+      "passed": true
+    },
+    {
+      "name": "bow original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "bow measured health delta",
+      "passed": true
+    },
+    {
+      "name": "bow single impact event",
+      "passed": true
+    },
+    {
+      "name": "bow correct local region",
+      "passed": true
+    },
+    {
+      "name": "midship original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "midship measured health delta",
+      "passed": true
+    },
+    {
+      "name": "midship single impact event",
+      "passed": true
+    },
+    {
+      "name": "midship correct local region",
+      "passed": true
+    },
+    {
+      "name": "stern original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "stern measured health delta",
+      "passed": true
+    },
+    {
+      "name": "stern single impact event",
+      "passed": true
+    },
+    {
+      "name": "stern correct local region",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship measured health delta",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship single impact event",
+      "passed": true
+    },
+    {
+      "name": "rotated_midship correct local region",
+      "passed": true
+    },
+    {
+      "name": "friendly original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "friendly measured health delta",
+      "passed": true
+    },
+    {
+      "name": "friendly single impact event",
+      "passed": true
+    },
+    {
+      "name": "prepare lethal 8 HP",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow original Blueprint fired",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow measured health delta",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow single impact event",
+      "passed": true
+    },
+    {
+      "name": "lethal_bow correct local region",
+      "passed": true
+    },
+    {
+      "name": "one death event",
+      "passed": true
+    },
+    {
+      "name": "dead rejects further damage",
+      "passed": true
+    }
+  ],
+  "stage": 5,
+  "at": 30.117317117750645,
+  "error": null,
+  "combat_profile": "Small",
+  "before_hp": 8.0,
+  "before_events": 5,
+  "status": "HULL_COLLISION_CHECKS_PASSED",
+  "samples": 6,
+  "raw_evidence": "QUANGNINH_FINAL_SMALL_DAMAGE.json.gz",
+  "first_sample": {
+    "case": "bow",
+    "hp": 92.0,
+    "before_hp": 100.0,
+    "damage": 8.0,
+    "events": 1,
+    "region": "<ShipHitRegion.BOW: 0>",
+    "normalized_x": 0.9000006914138794,
+    "local": [
+      6406.958332092137,
+      664.8672422230967,
+      47.625019275786805
+    ],
+    "deaths": 0
+  },
+  "last_sample": {
+    "case": "lethal_bow",
+    "hp": 0.0,
+    "before_hp": 8.0,
+    "damage": 8.0,
+    "events": 1,
+    "region": "<ShipHitRegion.BOW: 0>",
+    "normalized_x": 0.9000000357627869,
+    "local": [
+      6406.947125036598,
+      664.8672278818179,
+      49.149551391544726
+    ],
+    "deaths": 1
+  }
+}

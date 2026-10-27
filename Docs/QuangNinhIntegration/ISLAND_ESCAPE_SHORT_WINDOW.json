@@ -1,0 +1,68 @@
+{
+  "phase": "escape",
+  "checks": [
+    {
+      "name": "island blocks full rear commitment",
+      "passed": true
+    },
+    {
+      "name": "critical 15 HP event",
+      "passed": true
+    },
+    {
+      "name": "unsafe reverse uses forward escape",
+      "passed": true
+    },
+    {
+      "name": "escape physically moves",
+      "passed": false
+    }
+  ],
+  "last": 25.87177901342511,
+  "at": 1.101402908563614,
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_island_reverse.py\", line 55, in tick\n    check('escape route avoids blocked cells',all(cells[math.floor((r['position'][1]-chart['min_north'])/size)*chart['width']+math.floor((r['position'][0]-chart['min_east'])/size)] for r in st['rows']))\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 30, in check\nAssertionError: escape physically moves\n",
+  "fixture_actual": {
+    "position": [
+      10550.007747050346,
+      -4050.0029914742186
+    ],
+    "actor_rotation": "<Struct 'Rotator' (0x00000211CC451960) {pitch: 0.000000, yaw: 180.000000, roll: 0.000000}>",
+    "forward": "<Struct 'Vector' (0x00000211CC451960) {x: -1.000000, y: 0.000000, z: 0.000000}>",
+    "reverse_goal": "<Struct 'Vector' (0x00000212B3973420) {x: 107.399787, y: 20.965921, z: 3.000000}>"
+  },
+  "start": [
+    10550.007747050346,
+    -4050.0029914742186
+  ],
+  "status": "FAILED",
+  "samples": 98,
+  "raw_evidence": "ISLAND_ESCAPE_SHORT_WINDOW.json.gz",
+  "first_sample": {
+    "t": 1.101402908563614,
+    "position": [
+      10550.007747050346,
+      -4050.0029914742186
+    ],
+    "speed": 1.8296722567541397,
+    "state": "<ShipTacticalState.PATROL: 0>",
+    "reverse": false,
+    "retreats": 0,
+    "fallbacks": 0,
+    "route": 0,
+    "failure": ""
+  },
+  "last_sample": {
+    "t": 25.87177901342511,
+    "position": [
+      10555.010822948427,
+      -4068.9584191628937
+    ],
+    "speed": 1.6859988629191986,
+    "state": "<ShipTacticalState.ESCAPE: 8>",
+    "reverse": false,
+    "retreats": 1,
+    "fallbacks": 1,
+    "route": 3,
+    "failure": ""
+  }
+}

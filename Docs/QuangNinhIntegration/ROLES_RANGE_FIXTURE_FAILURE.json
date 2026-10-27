@@ -1,0 +1,127 @@
+{
+  "phase": "distance",
+  "checks": [
+    {
+      "name": "passive never auto-fired",
+      "passed": true
+    },
+    {
+      "name": "passive navigates physically",
+      "passed": true
+    },
+    {
+      "name": "friendly damage rejected",
+      "passed": true
+    },
+    {
+      "name": "hostile damage activates Fighter",
+      "passed": true
+    },
+    {
+      "name": "fighter acquired hostile",
+      "passed": true
+    },
+    {
+      "name": "unconfigured alert inert",
+      "passed": true
+    },
+    {
+      "name": "configured threat activates Fighter",
+      "passed": true
+    },
+    {
+      "name": "explicit command activates Fighter",
+      "passed": true
+    },
+    {
+      "name": "Hunter planned geographic pursuit",
+      "passed": true
+    },
+    {
+      "name": "Hunter physically moved",
+      "passed": true
+    },
+    {
+      "name": "Hunter still bounded active",
+      "passed": true
+    },
+    {
+      "name": "lost Hunter becomes Fighter",
+      "passed": true
+    },
+    {
+      "name": "original patrol resumed",
+      "passed": true
+    },
+    {
+      "name": "movement continues after target loss",
+      "passed": true
+    },
+    {
+      "name": "Hunter timeout bounded",
+      "passed": true
+    },
+    {
+      "name": "Hunter range bounded",
+      "passed": false
+    }
+  ],
+  "last": 45.79443670064211,
+  "at": 44.07954790070653,
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_roles.py\", line 103, in tick\n    c.hunter_max_pursuit_distance_m=1700;c.set_combat_role(unreal.ShipEnemyRole.HUNTER)\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_roles.py\", line 30, in check\n    assert value,name\nAssertionError: Hunter range bounded\n",
+  "anchors": [
+    "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+    "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984"
+  ],
+  "start": [
+    10550.000001466111,
+    -4049.9948876873627
+  ],
+  "hunter_start": [
+    10607.392921566143,
+    -3737.322943886629
+  ],
+  "resume_start": [
+    10647.26950929352,
+    -3514.547321519898
+  ],
+  "status": "FAILED",
+  "samples": 90,
+  "raw_evidence": "ROLES_RANGE_FIXTURE_FAILURE.json.gz",
+  "first_sample": {
+    "t": 1.0405957028269768,
+    "phase": "passive",
+    "position": [
+      10550.000001466111,
+      -4049.9948876873627
+    ],
+    "speed": 1.6179494511053774,
+    "role": "<ShipEnemyRole.PASSIVE: 0>",
+    "state": "<ShipTacticalState.PASSIVE: 4>",
+    "reason": "Tactical command",
+    "shots": 0,
+    "hp": 100.0,
+    "pursuit_routes": 0,
+    "resumed": 0,
+    "tactical": false,
+    "failure": ""
+  },
+  "last_sample": {
+    "t": 45.79443670064211,
+    "phase": "distance",
+    "position": [
+      10694.477826024053,
+      -3240.402610995517
+    ],
+    "speed": 18.825317486279992,
+    "role": "<ShipEnemyRole.HUNTER: 3>",
+    "state": "<ShipTacticalState.PATROL: 0>",
+    "reason": "Tactical command",
+    "shots": 1,
+    "hp": 99.0,
+    "pursuit_routes": 5,
+    "resumed": 1,
+    "tactical": false,
+    "failure": ""
+  }
+}

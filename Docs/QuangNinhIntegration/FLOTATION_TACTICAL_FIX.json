@@ -1,0 +1,330 @@
+{
+  "ships": {
+    "BP_ShipEnemy2": {
+      "last_t": 65.0125895217061,
+      "frames": 3119,
+      "contact_frames": 3003,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.3835469000041485,
+      "max_abs_vertical_speed_mps": 4.681731567382813,
+      "max_speed_mps": 19.35217786143058,
+      "min_root_z_m": 1.7164023116738332,
+      "max_root_z_m": 5.0757376994777585,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -87924.29490378499,
+        -250147.06229230762
+      ],
+      "last": [
+        -87041.14536210032,
+        -143469.14030801135
+      ],
+      "contact_ratio": 0.9628085924975954
+    },
+    "Friendly_AI_1": {
+      "last_t": 65.0125895217061,
+      "frames": 3119,
+      "contact_frames": 3119,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 3.0484967041015625,
+      "max_speed_mps": 19.11634198283317,
+      "min_root_z_m": 1.8217214731757758,
+      "max_root_z_m": 4.857109741426459,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -298021.31781357864,
+        -130318.17246561703
+      ],
+      "last": [
+        -279616.9974346642,
+        -232496.34436533658
+      ],
+      "contact_ratio": 1.0
+    },
+    "Friendly_AI_2": {
+      "last_t": 65.0125895217061,
+      "frames": 3119,
+      "contact_frames": 3119,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 2.990958557128906,
+      "max_speed_mps": 18.95578526915271,
+      "min_root_z_m": 1.9507555570381065,
+      "max_root_z_m": 5.310962527182699,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -188021.63259601593,
+        -130228.40144383907
+      ],
+      "last": [
+        -168853.64647425685,
+        -239334.516543657
+      ],
+      "contact_ratio": 1.0
+    },
+    "BP_ShipEnemy3": {
+      "last_t": 65.0125895217061,
+      "frames": 3119,
+      "contact_frames": 3119,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "max_abs_vertical_speed_mps": 3.9324331665039063,
+      "max_speed_mps": 19.261329531647046,
+      "min_root_z_m": 2.106874067738466,
+      "max_root_z_m": 5.356099423118676,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -38013.920229166746,
+        -140106.58017909527
+      ],
+      "last": [
+        -37855.4420106773,
+        -232121.8388825154
+      ],
+      "contact_ratio": 1.0
+    },
+    "BP_ShipEnemy": {
+      "last_t": 65.0125895217061,
+      "frames": 3119,
+      "contact_frames": 3030,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.33563050255179405,
+      "max_abs_vertical_speed_mps": 4.467544250488281,
+      "max_speed_mps": 19.242736204794557,
+      "min_root_z_m": 2.212469326356008,
+      "max_root_z_m": 5.125252862109948,
+      "physical_all": true,
+      "ai_all": true,
+      "initial": [
+        -137916.02627420425,
+        -260187.6742299199
+      ],
+      "last": [
+        -138732.35010685772,
+        -148073.8009038745
+      ],
+      "contact_ratio": 0.971465213209362
+    }
+  },
+  "error": null,
+  "last": 64.42718232050538,
+  "checks": {
+    "five_physical_AI": true,
+    "all_move_under_original_propulsion": true,
+    "no_sustained_pontoon_contact_loss": true,
+    "hulls_remain_near_authored_ocean": true
+  },
+  "status": "FLOTATION_VERIFIED",
+  "samples": 64,
+  "raw_evidence": "FLOTATION_TACTICAL_FIX.json.gz",
+  "first_sample": {
+    "t": 1.0351021140813828,
+    "ships": {
+      "BP_ShipEnemy2": {
+        "last_t": 1.0351021140813828,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -87924.29490378499,
+          -250147.06229230762
+        ],
+        "last": []
+      },
+      "Friendly_AI_1": {
+        "last_t": 1.0351021140813828,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -298021.31781357864,
+          -130318.17246561703
+        ],
+        "last": []
+      },
+      "Friendly_AI_2": {
+        "last_t": 1.0351021140813828,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -188021.63259601593,
+          -130228.40144383907
+        ],
+        "last": []
+      },
+      "BP_ShipEnemy3": {
+        "last_t": 1.0351021140813828,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -38013.920229166746,
+          -140106.58017909527
+        ],
+        "last": []
+      },
+      "BP_ShipEnemy": {
+        "last_t": 1.0351021140813828,
+        "frames": 0,
+        "contact_frames": 0,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 0,
+        "max_speed_mps": 0,
+        "min_root_z_m": 10000000000.0,
+        "max_root_z_m": -10000000000.0,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -137916.02627420425,
+          -260187.6742299199
+        ],
+        "last": []
+      }
+    }
+  },
+  "last_sample": {
+    "t": 64.42718232050538,
+    "ships": {
+      "BP_ShipEnemy2": {
+        "last_t": 64.42718232050538,
+        "frames": 3084,
+        "contact_frames": 2968,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0.3835469000041485,
+        "max_abs_vertical_speed_mps": 4.681731567382813,
+        "max_speed_mps": 19.35217786143058,
+        "min_root_z_m": 1.7164023116738332,
+        "max_root_z_m": 5.0757376994777585,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -87924.29490378499,
+          -250147.06229230762
+        ],
+        "last": [
+          -87037.02844501186,
+          -144196.40660696276
+        ]
+      },
+      "Friendly_AI_1": {
+        "last_t": 64.42718232050538,
+        "frames": 3084,
+        "contact_frames": 3084,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 3.0484967041015625,
+        "max_speed_mps": 19.11634198283317,
+        "min_root_z_m": 1.8217214731757758,
+        "max_root_z_m": 4.857109741426459,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -298021.31781357864,
+          -130318.17246561703
+        ],
+        "last": [
+          -279608.2173098664,
+          -232493.1492194545
+        ]
+      },
+      "Friendly_AI_2": {
+        "last_t": 64.42718232050538,
+        "frames": 3084,
+        "contact_frames": 3084,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 2.990958557128906,
+        "max_speed_mps": 18.95578526915271,
+        "min_root_z_m": 1.9507555570381065,
+        "max_root_z_m": 5.310962527182699,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -188021.63259601593,
+          -130228.40144383907
+        ],
+        "last": [
+          -168927.96507858383,
+          -238792.22635868526
+        ]
+      },
+      "BP_ShipEnemy3": {
+        "last_t": 64.42718232050538,
+        "frames": 3084,
+        "contact_frames": 3084,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "max_abs_vertical_speed_mps": 3.9324331665039063,
+        "max_speed_mps": 19.261329531647046,
+        "min_root_z_m": 2.106874067738466,
+        "max_root_z_m": 5.356099423118676,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -38013.920229166746,
+          -140106.58017909527
+        ],
+        "last": [
+          -37855.85933445333,
+          -232116.90453404246
+        ]
+      },
+      "BP_ShipEnemy": {
+        "last_t": 64.42718232050538,
+        "frames": 3084,
+        "contact_frames": 2995,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0.33563050255179405,
+        "max_abs_vertical_speed_mps": 4.467544250488281,
+        "max_speed_mps": 19.242736204794557,
+        "min_root_z_m": 2.212469326356008,
+        "max_root_z_m": 5.125252862109948,
+        "physical_all": true,
+        "ai_all": true,
+        "initial": [
+          -137916.02627420425,
+          -260187.6742299199
+        ],
+        "last": [
+          -138728.9622261973,
+          -149078.2777893412
+        ]
+      }
+    }
+  }
+}

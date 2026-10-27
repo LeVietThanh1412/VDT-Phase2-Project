@@ -41,6 +41,7 @@ def tick(dt):
             en=[sum(d[i]*chart[k][i] for i in range(3)) for k in ['east_axis','north_axis']]
             v=lambda q:[q.x,q.y,q.z]
             r=dict(name=s.get_actor_label(),team=weapon.team(),hp=weapon.current_health,dead=weapon.is_destroyed,player=s.is_player_controlled(),en_m=en,
+                controller=s.get_controller().get_class().get_name() if s.get_controller() else None,
                 heading=h.get_world_rotation().yaw,velocity=v(h.get_physics_linear_velocity()),physics=h.is_simulating_physics(),buoyancy=bool(s.get_component_by_class(unreal.BuoyancyComponent)),
                 shots=weapon.shots_fired,hits=weapon.hits,damage_events=weapon.accepted_damage_events,death_events=weapon.destruction_events,
                 muzzle=v(m.get_socket_location('front_gun_v_socket')),muzzle_rotation=str(m.get_socket_rotation('front_gun_v_socket')),

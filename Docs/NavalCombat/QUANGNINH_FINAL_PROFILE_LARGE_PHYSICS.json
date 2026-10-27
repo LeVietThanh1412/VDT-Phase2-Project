@@ -1,0 +1,35 @@
+{
+  "kind": "Large",
+  "error": null,
+  "initialized": true,
+  "last": 12.01202541962266,
+  "initial_acceleration_mps2": 27.490488642868243,
+  "peak_turn_yaw_rate": 0.24736892328581678,
+  "status": "PHYSICAL_PROFILE_CHECK_PASSED",
+  "samples": 318,
+  "raw_evidence": "QUANGNINH_FINAL_PROFILE_LARGE_PHYSICS.json.gz",
+  "first_sample": {
+    "t": 1.1183512210845947,
+    "speed": -0.0,
+    "yaw_rate": 0.0,
+    "height": 14.537628083472255,
+    "pitch": 0.0,
+    "roll": 0.0,
+    "physics": true,
+    "mass": 240.0,
+    "buoyancy": false,
+    "profile": "<ShipHullClass.LARGE: 1>"
+  },
+  "last_sample": {
+    "t": 12.01202541962266,
+    "speed": 3.566909074783325,
+    "yaw_rate": 0.04327819050414659,
+    "height": 3.982740655846275,
+    "pitch": 0.6897650294625642,
+    "roll": -0.1752827722851293,
+    "physics": true,
+    "mass": 240.0,
+    "buoyancy": true,
+    "profile": "<ShipHullClass.LARGE: 1>"
+  }
+}

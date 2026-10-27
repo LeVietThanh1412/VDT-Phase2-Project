@@ -7,6 +7,8 @@ exec((root/'Tools/NavalCombat/test_roles.py').read_text().split('def tick(dt):')
 st=dict(handle=None,phase='init',rows=[],checks=[],last=-1,at=0,error=None)
 builtins.island_reverse_test=st
 fixture=json.loads((root/'Docs/NavalCombat/ISLAND_REVERSE_FIXTURE.json').read_text())
+fixture=globals().get('ISLAND_FIXTURE',fixture)
+duration=globals().get('DURATION',25)
 def set_en(s,p,yaw=None):
     g=s.get_component_by_class(unreal.CesiumGlobeAnchorComponent).resolve_georeference()
     ecef=unreal.Vector(*chart['origin_ecef'])+unreal.Vector(*chart['east_axis'])*p[0]+unreal.Vector(*chart['north_axis'])*p[1]
@@ -47,10 +49,17 @@ def tick(dt):
         s=st['subject'];n=s.get_component_by_class(unreal.ShipEnemyNavigationComponent);c=s.get_component_by_class(unreal.ShipCombatComponent)
         if t-st['last']>.25:
             st['last']=t;st['rows'].append(dict(t=t,position=metric(s),speed=hull(s).get_physics_linear_velocity().length()/100,state=str(c.tactical_state),reverse=n.backward_retreat_active,
-                retreats=c.retreats_started,fallbacks=c.unsafe_reverse_fallbacks,route=len(n.current_route),failure=n.last_navigation_failure_reason))
-        if t-st['at']>=25:
+                retreats=c.retreats_started,fallbacks=c.unsafe_reverse_fallbacks,route=len(n.current_route),failure=n.last_navigation_failure_reason,
+                throttle=n.desired_throttle,rudder=n.desired_rudder,yaw=hull(s).get_world_rotation().yaw,world_z_m=hull(s).get_world_location().z/100,
+                in_water=s.get_component_by_class(unreal.BuoyancyComponent).is_in_water_body(),physics=hull(s).is_simulating_physics(),
+                target=c.target.get_actor_label() if c.target else None,visible=c.target_visible))
+        if t-st['at']>=duration:
             check('unsafe reverse uses forward escape',c.unsafe_reverse_fallbacks>=1 and c.backward_retreats_started==0)
-            check('escape physically moves',math.dist(st['start'],metric(s))>30)
+            check('escape physically moves',max((math.dist(st['start'],r['position']) for r in st['rows'] if 'ESCAPE' in r['state']),default=0)>30)
+            if globals().get('CHECK_COMMITMENT',False):
+                turning=[r for r in st['rows'] if r['retreats']>0 and r['t']-st['at']<min(60,c.maximum_retreat_seconds-1) and math.dist(st['start'],r['position'])<30]
+                check('escape turn stays committed before physical departure',bool(turning) and all('ESCAPE' in r['state'] for r in turning))
+                check('occluded gun target is still cleared during escape',any(r['target'] is None and 'ESCAPE' in r['state'] for r in turning))
             check('escape route avoids blocked cells',all(cells[math.floor((r['position'][1]-chart['min_north'])/size)*chart['width']+math.floor((r['position'][0]-chart['min_east'])/size)] for r in st['rows']))
             finish('ISLAND_CRITICAL_RETREAT_PASSED')
     except Exception:st['error']=traceback.format_exc();finish('FAILED')

@@ -1,0 +1,884 @@
+{
+  "status": "ALL_FIVE_LOOPS_VERIFIED",
+  "last": 402.76782485097647,
+  "arrivals": [
+    {
+      "ship": "Friendly_AI_1",
+      "t": 66.50342961028218,
+      "leg": 1,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.80515177033769,
+      "allowed_m": 80.0,
+      "speed_mps": 0.024470836305239083
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 67.5128287114203,
+      "leg": 1,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.61347022166898,
+      "allowed_m": 80.0,
+      "speed_mps": 0.05702046214634773
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 74.56893081218004,
+      "leg": 1,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.51664300156703,
+      "allowed_m": 80.0,
+      "speed_mps": 0.08826880906385863
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 76.58979970961809,
+      "leg": 1,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.36218208650175,
+      "allowed_m": 80.0,
+      "speed_mps": 0.07282081814900936
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 79.60195971280336,
+      "leg": 1,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.7225913790949,
+      "allowed_m": 80.0,
+      "speed_mps": 0.0782584894926859
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 210.55576949939132,
+      "leg": 2,
+      "arrived_at": "TP_Red03_A",
+      "distance_m": 79.31313231608759,
+      "allowed_m": 80.0,
+      "speed_mps": 0.012397882427555264
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 213.5746949017048,
+      "leg": 2,
+      "arrived_at": "TP_Friendly_Patrol_A",
+      "distance_m": 79.50389062480978,
+      "allowed_m": 80.0,
+      "speed_mps": 0.11561364919340444
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 224.6481157951057,
+      "leg": 2,
+      "arrived_at": "TP_Red02_A",
+      "distance_m": 79.71217193277826,
+      "allowed_m": 80.0,
+      "speed_mps": 0.09701049857153318
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 239.74048129096627,
+      "leg": 2,
+      "arrived_at": "TP_ShipEnemy_AStarDestination",
+      "distance_m": 79.56391049316015,
+      "allowed_m": 80.0,
+      "speed_mps": 0.10375936985029853
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 242.7616791948676,
+      "leg": 2,
+      "arrived_at": "TP_Blue02_A",
+      "distance_m": 79.7001792657156,
+      "allowed_m": 80.0,
+      "speed_mps": 0.15220110879641927
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 339.3660203255713,
+      "leg": 3,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.51641447648603,
+      "allowed_m": 80.0,
+      "speed_mps": 0.18081549129637078
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 345.414942830801,
+      "leg": 3,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.46150909847074,
+      "allowed_m": 80.0,
+      "speed_mps": 0.13257851730855
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 359.507670532912,
+      "leg": 3,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.19910219139439,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1956272089505392
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 397.76001235097647,
+      "leg": 3,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.49532646000401,
+      "allowed_m": 80.0,
+      "speed_mps": 0.06818628498623956
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 402.76782485097647,
+      "leg": 3,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.80330516953957,
+      "allowed_m": 80.0,
+      "speed_mps": 0.08163724082824611
+    }
+  ],
+  "errors": [],
+  "distance_traveled_m": {
+    "BP_ShipEnemy2": 3457.5180954155794,
+    "Friendly_AI_1": 3228.0797162794493,
+    "Friendly_AI_2": 3381.363327296304,
+    "BP_ShipEnemy3": 2866.331392316266,
+    "BP_ShipEnemy": 3658.9001548964347
+  },
+  "error": null,
+  "limit_seconds": 700,
+  "required_arrivals": 3,
+  "samples": 401,
+  "raw_evidence": "QUANGNINH_TACTICAL_PATROL_SOAK.json.gz",
+  "first_sample": {
+    "t": 0.016666799783706665,
+    "ships": [
+      {
+        "name": "BP_ShipEnemy2",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          12649.993096360002,
+          -2849.998434620602
+        ],
+        "world": [
+          -87924.29490378499,
+          -250147.06229230762,
+          914.3520658230225
+        ],
+        "heading": 90.04656219482422,
+        "speed_mps": 0.0,
+        "signed_speed_mps": 0.0,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.0,
+        "state": "<ShipNavigationState.PATROL: 1>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": false,
+        "failure": "",
+        "waypoint": 0,
+        "route": [],
+        "legs": 0,
+        "a": "TP_Red02_A",
+        "b": "TP_Red02_B",
+        "active": "TP_Red02_B",
+        "target_en_m": [
+          12649.978525608869,
+          -4049.993084478021
+        ],
+        "target_world": [
+          -88021.80660685897,
+          -130147.05965289474,
+          280.57815384864807
+        ],
+        "distance_to_target_m": 1199.9946499458806,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": null,
+        "goal_world_error_m": null,
+        "geographic": [
+          107.41805821440833,
+          20.966812243170917,
+          9.69730041856094
+        ],
+        "actor_world": [
+          -87924.29490378499,
+          -250147.06229230762,
+          914.3520658230225
+        ],
+        "angular_velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": "<Struct 'Rotator' (0x0000027558837C10) {pitch: 0.000000, yaw: 90.046562, roll: 0.000000}>",
+        "in_water": false,
+        "collision_coverage_uncertain": true,
+        "waypoint_count": 0,
+        "distance_traveled_m": 0
+      },
+      {
+        "name": "Friendly_AI_1",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          10549.99947444,
+          -4049.9997971117405
+        ],
+        "world": [
+          -298021.3999963701,
+          -130317.72254633904,
+          886.7482959246079
+        ],
+        "heading": -79.64840698242188,
+        "speed_mps": 0.0,
+        "signed_speed_mps": 0.0,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.0,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "Waiting for 12 existing Blueprint sensor outputs",
+        "waypoint": 1,
+        "route": [
+          [
+            10549.999480164786,
+            -4049.999799388625,
+            0.0
+          ],
+          [
+            10749.988642791954,
+            -2949.996865157393,
+            0.0
+          ]
+        ],
+        "legs": 0,
+        "a": "TP_Friendly_Patrol_A",
+        "b": "TP_Friendly_Patrol_B",
+        "active": "TP_Friendly_Patrol_B",
+        "target_en_m": [
+          10749.9886427914,
+          -2949.9968651575955
+        ],
+        "target_world": [
+          -277931.6938557923,
+          -240301.16505512595,
+          193.9564481973648
+        ],
+        "distance_to_target_m": 1118.0349358430624,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 5.888374174243734e-10,
+        "goal_world_error_m": 3.5886748369909215e-09,
+        "geographic": [
+          107.39785737264064,
+          20.95598698635542,
+          9.697300419375969
+        ],
+        "actor_world": [
+          -298021.3999963701,
+          -130317.72254633904,
+          886.7482959246079
+        ],
+        "angular_velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": "<Struct 'Rotator' (0x00000275588378A0) {pitch: 0.000000, yaw: -79.648407, roll: 0.000000}>",
+        "in_water": false,
+        "collision_coverage_uncertain": true,
+        "waypoint_count": 2,
+        "distance_traveled_m": 0
+      },
+      {
+        "name": "Friendly_AI_2",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          11649.99592658284,
+          -4049.9985754348563
+        ],
+        "world": [
+          -188021.63259601593,
+          -130228.40144383907,
+          928.6610421156327
+        ],
+        "heading": -80.4909896850586,
+        "speed_mps": 0.0,
+        "signed_speed_mps": 0.0,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.0,
+        "state": "<ShipNavigationState.PATROL: 1>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": false,
+        "failure": "",
+        "waypoint": 0,
+        "route": [],
+        "legs": 0,
+        "a": "TP_Blue02_A",
+        "b": "TP_Blue02_B",
+        "active": "TP_Blue02_B",
+        "target_en_m": [
+          11849.983947900262,
+          -2849.996116773333
+        ],
+        "target_world": [
+          -167923.90914788842,
+          -250211.79080078006,
+          228.55807387828827
+        ],
+        "distance_to_target_m": 1216.5529620465186,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": null,
+        "goal_world_error_m": null,
+        "geographic": [
+          107.40843417254992,
+          20.95598036721694,
+          9.697300418205142
+        ],
+        "actor_world": [
+          -188021.63259601593,
+          -130228.40144383907,
+          928.6610421156327
+        ],
+        "angular_velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": "<Struct 'Rotator' (0x0000027558837C60) {pitch: 0.000000, yaw: -80.490990, roll: 0.000000}>",
+        "in_water": false,
+        "collision_coverage_uncertain": true,
+        "waypoint_count": 0,
+        "distance_traveled_m": 0
+      },
+      {
+        "name": "BP_ShipEnemy3",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          13149.989525528601,
+          -3949.9968347376
+        ],
+        "world": [
+          -38013.920229166746,
+          -140106.58017909527,
+          953.125510117952
+        ],
+        "heading": -89.953369140625,
+        "speed_mps": 0.0,
+        "signed_speed_mps": 0.0,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.0,
+        "state": "<ShipNavigationState.PATROL: 1>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": false,
+        "failure": "",
+        "waypoint": 0,
+        "route": [],
+        "legs": 0,
+        "a": "TP_Red03_A",
+        "b": "TP_Red03_B",
+        "active": "TP_Red03_B",
+        "target_en_m": [
+          13149.97684441961,
+          -2949.9947749491066
+        ],
+        "target_world": [
+          -37932.5393782258,
+          -240106.19843116403,
+          253.4321244955063
+        ],
+        "distance_to_target_m": 1000.0020598688983,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": null,
+        "goal_world_error_m": null,
+        "geographic": [
+          107.42285782924634,
+          20.956873489505714,
+          9.697300418288682
+        ],
+        "actor_world": [
+          -38013.920229166746,
+          -140106.58017909527,
+          953.125510117952
+        ],
+        "angular_velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": "<Struct 'Rotator' (0x0000027558835AA0) {pitch: 0.000000, yaw: -89.953369, roll: 0.000000}>",
+        "in_water": false,
+        "collision_coverage_uncertain": true,
+        "waypoint_count": 0,
+        "distance_traveled_m": 0
+      },
+      {
+        "name": "BP_ShipEnemy",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          12149.995303197426,
+          -2749.9989298279947
+        ],
+        "world": [
+          -137916.02627420425,
+          -260187.6742299199,
+          901.4664323543946
+        ],
+        "heading": 90.04653930664064,
+        "speed_mps": 0.0,
+        "signed_speed_mps": 0.0,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.0,
+        "state": "<ShipNavigationState.PATROL: 1>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": false,
+        "failure": "",
+        "waypoint": 0,
+        "route": [],
+        "legs": 0,
+        "a": "TP_ShipEnemy_AStarDestination",
+        "b": "TP_ShipEnemy_OpenSeaDestination",
+        "active": "TP_ShipEnemy_OpenSeaDestination",
+        "target_en_m": [
+          12149.981224543968,
+          -4049.9937048246
+        ],
+        "target_world": [
+          -138021.6138524115,
+          -130187.66217169166,
+          271.71356654167175
+        ],
+        "distance_to_target_m": 1299.9947750728397,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": null,
+        "goal_world_error_m": null,
+        "geographic": [
+          107.4132509378117,
+          20.967718810979125,
+          9.697300417922708
+        ],
+        "actor_world": [
+          -137916.02627420425,
+          -260187.6742299199,
+          901.4664323543946
+        ],
+        "angular_velocity": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": "<Struct 'Rotator' (0x00000275588376C0) {pitch: 0.000000, yaw: 90.046539, roll: 0.000000}>",
+        "in_water": false,
+        "collision_coverage_uncertain": true,
+        "waypoint_count": 0,
+        "distance_traveled_m": 0
+      }
+    ],
+    "total_pawns": 6,
+    "player_pawns": 1
+  },
+  "last_sample": {
+    "t": 402.76782485097647,
+    "ships": [
+      {
+        "name": "BP_ShipEnemy2",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          12678.296542635117,
+          -3953.6445002801156
+        ],
+        "world": [
+          -85182.39673281577,
+          -139779.70150498743,
+          383.1484891774137
+        ],
+        "heading": -169.19319720324037,
+        "speed_mps": 0.8054510106956743,
+        "signed_speed_mps": 0.04113584295147799,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": 0.6000000238418579,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "",
+        "waypoint": 1,
+        "route": [
+          [
+            12695.478268775325,
+            -3985.034013650878,
+            0.0
+          ],
+          [
+            12649.979819446806,
+            -2849.9954267561666,
+            0.0
+          ]
+        ],
+        "legs": 3,
+        "a": "TP_Red02_A",
+        "b": "TP_Red02_B",
+        "active": "TP_Red02_A",
+        "target_en_m": [
+          12649.979819445305,
+          -2849.995426756519
+        ],
+        "target_world": [
+          -87924.2025822401,
+          -250146.79809105396,
+          244.62208211421967
+        ],
+        "distance_to_target_m": 1104.0122799596486,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 1.5414945853065081e-09,
+        "goal_world_error_m": 1.5196262340524151e-09,
+        "geographic": [
+          107.41832241037439,
+          20.956843819435115,
+          4.042343624294397
+        ],
+        "actor_world": [
+          -85182.39673281577,
+          -139779.70150498743,
+          383.1484891774137
+        ],
+        "angular_velocity": [
+          -2.467684245827968,
+          -0.9327090240608413,
+          1.6466367490131688
+        ],
+        "rotation": "<Struct 'Rotator' (0x000002754FF0DF00) {pitch: -0.712672, yaw: -169.193197, roll: 6.691118}>",
+        "in_water": true,
+        "collision_coverage_uncertain": false,
+        "waypoint_count": 2,
+        "distance_traveled_m": 3457.5180954155794
+      },
+      {
+        "name": "Friendly_AI_1",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          10708.792424634754,
+          -3058.979725041478
+        ],
+        "world": [
+          -282060.70567597845,
+          -229406.4437533105,
+          447.01157932200243
+        ],
+        "heading": 43.811089122861205,
+        "speed_mps": 12.173368018879787,
+        "signed_speed_mps": 12.146674745856851,
+        "physics": true,
+        "throttle": 0.11245967447757721,
+        "rudder": 1.0,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "",
+        "waypoint": 1,
+        "route": [
+          [
+            10690.372305979938,
+            -3002.516000111518,
+            0.0
+          ],
+          [
+            10549.988402538893,
+            -4049.9955218347395,
+            0.0
+          ]
+        ],
+        "legs": 3,
+        "a": "TP_Friendly_Patrol_A",
+        "b": "TP_Friendly_Patrol_B",
+        "active": "TP_Friendly_Patrol_A",
+        "target_en_m": [
+          10549.988402538394,
+          -4049.9955218350333
+        ],
+        "target_world": [
+          -298021.0870703161,
+          -130317.5849069655,
+          217.01834094524384
+        ],
+        "distance_to_target_m": 1003.6588199823415,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 5.785365786181279e-10,
+        "goal_world_error_m": 1.2644054553268208e-09,
+        "geographic": [
+          107.39939040884195,
+          20.96493700629871,
+          5.508334550640025
+        ],
+        "actor_world": [
+          -282060.70567597845,
+          -229406.4437533105,
+          447.01157932200243
+        ],
+        "angular_velocity": [
+          -2.560693274526784,
+          -11.678715278101663,
+          2.9301251664005576
+        ],
+        "rotation": "<Struct 'Rotator' (0x000002758708DFA0) {pitch: 0.071266, yaw: 43.811089, roll: 1.869501}>",
+        "in_water": true,
+        "collision_coverage_uncertain": false,
+        "waypoint_count": 2,
+        "distance_traveled_m": 3228.0797162794493
+      },
+      {
+        "name": "Friendly_AI_2",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          11842.33465091536,
+          -2929.431976255178
+        ],
+        "world": [
+          -168695.21276979503,
+          -242268.79697088106,
+          193.18158821235522
+        ],
+        "heading": -88.61135340151608,
+        "speed_mps": 0.08163724082824611,
+        "signed_speed_mps": -0.03687174478801655,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": -0.37378716468811035,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "",
+        "waypoint": 1,
+        "route": [
+          [
+            11842.437060920756,
+            -2929.310495716604,
+            0.0
+          ],
+          [
+            11649.983699671633,
+            -4049.994300156289,
+            0.0
+          ]
+        ],
+        "legs": 3,
+        "a": "TP_Blue02_A",
+        "b": "TP_Blue02_B",
+        "active": "TP_Blue02_A",
+        "target_en_m": [
+          11649.9836996718,
+          -4049.994300155787
+        ],
+        "target_world": [
+          -188021.4351710081,
+          -130228.26389867067,
+          258.93104326725006
+        ],
+        "distance_to_target_m": 1136.951542586506,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 5.287663673901517e-10,
+        "goal_world_error_m": 2.421152116249788e-09,
+        "geographic": [
+          107.4102913550129,
+          20.96610013663217,
+          2.617437194196324
+        ],
+        "actor_world": [
+          -168695.21276979503,
+          -242268.79697088106,
+          193.18158821235522
+        ],
+        "angular_velocity": [
+          -0.1902970906364203,
+          2.424910188499325,
+          -0.028538459781238146
+        ],
+        "rotation": "<Struct 'Rotator' (0x0000027558BC7170) {pitch: -2.266086, yaw: -88.611353, roll: -0.325239}>",
+        "in_water": true,
+        "collision_coverage_uncertain": false,
+        "waypoint_count": 2,
+        "distance_traveled_m": 3381.363327296304
+      },
+      {
+        "name": "BP_ShipEnemy3",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          13153.959495081504,
+          -3070.892821432625
+        ],
+        "world": [
+          -37544.49971055634,
+          -228016.234325836,
+          448.4451001665406
+        ],
+        "heading": 151.29507726132704,
+        "speed_mps": 1.0206648063184884,
+        "signed_speed_mps": 0.05970076800048099,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": -0.6000000238418579,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "",
+        "waypoint": 1,
+        "route": [
+          [
+            13175.950767739656,
+            -3025.2569540404647,
+            0.0
+          ],
+          [
+            13149.975723606492,
+            -3949.9926650712537,
+            0.0
+          ]
+        ],
+        "legs": 3,
+        "a": "TP_Red03_A",
+        "b": "TP_Red03_B",
+        "active": "TP_Red03_A",
+        "target_en_m": [
+          13149.975723606658,
+          -3949.992665071187
+        ],
+        "target_world": [
+          -38013.88031408191,
+          -140106.43220075965,
+          283.39548575878143
+        ],
+        "distance_to_target_m": 879.1088701182052,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 1.785165736685843e-10,
+        "goal_world_error_m": 1.2287812309317768e-09,
+        "geographic": [
+          107.42290277241942,
+          20.964813560888782,
+          4.905291429288232
+        ],
+        "actor_world": [
+          -37544.49971055634,
+          -228016.234325836,
+          448.4451001665406
+        ],
+        "angular_velocity": [
+          -2.5987075440389162,
+          -0.2457607582921355,
+          -1.7417579068751365
+        ],
+        "rotation": "<Struct 'Rotator' (0x000002754FF0DF00) {pitch: 0.093444, yaw: 151.295077, roll: 4.637164}>",
+        "in_water": true,
+        "collision_coverage_uncertain": false,
+        "waypoint_count": 2,
+        "distance_traveled_m": 2866.331392316266
+      },
+      {
+        "name": "BP_ShipEnemy",
+        "controller": "AIController",
+        "ai": true,
+        "en_m": [
+          12136.821692676407,
+          -3971.522283714824
+        ],
+        "world": [
+          -139330.95036112523,
+          -138035.77525792926,
+          153.77069915282203
+        ],
+        "heading": 73.23626410467413,
+        "speed_mps": 0.8334535029966607,
+        "signed_speed_mps": 0.021027022562455543,
+        "physics": true,
+        "throttle": 0.0,
+        "rudder": -0.6000000238418579,
+        "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "yielding": false,
+        "traffic_wait_s": 0.0,
+        "traffic_priority": false,
+        "path": true,
+        "failure": "",
+        "waypoint": 1,
+        "route": [
+          [
+            12133.90067770053,
+            -3972.0214611224847,
+            0.0
+          ],
+          [
+            12149.982551287298,
+            -2749.9960275819476,
+            0.0
+          ]
+        ],
+        "legs": 3,
+        "a": "TP_ShipEnemy_AStarDestination",
+        "b": "TP_ShipEnemy_OpenSeaDestination",
+        "active": "TP_ShipEnemy_AStarDestination",
+        "target_en_m": [
+          12149.982551287467,
+          -2749.996027582316
+        ],
+        "target_world": [
+          -137915.88146072626,
+          -260187.39942410588,
+          231.73646211624146
+        ],
+        "distance_to_target_m": 1221.597152346256,
+        "arrival_radius_m": 80.0,
+        "endpoint_error_m": 4.0533373958491896e-10,
+        "goal_world_error_m": 1.1920928955078125e-09,
+        "geographic": [
+          107.41311584420613,
+          20.956685981694942,
+          1.8400089135717395
+        ],
+        "actor_world": [
+          -139330.95036112523,
+          -138035.77525792926,
+          153.77069915282203
+        ],
+        "angular_velocity": [
+          2.078236272247068,
+          5.798413218545647,
+          -1.8435272930337305
+        ],
+        "rotation": "<Struct 'Rotator' (0x000002758708DEB0) {pitch: -1.249639, yaw: 73.236264, roll: -1.823456}>",
+        "in_water": true,
+        "collision_coverage_uncertain": false,
+        "waypoint_count": 2,
+        "distance_traveled_m": 3658.9001548964347
+      }
+    ],
+    "total_pawns": 6,
+    "player_pawns": 1
+  }
+}

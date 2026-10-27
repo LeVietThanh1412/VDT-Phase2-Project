@@ -8,6 +8,7 @@ class ACameraActor;
 class AFreeCameraPawn;
 class UShipDetailsUI;
 class USpringArmComponent;
+class UShipSetupWidget;
 
 /** Views ships with Q without taking their AI controllers; F toggles free flight. */
 UCLASS()
@@ -19,6 +20,17 @@ public:
     virtual void BeginPlay() override;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void SetupInputComponent() override;
+    virtual void BeginPlay() override;
+    UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
+    UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
+    UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
+    virtual void PlayerTick(float DeltaTime) override;
+    virtual void OnPossess(APawn* InPawn) override;
+    UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
+    UFUNCTION(BlueprintCallable, Category="Spectator") void ShowBattlefieldOverview();
+    UPROPERTY(BlueprintReadOnly, Category="Spectator") bool bDeathSpectating=false;
+    UPROPERTY(BlueprintReadOnly, Category="Spectator") TObjectPtr<APawn> FollowedTeammate;
+    UFUNCTION(BlueprintCallable, Category="Camera")
 
     /** Returns the ship selected by the controller, including while free camera is active. */
     APawn* GetSelectedShip() const;
@@ -46,6 +58,9 @@ private:
     void SetHorizonLock(APawn* InShip, bool bEnabled);
 
 private:
+    void EnterDeathSpectator();
+    bool bMenuPausedWorld=false;
+    UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;
 

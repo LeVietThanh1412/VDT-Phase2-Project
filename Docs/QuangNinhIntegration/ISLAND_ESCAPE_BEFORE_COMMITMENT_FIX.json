@@ -1,0 +1,80 @@
+{
+  "phase": "escape",
+  "checks": [
+    {
+      "name": "island blocks full rear commitment",
+      "passed": true
+    },
+    {
+      "name": "critical 15 HP event",
+      "passed": true
+    },
+    {
+      "name": "unsafe reverse uses forward escape",
+      "passed": true
+    },
+    {
+      "name": "escape physically moves",
+      "passed": false
+    }
+  ],
+  "last": 91.23792191967368,
+  "at": 1.2745815217494965,
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_island_reverse.py\", line 58, in tick\n    check('escape route avoids blocked cells',all(cells[math.floor((r['position'][1]-chart['min_north'])/size)*chart['width']+math.floor((r['position'][0]-chart['min_east'])/size)] for r in st['rows']))\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<string>\", line 30, in check\nAssertionError: escape physically moves\n",
+  "fixture_actual": {
+    "position": [
+      10550.007747050346,
+      -4050.0029914742186
+    ],
+    "actor_rotation": "<Struct 'Rotator' (0x00000212183E4920) {pitch: 0.000000, yaw: 180.000000, roll: 0.000000}>",
+    "forward": "<Struct 'Vector' (0x00000212183E4920) {x: -1.000000, y: 0.000000, z: 0.000000}>",
+    "reverse_goal": "<Struct 'Vector' (0x00000213918D3420) {x: 107.399787, y: 20.965921, z: 3.000000}>"
+  },
+  "start": [
+    10550.007747050346,
+    -4050.0029914742186
+  ],
+  "status": "FAILED",
+  "samples": 352,
+  "raw_evidence": "ISLAND_ESCAPE_BEFORE_COMMITMENT_FIX.json.gz",
+  "first_sample": {
+    "t": 1.2745815217494965,
+    "position": [
+      10550.007747050346,
+      -4050.0029914742186
+    ],
+    "speed": 1.9322883498172467,
+    "state": "<ShipTacticalState.PATROL: 0>",
+    "reverse": false,
+    "retreats": 0,
+    "fallbacks": 0,
+    "route": 0,
+    "failure": "",
+    "throttle": 0.16124223172664642,
+    "rudder": 3.3437164148608645e-08,
+    "yaw": 180.0,
+    "world_z_m": 13.87018188714981,
+    "in_water": false,
+    "physics": true
+  },
+  "last_sample": {
+    "t": 91.23792191967368,
+    "position": [
+      10550.985091124445,
+      -4070.73139722382
+    ],
+    "speed": 1.0109870596654562,
+    "state": "<ShipTacticalState.PATROL: 0>",
+    "reverse": false,
+    "retreats": 3,
+    "fallbacks": 3,
+    "route": 2,
+    "failure": "",
+    "throttle": 0.0,
+    "rudder": 0.6000000238418579,
+    "yaw": 146.64819647988705,
+    "world_z_m": 3.5268925807795397,
+    "in_water": true,
+    "physics": true
+  }
+}

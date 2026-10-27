@@ -1,6 +1,135 @@
 # Naval Battle V2 — progress ledger
 
-Current work (2026-10-22): QuangNinh integration on `feature/quangninh-battle-integration`, based on merged `28b7f7b`. Terrain source access is restored; the near-origin layout is saved. Actual five-AI patrol on the restored terrain FAILED because of sea-level DEM collision. Selective collision restored all five ships and passed B/A/B loops; a narrower final filter preserving nonzero submerged geometry is undergoing the final recheck. The previous map's results below are historical, not a current-map pass. Spectator, optional turns and pre-match settings remain outstanding.
+## Active checkpoint — 2026-10-26
+
+Branch `feature/quangninh-battle-integration`, HEAD `faa966c` (pushed). Earlier
+verified commits `d4a8b38` / `84a6210` / `aefaea6` are in open, unmerged PR #7.
+Main and Thanh were not changed by this agent. The dated records below are
+historical; use this active checkpoint for the next action.
+
+- Phase 6 destruction: PASSED. Standalone native billboard fallback built
+  successfully (21.69 s / 5 actions). Two materials and five hidden shared
+  BP_Ship components saved with recovery copies and exact original force-graph
+  validation. First low-emission visual attempt failed despite activation flags;
+  daylight emissive correction shows actual fire on a rolled wreck. Warm tint
+  and radial smoke opacity are saved; final screenshot A00002 visibly shows
+  orange flames and dark smoke. Existing Niagara and staged sinking are preserved.
+  Final five-wreck health/capsize/rebase/sinking/cleanup regression PASSED 66/66;
+  short-roll fixture missed a narrow reset window once, failure preserved and
+  deterministic one-time reset fixed; gameplay capsize unchanged. Saved
+  runtime health/capsize spectator tests also pass effect activation, hiding
+  at Submerged and actor cleanup. See WRECK_BILLBOARD_REPORT.md and JSON files.
+- Phase 7 spectator: PASSED focused functional gate, source compiled (35.70 s / 7 actions), editor
+  restarted, seven BPs compiled, original force graph validated. Current-map
+  health, original-projectile and confirmed-player-capsize cases PASSED. Each
+  checks automatic Blue follow, Tab/M handlers, preserved five AI controllers,
+  follow-target death, no-teammate overview, explicit geographic rebase and
+  cleanup. Death while F free camera PASSED too. Results: 22/24/22/23 checks.
+  Physical keyboard
+  routing and final visual integration are still pending. Initial projectile
+  fixture checked before PlayerTick; failed raw result preserved, bounded
+  0.2 s next-tick observation added, actual projectile repeat passed.
+- Phase 8 turns: PASSED focused gate. One timer in the existing battle subsystem;
+  10-second alternating living-ship windows, action gates in the original force
+  filters, shared weapon and aim selector, inactive AI decisions/nav held while
+  physics/projectiles/damage/sinking continue. Match settings backend retains
+  direct PIE defaults and will reuse the six existing ships for selected counts.
+  Normal native build PASSED (13 actions / 33.07 s). Three full six-ship
+  rotations, 18 original projectiles crossing turn boundaries, inactive gates,
+  continued physics, active-death skip, victory and sinking/cleanup PASSED.
+  All 2932 assertions passed (includes repeated per-frame/ship invariants).
+  Window durations 10.001-10.190 s. Separate 90 s real-time integration PASSED
+  20/20. Evidence TURN_MODE_REPORT.md and TURN_* JSON/gzip. Fresh PIE initially entered
+  built-in spectator mode: standard PlayerController + SpectatorPawn, five AI,
+  no player ship. Fixture correctly failed the six-ship assertion. Engine
+  PlayLevel.cpp:2867 also starts spectators when Ctrl is held; do not patch
+  gameplay to hide an editor-start condition. Fresh normal play configured six
+  ships. Two other fixture failures (player AI-only probe and unbounded upward
+  test rounds) are preserved; the final bounded fixture passed without native
+  physics/capsize changes. Zen DDC startup crashed once before gameplay; current
+  editor uses built-in -DDC=InstalledNoZenLocalFallback after cold shaders.
+- Phase 9 prematch: PASSED functional/visual gates. ShipSetupWidget.h/.cpp and PC P/menu integration
+  compiled after two C++ API fixes (explicit graph-node pointer type; renamed
+  locals that hid UWidget::Slot). Build PASSED 5 actions / 4.32 s. Actual menu
+  pause/cancel/level-travel matches 1v1, 2v2, 3v3, 2v3, 3v1 PASSED **127/127**:
+  per-slot classes, skill, selected mode, exact pawn/controller counts, one Blue
+  player, original patrol references and fresh-PIE defaults. Screenshot inspection
+  caught clipped bottom buttons; height 490→560 and shorter turn label built
+  successfully (4 actions / 4.18 s), repeated 127/127 and corrected screenshot
+  inspected: both buttons fully visible. Physical key/mouse injection unavailable
+  because hidden editor window is not targetable by computer-use; native
+  bindings/delegates source-inspected, their handlers live-tested. Standalone
+  auto-open branch source-inspected only; PIE menu/travel behavior executed.
+  New ShipDebugEditor.cpp helper compiled too, but has NOT been invoked or
+  verified; excludes it and its header declaration from the eventual menu commit.
+- Phase 10 final QA: NOT_STARTED.
+- Modified source: ShipWreckBillboardComponent.h/.cpp, CustomPlayerController.h/.cpp,
+  Actor/Pawn/FreeCameraPawn.h/.cpp, NavalBattleUI.cpp (preserves pre-existing
+  formatting). Assets: BP_Ship and two M_Wreck*Billboard materials. Tools:
+  setup_wreck_billboards.py, probe_wreck_billboards.py, test_spectator.py.
+- Reproduction: execute each file through Tools/SeaNavigation/mcp_client.py using
+  file-based exec; never start an editor-only operation while PIE is active.
+- VFX and spectator delivered: `9b0a350` and `49d874d`, normal push succeeded
+  (18 LFS objects / 16 MB). Main unchanged; PR #7 remains open/unmerged.
+- Saving inherited wreck defaults also resaved the five existing external ship
+  actor packages. Saved-state audit PASSED 7/7, no actor/target/controller/patrol
+  setting differences. Persist these reviewed packages in a focused follow-up.
+- Turns delivered: `faa966c`, normally pushed; PR #7 body includes its evidence.
+- Next: save/commit/push verified menu, apply and
+  verify the narrow sensor-debug default cleanup, then final
+  end-to-end/input/debug/performance/soak QA. Do not stop at this checkpoint.
+
+Current checkpoint (2026-10-24): integration branch and origin/main both contain `920936b`, merged PR #6 (terrain implementation `f16b5bb`). This merge was already present when the agent resumed; no merge was performed in this session. Clean starting tree, one worktree, three existing feature/map stashes preserved, Thanh retained. Current task explicitly authorizes incremental feature-branch commits, ordinary pushes and PR creation; no automatic main merge.
+
+| Master phase | Status | Current evidence / next action |
+|---|---|---|
+| 0 Recovery | PASSED | Source/assets/evidence already preserved in f16b5bb and PR #6; fetched refs and audited clean tree |
+| 1 Final narrowed collision | PASSED | Rebuilt cache fix: 415.22 s saved-level soak, all five B/A/B, 15 arrivals, independent 9/9 assertions passed including strict contact metric. Forced eviction 10/10, source records/proxies stable at 221, 12 supported probes. Shore obstruction 4/4, frame flotation 4/4, cleanup passed; 2031 external source hashes unchanged |
+| 2 Core Git delivery | PASSED | Already delivered by f16b5bb / PR #6 / 920936b. Follow-up validation evidence will be committed and pushed before new gameplay work |
+| 3 Current-map 3v3 | PASSED | Final native cache/filter saved-level 90 s integration 20/20: input, actual projectile, GunCamera, Q/F, five moving AI, exact endpoints, minimap counts/colors/death removal |
+| 4 Combat/tactics | PASSED | Focused escape commitment fix: 7/7 critical escape, 12/12 reverse/fire, 20/20 roles, 3/3 physical island occlusion, 20/20 battle and 144 real accuracy shots. Fresh 402.77 s patrol completes all loops/15 arrivals; strict contact statistic fails narrowly (98.97%), retained; frame flotation 4/4 |
+| 5 Profiles | PASSED | Large-only vertical damping 1.2→1.8, native fallback matched; mixed frame flotation 4/4, mixed AI navigation 7/7, Small/Large input and 33/33 damage each passed |
+| 6 Destruction | IN_PROGRESS | Existing staged sinking/capsize preserved; current-map lifecycle and visible VFX pending |
+| 7 Spectator | NOT_STARTED | Existing Q/F only; automatic teammate follow required |
+| 8 Optional turns | NOT_STARTED | No turn scheduler yet |
+| 9 Prematch | NOT_STARTED | No configuration UI yet |
+| 10 Final QA | NOT_STARTED | Depends on remaining features |
+| 11 Delivery | IN_PROGRESS | Existing integration branch retained for focused follow-up commits/PR |
+| 12 Thanh cleanup | SKIPPED_WITH_REASON | Optional; retained safely while active development continues |
+
+Current files: `SeaTerrainCollisionComponent.cpp`, `PATROL_SUMMARY.json`, regression/flotation/shore fixtures and final-filter evidence. Commands: `python Tools/NavalCombat/summarize_quangninh_patrol.py`; run test files through `Tools/SeaNavigation/mcp_client.py` using file-based `exec(compile(...))` (the installed bridge rewrites literal multiline strings). Blueprint compile: seven assets explicitly OK. The original strict 99% summary assertion remains false; it has not been silently relaxed. Frame-resolution flotation passed 4/4, maximum contact loss 0.404 s. Extended seaward shore approach passed 4/4 at 320 s, after shorter fixtures failed due to preserved shallow collision/insufficient approach time. These raw failures are preserved with compressed telemetry.
+
+**Immediate next step (2026-10-24):** deliberate runtime `MaximumCachedBytes=1` eviction test confirmed stale-source metadata growth: 669 records versus 230 reused proxies after 125 s; physical island checks remained passed (9/10 overall). Evidence `LAND_COLLISION_EVICTION_BEFORE_FIX.json[.gz]`. Implemented a small expired-source-slot rebind in SeaTerrainCollisionComponent.cpp; geometry/filter/forces unchanged. Normal native build PASSED (4 actions / 45.67 s), editor fully restarted, seven Blueprint compiles PASSED. Saved-state comparison PASSED 7/7 (numeric tolerance 1e-6; world transforms exact, sub-nanometre EN conversion rounding only). Repeated forced eviction PASSED 10/10: both metadata and geometry settled at 221, all 12 island probes supported. `LAND_COLLISION_FORCED_EVICTION.json[.gz]`, `COLLISION_CACHE_BUILD.json`, `SAVED_STATE_VERIFICATION.json`.
+
+The rebuilt cache fix's full saved-level patrol completed naturally at **415.21699 s**, 411 samples, **15 arrivals**, **all five three legs**, **0 errors**, **9/9 independent assertions PASSED** (`PATROL_CACHE_SUMMARY.json`). Each travelled 2971–3677 m; cruise medians 18.34–18.91 m/s; no chart-land/Failed samples; exact-target errors below 4e-9 m. All five physics/controllers and six-pawn/one-player counts persisted. Post-match GC left only eight class-default procedural component templates, no PIE proxies (`COLLISION_CACHE_CLEANUP.json`). Existing `PATROL_SUMMARY.json` remains the earlier strict 99% failure and is preserved. Reproduction: `summarize_quangninh_patrol.py --input Docs/NavalCombat/QUANGNINH_CACHE_PATROL_SOAK.json --output Docs/QuangNinhIntegration/PATROL_CACHE_SUMMARY.json`; the reader transparently opens the adjacent lossless raw gzip when input is a compact summary.
+
+Core follow-up delivery is complete: **`d4a8b38`** committed and normally pushed to `origin/feature/quangninh-battle-integration`; **[PR #7](https://github.com/Mr-Gwenchana/VDT-Phase2-Project/pull/7)** targets main and remains open/unmerged. Main was not changed by this agent. The connected GitHub app could not access the repo (404); delivery used existing local Git credentials without exposing them. PR creation initially rejected a Windows-encoded JSON body (400); rewritten ASCII/UTF-8 JSON succeeded. No duplicate PR was created.
+
+Final-filter full saved 3v3 integration PASSED 20/20 (`QUANGNINH_FINAL_INTEGRATION_PIE.json[.gz]`, 90 s). Current-map roles PASSED 19/19 (`QUANGNINH_ROLES_PIE.json[.gz]`): physical Passive/Hunter movement, friendly/hostile activation guards, Fighter acquisition, threat/command promotion, Hunter target-loss/timeout/range/health exits, and original patrol restoration. The deliberate turn interruption occurred while this fixture ran; it completed naturally and was inspected before starting another PIE.
+
+Backward-retreat regression PASSED 12/12 (`QUANGNINH_BACKWARD_RETREAT_PIE.json[.gz]`): real backward movement and projectile fire at 30 HP, bounded reverse speed, patrol restoration, rear-hull rejection and forward-escape availability. The new critical island fixture correctly blocks reversing and plans a safe escape, but FAILED physical departure in both 25 s and 90 s windows. Preserved `ISLAND_ESCAPE_SHORT_WINDOW.json[.gz]` and `ISLAND_ESCAPE_BEFORE_COMMITMENT_FIX.json[.gz]`. At 90 s maximum displacement was 24.85 m, hull remained afloat at ~3–5 m with physics on. Steering reversed each time temporary gun-visibility loss caused Escape → ReturnToPatrol → Patrol → Escape, preventing departure. This is a tactical commitment bug, not terrain grounding.
+
+Implemented a focused `ShipCombatComponent.h/.cpp` fix: keep a weak navigation threat independently of the gun target; occluded gun targets still clear immediately. Forward escape requires safe additional separation (100 m, matching the existing escape planner's criterion), while preserving minimum/maximum duration, dead/team guards and backward-retreat behavior. Normal native build PASSED (12 actions / 20.86 s), editor fully restarted (PID 28604), seven affected Blueprints explicitly compiled. The 90 s critical-island fixture PASSED **7/7**: unsafe reverse rejected, safe forward escape, **190.67 m actual displacement during Escape**, continued commitment before departure, cleared occluded gun target, no blocked-cell entries. Before fix: 24.85 m, repeated premature patrol returns. `QUANGNINH_ISLAND_REVERSE_PIE.json[.gz]`, `RETREAT_COMMITMENT_BUILD.json`.
+
+Post-fix regressions completed: reverse/fire **12/12** (three original shots at -4.24 to -4.29 m/s, minimum -4.327 m/s), roles **20/20**, physical island occlusion **3/3**, normal 3v3 **20/20**. Accuracy **144 actual shots / six checks passed**: stationary Easy/Normal/Hard hits 2/12/24 of 24 each; moving 8/11/18 of 24 each; all launches track the animated muzzle. A role fixture failed once because it assumed target visibility at the range-bound stage; it now asserts the visible hostile beyond 500 m before testing the bound. Failed fixture preserved; no gameplay LOS constraint weakened.
+
+Fresh patrol after tactical change completed **402.7678 s / 401 samples / 15 arrivals / all five B/A/B / 0 errors, land entries or Failed states**. The strict summary is **8/9, overall passed=false**: Enemy2's one-second contact ratio 98.9717% misses the unchanged 99% threshold by 0.0283 percentage points, four isolated samples. A separate current-build frame flotation test PASSED **4/4**, maximum continuous contact loss 0.384 s and root heights 1.72–5.36 m. No repeated soak was used to hide that statistical failure. See `QUANGNINH_COMBAT_REGRESSION.md`, `PATROL_TACTICAL_SUMMARY.json`, `FLOTATION_TACTICAL_FIX.json[.gz]`.
+
+Tactical fix delivery complete: **84a6210**, normally pushed to the existing integration branch and included in open/unmerged PR #7; its title/body now cover both verified fixes and the failed strict contact statistic. Main remains unchanged by this agent.
+
+Phase 5 current results: Small/Large input physics PASSED (initial acceleration 41.99 / 29.90 m/s²; turn peaks 2.466 / 0.287 deg/s); actual original-projectile damage PASSED **33/33 each**, applying the class to both shooter and victim. Mixed two-Large/three-Small AI run completed 60.44 s: all five moved 909–1039 m, two Large 920/980 m, intact physics/controllers, valid water tracks, no Failed states or persistent errors. One first-frame Blueprint sensor warmup is preserved separately. The initial blanket-error summary was corrected to distinguish that startup notice from a Failed navigation state; raw data is unchanged.
+
+Mixed-class frame flotation exposed extra heave on Large Enemy2: 0.656 s contact loss, world root peak 7.079 m, **zero terrain-floor hits during losses**. This is buoyancy damping rather than grounding. Large mass increases 1.6x but damping only increased 1.2x, reducing damping per kg. Changed **only Large VerticalDampingMultiplier 1.2→1.8**, retaining all other profile fields, and matched the native fallback default. Original data asset backed up at `Saved/QuangNinhProfileDampingRecovery/DA_LargeShip_before.uasset`. Normal build PASSED (4 actions / 10.16 s); restarting editor. REQUIRED next: compile BPs, repeat mixed frame flotation, Large input and mixed navigation, then complete destruction. Preserve `FLOTATION_MIXED_BEFORE_DAMPING.json[.gz]`; do not claim the new damping passed until tested.
+
+Destruction's first current-map run reached native cleanup then failed in the Python fixture (29 checks passed): UE cannot marshal a stale Pawn wrapper into SystemLibrary.IsValid. Added a narrow TypeError guard that treats already-destroyed wrappers as invalid; no native lifecycle change. Failure preserved in `DESTRUCTION_STALE_WRAPPER_FAILURE.json[.gz]`. Rerun the full lifecycle/georeference/capsize fixture after profile validation.
+
+Large damping retest PASSED **4/4**, maximum contact loss **0.467 s**, peak root height **6.458 m**, zero terrain floor hits. Large input repeat passed (27.49 m/s² initial acceleration / 0.247 deg/s yaw peak). Repeated 60.50 s mixed navigation PASSED **7/7**: all five travelled 895–1040 m, Large 920/980 m, no land entries, Failed states or persistent errors. Destruction fixture with safe stale-wrapper handling PASSED **51/51**, including actual health/capsize deaths, preserved roll/geography, explicit georeference change, 65 m progressive sinking and cleanup. Report: `QUANGNINH_PROFILE_DESTRUCTION_REPORT.md`.
+
+Next: commit/push the verified Large-only damping and regression evidence. `ShipWreckBillboardComponent.h/.cpp`, `setup_wreck_billboards.py` and `probe_wreck_billboards.py` are **preparation only, uncompiled/unexecuted**, excluded from the profile commit. No VFX assets changed. Hull scale is 1 and bounds include the ~43 m mast; fallback uses a configured ~5 m deck height and geographic up. After profile publication: build the standalone VFX component, create the two materials outside PIE, run bounded health/capsize prototypes and inspect actual screenshots before applying Blueprint components. Preserve original Niagara/sinking. Spectator, optional turn scheduler and prematch UI remain NOT_STARTED. Final integrated QA remains required after those features.
+
+Then complete current-map profiles/damage and destruction regressions, destruction visual work, spectator, turns and setup in priority order. Prepared fixture changes remain uncommitted until tested. A concurrent external save reformatted `NavalBattleUI.cpp`; lexical tokens were compared with HEAD and match exactly. Preserve that unrelated formatting and incorporate it when editing UI later.
+
+The sections below are historical phase records; their passes do not replace final QuangNinh acceptance.
 
 ## Phase 1 — PASSED (audit/baseline)
 

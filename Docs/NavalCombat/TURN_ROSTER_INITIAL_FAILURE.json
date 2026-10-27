@@ -1,0 +1,15 @@
+{
+  "checks": [
+    {
+      "name": "default saved roster configured",
+      "passed": false
+    }
+  ],
+  "turns": [],
+  "rows": [],
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_turn_mode.py\", line 32, in tick\n    check('default saved roster configured',battle.match_configured and battle.blue_alive==3 and battle.red_alive==3)\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_turn_mode.py\", line 17, in check\n    def check(name,value):st['checks'].append(dict(name=name,passed=bool(value)));assert value,name\n                                                                                  ^^^^^^^^^^^^^^^^^\nAssertionError: default saved roster configured\n",
+  "last": -1,
+  "phase": 0,
+  "projectiles": [],
+  "status": "FAILED"
+}

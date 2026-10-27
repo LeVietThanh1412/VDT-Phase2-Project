@@ -1,0 +1,498 @@
+{
+  "last": 124.886080827564,
+  "checks": [
+    {
+      "name": "At least six actual island collision surfaces loaded",
+      "passed": true
+    },
+    {
+      "name": "Retained coastal proxy collision is exercised",
+      "passed": true
+    },
+    {
+      "name": "Revisited collision source bookkeeping remains bounded",
+      "passed": false
+    },
+    {
+      "name": "Saved final filter uses 0.05 m tolerance",
+      "passed": true
+    },
+    {
+      "name": "Nonzero submerged collision geometry retained",
+      "passed": true
+    },
+    {
+      "name": "No collision build error",
+      "passed": true
+    },
+    {
+      "name": "Repeated settled views do not allocate duplicate collision proxies",
+      "passed": true
+    },
+    {
+      "name": "All physical probes remain supported after view and LOD changes",
+      "passed": true
+    },
+    {
+      "name": "Retained collision prevents falling through islands",
+      "passed": true
+    },
+    {
+      "name": "Five AI controllers preserved",
+      "passed": true
+    }
+  ],
+  "probes": [
+    {
+      "index": 0,
+      "llh": [
+        107.42627262311797,
+        20.93519154182811,
+        0
+      ],
+      "surface": [
+        -2500.2722351249977,
+        99948.62377094296,
+        23609.563139369457
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        -2500.2722351249977,
+        99948.62377094296,
+        24609.563139369457
+      ]
+    },
+    {
+      "index": 1,
+      "llh": [
+        107.41481751832659,
+        20.94887075594963,
+        0
+      ],
+      "surface": [
+        -121639.75536523474,
+        -51506.973457022366,
+        -14.211803859136126
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        -121639.75536523474,
+        -51506.973457022366,
+        985.7881961408639
+      ]
+    },
+    {
+      "index": 2,
+      "llh": [
+        107.43283374786989,
+        20.927665921292558,
+        0
+      ],
+      "surface": [
+        65748.68349721187,
+        183268.09022056,
+        2016.7166695196465
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        65748.68349721187,
+        183268.09022056,
+        3016.7166695196465
+      ]
+    },
+    {
+      "index": 3,
+      "llh": [
+        107.44016507097732,
+        20.932394208911195,
+        0
+      ],
+      "surface": [
+        142004.9330449765,
+        130913.58160223244,
+        3043.058077151196
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        142004.9330449765,
+        130913.58160223244,
+        4043.058077151196
+      ]
+    },
+    {
+      "index": 4,
+      "llh": [
+        107.43259150704812,
+        20.964529463947144,
+        0
+      ],
+      "surface": [
+        63213.40517399802,
+        -224871.4181388178,
+        6499.865764039001
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        63213.40517399802,
+        -224871.4181388178,
+        7499.865764039001
+      ]
+    },
+    {
+      "index": 5,
+      "llh": [
+        107.46554278334905,
+        20.95498077951365,
+        0
+      ],
+      "surface": [
+        405915.78368199454,
+        -119200.0167356889,
+        19893.844253520365
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        405915.78368199454,
+        -119200.0167356889,
+        20893.844253520365
+      ]
+    },
+    {
+      "index": 6,
+      "llh": [
+        107.42882493227775,
+        20.924100041316837,
+        0
+      ],
+      "surface": [
+        24049.3097321284,
+        222749.2429472753,
+        1337.0105190206377
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        24049.3097321284,
+        222749.2429472753,
+        2337.0105190206377
+      ]
+    },
+    {
+      "index": 7,
+      "llh": [
+        107.43437065467302,
+        20.96793776142121,
+        0
+      ],
+      "surface": [
+        81713.7080338031,
+        -262607.657911684,
+        70.47911268880125
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        81713.7080338031,
+        -262607.657911684,
+        1070.4791126888013
+      ]
+    },
+    {
+      "index": 8,
+      "llh": [
+        107.40220495841855,
+        20.95636005474951,
+        0
+      ],
+      "surface": [
+        -252805.07974292437,
+        -134440.52659676614,
+        -64.48111014765163
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        -252805.07974292437,
+        -134440.52659676614,
+        935.5188898523484
+      ]
+    },
+    {
+      "index": 9,
+      "llh": [
+        107.43716551357217,
+        20.969195164878958,
+        0
+      ],
+      "surface": [
+        110777.27056101197,
+        -276530.89411079977,
+        367.89020338933915
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        110777.27056101197,
+        -276530.89411079977,
+        1367.8902033893391
+      ]
+    },
+    {
+      "index": 10,
+      "llh": [
+        107.39792210941945,
+        20.94031356096166,
+        0
+      ],
+      "surface": [
+        -297378.64275218535,
+        43213.03400613574,
+        -70.9261668380932
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        -297378.64275218535,
+        43213.03400613574,
+        929.0738331619068
+      ]
+    },
+    {
+      "index": 11,
+      "llh": [
+        107.40688501985957,
+        20.965499768063832,
+        0
+      ],
+      "surface": [
+        -204119.73953881318,
+        -235625.58990826353,
+        -77.61352703192097
+      ],
+      "source": "ProceduralMeshComponent",
+      "initial": [
+        -204119.73953881318,
+        -235625.58990826353,
+        922.386472968079
+      ]
+    }
+  ],
+  "error": null,
+  "stage": 4,
+  "forced_cache_bytes": 1,
+  "status": "ASSERTION_FAILURE",
+  "samples": 124,
+  "raw_evidence": "LAND_COLLISION_EVICTION_BEFORE_FIX.json.gz",
+  "first_sample": {
+    "t": 0.016666699200868607,
+    "stage": 0,
+    "probes": [],
+    "tiles": 0,
+    "land_triangles": 0,
+    "water_triangles": 0,
+    "submerged_triangles": 0,
+    "tolerance_m": 0.05,
+    "last_error": "",
+    "proxy_count": 0
+  },
+  "last_sample": {
+    "t": 124.886080827564,
+    "stage": 4,
+    "probes": [
+      {
+        "index": 0,
+        "world": [
+          -2500.2722351249977,
+          99948.62377094296,
+          23678.263567827235
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          -2500.2573272844747,
+          99948.62544364009,
+          23609.56750960661
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 1,
+        "world": [
+          -121639.75536523474,
+          -51506.973457022366,
+          35.78692453865825
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          -121639.75896472862,
+          -51506.96920658197,
+          -14.211626610431267
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 2,
+        "world": [
+          65748.68349721187,
+          183268.09022056,
+          2076.8335300709596
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          65748.68349721185,
+          183268.09204463975,
+          2016.7159713576875
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 3,
+        "world": [
+          142004.9330449765,
+          130913.58160223244,
+          3139.355021535281
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          142004.9269783108,
+          130913.58749668772,
+          3043.06254969952
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 4,
+        "world": [
+          63213.40517399802,
+          -224871.4181388178,
+          6578.7603437726475
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          63213.410547036416,
+          -224871.42922275478,
+          6499.858660819184
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 5,
+        "world": [
+          405915.78368199454,
+          -119200.0167356889,
+          19972.773805307766
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          405915.81730747956,
+          -119200.03637875197,
+          19893.792932305485
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 6,
+        "world": [
+          24049.3097321284,
+          222749.2429472753,
+          1396.7039461605546
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          24049.257989490114,
+          222749.24957075354,
+          1337.0168962798052
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 7,
+        "world": [
+          81713.7080338031,
+          -262607.657911684,
+          121.56450037654899
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          81713.66331028164,
+          -262607.6045592228,
+          70.44366079464089
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 8,
+        "world": [
+          -252805.07974292437,
+          -134440.52659676614,
+          -14.473808989605441
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          -252805.0918762557,
+          -134440.51115969603,
+          -64.4735613749217
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 9,
+        "world": [
+          110777.27056101197,
+          -276530.89411079977,
+          418.974131690782
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          110777.23138650879,
+          -276530.8284277611,
+          367.8869674585294
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 10,
+        "world": [
+          -297378.64275218535,
+          43213.03400613574,
+          -20.93075503458235
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          -297378.65766002587,
+          43213.01774080045,
+          -70.9249517795979
+        ],
+        "source": "ProceduralMeshComponent"
+      },
+      {
+        "index": 11,
+        "world": [
+          -204119.73953881318,
+          -235625.58990826353,
+          -27.614945595774756
+        ],
+        "speed_mps": 0.0,
+        "terrain_hit": true,
+        "surface": [
+          -204119.73091504016,
+          -235625.59770046905,
+          -77.61202998127555
+        ],
+        "source": "ProceduralMeshComponent"
+      }
+    ],
+    "tiles": 669,
+    "land_triangles": 852607,
+    "water_triangles": 14903,
+    "submerged_triangles": 1133,
+    "tolerance_m": 0.05,
+    "last_error": "",
+    "proxy_count": 230
+  }
+}

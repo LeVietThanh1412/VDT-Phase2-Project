@@ -1,0 +1,37 @@
+{
+  "before_ship_sha256": "805059f5217fd9e7e5a023ec908e60d5cfba4d9061fc5f8c1c04d3993fda50c6",
+  "backup": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\WreckBillboardRecovery_20261024_153440",
+  "materials": [
+    "/Game/NavalBattle/FX/M_WreckFlamesBillboard.M_WreckFlamesBillboard",
+    "/Game/NavalBattle/FX/M_WreckSmokeBillboard.M_WreckSmokeBillboard"
+  ],
+  "components": [
+    {
+      "name": "WreckFire1_GEN_VARIABLE",
+      "path": "/Game/Ship/BluePrint/BP_Ship.BP_Ship_C:WreckFire1_GEN_VARIABLE",
+      "hidden": true
+    },
+    {
+      "name": "WreckFire2_GEN_VARIABLE",
+      "path": "/Game/Ship/BluePrint/BP_Ship.BP_Ship_C:WreckFire2_GEN_VARIABLE",
+      "hidden": true
+    },
+    {
+      "name": "WreckFire3_GEN_VARIABLE",
+      "path": "/Game/Ship/BluePrint/BP_Ship.BP_Ship_C:WreckFire3_GEN_VARIABLE",
+      "hidden": true
+    },
+    {
+      "name": "WreckSmoke1_GEN_VARIABLE",
+      "path": "/Game/Ship/BluePrint/BP_Ship.BP_Ship_C:WreckSmoke1_GEN_VARIABLE",
+      "hidden": true
+    },
+    {
+      "name": "WreckSmoke2_GEN_VARIABLE",
+      "path": "/Game/Ship/BluePrint/BP_Ship.BP_Ship_C:WreckSmoke2_GEN_VARIABLE",
+      "hidden": true
+    }
+  ],
+  "force_graph_validation": "OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled",
+  "after_ship_sha256": "03c591b5cf3e51b2c71a2dea28b3d8ce2d91f059ed5acdd83dd4ed4d1ed3c44d"
+}

@@ -334,6 +334,7 @@ bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FV
     USkeletalMeshComponent* Visual=Mesh();
     if(!Visual || !Visual->DoesSocketExist(MuzzleSocket)){RejectionReason=TEXT("Missing muzzle");return false;}
     if(bIsDestroyed){RejectionReason=TEXT("Destroyed");return false;}
+    if(!UNavalBattleSubsystem::CanShipAct(GetOwner())){RejectionReason=TEXT("Inactive action window");return false;}
     if(bDispatching || CooldownRemaining()>0 || !CanShoot(GetOwner())){RejectionReason=TEXT("Cooldown/recoil");return false;}
     FVector Launch=OptionalLaunchVelocity;
     const FVector Start=Visual->GetSocketLocation(MuzzleSocket);
@@ -512,7 +513,7 @@ void UShipCombatComponent::ChangeRole(EShipEnemyRole NewRole,const TCHAR* Reason
     if(!Navigation || !Weapon || Weapon->bIsDestroyed || Navigation->Role==NewRole)return;
     const auto Previous=Navigation->Role;const bool HadPursuit=bHunterPursuitActive;
     if(Navigation->HasTacticalDestination()){Navigation->ReturnToPatrol();++PatrolsResumed;}
-    Navigation->Role=NewRole;bHunterPursuitActive=false;HunterLostSince=-1;LastHunterPlan=-1000;
+    Navigation->Role=NewRole;bHunterPursuitActive=false;HunterLostSince=-1;LastHunterPlan=-1000;RetreatThreat.Reset();
     HunterSince=NewRole==EShipEnemyRole::Hunter?GetWorld()->GetTimeSeconds():-1;
     TacticalState=NewRole==EShipEnemyRole::Passive?EShipTacticalState::Passive:HadPursuit?EShipTacticalState::ReturnToPatrol:EShipTacticalState::Patrol;
     StateSince=GetWorld()->GetTimeSeconds();Target=nullptr;bTargetVisible=false;ScanClock=1000;
@@ -540,21 +541,33 @@ void UShipCombatComponent::UpdateTactics()
         if(State==TacticalState)return;
         UE_LOG(LogTemp,Display,TEXT("ShipBattle state ship=%s team=%d from=%s to=%s range=%.1f"),*GetNameSafe(GetOwner()),Faction,*UEnum::GetValueAsString(TacticalState),*UEnum::GetValueAsString(State),DistanceToTargetM);
         TacticalState=State;StateSince=Now;
+        if(State!=EShipTacticalState::Retreat && State!=EShipTacticalState::Escape && State!=EShipTacticalState::BackwardRetreat)
+            RetreatThreat.Reset();
     };
     if(Weapon->bIsDestroyed){Change(EShipTacticalState::Dead);return;}
     if(!bEnableCombat || Navigation->Role==EShipEnemyRole::Passive)
     {if(Navigation->HasTacticalDestination())Navigation->ReturnToPatrol();bHunterPursuitActive=false;Change(Navigation->Role==EShipEnemyRole::Passive?EShipTacticalState::Passive:EShipTacticalState::Patrol);return;}
     if(TacticalState==EShipTacticalState::Retreat || TacticalState==EShipTacticalState::Escape || TacticalState==EShipTacticalState::BackwardRetreat)
     {
+        // This reference is navigation intent only. ScanTargets and gun LOS
+        // still clear Target immediately and prohibit firing through islands.
+        AActor* Threat=RetreatThreat.Get();
+        const bool ThreatValid=IsHostile(Threat);
+        const float Separation=ThreatValid?FVector::Distance(AimPoint(GetOwner()),AimPoint(Threat))/100:0;
         if(TacticalState==EShipTacticalState::BackwardRetreat &&
             (Navigation->bBackwardRetreatBlocked || Navigation->bBackwardRetreatCompleted))
         {
-            if(Valid && DistanceToTargetM<SafeReengagementDistanceM && Navigation->BeginRetreatFrom(Target,SafeReengagementDistanceM))
+            if(ThreatValid && Separation<SafeReengagementDistanceM && Navigation->BeginRetreatFrom(Threat,SafeReengagementDistanceM))
             {++UnsafeReverseFallbacks;Change(EShipTacticalState::Escape);}
             else{Navigation->ReturnToPatrol();++PatrolsResumed;LastRetreatEnded=Now;Change(EShipTacticalState::ReturnToPatrol);}
             return;
         }
-        if((Now-StateSince>=MinimumRetreatSeconds && (!Valid || DistanceToTargetM>=FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100))) || Now-StateSince>=FMath::Max(MaximumRetreatSeconds,MinimumRetreatSeconds))
+        const bool Safe=Separation>=FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100);
+        // A forward escape can start already outside the safe radius. Require
+        // meaningful extra separation before returning, so a large initial
+        // turn has time to finish instead of oscillating between two goals.
+        const bool Progress=TacticalState==EShipTacticalState::BackwardRetreat || Separation>=RetreatStartSeparationM+100;
+        if((Now-StateSince>=MinimumRetreatSeconds && (!ThreatValid || (Safe && Progress))) || Now-StateSince>=FMath::Max(MaximumRetreatSeconds,MinimumRetreatSeconds))
         {Navigation->ReturnToPatrol();++PatrolsResumed;LastRetreatEnded=Now;Change(EShipTacticalState::ReturnToPatrol);}
         return;
     }
@@ -588,9 +601,9 @@ void UShipCombatComponent::UpdateTactics()
         Now-LastRetreatEnded>=(Critical?FMath::Min(5.f,RetreatCooldownSeconds):RetreatCooldownSeconds))
     {
         if(bPreferBackwardRetreat && Navigation->BeginBackwardRetreat(Target,BackwardRetreatDistanceM))
-        {++RetreatsStarted;++BackwardRetreatsStarted;Change(EShipTacticalState::BackwardRetreat);return;}
+        {RetreatThreat=Target;RetreatStartSeparationM=FVector::Distance(AimPoint(GetOwner()),AimPoint(Target))/100;++RetreatsStarted;++BackwardRetreatsStarted;Change(EShipTacticalState::BackwardRetreat);return;}
         if(Navigation->BeginRetreatFrom(Target,FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100)))
-        {++RetreatsStarted;if(bPreferBackwardRetreat)++UnsafeReverseFallbacks;Change(EShipTacticalState::Escape);return;}
+        {RetreatThreat=Target;RetreatStartSeparationM=FVector::Distance(AimPoint(GetOwner()),AimPoint(Target))/100;++RetreatsStarted;if(bPreferBackwardRetreat)++UnsafeReverseFallbacks;Change(EShipTacticalState::Escape);return;}
     }
     if(TacticalState==EShipTacticalState::ReturnToPatrol)
     {if(Now-StateSince>=3)Change(IsHostile(Target) && DistanceToTargetM<=EngagementRadiusM?EShipTacticalState::Engage:EShipTacticalState::Patrol);return;}
@@ -657,6 +670,18 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
     Super::TickComponent(Dt,Type,Tick);
     bHasFiringSolution=false;CooldownSecondsRemaining=FMath::Max(0.,LastFire+FireCooldownSeconds-GetWorld()->GetTimeSeconds());
     if(!Weapon || !Visual || !Navigation || !bVerifiedAxes){FiringStatus=TEXT("Missing verified shared weapon/animation binding");return;}
+    if(!UNavalBattleSubsystem::CanShipAct(GetOwner()))
+    {
+        // Decision durations count action time. Cooldowns, damage, physics and
+        // already spawned rounds continue on normal world time.
+        StateSince+=Dt;
+        if(HunterSince>=0)HunterSince+=Dt;
+        if(HunterLostSince>=0)HunterLostSince+=Dt;
+        if(LastHunterPlan>=0)LastHunterPlan+=Dt;
+        if(LastRetreatEnded>=0)LastRetreatEnded+=Dt;
+        ObservedTarget.Reset();AimHistory.Reset();bCachedAimSolution=false;
+        FiringStatus=TEXT("Inactive action window");return;
+    }
     const bool Alive=!Weapon->bIsDestroyed;
     const bool CanEngage=bEnableCombat && Alive && Navigation->Role!=EShipEnemyRole::Passive;
     ScanClock+=Dt;if(CanEngage && ScanClock>=FMath::Max(.05f,TargetScanInterval)){ScanClock=0;ScanTargets();}
@@ -729,6 +754,11 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
 FRotator UShipCombatLibrary::SelectGunAim(APawn* Ship,FRotator ManualAim)
 {
     if(Ship && !Ship->IsPlayerControlled())if(const auto* C=Ship->FindComponentByClass<UShipCombatComponent>())return FRotator(C->BarrelPitch,C->TurretYaw,0);
+    if(Ship)if(auto* W=Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        if(UNavalBattleSubsystem::CanShipAct(Ship))W->LastPermittedManualAim=ManualAim;
+        return W->LastPermittedManualAim;
+    }
     return ManualAim;
 }
 

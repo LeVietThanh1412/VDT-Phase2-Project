@@ -1,0 +1,10 @@
+{
+  "result": "Succeeded",
+  "seconds": 21.69,
+  "actions": 5,
+  "normal_build": true,
+  "source_sha256": {
+    "Source/VDTPhase2Project/ShipWreckBillboardComponent.h": "bc139f5c7750ba1df626de243e1e182f050ff504322f5cd57c36f4bac607a898",
+    "Source/VDTPhase2Project/ShipWreckBillboardComponent.cpp": "9e411f6fc3b4d949277c40014c14b31e67135ad81284e85f7768c357332d3c07"
+  }
+}

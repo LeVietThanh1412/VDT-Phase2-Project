@@ -1,0 +1,3244 @@
+{
+  "cache": [
+    {
+      "t": 0.016666699200868607,
+      "records": 0,
+      "proxies": 0,
+      "land_triangles": 0,
+      "submerged_triangles": 0,
+      "error": ""
+    },
+    {
+      "t": 1.0586053058505058,
+      "records": 8,
+      "proxies": 8,
+      "land_triangles": 227342,
+      "submerged_triangles": 324,
+      "error": ""
+    },
+    {
+      "t": 2.067889302968979,
+      "records": 68,
+      "proxies": 68,
+      "land_triangles": 573598,
+      "submerged_triangles": 989,
+      "error": ""
+    },
+    {
+      "t": 3.0814187973737717,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 4.081578399986029,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 5.0825713984668255,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 6.083278100937605,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 7.084640499204397,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 8.08592339977622,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 9.086652297526598,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 10.090262100100517,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 11.09096109867096,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 12.092080097645521,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 13.093811299651861,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 14.09516080096364,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 15.095996297895908,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 16.09669080004096,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 17.0976353995502,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 18.098404698073864,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 19.099856298416853,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 20.107465997338295,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 21.113543298095465,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 22.113587997853756,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 23.11366919800639,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 24.113977398723364,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 25.114047199487686,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 26.114280499517918,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 27.114354498684406,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 28.114565398544073,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 29.11891210079193,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 30.119050197303295,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 31.120367098599672,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 32.12301230058074,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 33.124719597399235,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 34.12802629172802,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 35.12917169183493,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 36.12972279265523,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 37.131389889866114,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 38.1329839900136,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 39.1340166926384,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 40.150432392954826,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 41.153584491461515,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 42.15479069203138,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 43.15636879205704,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 44.1628073900938,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 45.16290929168463,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 46.16296889260411,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 47.16308059170842,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 48.16316459327936,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 49.16319279000163,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 50.16601109132171,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 51.16605119034648,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 52.1661070920527,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 53.166542790830135,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 54.16656559333205,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 55.16702579334378,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 56.167228292673826,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 57.167797192931175,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 58.16846939176321,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 59.168769892305136,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 60.17291449010372,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 61.17295219004154,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 62.172986190766096,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 63.17307599261403,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 64.17312769219279,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 65.17323499172926,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 66.17364819347858,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 67.1738005913794,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 68.17380429059267,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 69.17382129281759,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 70.18528859317303,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 71.18590209260583,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 72.18623549118638,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 73.18658209219575,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 74.18663239106536,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 75.18712619319558,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 76.18752769008279,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 77.18808809295297,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 78.18828479200602,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 79.18842469155788,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 80.20345489308238,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 81.20354609191418,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 82.20356609299779,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 83.20366849005222,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 84.20373509079218,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 85.2043718919158,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 86.20470059290528,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 87.20476359128952,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 88.20506429299712,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 89.2051561921835,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 90.21078909188509,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 91.21102039143443,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 92.21132759004831,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 93.2119642905891,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 94.21233369037509,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 95.21247529238462,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 96.21271999180317,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 97.21276299282908,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 98.21290129050612,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 99.21310859173536,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 100.21658429130912,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 101.21734059229493,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 102.2180646918714,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 103.21831949055195,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 104.21884589269757,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 105.21908089146018,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 106.21949769183993,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 107.21952939033508,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 108.2197666913271,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 109.21980859339237,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 110.22945819050074,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 111.22984829172492,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 112.23043299093843,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 113.23055009171367,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 114.23082489147782,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 115.23083669319749,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 116.23096499219537,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 117.23241269215941,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 118.23243099078536,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 119.23244409263134,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 120.23439548909664,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 121.23470088839531,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 122.23505428805947,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 123.23519198969007,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 124.23540258780122,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 125.23666088655591,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 126.23689828813076,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 127.23697768896818,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 128.23707808926702,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 129.23713698610663,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 130.2403754889965,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 131.24064698815346,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 132.24142398685217,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 133.24157308787107,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 134.24165028706193,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 135.24188078939915,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 136.2419609874487,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 137.2419758886099,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 138.24204688891768,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 139.24220868945122,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 140.2468542829156,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 141.24701188504696,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 142.24719698354602,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 143.24751018360257,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 144.24755888432264,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 145.24761078506708,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 146.24775698408484,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 147.24814458563924,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 148.24822848290205,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 149.24854908511043,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 150.25279848650098,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 151.25284018740058,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 152.25311308726668,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 153.25316498801112,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 154.2562637887895,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 155.25629368796945,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 156.25635108724236,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 157.2569795884192,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 158.25751798972487,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 159.2575341872871,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 160.26897088810802,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 161.26909698918462,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 162.2704820893705,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 163.27093658968806,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 164.27144618704915,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 165.2714586891234,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 166.2716678865254,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 167.27239368855953,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 168.27259948849678,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 169.2728041894734,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 170.28782109171152,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 171.28807409107685,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 172.28819339349866,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 173.28860639035702,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 174.28870709240437,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 175.28880709037185,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 176.28884129226208,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 177.28887339308858,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 178.28932679072022,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 179.28955228999257,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 180.29971240088344,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 181.30004850029945,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 182.30006439983845,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 183.3002807982266,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 184.30086439847946,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 185.30093310028315,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 186.30097649991512,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 187.30126870051026,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 188.30127929896116,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 189.3012831993401,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 190.3082068040967,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 191.30847960337996,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 192.30848360434175,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 193.30865560099483,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 194.30869310349226,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 195.3089022040367,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 196.30904990434647,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 197.30912840366364,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 198.3091639019549,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 199.30937330424786,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 200.32541550695896,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 201.3257244080305,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 202.32575210556388,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 203.32578050717711,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 204.32583980634809,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 205.3261183053255,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 206.3261653073132,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 207.3262689076364,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 208.32827080786228,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 209.328420907259,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 210.33691660314798,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 211.33696760237217,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 212.33703470230103,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 213.33754930272698,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 214.33770290389657,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 215.33941850438714,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 216.3395624011755,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 217.3396698012948,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 218.33974270150065,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 219.34014470130205,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 220.3426769077778,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 221.3432922065258,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 222.34329620748758,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 223.3439466059208,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 224.3444257080555,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 225.34443230554461,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 226.3447292074561,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 227.34485140815377,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 228.34507220610976,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 229.3453346081078,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 230.35353191196918,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 231.3538715094328,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 232.35387491062284,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 233.35388151183724,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 234.35396431013942,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 235.3544441089034,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 236.35460590943694,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 237.35482291132212,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 238.35496380925179,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 239.35496770963073,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 240.36383521929383,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 241.3642533160746,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 242.36451671645045,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 243.36456471681595,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 244.36459451913834,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 245.3648231178522,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 246.3659432195127,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 247.36598761752248,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 248.36650141701102,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 249.3665660172701,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 250.37756671383977,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 251.37761221453547,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 252.37769721448421,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 253.37824841588736,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 254.3782702125609,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 255.37833931297064,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 256.3786970153451,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 257.38004591315985,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 258.38183031231165,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 259.3822905123234,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 260.39662450924516,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 261.39676820859313,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 262.39732541143894,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 263.3973925113678,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 264.3975722119212,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 265.39787720888853,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 266.3980927094817,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 267.39828211069107,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 268.3983347117901,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 269.39861030876637,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 270.407110709697,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 271.4074899107218,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 272.40781581029296,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 273.408137511462,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 274.40874341130257,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 275.40884371101856,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 276.42545010894537,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 277.4257011115551,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 278.4258785098791,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 279.4258987121284,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 280.4399831108749,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 281.44021401181817,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 282.4402176104486,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 283.440730009228,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 284.44127491116524,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 285.4413695111871,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 286.44161231070757,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 287.44216011092067,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 288.442699611187,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 289.44276320934296,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 290.45557091385126,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 291.4558413140476,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 292.45585841313004,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 293.455861415714,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 294.4558687135577,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 295.45596071332693,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 296.45621871575713,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 297.4562477134168,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 298.45640901476145,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 299.4567123129964,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 300.4572877138853,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 301.4575062133372,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 302.458048813045,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 303.458133213222,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 304.4582910127938,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 305.4588037133217,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 306.45895501226187,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 307.45913411304355,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 308.45914571359754,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 309.45925341546535,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 310.4597184173763,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 311.4598456174135,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 312.45986491814256,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 313.4599059186876,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 314.46023611724377,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 315.4603069163859,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 316.4603252187371,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 317.4604373164475,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 318.4609760195017,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 319.4612325169146,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 320.46954172104597,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 321.4700335226953,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 322.4700368233025,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 323.47031032294035,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 324.4704352207482,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 325.470462821424,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 326.4706498198211,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 327.4706821218133,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 328.4707200229168,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 329.47090462222695,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 330.47545032575727,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 331.47551542520523,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 332.4757430255413,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 333.47574692592025,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 334.475772626698,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 335.47577852383256,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 336.47587832435966,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 337.47626872360706,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 338.4766882248223,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 339.47711242362857,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 340.47943253442645,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 341.479543633759,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 342.48038303107023,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 343.48059783130884,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 344.4814222343266,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 345.4815462343395,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 346.48198963329196,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 347.4825329333544,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 348.48323903232813,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 349.48423793166876,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 350.4891420379281,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 351.48986433818936,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 352.490651037544,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 353.4910836368799,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 354.49191373586655,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 355.49333603680134,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 356.4937543347478,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 357.49409963563085,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 358.49512903764844,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 359.49564683809876,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 360.5014907345176,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 361.5016643330455,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 362.50171373412013,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 363.501853633672,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 364.50207033380866,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 365.5060304328799,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 366.5068492330611,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 367.51515813171864,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 368.5255476310849,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 369.5291439332068,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 370.5299164354801,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 371.53079933673143,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 372.5324080362916,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 373.53562733531,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 374.53724233806133,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 375.54355343803763,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 376.5438002347946,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 377.54576943814754,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 378.54716803506017,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 379.5490056350827,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 380.56198793649673,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 381.5637637376785,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 382.56462543457747,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 383.5767563357949,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 384.5769412368536,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 385.5778255350888,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 386.58001923561096,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 387.58009503781796,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 388.58055363595486,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 389.5806043371558,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 390.59565832838416,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 391.60206592828035,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 392.60549782961607,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 393.6073775291443,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 394.62108792737126,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 395.62487423047423,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 396.62516382709146,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 397.6256086304784,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 398.62750712782145,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 399.62779643014073,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 400.6345340311527,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 401.63478043302894,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    },
+    {
+      "t": 402.63497573137283,
+      "records": 150,
+      "proxies": 150,
+      "land_triangles": 708970,
+      "submerged_triangles": 1104,
+      "error": ""
+    }
+  ],
+  "last": 402.63497573137283,
+  "editor_pid": 32412,
+  "error": null,
+  "status": "ALL_FIVE_LOOPS_VERIFIED",
+  "had_world": true,
+  "frames_count": 23169,
+  "frames_first": {
+    "t": 12.008746299892664,
+    "slate_dt": 0.01640230044722557
+  },
+  "frames_last": {
+    "t": 402.63497573137283,
+    "slate_dt": 0.016372300684452057
+  },
+  "raw_evidence": "FINAL_PATROL_PERFORMANCE.json.gz",
+  "raw_sha256": "ddaa18b4563f700397790e2e57c13880ae7cd9b35b5040c34887790274767ba1"
+}

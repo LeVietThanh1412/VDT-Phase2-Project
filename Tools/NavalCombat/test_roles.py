@@ -65,7 +65,8 @@ def tick(dt):
         if t-st['last']>=.5:
             st['last']=t;st['rows'].append(dict(t=t,phase=st['phase'],position=metric(s),speed=hull(s).get_physics_linear_velocity().length()/100,
                 role=str(n.role),state=str(c.tactical_state),reason=c.last_role_transition,shots=weapon.shots_fired,hp=weapon.current_health,
-                pursuit_routes=c.hunter_routes_started,resumed=c.patrols_resumed,tactical=n.has_tactical_destination(),failure=n.last_navigation_failure_reason))
+                pursuit_routes=c.hunter_routes_started,resumed=c.patrols_resumed,tactical=n.has_tactical_destination(),failure=n.last_navigation_failure_reason,
+                target=c.target.get_actor_label() if c.target else None,visible=c.target_visible,target_distance_m=c.distance_to_target_m))
         elapsed=t-st['at']
         if st['phase']=='passive' and elapsed>=9:
             check('passive never auto-fired',weapon.shots_fired==0)
@@ -97,6 +98,11 @@ def tick(dt):
             place(st['threat'],1400);c.hunter_max_pursuit_seconds=3;c.set_combat_role(unreal.ShipEnemyRole.HUNTER);phase('timeout',t)
         elif st['phase']=='timeout' and elapsed>=5:
             check('Hunter timeout bounded',n.role==unreal.ShipEnemyRole.FIGHTER and 'timeout' in c.last_role_transition.lower())
+            # The subject moved during the timeout case. Re-establish an actual
+            # visible hostile outside the tested 500 m bound; an occluded actor
+            # is not a valid precondition for testing a known-target range exit.
+            place(st['threat'],800);c.scan_targets()
+            check('range fixture has visible hostile beyond 500 m',c.target==st['threat'] and c.target_visible and math.dist(metric(s),metric(st['threat']))>500)
             c.hunter_max_pursuit_seconds=30;c.hunter_max_pursuit_distance_m=500;c.set_combat_role(unreal.ShipEnemyRole.HUNTER);phase('distance',t)
         elif st['phase']=='distance' and elapsed>=2:
             check('Hunter range bounded',n.role==unreal.ShipEnemyRole.FIGHTER and 'distance' in c.last_role_transition.lower())
