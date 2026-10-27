@@ -73,6 +73,7 @@ FNumericProperty* Numeric(UObject* O,const TCHAR* N)
 {return CastField<FNumericProperty>(O->GetClass()->FindPropertyByName(FName(N)));}
 FVector2D Rotate2D(const FVector2D& V,double Degrees)
 {const double A=FMath::DegreesToRadians(Degrees);return FVector2D(V.X*FMath::Cos(A)-V.Y*FMath::Sin(A),V.X*FMath::Sin(A)+V.Y*FMath::Cos(A));}
+
 void IgnoreWater(UWorld* W,FCollisionQueryParams& Q)
 {for(TActorIterator<AActor> I(W);I;++I){const FString N=I->GetClass()->GetName();if(N.StartsWith(TEXT("WaterBody")) || N==TEXT("WaterZone"))Q.AddIgnoredActor(*I);}}
 }

@@ -15,6 +15,9 @@
 #include "Engine/Texture2D.h"
 #include "TimerManager.h"
 #include "UObject/UnrealType.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Kismet/GameplayStatics.h"
 
 namespace
 {

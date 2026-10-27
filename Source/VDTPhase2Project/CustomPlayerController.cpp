@@ -20,7 +20,10 @@
 void ACustomPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-
+    const auto* Settings = GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    // Direct PIE remains a development 3v3; standalone opens the setup first.
+    if (IsLocalController() && GetWorld()->WorldType == EWorldType::Game && Settings && !Settings->bExplicitSelection)
+        GetWorld()->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this, [this]() {ToggleMatchSetup(); }));
     ViewedShip = GetPawn();
 
     if (!IsLocalController() || IsValid(ShipDetailsUI))
@@ -48,15 +51,6 @@ void ACustomPlayerController::SetupInputComponent()
     InputComponent->BindKey(EKeys::P, IE_Pressed, this, &ACustomPlayerController::ToggleMatchSetup).bExecuteWhenPaused=true;
 }
 
-void ACustomPlayerController::BeginPlay()
-{
-    Super::BeginPlay();
-    const auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
-    // Direct PIE remains a development 3v3; standalone opens the setup first.
-    if(IsLocalController() && GetWorld()->WorldType==EWorldType::Game && Settings && !Settings->bExplicitSelection)
-        GetWorld()->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this,[this](){ToggleMatchSetup();}));
-}
-
 void ACustomPlayerController::ToggleMatchSetup()
 {
     if(SetupWidget){CloseMatchSetup();return;}
@@ -81,18 +75,6 @@ void ACustomPlayerController::OnPossess(APawn* InPawn)
     Super::OnPossess(InPawn);
     if(InPawn && InPawn->FindComponentByClass<UShipWeaponComponent>() && !bDeathSpectating)
         OriginalPlayerShip=InPawn;
-}
-
-void ACustomPlayerController::PlayerTick(float DeltaTime)
-{
-    Super::PlayerTick(DeltaTime);
-    const auto* Weapon=IsValid(OriginalPlayerShip)?OriginalPlayerShip->FindComponentByClass<UShipWeaponComponent>():nullptr;
-    if(!bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
-    if(bDeathSpectating && FollowedTeammate)
-    {
-        const auto* FollowWeapon=IsValid(FollowedTeammate)?FollowedTeammate->FindComponentByClass<UShipWeaponComponent>():nullptr;
-        if(!FollowWeapon || FollowWeapon->bIsDestroyed)NextTeammate();
-    }
 }
 
 void ACustomPlayerController::EnterDeathSpectator()
@@ -261,7 +243,13 @@ void ACustomPlayerController::CycleShipCamera()
 void ACustomPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
-
+    const auto* Weapon = IsValid(OriginalPlayerShip) ? OriginalPlayerShip->FindComponentByClass<UShipWeaponComponent>() : nullptr;
+    if (!bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
+    if (bDeathSpectating && FollowedTeammate)
+    {
+        const auto* FollowWeapon = IsValid(FollowedTeammate) ? FollowedTeammate->FindComponentByClass<UShipWeaponComponent>() : nullptr;
+        if (!FollowWeapon || FollowWeapon->bIsDestroyed)NextTeammate();
+    }
     if (!IsValid(ActiveShipViewCamera))
     {
         return;

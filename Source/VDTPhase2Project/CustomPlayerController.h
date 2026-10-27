@@ -20,11 +20,9 @@ public:
     virtual void BeginPlay() override;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void SetupInputComponent() override;
-    virtual void BeginPlay() override;
     UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
     UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
     UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
-    virtual void PlayerTick(float DeltaTime) override;
     virtual void OnPossess(APawn* InPawn) override;
     UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
     UFUNCTION(BlueprintCallable, Category="Spectator") void ShowBattlefieldOverview();
