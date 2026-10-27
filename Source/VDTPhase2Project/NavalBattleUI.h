@@ -10,6 +10,20 @@ class UImage;
 class UProgressBar;
 class UTextBlock;
 
+/** Native base for WBP_MainMinimap: removes a ship's marker once it is sunk. */
+UCLASS()
+class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
+{
+    GENERATED_BODY()
+protected:
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
+private:
+    void RemoveDestroyedMarkers();
+    FTimerHandle MarkerTimer;
+    bool bWarnedMissingArrays=false;
+};
+
 /** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's TeamName. */
 UCLASS(Blueprintable)
 class VDTPHASE2PROJECT_API UShipMarkerWidget : public UUserWidget

@@ -48,6 +48,55 @@ UTexture2D* TeamMarkerIcon(const FString& TeamName,const UShipWeaponComponent* W
     return Icon.Get();
 }
 }
+void UShipMinimapWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if(UWorld* World=GetWorld())
+        World->GetTimerManager().SetTimer(MarkerTimer,this,&UShipMinimapWidget::RemoveDestroyedMarkers,.1f,true);
+}
+void UShipMinimapWidget::NativeDestruct()
+{
+    if(UWorld* World=GetWorld())World->GetTimerManager().ClearTimer(MarkerTimer);
+    Super::NativeDestruct();
+}
+void UShipMinimapWidget::RemoveDestroyedMarkers()
+{
+    auto* ActorsProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipActors"));
+    auto* MarkersProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipMarkerWidgets"));
+    auto* SlotsProperty=FindFProperty<FArrayProperty>(GetClass(),TEXT("ShipMarkerSlots"));
+    auto* MarkerInner=MarkersProperty?CastField<FObjectPropertyBase>(MarkersProperty->Inner):nullptr;
+    if(!ActorsProperty || !MarkersProperty || !SlotsProperty || !MarkerInner)
+    {
+        if(!bWarnedMissingArrays)
+        {
+            UE_LOG(LogTemp,Warning,TEXT("%s: minimap marker arrays not found."),*GetName());
+            bWarnedMissingArrays=true;
+        }
+        return;
+    }
+    auto* ActorInner=CastField<FObjectPropertyBase>(ActorsProperty->Inner);
+    FScriptArrayHelper Actors(ActorsProperty,ActorsProperty->ContainerPtrToValuePtr<void>(this));
+    FScriptArrayHelper Markers(MarkersProperty,MarkersProperty->ContainerPtrToValuePtr<void>(this));
+    FScriptArrayHelper Slots(SlotsProperty,SlotsProperty->ContainerPtrToValuePtr<void>(this));
+    if(Actors.Num()!=Markers.Num() || Actors.Num()!=Slots.Num())return;
+    for(int32 Index=Actors.Num()-1;Index>=0;--Index)
+    {
+        UUserWidget* Marker=Cast<UUserWidget>(MarkerInner->GetObjectPropertyValue(Markers.GetRawPtr(Index)));
+        UObject* ShipObject=ActorInner?ActorInner->GetObjectPropertyValue(Actors.GetRawPtr(Index)):nullptr;
+        AActor* Ship=Cast<AActor>(ShipObject);
+        if(!Ship && ShipObject)
+            if(auto* Component=Cast<UActorComponent>(ShipObject))Ship=Component->GetOwner();
+        if(!IsValid(Ship))Ship=MarkerShip(Marker);
+        const UShipWeaponComponent* Weapon=IsValid(Ship)?Ship->FindComponentByClass<UShipWeaponComponent>():nullptr;
+        if(!IsValid(Ship) || !Weapon || Weapon->bIsDestroyed || Weapon->CurrentHealth<=0.f)
+        {
+            if(IsValid(Marker))Marker->RemoveFromParent();
+            Actors.RemoveValues(Index);
+            Markers.RemoveValues(Index);
+            Slots.RemoveValues(Index);
+        }
+    }
+}
 void UShipMarkerWidget::NativeTick(const FGeometry& MyGeometry,float InDeltaTime)
 {
     Super::NativeTick(MyGeometry,InDeltaTime);

@@ -14,6 +14,7 @@
 #include "Components/VerticalBoxSlot.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "InputCoreTypes.h"
 
 namespace
@@ -74,8 +75,9 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     {
         auto* Button=WidgetTree->ConstructWidget<UButton>();Button->SetBackgroundColor(I?FLinearColor(.12f,.16f,.22f):FLinearColor(.03f,.3f,.5f));
         auto* LayoutSlot=Buttons->AddChildToHorizontalBox(Button);LayoutSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));LayoutSlot->SetPadding(FMargin(I?8:0,0,0,0));
-        SetupText(WidgetTree,Button,I?TEXT("QUIT"):TEXT("START NEW MATCH"),16);
-        if(I)Button->OnClicked.AddDynamic(this,&UShipSetupWidget::Cancel);else Button->OnClicked.AddDynamic(this,&UShipSetupWidget::StartMatch);
+        auto* ButtonLabel=SetupText(WidgetTree,Button,I?TEXT("QUIT"):TEXT("START NEW MATCH"),16);
+        if(I){QuitLabel=ButtonLabel;Button->OnClicked.AddDynamic(this,&UShipSetupWidget::OnQuitClicked);}
+        else Button->OnClicked.AddDynamic(this,&UShipSetupWidget::StartMatch);
     }
     SetIsFocusable(true);return Super::RebuildWidget();
 }
@@ -83,7 +85,10 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
 void UShipSetupWidget::NativeConstruct()
 {
     Super::NativeConstruct();
-    if(auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>())
+    auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    bInitialSetup=!Settings || !Settings->bExplicitSelection;
+    if(QuitLabel)QuitLabel->SetText(FText::FromString(bInitialSetup?TEXT("QUIT"):TEXT("BACK TO GAME")));
+    if(Settings)
     {
         BlueCountSelector->SetSelectedIndex(Settings->BlueCount-1);RedCountSelector->SetSelectedIndex(Settings->RedCount-1);
         DifficultySelector->SetSelectedIndex(static_cast<int32>(Settings->Difficulty));
@@ -139,6 +144,13 @@ void UShipSetupWidget::StartMatch()
 void UShipSetupWidget::Cancel()
 {
     if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer()))PC->CloseMatchSetup();
+}
+
+void UShipSetupWidget::OnQuitClicked()
+{
+    if(!bInitialSetup){Cancel();return;}
+    if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer()))PC->CloseMatchSetup();
+    UKismetSystemLibrary::QuitGame(this,GetOwningPlayer(),EQuitPreference::Quit,false);
 }
 
 FReply UShipSetupWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event)

@@ -21,8 +21,8 @@ void ACustomPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     const auto* Settings = GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
-    // Direct PIE remains a development 3v3; standalone opens the setup first.
-    if (IsLocalController() && GetWorld()->WorldType == EWorldType::Game && Settings && !Settings->bExplicitSelection)
+    // A fresh game opens the setup first; after StartMatch the settings are already explicit.
+    if (IsLocalController() && Settings && !Settings->bExplicitSelection)
         GetWorld()->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this, [this]() {ToggleMatchSetup(); }));
     ViewedShip = GetPawn();
 
@@ -65,7 +65,12 @@ void ACustomPlayerController::ToggleMatchSetup()
 
 void ACustomPlayerController::CloseMatchSetup()
 {
-    if(SetupWidget)SetupWidget->RemoveFromParent();SetupWidget=nullptr;
+    if(SetupWidget)
+    {
+        if(auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr)
+            Settings->bExplicitSelection=true;
+        SetupWidget->RemoveFromParent();SetupWidget=nullptr;
+    }
     bShowMouseCursor=false;SetInputMode(FInputModeGameOnly());
     if(bMenuPausedWorld)SetPause(false);bMenuPausedWorld=false;
 }

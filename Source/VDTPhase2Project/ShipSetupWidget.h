@@ -28,8 +28,11 @@ protected:
     virtual void NativeTick(const FGeometry& Geometry,float DeltaTime) override;
     virtual FReply NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event) override;
 private:
+    UFUNCTION() void OnQuitClicked();
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Error;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> QuitLabel;
     UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
     UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
     int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1;
+    bool bInitialSetup=true;
 };
