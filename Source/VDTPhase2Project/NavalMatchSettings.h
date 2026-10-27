@@ -19,6 +19,8 @@ public:
     UPROPERTY(BlueprintReadOnly) TArray<EShipHullClass> HullClasses={EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small};
     UPROPERTY(BlueprintReadOnly) EShipAISkill Difficulty=EShipAISkill::Normal;
     UPROPERTY(BlueprintReadOnly) ENavalBattleMode Mode=ENavalBattleMode::RealTime;
+    /** 0 = Blue, 1 = Red. The player always occupies the first slot of this team. */
+    UPROPERTY(BlueprintReadOnly) int32 PlayerTeam=0;
     UPROPERTY(BlueprintReadOnly) bool bExplicitSelection=false;
-    UFUNCTION(BlueprintCallable) bool Configure(int32 Blue,int32 Red,const TArray<EShipHullClass>& Classes,EShipAISkill Skill,ENavalBattleMode BattleMode);
+    UFUNCTION(BlueprintCallable) bool Configure(int32 Blue,int32 Red,const TArray<EShipHullClass>& Classes,EShipAISkill Skill,ENavalBattleMode BattleMode,int32 InPlayerTeam=0);
 };

@@ -5,6 +5,7 @@
 
 class UComboBoxString;
 class UTextBlock;
+class UVerticalBox;
 
 /** Selections prepare a fresh match, reusing the map's ships and patrol actors. */
 UCLASS()
@@ -19,7 +20,7 @@ public:
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> BlueCountSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> RedCountSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> DifficultySelector;
-    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> ModeSelector;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> PlayerTeamSelector;
     UPROPERTY(BlueprintReadOnly) TArray<TObjectPtr<UComboBoxString>> HullSelectors;
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
@@ -28,5 +29,7 @@ protected:
     virtual FReply NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event) override;
 private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Error;
-    int32 LastBlue=-1,LastRed=-1;
+    UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
+    int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1;
 };

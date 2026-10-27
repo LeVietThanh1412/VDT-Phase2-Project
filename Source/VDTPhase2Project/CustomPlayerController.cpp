@@ -96,9 +96,11 @@ void ACustomPlayerController::EnterDeathSpectator()
 void ACustomPlayerController::NextTeammate()
 {
     if(!bDeathSpectating)return;
+    const auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
     TArray<APawn*> Friends;
     for(TActorIterator<APawn> It(GetWorld());It;++It)
-        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && W->Team()==0 && !W->bIsDestroyed)Friends.Add(*It);
+        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && W->Team()==PlayerTeam && !W->bIsDestroyed)Friends.Add(*It);
     Friends.Sort([](const APawn& A,const APawn& B){return A.GetPathName()<B.GetPathName();});
     if(Friends.IsEmpty()){ShowBattlefieldOverview();return;}
     const int32 Index=Friends.IndexOfByKey(FollowedTeammate);

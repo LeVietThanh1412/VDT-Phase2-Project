@@ -10,19 +10,6 @@ class UImage;
 class UProgressBar;
 class UTextBlock;
 
-/** Adds naval team/death presentation to the map team's existing marker widgets. */
-UCLASS()
-class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
-{
-    GENERATED_BODY()
-protected:
-    virtual void NativeConstruct() override;
-    virtual void NativeDestruct() override;
-private:
-    void RefreshNavalMarkers();
-    FTimerHandle MarkerTimer;
-};
-
 /** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's TeamName. */
 UCLASS(Blueprintable)
 class VDTPHASE2PROJECT_API UShipMarkerWidget : public UUserWidget
@@ -65,6 +52,7 @@ protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
 private:
     UPROPERTY(Transient) TObjectPtr<UProgressBar> Bar;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> Fleet;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Health;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Score;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Notice;

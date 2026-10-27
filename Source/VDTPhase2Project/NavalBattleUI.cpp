@@ -48,63 +48,6 @@ UTexture2D* TeamMarkerIcon(const FString& TeamName,const UShipWeaponComponent* W
     return Icon.Get();
 }
 }
-void UShipMinimapWidget::NativeConstruct()
-{
-    Super::NativeConstruct();
-    RefreshNavalMarkers();
-    GetWorld()->GetTimerManager().SetTimer(MarkerTimer, this, &UShipMinimapWidget::RefreshNavalMarkers, .1f, true);
-}
-void UShipMinimapWidget::NativeDestruct()
-{
-    if (GetWorld())
-        GetWorld()->GetTimerManager().ClearTimer(MarkerTimer);
-    Super::NativeDestruct();
-}
-void UShipMinimapWidget::RefreshNavalMarkers()
-{
-    // Keep the teammate's geographic projection, texture, canvas and update timer.
-    // These three parallel arrays are authored by WBP_MainMinimap's Construct graph.
-    auto *ActorsProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipActors"));
-    auto *MarkersProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipMarkerWidgets"));
-    auto *SlotsProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipMarkerSlots"));
-    if (!ActorsProperty || !MarkersProperty || !SlotsProperty)
-        return;
-    auto *ActorInner = CastField<FObjectPropertyBase>(ActorsProperty->Inner);
-    auto *MarkerInner = CastField<FObjectPropertyBase>(MarkersProperty->Inner);
-    if (!ActorInner || !MarkerInner)
-        return;
-    FScriptArrayHelper Actors(ActorsProperty, ActorsProperty->ContainerPtrToValuePtr<void>(this));
-    FScriptArrayHelper Markers(MarkersProperty, MarkersProperty->ContainerPtrToValuePtr<void>(this));
-    FScriptArrayHelper Slots(SlotsProperty, SlotsProperty->ContainerPtrToValuePtr<void>(this));
-    if (Actors.Num() != Markers.Num() || Actors.Num() != Slots.Num())
-        return;
-    for (int32 Index = Actors.Num() - 1; Index >= 0; --Index)
-    {
-        AActor *Ship = Cast<AActor>(ActorInner->GetObjectPropertyValue(Actors.GetRawPtr(Index)));
-        UUserWidget *Marker = Cast<UUserWidget>(MarkerInner->GetObjectPropertyValue(Markers.GetRawPtr(Index)));
-        const UShipWeaponComponent *Weapon = IsValid(Ship) ? Ship->FindComponentByClass<UShipWeaponComponent>() : nullptr;
-        if (!Weapon || Weapon->bIsDestroyed)
-        {
-            if (IsValid(Marker))
-                Marker->RemoveFromParent();
-            Actors.RemoveValues(Index);
-            Markers.RemoveValues(Index);
-            Slots.RemoveValues(Index);
-        }
-        else if (IsValid(Marker))
-        {
-            // The two marker textures already carry their own team colours; a white
-            // widget tint preserves them instead of multiplying the old blue/red tint.
-            Marker->SetColorAndOpacity(FLinearColor::White);
-            if(UImage* MarkerImage=Cast<UImage>(Marker->GetWidgetFromName(TEXT("Image_ShipMarker"))))
-                if(UTexture2D* Icon=TeamMarkerIcon(Weapon->GetTeamName(),Weapon))
-                    if(MarkerImage->GetBrush().GetResourceObject()!=Icon)
-                        MarkerImage->SetBrushFromTexture(Icon,false);
-            if(UTextBlock* NameText=Cast<UTextBlock>(Marker->GetWidgetFromName(TEXT("Text_ShipName"))))
-                NameText->SetText(FText::FromString(Weapon->GetShipName()));
-        }
-    }
-}
 void UShipMarkerWidget::NativeTick(const FGeometry& MyGeometry,float InDeltaTime)
 {
     Super::NativeTick(MyGeometry,InDeltaTime);
@@ -164,7 +107,8 @@ TSharedRef<SWidget> UShipHUDWidget::RebuildWidget()
     FrameSlot->SetSize(FVector2D(440, 190));
     auto *Box = WidgetTree->ConstructWidget<UVerticalBox>();
     Frame->AddChild(Box);
-    Text(WidgetTree, Box, 12, FLinearColor(.3f, .7f, 1))->SetText(FText::FromString(TEXT("NAVAL BATTLE  /  BLUE FLEET")));
+    Fleet = Text(WidgetTree, Box, 12, FLinearColor(.3f, .7f, 1));
+    Fleet->SetText(FText::FromString(TEXT("NAVAL BATTLE  /  BLUE FLEET")));
     Score = Text(WidgetTree, Box, 23, FLinearColor::White);
     Health = Text(WidgetTree, Box, 16, FLinearColor::White);
     Bar = Progress(WidgetTree, Box, 16);
@@ -188,6 +132,10 @@ void UShipHUDWidget::Refresh(UNavalBattleSubsystem *Battle)
 {
     if (!Battle || !Bar)
         return;
+    const auto* Settings=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
+    if(Fleet)
+        Fleet->SetText(FText::FromString(FString::Printf(TEXT("NAVAL BATTLE  /  %s FLEET"),PlayerTeam==0?TEXT("BLUE"):TEXT("RED"))));
     ScoreText = FString::Printf(TEXT("BLUE %d   |   RED %d"), Battle->BlueAlive, Battle->RedAlive);
     Score->SetText(FText::FromString(ScoreText));
     if (auto *Ship = Battle->PlayerShip.Get())
@@ -213,7 +161,7 @@ void UShipHUDWidget::Refresh(UNavalBattleSubsystem *Battle)
     ResultText = Battle->Outcome;
     if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer());PC && PC->bDeathSpectating)
     {
-        HealthText=PC->FollowedTeammate?TEXT("SPECTATING BLUE  |  Tab: next  M: overview"):TEXT("BATTLEFIELD OVERVIEW  |  Tab: teammate");
+        HealthText=PC->FollowedTeammate?FString::Printf(TEXT("SPECTATING %s  |  Tab: next  M: overview"),PlayerTeam==0?TEXT("BLUE"):TEXT("RED")):TEXT("BATTLEFIELD OVERVIEW  |  Tab: teammate");
         Health->SetText(FText::FromString(HealthText));
     }
     Result->SetText(FText::FromString(ResultText));
@@ -281,9 +229,28 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     // Wait for the existing always-loaded five AI, never spawn replacements.
     if(Teams[0].Num()!=3 || Teams[1].Num()!=3)return false;
     for(auto& Team:Teams)Team.Sort([](const APawn& A,const APawn& B){return A.GetFName().LexicalLess(B.GetFName());});
-    Teams[0].Remove(Player);Teams[0].Insert(Player,0);
     auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
     const bool Selected=Settings && Settings->bExplicitSelection;
+    const int32 PlayerTeam=Selected?FMath::Clamp(Settings->PlayerTeam,0,1):0;
+    auto* PlayerWeapon=Player->FindComponentByClass<UShipWeaponComponent>();
+    const int32 OldPlayerTeam=PlayerWeapon->Team();
+    if(OldPlayerTeam!=PlayerTeam)
+    {
+        // Move the player to the chosen side: swap hulls with an AI of that fleet and
+        // flip both factions so targeting, markers and the HUD follow the new team.
+        APawn* Other=Teams[PlayerTeam][0];
+        const FTransform PlayerTransform=Player->GetActorTransform();
+        Player->SetActorTransform(Other->GetActorTransform(),false,nullptr,ETeleportType::TeleportPhysics);
+        Other->SetActorTransform(PlayerTransform,false,nullptr,ETeleportType::TeleportPhysics);
+        if(auto* Combat=Player->FindComponentByClass<UShipCombatComponent>())Combat->Faction=PlayerTeam;
+        if(auto* Combat=Other->FindComponentByClass<UShipCombatComponent>())Combat->Faction=1-PlayerTeam;
+        PlayerWeapon->Faction=PlayerTeam;
+        if(auto* OtherWeapon=Other->FindComponentByClass<UShipWeaponComponent>())OtherWeapon->Faction=1-PlayerTeam;
+        Teams[PlayerTeam].Remove(Other);Teams[PlayerTeam].Add(Player);
+        Teams[OldPlayerTeam].Remove(Player);Teams[OldPlayerTeam].Add(Other);
+        for(auto& Team:Teams)Team.Sort([](const APawn& A,const APawn& B){return A.GetFName().LexicalLess(B.GetFName());});
+    }
+    Teams[PlayerTeam].Remove(Player);Teams[PlayerTeam].Insert(Player,0);
     TurnRoster.Empty();TurnLabels.Empty();Registered.Empty();Fallen.Empty();BlueAlive=0;RedAlive=0;Outcome.Empty();
     for(int32 Team=0;Team<2;++Team)for(int32 Slot=0;Slot<3;++Slot)
     {
@@ -301,7 +268,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
             if(auto* Combat=Pawn->FindComponentByClass<UShipCombatComponent>())Combat->SetShootingSkill(Settings->Difficulty);
         }
         TurnRoster.Add(W);Registered.Add(W);
-        TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,Team==0 && Slot==0?TEXT("YOU"):TEXT("AI")));
+        TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
         if(W->bIsDestroyed)Fallen.Add(W);
         else if(Team==0)++BlueAlive;else ++RedAlive;
     }
@@ -387,10 +354,12 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         BlueAlive = FMath::Max(0, BlueAlive - 1);
     else if (Ship->Team() == 1)
         RedAlive = FMath::Max(0, RedAlive - 1);
-    Notification = Ship->Team() == 0 ? TEXT("Friendly ship destroyed") : TEXT("Enemy ship destroyed");
-    if (RedAlive == 0)
+    const auto* Settings=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
+    Notification = Ship->Team() == PlayerTeam ? TEXT("Friendly ship destroyed") : TEXT("Enemy ship destroyed");
+    if ((PlayerTeam==0?RedAlive:BlueAlive) == 0)
         Outcome = TEXT("VICTORY");
-    else if (BlueAlive == 0)
+    else if ((PlayerTeam==0?BlueAlive:RedAlive) == 0)
         Outcome = TEXT("DEFEAT");
     GetWorld()->GetTimerManager().SetTimer(NoticeTimer, FTimerDelegate::CreateWeakLambda(this, [this]()
                                                                                          {Notification.Empty();RefreshHUD(); }),
