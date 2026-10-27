@@ -105,6 +105,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void SetGeographicDestination(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation") void StartPatrol();
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
+    /** Refresh cached footprint after a prematch archetype replaces the physical hull. */
+    void RefreshHullGeometry();
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginRetreatFrom(AActor* Threat,float RetreatDistanceM);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginBackwardRetreat(AActor* Threat,float DistanceM);

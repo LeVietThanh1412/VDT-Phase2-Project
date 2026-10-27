@@ -11,6 +11,7 @@ class VDTPHASE2PROJECT_API UShipMovementComponent : public UActorComponent
 {
     GENERATED_BODY()
 public:
+    UShipMovementComponent();
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Ship class") EShipHullClass HullClass=EShipHullClass::Small;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Ship class") TObjectPtr<UShipPhysicsProfile> Profile;
     UPROPERTY(BlueprintReadOnly,Category="Ship class") bool bProfileApplied=false;
@@ -25,11 +26,27 @@ public:
     UFUNCTION(BlueprintPure,Category="Propulsion") float SignedForwardSpeed() const;
     UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterPropulsion(AActor* Ship,FVector OriginalForce);
     UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterRudder(AActor* Ship,FVector OriginalForce);
+    UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterRudderLocation(AActor* Ship,FVector OriginalLocation);
     UFUNCTION(BlueprintCallable,Category="Propulsion|Editor",meta=(DevelopmentOnly)) static FString InstallPropulsionFilter();
     UFUNCTION(BlueprintCallable,Category="Ship class|Editor",meta=(DevelopmentOnly)) static FString CreateDefaultProfiles();
+    UFUNCTION(BlueprintCallable,Category="Ship class|Editor",meta=(DevelopmentOnly)) static FString InspectArchetypeSources();
+    UFUNCTION(BlueprintCallable,Category="Ship class|Editor",meta=(DevelopmentOnly)) static FString BuildSmallEquipment();
+    UFUNCTION(BlueprintCallable,Category="Ship class|Editor",meta=(DevelopmentOnly)) static FString SetupSmallBlueprints();
 protected:
     virtual void BeginPlay() override;
+    virtual void TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction) override;
 private:
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> OriginalHull;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> BoatVisual;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> GunYaw;
+    UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> GunPitch;
+    FTransform OriginalVisualTransform;
+    bool bCachedEquipment=false;
+    ECollisionEnabled::Type OriginalVisualCollision=ECollisionEnabled::NoCollision;
+    TMap<TWeakObjectPtr<class USpringArmComponent>,float> OriginalArmLengths;
+    TMap<TWeakObjectPtr<class USpringArmComponent>,FTransform> OriginalArmTransforms;
+    TMap<TWeakObjectPtr<class USpringArmComponent>,FName> OriginalArmSockets;
+    void ApplyEquipment(UShipPhysicsProfile* NewProfile);
     bool bCachedBuoyancy=false;
     FBuoyancyData OriginalBuoyancy;
     bool bCachedCamera=false;

@@ -19,5 +19,6 @@ public:
 protected:
     virtual void BeginPlay() override;
 private:
+    bool bSourceCaptured=false;
     TSet<TWeakObjectPtr<AActor>> DamagedActors;
 };

@@ -16,7 +16,7 @@ class VDTPHASE2PROJECT_API UNavalMatchSettings : public UGameInstanceSubsystem
 public:
     UPROPERTY(BlueprintReadOnly) int32 BlueCount=3;
     UPROPERTY(BlueprintReadOnly) int32 RedCount=3;
-    UPROPERTY(BlueprintReadOnly) TArray<EShipHullClass> HullClasses={EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small};
+    UPROPERTY(BlueprintReadOnly) TArray<EShipHullClass> HullClasses={EShipHullClass::Medium,EShipHullClass::Small,EShipHullClass::Medium,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Medium};
     UPROPERTY(BlueprintReadOnly) EShipAISkill Difficulty=EShipAISkill::Normal;
     UPROPERTY(BlueprintReadOnly) ENavalBattleMode Mode=ENavalBattleMode::RealTime;
     UPROPERTY(BlueprintReadOnly) bool bExplicitSelection=false;

@@ -1,5 +1,6 @@
 #include "ShipWreckBillboardComponent.h"
 #include "ShipCombatComponent.h"
+#include "ShipMovementComponent.h"
 #include "CesiumGlobeAnchorComponent.h"
 #include "CesiumGeoreference.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -43,6 +44,9 @@ void UShipWreckBillboardComponent::ActivateForWreck()
 {
     const auto* W=Weapon.Get();
     if(!W || !W->bIsDestroyed || W->DestructionStage==EShipDestructionStage::Submerged || W->DestructionStage==EShipDestructionStage::Cleanup)return;
+    if(bWreckVisualActive)return;
+    const auto* Movement=GetOwner()->FindComponentByClass<UShipMovementComponent>();
+    const float Scale=Movement && Movement->Profile?Movement->Profile->WreckEffectScale:1.f;
     for(int32 Index=0;Index<Elements.Num();++Index)
     {
         if(!Elements[Index].Material)continue;
@@ -53,6 +57,7 @@ void UShipWreckBillboardComponent::ActivateForWreck()
             SetMaterial(Index,Dynamic);
         }
         if(Dynamic)Dynamic->SetScalarParameterValue(TEXT("Phase"),Phase);
+        Elements[Index].BaseSizeX*=Scale;Elements[Index].BaseSizeY*=Scale;
     }
     bWreckVisualActive=true;
     UpdatePlacement();
@@ -79,7 +84,9 @@ void UShipWreckBillboardComponent::UpdatePlacement()
     // Geographic up deliberately survives a capsized hull's roll. Storing the
     // resulting world position as an attached relative position also follows
     // the wreck immediately when its Cesium anchor changes coordinate frame.
-    SetWorldLocation(Origin+Forward*DeckOffsetCm.X+Right*DeckOffsetCm.Y+Up*DeckOffsetCm.Z,false,nullptr,ETeleportType::TeleportPhysics);
+    const auto* Movement=GetOwner()->FindComponentByClass<UShipMovementComponent>();
+    const float Scale=Movement && Movement->Profile?Movement->Profile->WreckEffectScale:1.f;
+    SetWorldLocation(Origin+(Forward*DeckOffsetCm.X+Right*DeckOffsetCm.Y+Up*DeckOffsetCm.Z)*Scale,false,nullptr,ETeleportType::TeleportPhysics);
 }
 
 void UShipWreckBillboardComponent::HideEffect()

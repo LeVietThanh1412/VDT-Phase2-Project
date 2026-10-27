@@ -40,3 +40,10 @@ Tools/SeaNavigation/__pycache__/
 # Python bytecode cache
 __pycache__/
 *.py[cod]
+
+# Local Fab download payload. Runtime mesh/material/texture UAssets are tracked.
+Content/ShipSmall/Asset/metadata
+Content/ShipSmall/Asset/thumbnail.jpg
+Content/ShipSmall/Asset/thumbnail.uasset
+Content/ShipSmall/Asset/sweedenmilitaryboat.fbx
+Content/ShipSmall/Asset/sweedenmilitaryboat.fbm/

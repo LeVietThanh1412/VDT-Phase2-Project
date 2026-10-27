@@ -1,5 +1,138 @@
 # Naval Battle V2 — progress ledger
 
+## Small milestone gate PASSED — 2026-10-27
+
+SMALL_MILESTONE_QA.json hashes six passing actual PIE evidence files: settled
+Small/Medium response, real P-menu Small Blueprint spawn, 16-projectile damage
+matrix plus 65m sink/cleanup (94 checks), five physical AI with original
+controllers on an old runtime-only certified patrol fixture (23 checks), and
+underway player movement/reverse/firing/gun alignment (11 checks).
+
+Final compact hull preserves original sockets1-5 scaled .425; socket5 local
+[1942.25,-323,0]cm, no double scaling, rudder multiplier.5. Measured response:
+Small acceleration51.21 vs44.03, peak28.76 vs25.73m/s; mean yaw5.255 vs3.467deg/s
+(1.516x). Old rudder3.0 numbers below are superseded. All5AI traveled>900m.
+Fixed first-frame visible gun initialization; final rerun max error<.001cm.
+Retain the original failed pipeline JSON, snapshot failure and fixture failures.
+A repeat mesh-build render-resource crash was fixed by preserving existing
+geometry and updating sockets; no map/source model files were lost.
+
+Small assets saved/reopened and menu spawn retested. GMBP preserves its original
+controller/default pawn and selects BP_ShipSmall for a Small player. Base BP_Ship
+now defaults to Medium so existing original hull instances retain their identity.
+Raw Fab entitlement metadata, redundant thumbnails/FBX/PNG are local-only;
+necessary UAssets are intended for this private repository. Small milestone
+commit/push preparation is in progress. Main and the5pre-existing dirty actor
+packages remain untouched. Full demo NOT READY: randomized island field,
+>=5seeds, zero-stall diagnosis/fix, new full loop soak, mixed combat/turns,
+performance and final reopen/push/PR remain required.
+
+## Small milestone verification — 2026-10-27
+
+Saved the repaired source atlas material, compact Small hull, visible gun parts,
+Small/Medium profiles, dedicated BP_ShipSmall and BP_ShipSmallAI. GMBP inherits
+NavalGameMode so selecting Small for the player actually spawns BP_ShipSmall;
+original controller/default original pawn retained. Actual menu travel passed.
+Source boat has no rig/sockets. Its built-in gun is aft and static; the separate
+working gun is bow-mounted and follows the original yaw/pitch/muzzle pipeline.
+No duplicate simulated body or actor-wide scale; Small HP38/base6; Medium/Large
+100/base10. Original parent Blueprint force calls remain authoritative.
+
+Physical comparison after water settling: Small 51.40 vs Medium 44.03 m/s²,
+peak speed 28.76 vs25.73, mean absolute yaw5.084 vs3.458 deg/s (1.470x).
+Maximum roll7.87/8.34deg. Small pontoon radius100cm, not the rejected400cm;
+rudder3.0 and application-point scale.425. Source/profile build succeeded.
+38s underway passed movement/reverse/firing/alignment; actual texture now visible.
+
+The first matrix caught a real impact-time damage snapshot bug: a Small round
+became10 when the attacker changed profile in flight. Fixed InitializeSource to
+capture once, including after source destruction. New actual 16-shot matrix
+PASSED Small/Small, Small/Medium, Medium/Small, Small/Large; bow/mid/stern,
+friendly guards, once-only death,65m sink and cleanup. Retained the failure and
+a separate fixture-target interception failure. Do not erase these records.
+
+Small AI on both teams is being checked in a runtime-only old certified-layout
+fixture. This is NOT the required new randomized-field soak. The five pre-existing
+user-modified actor packages remain preserved and are not reset. Current saved
+positions include blocked cells, so the final demo is not ready until the new
+validated field, seed tests, stationary-AI diagnosis, full soak and reopen pass.
+No Small-phase commit/push/PR has been made yet. Source art licence Fab Standard
+is user-confirmed; private repository collaborator use only. Exclude entitlement
+metadata, redundant FBX/thumbnail source files from the intended milestone commit.
+
+## Small warship / randomized battlefield checkpoint — 2026-10-26
+
+**Controlling request:** attachment `29d40d15-cfb1-4f2b-9e19-c58867938252/Pasted text.txt`,
+plus the user's explicit requirement to inspect the Small ship skeleton itself.
+This extends the previous goal. Do not reuse the old 402.63 s patrol as proof
+for the future randomized island-rich battlefield.
+
+- Git audit: user/another session committed final-QA preparation as `2e51f06`
+  and merged PR #7 into main at `25baf4ca855fce6115a4a264f36d5c663996124d`.
+  This agent did not merge it. PR #7 is closed/merged; the old remote integration
+  branch is absent. Repository is authenticated as PRIVATE. Created local
+  `backup/quangninh-before-small-20261026` at 25baf4c, then
+  `feature/small-warship-seeded-battlefield`; no pushes/main changes in this phase.
+- Recovery PASSED: `Saved/active_small_ship_recovery.txt` points to
+  `SmallWarshipRecovery_20261026_202209`, 98 files / 170,772,980 bytes with
+  verified SHA-256 copies, unstaged/staged patches and original status/HEAD.
+  Includes source/config, original BPs/profiles, MainMap/ExternalActors and the
+  new Small model. Preserve the five pre-existing modified ship actor packages.
+- Editor was closed on arrival. Opened one unattended instance using the existing
+  filesystem DDC fallback, audited outside PIE, then closed cleanly for C++.
+  Dirty map/content lists were empty. No asset/level mutation in this new phase yet.
+- Phase 1 asset/skeleton audit IN_PROGRESS: `SMALL_FBX_SKELETON_AUDIT.json`
+  proves FBX 7400 contains one Mesh model/geometry, NO joint models, NO skin or
+  cluster deformers, NO animation stacks/layers/curves. Actual source geometry:
+  999,713 vertices and 5,999,970 polygon indices. The imported asset is StaticMesh,
+  not SkeletalMesh; 1 LOD/section, Nanite already enabled. Bounds are 680.375 ×
+  2435.821 × 800 cm (long axis Y), not a usable skeleton. Native static sockets
+  remain to be checked because the Python property is protected.
+- Source PNG is 4096×4096, not the listing's advertised 8K. Unreal's Blueprint
+  size initially returned resident 32×32; do not confuse that with source size.
+  Material `model` is opaque/default-lit with a material-function BaseColor input;
+  no material repair has been justified yet. `SMALL_UNREAL_ASSET_AUDIT.json`
+  records the actual objects, attachments and original ship rig.
+- Existing DDG102 skeleton has 20 bones. Front yaw `front_gun_h_jnt` (parent
+  cog_jnt), front pitch `front_gun_v_jnt` (child yaw), and muzzle socket exist.
+  A native read-only inspector now checks real skin weights/sections, sockets,
+  collision and texture source dimensions before choosing weapon reuse.
+  New `ShipArchetypeEditor.cpp` / `InspectArchetypeSources` are audit preparation,
+  not Small integration. No Small HP/damage/physics/gameplay changes yet.
+- The baseline clean-source Unity build exposed duplicate anonymous IgnoreWater
+  helpers in combat/navigation; renamed only the navigation helper/calls to
+  IgnoreNavigationWater. First audit build also needed explicit pointer type for
+  TObjectPtr socket iteration. Rebuild is in progress; do not claim compilation
+  until its terminal result is checked.
+- License: user explicitly confirmed **Fab Standard**. Source metadata identifies
+  “Sweeden Military Boat”, YourAverageGamer, Fab listing b6d0889d-e855-4b3f-bf48-5ec7f9f4a4a7.
+  Public listing fetch returned 403; exact licence is user-confirmed. Official
+  https://www.fab.com/eula permits sharing with project collaborators via a
+  private repository. Do not commit entitlement metadata or unnecessary thumbnails.
+- Previous final QA is NOT fully passed: default five-Small-placeholder patrol
+  completed 402.635 s / 15 arrivals / no nav errors, but strict summary 8/9
+  (Friendly_AI_2 sampled water contact 98.72% <99%). Frame test 4/4, max loss
+  0.3733 s, no floor hits. Mixed 3-Large/3-placeholder-Small real-time battle
+  completed 300 s but FAILED: Enemy3 Large exhausted recovery at t120.33,
+  Enemy2 Small at t218.99. Root cause not established; no fix applied. Preserve
+  `FINAL_INTEGRATED_BATTLE.json`, `FINAL_BATTLE_QA.json`, screenshots and memory
+  trace now committed in 2e51f06. Earlier process memory monitor was late/short;
+  no memory-leak-free claim. New task phase 7 must diagnose these stalls.
+- Original `promt.txt` / original “FINAL DEMO” task was not found in the bounded
+  project/parent/attachment search; c73b619d attachment is a duplicate of the new
+  Small task. Read existing progress/continuation; FINAL_DEMO_REPORT.md is absent.
+
+**Next:** finish native source audit; inspect the actual model appearance and bow
+axis. Build a coherent Small hull/weapon archetype on shared gameplay (one body,
+no oversized hidden hull, visible muzzle/aiming). Preserve original hull as Medium
+and Large profile; Small must become 38 HP / attacker damage 6 (5/6/5 rounded),
+faster/more agile. Verify independently, commit/push verified milestone. Then
+map-derived island-rich square, opposite team halves, one seeded spawn authority,
+class-safe routes, at least five real seeds and a NEW saved-layout soak; finish
+mixed-fleet stalls, all regressions, restart persistence, new PR. Do not stop at audit.
+
+Everything below this section is historical and does not override the new task.
+
 ## Active checkpoint — 2026-10-26
 
 Branch `feature/quangninh-battle-integration`, HEAD `faa966c` (pushed). Earlier

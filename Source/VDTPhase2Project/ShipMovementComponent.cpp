@@ -18,13 +18,15 @@ FVector Forward(AActor* Ship)
     return Ship->GetActorForwardVector();
 }
 }
+UShipMovementComponent::UShipMovementComponent()
+{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;}
 void UShipMovementComponent::BeginPlay()
 {
     Super::BeginPlay();if(Profile)ApplyProfile(Profile);else ApplyShipClass(HullClass);
 }
 bool UShipMovementComponent::ApplyShipClass(EShipHullClass Type)
 {
-    const TCHAR* Path=Type==EShipHullClass::Large?TEXT("/Game/NavalBattle/Profiles/DA_LargeShip.DA_LargeShip"):TEXT("/Game/NavalBattle/Profiles/DA_SmallShip.DA_SmallShip");
+    const TCHAR* Path=Type==EShipHullClass::Large?TEXT("/Game/NavalBattle/Profiles/DA_LargeShip.DA_LargeShip"):Type==EShipHullClass::Medium?TEXT("/Game/NavalBattle/Profiles/DA_MediumShip.DA_MediumShip"):TEXT("/Game/NavalBattle/Profiles/DA_SmallShip.DA_SmallShip");
     auto* P=LoadObject<UShipPhysicsProfile>(nullptr,Path);
     if(!P){P=NewObject<UShipPhysicsProfile>(this);P->SetDefaults(Type);}
     return ApplyProfile(P);
@@ -33,7 +35,7 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
 {
     auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner());
     const auto* W=GetOwner()->FindComponentByClass<UShipWeaponComponent>();if(!P || !Hull || (W && W->bIsDestroyed))return false;
-    if(P->HullCollisionMesh)if(auto* Static=Cast<UStaticMeshComponent>(Hull))Static->SetStaticMesh(P->HullCollisionMesh);
+    ApplyEquipment(P);
     if(auto* Visual=GetOwner()->FindComponentByClass<USkeletalMeshComponent>())
     {
         if(P->VisualMesh)Visual->SetSkeletalMesh(P->VisualMesh);
@@ -65,11 +67,97 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
     ForwardMaxSpeed=FMath::Max(1.f,P->ForwardMaxSpeed);ReverseMaxSpeed=FMath::Max(1.f,P->ReverseMaxSpeed);
     if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>())N->CruiseSpeedMps=FMath::Max(1.f,P->CruiseSpeed);
     if(auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())
-    {Weapon->MuzzleSpeedCmps=FMath::Max(1.f,P->ProjectileSpeedCmps);Weapon->ShotCooldownSeconds=FMath::Max(0.f,P->PlayerShotCooldownSeconds);}
+    {
+        const bool Full=Weapon->CurrentHealth>=Weapon->MaxHealth;
+        Weapon->MaxHealth=FMath::Max(1.f,P->MaxHealth);Weapon->CurrentHealth=Full?Weapon->MaxHealth:FMath::Min(Weapon->CurrentHealth,Weapon->MaxHealth);
+        Weapon->BaseProjectileDamage=FMath::Max(0.f,P->BaseProjectileDamage);
+        Weapon->MuzzleSpeedCmps=FMath::Max(1.f,P->ProjectileSpeedCmps);Weapon->ShotCooldownSeconds=FMath::Max(0.f,P->PlayerShotCooldownSeconds);
+    }
     if(auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>())Combat->FireCooldownSeconds=FMath::Max(.1f,P->WeaponCooldownSeconds);
     if(auto* Arm=GetOwner()->FindComponentByClass<USpringArmComponent>())
     {if(!bCachedCamera){OriginalCameraSocketOffset=Arm->SocketOffset;bCachedCamera=true;}Arm->SocketOffset=OriginalCameraSocketOffset+P->CameraOffset;}
+    if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>())
+    {N->MaxHealth=P->MaxHealth;if(auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())N->Health=Weapon->CurrentHealth;N->RefreshHullGeometry();}
     bProfileApplied=true;return true;
+}
+void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)
+{
+    auto* Hull=Cast<UStaticMeshComponent>(UShipCombatComponent::PhysicalHull(GetOwner()));
+    auto* Driver=GetOwner()->FindComponentByClass<USkeletalMeshComponent>();if(!Hull || !Driver)return;
+    if(!bCachedEquipment)
+    {
+        const bool AuthoredSmall=Driver->ComponentHasTag(TEXT("NavalSmallDriver"));
+        if(AuthoredSmall)OriginalHull=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Ship/Assets/SM/untitled.untitled"));else OriginalHull=Hull->GetStaticMesh();
+        OriginalVisualTransform=AuthoredSmall?FTransform::Identity:Driver->GetRelativeTransform();
+        OriginalVisualCollision=AuthoredSmall?ECollisionEnabled::QueryAndPhysics:Driver->GetCollisionEnabled();bCachedEquipment=true;
+    }
+    const bool Small=P->StaticVisualMesh!=nullptr;
+    SetComponentTickEnabled(Small);
+    Hull->SetStaticMesh(P->HullCollisionMesh?P->HullCollisionMesh.Get():OriginalHull.Get());
+    Driver->SetRelativeTransform(Small?P->WeaponDriverTransform:OriginalVisualTransform);
+    Driver->SetHiddenInGame(Small);Driver->SetVisibility(!Small,false);
+    Driver->SetCollisionEnabled(Small?ECollisionEnabled::NoCollision:OriginalVisualCollision);
+    Driver->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+    AddTickPrerequisiteComponent(Driver);
+    auto Part=[&](TObjectPtr<UStaticMeshComponent>& Component,FName Name,UStaticMesh* Mesh)
+    {
+        if(!Component && Mesh)
+        {
+            TArray<UStaticMeshComponent*> Existing;GetOwner()->GetComponents(Existing);
+            for(auto* Item:Existing)if(Item->GetFName()==Name){Component=Item;break;}
+            if(!Component)
+            {
+                Component=NewObject<UStaticMeshComponent>(GetOwner(),Name);GetOwner()->AddInstanceComponent(Component);
+                Component->SetupAttachment(Hull);Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+                Component->SetCanEverAffectNavigation(false);Component->RegisterComponent();
+            }
+        }
+        if(Component){Component->SetStaticMesh(Mesh);Component->SetVisibility(Small,false);Component->SetHiddenInGame(!Small);}
+    };
+    Part(BoatVisual,TEXT("SmallBoatVisual"),P->StaticVisualMesh);
+    Part(GunYaw,TEXT("SmallGunYaw"),P->GunYawMesh);Part(GunPitch,TEXT("SmallGunPitch"),P->GunPitchMesh);
+    if(BoatVisual)BoatVisual->SetRelativeTransform(P->StaticVisualTransform);
+    // Equipment can be selected between ticks. Put the visible parts at the
+    // current firing bones immediately, including a shot in that same frame.
+    if(Small)
+    {
+        if(GunYaw)GunYaw->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_h_jnt")));
+        if(GunPitch)GunPitch->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_v_jnt")));
+    }
+    TArray<USpringArmComponent*> Arms;GetOwner()->GetComponents(Arms);
+    for(auto* Arm:Arms)
+    {
+        float* Original=OriginalArmLengths.Find(Arm);
+        if(!Original){Original=&OriginalArmLengths.Add(Arm,Arm->TargetArmLength);OriginalArmTransforms.Add(Arm,Arm->GetRelativeTransform());OriginalArmSockets.Add(Arm,Arm->GetAttachSocketName());}
+        Arm->TargetArmLength=*Original*P->CameraDistanceScale;
+        if(Arm->GetFName()==TEXT("SpringArm"))
+        {
+            Arm->SetRelativeTransform(OriginalArmTransforms[Arm]);
+            if(Small){Arm->TargetArmLength=9000;Arm->SetRelativeLocation(FVector(0,0,2200));}
+        }
+        if(Arm->GetFName()==TEXT("GunSpringArm"))
+        {
+            Arm->AttachToComponent(Driver,FAttachmentTransformRules::KeepRelativeTransform,Small?FName(TEXT("front_gun_v_jnt")):OriginalArmSockets[Arm]);
+            Arm->SetRelativeTransform(OriginalArmTransforms[Arm]);
+            if(Small){Arm->TargetArmLength=0;Arm->SetRelativeLocation(FVector(-500,0,400));}
+        }
+    }
+}
+void UShipMovementComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction)
+{
+    Super::TickComponent(DeltaTime,TickType,TickFunction);
+    if(!Profile || !Profile->StaticVisualMesh)return;
+    if(auto* Driver=GetOwner()->FindComponentByClass<USkeletalMeshComponent>())
+    {
+        if(GunYaw)GunYaw->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_h_jnt")));
+        if(GunPitch)GunPitch->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_v_jnt")));
+    }
+}
+FVector UShipMovementComponent::FilterRudderLocation(AActor* Ship,FVector OriginalLocation)
+{
+    if(const auto* M=IsValid(Ship)?Ship->FindComponentByClass<UShipMovementComponent>():nullptr)
+        if(M->Profile)return OriginalLocation*M->Profile->RudderLocationScale;
+    return OriginalLocation;
 }
 FVector UShipMovementComponent::FilterRudder(AActor* Ship,FVector Force)
 {

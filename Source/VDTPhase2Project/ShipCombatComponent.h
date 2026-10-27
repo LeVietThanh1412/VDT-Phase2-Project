@@ -44,6 +44,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") int32 Faction=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") FName MuzzleSocket=TEXT("front_gun_v_socket");
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health",meta=(ClampMin="1")) float MaxHealth=100;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon",meta=(ClampMin="0")) float BaseProjectileDamage=10;
     UPROPERTY(BlueprintReadOnly, Category="Health") float CurrentHealth=100;
     UPROPERTY(BlueprintReadOnly, Category="Health") bool bIsDestroyed=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") float DestructionDelaySeconds=7;

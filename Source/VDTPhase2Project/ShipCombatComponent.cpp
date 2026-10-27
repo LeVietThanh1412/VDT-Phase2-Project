@@ -1,4 +1,5 @@
 #include "ShipCombatComponent.h"
+#include "ShipMovementComponent.h"
 #include "ShipProjectileDamageComponent.h"
 #include "NavalBattleUI.h"
 #include "Components/WidgetComponent.h"
@@ -88,7 +89,7 @@ bool UShipWeaponComponent::ReceiveHullImpact(AActor* Projectile,FVector ImpactWo
     const EShipHitRegion Region=X>=1-FMath::Clamp(BowLengthFraction,0.f,.45f)?EShipHitRegion::Bow:
         X<=FMath::Clamp(SternLengthFraction,0.f,.45f)?EShipHitRegion::Stern:EShipHitRegion::Midship;
     const float Multiplier=FMath::Clamp(Region==EShipHitRegion::Bow?BowDamageMultiplier:Region==EShipHitRegion::Stern?SternDamageMultiplier:MidshipDamageMultiplier,0.f,3.f);
-    const float Damage=Round->ProjectileDamage*Multiplier;
+    const float Damage=FMath::RoundToInt(Round->ProjectileDamage*Multiplier);
     // The existing final authority performs team/self/dead/duplicate guards.
     // Rejected impacts do not publish an accepted region or health event.
     if(!ReceiveShipDamage(Damage,Projectile))return false;
@@ -138,15 +139,17 @@ bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
     if(HealthWidget)HealthWidget->SetVisibility(false);
     if(Hull)
     {
+        const auto* Movement=GetOwner()->FindComponentByClass<UShipMovementComponent>();
+        const float EffectScale=Movement && Movement->Profile?Movement->Profile->WreckEffectScale:1.f;
         if(auto* FX=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Ship/Assets/MsvFx_Niagara_Explosion_Pack_01/Prefabs/Niagara_Dust_Explosion_01.Niagara_Dust_Explosion_01")))
-            UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,FX,Hull->Bounds.Origin,FRotator::ZeroRotator,FVector(12),true,true,ENCPoolMethod::None,false);
+            UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,FX,Hull->Bounds.Origin,FRotator::ZeroRotator,FVector(12*EffectScale),true,true,ENCPoolMethod::None,false);
         // Existing ship effect contains AftVentFire and BodySmoke emitters.
         auto* Fire=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/NavalBattle/FX/NS_ShipBurn.NS_ShipBurn"));
         if(!Fire)Fire=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Ship/Assets/VigilanteContent/Vehicles/West_Ship_DDG102/FX/NS_West_Ship_DDG102_Damaged.NS_West_Ship_DDG102_Damaged"));
         if(auto* FX=Fire)
         {
             DestructionFX=UNiagaraFunctionLibrary::SpawnSystemAttached(FX,Hull,NAME_None,FVector::ZeroVector,FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,false,true,ENCPoolMethod::None,false);
-            if(DestructionFX)DestructionFX->SetVariableVec3(TEXT("User.BoxSize"),FVector(6000,1500,800));
+            if(DestructionFX){DestructionFX->SetVariableVec3(TEXT("User.BoxSize"),FVector(6000,1500,800)*EffectScale);DestructionFX->SetRelativeScale3D(FVector(EffectScale));}
         }
     }
     if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);

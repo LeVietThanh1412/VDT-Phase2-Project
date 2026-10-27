@@ -272,7 +272,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
             if(IsValid(Controller) && !Controller->IsPlayerController())Controller->Destroy();
             Pawn->Destroy();continue;
         }
-        if(Selected)
+        if(Settings)
         {
             if(auto* Move=Pawn->FindComponentByClass<UShipMovementComponent>())Move->ApplyShipClass(Settings->HullClasses[Team*3+Slot]);
             if(auto* Combat=Pawn->FindComponentByClass<UShipCombatComponent>())Combat->SetShootingSkill(Settings->Difficulty);

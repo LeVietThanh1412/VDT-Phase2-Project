@@ -1,0 +1,1 @@
+OK: component attached; parent and six legacy functions preserved; exclusive command branch; one forward/rudder call pair; Blueprint compiled

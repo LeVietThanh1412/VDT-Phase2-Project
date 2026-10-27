@@ -56,7 +56,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
         for(int32 I=0;I<3;++I)
         {
             SetupText(WidgetTree,Column,FString::Printf(TEXT("Ship %d  /  %s"),I+1,Team==0 && I==0?TEXT("PLAYER"):TEXT("AI")),13);
-            HullSelectors[Team*3+I]=Choices(WidgetTree,Column,{TEXT("Small"),TEXT("Large")});
+            HullSelectors[Team*3+I]=Choices(WidgetTree,Column,{TEXT("Small"),TEXT("Large"),TEXT("Medium")});
         }
     }
     auto* Options=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Options);
@@ -68,7 +68,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
         if(I)ModeSelector=Choices(WidgetTree,Column,{TEXT("Real-Time"),TEXT("Turn-Based (10s)")});
         else DifficultySelector=Choices(WidgetTree,Column,{TEXT("Easy"),TEXT("Normal"),TEXT("Hard")});
     }
-    SetupText(WidgetTree,Box,TEXT("100 HP  /  10 base damage  /  One Blue player"),12,FLinearColor(.65f,.75f,.85f));
+    SetupText(WidgetTree,Box,TEXT("Small: 38 HP / 6 damage   Medium & Large: 100 / 10"),12,FLinearColor(.65f,.75f,.85f));
     Error=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(1,.4f,.3f));
     auto* Buttons=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Buttons)->SetPadding(FMargin(0,7,0,0));
     for(int32 I=0;I<2;++I)
@@ -110,7 +110,7 @@ bool UShipSetupWidget::ApplySelection()
 {
     auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();if(!Settings || HullSelectors.Num()!=6)return false;
     TArray<EShipHullClass> Classes;
-    for(const auto& Selector:HullSelectors)Classes.Add(Selector->GetSelectedIndex()==1?EShipHullClass::Large:EShipHullClass::Small);
+    for(const auto& Selector:HullSelectors)Classes.Add(static_cast<EShipHullClass>(Selector->GetSelectedIndex()));
     const bool OK=Settings->Configure(BlueCountSelector->GetSelectedIndex()+1,RedCountSelector->GetSelectedIndex()+1,Classes,
         static_cast<EShipAISkill>(DifficultySelector->GetSelectedIndex()),static_cast<ENavalBattleMode>(ModeSelector->GetSelectedIndex()));
     if(!OK && Error)Error->SetText(FText::FromString(TEXT("Select 1-3 ships per fleet and a difficulty and mode.")));

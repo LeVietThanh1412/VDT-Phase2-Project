@@ -8,9 +8,9 @@ class UPhysicsAsset;
 class UAnimInstance;
 
 UENUM(BlueprintType)
-enum class EShipHullClass : uint8 { Small, Large };
+enum class EShipHullClass : uint8 { Small, Large, Medium };
 
-/** Replace art/collision here when real hull variants become available. No mesh scaling. */
+/** Shared balance and independently fitted visual/physical equipment; actor scale stays one. */
 UCLASS(BlueprintType)
 class VDTPHASE2PROJECT_API UShipPhysicsProfile : public UDataAsset
 {
@@ -36,6 +36,16 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") TSubclassOf<UAnimInstance> AnimationClass;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") TObjectPtr<UPhysicsAsset> VisualPhysicsAsset;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") TObjectPtr<UStaticMesh> HullCollisionMesh;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") TObjectPtr<UStaticMesh> StaticVisualMesh;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") TObjectPtr<UStaticMesh> GunYawMesh;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") TObjectPtr<UStaticMesh> GunPitchMesh;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") FTransform StaticVisualTransform;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") FTransform WeaponDriverTransform;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") float RudderLocationScale=1;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") float CameraDistanceScale=1;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Equipment") float WreckEffectScale=1;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Balance") float MaxHealth=100;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Balance") float BaseProjectileDamage=10;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") FVector CameraOffset=FVector::ZeroVector;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") float ProjectileSpeedCmps=20000;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Future assets") float WeaponCooldownSeconds=8;

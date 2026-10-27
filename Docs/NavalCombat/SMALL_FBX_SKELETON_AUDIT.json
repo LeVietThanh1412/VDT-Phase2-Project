@@ -1,0 +1,157 @@
+{
+  "source": "Content/ShipSmall/Asset/sweedenmilitaryboat.fbx",
+  "sha256": "766b01506e73aeb2db48e9ef5da6d4f79b72f48c980f5838aa4dbc7036004d7b",
+  "version": 7400,
+  "settings": {
+    "UpAxis": 1,
+    "UpAxisSign": 1,
+    "FrontAxis": 2,
+    "FrontAxisSign": 1,
+    "CoordAxis": 0,
+    "CoordAxisSign": 1,
+    "UnitScaleFactor": 1.0,
+    "OriginalUnitScaleFactor": 1.0
+  },
+  "models": [
+    {
+      "node": "Model",
+      "properties": [
+        567542430,
+        "model\u0000\u0001Model",
+        "Mesh"
+      ],
+      "transform_properties": [
+        [
+          "Lcl Rotation",
+          "Lcl Rotation",
+          "",
+          "A",
+          -90.00000250447816,
+          0.0,
+          0.0
+        ],
+        [
+          "Lcl Scaling",
+          "Lcl Scaling",
+          "",
+          "A",
+          100.0,
+          100.0,
+          100.0
+        ]
+      ]
+    }
+  ],
+  "node_attributes": [],
+  "deformers": [],
+  "geometry": [
+    {
+      "node": "Geometry",
+      "properties": [
+        628431096,
+        "model\u0000\u0001Geometry",
+        "Mesh"
+      ],
+      "geometry_arrays": {
+        "Vertices": [
+          {
+            "array_type": "d",
+            "count": 2999139,
+            "encoding": 1,
+            "bytes": 11809772,
+            "bounds_min": [
+              -3.3934683799743652,
+              -12.13631534576416,
+              0.0
+            ],
+            "bounds_max": [
+              3.4102861881256104,
+              12.221890449523926,
+              8.0
+            ],
+            "hull_cross_sections": [
+              {
+                "source_y": -11,
+                "count": 8578,
+                "width": 2.774391531944275
+              },
+              {
+                "source_y": -9,
+                "count": 11309,
+                "width": 4.619866609573364
+              },
+              {
+                "source_y": -6,
+                "count": 13534,
+                "width": 6.041256427764893
+              },
+              {
+                "source_y": 0,
+                "count": 13969,
+                "width": 6.693923473358154
+              },
+              {
+                "source_y": 6,
+                "count": 17473,
+                "width": 6.6915998458862305
+              },
+              {
+                "source_y": 9,
+                "count": 17808,
+                "width": 6.674782037734985
+              },
+              {
+                "source_y": 11,
+                "count": 34193,
+                "width": 6.623862266540527
+              }
+            ]
+          }
+        ],
+        "PolygonVertexIndex": [
+          {
+            "array_type": "i",
+            "count": 5999970,
+            "encoding": 1,
+            "bytes": 7383603
+          }
+        ]
+      }
+    }
+  ],
+  "joint_models": [],
+  "skin_deformers": [],
+  "animation_nodes": {
+    "AnimationStack": 0,
+    "AnimationLayer": 0,
+    "AnimationCurve": 0
+  },
+  "connections": [
+    [
+      "OO",
+      567542430,
+      0
+    ],
+    [
+      "OO",
+      628431096,
+      567542430
+    ],
+    [
+      "OO",
+      707596925,
+      567542430
+    ],
+    [
+      "OP",
+      233967765,
+      707596925,
+      "EmissiveColor"
+    ],
+    [
+      "OO",
+      60774253,
+      233967765
+    ]
+  ]
+}

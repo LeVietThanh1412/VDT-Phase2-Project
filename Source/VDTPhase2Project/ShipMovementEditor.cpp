@@ -56,6 +56,23 @@ FString UShipMovementComponent::InstallPropulsionFilter()
                     (Graph->GetFName()!=TEXT("EventGraph") && Graph->GetFName()!=TEXT("ApplyAIRudder")))continue;
                 auto* Pin=Call->FindPin(TEXT("Force"));if(!Pin || Pin->LinkedTo.Num()!=1)return TEXT("ERROR: original rudder input precondition failed");
                 ++Rudders;auto* Old=Cast<UK2Node_CallFunction>(Pin->LinkedTo[0]->GetOwningNode());
+                auto* Location=Call->FindPin(TEXT("Location"));
+                if(!Location)return TEXT("ERROR: original rudder location missing");
+                auto* LocationOld=Location->LinkedTo.Num()?Cast<UK2Node_CallFunction>(Location->LinkedTo[0]->GetOwningNode()):nullptr;
+                if(!LocationOld || LocationOld->FunctionReference.GetMemberName()!=GET_FUNCTION_NAME_CHECKED(UShipMovementComponent,FilterRudderLocation))
+                {
+                    auto* LocationFilter=NewObject<UK2Node_CallFunction>(Graph);Graph->AddNode(LocationFilter,false,false);
+                    LocationFilter->SetFromFunction(StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(UShipMovementComponent,FilterRudderLocation)));
+                    LocationFilter->CreateNewGuid();LocationFilter->AllocateDefaultPins();LocationFilter->NodePosX=Call->NodePosX-260;LocationFilter->NodePosY=Call->NodePosY+350;
+                    auto* InputLocation=LocationFilter->FindPin(TEXT("OriginalLocation"));
+                    const auto* LocationSchema=GetDefault<UEdGraphSchema_K2>();
+                    if(Location->LinkedTo.Num())
+                    {auto* Source=Location->LinkedTo[0];Location->BreakAllPinLinks();if(!LocationSchema->TryCreateConnection(Source,InputLocation))return TEXT("ERROR: rudder location source");}
+                    else {InputLocation->DefaultValue=Location->DefaultValue;InputLocation->DefaultObject=Location->DefaultObject;}
+                    auto* LocationSelf=NewObject<UK2Node_Self>(Graph);Graph->AddNode(LocationSelf,false,false);LocationSelf->CreateNewGuid();LocationSelf->AllocateDefaultPins();
+                    if(!LocationSchema->TryCreateConnection(LocationSelf->FindPin(TEXT("self")),LocationFilter->FindPin(TEXT("Ship"))) ||
+                       !LocationSchema->TryCreateConnection(LocationFilter->GetReturnValuePin(),Location))return TEXT("ERROR: rudder location filter");
+                }
                 if(Old && Old->FunctionReference.GetMemberName()==GET_FUNCTION_NAME_CHECKED(UShipMovementComponent,FilterRudder))continue;
                 Graph->Modify();auto* Original=Pin->LinkedTo[0];auto* Filter=NewObject<UK2Node_CallFunction>(Graph);Graph->AddNode(Filter,false,false);
                 Filter->SetFromFunction(StaticClass()->FindFunctionByName(GET_FUNCTION_NAME_CHECKED(UShipMovementComponent,FilterRudder)));
@@ -82,9 +99,9 @@ FString UShipMovementComponent::CreateDefaultProfiles()
 {
 #if WITH_EDITOR
     FString Result=TEXT("OK: default profiles available\n");
-    for(auto Type:{EShipHullClass::Small,EShipHullClass::Large})
+    for(auto Type:{EShipHullClass::Small,EShipHullClass::Large,EShipHullClass::Medium})
     {
-        const FString Name=Type==EShipHullClass::Large?TEXT("DA_LargeShip"):TEXT("DA_SmallShip");
+        const FString Name=Type==EShipHullClass::Large?TEXT("DA_LargeShip"):Type==EShipHullClass::Medium?TEXT("DA_MediumShip"):TEXT("DA_SmallShip");
         const FString Package=TEXT("/Game/NavalBattle/Profiles/")+Name;
         auto* P=LoadObject<UShipPhysicsProfile>(nullptr,*(Package+TEXT(".")+Name));
         if(P){Result+=Name+TEXT(": existing profile preserved\n");continue;}
