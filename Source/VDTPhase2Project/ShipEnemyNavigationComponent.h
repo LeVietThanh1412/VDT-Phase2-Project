@@ -105,6 +105,11 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void SetGeographicDestination(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation") void StartPatrol();
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
+    /** Development placement only: invalidate the old start/collision/arrival state.
+     * Does not move the body or change its patrol endpoints/possession. */
+    UFUNCTION(BlueprintCallable, Category="Navigation|Debug") void NotifyDevelopmentReposition();
+    UFUNCTION(BlueprintPure, Category="Navigation|Debug") FString GetNavigationDiagnostics() const;
+    UPROPERTY(BlueprintReadOnly, Category="Navigation|Debug") int32 RepositionReinitializations=0;
     /** Refresh cached footprint after a prematch archetype replaces the physical hull. */
     void RefreshHullGeometry();
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
@@ -171,6 +176,9 @@ private:
     int32 AvoidSide=0,RecoveryPhase=0,LastAvoidSide=0,AvoidSideChanges=0;
     bool bInitialized=false,bTargetB=true,bNeedsPlan=true,bHasGoal=false,bDead=false,bOriginChanged=false,bOwnsCommands=false,bExplicitStop=false;
     bool bTacticalOverride=false;
+    bool bHasObservedPosition=false;
+    FVector2D LastObservedPosition=FVector2D::ZeroVector;
+    float LastObservedSpeedMps=0;
     FVector TacticalDestination=FVector::ZeroVector;
     TWeakObjectPtr<AActor> ReverseThreat;
     FVector2D ReverseStart=FVector2D::ZeroVector;

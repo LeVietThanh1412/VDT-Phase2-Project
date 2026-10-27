@@ -25,6 +25,8 @@ public:
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") int32 RetainedLandTriangles=0;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") int32 RemovedWaterTriangles=0;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") int32 RetainedSubmergedTriangles=0;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") int32 RemovedSeaSkirtTriangles=0;
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") int32 SkirtMetadataTiles=0;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Terrain collision") FString LastError;
     bool HasCollisionCoverageAt(const FVector& World) const;
 protected:
@@ -37,7 +39,8 @@ private:
         TWeakObjectPtr<UStaticMeshComponent> Source;
         TWeakObjectPtr<UProceduralMeshComponent> Collision;
         ECollisionEnabled::Type Original=ECollisionEnabled::NoCollision;
-        int32 Land=0,Water=0,Bathymetry=0;
+        int32 Land=0,Water=0,Bathymetry=0,SeaSkirts=0;
+        bool bSkirtMetadata=false;
         uint32 GeometryHash=0;
         FTransform RootRelative=FTransform::Identity;
     };

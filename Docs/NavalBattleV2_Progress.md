@@ -442,3 +442,26 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - Full header inventory found negative elevations in 149 terrain tiles. The FINAL filter was narrowed to +/-0.05 m zero-level surfaces plus identified zero-level tile skirts, preserving other negative geometry. Native build and seven Blueprint compiles passed. The actor's tolerance is saved as 0.05 m. A fresh full patrol recheck is running; initial telemetry: five ships near 19 m/s, 1104 submerged triangles retained.
 - Core source: SeaTerrainCollisionComponent; no source dataset or Cesium plugin edit. Persistent report: Docs/QuangNinhIntegration/CESIUM_TERRAIN_COLLISION_FIX.md.
 - Pending: finish final 0.05 m repeat, record final collision evidence, focused core commit; then complete wider accuracy/tactical/VFX/spectator/turn/setup work. No new feature is marked complete prematurely.
+
+
+### 2026-10-27 sector defense/assault master - phase 0 and navigation reproduction
+
+- New authoritative task: attachment 8e30490c-8b1f-4503-9ad0-3a6b303b4980. Preserve selected candidate 1 at chart EN (14500,3500), 2500 m square; do not relocate terrain/georeference. New sectors/tactics/tags/buoyancy/magazine work remains pending until navigation passes.
+- Current branch feature/small-warship-seeded-battlefield, user setup commit 94f47aa after Small milestone 9f2bb3f. Seven binary assets already modified at task start; no reset. Verified SHA256 backup of 86 source/config/Blueprint/map actor files in Saved/active_navigation_recovery.txt. One authoritative editor launched; no competing editor found.
+- The saved DEMO_SAVED_PATROL_LOOPS.json is FAILED: TIME_LIMIT_REACHED at 600.75 s, all five AI only one arrival, then bounded recovery exhausted. Controller/physics retained; route endpoint assertions passed. This is current failure evidence, not a successful loop certificate.
+- Fresh NAVIGATION_REGRESSION_REPRO.json started against the current saved actor/target configuration with combat disabled only in disposable PIE. Trace the actual post-arrival steering, sensor and sweep data before changing owning logic.
+- Required phase order: repair/reposition navigation and focused verified commit; fixed sectors and deterministic safe spawning; Blue defense and Red scout assault; synchronized tags; measured buoyancy tuning; shared 10-round/30-second reload; integrated multi-seed/restart QA; reports/PR. No later phase is marked passed.
+
+### Geographic return-loop collision repair - fresh physical B/A/B PASS
+
+- Identified the actual return-route blocker: generated Cesium zero-surface skirts shifted laterally by 0.228-0.489 m, defeating the former 0.05 m coincidence heuristic. Public glTF skirt metadata now identifies the synthetic vertices; cooked-particle positions are matched without relying on Chaos index order. Only chart-water portions are removed. Land, seabed, source rendering and geographic A* remain intact.
+- NAVIGATION_FIXED_SAVED_PATROL.json PASSED at 393.57 actual game seconds after restart: all five completed at least B/A/B, 16 measured arrivals, exact live target endpoints, original controllers and continuous physics. Camera cycled six times. No automatic reposition resets during normal motion.
+- Structured diagnostics and explicit/automatic development-reposition invalidation added. Actual reposition, genuine selected-field island traversal, retained physical island support and combat-return gates are still pending; phase 1 is not yet complete. Buoyancy contacts are measured separately and are not misrepresented as a full stability pass.
+
+### Phase 1 VERIFIED - navigation, saved/runtime relocation and island traversal
+
+- NAVIGATION_PHASE1_VERIFIED.json aggregates eleven passing current reports. Native suite 4/4; saved fleet B/A/B 392.8 s; corrected runtime relocation B/A 242.15 s; saved editor relocation plus restart; candidate-1 island B/A 239.35 s with 2159 m physical travel and four native waypoints. Actual shoreline clearance >=176.60 m, planned >=226.01 m; all samples inside the selected field and no land intersections.
+- Physical island-support, repeated LOD and cache regression passed with real land/submerged geometry retained. Shared role/target-loss and target-health-death patrol return passed. Temporary excluded marker was rejected explicitly and recovered automatically when restored, followed by 374.34 m physical travel.
+- The failed runtime-relocation sampler ordering case remains preserved, with its actual fixture error documented; the rerun passed. The additional retreat fixture used a deliberately moved stationary threat and an actual hostile health death, and returned to original patrol. This does not claim natural full 3v3 combat or later sector/ammunition completion.
+- Only TP_Friendly_Patrol_A and the deliberately tested BP_ShipEnemy2 saved placement changed in this focused navigation milestone. Initial unrelated pending binary edits are retained. No terrain/georeference movement, graph rewrite, duplicate drive authority or normal-game teleport was introduced.
+- Next: fixed sector grid for the exact selected candidate, then seeded safe spawns, Blue defense/Red assault, tags, measured stability, magazines and combined QA in the user-specified order.

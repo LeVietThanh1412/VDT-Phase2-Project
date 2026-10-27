@@ -162,9 +162,12 @@ FVector UShipMovementComponent::FilterRudderLocation(AActor* Ship,FVector Origin
 FVector UShipMovementComponent::FilterRudder(AActor* Ship,FVector Force)
 {
     if(!IsValid(Ship) || Force.ContainsNaN())return FVector::ZeroVector;
+    auto* M=Ship->FindComponentByClass<UShipMovementComponent>();
+    if(M)M->LastRudderForce=FVector::ZeroVector;
     if(!UNavalBattleSubsystem::CanShipAct(Ship))return FVector::ZeroVector;
     if(const auto* W=Ship->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)return FVector::ZeroVector;
-    if(const auto* M=Ship->FindComponentByClass<UShipMovementComponent>())return Force*M->AppliedRudderScale;
+    if(M)
+    {M->LastRudderForce=Force*M->AppliedRudderScale;return M->LastRudderForce;}
     return Force;
 }
 float UShipMovementComponent::SignedForwardSpeed() const
@@ -175,9 +178,11 @@ float UShipMovementComponent::SignedForwardSpeed() const
 FVector UShipMovementComponent::FilterPropulsion(AActor* Ship,FVector Force)
 {
     if(!IsValid(Ship) || Force.ContainsNaN())return FVector::ZeroVector;
+    auto* M=Ship->FindComponentByClass<UShipMovementComponent>();
+    if(M)M->LastPropulsionForce=FVector::ZeroVector;
     if(!UNavalBattleSubsystem::CanShipAct(Ship))return FVector::ZeroVector;
     if(const auto* W=Ship->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)return FVector::ZeroVector;
-    const auto* M=Ship->FindComponentByClass<UShipMovementComponent>();if(!M)return Force;
+    if(!M)return Force;
     const float Speed=M->SignedForwardSpeed(),Thrust=FVector::DotProduct(Force,Forward(Ship));
     const float Blend=FMath::Max(.1f,M->SpeedLimitBlendMps);
     float Scale=1;
@@ -190,5 +195,5 @@ FVector UShipMovementComponent::FilterPropulsion(AActor* Ship,FVector Force)
     }
     else if(Thrust>0 && Speed>0)
         Scale=FMath::Clamp((FMath::Max(1.f,M->ForwardMaxSpeed)-Speed)/Blend,0.f,1.f);
-    return Force*Scale*M->AppliedPropulsionScale;
+    M->LastPropulsionForce=Force*Scale*M->AppliedPropulsionScale;return M->LastPropulsionForce;
 }

@@ -29,7 +29,7 @@ def check(name,value):
     st['checks'].append(dict(name=name,passed=bool(value)))
     assert value,name
 def save():
-    (root/'Docs/NavalCombat/ROLES_PIE.json').write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','subject','threat','ally']},indent=2))
+    (root/'Docs/NavalCombat'/globals().get('OUTPUT','ROLES_PIE.json')).write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','subject','threat','ally']},indent=2))
 def finish(status):
     st['status']=status;save();unreal.unregister_slate_post_tick_callback(st['handle'])
     unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
@@ -107,7 +107,7 @@ def tick(dt):
         elif st['phase']=='distance' and elapsed>=2:
             check('Hunter range bounded',n.role==unreal.ShipEnemyRole.FIGHTER and 'distance' in c.last_role_transition.lower())
             c.hunter_max_pursuit_distance_m=1700;c.set_combat_role(unreal.ShipEnemyRole.HUNTER)
-            check('hostile health event accepted',weapon.receive_ship_damage(60,st['threat']))
+            check('hostile health event accepted',weapon.receive_ship_damage(weapon.current_health-weapon.max_health*.3,st['threat']))
             phase('health',t)
         elif st['phase']=='health' and elapsed>=2:
             check('low-health Hunter becomes Fighter',n.role==unreal.ShipEnemyRole.FIGHTER and 'health' in c.last_role_transition.lower())

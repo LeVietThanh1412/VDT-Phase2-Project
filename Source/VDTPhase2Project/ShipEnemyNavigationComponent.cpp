@@ -1,6 +1,8 @@
 #include "ShipEnemyNavigationComponent.h"
 #include "NavalBattleUI.h"
 #include "ShipCombatComponent.h"
+#include "ShipMovementComponent.h"
+#include "Json.h"
 #include "ShipEnemyProjectile.h"
 #include "SeaTerrainCollisionComponent.h"
 #include "CesiumGeoreference.h"
@@ -104,7 +106,7 @@ void UShipEnemyNavigationComponent::EndPlay(const EEndPlayReason::Type Reason)
     bInitialized=false;bOwnsCommands=false;bNeedsPlan=true;
     Map.Reset();Hull=nullptr;Heading=nullptr;VisualMesh=nullptr;GlobeAnchor=nullptr;Georeference=nullptr;
     ThrottleProperty=nullptr;RudderProperty=nullptr;OwnedAimController=nullptr;
-    SensorDistances.Reset();SensorAngles.Reset();
+    SensorDistances.Reset();SensorAngles.Reset();bHasObservedPosition=false;
     Super::EndPlay(Reason);
 }
 bool UShipEnemyNavigationComponent::InitializeNavigation()
@@ -263,7 +265,77 @@ void UShipEnemyNavigationComponent::StartPatrol()
     DestinationState(this)=FDestinationTracking();NavigationState=EShipNavigationState::Patrol;
 }
 void UShipEnemyNavigationComponent::RequestReplan()
-{bNeedsPlan=true;bExplicitStop=false;RecoveryAttemptCount=0;RecoveryPhase=0;FailedCorridors.Reset();NavigationState=EShipNavigationState::Replan;LastNavigationFailureReason.Empty();}
+{
+    bExplicitStop=false;
+    NotifyDevelopmentReposition();
+}
+void UShipEnemyNavigationComponent::NotifyDevelopmentReposition()
+{
+    // Keep the selected endpoint and explicit geographic/tactical objective.
+    // A new physical start invalidates every derived steering/recovery sample.
+    ++RepositionReinitializations;bNeedsPlan=true;CurrentRoute.Reset();CurrentWaypointIndex=0;bPathfindingSucceeded=false;
+    bBackwardRetreatActive=false;bBackwardRetreatBlocked=false;bBackwardRetreatCompleted=false;ReverseThreat.Reset();
+    ArrivalTime=-1;LastPlanTime=-1000;RecoveryAttemptCount=0;RecoveryPhase=0;
+    FailedCorridors.Reset();AvoidElapsed=0;AvoidSide=0;LastAvoidSide=0;AvoidSideChanges=0;
+    TimeSinceProgress=0;SuccessfulProgressSinceRecovery=0;BestRemainingDistance=DBL_MAX;bStuck=false;
+    SensorDistances.Reset();SensorAngles.Reset();bHasObservedPosition=false;
+    auto& Track=DestinationState(this);
+    Track.bHasSnappedGoal=false;Track.ConsecutivePlanFailures=0;Track.RetryAt=0;
+    Track.TrafficRadius=0;Track.YieldSince=-1;Track.PriorityUntil=0;
+    bYieldingToShip=false;TrafficWaitSeconds=0;
+    LastNavigationFailureReason.Empty();NavigationState=bExplicitStop?EShipNavigationState::Idle:EShipNavigationState::Replan;
+    SetDriveCommand(0,0);
+}
+FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
+{
+    auto J=MakeShared<FJsonObject>();
+    auto Vector=[&](const TCHAR* Key,const FVector& V)
+    {J->SetArrayField(Key,{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)});};
+    J->SetStringField(TEXT("actor"),GetNameSafe(GetOwner()));
+    J->SetStringField(TEXT("label"),GetOwner()->GetActorNameOrLabel());
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    J->SetStringField(TEXT("controller"),Pawn?GetNameSafe(Pawn->GetController()):TEXT("none"));
+    const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>();
+    const auto* Movement=GetOwner()->FindComponentByClass<UShipMovementComponent>();
+    J->SetNumberField(TEXT("team"),Combat?Combat->Faction:-1);
+    J->SetStringField(TEXT("class"),Movement?UEnum::GetValueAsString(Movement->HullClass):TEXT("unknown"));
+    J->SetStringField(TEXT("tactical_state"),Combat?UEnum::GetValueAsString(Combat->TacticalState):TEXT("none"));
+    J->SetStringField(TEXT("navigation_state"),UEnum::GetValueAsString(NavigationState));
+    J->SetStringField(TEXT("patrol_a"),GetNameSafe(PatrolActorA));
+    J->SetStringField(TEXT("patrol_b"),GetNameSafe(PatrolActorB));
+    J->SetStringField(TEXT("active_target"),GetNameSafe(DestinationActor(this)));
+    J->SetNumberField(TEXT("legs"),PatrolLegsCompleted);
+    J->SetNumberField(TEXT("waypoint_index"),CurrentWaypointIndex);
+    J->SetNumberField(TEXT("waypoint_count"),CurrentRoute.Num());
+    J->SetBoolField(TEXT("path_success"),bPathfindingSucceeded);
+    J->SetStringField(TEXT("failure"),LastNavigationFailureReason);
+    J->SetNumberField(TEXT("throttle"),DesiredThrottle);J->SetNumberField(TEXT("rudder"),DesiredRudder);
+    J->SetNumberField(TEXT("time_without_route_progress_s"),TimeSinceProgress);
+    J->SetNumberField(TEXT("recovery_attempts"),RecoveryAttemptCount);
+    J->SetNumberField(TEXT("reposition_reinitializations"),RepositionReinitializations);
+    J->SetBoolField(TEXT("explicit_stop"),bExplicitStop);
+    J->SetBoolField(TEXT("can_act"),UNavalBattleSubsystem::CanShipAct(GetOwner()));
+    if(Movement)
+    {
+        Vector(TEXT("blueprint_propulsion_force"),Movement->LastPropulsionForce);
+        Vector(TEXT("blueprint_rudder_force_local"),Movement->LastRudderForce);
+    }
+    Vector(TEXT("goal_llh"),CurrentFinalDestination);
+    if(Map && IsValid(Hull) && IsValid(Georeference))
+    {
+        const auto P=PositionMetric();Vector(TEXT("chart_en_m"),FVector(P,0));
+        J->SetNumberField(TEXT("distance_to_goal_m"),FVector2D::Distance(P,GoalMetric));
+        J->SetBoolField(TEXT("chart_water"),Map->IsWater(P));
+        J->SetBoolField(TEXT("physics"),Hull->IsSimulatingPhysics());
+        J->SetNumberField(TEXT("speed_mps"),Hull->GetPhysicsLinearVelocity().Size()/100);
+    }
+    if(const auto* Track=DestinationTracking.Find(const_cast<UShipEnemyNavigationComponent*>(this)))
+    {
+        J->SetNumberField(TEXT("plans"),Track->PlanCount);
+        J->SetStringField(TEXT("last_sweep_actor"),GetNameSafe(Track->SweepActor.Get()));
+    }
+    FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
+}
 void UShipEnemyNavigationComponent::RefreshHullGeometry()
 {bInitialized=false;bNeedsPlan=true;}
 void UShipEnemyNavigationComponent::StopNavigation()
@@ -466,8 +538,8 @@ bool UShipEnemyNavigationComponent::SweepClear(const FVector& A,const FVector& B
     Track.SweepActor=bHit?Hit.GetActor():nullptr;
     Track.SweepCenter=bHit && Hit.GetComponent()?Hit.GetComponent()->GetComponentLocation():FVector::ZeroVector;
     if(bHit && bDrawDebug && GetWorld()->GetTimeSeconds()-DestinationState(const_cast<UShipEnemyNavigationComponent*>(this)).LastTelemetry>=1.)
-        UE_LOG(LogTemp,Display,TEXT("ShipNavigation SWEEP radius=%.1fm actor=%s component=%s distance=%.1fm penetration=%d impact=%s heights=[%.1f,%.1f] up=%s"),
-            Radius,*GetNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.Distance/100.,Hit.bStartPenetrating,*Hit.ImpactPoint.ToString(),MinHeight/100.,MaxHeight/100.,*Up.ToString());
+        UE_LOG(LogTemp,Display,TEXT("ShipNavigation SWEEP ship=%s radius=%.1fm actor=%s component=%s distance=%.1fm penetration=%d impact=%s heights=[%.1f,%.1f] up=%s"),
+            *GetOwner()->GetActorNameOrLabel(),Radius,*GetNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.Distance/100.,Hit.bStartPenetrating,*Hit.ImpactPoint.ToString(),MinHeight/100.,MaxHeight/100.,*Up.ToString());
     return !bHit;
 }
 bool UShipEnemyNavigationComponent::CollisionCoverageAvailable() const
@@ -628,7 +700,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     bOwnsCommands=true;
     if(!UNavalBattleSubsystem::CanShipAct(GetOwner()))
     {
-        SetDriveCommand(0,0);TimeSinceProgress=0;
+        SetDriveCommand(0,0);TimeSinceProgress=0;bHasObservedPosition=false;
         if(ArrivalTime>=0)ArrivalTime+=FMath::Max(0.f,Dt);
         return true;
     }
@@ -641,8 +713,8 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     }
     if(const auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())if(Weapon->bIsDestroyed)bDead=true;
     if(bDead){NavigationState=EShipNavigationState::Dead;SetDriveCommand(0,0);return true;}
-    if(GetWorld()->GetTimeSeconds()<PatrolReadyAt){SetDriveCommand(0,0);return true;}
-    if(bExplicitStop){NavigationState=EShipNavigationState::Idle;SetDriveCommand(0,0);return true;}
+    if(GetWorld()->GetTimeSeconds()<PatrolReadyAt){bHasObservedPosition=false;SetDriveCommand(0,0);return true;}
+    if(bExplicitStop){bHasObservedPosition=false;NavigationState=EShipNavigationState::Idle;SetDriveCommand(0,0);return true;}
     if(!FMath::IsFinite(Dt) || Dt<=0){SetDriveCommand(0,0);return true;}
     Dt=FMath::Min(Dt,0.2f);
     // Read the placed Blueprint's single DestinationActor every update. Compare
@@ -673,7 +745,15 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     }
     const FVector2D P=PositionMetric();
     if(bOriginChanged || LastWorldOrigin!=GetWorld()->OriginLocation)
-    {bOriginChanged=false;LastWorldOrigin=GetWorld()->OriginLocation;TimeSinceProgress=0;ProgressPosition=P;BestRemainingDistance=DBL_MAX;SetDriveCommand(0,0);return true;}
+    {bOriginChanged=false;LastWorldOrigin=GetWorld()->OriginLocation;TimeSinceProgress=0;ProgressPosition=P;BestRemainingDistance=DBL_MAX;bHasObservedPosition=false;SetDriveCommand(0,0);return true;}
+    const float ObservedSpeed=Hull->GetPhysicsLinearVelocity().Size()/100;
+    // ECEF-derived EN is invariant under Cesium/world-origin shifts. A jump
+    // beyond the actual velocity envelope is a development placement, not a
+    // normal physics tick. Never continually replan during ordinary movement.
+    const double PhysicalEnvelope=FMath::Max(30.,double(FMath::Max(ObservedSpeed,LastObservedSpeedMps))*GetWorld()->GetDeltaSeconds()*3.+10.);
+    if(bHasObservedPosition && FVector2D::Distance(P,LastObservedPosition)>PhysicalEnvelope)
+        NotifyDevelopmentReposition();
+    LastObservedPosition=P;LastObservedSpeedMps=ObservedSpeed;bHasObservedPosition=true;
     if(bBackwardRetreatActive)return UpdateBackwardRetreat(Dt);
     if(bTacticalOverride && (bBackwardRetreatBlocked || bBackwardRetreatCompleted))
     {const float S=FVector::DotProduct(Hull->GetPhysicsLinearVelocity(),Heading->GetForwardVector())/100;SetDriveCommand(S<-.5f?.12f:S>.5f?-.12f:0,0);return true;}
@@ -1026,8 +1106,8 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     // Emergency brake overrides all lower-priority forward movement. Rear sensor guards reverse thrust.
     const bool bEmergency=Front<LocalClearanceMarginM+Speed*2;
     if(bDrawDebug && Now-DestinationState(this).LastTelemetry>=1.)
-        UE_LOG(LogTemp,Display,TEXT("ShipNavigation STEER error=%.1f front=%.1fm horizon=%.1fm chart=%d sweep=%d turn=%d envelope=%.1fm speed=%.2f signed=%.2f avoidSide=%d avoidTime=%.1f recovery=%d"),
-            Error,Front,Horizon,ChartBlocked,SweepBlocked,bPreTurning,TurnEnvelope,Speed,SignedSpeed,AvoidSide,AvoidElapsed,RecoveryAttemptCount);
+        UE_LOG(LogTemp,Display,TEXT("ShipNavigation STEER ship=%s error=%.1f front=%.1fm horizon=%.1fm chart=%d sweep=%d turn=%d envelope=%.1fm speed=%.2f signed=%.2f avoidSide=%d avoidTime=%.1f recovery=%d"),
+            *GetOwner()->GetActorNameOrLabel(),Error,Front,Horizon,ChartBlocked,SweepBlocked,bPreTurning,TurnEnvelope,Speed,SignedSpeed,AvoidSide,AvoidElapsed,RecoveryAttemptCount);
     if(bEmergency || NavigationState==EShipNavigationState::Failed)
     {
         T=SignedSpeed>0.5f && SensorDistance(180)>HullRadiusM+LocalClearanceMarginM?-0.15f:0;

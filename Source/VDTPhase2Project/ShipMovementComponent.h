@@ -17,6 +17,9 @@ public:
     UPROPERTY(BlueprintReadOnly,Category="Ship class") bool bProfileApplied=false;
     UPROPERTY(BlueprintReadOnly,Category="Ship class") float AppliedPropulsionScale=1;
     UPROPERTY(BlueprintReadOnly,Category="Ship class") float AppliedRudderScale=1;
+    /** Values passed by the existing Blueprint to its AddForce nodes. */
+    UPROPERTY(BlueprintReadOnly,Category="Propulsion|Diagnostics") FVector LastPropulsionForce=FVector::ZeroVector;
+    UPROPERTY(BlueprintReadOnly,Category="Propulsion|Diagnostics") FVector LastRudderForce=FVector::ZeroVector;
     UFUNCTION(BlueprintCallable,Category="Ship class") bool ApplyShipClass(EShipHullClass Type);
     UFUNCTION(BlueprintCallable,Category="Ship class") bool ApplyProfile(UShipPhysicsProfile* NewProfile);
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Propulsion",meta=(ClampMin="1",Units="m/s")) float ForwardMaxSpeed=26;
