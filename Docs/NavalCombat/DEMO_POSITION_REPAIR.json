@@ -1,0 +1,61 @@
+{
+  "status": "SAVED_VALIDATED_CHART_POSITIONS",
+  "recovery": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\DemoPositionRecovery_20261027_103326",
+  "preserved": [
+    {
+      "label": "Friendly_AI_1",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+      "controller_class": "/Script/AIModule.AIController",
+      "a": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+      "b": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984"
+    },
+    {
+      "label": "Friendly_AI_2",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+      "controller_class": "/Script/AIModule.AIController",
+      "a": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+      "b": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096046064"
+    },
+    {
+      "label": "BP_ShipEnemy",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+      "controller_class": "/Script/AIModule.AIController",
+      "a": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+      "b": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255"
+    },
+    {
+      "label": "BP_ShipEnemy2",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+      "controller_class": "/Script/AIModule.AIController",
+      "a": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+      "b": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066"
+    },
+    {
+      "label": "BP_ShipEnemy3",
+      "path": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+      "controller_class": "/Script/AIModule.AIController",
+      "a": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+      "b": "/Game/Levels/MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096061068"
+    }
+  ],
+  "changed": [
+    "TP_Friendly_Patrol_A",
+    "TP_Friendly_Patrol_B",
+    "TP_Blue02_A",
+    "TP_Blue02_B",
+    "TP_ShipEnemy_AStarDestination",
+    "TP_ShipEnemy_OpenSeaDestination",
+    "TP_Red02_A",
+    "TP_Red02_B",
+    "TP_Red03_A",
+    "TP_Red03_B",
+    "Friendly_AI_1",
+    "Friendly_AI_2",
+    "BP_ShipEnemy",
+    "BP_ShipEnemy2",
+    "BP_ShipEnemy3",
+    "PlayerStart",
+    "TP_ShipDestination"
+  ],
+  "runtime_loop_acceptance": "PENDING"
+}
