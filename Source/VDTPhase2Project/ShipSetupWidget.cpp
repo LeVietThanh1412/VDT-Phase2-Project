@@ -28,6 +28,13 @@ UTextBlock* SetupText(UWidgetTree* Tree,UPanelWidget* Parent,const FString& Valu
 UComboBoxString* Choices(UWidgetTree* Tree,UVerticalBox* Parent,const TArray<FString>& Options)
 {
     auto* Combo=Tree->ConstructWidget<UComboBoxString>();
+    auto RowStyle=Combo->GetItemStyle();
+    RowStyle.TextColor=FSlateColor(FLinearColor::White);
+    RowStyle.SelectedTextColor=FSlateColor(FLinearColor::White);
+    Combo->SetItemStyle(RowStyle);
+    PRAGMA_DISABLE_DEPRECATION_WARNINGS
+    Combo->ForegroundColor=FSlateColor(FLinearColor::White);
+    PRAGMA_ENABLE_DEPRECATION_WARNINGS
     for(const auto& Option:Options)Combo->AddOption(Option);
     auto* Slot=Parent->AddChildToVerticalBox(Combo);Slot->SetPadding(FMargin(0,3,0,9));
     Combo->SetSelectedIndex(0);return Combo;

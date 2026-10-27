@@ -1,5 +1,4 @@
 #include "NavalBattleUI.h"
-#include "CustomPlayerController.h"
 #include "ShipMovementComponent.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
@@ -15,8 +14,6 @@
 #include "Engine/Texture2D.h"
 #include "TimerManager.h"
 #include "UObject/UnrealType.h"
-#include "Components/CanvasPanel.h"
-#include "Components/CanvasPanelSlot.h"
 #include "Kismet/GameplayStatics.h"
 
 namespace
@@ -142,89 +139,11 @@ void UShipHealthBarWidget::NativeConstruct()
     if (BoundShip)
         Refresh(BoundShip);
 }
-TSharedRef<SWidget> UShipHUDWidget::RebuildWidget()
-{
-    if (!WidgetTree)
-        WidgetTree = NewObject<UWidgetTree>(this);
-    auto *Canvas = WidgetTree->ConstructWidget<UCanvasPanel>();
-    WidgetTree->RootWidget = Canvas;
-    auto *Frame = WidgetTree->ConstructWidget<UBorder>();
-    Frame->SetBrushColor(FLinearColor(.008f, .015f, .03f, .88f));
-    Frame->SetPadding(FMargin(18, 12));
-    auto *FrameSlot = Canvas->AddChildToCanvas(Frame);
-    FrameSlot->SetPosition(FVector2D(24, 24));
-    FrameSlot->SetSize(FVector2D(440, 190));
-    auto *Box = WidgetTree->ConstructWidget<UVerticalBox>();
-    Frame->AddChild(Box);
-    Fleet = Text(WidgetTree, Box, 12, FLinearColor(.3f, .7f, 1));
-    Fleet->SetText(FText::FromString(TEXT("NAVAL BATTLE  /  BLUE FLEET")));
-    Score = Text(WidgetTree, Box, 23, FLinearColor::White);
-    Health = Text(WidgetTree, Box, 16, FLinearColor::White);
-    Bar = Progress(WidgetTree, Box, 16);
-    Notice = Text(WidgetTree, Box, 14, FLinearColor(1, .8f, .35f));
-    Turn = Text(WidgetTree, Box, 14, FLinearColor(.55f,.85f,1));
-    Result = WidgetTree->ConstructWidget<UTextBlock>();
-    FSlateFontInfo Font = Result->GetFont();
-    Font.Size = 38;
-    Result->SetFont(Font);
-    Result->SetJustification(ETextJustify::Center);
-    Result->SetShadowColorAndOpacity(FLinearColor::Black);
-    Result->SetShadowOffset(FVector2D(3, 3));
-    auto *Center = Canvas->AddChildToCanvas(Result);
-    Center->SetAnchors(FAnchors(.5f, .35f));
-    Center->SetAlignment(FVector2D(.5f, .5f));
-    Center->SetAutoSize(true);
-    SetVisibility(ESlateVisibility::HitTestInvisible);
-    return Super::RebuildWidget();
-}
-void UShipHUDWidget::Refresh(UNavalBattleSubsystem *Battle)
-{
-    if (!Battle || !Bar)
-        return;
-    const auto* Settings=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
-    const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
-    if(Fleet)
-        Fleet->SetText(FText::FromString(FString::Printf(TEXT("NAVAL BATTLE  /  %s FLEET"),PlayerTeam==0?TEXT("BLUE"):TEXT("RED"))));
-    ScoreText = FString::Printf(TEXT("BLUE %d   |   RED %d"), Battle->BlueAlive, Battle->RedAlive);
-    Score->SetText(FText::FromString(ScoreText));
-    if (auto *Ship = Battle->PlayerShip.Get())
-    {
-        HealthText = FString::Printf(TEXT("YOUR SHIP   %.0f / %.0f HP"), Ship->CurrentHealth, Ship->MaxHealth);
-        Health->SetText(FText::FromString(HealthText));
-        float Fraction = Ship->CurrentHealth / FMath::Max(Ship->MaxHealth, 1.f);
-        Bar->SetPercent(Fraction);
-        Bar->SetFillColorAndOpacity(HPColor(Fraction));
-    }
-    Notice->SetText(FText::FromString(Battle->Notification));
-    if(Turn)
-    {
-        FString Status=TEXT("REAL TIME  |  P: match setup");
-        if(Battle->BattleMode==ENavalBattleMode::TurnBased)
-        {
-            const auto* Active=IsValid(Battle->ActiveTurnShip)?Battle->ActiveTurnShip->FindComponentByClass<UShipWeaponComponent>():nullptr;
-            Status=Active?FString::Printf(TEXT("TURN %d  |  %s  |  %.1fs"),Battle->TurnNumber,*Battle->ActiveTurnLabel,Battle->TurnSecondsRemaining()):TEXT("TURN BASED  |  Battle ended");
-        }
-        if(!Battle->ConfigurationError.IsEmpty())Status=Battle->ConfigurationError;
-        Turn->SetText(FText::FromString(Status));
-    }
-    ResultText = Battle->Outcome;
-    if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer());PC && PC->bDeathSpectating)
-    {
-        HealthText=PC->FollowedTeammate?FString::Printf(TEXT("SPECTATING %s  |  Tab: next  M: overview"),PlayerTeam==0?TEXT("BLUE"):TEXT("RED")):TEXT("BATTLEFIELD OVERVIEW  |  Tab: teammate");
-        Health->SetText(FText::FromString(HealthText));
-    }
-    Result->SetText(FText::FromString(ResultText));
-    Result->SetColorAndOpacity(Battle->Outcome == TEXT("VICTORY") ? FLinearColor(.1f, 1, .4f) : FLinearColor(1, .3f, .15f));
-}
 bool UNavalBattleSubsystem::DoesSupportWorldType(EWorldType::Type Type) const { return Type == EWorldType::Game || Type == EWorldType::PIE; }
 void UNavalBattleSubsystem::Deinitialize()
 {
-    GetWorld()->GetTimerManager().ClearTimer(NoticeTimer);
     GetWorld()->GetTimerManager().ClearTimer(MatchTimer);
     TurnRoster.Empty();ActiveTurnShip=nullptr;
-    if (HUD)
-        HUD->RemoveFromParent();
-    HUD = nullptr;
     PlayerShip = nullptr;
     Registered.Empty();
     Fallen.Empty();
@@ -239,26 +158,6 @@ void UNavalBattleSubsystem::RegisterShip(UShipWeaponComponent *Ship)
         ++BlueAlive;
     else if (Ship->Team() == 1)
         ++RedAlive;
-    EnsureHUD();
-}
-void UNavalBattleSubsystem::EnsureHUD()
-{
-    auto *PC = UGameplayStatics::GetPlayerController(GetWorld(), 0);
-    if (!PC || !PC->IsLocalController())
-        return;
-    if (APawn *Pawn = PC->GetPawn())
-        if (auto *W = Pawn->FindComponentByClass<UShipWeaponComponent>())
-            PlayerShip = W;
-    if (!HUD)
-    {
-        UClass *Class = LoadClass<UShipHUDWidget>(nullptr, TEXT("/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD_C"));
-        if (!Class)
-            Class = UShipHUDWidget::StaticClass();
-        HUD = CreateWidget<UShipHUDWidget>(PC, Class);
-        if (HUD)
-            HUD->AddToViewport(20);
-    }
-    RefreshHUD();
 }
 
 void UNavalBattleSubsystem::OnWorldBeginPlay(UWorld& World)
@@ -286,7 +185,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     if(OldPlayerTeam!=PlayerTeam)
     {
         // Move the player to the chosen side: swap hulls with an AI of that fleet and
-        // flip both factions so targeting, markers and the HUD follow the new team.
+        // flip both factions so targeting and markers follow the new team.
         APawn* Other=Teams[PlayerTeam][0];
         const FTransform PlayerTransform=Player->GetActorTransform();
         Player->SetActorTransform(Other->GetActorTransform(),false,nullptr,ETeleportType::TeleportPhysics);
@@ -322,7 +221,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         else if(Team==0)++BlueAlive;else ++RedAlive;
     }
     PlayerShip=Player->FindComponentByClass<UShipWeaponComponent>();bMatchConfigured=true;
-    SetBattleMode(Settings?Settings->Mode:ENavalBattleMode::RealTime);EnsureHUD();
+    SetBattleMode(Settings?Settings->Mode:ENavalBattleMode::RealTime);
     return true;
 }
 
@@ -330,7 +229,6 @@ void UNavalBattleSubsystem::SetBattleMode(ENavalBattleMode Mode)
 {
     BattleMode=Mode;ActiveTurnShip=nullptr;ActiveTurnLabel.Empty();TurnNumber=0;NextTeam=0;TeamCursor[0]=TeamCursor[1]=0;
     if(bMatchConfigured && BattleMode==ENavalBattleMode::TurnBased && Outcome.IsEmpty())AdvanceTurn();
-    RefreshHUD();
 }
 
 float UNavalBattleSubsystem::TurnSecondsRemaining() const
@@ -368,7 +266,7 @@ void UNavalBattleSubsystem::AdvanceTurn()
             const int32 Index=TeamCursor[Team]%TurnRoster.Num();TeamCursor[Team]=(Index+1)%TurnRoster.Num();
             auto* W=TurnRoster[Index].Get();
             if(!W || W->Team()!=Team || !IsValid(W->GetOwner()) || W->bIsDestroyed)continue;
-            ActiveTurnShip=W->GetOwner();ActiveTurnLabel=TurnLabels[Index];TurnEndsAt=GetWorld()->GetTimeSeconds()+10.;++TurnNumber;RefreshHUD();return;
+            ActiveTurnShip=W->GetOwner();ActiveTurnLabel=TurnLabels[Index];TurnEndsAt=GetWorld()->GetTimeSeconds()+10.;++TurnNumber;return;
         }
     }
 }
@@ -377,8 +275,7 @@ void UNavalBattleSubsystem::UpdateMatch()
 {
     if(!bMatchConfigured)
     {
-        if(!ConfigureRoster() && GetWorld()->GetTimeSeconds()>15)
-        {ConfigurationError=TEXT("Match setup: waiting for the placed six-ship roster");RefreshHUD();}
+        ConfigureRoster();
         return;
     }
     if(BattleMode==ENavalBattleMode::TurnBased)
@@ -386,13 +283,7 @@ void UNavalBattleSubsystem::UpdateMatch()
         const auto* W=IsValid(ActiveTurnShip)?ActiveTurnShip->FindComponentByClass<UShipWeaponComponent>():nullptr;
         if(!Outcome.IsEmpty())ActiveTurnShip=nullptr;
         else if(!W || W->bIsDestroyed || GetWorld()->GetTimeSeconds()>=TurnEndsAt)AdvanceTurn();
-        RefreshHUD();
     }
-}
-void UNavalBattleSubsystem::RefreshHUD()
-{
-    if (HUD)
-        HUD->Refresh(this);
 }
 void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
 {
@@ -405,13 +296,8 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         RedAlive = FMath::Max(0, RedAlive - 1);
     const auto* Settings=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
     const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
-    Notification = Ship->Team() == PlayerTeam ? TEXT("Friendly ship destroyed") : TEXT("Enemy ship destroyed");
     if ((PlayerTeam==0?RedAlive:BlueAlive) == 0)
         Outcome = TEXT("VICTORY");
     else if ((PlayerTeam==0?BlueAlive:RedAlive) == 0)
         Outcome = TEXT("DEFEAT");
-    GetWorld()->GetTimerManager().SetTimer(NoticeTimer, FTimerDelegate::CreateWeakLambda(this, [this]()
-                                                                                         {Notification.Empty();RefreshHUD(); }),
-                                           4, false);
-    RefreshHUD();
 }
