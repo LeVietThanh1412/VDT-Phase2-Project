@@ -6,6 +6,7 @@
 
 class ACameraActor;
 class AFreeCameraPawn;
+class UButtonTutorialsUI;
 class UShipDetailsUI;
 class USpringArmComponent;
 class UShipSetupWidget;
@@ -35,9 +36,12 @@ public:
 
 private:
     void ToggleFreeCamera();
+    void ToggleBattlefieldOverview();
+    void RestoreRecentShipView();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
     void ToggleShipDetailsUI();
+    void ToggleButtonTutorials();
 
     /** Makes the viewed ship the selection used by the camera and the details panel. */
     void ApplyShipView(APawn* InShip);
@@ -58,6 +62,7 @@ private:
 private:
     void EnterDeathSpectator();
     bool bMenuPausedWorld=false;
+    bool bBattlefieldOverview=false;
     UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;
@@ -86,6 +91,9 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UShipDetailsUI> ShipDetailsUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UButtonTutorialsUI> ButtonTutorialsUI;
 
     // The normal pawn's camera rotation must survive a round trip through free camera.
     FRotator PreviousControlRotation = FRotator::ZeroRotator;

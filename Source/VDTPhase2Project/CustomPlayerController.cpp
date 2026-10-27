@@ -1,6 +1,7 @@
 #include "CustomPlayerController.h"
 
 #include "Actor/Pawn/FreeCameraPawn.h"
+#include "UI/ButtonTutorialsUI.h"
 #include "UI/ShipDetailsUI.h"
 #include "Blueprint/UserWidget.h"
 #include "Camera/CameraActor.h"
@@ -10,7 +11,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "InputCoreTypes.h"
 #include "ShipCombatComponent.h"
-#include "NavalBattleUI.h"
+#include "NavalMatchSettings.h"
 #include "CesiumGlobeAnchorComponent.h"
 #include "CesiumGeoreference.h"
 #include "ShipSetupWidget.h"
@@ -21,21 +22,33 @@ void ACustomPlayerController::BeginPlay()
 {
     Super::BeginPlay();
     const auto* Settings = GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
-    // Direct PIE remains a development 3v3; standalone opens the setup first.
-    if (IsLocalController() && GetWorld()->WorldType == EWorldType::Game && Settings && !Settings->bExplicitSelection)
+    // A fresh game opens the setup first; after StartMatch the settings are already explicit.
+    if (IsLocalController() && Settings && !Settings->bExplicitSelection)
         GetWorld()->GetTimerManager().SetTimerForNextTick(FTimerDelegate::CreateWeakLambda(this, [this]() {ToggleMatchSetup(); }));
     ViewedShip = GetPawn();
 
-    if (!IsLocalController() || IsValid(ShipDetailsUI))
+    if (!IsLocalController())
     {
         return;
     }
 
-    ShipDetailsUI = CreateWidget<UShipDetailsUI>(this, UShipDetailsUI::StaticClass());
-    if (IsValid(ShipDetailsUI))
+    if (!IsValid(ShipDetailsUI))
     {
-        ShipDetailsUI->AddToViewport();
-        ShipDetailsUI->SetVisibility(ESlateVisibility::Collapsed);
+        ShipDetailsUI = CreateWidget<UShipDetailsUI>(this, UShipDetailsUI::StaticClass());
+        if (IsValid(ShipDetailsUI))
+        {
+            ShipDetailsUI->AddToViewport();
+            ShipDetailsUI->SetVisibility(ESlateVisibility::Collapsed);
+        }
+    }
+
+    if (!IsValid(ButtonTutorialsUI))
+    {
+        ButtonTutorialsUI = CreateWidget<UButtonTutorialsUI>(this, UButtonTutorialsUI::StaticClass());
+        if (IsValid(ButtonTutorialsUI))
+        {
+            ButtonTutorialsUI->AddToViewport(10);
+        }
     }
 }
 
@@ -43,11 +56,11 @@ void ACustomPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
     check(InputComponent);
-    InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ACustomPlayerController::ToggleFreeCamera);
     InputComponent->BindKey(EKeys::Q, IE_Pressed, this, &ACustomPlayerController::CycleShipCamera);
     InputComponent->BindKey(EKeys::I, IE_Pressed, this, &ACustomPlayerController::ToggleShipDetailsUI);
     InputComponent->BindKey(EKeys::Tab, IE_Pressed, this, &ACustomPlayerController::NextTeammate);
-    InputComponent->BindKey(EKeys::M, IE_Pressed, this, &ACustomPlayerController::ShowBattlefieldOverview);
+    InputComponent->BindKey(EKeys::F, IE_Pressed, this, &ACustomPlayerController::ToggleBattlefieldOverview);
+    InputComponent->BindKey(EKeys::Slash, IE_Pressed, this, &ACustomPlayerController::ToggleButtonTutorials);
     InputComponent->BindKey(EKeys::P, IE_Pressed, this, &ACustomPlayerController::ToggleMatchSetup).bExecuteWhenPaused=true;
 }
 
@@ -65,7 +78,12 @@ void ACustomPlayerController::ToggleMatchSetup()
 
 void ACustomPlayerController::CloseMatchSetup()
 {
-    if(SetupWidget)SetupWidget->RemoveFromParent();SetupWidget=nullptr;
+    if(SetupWidget)
+    {
+        if(auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr)
+            Settings->bExplicitSelection=true;
+        SetupWidget->RemoveFromParent();SetupWidget=nullptr;
+    }
     bShowMouseCursor=false;SetInputMode(FInputModeGameOnly());
     if(bMenuPausedWorld)SetPause(false);bMenuPausedWorld=false;
 }
@@ -80,6 +98,7 @@ void ACustomPlayerController::OnPossess(APawn* InPawn)
 void ACustomPlayerController::EnterDeathSpectator()
 {
     bDeathSpectating=true;
+    bBattlefieldOverview=false;
     ResetIgnoreMoveInput();ResetIgnoreLookInput();
     // Only our own inspection pawn is possessed. Teammate controllers never change.
     if(!IsValid(FreeCameraPawn))
@@ -96,20 +115,28 @@ void ACustomPlayerController::EnterDeathSpectator()
 void ACustomPlayerController::NextTeammate()
 {
     if(!bDeathSpectating)return;
+    const auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
     TArray<APawn*> Friends;
     for(TActorIterator<APawn> It(GetWorld());It;++It)
-        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && W->Team()==0 && !W->bIsDestroyed)Friends.Add(*It);
+        if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && W->Team()==PlayerTeam && !W->bIsDestroyed)Friends.Add(*It);
     Friends.Sort([](const APawn& A,const APawn& B){return A.GetPathName()<B.GetPathName();});
     if(Friends.IsEmpty()){ShowBattlefieldOverview();return;}
     const int32 Index=Friends.IndexOfByKey(FollowedTeammate);
     FollowedTeammate=Friends[(Index+1)%Friends.Num()];
     SetViewTargetWithBlend(FollowedTeammate,.25f);
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
 }
 
 void ACustomPlayerController::ShowBattlefieldOverview()
 {
-    if(!bDeathSpectating || !IsValid(FreeCameraPawn))return;
+    // The overview is also available while the player's ship is still afloat:
+    // borrow the inspection camera, then let ToggleBattlefieldOverview restore.
+    if(!IsValid(FreeCameraPawn))
+    {
+        if(bDeathSpectating)return;
+        ToggleFreeCamera();
+        if(!IsValid(FreeCameraPawn))return;
+    }
     FVector Focus=FVector::ZeroVector;int32 Count=0;
     for(TActorIterator<APawn> It(GetWorld());It;++It)
         if(const auto* W=It->FindComponentByClass<UShipWeaponComponent>();W && !W->bIsDestroyed){Focus+=It->GetActorLocation();++Count;}
@@ -128,7 +155,39 @@ void ACustomPlayerController::ShowBattlefieldOverview()
     FreeCameraPawn->SetHeightLimits(Eye.Z-180000,Eye.Z+180000);
     SetControlRotation((Focus-Eye).Rotation());FollowedTeammate=nullptr;
     SetViewTargetWithBlend(FreeCameraPawn,.25f);
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
+}
+
+void ACustomPlayerController::ToggleBattlefieldOverview()
+{
+    // Death spectator already owns the inspection camera; re-center the overview.
+    if(bDeathSpectating)
+    {
+        ShowBattlefieldOverview();
+        return;
+    }
+
+    if(bBattlefieldOverview)
+    {
+        bBattlefieldOverview=false;
+        RestoreRecentShipView();
+        return;
+    }
+
+    ShowBattlefieldOverview();
+    bBattlefieldOverview=IsValid(FreeCameraPawn);
+}
+
+void ACustomPlayerController::RestoreRecentShipView()
+{
+    // Q and F both leave the overview by returning to the ship the player was
+    // watching before the overview, not to whichever pawn was possessed.
+    APawn* RecentShip=ViewedShip.Get();
+    if(IsValid(FreeCameraPawn))ToggleFreeCamera();
+    if(IsValid(RecentShip))
+    {
+        ApplyShipView(RecentShip);
+        SetShipViewTarget(RecentShip,.25f);
+    }
 }
 
 APawn* ACustomPlayerController::GetSelectedShip() const
@@ -169,9 +228,23 @@ void ACustomPlayerController::ToggleShipDetailsUI()
     ShipDetailsUI->SetVisibility(NewVisibility);
 }
 
+void ACustomPlayerController::ToggleButtonTutorials()
+{
+    if (IsValid(ButtonTutorialsUI))
+    {
+        ButtonTutorialsUI->ToggleTutorial();
+    }
+}
+
 void ACustomPlayerController::CycleShipCamera()
 {
     if(bDeathSpectating){NextTeammate();return;}
+    if(bBattlefieldOverview)
+    {
+        bBattlefieldOverview=false;
+        RestoreRecentShipView();
+        return;
+    }
     UWorld* World = GetWorld();
     if (!World)
     {
@@ -235,6 +308,7 @@ void ACustomPlayerController::CycleShipCamera()
         bHasSavedFreeCameraTransform = true;
         ToggleFreeCamera();
     }
+    bBattlefieldOverview=false;
 
     ApplyShipView(NextShip);
     SetShipViewTarget(NextShip, 0.25f);
