@@ -1,0 +1,252 @@
+{
+  "status": "PASSED",
+  "sector_count": 625,
+  "dimensions": [
+    25,
+    25
+  ],
+  "logical_only_no_target_actors": true,
+  "navigable": 337,
+  "connected_regions": {
+    "1": 332,
+    "2": 4,
+    "3": 1
+  },
+  "eligible_spawns": 295,
+  "zone_representatives": {
+    "BLUE_DEFENSE_CORE": "S13_08",
+    "BLUE_WEST_ISLAND_PATROL": "S14_08",
+    "BLUE_NORTH_WATCH": "S05_07",
+    "RED_STAGING": "S04_19",
+    "RED_APPROACH": "S13_17",
+    "CENTER_CROSSING": "S11_12"
+  },
+  "connectivity": [
+    {
+      "start_zone": "RED_STAGING",
+      "end_zone": "RED_APPROACH",
+      "start_sector": "S04_19",
+      "end_sector": "S13_17",
+      "reference_route_en_m": [
+        [
+          15170.0,
+          4330.0
+        ],
+        [
+          15150.0,
+          4350.0
+        ],
+        [
+          15150.0,
+          4250.0
+        ],
+        [
+          15150.0,
+          4150.0
+        ],
+        [
+          15050.0,
+          4050.0
+        ],
+        [
+          14950.0,
+          3950.0
+        ],
+        [
+          14950.0,
+          3850.0
+        ],
+        [
+          14950.0,
+          3750.0
+        ],
+        [
+          14950.0,
+          3650.0
+        ],
+        [
+          14950.0,
+          3550.0
+        ],
+        [
+          14950.0,
+          3450.0
+        ],
+        [
+          14970.0,
+          3430.0
+        ]
+      ]
+    },
+    {
+      "start_zone": "RED_APPROACH",
+      "end_zone": "CENTER_CROSSING",
+      "start_sector": "S13_17",
+      "end_sector": "S11_12",
+      "reference_route_en_m": [
+        [
+          14970.0,
+          3430.0
+        ],
+        [
+          14950.0,
+          3450.0
+        ],
+        [
+          14850.0,
+          3450.0
+        ],
+        [
+          14750.0,
+          3450.0
+        ],
+        [
+          14650.0,
+          3450.0
+        ],
+        [
+          14550.0,
+          3550.0
+        ],
+        [
+          14530.0,
+          3570.0
+        ]
+      ]
+    },
+    {
+      "start_zone": "CENTER_CROSSING",
+      "end_zone": "BLUE_DEFENSE_CORE",
+      "start_sector": "S11_12",
+      "end_sector": "S13_08",
+      "reference_route_en_m": [
+        [
+          14530.0,
+          3570.0
+        ],
+        [
+          14550.0,
+          3550.0
+        ],
+        [
+          14450.0,
+          3450.0
+        ],
+        [
+          14350.0,
+          3450.0
+        ],
+        [
+          14250.0,
+          3350.0
+        ],
+        [
+          14150.0,
+          3350.0
+        ],
+        [
+          14130.0,
+          3370.0
+        ]
+      ]
+    },
+    {
+      "start_zone": "BLUE_DEFENSE_CORE",
+      "end_zone": "BLUE_WEST_ISLAND_PATROL",
+      "start_sector": "S13_08",
+      "end_sector": "S14_08",
+      "reference_route_en_m": [
+        [
+          14130.0,
+          3370.0
+        ],
+        [
+          14150.0,
+          3350.0
+        ],
+        [
+          14130.0,
+          3330.0
+        ]
+      ]
+    },
+    {
+      "start_zone": "BLUE_WEST_ISLAND_PATROL",
+      "end_zone": "BLUE_NORTH_WATCH",
+      "start_sector": "S14_08",
+      "end_sector": "S05_07",
+      "reference_route_en_m": [
+        [
+          14130.0,
+          3330.0
+        ],
+        [
+          14150.0,
+          3350.0
+        ],
+        [
+          14250.0,
+          3350.0
+        ],
+        [
+          14250.0,
+          3450.0
+        ],
+        [
+          14250.0,
+          3550.0
+        ],
+        [
+          14350.0,
+          3650.0
+        ],
+        [
+          14350.0,
+          3750.0
+        ],
+        [
+          14450.0,
+          3850.0
+        ],
+        [
+          14450.0,
+          3950.0
+        ],
+        [
+          14450.0,
+          4050.0
+        ],
+        [
+          14450.0,
+          4150.0
+        ],
+        [
+          14350.0,
+          4250.0
+        ],
+        [
+          14250.0,
+          4250.0
+        ],
+        [
+          14150.0,
+          4250.0
+        ],
+        [
+          14050.0,
+          4250.0
+        ],
+        [
+          13950.0,
+          4250.0
+        ],
+        [
+          13970.0,
+          4230.0
+        ]
+      ]
+    }
+  ],
+  "data_sha256": "be2fd26f17df3a5051c2a3604ea7f225f7af5bde3d15acb50083e49df23aeede",
+  "limitation": "Spatial coastline/chart certification only; physical hull overlap, water coverage and underwater clearance belong to runtime spawn validation. Real bathymetry is not certified."
+}

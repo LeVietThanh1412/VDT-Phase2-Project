@@ -1,0 +1,61 @@
+{
+  "status": "PASSED",
+  "error": null,
+  "sector_count": 625,
+  "columns": 25,
+  "rows": 25,
+  "chart_roundtrip_max_error_m": 1.2083981426843234e-09,
+  "wrong_sector_indices": [],
+  "connections": {
+    "passed": true,
+    "connections": [
+      {
+        "from": "RED_STAGING",
+        "to": "RED_APPROACH",
+        "passed": true,
+        "waypoints": 3,
+        "error": ""
+      },
+      {
+        "from": "RED_APPROACH",
+        "to": "CENTER_CROSSING",
+        "passed": true,
+        "waypoints": 2,
+        "error": ""
+      },
+      {
+        "from": "CENTER_CROSSING",
+        "to": "BLUE_DEFENSE_CORE",
+        "passed": true,
+        "waypoints": 3,
+        "error": ""
+      },
+      {
+        "from": "BLUE_DEFENSE_CORE",
+        "to": "BLUE_WEST_ISLAND_PATROL",
+        "passed": true,
+        "waypoints": 2,
+        "error": ""
+      },
+      {
+        "from": "BLUE_WEST_ISLAND_PATROL",
+        "to": "BLUE_NORTH_WATCH",
+        "passed": true,
+        "waypoints": 5,
+        "error": ""
+      }
+    ]
+  },
+  "target_point_count": 11,
+  "combat_pawns": 6,
+  "grid_error": "",
+  "checks": {
+    "saved_grid_loaded": true,
+    "correct_region": true,
+    "geographic_mapping": true,
+    "native_astar_connectivity": true,
+    "no_sector_target_actor_flood": true,
+    "existing_six_ship_roster": true,
+    "candidates_match_saved_data": true
+  }
+}

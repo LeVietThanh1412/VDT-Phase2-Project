@@ -465,3 +465,11 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - The failed runtime-relocation sampler ordering case remains preserved, with its actual fixture error documented; the rerun passed. The additional retreat fixture used a deliberately moved stationary threat and an actual hostile health death, and returned to original patrol. This does not claim natural full 3v3 combat or later sector/ammunition completion.
 - Only TP_Friendly_Patrol_A and the deliberately tested BP_ShipEnemy2 saved placement changed in this focused navigation milestone. Initial unrelated pending binary edits are retained. No terrain/georeference movement, graph rewrite, duplicate drive authority or normal-game teleport was introduced.
 - Next: fixed sector grid for the exact selected candidate, then seeded safe spawns, Blue defense/Red assault, tags, measured stability, magazines and combined QA in the user-specified order.
+
+### Phase 2 VERIFIED - exact candidate-1 sector grid
+
+- Navigation milestone 68be150 was normally pushed and remote SHA verified. Draft PR #11 targets main; no automatic merge.
+- Created the fixed 2500 x 2500 m, 25 x 25 logical sector grid from the original candidate script/metadata and actual coastline. No terrain/georeference changes or 625 TargetPoint actors. Source chart and data hashes are recorded.
+- 337 chart-navigable sectors; main field-connected component 332, two disconnected groups (4 and 1) excluded from spawn/patrol flags; 295 spatial spawn candidates at >=200 m anchor shore clearance. Six tactical regions are saved.
+- Native UNavalSectorSubsystem loads bounded, hash-validated data and exposes geographic queries and existing native A* routes. Fresh PIE passed all 625 indices, EN/world round-trip <=1.21e-9 m, five required tactical connections (3/2/3/2/5 waypoints), 11 original TargetPoints and six original combat pawns.
+- SECTOR_BATTLEFIELD_GUIDE.md, SECTOR_GRID_QA.json, SECTOR_GRID_PIE.json and cropped preview describe actual results. This milestone does not yet reposition the fleet or claim safe physical spawns. Next: deterministic seeded layout authority and runtime water/terrain/hull validation.

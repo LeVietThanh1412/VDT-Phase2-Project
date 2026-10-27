@@ -18,7 +18,8 @@ Branch: feature/small-warship-seeded-battlefield. Main and teammate branches are
 | Saved editor placement after restart | PASS: correct saved water position, >100 m real displacement, targets/controllers preserved |
 | Island detour in selected field | PASS: native four-waypoint route, 2159 m physical B/A traversal, no land intersection |
 | Retained island collision across LOD changes | PASS: physical island support, LOD changes and bounded cache |
-| Fixed sector grid and reproducible spawning | Pending navigation phase gate |
+| Fixed sector grid | PASS: candidate 1, 625 logical sectors, native connectivity and coordinates verified in PIE |
+| Reproducible physical spawning | Pending phase 3 |
 | Blue defense / Red Small scout formation assault | Pending |
 | Synchronized team/role/class tags | Pending |
 | Measured buoyancy improvements across all classes | Pending |
