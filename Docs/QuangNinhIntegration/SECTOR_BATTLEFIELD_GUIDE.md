@@ -54,3 +54,36 @@ UNavalSectorSubsystem loads automatically in each Game/PIE world. Blueprint/Pyth
 - The map still had 11 TargetPoints and the original six combat pawns. No grid actor flood or replacement fleet was created.
 
 See SECTOR_GRID_PIE.json and SECTOR_GRID_QA.json. These checks certify the spatial grid and native connectivity. WaterBodyOcean coverage, actual hull overlap, underwater clearance, buoyancy settling, seeded layouts and tactical traversals remain phase 3 and later acceptance gates. Real-world bathymetry is not certified by this dataset or the ocean fallback depth.
+
+
+## Seeded placement implementation (phase 3 under verification)
+
+The existing P match-setup menu has a nonnegative integer seed field. Zero selects a new positive seed; a positive number drives one FRandomStream for layout choices. ActualSeed and LayoutReport on NavalBattlefieldSubsystem expose the result. The development rollout flag remains disabled by default until integrated acceptance is complete; the real-menu fixtures explicitly enable it in their disposable GameInstance.
+
+The subsystem retains the existing six pawns, five AIControllers, PlayerController, class selections and eleven TargetPoints. It does not instantiate a replacement fleet. Blue points are drawn from connected western defense/patrol sectors. The Small selected Red hull leads a staggered upper-right column with trailing, separately checked goals. Spawn footprints and all initial native A* waypoints must lie within the fixed candidate. Spawn separation is at least 220 m or the pair of actual hull radii plus 65 m, whichever is larger. The two Blue AI destinations are at least 200 m apart. Layout search has 512 bounded outer attempts and up to 48 Blue slot attempts per outer draw. If needed, it retries a previously successful seed (20261028) against the current physical chart and selected fleet; it never bypasses validation. If the fallback also fails, the match reports failure and keeps combat gated. Later assault behavior remains pending.
+
+Prematch placement is the only transform/initial-velocity reset authority. It waits for streamed terrain, queries the actual WaterBodyOcean surface, checks oriented physical hull bounds plus 2 m clearance at the waterline, and requires physics and buoyancy contacts before releasing action gates. It moves each existing AI A/B marker to that ship's own spawn/objective. The manually controlled player has only a checked spawn, not an invented AI objective. During gameplay the existing Blueprint propulsion/rudder graphs remain the only drive actuators. No terrain, georeference or source dataset is moved.
+
+A fixed Cesium-only coverage camera keeps the selected 2.5 km field streamed independently of the player's view. It adds no render capture and does not take possession. The camera is removed with its world. Rendering workload and actual frame-time acceptance still require measurement.
+
+### Coarse collision regression found during real startup
+
+An initial seed passed elevated hull overlap checks but left both Medium ships effectively stationary. Captured retained triangles crossed accepted water at about 0.0-0.5 m ellipsoid height; their coarse interpolation survived after finer tiles were selected. This was a real defect, not just an early fixture timing problem. Narrow sea-level filtering remains +/-0.05 m. Nonzero terrain in chart-water cells now follows the selected source tile's collision LOD, while excluded coast/island support remains persistent. Real selected nonzero seabed is retained. Shared cached detail proxies are enabled if any corresponding source is selected.
+
+The first repaired 35-second startup run passed all checks: all five native routes, preserved controllers, water/physics, distinct Blue goals, valid team halves and physical travel of 76-462 m. The next serial seed suite deliberately retains failures too: one run momentarily lost buoyancy contact at the final sample despite normal travel. That remains a stability defect to measure in the dedicated buoyancy phase; it is not relabeled as a pass. SEEDED_SPAWN_SUITE.json tracks current evidence. These startup fixtures disable combat only in disposable PIE and cannot certify a natural fighting 3v3 battle, formation completion, reload, turns or final persistence.
+
+
+### Current operational A* overlays
+
+The 625 logical sectors remain 100 m squares. Once the fixed field has streamed, each selected hull class receives a temporary 100 x 100, 25 m operational routing grid in the SAME fixed ECEF/ENU frame. Its four corner samples must have streamed collision coverage and clear the actual hull's full vertical bounds plus 2 m, using a level horizontal turn footprint. Cells outside original accepted coast water and the selected field stay excluded. Connectivity is recomputed after these physical exclusions. The original native FSeaNavigationMap A* performs all planning and smoothing; there is no direct-steering island bypass. Every initial route is separately checked along its segments, with enlarged turning clearance at its spawn and goal. The existing propulsion/rudder Blueprint graphs remain the actuators.
+
+The first 60-second run with these overlays, SEEDED_OPERATIONAL_ROUTE_20261028.json, passed all 17 assertions. Both Medium ships and all three Small AI physically traveled (333-770 m); all five used the operational chart and their final geographic destinations matched their actual current A/B marker to within 0.1 cm. Existing controllers were preserved. Medium had 2133 clear operational cells and two connected regions; Small had 3890 and one connected region in that captured run. These are collision-query candidate cells, not a real-world depth survey. Streamed LOD/source provenance and replay stability remain part of the current multi-seed checks.
+
+SECTOR_PHYSICS_BASELINE.json records an untuned six-ship sample: maximum roll roughly 10.5-22.3 degrees, vertical speed up to 5.66 m/s, and individual water-contact fractions about 98.2-100 percent. These measurements establish that the later buoyancy-tuning phase is still needed. They are not a claim of improved stability or a complete battle pass.
+
+
+### Serial seed and collision acceptance (2026-10-29)
+
+SEEDED_SPAWN_SUITE.json PASSED eleven real PIE/menu/travel starts: seeds 20261028, 1, 42, 12345, 999, 2026, 707, 31415, 65537, 8675309, then 20261028 again. Ten distinct layouts were obtained, and the repeat exactly matched all six assigned spawn coordinates, targets and headings (canonical SHA256 f98266249aecd43a9ad77af5e2c9c850369b37967e0ad8aef6fb98f1c6949747). First cold Small-hull grid contained 3862 clear cells versus 3890 on warm runs; this variation did not change the accepted replay assignments. Medium was consistently 2133. No fallback was needed in these runs.
+
+LAND_COLLISION_OPERATIONAL_LOD.json subsequently passed all nine checks over 125 game seconds: real island support, repeated view/LOD stability, retained submerged geometry, narrow tolerance, no build errors, no duplicate settled-view proxies, and all five AIControllers preserved. SEEDED_LAYOUT_VERIFIED.png plots the actual coordinates; straight links indicate assignments, not traveled paths.

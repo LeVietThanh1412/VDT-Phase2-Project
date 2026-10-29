@@ -38,6 +38,7 @@ private:
     {
         TWeakObjectPtr<UStaticMeshComponent> Source;
         TWeakObjectPtr<UProceduralMeshComponent> Collision;
+        TWeakObjectPtr<UProceduralMeshComponent> WaterDetailCollision;
         ECollisionEnabled::Type Original=ECollisionEnabled::NoCollision;
         int32 Land=0,Water=0,Bathymetry=0,SeaSkirts=0;
         bool bSkirtMetadata=false;

@@ -1,4 +1,5 @@
 #include "NavalBattleUI.h"
+#include "NavalBattlefieldSubsystem.h"
 #include "CustomPlayerController.h"
 #include "ShipMovementComponent.h"
 #include "Engine/GameInstance.h"
@@ -283,6 +284,12 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         else if(Team==0)++BlueAlive;else ++RedAlive;
     }
     PlayerShip=Player->FindComponentByClass<UShipWeaponComponent>();bMatchConfigured=true;
+    if(auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>())
+    {
+        TArray<APawn*> Fleet;
+        for(const auto& Item:TurnRoster)if(auto* W=Item.Get())if(auto* P=Cast<APawn>(W->GetOwner()))Fleet.Add(P);
+        Field->InitializeFleet(Fleet);
+    }
     SetBattleMode(Settings?Settings->Mode:ENavalBattleMode::RealTime);EnsureHUD();
     return true;
 }
@@ -302,6 +309,7 @@ float UNavalBattleSubsystem::TurnSecondsRemaining() const
 bool UNavalBattleSubsystem::IsShipActive(AActor* Ship) const
 {
     if(!IsValid(Ship) || !Outcome.IsEmpty())return false;
+    if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && !Field->CanBeginCombat())return false;
     if(!bMatchConfigured)
     {
         const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
@@ -341,6 +349,12 @@ void UNavalBattleSubsystem::UpdateMatch()
         if(!ConfigureRoster() && GetWorld()->GetTimeSeconds()>15)
         {ConfigurationError=TEXT("Match setup: waiting for the placed six-ship roster");RefreshHUD();}
         return;
+    }
+    if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && !Field->CanBeginCombat())
+    {
+        // Preparation does not spend a ship's first turn. Physics still ticks.
+        if(BattleMode==ENavalBattleMode::TurnBased && ActiveTurnShip)TurnEndsAt=GetWorld()->GetTimeSeconds()+10;
+        RefreshHUD();return;
     }
     if(BattleMode==ENavalBattleMode::TurnBased)
     {

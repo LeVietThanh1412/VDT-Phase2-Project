@@ -112,6 +112,10 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Navigation|Debug") int32 RepositionReinitializations=0;
     /** Refresh cached footprint after a prematch archetype replaces the physical hull. */
     void RefreshHullGeometry();
+    /** Prematch only, immutable per-hull collision exclusions on the same
+     * geographic A*. Does not move or possess the ship. */
+    bool UseOperationalChart(TSharedPtr<const FSeaNavigationMap> Chart);
+    UPROPERTY(BlueprintReadOnly,Category="Navigation|Debug") bool bUsingOperationalChart=false;
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginRetreatFrom(AActor* Threat,float RetreatDistanceM);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginBackwardRetreat(AActor* Threat,float DistanceM);
@@ -163,6 +167,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UCesiumGlobeAnchorComponent> GlobeAnchor;
     UPROPERTY(Transient) TObjectPtr<class AAIController> OwnedAimController;
     TSharedPtr<const FSeaNavigationMap> Map;
+    TSharedPtr<const FSeaNavigationMap> OriginalCoastMap;
     FNumericProperty* ThrottleProperty=nullptr;
     FNumericProperty* RudderProperty=nullptr;
     TArray<float> SensorAngles, SensorDistances;

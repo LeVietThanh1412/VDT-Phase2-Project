@@ -1,0 +1,173 @@
+{
+  "status": "PASSED",
+  "scope": "Physical startup and native initial travel; combat disabled only in disposable fixtures",
+  "runs": [
+    {
+      "seed": 20261028,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_01_20261028.json",
+      "layout_sha256": "f98266249aecd43a9ad77af5e2c9c850369b37967e0ad8aef6fb98f1c6949747",
+      "travel_m": {
+        "BP_ShipEnemy2": 331.26430576966317,
+        "BP_ShipEnemy": 360.53271961562837,
+        "Friendly_AI_1": 796.0635433669454,
+        "Friendly_AI_2": 494.21242816471164,
+        "BP_ShipEnemy3": 425.08827377736225
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 1,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_02_1.json",
+      "layout_sha256": "24cf122565c63a14639146695d626565ded5c9284ebbd308f975089ebcda387f",
+      "travel_m": {
+        "BP_ShipEnemy2": 168.82921624298862,
+        "BP_ShipEnemy": 185.72713240483228,
+        "Friendly_AI_1": 265.1093293829625,
+        "Friendly_AI_2": 507.48603819969867,
+        "BP_ShipEnemy3": 182.95916715300345
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 42,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_03_42.json",
+      "layout_sha256": "8499c94c6cfea54c5eb28c8c64873bf35409542bf88e811e03d47ae4e25b1c46",
+      "travel_m": {
+        "BP_ShipEnemy2": 538.0850199823178,
+        "BP_ShipEnemy": 480.0063939143838,
+        "Friendly_AI_1": 756.5199664883314,
+        "Friendly_AI_2": 570.4807661406859,
+        "BP_ShipEnemy3": 571.9896231316171
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 12345,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_04_12345.json",
+      "layout_sha256": "4a527dd6b579c1c6c721fef390e0ce899f7f7e8558cf94f8dc4bb9a93180fa5b",
+      "travel_m": {
+        "BP_ShipEnemy2": 512.6726264523007,
+        "BP_ShipEnemy": 446.71473371853267,
+        "Friendly_AI_1": 728.7069214838567,
+        "Friendly_AI_2": 449.4740815565963,
+        "BP_ShipEnemy3": 514.0610663634493
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 999,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_05_999.json",
+      "layout_sha256": "36f9e59c63263f40c0f6d8b0c1048ec91e739c1616f1d9311add086ee673dd62",
+      "travel_m": {
+        "BP_ShipEnemy2": 426.266560984189,
+        "BP_ShipEnemy": 471.6253406834739,
+        "Friendly_AI_1": 676.3887319078954,
+        "Friendly_AI_2": 492.1314609040918,
+        "BP_ShipEnemy3": 520.5474287752224
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 2026,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_06_2026.json",
+      "layout_sha256": "c15ddd9209c9248bed86811457ec9515ad7a5b4c7cf180e495fbcc6a11a8e1e5",
+      "travel_m": {
+        "BP_ShipEnemy2": 632.3357203531601,
+        "BP_ShipEnemy": 575.364298357544,
+        "Friendly_AI_1": 619.492627689894,
+        "Friendly_AI_2": 585.6014307832633,
+        "BP_ShipEnemy3": 645.1535017665691
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 707,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_07_707.json",
+      "layout_sha256": "6ec5790487313f48a58e0788bc01a723fd42d388802caed39664ec80522e3406",
+      "travel_m": {
+        "BP_ShipEnemy2": 99.20587267706749,
+        "BP_ShipEnemy": 235.93799406388004,
+        "Friendly_AI_1": 591.2159200542892,
+        "Friendly_AI_2": 270.3586382068294,
+        "BP_ShipEnemy3": 164.28703314803838
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 31415,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_08_31415.json",
+      "layout_sha256": "9688a610ed6c829ec4cc9d3ef6dccb80574c9fc967acb88c36701d468349350e",
+      "travel_m": {
+        "BP_ShipEnemy2": 248.7614164315022,
+        "BP_ShipEnemy": 224.91392294484146,
+        "Friendly_AI_1": 591.6485204699079,
+        "Friendly_AI_2": 420.0983191246304,
+        "BP_ShipEnemy3": 245.4866676030927
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 65537,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_09_65537.json",
+      "layout_sha256": "e9c3d7ae05c57a69f51c108fe7028f7e78587f111af1e8f00a170d73dfda41d3",
+      "travel_m": {
+        "BP_ShipEnemy2": 180.18691333862364,
+        "BP_ShipEnemy": 295.7949936998872,
+        "Friendly_AI_1": 730.6979216256485,
+        "Friendly_AI_2": 439.4796804630135,
+        "BP_ShipEnemy3": 322.9374595106297
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 8675309,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_10_8675309.json",
+      "layout_sha256": "5ea9fbbaddbd6b1b0675f28f8e0c442a260dbbdb1686d48ff53de295b689a38d",
+      "travel_m": {
+        "BP_ShipEnemy2": 148.87785543328567,
+        "BP_ShipEnemy": 290.58112992120175,
+        "Friendly_AI_1": 854.0094280287645,
+        "Friendly_AI_2": 420.86435446333746,
+        "BP_ShipEnemy3": 237.55235937717435
+      },
+      "error": null,
+      "failed_checks": {}
+    },
+    {
+      "seed": 20261028,
+      "status": "PASSED",
+      "report": "SEEDED_SPAWN_RUN_11_20261028.json",
+      "layout_sha256": "f98266249aecd43a9ad77af5e2c9c850369b37967e0ad8aef6fb98f1c6949747",
+      "travel_m": {
+        "BP_ShipEnemy2": 331.8060683537335,
+        "BP_ShipEnemy": 360.84476691476965,
+        "Friendly_AI_1": 796.009053081093,
+        "Friendly_AI_2": 486.4015462162449,
+        "BP_ShipEnemy3": 424.6808907787693
+      },
+      "error": null,
+      "failed_checks": {}
+    }
+  ],
+  "distinct_seeds": 10,
+  "same_seed_replays_equal": true
+}

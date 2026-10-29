@@ -289,6 +289,8 @@ void UShipEnemyNavigationComponent::NotifyDevelopmentReposition()
 FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
 {
     auto J=MakeShared<FJsonObject>();
+    J->SetBoolField(TEXT("operational_chart"),bUsingOperationalChart);
+    if(Map.IsValid())J->SetNumberField(TEXT("navigation_cell_size_m"),Map->CellSize);
     auto Vector=[&](const TCHAR* Key,const FVector& V)
     {J->SetArrayField(Key,{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)});};
     J->SetStringField(TEXT("actor"),GetNameSafe(GetOwner()));
@@ -358,7 +360,17 @@ bool UShipEnemyNavigationComponent::RearPathClear(float DistanceM) const
     return true;
 }
 bool UShipEnemyNavigationComponent::WaterLineClear(const FVector& Start,const FVector& End) const
-{return Map.IsValid() && Map->SegmentClear(Map->ToMetric(WorldToECEF(Start)),Map->ToMetric(WorldToECEF(End)));}
+{
+    const auto Coast=OriginalCoastMap.IsValid()?OriginalCoastMap:Map;
+    return Coast.IsValid() && Coast->SegmentClear(Coast->ToMetric(WorldToECEF(Start)),Coast->ToMetric(WorldToECEF(End)));
+}
+bool UShipEnemyNavigationComponent::UseOperationalChart(TSharedPtr<const FSeaNavigationMap> Chart)
+{
+    if(!Chart.IsValid() || (!bInitialized && !InitializeNavigation()))return false;
+    if(!OriginalCoastMap.IsValid())OriginalCoastMap=Map;
+    if(!OriginalCoastMap.IsValid() || Chart->OriginECEF!=OriginalCoastMap->OriginECEF)return false;
+    Map=MoveTemp(Chart);bUsingOperationalChart=true;NotifyDevelopmentReposition();return true;
+}
 bool UShipEnemyNavigationComponent::BeginBackwardRetreat(AActor* Threat,float DistanceM)
 {
     if(!IsValid(Threat) || (!bInitialized && !InitializeNavigation()) || bDead || bExplicitStop)return false;
@@ -458,7 +470,7 @@ void UShipEnemyNavigationComponent::ReturnToPatrol()
 bool UShipEnemyNavigationComponent::PlanRoute(const FVector2D& Position,const FVector2D& Goal)
 {
     auto& Track=DestinationState(this);Track.bHasSnappedGoal=false;++Track.PlanCount;
-    auto R=Map->FindPath(Position,Goal,MaxSearchExpansions,MaxSearchMilliseconds,FailedCorridors);
+    auto R=Map->FindPath(Position,Goal,MaxSearchExpansions,MaxSearchMilliseconds,FailedCorridors,FMath::Max(150.,Map->CellSize*1.5));
     if(!R.bSuccess && !FailedCorridors.IsEmpty())
     {FailedCorridors.Reset();R=Map->FindPath(Position,Goal,MaxSearchExpansions,MaxSearchMilliseconds);}
     LastSearchExpansions=R.Expansions;LastSearchMilliseconds=R.Milliseconds;
@@ -905,7 +917,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     {
         if(!Map->SegmentClear(A,B))return false;
         if(Traffic.TrafficRadius>0 && !OutsideCircle(A,B,Traffic.TrafficCenter,Traffic.TrafficRadius))return false;
-        for(const auto& Block:FailedCorridors)if(!OutsideCircle(A,B,Block,Map->CellSize*1.5))return false;
+        for(const auto& Block:FailedCorridors)if(!OutsideCircle(A,B,Block,FMath::Max(150.,Map->CellSize*1.5)))return false;
         return true;
     };
     const double LookAhead=FMath::Clamp(double(Speed)*12.,80.,300.);
@@ -965,7 +977,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     if(Traffic.TrafficRadius==0 && FMath::Abs(Error)<45 && PlanForStoppedShip)
     {
         const FVector2D Block=Map->ToMetric(WorldToECEF(ObstacleCenter));
-        const double Radius=Map->CellSize*1.5;
+        const double Radius=FMath::Max(150.,Map->CellSize*1.5);
         const double StartConnector=FVector2D::Distance(P,Map->Center(Map->CellAt(P)));
         const double GoalConnector=FVector2D::Distance(GoalMetric,Map->Center(Map->CellAt(GoalMetric)));
         const bool AlreadyKnown=FailedCorridors.ContainsByPredicate([&](const FVector2D& E){return FVector2D::Distance(E,Block)<Map->CellSize*.5;});

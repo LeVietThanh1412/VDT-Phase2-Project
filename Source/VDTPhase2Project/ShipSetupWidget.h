@@ -5,6 +5,7 @@
 
 class UComboBoxString;
 class UTextBlock;
+class UEditableTextBox;
 
 /** Selections prepare a fresh match, reusing the map's ships and patrol actors. */
 UCLASS()
@@ -21,6 +22,7 @@ public:
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> DifficultySelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> ModeSelector;
     UPROPERTY(BlueprintReadOnly) TArray<TObjectPtr<UComboBoxString>> HullSelectors;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UEditableTextBox> SeedInput;
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
     virtual void NativeConstruct() override;

@@ -473,3 +473,26 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - 337 chart-navigable sectors; main field-connected component 332, two disconnected groups (4 and 1) excluded from spawn/patrol flags; 295 spatial spawn candidates at >=200 m anchor shore clearance. Six tactical regions are saved.
 - Native UNavalSectorSubsystem loads bounded, hash-validated data and exposes geographic queries and existing native A* routes. Fresh PIE passed all 625 indices, EN/world round-trip <=1.21e-9 m, five required tactical connections (3/2/3/2/5 waypoints), 11 original TargetPoints and six original combat pawns.
 - SECTOR_BATTLEFIELD_GUIDE.md, SECTOR_GRID_QA.json, SECTOR_GRID_PIE.json and cropped preview describe actual results. This milestone does not yet reposition the fleet or claim safe physical spawns. Next: deterministic seeded layout authority and runtime water/terrain/hull validation.
+
+
+### Phase 3 IN PROGRESS - actual seeded placement and collision regression
+
+- Added the seed field to the real existing prematch menu and native deterministic, bounded placement for the retained fleet. Default rollout is still disabled pending integrated acceptance. World travel preserves manual seed and class/mode choices.
+- Real physical startup found two Medium ships blocked by obsolete coarse nonzero water-area terrain triangles. Split persistent coast support from LOD-selected nonzero chart-water collision and added fixed-field Cesium coverage. Narrow sea-level tolerance and real selected seabed remain intact. Elevated-only spawn checks were corrected to query the operational waterline.
+- A repaired seed 20261028 passed all startup assertions, five controllers/routes and 76-462 m physical travel. Serial distinct-seed/replay tests are running. One later run lost buoyancy contact at a sampled instant despite physical travel: stability remains pending and the failed report is preserved.
+- Remaining phase-3 gates: multi-seed/replay summary, safe fallback, initial objective/route clearance, current island-collision regression and repeat navigation. Blue defense/Red assault, synchronized tags, measured stability, magazines and complete battle acceptance are still pending.
+
+
+### 2026-10-29 - current phase-3 operational routing validation
+
+- Preserved the first failed 11-run seed suite in Saved/SeedSuiteBeforeOperationalClearance. It proved same-seed layout equality but found unsafe routes and intermittent buoyancy contact. No failures were relabeled as success.
+- Added per-hull 25 m operational collision overlays in the same geographic frame, while retaining the 100 m logical sectors and original native A*. Four-corner streamed queries exclude blocked hull/turn cells; connectivity is recomputed. Existing five navigators receive immutable overlays before prematch release. Gun coastline LOS still uses the original coast chart, so hull-draft exclusions do not incorrectly block projectiles over water.
+- Fresh seed 20261028 passed 17 actual 60-second startup/travel assertions, all five original controllers and exact current marker locations; all five used their physical overlay and moved 333-770 m. A new 10-distinct-seed plus repeated-seed suite is running; island collision and seeded multi-leg patrol acceptance remain pending.
+- Read-only physics baseline measured up to 22.3 degrees roll and 5.66 m/s vertical speed, with occasional contact loss. Buoyancy is explicitly NOT certified as tuned. No physics/velocity clamp or freeze was introduced.
+
+
+### Phase 3 seeded startup suite VERIFIED
+
+- SEEDED_SPAWN_SUITE.json now PASSED: eleven independent real menu/travel PIE starts, ten distinct spatial seeds, every startup/initial-route/travel assertion passed. Repeated seed 20261028 exactly reproduced the canonical layout SHA256 f98266249aecd43a9ad77af5e2c9c850369b37967e0ad8aef6fb98f1c6949747. The sampled native Small collision grid had 3862 clear cells on the first cold run versus 3890 on warm runs; Medium stayed 2133. Despite that streaming difference, all six spawn/goal/heading assignments reproduced exactly.
+- This certifies seeded initialization and real initial physical movement, not sustained full battle, tuned buoyancy, assault or magazines. Island-support, all-three-class and repeated B/A/B checks are now running serially before the phase-3 delivery commit.
+- Diagnostic failures were SHA256 checked into Saved/SeedPlacementDiagnostics and indexed in SEEDED_REGRESSION_HISTORY.json. The original first failed 11-run suite remains Saved/SeedSuiteBeforeOperationalClearance. Existing user Blueprint/map edits remain untouched.

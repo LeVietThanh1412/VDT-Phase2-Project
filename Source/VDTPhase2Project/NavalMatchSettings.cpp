@@ -1,5 +1,8 @@
 #include "NavalMatchSettings.h"
 
+bool UNavalMatchSettings::SetBattlefieldSeed(int32 Seed)
+{if(Seed<0)return false;BattlefieldSeed=Seed;return true;}
+
 bool UNavalMatchSettings::Configure(int32 Blue,int32 Red,const TArray<EShipHullClass>& Classes,EShipAISkill Skill,ENavalBattleMode BattleMode)
 {
     if(Blue<1 || Blue>3 || Red<1 || Red>3 || Classes.Num()!=6 || (Skill!=EShipAISkill::Easy && Skill!=EShipAISkill::Normal && Skill!=EShipAISkill::Hard))return false;
