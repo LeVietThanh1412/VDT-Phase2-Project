@@ -69,6 +69,13 @@ def tick(dt):
                         r['arrivals'].append(dict(t=t,endpoint='B' if r['last_legs']%2==0 else 'A',distance_m=error,speed_mps=h.get_physics_linear_velocity().length()/100,within_arrival_radius=error<=n.arrival_radius_m+2))
                         r['last_legs']=n.patrol_legs_completed
                 if t-st['ready_at']<float(globals().get('LOOP_LIMIT_SECONDS',600)) and not (len(records)==5 and all(r['last_legs']>=required_legs for r in records.values())):return
+                if all(r['last_legs']>=required_legs for r in records.values()):
+                    # A native arrival intentionally clears its finished route.
+                    # Observe the following real planning ticks before checking
+                    # that every navigator has a valid continuing route.
+                    if 'all_loops_reached_at' not in st:
+                        st['all_loops_reached_at']=t;save();return
+                    if t-st['all_loops_reached_at']<3:return
                 st['patrol_duration_seconds']=t-st['ready_at']
             if globals().get('DEBUG',False) and int(t)!=st.get('debug_second',-1):
                 st['debug_second']=int(t)

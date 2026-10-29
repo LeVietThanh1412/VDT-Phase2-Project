@@ -1,0 +1,49 @@
+{
+  "status": "PASSED",
+  "runs": [
+    {
+      "script": "verify_quangninh_collision_regression.py",
+      "parameters": {},
+      "status": "LAND_COLLISION_VERIFIED",
+      "passed": true,
+      "report": "Docs\\QuangNinhIntegration\\LAND_COLLISION_OPERATIONAL_LOD.json",
+      "error": null
+    },
+    {
+      "script": "test_seeded_spawn.py",
+      "parameters": {
+        "SEED": 42,
+        "HULL_CLASSES": [
+          0,
+          1,
+          2,
+          0,
+          1,
+          2
+        ],
+        "OBSERVE_SECONDS": 60,
+        "OUTPUT": "SEEDED_ALL_CLASSES_STARTUP.json"
+      },
+      "status": "PASSED",
+      "passed": true,
+      "report": "Docs\\QuangNinhIntegration\\SEEDED_ALL_CLASSES_STARTUP.json",
+      "error": null
+    },
+    {
+      "script": "test_seeded_spawn.py",
+      "parameters": {
+        "SEED": 20261028,
+        "REQUIRED_LEGS": 3,
+        "LOOP_LIMIT_SECONDS": 600,
+        "WALL_LIMIT_SECONDS": 750,
+        "OUTPUT": "SEEDED_REPEATED_PATROL.json"
+      },
+      "status": "PASSED",
+      "passed": true,
+      "report": "Docs\\QuangNinhIntegration\\SEEDED_REPEATED_PATROL.json",
+      "error": null,
+      "rerun_after": "SEEDED_PATROL_ARRIVAL_FRAME_FIXTURE_FAILURE.json"
+    }
+  ],
+  "fixture_correction": "Observe three additional real planning seconds after the last required arrival before checking continuing native routes. Prior failed arrival-frame report is preserved."
+}

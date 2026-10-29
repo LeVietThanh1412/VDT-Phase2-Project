@@ -19,7 +19,7 @@ Branch: feature/small-warship-seeded-battlefield. Main and teammate branches are
 | Island detour in selected field | PASS: native four-waypoint route, 2159 m physical B/A traversal, no land intersection |
 | Retained island collision across LOD changes | PASS: physical island support, LOD changes and bounded cache |
 | Fixed sector grid | PASS: candidate 1, 625 logical sectors, native connectivity and coordinates verified in PIE |
-| Reproducible physical spawning | PASS for startup: 11 PIE starts, 10 distinct seeds, exact replay; longer seeded patrol and full battle pending |
+| Reproducible physical spawning | PASS for startup: 11 PIE starts, 10 distinct seeds, exact replay; seeded B/A/B now verified; full battle pending |
 | Blue defense / Red Small scout formation assault | Pending |
 | Synchronized team/role/class tags | Pending |
 | Measured buoyancy improvements across all classes | Pending |
@@ -49,3 +49,6 @@ SEEDED_SPAWN_SUITE.json passed eleven independent real menu/travel starts, ten d
 The subsequent 125-second LAND_COLLISION_OPERATIONAL_LOD.json passed all nine actual island-support and retained-submerged-geometry/cache checks. The latest collision split retains coast/island support persistently while nonzero chart-water detail follows selected terrain LOD. Original source terrain and narrow 0.05 m filtering remain intact. The mixed-class and repeated seeded patrol fixtures are still running.
 
 A read-only untuned physics baseline remains SECTOR_PHYSICS_BASELINE.json. Occasional buoyancy contact loss and up to 22.3 degrees roll/5.66 m/s vertical speed remain an explicit tuning task. Sector tactics, standardized tags, magazine/reload, final integrated combat and restart persistence are not yet complete. Development rollout remains disabled by default until integrated acceptance.
+
+
+The corrected seeded B/A/B continuation test passed all 18 checks over 485.94 game seconds, with 22 actual endpoint arrivals. All five kept their original controllers and continuous physics, and had valid continuing routes. Its frozen native DLL hash is recorded in SEEDED_REPEATED_PATROL.json. The earlier arrival-frame-only fixture failure is retained separately; a complete rerun verified the corrected sampler. Phase-3 placement/navigation acceptance is complete. Later tactical and gameplay phases remain pending.
