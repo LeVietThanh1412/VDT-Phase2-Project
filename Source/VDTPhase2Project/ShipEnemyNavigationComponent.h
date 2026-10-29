@@ -124,6 +124,8 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatBlocked=false;
     UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatCompleted=false;
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginPursuitOf(AActor* Threat,float StandOffDistanceM);
+    /** Shared mission intent: validates native A* and preserves original A/B. */
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginTacticalMoveTo(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") void ReturnToPatrol();
     UFUNCTION(BlueprintPure, Category="Navigation|Tactics") bool HasTacticalDestination() const { return bTacticalOverride; }
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector GeographicToWorld(FVector LLH) const;

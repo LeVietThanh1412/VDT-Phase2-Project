@@ -504,3 +504,18 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - The prior 483.75-second run also physically completed B/A/B, but its instantaneous path assertion sampled the final ship's normal arrival/route-clear frame. That FAILED fixture is preserved as SEEDED_PATROL_ARRIVAL_FRAME_FIXTURE_FAILURE.json. The test now observes three additional actual planning seconds, then verifies continuing paths. Full rerun passed; no gameplay tolerance or movement behavior was changed to obtain it.
 - Binary provenance confirms the native DLL was unchanged throughout the rerun (compiled source milestone 533f576). Island support and mixed Small/Large/Medium startup also passed. Startup milestone 533f576 was pushed and its remote SHA verified; draft PR #11 remains open/unmerged. New Blue defender source is prepared but was not compiled during these measurements.
 - Next: compile and physically test bounded Blue interception/shared retreat/patrol return, then the Red scout assault. Tags, buoyancy tuning, magazines and full integrated combat remain pending.
+
+
+### Phase 4 IN PROGRESS - bounded Blue defense
+
+- Added guarded mission intent on the existing battlefield subsystem and a safe temporary geographic-goal API on the existing navigator. Original A/B references, controllers and Blueprint drive authority remain intact. Compiled normally after the frozen phase-3 tests finished.
+- First staged diagnostic found an invalid incoming fixture goal, a stand-off assumption inconsistent with saved 450 m retreat distance, and target retention outside the defensive region. Preserved the failed diagnostic, verified incoming goals through native A*, derived stand-off from actual combat thresholds, and applied the defensive target policy inside the existing shared scanner.
+- Prevented stationary-target mission updates from repeatedly clearing route/recovery state; blocked interceptions return to patrol with a 30 s mission retry delay. Shared retreat keeps priority. Fresh physical behavioral test is running; phase 4 is not yet passed. RED assault, tags, stability tuning, magazines and integrated demo acceptance remain pending.
+
+
+### Phase 4 VERIFIED - Blue interception, shared retreat and defensive return
+
+- Fresh BLUE_DEFENSE_PIE.json PASSED all ten checks over 314.95 game seconds / 618 samples. Both defenders intercepted, the shared guns fired 2/9 accepted shots, explicit hostile low-health damage produced a new shared retreat after a prior proximity retreat, and staged target health deaths were followed by valid original patrol routes and >25 m physical travel.
+- Controllers, original patrol references and continuous physics remained intact. Maximum defense-anchor distances were 692.82 m (Small) and 281.60 m (Medium), within the configured 800 m leash. Native navigation regression suite 4/4 passed after compilation. Raw/staged evidence scope is explicit; no natural-battle or stability-tuning claim.
+- Native target selection now respects the defensive policy while preserving faction/LOS/damage authority. Mission stand-off derives from saved retreat/gun limits; unchanged goals retain navigation recovery state. Shared retreats remain authoritative. Sector tactics are still development-gated.
+- Next: Red Small scout-led, distance-managed sequential assault with leader failure/recovery handling; then tags, measured buoyancy tuning, magazines and integrated acceptance.

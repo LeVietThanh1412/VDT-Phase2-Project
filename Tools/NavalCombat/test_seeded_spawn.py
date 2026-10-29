@@ -27,13 +27,16 @@ def tick(dt):
     try:
         t=unreal.GameplayStatics.get_time_seconds(w)
         for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn):
-            if (c:=a.get_component_by_class(unreal.ShipCombatComponent)):c.enable_combat=False
+            if (c:=a.get_component_by_class(unreal.ShipCombatComponent)):
+                weapon=a.get_component_by_class(unreal.ShipWeaponComponent)
+                c.enable_combat=bool(weapon and weapon.team() in globals().get('COMBAT_TEAMS',[]))
             if a.get_component_by_class(unreal.ShipWeaponComponent):a.can_be_damaged=False
             if globals().get('DEBUG',False) and (n:=a.get_component_by_class(unreal.ShipEnemyNavigationComponent)):n.draw_debug=True
         if st['phase']=='menu' and t>2:
             gi=unreal.GameplayStatics.get_game_instance(w)
             settings=lib.call_method('GetGameInstanceSubsystem',args=(gi,unreal.NavalMatchSettings.static_class()))
             settings.use_sector_battlefield=True
+            settings.enable_sector_tactics=bool(globals().get('ENABLE_TACTICS',False))
             pc=unreal.GameplayStatics.get_player_controller(w,0);pc.toggle_match_setup();ui=pc.setup_widget
             ui.seed_input.set_text(str(seed));ui.mode_selector.set_selected_index(0)
             if 'HULL_CLASSES' in globals():

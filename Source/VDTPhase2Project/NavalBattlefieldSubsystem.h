@@ -23,6 +23,13 @@ struct FNavalSpawnAssignment
     UPROPERTY(BlueprintReadOnly) float HullRadiusM=0;
     UPROPERTY(BlueprintReadOnly) bool bPhysicalClearanceVerified=false;
     UPROPERTY(BlueprintReadOnly) FString DepthStatus;
+    UPROPERTY(BlueprintReadOnly) FVector2D DefensiveAnchorEN=FVector2D::ZeroVector;
+    UPROPERTY(BlueprintReadOnly) FString MissionState=TEXT("Initial patrol");
+    UPROPERTY(BlueprintReadOnly) int32 InterceptionsStarted=0;
+    UPROPERTY(BlueprintReadOnly) int32 DefensiveReturns=0;
+    bool bDefensiveIntercept=false;
+    double LastMissionPlanAt=-1000;
+    double MissionRetryAt=0;
 };
 
 /** One prematch placement authority. Never applies a gameplay movement force. */
@@ -39,6 +46,9 @@ public:
     UFUNCTION(BlueprintPure,Category="Battlefield") bool IsEnabled() const;
     UFUNCTION(BlueprintPure,Category="Battlefield") bool CanBeginCombat() const {return !IsEnabled() || bReady;}
     UFUNCTION(BlueprintPure,Category="Battlefield") FString LayoutReport() const;
+    UFUNCTION(BlueprintPure,Category="Battlefield") bool AreTacticsEnabled() const;
+    bool IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Defense",meta=(ClampMin="500",ClampMax="1000",Units="m")) float DefensiveLeashM=800;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") int32 ActualSeed=0;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") bool bReady=false;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") FString Status=TEXT("Not initialized");
@@ -53,6 +63,8 @@ private:
     bool ValidatePhysicalLayout(bool& bWaitingForTerrain);
     bool CheckPhysicalAssignment(FNavalSpawnAssignment& Assignment,const FSeaRouteResult& Route,bool& bWaitingForTerrain);
     bool BuildOperationalCharts();
+    void UpdateDefenders();
+    bool FindMissionGoal(const FNavalSpawnAssignment& Assignment,FVector2D Desired,bool bDefender,FVector2D& OutGoal,FVector2D Threat=FVector2D::ZeroVector,float MinimumThreatDistanceM=0) const;
     bool PlaceFleet();
     void Fail(const FString& Reason);
     FRandomStream LayoutRandom;
@@ -65,5 +77,6 @@ private:
     FString LastPhysicalRejection;
     FString LastPhysicalCollider;
     double TerrainStableSince=-1;
+    double LastMissionUpdateAt=-1000;
     TMap<EShipHullClass,TSharedPtr<const FSeaNavigationMap>> OperationalCharts;
 };

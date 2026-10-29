@@ -23,6 +23,7 @@ public:
     UPROPERTY(BlueprintReadWrite,Category="Battlefield",meta=(ClampMin="0")) int32 BattlefieldSeed=0;
     /** Enabled by default only after the integrated sector scenario passes QA. */
     UPROPERTY(BlueprintReadWrite,Category="Development") bool bUseSectorBattlefield=false;
+    UPROPERTY(BlueprintReadWrite,Category="Development") bool bEnableSectorTactics=false;
     UFUNCTION(BlueprintCallable,Category="Battlefield") bool SetBattlefieldSeed(int32 Seed);
     UFUNCTION(BlueprintCallable) bool Configure(int32 Blue,int32 Red,const TArray<EShipHullClass>& Classes,EShipAISkill Skill,ENavalBattleMode BattleMode);
 };

@@ -37,6 +37,17 @@ TStatId UNavalBattlefieldSubsystem::GetStatId() const
 {RETURN_QUICK_DECLARE_CYCLE_STAT(UNavalBattlefieldSubsystem,STATGROUP_Tickables);}
 bool UNavalBattlefieldSubsystem::IsEnabled() const
 {const auto* S=GetWorld() && GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;return S && S->bUseSectorBattlefield;}
+bool UNavalBattlefieldSubsystem::AreTacticsEnabled() const
+{const auto* S=GetWorld() && GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;return IsEnabled() && S && S->bEnableSectorTactics;}
+bool UNavalBattlefieldSubsystem::IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const
+{
+    if(!bReady || !AreTacticsEnabled())return true;
+    const auto* A=Assignments.FindByPredicate([Ship](const FNavalSpawnAssignment& Item){return Item.Ship==Ship && Item.Team==0 && Item.Slot>0;});
+    if(!A)return true;
+    if(!IsValid(Target))return false;
+    const auto Enemy=GetWorld()->GetSubsystem<UNavalSectorSubsystem>()->WorldToChart(Target->GetActorLocation());
+    return Enemy.X<=14750 && FVector2D::Distance(Enemy,A->DefensiveAnchorEN)<=DefensiveLeashM+250;
+}
 void UNavalBattlefieldSubsystem::Fail(const FString& Reason)
 {bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;B->RefreshHUD();}}
 void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
@@ -212,7 +223,7 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
                     }
                 }
             }
-            FNavalSpawnAssignment A;A.Ship=P;A.Team=Team;A.Slot=Slot;A.SpawnSector=S.Id;A.SpawnEN=Start;A.TargetEN=Goal;A.HeadingDegrees=Heading;A.HullRadiusM=Radius;
+            FNavalSpawnAssignment A;A.Ship=P;A.Team=Team;A.Slot=Slot;A.SpawnSector=S.Id;A.SpawnEN=Start;A.TargetEN=Goal;A.HeadingDegrees=Heading;A.HullRadiusM=Radius;A.DefensiveAnchorEN=(Start+Goal)*.5;
             bool Waiting=false;if(bPhysicalSearch && !CheckPhysicalAssignment(A,Route,Waiting))return false;
             Assignments.Add(A);AcceptedRoutes.Add(Route.Points);return true;
         };
@@ -345,13 +356,100 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
             }
             N->PatrolOffsetA=N->PatrolOffsetB=FVector::ZeroVector;N->bStartAtPatrolB=true;N->StartPatrol();
             if(!N->UseOperationalChart(NavigationChartForShip(A.Ship)))return false;
+            if(AreTacticsEnabled() && A.Team==0)if(auto* C=A.Ship->FindComponentByClass<UShipCombatComponent>())C->SetCombatRole(EShipEnemyRole::Fighter);
         }
     }
     return true;
 }
+bool UNavalBattlefieldSubsystem::FindMissionGoal(const FNavalSpawnAssignment& A,FVector2D Desired,bool Defender,FVector2D& Out,FVector2D Threat,float MinimumThreatDistance) const
+{
+    const auto Map=NavigationChartForShip(A.Ship);const auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
+    if(!Map.IsValid() || !IsValid(A.Ship))return false;
+    const auto Position=Grid->WorldToChart(A.Ship->GetActorLocation());
+    const int32 Start=Map->CellAt(Position);
+    if(!Map->IsWater(Position) || !Map->ConnectedRegions.IsValidIndex(Start))return false;
+    TArray<TPair<double,FVector2D>> Candidates;
+    for(int32 I=0;I<Map->Cells.Num();++I)
+    {
+        if(!Map->Cells[I] || Map->ConnectedRegions[I]!=Map->ConnectedRegions[Start])continue;
+        const auto P=Map->Center(I);
+        if(!Grid->IsInsideField(P,A.HullRadiusM+30) || FVector2D::Distance(Position,P)<160)continue;
+        if(Defender && (P.X>14700 || FVector2D::Distance(P,A.DefensiveAnchorEN)>DefensiveLeashM))continue;
+        if(MinimumThreatDistance>0 && FVector2D::Distance(P,Threat)<MinimumThreatDistance)continue;
+        bool Occupied=false;
+        for(const auto& Other:Assignments)
+        {
+            if(Other.Ship==A.Ship || !IsValid(Other.Ship))continue;
+            const auto* W=Other.Ship->FindComponentByClass<UShipWeaponComponent>();if(!W || W->bIsDestroyed)continue;
+            if(FVector2D::Distance(P,Grid->WorldToChart(Other.Ship->GetActorLocation()))<A.HullRadiusM+Other.HullRadiusM+45){Occupied=true;break;}
+        }
+        if(!Occupied)Candidates.Emplace(FVector2D::Distance(P,Desired)+FVector2D::Distance(Position,P)*.15,P);
+    }
+    Candidates.Sort([](const auto& L,const auto& R){return L.Key<R.Key;});
+    for(int32 I=0;I<FMath::Min(12,Candidates.Num());++I)
+    {
+        const auto Route=Map->FindPath(Position,Candidates[I].Value,75000,20);if(!Route.bSuccess || Route.Points.Num()<2)continue;
+        bool Safe=true;
+        for(const auto& P:Route.Points)
+            if(!Grid->IsInsideField(P) || (Defender && (P.X>14750 || FVector2D::Distance(P,A.DefensiveAnchorEN)>DefensiveLeashM+150))){Safe=false;break;}
+        if(Safe){Out=Candidates[I].Value;return true;}
+    }
+    return false;
+}
+void UNavalBattlefieldSubsystem::UpdateDefenders()
+{
+    const double Now=GetWorld()->GetTimeSeconds();if(Now-LastMissionUpdateAt<.5)return;LastMissionUpdateAt=Now;
+    auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
+    for(auto& A:Assignments)
+    {
+        if(A.Team!=0 || A.Slot==0 || !IsValid(A.Ship))continue;
+        auto* W=A.Ship->FindComponentByClass<UShipWeaponComponent>();auto* C=A.Ship->FindComponentByClass<UShipCombatComponent>();auto* N=A.Ship->FindComponentByClass<UShipEnemyNavigationComponent>();
+        if(!W || !C || !N || W->bIsDestroyed || W->Team()!=0){A.MissionState=TEXT("Defender unavailable");continue;}
+        if(!UNavalBattleSubsystem::CanShipAct(A.Ship))continue;
+        const auto State=C->TacticalState;
+        if(State==EShipTacticalState::Retreat || State==EShipTacticalState::Escape || State==EShipTacticalState::BackwardRetreat || State==EShipTacticalState::ReturnToPatrol)
+        {A.MissionState=TEXT("Shared retreat / returning to defense");continue;}
+        if(A.bDefensiveIntercept && !N->HasTacticalDestination())A.bDefensiveIntercept=false;
+        if(A.bDefensiveIntercept && N->NavigationState==EShipNavigationState::Failed)
+        {
+            N->ReturnToPatrol();A.bDefensiveIntercept=false;++A.DefensiveReturns;A.MissionRetryAt=Now+30;
+            A.MissionState=TEXT("Interception blocked: returning to defense");continue;
+        }
+        const auto Position=Grid->WorldToChart(A.Ship->GetActorLocation());
+        const bool TargetValid=C->bEnableCombat && C->IsHostile(C->Target);
+        const auto Enemy=TargetValid?Grid->WorldToChart(C->Target->GetActorLocation()):FVector2D::ZeroVector;
+        const bool Intercept=Now>=A.MissionRetryAt && TargetValid && Enemy.X<=14750 && FVector2D::Distance(Enemy,A.DefensiveAnchorEN)<=DefensiveLeashM+250 &&
+            FVector2D::Distance(Position,A.DefensiveAnchorEN)<=DefensiveLeashM+100 && W->CurrentHealth>W->MaxHealth*.4;
+        if(!Intercept)
+        {
+            if(A.bDefensiveIntercept)
+            {N->ReturnToPatrol();A.bDefensiveIntercept=false;++A.DefensiveReturns;A.LastMissionPlanAt=Now;}
+            A.MissionState=TEXT("Western island defensive patrol");continue;
+        }
+        if(Now-A.LastMissionPlanAt<5)continue;
+        A.LastMissionPlanAt=Now;
+        // Seek a safe firing position on the defensive side of the threat.
+        // The actual gun still uses the shared faction/LOS/ballistic pipeline.
+        FVector2D Goal;const auto TowardDefense=(A.DefensiveAnchorEN-Enemy).GetSafeNormal();
+        const float StandOff=FMath::Max(C->MinimumRetreatDistanceM+150,C->EngagementRadiusM*.6f);
+        if(FindMissionGoal(A,Enemy+TowardDefense*StandOff,true,Goal,Enemy,C->MinimumRetreatDistanceM+80))
+        {
+            const bool SameGoal=A.bDefensiveIntercept && N->HasTacticalDestination() &&
+                FVector2D::Distance(Grid->WorldToChart(N->GeographicToWorld(N->CurrentFinalDestination)),Goal)<100;
+            if(SameGoal){A.MissionState=TEXT("Following bounded interception route");continue;}
+            if(N->BeginTacticalMoveTo(N->WorldToGeographic(Grid->ChartToWorld(Goal))))
+            {
+                if(!A.bDefensiveIntercept)++A.InterceptionsStarted;
+                A.bDefensiveIntercept=true;A.MissionState=TEXT("Bounded defensive interception");
+            }
+        }
+        else if(!A.bDefensiveIntercept)A.MissionState=TEXT("Patrolling: no safe interception route");
+    }
+}
 void UNavalBattlefieldSubsystem::Tick(float Dt)
 {
     if(LoadingCamera)if(auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>())LoadingCamera->SetActorLocation(Grid->ChartToWorld(Grid->CenterEN)+FVector(0,0,230000));
+    if(bReady && AreTacticsEnabled())UpdateDefenders();
     if(!IsEnabled() || !bInitialized || bReady || !InitializationError.IsEmpty())return;
     const double Now=GetWorld()->GetTimeSeconds();
     if(Now-InitializedAt>30){Fail(TEXT("Terrain/water initialization exceeded 30 seconds; no combat commands enabled"));return;}
@@ -403,7 +501,9 @@ FString UNavalBattlefieldSubsystem::LayoutReport() const
     for(const auto& A:Assignments)
     {
         auto O=MakeShared<FJsonObject>();O->SetStringField(TEXT("ship"),A.Ship?A.Ship->GetActorNameOrLabel():TEXT("missing"));O->SetNumberField(TEXT("team"),A.Team);O->SetNumberField(TEXT("slot"),A.Slot);O->SetStringField(TEXT("sector"),A.SpawnSector.ToString());
-        O->SetArrayField(TEXT("spawn_en_m"),{MakeShared<FJsonValueNumber>(A.SpawnEN.X),MakeShared<FJsonValueNumber>(A.SpawnEN.Y)});O->SetArrayField(TEXT("target_en_m"),{MakeShared<FJsonValueNumber>(A.TargetEN.X),MakeShared<FJsonValueNumber>(A.TargetEN.Y)});O->SetNumberField(TEXT("heading"),A.HeadingDegrees);O->SetBoolField(TEXT("physical_clearance"),A.bPhysicalClearanceVerified);O->SetStringField(TEXT("depth_status"),A.DepthStatus);Items.Add(MakeShared<FJsonValueObject>(O));
+        O->SetArrayField(TEXT("spawn_en_m"),{MakeShared<FJsonValueNumber>(A.SpawnEN.X),MakeShared<FJsonValueNumber>(A.SpawnEN.Y)});O->SetArrayField(TEXT("target_en_m"),{MakeShared<FJsonValueNumber>(A.TargetEN.X),MakeShared<FJsonValueNumber>(A.TargetEN.Y)});O->SetNumberField(TEXT("heading"),A.HeadingDegrees);O->SetBoolField(TEXT("physical_clearance"),A.bPhysicalClearanceVerified);O->SetStringField(TEXT("depth_status"),A.DepthStatus);
+        O->SetArrayField(TEXT("defense_anchor_en_m"),{MakeShared<FJsonValueNumber>(A.DefensiveAnchorEN.X),MakeShared<FJsonValueNumber>(A.DefensiveAnchorEN.Y)});
+        O->SetStringField(TEXT("mission"),A.MissionState);O->SetNumberField(TEXT("interceptions_started"),A.InterceptionsStarted);O->SetNumberField(TEXT("defensive_returns"),A.DefensiveReturns);Items.Add(MakeShared<FJsonValueObject>(O));
     }
     J->SetArrayField(TEXT("ships"),Items);FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
 }

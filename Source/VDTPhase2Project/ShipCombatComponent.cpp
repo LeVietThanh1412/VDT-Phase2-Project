@@ -2,6 +2,7 @@
 #include "ShipMovementComponent.h"
 #include "ShipProjectileDamageComponent.h"
 #include "NavalBattleUI.h"
+#include "NavalBattlefieldSubsystem.h"
 #include "Components/WidgetComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraSystem.h"
@@ -444,13 +445,15 @@ void UShipCombatComponent::ScanTargets()
 {
     if(!Weapon || !Visual || Weapon->bIsDestroyed){Target=nullptr;bTargetVisible=false;return;}
     const FVector Origin=PhysicalHull(GetOwner())?PhysicalHull(GetOwner())->GetComponentLocation():GetOwner()->GetActorLocation();
+    const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();
+    auto Allowed=[&](AActor* Candidate){return !Field || Field->IsDefensiveTargetAllowed(GetOwner(),Candidate);};
     AActor* Previous=Target;
-    const bool Retain=IsHostile(Target) && FVector::Distance(Origin,AimPoint(Target))<=FMath::Max(LoseTargetRadiusM,DetectionRadiusM)*100;
+    const bool Retain=IsHostile(Target) && Allowed(Target) && FVector::Distance(Origin,AimPoint(Target))<=FMath::Max(LoseTargetRadiusM,DetectionRadiusM)*100;
     if(Retain && Visible(Target)){bTargetVisible=true;return;}
     Target=nullptr;bTargetVisible=false;double Best=DBL_MAX;
     for(TActorIterator<APawn> I(GetWorld());I;++I)
     {
-        if(!IsHostile(*I))continue;
+        if(!IsHostile(*I) || !Allowed(*I))continue;
         const double Distance=FVector::Distance(Origin,AimPoint(*I));
         if(Distance>DetectionRadiusM*100 || Distance>=Best)continue;
         if(bRequireLineOfSight && !Visible(*I))continue;

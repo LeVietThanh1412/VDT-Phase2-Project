@@ -104,7 +104,7 @@ void UShipEnemyNavigationComponent::EndPlay(const EEndPlayReason::Type Reason)
     // Streaming can reactivate this same component after RemovedFromWorld.
     // The cached map and component bindings no longer exist after teardown.
     bInitialized=false;bOwnsCommands=false;bNeedsPlan=true;
-    Map.Reset();Hull=nullptr;Heading=nullptr;VisualMesh=nullptr;GlobeAnchor=nullptr;Georeference=nullptr;
+    Map.Reset();OriginalCoastMap.Reset();bUsingOperationalChart=false;Hull=nullptr;Heading=nullptr;VisualMesh=nullptr;GlobeAnchor=nullptr;Georeference=nullptr;
     ThrottleProperty=nullptr;RudderProperty=nullptr;OwnedAimController=nullptr;
     SensorDistances.Reset();SensorAngles.Reset();bHasObservedPosition=false;
     Super::EndPlay(Reason);
@@ -458,6 +458,18 @@ bool UShipEnemyNavigationComponent::BeginPursuitOf(AActor* Threat,float StandOff
     }
     // An unreachable pursuit must not fail the valid original patrol.
     return false;
+}
+bool UShipEnemyNavigationComponent::BeginTacticalMoveTo(FVector LLH)
+{
+    if(LLH.ContainsNaN() || (!bInitialized && !InitializeNavigation()) || bDead)return false;
+    const auto Position=PositionMetric(),Goal=LLHToMetric(LLH);
+    const auto Route=Map->FindPath(Position,Goal,MaxSearchExpansions,MaxSearchMilliseconds);
+    if(!Route.bSuccess || Route.Points.Num()<2)return false;
+    bBackwardRetreatActive=false;bBackwardRetreatBlocked=false;bBackwardRetreatCompleted=false;ReverseThreat.Reset();
+    TacticalDestination=LLH;bTacticalOverride=true;bHasGoal=true;bNeedsPlan=true;bExplicitStop=false;
+    CurrentFinalDestination=LLH;GoalMetric=Goal;CurrentRoute.Reset();ArrivalTime=-1;
+    RecoveryPhase=0;RecoveryAttemptCount=0;FailedCorridors.Reset();TimeSinceProgress=0;AvoidElapsed=0;AvoidSide=0;
+    DestinationState(this).ConsecutivePlanFailures=0;return PlanRoute(Position,Goal);
 }
 void UShipEnemyNavigationComponent::ReturnToPatrol()
 {

@@ -20,7 +20,8 @@ Branch: feature/small-warship-seeded-battlefield. Main and teammate branches are
 | Retained island collision across LOD changes | PASS: physical island support, LOD changes and bounded cache |
 | Fixed sector grid | PASS: candidate 1, 625 logical sectors, native connectivity and coordinates verified in PIE |
 | Reproducible physical spawning | PASS for startup: 11 PIE starts, 10 distinct seeds, exact replay; seeded B/A/B now verified; full battle pending |
-| Blue defense / Red Small scout formation assault | Pending |
+| Blue defense | PASS in staged current-field interception/retreat/return test; 10 checks, 314.95 s |
+| Red Small scout formation assault | Pending |
 | Synchronized team/role/class tags | Pending |
 | Measured buoyancy improvements across all classes | Pending |
 | Shared ten-round magazine / 30-second reload / HUD | Pending |
