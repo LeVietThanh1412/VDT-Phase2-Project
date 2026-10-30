@@ -27,9 +27,18 @@ struct FNavalSpawnAssignment
     UPROPERTY(BlueprintReadOnly) FString MissionState=TEXT("Initial patrol");
     UPROPERTY(BlueprintReadOnly) int32 InterceptionsStarted=0;
     UPROPERTY(BlueprintReadOnly) int32 DefensiveReturns=0;
+    UPROPERTY(BlueprintReadOnly) int32 AssaultPhase=0;
+    UPROPERTY(BlueprintReadOnly) int32 AssaultGoalsReached=0;
+    UPROPERTY(BlueprintReadOnly) FVector2D MissionGoalEN=FVector2D::ZeroVector;
+    UPROPERTY(BlueprintReadOnly) bool bAssaultReleased=false;
+    UPROPERTY(BlueprintReadOnly) double AssaultReleasedAt=-1;
+    UPROPERTY(BlueprintReadOnly) float FormationDistanceM=0;
+    UPROPERTY(BlueprintReadOnly) int32 MissionRouteRetries=0;
     bool bDefensiveIntercept=false;
     double LastMissionPlanAt=-1000;
     double MissionRetryAt=0;
+    float BaseCruiseSpeedMps=0,FormationWaitSeconds=0;
+    bool bHoldingForLeader=false;
 };
 
 /** One prematch placement authority. Never applies a gameplay movement force. */
@@ -49,6 +58,10 @@ public:
     UFUNCTION(BlueprintPure,Category="Battlefield") bool AreTacticsEnabled() const;
     bool IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Defense",meta=(ClampMin="500",ClampMax="1000",Units="m")) float DefensiveLeashM=800;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Assault",meta=(ClampMin="180",ClampMax="350",Units="m")) float FormationSpacingM=240;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Assault",meta=(ClampMin="1",ClampMax="15",Units="s")) float FormationDepartureIntervalSeconds=3;
+    UPROPERTY(BlueprintReadOnly,Category="Battlefield|Assault") TWeakObjectPtr<APawn> AssaultLeader;
+    UPROPERTY(BlueprintReadOnly,Category="Battlefield|Assault") int32 AssaultLeaderChanges=0;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") int32 ActualSeed=0;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") bool bReady=false;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") FString Status=TEXT("Not initialized");
@@ -64,6 +77,9 @@ private:
     bool CheckPhysicalAssignment(FNavalSpawnAssignment& Assignment,const FSeaRouteResult& Route,bool& bWaitingForTerrain);
     bool BuildOperationalCharts();
     void UpdateDefenders();
+    void UpdateAssault();
+    bool SetAssaultGoal(FNavalSpawnAssignment& Assignment,FVector2D Goal);
+    bool AdvanceAssault(FNavalSpawnAssignment& Assignment);
     bool FindMissionGoal(const FNavalSpawnAssignment& Assignment,FVector2D Desired,bool bDefender,FVector2D& OutGoal,FVector2D Threat=FVector2D::ZeroVector,float MinimumThreatDistanceM=0) const;
     bool PlaceFleet();
     void Fail(const FString& Reason);
@@ -78,5 +94,9 @@ private:
     FString LastPhysicalCollider;
     double TerrainStableSince=-1;
     double LastMissionUpdateAt=-1000;
+    double LastAssaultUpdateAt=-1000;
+    bool bAssaultInitialized=false;
+    FVector2D ScoutContactEN=FVector2D::ZeroVector;
+    double ScoutContactAt=-1000;
     TMap<EShipHullClass,TSharedPtr<const FSeaNavigationMap>> OperationalCharts;
 };

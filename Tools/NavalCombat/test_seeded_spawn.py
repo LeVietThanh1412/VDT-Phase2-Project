@@ -15,7 +15,7 @@ lib=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBl
 
 def sub(w,cls):return lib.call_method('GetWorldSubsystem',args=(w,cls.static_class()))
 def save():
-    (root/'Docs/QuangNinhIntegration'/name).write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8')
+    (root/globals().get('OUTPUT_DIR','Docs/QuangNinhIntegration')/name).write_text(json.dumps({k:v for k,v in st.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8')
 def finish(status):
     st['status']=status;save();unreal.unregister_slate_post_tick_callback(st['handle'])
     if not (status=='FAILED' and globals().get('HOLD_FAILURE',False)):
@@ -30,13 +30,14 @@ def tick(dt):
             if (c:=a.get_component_by_class(unreal.ShipCombatComponent)):
                 weapon=a.get_component_by_class(unreal.ShipWeaponComponent)
                 c.enable_combat=bool(weapon and weapon.team() in globals().get('COMBAT_TEAMS',[]))
-            if a.get_component_by_class(unreal.ShipWeaponComponent):a.can_be_damaged=False
+            if a.get_component_by_class(unreal.ShipWeaponComponent):a.can_be_damaged=bool(globals().get('ALLOW_DAMAGE',False))
             if globals().get('DEBUG',False) and (n:=a.get_component_by_class(unreal.ShipEnemyNavigationComponent)):n.draw_debug=True
         if st['phase']=='menu' and t>2:
             gi=unreal.GameplayStatics.get_game_instance(w)
             settings=lib.call_method('GetGameInstanceSubsystem',args=(gi,unreal.NavalMatchSettings.static_class()))
             settings.use_sector_battlefield=True
             settings.enable_sector_tactics=bool(globals().get('ENABLE_TACTICS',False))
+            settings.enable_red_assault=bool(globals().get('ENABLE_ASSAULT',False))
             pc=unreal.GameplayStatics.get_player_controller(w,0);pc.toggle_match_setup();ui=pc.setup_widget
             ui.seed_input.set_text(str(seed));ui.mode_selector.set_selected_index(0)
             if 'HULL_CLASSES' in globals():

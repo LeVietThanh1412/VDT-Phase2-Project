@@ -1,0 +1,292 @@
+{
+  "status": "PASSED",
+  "scope": "Combat-disabled physical convoy mission; any staged health death is explicit",
+  "failover": false,
+  "phase": "assault",
+  "events": [
+    {
+      "t": 42.50543952360749,
+      "ship": "BP_ShipEnemy2",
+      "phase": 1,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.94559331531667
+    },
+    {
+      "t": 52.77445762231946,
+      "ship": "BP_ShipEnemy3",
+      "phase": 1,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.88803791024255
+    },
+    {
+      "t": 64.0403058193624,
+      "ship": "BP_ShipEnemy",
+      "phase": 1,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.950311338093
+    },
+    {
+      "t": 77.85161732137203,
+      "ship": "BP_ShipEnemy2",
+      "phase": 2,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.82910976723177
+    },
+    {
+      "t": 92.7065133228898,
+      "ship": "BP_ShipEnemy3",
+      "phase": 2,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.88863157473742
+    },
+    {
+      "t": 103.94807432591915,
+      "ship": "BP_ShipEnemy",
+      "phase": 2,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.92451094655613
+    },
+    {
+      "t": 121.79315954074264,
+      "ship": "BP_ShipEnemy2",
+      "phase": 3,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.95367237938581
+    },
+    {
+      "t": 158.54610275104642,
+      "ship": "BP_ShipEnemy3",
+      "phase": 3,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.78643086855494
+    },
+    {
+      "t": 217.97518189623952,
+      "ship": "BP_ShipEnemy2",
+      "phase": 3,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.83479797077939
+    },
+    {
+      "t": 242.13064267858863,
+      "ship": "BP_ShipEnemy",
+      "phase": 3,
+      "event": "physical_goal_arrival",
+      "distance_m": 79.6198858660452
+    }
+  ],
+  "ships": {
+    "BP_ShipEnemy2": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_0",
+      "start": [
+        15012.492699367318,
+        4062.486056425131
+      ],
+      "departure_at": 16.06554652377963,
+      "max_displacement_m": 1043.2380050960016,
+      "min_east_m": 14208.952877715903,
+      "max_phase": 3,
+      "physical": true,
+      "controller_same": true,
+      "patrol_refs": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066"
+      ],
+      "goal_arrivals": [
+        {
+          "t": 42.50543952360749,
+          "prior_goal_en_m": [
+            14862.5,
+            3662.5
+          ],
+          "distance_m": 79.94559331531667,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 77.85161732137203,
+          "prior_goal_en_m": [
+            14537.5,
+            3562.5
+          ],
+          "distance_m": 79.82910976723177,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 121.79315954074264,
+          "prior_goal_en_m": [
+            14137.5,
+            3362.5
+          ],
+          "distance_m": 79.95367237938581,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 217.97518189623952,
+          "prior_goal_en_m": [
+            14837.5,
+            3462.5
+          ],
+          "distance_m": 79.83479797077939,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        }
+      ],
+      "last_position": [
+        14796.630872346163,
+        3719.3024877387456
+      ],
+      "slot": 0,
+      "released_at": 10.274425718933344,
+      "previous_goal": [
+        14312.5,
+        4112.5
+      ],
+      "last_goals": 4
+    },
+    "BP_ShipEnemy": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_1",
+      "start": [
+        15112.777604162646,
+        4612.519860576904
+      ],
+      "departure_at": 26.9613475240767,
+      "max_displacement_m": 1121.2573193645994,
+      "min_east_m": 14463.955710814427,
+      "max_phase": 3,
+      "physical": true,
+      "controller_same": true,
+      "patrol_refs": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821150C03_1217123199",
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA4308211B0C03_1660229255"
+      ],
+      "goal_arrivals": [
+        {
+          "t": 64.0403058193624,
+          "prior_goal_en_m": [
+            15012.5,
+            4162.5
+          ],
+          "distance_m": 79.950311338093,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 103.94807432591915,
+          "prior_goal_en_m": [
+            14762.5,
+            4012.5
+          ],
+          "distance_m": 79.92451094655613,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 242.13064267858863,
+          "prior_goal_en_m": [
+            14412.5,
+            3637.5
+          ],
+          "distance_m": 79.6198858660452,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        }
+      ],
+      "last_position": [
+        14464.807973895697,
+        3697.449735132738
+      ],
+      "slot": 2,
+      "released_at": 24.41213932260871,
+      "previous_goal": [
+        14312.5,
+        3537.5
+      ],
+      "last_goals": 3
+    },
+    "BP_ShipEnemy3": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_4",
+      "start": [
+        14962.500560866727,
+        4437.453690444147
+      ],
+      "departure_at": 21.817895524203777,
+      "max_displacement_m": 1038.215364288781,
+      "min_east_m": 14292.432863883976,
+      "max_phase": 3,
+      "physical": true,
+      "controller_same": true,
+      "patrol_refs": [
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+        "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096061068"
+      ],
+      "goal_arrivals": [
+        {
+          "t": 52.77445762231946,
+          "prior_goal_en_m": [
+            14887.5,
+            3937.5
+          ],
+          "distance_m": 79.88803791024255,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 92.7065133228898,
+          "prior_goal_en_m": [
+            14612.5,
+            3812.5
+          ],
+          "distance_m": 79.88863157473742,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        },
+        {
+          "t": 158.54610275104642,
+          "prior_goal_en_m": [
+            14237.5,
+            3587.5
+          ],
+          "distance_m": 79.78643086855494,
+          "accepted_radius_m": 83.0,
+          "valid": true
+        }
+      ],
+      "last_position": [
+        14323.815602729772,
+        3706.6069260944178
+      ],
+      "slot": 1,
+      "released_at": 19.18921112269163,
+      "previous_goal": [
+        14337.5,
+        4112.5
+      ],
+      "last_goals": 3
+    }
+  },
+  "checks": {
+    "initial_scout_is_small": true,
+    "sequential_release_intervals": true,
+    "physical_departures_sequential": true,
+    "scout_departs_before_followers": true,
+    "all_three_reach_contact_and_maneuver": true,
+    "all_three_enter_blue_contact_water": true,
+    "all_three_physically_travel": true,
+    "physical_arrival_before_each_phase": true,
+    "independent_controllers_and_physics": true,
+    "final_routes_not_permanently_idle": true
+  },
+  "started": 6121.062,
+  "last": 245.2078111693263,
+  "error": null,
+  "at": 10.274425718933344,
+  "initial_leader": "BP_ShipEnemy2",
+  "all_contact_at": 242.13064267858863,
+  "raw_path": "Saved\\RED_ASSAULT_SEQUENTIAL_FULL.json",
+  "raw_sha256": "08a94e591bcbe5052081916d22d5eea2257c189bf3bbadb4a5f56168eb28b10b",
+  "sample_count": 459,
+  "native_dll_sha256": "27442efabcd6f591c47d21597aa2bf4564df7de384f85db5d8f36a61f5c5c3ea"
+}

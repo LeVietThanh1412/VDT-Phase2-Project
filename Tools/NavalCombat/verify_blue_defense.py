@@ -8,7 +8,7 @@ import builtins,json,time,traceback,math
 from pathlib import Path
 import unreal
 root=Path(unreal.Paths.project_dir());ed=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-scope=dict(SEED=20261028,ENABLE_TACTICS=True,COMBAT_TEAMS=[0],OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=750,OUTPUT='BLUE_DEFENSE_STARTUP_TRANSIENT.json',__name__='blue_defense_startup')
+scope=dict(SEED=20261028,ENABLE_TACTICS=True,COMBAT_TEAMS=[0],OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=750,OUTPUT='BLUE_DEFENSE_STARTUP_TRANSIENT.json',OUTPUT_DIR='Saved',__name__='blue_defense_startup')
 p=root/'Tools/NavalCombat/test_seeded_spawn.py';exec(compile(p.read_text(encoding='utf-8'),str(p),'exec'),scope)
 base=scope['st'];st=dict(status='RUNNING',phase='startup',rows=[],checks={},started=time.monotonic(),error=None,last=-1)
 builtins.blue_defense_probe=st
