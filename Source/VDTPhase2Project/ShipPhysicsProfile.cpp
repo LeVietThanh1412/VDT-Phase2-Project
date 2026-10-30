@@ -4,13 +4,19 @@ void UShipPhysicsProfile::SetDefaults(EShipHullClass Type)
     HullClass=Type;const bool Large=Type==EShipHullClass::Large;
     MassKg=Large?240:150;InertiaScale=Large?FVector(1.8f,1.8f,2.f):FVector(1);
     CenterOfMassOffset=Large?FVector(0,0,-80):FVector::ZeroVector;
-    LinearDamping=Large?.55f:.5f;AngularDamping=Large?.65f:.5f;
+    // Water buoyancy drag damps upward Z only; body damping also attenuates downward heave.
+    LinearDamping=Large?.9f:.5f;AngularDamping=Large?.65f:.5f;
     PropulsionScale=Large?1.1f:1;RudderScale=Large?.8f:1;
     ForwardMaxSpeed=26;ReverseMaxSpeed=7;CruiseSpeed=20;
-    // Damping must grow with the 1.6x mass. The former 1.2x value reduced
-    // damping per kg and let the Large hull bounce clear of wave contact.
-    DisplacementMultiplier=Large?1.6f:1;VerticalDampingMultiplier=Large?1.8f:1;PontoonRadiusMultiplier=1;
+    // Preserve the historical 1.8x Large fix, extending it after the fixed-field
+    // 120s baseline exposed >4.2m/s p99 vertical motion and contact loss.
+    // Scale upward buoyancy drag independently; mass/drive/buoyant lift stay intact.
+    DisplacementMultiplier=Large?1.6f:1;VerticalDampingMultiplier=Large?3.6f:1;PontoonRadiusMultiplier=1;
     MaxHealth=100;BaseProjectileDamage=10;
+    PontoonLocations.Reset();
+    // Keep the four authored end supports; a middle pair samples the 100m gap
+    // so a passing wave trough cannot leave the heavy hull wholly unsupported.
+    if(Large)PontoonLocations={FVector(-5460,-820,-170),FVector(-5460,820,-170),FVector(4570,760,0),FVector(4570,-760,0),FVector(-445,-790,-85),FVector(-445,790,-85)};
     if(Type==EShipHullClass::Small)
     {
         MassKg=90;PropulsionScale=.7f;RudderScale=.5f;InertiaScale=FVector(1);

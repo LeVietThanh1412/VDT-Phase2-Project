@@ -1,0 +1,276 @@
+{
+  "status": "PASSED",
+  "scope": "Read-only applied buoyancy configuration during120s comparison",
+  "native_dll_sha256": "8a28a915a19caf3ea673065aba9f0312cff8de793a83fc9498e8b649cec9b67e",
+  "profile_sha256": "a910208bab940674b9e2df4e9a1a509089fadcb8597fcff36b27ee664239d867",
+  "rows": [
+    {
+      "ship": "BP_ShipEnemy2",
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "pontoons": [
+        {
+          "location": [
+            2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 1600.0,
+      "buoyancy_damp2": 8.0,
+      "coefficient": 0.06000000238418579,
+      "max_force": 3000000.0
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "pontoons": [
+        {
+          "location": [
+            -5460.0,
+            -820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -5460.0,
+            820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            -760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 2000.0,
+      "buoyancy_damp2": 10.0,
+      "coefficient": 0.10000000149011612,
+      "max_force": 5000000.0
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "hull_class": "<ShipHullClass.LARGE: 1>",
+      "pontoons": [
+        {
+          "location": [
+            -5460.0,
+            -820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -5460.0,
+            820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            -760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -445.0,
+            -790.0,
+            -85.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -445.0,
+            790.0,
+            -85.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 7200.0,
+      "buoyancy_damp2": 36.0,
+      "coefficient": 0.1600000113248825,
+      "max_force": 8000000.0
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "pontoons": [
+        {
+          "location": [
+            -5460.0,
+            -820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -5460.0,
+            820.0,
+            -170.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            4570.0,
+            -760.0,
+            0.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 2000.0,
+      "buoyancy_damp2": 10.0,
+      "coefficient": 0.10000000149011612,
+      "max_force": 5000000.0
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "pontoons": [
+        {
+          "location": [
+            2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 1600.0,
+      "buoyancy_damp2": 8.0,
+      "coefficient": 0.06000000238418579,
+      "max_force": 3000000.0
+    },
+    {
+      "ship": "BP_ShipSmall0",
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "pontoons": [
+        {
+          "location": [
+            2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        },
+        {
+          "location": [
+            -2100.0,
+            -550.0,
+            -100.0
+          ],
+          "radius_cm": 100.0
+        }
+      ],
+      "buoyancy_damp": 1600.0,
+      "buoyancy_damp2": 8.0,
+      "coefficient": 0.06000000238418579,
+      "max_force": 3000000.0
+    }
+  ]
+}
