@@ -1,0 +1,64 @@
+{
+  "scope": "Historical failures/diagnostics before operational route repair; never relabeled as final passing results",
+  "initial_11_run_suite_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedSuiteBeforeOperationalClearance",
+  "diagnostics": [
+    {
+      "file": "SEEDED_OPERATIONAL_HOLD_DIAGNOSTIC.json",
+      "status": "FAILED",
+      "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_seeded_spawn.py\", line 47, in tick\n    assert not field.initialization_error,field.initialization_error\nAssertionError: Seed 20261028: unsafe turning/keel clearance for BP_Ship0; bounded physical retries and fallback exhausted\n",
+      "failed_checks": {},
+      "sha256": "d5588d09e55fe6e302395da39c569d23fecf2e265392817c8d85c8e0e4179cc1",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_OPERATIONAL_HOLD_DIAGNOSTIC.json"
+    },
+    {
+      "file": "SEEDED_SPAWN_20261028.json",
+      "status": "PASSED",
+      "error": null,
+      "failed_checks": {},
+      "sha256": "ddae2c64bb464ff2dd487c145a5f09f1c8728b94ada31f05c0fdea13d7559d28",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_SPAWN_20261028.json"
+    },
+    {
+      "file": "SEEDED_SPAWN_COLLISION_CAPTURE.json",
+      "status": "FAILED",
+      "error": null,
+      "failed_checks": {
+        "all_five_physically_moved": false
+      },
+      "sha256": "5b7656d03a3a1194df7def10c3958ba751a1e9211e0efe46638ea0a3241769b2",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_SPAWN_COLLISION_CAPTURE.json"
+    },
+    {
+      "file": "SEEDED_SPAWN_COLLISION_DIAGNOSTIC.json",
+      "status": "FAILED",
+      "error": null,
+      "failed_checks": {
+        "five_native_initial_routes": false,
+        "all_five_physically_moved": false
+      },
+      "sha256": "6f289bace20790b47ab1727d10fe4235024315c6f50316f7067b14a8838fc642",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_SPAWN_COLLISION_DIAGNOSTIC.json"
+    },
+    {
+      "file": "SEEDED_SPAWN_COLLISION_DIAGNOSTIC_LONG.json",
+      "status": "FAILED",
+      "error": null,
+      "failed_checks": {
+        "five_native_initial_routes": false,
+        "all_five_physically_moved": false
+      },
+      "sha256": "9158d8911e1b849bd1eec7ab31a913dcc9206829e1d2b6a44a8159565eec7e85",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_SPAWN_COLLISION_DIAGNOSTIC_LONG.json"
+    },
+    {
+      "file": "SEEDED_SPAWN_STARTUP_TIMING_FAILURE.json",
+      "status": "FAILED",
+      "error": null,
+      "failed_checks": {
+        "five_native_initial_routes": false
+      },
+      "sha256": "f280405c10cbe368d561d37910424e7ae6dbb6d4933d7db3c875e0cb9eafbcbf",
+      "preserved_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SeedPlacementDiagnostics\\SEEDED_SPAWN_STARTUP_TIMING_FAILURE.json"
+    }
+  ]
+}

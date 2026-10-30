@@ -16,11 +16,16 @@ class VDTPHASE2PROJECT_API UNavalMatchSettings : public UGameInstanceSubsystem
 public:
     UPROPERTY(BlueprintReadOnly) int32 BlueCount=3;
     UPROPERTY(BlueprintReadOnly) int32 RedCount=3;
-    UPROPERTY(BlueprintReadOnly) TArray<EShipHullClass> HullClasses={EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Small};
+    UPROPERTY(BlueprintReadOnly) TArray<EShipHullClass> HullClasses={EShipHullClass::Medium,EShipHullClass::Small,EShipHullClass::Medium,EShipHullClass::Small,EShipHullClass::Small,EShipHullClass::Medium};
     UPROPERTY(BlueprintReadOnly) EShipAISkill Difficulty=EShipAISkill::Normal;
     UPROPERTY(BlueprintReadOnly) ENavalBattleMode Mode=ENavalBattleMode::RealTime;
     /** 0 = Blue, 1 = Red. The player always occupies the first slot of this team. */
     UPROPERTY(BlueprintReadOnly) int32 PlayerTeam=0;
     UPROPERTY(BlueprintReadOnly) bool bExplicitSelection=false;
+    UPROPERTY(BlueprintReadWrite,Category="Battlefield",meta=(ClampMin="0")) int32 BattlefieldSeed=0;
+    UPROPERTY(BlueprintReadWrite,Category="Battlefield") bool bUseSectorBattlefield=true;
+    UPROPERTY(BlueprintReadWrite,Category="Battlefield") bool bEnableSectorTactics=true;
+    UPROPERTY(BlueprintReadWrite,Category="Battlefield") bool bEnableRedAssault=true;
+    UFUNCTION(BlueprintCallable,Category="Battlefield") bool SetBattlefieldSeed(int32 Seed);
     UFUNCTION(BlueprintCallable) bool Configure(int32 Blue,int32 Red,const TArray<EShipHullClass>& Classes,EShipAISkill Skill,ENavalBattleMode BattleMode,int32 InPlayerTeam=0);
 };

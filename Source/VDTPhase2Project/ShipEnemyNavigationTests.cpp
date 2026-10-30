@@ -1,5 +1,6 @@
 #include "SeaNavigationMap.h"
 #include "ShipEnemyNavigationComponent.h"
+#include "ShipCombatComponent.h"
 #if WITH_DEV_AUTOMATION_TESTS
 #include "Misc/AutomationTest.h"
 #include "Misc/Paths.h"
@@ -174,6 +175,19 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     APawn* Ship=W->SpawnActor<APawn>(EnemyClass,FVector(6370,194550,680),FRotator(0,-100,0),Spawn);
     auto* C=Ship?Ship->FindComponentByClass<UShipEnemyNavigationComponent>():nullptr;
     if(!TestNotNull(TEXT("Spawned existing Blueprint has component"),C))return false;
+    // This unticked fixture exercises the retained legacy perception/damage
+    // fallback. Real shared-combat ownership is covered by the PIE suite.
+    // Saved Blueprint assets and the main world never participate in this edit.
+    if(auto* Combat=Ship->FindComponentByClass<UShipCombatComponent>())Combat->DestroyComponent();
+    if(auto* Weapon=Ship->FindComponentByClass<UShipWeaponComponent>())Weapon->DestroyComponent();
+    // Blueprint globe anchors can retain an authored ECEF transform. Explicitly
+    // place this isolated fixture through its anchor rather than assuming the
+    // spawn transform wins over serialized geospatial state during registration.
+    auto* FixtureAnchor=Ship->FindComponentByClass<UCesiumGlobeAnchorComponent>();
+    if(!TestNotNull(TEXT("Fixture has geographic anchor"),FixtureAnchor))return false;
+    FixtureAnchor->SetGeoreference(Geo);
+    FixtureAnchor->MoveToLongitudeLatitudeHeight(Geo->TransformUnrealPositionToLongitudeLatitudeHeight(FVector(6370,194550,680)));
+    FixtureAnchor->Sync();
     auto* Sensor=FindFProperty<FArrayProperty>(EnemyClass,TEXT("ScanDistances"));
     if(!TestNotNull(TEXT("Existing Blueprint sensor field"),Sensor))return false;
     FScriptArrayHelper Samples(Sensor,Sensor->ContainerPtrToValuePtr<void>(Ship));Samples.Resize(12);
@@ -186,6 +200,8 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     auto* TargetPoint=W->SpawnActor<ATargetPoint>();
     C->bNewNavigationEnabled=true;
     if(!TestTrue(TEXT("Destination adapter initializes existing ship components"),C->InitializeNavigation()))return false;
+    AddInfo(FString::Printf(TEXT("Fixture start chart=%s world=%s geo=%s"),*C->PositionMetric().ToString(),*Ship->GetActorLocation().ToString(),*GetNameSafe(C->Georeference)));
+    if(!TestTrue(TEXT("Fixture physical start is accepted chart water"),C->Map->IsWater(C->PositionMetric())))return false;
     // Regression for the real PIE false positive: wide horizontal clearance must
     // not turn into a 40 m draft and collide with water-floor terrain at 24 m depth.
     AActor* Floor=W->SpawnActor<AActor>();
@@ -251,9 +267,9 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     const auto ActorRoute=C->CurrentRoute;const FVector ActorLLH=C->CurrentFinalDestination;
     const FVector OldOrigin=Geo->GetOriginLongitudeLatitudeHeight();
     Geo->SetOriginLongitudeLatitudeHeight(FVector(107.31,21.0,0));C->UpdateNavigation(.1f);C->UpdateNavigation(.1f);
-    TestTrue(TEXT("Anchored target and exact endpoint remain aligned after georeference shift"),C->CurrentRoute==ActorRoute && FVector::Distance(C->MetricToWorld(FVector2D(C->CurrentRoute.Last())),TargetPoint->GetActorLocation())<.01 && C->CurrentFinalDestination.Equals(ActorLLH,1.e-8));
+    TestTrue(TEXT("Anchored target and exact endpoint remain aligned after georeference shift"),!C->CurrentRoute.IsEmpty() && C->CurrentRoute==ActorRoute && FVector::Distance(C->MetricToWorld(FVector2D(C->CurrentRoute.Last())),TargetPoint->GetActorLocation())<.01 && C->CurrentFinalDestination.Equals(ActorLLH,1.e-8));
     W->SetNewWorldOrigin(FIntVector(20000,-30000,0));C->UpdateNavigation(.1f);C->UpdateNavigation(.1f);
-    TestTrue(TEXT("Anchored target route remains aligned after world-origin rebasing"),C->CurrentRoute==ActorRoute && FVector::Distance(C->MetricToWorld(FVector2D(C->CurrentRoute.Last())),TargetPoint->GetActorLocation())<.01);
+    TestTrue(TEXT("Anchored target route remains aligned after world-origin rebasing"),!C->CurrentRoute.IsEmpty() && C->CurrentRoute==ActorRoute && FVector::Distance(C->MetricToWorld(FVector2D(C->CurrentRoute.Last())),TargetPoint->GetActorLocation())<.01);
     W->SetNewWorldOrigin(FIntVector::ZeroValue);Geo->SetOriginLongitudeLatitudeHeight(OldOrigin);C->UpdateNavigation(.1f);C->UpdateNavigation(.1f);
     TargetPoint->Destroy();C->UpdateNavigation(.1f);
     TestTrue(TEXT("Destroyed actor safely clears route and sends neutral commands"),C->NavigationState==EShipNavigationState::Failed && C->CurrentRoute.IsEmpty() && C->DesiredThrottle==0 && C->DesiredRudder==0);
@@ -273,6 +289,35 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     TestTrue(TEXT("Native planner actually ran from arbitrary existing ship position"),C->bPathfindingSucceeded);
     if(!C->bPathfindingSucceeded){AddError(C->LastNavigationFailureReason);return false;}
     TestTrue(TEXT("Live component holds real detour waypoints"),C->CurrentRoute.Num()>2);
+    // A developer can move a previously failed ship without moving its goal.
+    // The old route/recovery state must not survive that physical-start change.
+    const FVector BeforeRepositionWorld=Ship->GetActorLocation();
+    auto* RepositionAnchor=Ship->FindComponentByClass<UCesiumGlobeAnchorComponent>();
+    const FVector2D BeforeReposition=C->PositionMetric();
+    FVector2D ValidReposition=BeforeReposition;
+    for(int32 Direction=0;Direction<8;++Direction)
+    {
+        const double Angle=Direction*UE_PI/4.;
+        const FVector2D Candidate=BeforeReposition+FVector2D(FMath::Cos(Angle),FMath::Sin(Angle))*100.;
+        if(C->Map->IsWater(Candidate) && C->Map->FindPath(Candidate,C->GoalMetric,75000,1000).bSuccess)
+        {ValidReposition=Candidate;break;}
+    }
+    TestTrue(TEXT("Reposition fixture found independent valid water"),!ValidReposition.Equals(BeforeReposition,1));
+    C->UpdateNavigation(.1f);
+    const int32 BeforeResetCount=C->RepositionReinitializations;
+    C->Fail(TEXT("Fixture previous recovery exhausted"));C->RecoveryAttemptCount=C->MaxRecoveryAttempts;
+    Ship->SetActorLocation(C->MetricToWorld(ValidReposition));RepositionAnchor->Sync();C->UpdateNavigation(.1f);
+    TestEqual(TEXT("Physical development jump invalidates navigation once"),C->RepositionReinitializations,BeforeResetCount+1);
+    TestTrue(TEXT("Valid reposition escapes previous failure and starts real A* at new position"),
+        C->bPathfindingSucceeded && !C->CurrentRoute.IsEmpty() && FVector2D(C->CurrentRoute[0]).Equals(C->PositionMetric(),.1));
+    TestTrue(TEXT("Reposition retains the actual assigned destination"),C->NavigationMode==EShipNavigationMode::Patrol);
+    const double AfterRepositionPlanTime=C->LastPlanTime;
+    C->UpdateNavigation(.1f);
+    TestTrue(TEXT("No every-tick replan after reposition"),C->RepositionReinitializations==BeforeResetCount+1 && C->LastPlanTime==AfterRepositionPlanTime);
+    Ship->SetActorLocation(C->GeographicToWorld(FVector(107.29214425167515,20.983569683709124,0)));RepositionAnchor->Sync();C->UpdateNavigation(.1f);
+    TestTrue(TEXT("Development placement on land is rejected with neutral commands"),C->NavigationState==EShipNavigationState::Failed && C->DesiredThrottle==0 && C->DesiredRudder==0);
+    Ship->SetActorLocation(BeforeRepositionWorld);RepositionAnchor->Sync();C->UpdateNavigation(.1f);
+    TestTrue(TEXT("Returning a grounded development placement to valid water recovers"),C->bPathfindingSucceeded && C->NavigationState!=EShipNavigationState::Failed);
     // RemovedFromWorld may be followed by reactivation of the same component.
     // EndPlay previously reset Map but left bInitialized true, crashing the next Tick.
     // Only this native component begins play; the world/ship Blueprint stay unticked.
@@ -339,12 +384,19 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     }
     TestEqual(TEXT("Four simulated arrivals alternate A/B patrol legs"),C->PatrolLegsCompleted,Legs+4);
     APawn* Second=W->SpawnActor<APawn>(EnemyClass,FVector(506370,694550,680),FRotator::ZeroRotator,Spawn);
+    auto PlaceFixture=[Geo](APawn* Pawn,const FVector& World)
+    {
+        auto* Anchor=Pawn->FindComponentByClass<UCesiumGlobeAnchorComponent>();
+        Anchor->SetGeoreference(Geo);Anchor->MoveToLongitudeLatitudeHeight(Geo->TransformUnrealPositionToLongitudeLatitudeHeight(World));Anchor->Sync();
+    };
+    PlaceFixture(Second,FVector(506370,694550,680));
     auto* C2=Second->FindComponentByClass<UShipEnemyNavigationComponent>();C2->bNewNavigationEnabled=true;C2->InitializeNavigation();
     TestTrue(TEXT("Independent enemies share same immutable chart"),C->Map.Get()==C2->Map.Get());
     TestTrue(TEXT("Independent enemy command state"),C!=C2 && C2->RecoveryAttemptCount==0);
     APawn* Player=W->SpawnActor<APawn>(PlayerClass,Ship->GetActorLocation()+FVector(20000,0,0),FRotator::ZeroRotator,Spawn);
     auto* PC=W->SpawnActor<APlayerController>();
     if(!TestNotNull(TEXT("Player ship spawned"),Player) || !TestNotNull(TEXT("Player controller spawned"),PC))return false;
+    PlaceFixture(Player,Ship->GetActorLocation()+FVector(20000,0,0));
     PC->Possess(Player);
     TestTrue(TEXT("Controller genuinely possesses player ship"),PC->GetPawn()==Player && Player->GetController()==PC);
     TestNotNull(TEXT("Possessed player has initialized non-bot PlayerState"),Player->GetPlayerState());
@@ -487,6 +539,9 @@ bool FSeaLiveComponentCases::RunTest(const FString&)
     PawnShape->SetBoxExtent(FVector(2000,2000,3000));PawnShape->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     PawnShape->SetCollisionResponseToAllChannels(ECR_Block);PawnShape->RegisterComponent();
     PawnObstacle->SetActorLocation(C->MetricToWorld(FVector2D(110,-2350.7)));
+    // The zero-time fixture cannot qualify an unpossessed hull as a stopped
+    // traffic ship (>20 s). Exercise the immediate player-obstacle policy.
+    PC->Possess(PawnObstacle);
     TestTrue(TEXT("Dynamic-obstacle fixture goal is confirmed accepted water"),C->Map->IsWater(FVector2D(600,-2350.7)));
     C->SetGeographicDestination(C->WorldToGeographic(C->MetricToWorld(FVector2D(600,-2350.7))));
     // Query-only registration is synchronous in NullRHI too. Do not depend on

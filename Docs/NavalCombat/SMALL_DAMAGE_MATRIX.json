@@ -1,0 +1,1293 @@
+{
+  "status": "PASSED",
+  "phase": "wreck",
+  "checks": [
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "apply Small victim",
+      "passed": true
+    },
+    {
+      "name": "victim initial HP Small",
+      "passed": true
+    },
+    {
+      "name": "bow original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "in-flight Small round keeps damage after profile change",
+      "passed": true
+    },
+    {
+      "name": "Small vs Small bow measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "midship original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Small midship measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "stern original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Small stern measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "friendly original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Small friendly measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "apply Medium victim",
+      "passed": true
+    },
+    {
+      "name": "victim initial HP Medium",
+      "passed": true
+    },
+    {
+      "name": "bow original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Medium bow measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "midship original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Medium midship measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "stern original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Medium stern measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "friendly original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Medium friendly measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Medium attacker",
+      "passed": true
+    },
+    {
+      "name": "apply Small victim",
+      "passed": true
+    },
+    {
+      "name": "victim initial HP Small",
+      "passed": true
+    },
+    {
+      "name": "bow original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Medium vs Small bow measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Medium attacker",
+      "passed": true
+    },
+    {
+      "name": "midship original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Medium vs Small midship measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Medium attacker",
+      "passed": true
+    },
+    {
+      "name": "stern original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Medium vs Small stern measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Medium attacker",
+      "passed": true
+    },
+    {
+      "name": "friendly original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Medium vs Small friendly measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "apply Large victim",
+      "passed": true
+    },
+    {
+      "name": "victim initial HP Large",
+      "passed": true
+    },
+    {
+      "name": "bow original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Large bow measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "midship original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Large midship measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "stern original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Large stern measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "friendly original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "Small vs Large friendly measured delta",
+      "passed": true
+    },
+    {
+      "name": "single hit / friendly guard",
+      "passed": true
+    },
+    {
+      "name": "prepare lethal eight HP through hostile damage",
+      "passed": true
+    },
+    {
+      "name": "Small dies exactly once",
+      "passed": true
+    },
+    {
+      "name": "dead rejects duplicate kill",
+      "passed": true
+    },
+    {
+      "name": "Small reached full sinking distance",
+      "passed": true
+    },
+    {
+      "name": "Small staged wreck cleaned up",
+      "passed": true
+    }
+  ],
+  "rows": [
+    {
+      "attacker": "Small",
+      "victim": "Small",
+      "case": "bow",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 33.0,
+      "region": "<ShipHitRegion.BOW: 0>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Small",
+      "case": "midship",
+      "damage": 6.0,
+      "expected": 6,
+      "hp": 27.0,
+      "region": "<ShipHitRegion.MIDSHIP: 1>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Small",
+      "case": "stern",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 22.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Small",
+      "case": "friendly",
+      "damage": 0.0,
+      "expected": 0,
+      "hp": 22.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Medium",
+      "case": "bow",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 95.0,
+      "region": "<ShipHitRegion.BOW: 0>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Medium",
+      "case": "midship",
+      "damage": 6.0,
+      "expected": 6,
+      "hp": 89.0,
+      "region": "<ShipHitRegion.MIDSHIP: 1>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Medium",
+      "case": "stern",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 84.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Medium",
+      "case": "friendly",
+      "damage": 0.0,
+      "expected": 0,
+      "hp": 84.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Medium",
+      "victim": "Small",
+      "case": "bow",
+      "damage": 8.0,
+      "expected": 8,
+      "hp": 30.0,
+      "region": "<ShipHitRegion.BOW: 0>"
+    },
+    {
+      "attacker": "Medium",
+      "victim": "Small",
+      "case": "midship",
+      "damage": 10.0,
+      "expected": 10,
+      "hp": 20.0,
+      "region": "<ShipHitRegion.MIDSHIP: 1>"
+    },
+    {
+      "attacker": "Medium",
+      "victim": "Small",
+      "case": "stern",
+      "damage": 8.0,
+      "expected": 8,
+      "hp": 12.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Medium",
+      "victim": "Small",
+      "case": "friendly",
+      "damage": 0.0,
+      "expected": 0,
+      "hp": 12.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Large",
+      "case": "bow",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 95.0,
+      "region": "<ShipHitRegion.BOW: 0>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Large",
+      "case": "midship",
+      "damage": 6.0,
+      "expected": 6,
+      "hp": 89.0,
+      "region": "<ShipHitRegion.MIDSHIP: 1>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Large",
+      "case": "stern",
+      "damage": 5.0,
+      "expected": 5,
+      "hp": 84.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    },
+    {
+      "attacker": "Small",
+      "victim": "Large",
+      "case": "friendly",
+      "damage": 0.0,
+      "expected": 0,
+      "hp": 84.0,
+      "region": "<ShipHitRegion.STERN: 2>"
+    }
+  ],
+  "error": null,
+  "pair": 4,
+  "case": 0,
+  "at": 90.28067821264267,
+  "before": 84.0,
+  "events": 3,
+  "wreck_last": 89.13304660841823,
+  "wreck_rows": [
+    {
+      "t": 66.49845761060715,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 66.72135810926557,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 66.94259931147099,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 67.14877710863948,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 67.34922121092677,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 67.56148491054773,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 67.76399940997362,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 67.98205991089344,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 68.1896958090365,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 68.40887191146612,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 68.61671020835638,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 68.83701961115003,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 69.04559050872922,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 69.26664720848203,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 69.46820091083646,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 69.67323400825262,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 69.87632380798459,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 70.09597270935774,
+      "stage": "<ShipDestructionStage.BURNING: 2>",
+      "sunk_m": 0.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 70.31417851150036,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 0.00013123804819770157,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 70.53456711024046,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 0.059314191341400146,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 70.75016681104898,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 0.2142467200756073,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 70.95234350860119,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 0.4749375283718109,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 71.16468130797148,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 0.8345604538917542,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 71.38380290940404,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 1.546875,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 71.60597851127386,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 2.1291160583496094,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 71.82368290796876,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 2.792611598968506,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 72.04522670805454,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 3.5318472385406494,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 72.26447220891714,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 4.405116081237793,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 72.47707751020789,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 5.735591888427734,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 72.68951570987701,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 6.806018352508545,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 72.8990647085011,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 7.8112945556640625,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 73.1168740093708,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 9.05534839630127,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 73.33554160967469,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 10.220769882202148,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 73.53985280916095,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 11.483750343322754,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 73.74446341022849,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 12.676240921020508,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 73.94839131087065,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 14.029955863952637,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 74.1496221087873,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 15.63399887084961,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 74.35303670912981,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 16.89165496826172,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 74.57185310870409,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 18.349416732788086,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 74.78661261126399,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 20.611621856689453,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 75.00252290815115,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 22.09781265258789,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 75.21519351005554,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 23.765403747558594,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 75.41688790917397,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 25.345367431640625,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 75.63589071109891,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 26.911203384399414,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 75.85576220974326,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 28.525604248046875,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 76.06250771135092,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 30.19236946105957,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 76.27961511164904,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 32.491363525390625,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 76.50094100832939,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 34.109615325927734,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 76.72187130898237,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 35.715755462646484,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 76.9411515109241,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 37.32841110229492,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 77.14209870994091,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 39.09383010864258,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 77.36076571047306,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 40.519683837890625,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 77.58194920793176,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 42.90705871582031,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 77.80040600895882,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 44.41489028930664,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 78.01368501037359,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 46.03160095214844,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 78.21502830833197,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 47.49673843383789,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 78.42198611050844,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 48.98808288574219,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 78.62358440831304,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 50.26879119873047,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 78.82692360877991,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 51.643070220947266,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 79.04379861056805,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 52.94864273071289,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 79.26486821100116,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 54.20586013793945,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 79.48148401081562,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 56.03949737548828,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 79.70021671056747,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 57.15738296508789,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 79.91876970976591,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 58.320743560791016,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 80.1229703091085,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 59.23460388183594,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 80.32616040855646,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 60.18815231323242,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 80.54650320857763,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 61.04114532470703,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 80.75456400960684,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 61.84830856323242,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 80.97485680878162,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 62.57530212402344,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 81.17785830795765,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 63.45395278930664,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 81.38473311066628,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 63.96709060668945,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 81.606823310256,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 64.36650848388672,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 81.81164611130953,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 64.68223571777344,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 82.03465611115098,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 64.88627624511719,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 82.24751301109791,
+      "stage": "<ShipDestructionStage.SINKING: 3>",
+      "sunk_m": 64.98552703857422,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 82.44841160997748,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 82.65325840935111,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 82.8549775108695,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 83.06060241162777,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 83.26085820794106,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 83.47105440869927,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 83.67538321018219,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 83.88246221095324,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 84.08782140910625,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 84.3056783080101,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 84.51848240941763,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 84.7234357111156,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 84.92806981131434,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 85.13615391030908,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 85.34950090944767,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 85.55106830969453,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 85.76247381046414,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 85.97904390841722,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 86.18281780928373,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 86.39171141013503,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 86.5994042083621,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 86.79989900812507,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 87.006467808038,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 87.20724920928478,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 87.42759530991316,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 87.63272691145539,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 87.83515490964055,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 88.04282420873642,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 88.26397550851107,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 88.47838981077075,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 88.69585561007261,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 88.9196093082428,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    },
+    {
+      "t": 89.13304660841823,
+      "stage": "<ShipDestructionStage.SUBMERGED: 4>",
+      "sunk_m": 65.0,
+      "physics": false,
+      "deaths": 1
+    }
+  ]
+}

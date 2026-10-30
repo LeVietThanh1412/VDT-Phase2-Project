@@ -1,0 +1,119 @@
+{
+  "status": "REPRODUCED_RETURN_STALL",
+  "duration_seconds": 367.3674702346325,
+  "arrivals": [
+    {
+      "ship": "Friendly_AI_1",
+      "t": 59.00176312401891,
+      "leg": 1,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.7318605120766,
+      "allowed_m": 80.0,
+      "speed_mps": 0.043690608375912134
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 61.020297423005104,
+      "leg": 1,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.5531711383854,
+      "allowed_m": 80.0,
+      "speed_mps": 0.06579991470125338
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 75.19178742170334,
+      "leg": 1,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.23400246995936,
+      "allowed_m": 80.0,
+      "speed_mps": 0.14881922442181353
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 75.19178742170334,
+      "leg": 1,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.60910800292038,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1689574516787634
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 82.27109302207828,
+      "leg": 1,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.75743124682745,
+      "allowed_m": 80.0,
+      "speed_mps": 0.06536401800598807
+    }
+  ],
+  "endpoint_errors": 0,
+  "raw_sha256": "a0b3bf5518b34d57b3460088482719921fb497868f9895fcad62c24d22e5f014",
+  "raw_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\NavigationReturnLODReproFull.json",
+  "last_ships": [
+    {
+      "name": "BP_ShipEnemy2",
+      "legs": 1,
+      "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+      "speed_mps": 0.38183467483880895,
+      "failure": "",
+      "en_m": [
+        12546.543451340027,
+        -3461.596809970722
+      ],
+      "distance_to_target_m": 620.2864936433301
+    },
+    {
+      "name": "BP_ShipEnemy",
+      "legs": 1,
+      "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+      "speed_mps": 0.19819023613394898,
+      "failure": "",
+      "en_m": [
+        12045.812464564466,
+        -3462.996559637118
+      ],
+      "distance_to_target_m": 720.5700282958683
+    },
+    {
+      "name": "Friendly_AI_1",
+      "legs": 1,
+      "state": "<ShipNavigationState.FAILED: 10>",
+      "speed_mps": 0.010663851779345286,
+      "failure": "Local avoidance/replan budget exhausted",
+      "en_m": [
+        10814.594857980821,
+        -3342.149567898443
+      ],
+      "distance_to_target_m": 755.6867543945713
+    },
+    {
+      "name": "Friendly_AI_2",
+      "legs": 1,
+      "state": "<ShipNavigationState.FAILED: 10>",
+      "speed_mps": 0.09143114777646914,
+      "failure": "Bounded recovery attempts exhausted",
+      "en_m": [
+        11711.009886805641,
+        -3312.7031119555436
+      ],
+      "distance_to_target_m": 739.8124706395679
+    },
+    {
+      "name": "BP_ShipEnemy3",
+      "legs": 1,
+      "state": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+      "speed_mps": 0.45554109508716956,
+      "failure": "",
+      "en_m": [
+        13216.495559381634,
+        -3305.9591256332087
+      ],
+      "distance_to_target_m": 647.4597195753103
+    }
+  ],
+  "root_cause": "Generated Cesium terrain skirts are offset laterally; previous 0.05 m lon/lat coincidence test failed to identify them. Artificial vertical walls remain across accepted chart water after camera LOD changes.",
+  "fix": "Identify generated skirt vertices through Cesium public primitive metadata and match their local positions against cooked Chaos particles. Remove only zero-surface skirt portions within accepted chart water. Keep nonzero land/bathymetry and chart exclusion geometry.",
+  "runtime_retest": "PENDING"
+}

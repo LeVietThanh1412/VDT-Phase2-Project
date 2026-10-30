@@ -75,6 +75,8 @@ public:
     UPROPERTY(BlueprintReadOnly) int32 BlueAlive=0;
     UPROPERTY(BlueprintReadOnly) int32 RedAlive=0;
     UPROPERTY(BlueprintReadOnly) FString Outcome;
+    UPROPERTY(BlueprintReadOnly) FString ConfigurationError;
+    UPROPERTY(BlueprintReadOnly) FString Notification;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UShipWeaponComponent> PlayerShip;
 private:
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Registered;

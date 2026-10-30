@@ -1,0 +1,640 @@
+{
+  "status": "FAILED",
+  "phase": "incoming",
+  "checks": {},
+  "started": 11975.75,
+  "error": "Stopped diagnostic: second incoming fixture goal is outside its actual operational chart; saved combat minimum retreat distance is 450 m while prepared interception stand-off was 400 m; out-of-region retained target also needs policy filtering.",
+  "last": 264.13490707427263,
+  "at": 10.23448483273387,
+  "controllers": {
+    "BP_ShipEnemy2": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_0",
+    "BP_ShipEnemy": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_1",
+    "Friendly_AI_1": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_2",
+    "Friendly_AI_2": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_3",
+    "BP_ShipEnemy3": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_4",
+    "BP_Ship0": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CustomPlayerController_0"
+  },
+  "patrol_refs": {
+    "Friendly_AI_1": [
+      "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728534983",
+      "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821690C03_1728545984"
+    ],
+    "Friendly_AI_2": [
+      "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+      "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096046064"
+    ]
+  },
+  "sample_count": 498,
+  "first_sample": {
+    "t": 10.263682831078768,
+    "phase": "incoming",
+    "ships": [
+      {
+        "label": "Friendly_AI_1",
+        "en_m": [
+          14337.255457695765,
+          3462.373242023881
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions": 0,
+        "returns": 0,
+        "defense_distance_m": 385.9339892445452,
+        "tactic": "<ShipTacticalState.PATROL: 0>",
+        "retreats": 0,
+        "shots": 0,
+        "target": "BP_ShipEnemy2",
+        "navigation": {
+          "operational_chart": true,
+          "navigation_cell_size_m": 25,
+          "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+          "label": "Friendly_AI_1",
+          "controller": "AIController_2",
+          "team": 0,
+          "class": "EShipHullClass::Small",
+          "tactical_state": "EShipTacticalState::Patrol",
+          "navigation_state": "EShipNavigationState::FollowRoute",
+          "patrol_a": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "patrol_b": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "active_target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "legs": 0,
+          "waypoint_index": 1,
+          "waypoint_count": 6,
+          "path_success": true,
+          "failure": "",
+          "throttle": 0.016626249998807907,
+          "rudder": 0.02845144271850586,
+          "time_without_route_progress_s": 0.029197998344898224,
+          "recovery_attempts": 0,
+          "reposition_reinitializations": 1,
+          "explicit_stop": false,
+          "can_act": true,
+          "blueprint_propulsion_force": [
+            1178.8142069019477,
+            -8017.315365039427,
+            839.2959709793992
+          ],
+          "blueprint_rudder_force_local": [
+            0,
+            170.70865631103516,
+            0
+          ],
+          "goal_llh": [
+            107.42784721439551,
+            21.027206683648842,
+            9.655612950110557
+          ],
+          "chart_en_m": [
+            14337.255457695765,
+            3462.373242023881,
+            0
+          ],
+          "distance_to_goal_m": 772.0339636175602,
+          "chart_water": true,
+          "physics": true,
+          "speed_mps": 0.775010684816789,
+          "plans": 1,
+          "last_sweep_actor": "None"
+        }
+      },
+      {
+        "label": "Friendly_AI_2",
+        "en_m": [
+          14012.042848468316,
+          2762.5016722399396
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions": 0,
+        "returns": 0,
+        "defense_distance_m": 281.56746026109914,
+        "tactic": "<ShipTacticalState.PATROL: 0>",
+        "retreats": 0,
+        "shots": 0,
+        "target": null,
+        "navigation": {
+          "operational_chart": true,
+          "navigation_cell_size_m": 25,
+          "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+          "label": "Friendly_AI_2",
+          "controller": "AIController_3",
+          "team": 0,
+          "class": "EShipHullClass::Medium",
+          "tactical_state": "EShipTacticalState::Patrol",
+          "navigation_state": "EShipNavigationState::FollowRoute",
+          "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+          "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "legs": 0,
+          "waypoint_index": 1,
+          "waypoint_count": 3,
+          "path_success": true,
+          "failure": "",
+          "throttle": 0.016626249998807907,
+          "rudder": -0.005088710691779852,
+          "time_without_route_progress_s": 0.029197998344898224,
+          "recovery_attempts": 0,
+          "reposition_reinitializations": 1,
+          "explicit_stop": false,
+          "can_act": true,
+          "blueprint_propulsion_force": [
+            -2.2103521792534613,
+            11638.371908947647,
+            -8.1880744368773
+          ],
+          "blueprint_rudder_force_local": [
+            0,
+            -61.06452830135822,
+            0
+          ],
+          "goal_llh": [
+            107.4259139019073,
+            21.01636977291385,
+            8.030024762384114
+          ],
+          "chart_en_m": [
+            14012.042848468316,
+            2762.5016722399396,
+            0
+          ],
+          "distance_to_goal_m": 563.592943419965,
+          "chart_water": true,
+          "physics": true,
+          "speed_mps": 0.8245690683680915,
+          "plans": 1,
+          "last_sweep_actor": "None"
+        }
+      }
+    ],
+    "field": {
+      "seed": 20261028,
+      "ready": true,
+      "status": "SEED 20261028",
+      "error": "",
+      "attempts": 27,
+      "physical_layout_retries": 0,
+      "used_safe_fallback": false,
+      "physical_navigation_charts": {
+        "EShipHullClass::Medium": {
+          "clear_cells": 2133,
+          "connected_regions": 2
+        },
+        "EShipHullClass::Small": {
+          "clear_cells": 3890,
+          "connected_regions": 1
+        }
+      },
+      "ships": [
+        {
+          "ship": "BP_Ship0",
+          "team": 0,
+          "slot": 0,
+          "sector": "S17_09",
+          "spawn_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "target_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "heading": 0,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "Friendly_AI_1",
+          "team": 0,
+          "slot": 1,
+          "sector": "S12_10",
+          "spawn_en_m": [
+            14337.5,
+            3462.5
+          ],
+          "target_en_m": [
+            13662.5,
+            3837.5
+          ],
+          "heading": -81.46923065185547,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14000,
+            3650
+          ],
+          "mission": "Western island defensive patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "Friendly_AI_2",
+          "team": 0,
+          "slot": 2,
+          "sector": "S19_07",
+          "spawn_en_m": [
+            14012.5,
+            2762.5
+          ],
+          "target_en_m": [
+            13462.5,
+            2637.5
+          ],
+          "heading": 90,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            13737.5,
+            2700
+          ],
+          "mission": "Western island defensive patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy2",
+          "team": 1,
+          "slot": 0,
+          "sector": "S06_17",
+          "spawn_en_m": [
+            15012.5,
+            4062.5
+          ],
+          "target_en_m": [
+            14862.5,
+            3662.5
+          ],
+          "heading": 110.55604553222656,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14937.5,
+            3862.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy3",
+          "team": 1,
+          "slot": 1,
+          "sector": "S03_17",
+          "spawn_en_m": [
+            14962.5,
+            4437.5
+          ],
+          "target_en_m": [
+            14887.5,
+            3937.5
+          ],
+          "heading": 98.53076934814453,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14925,
+            4187.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy",
+          "team": 1,
+          "slot": 2,
+          "sector": "S01_18",
+          "spawn_en_m": [
+            15112.5,
+            4612.5
+          ],
+          "target_en_m": [
+            15012.5,
+            4162.5
+          ],
+          "heading": 102.52880859375,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            15062.5,
+            4387.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        }
+      ]
+    }
+  },
+  "last_sample": {
+    "t": 264.13490707427263,
+    "phase": "incoming",
+    "ships": [
+      {
+        "label": "Friendly_AI_1",
+        "en_m": [
+          14474.658497967392,
+          4068.5089399222043
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions": 0,
+        "returns": 0,
+        "defense_distance_m": 632.8115220881076,
+        "tactic": "<ShipTacticalState.ENGAGE: 1>",
+        "retreats": 1,
+        "shots": 27,
+        "target": "BP_ShipEnemy",
+        "navigation": {
+          "operational_chart": true,
+          "navigation_cell_size_m": 25,
+          "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+          "label": "Friendly_AI_1",
+          "controller": "AIController_2",
+          "team": 0,
+          "class": "EShipHullClass::Small",
+          "tactical_state": "EShipTacticalState::Engage",
+          "navigation_state": "EShipNavigationState::FollowRoute",
+          "patrol_a": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "patrol_b": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "active_target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "legs": 0,
+          "waypoint_index": 3,
+          "waypoint_count": 6,
+          "path_success": true,
+          "failure": "",
+          "throttle": 0.13972216844558716,
+          "rudder": -0.9312053918838501,
+          "time_without_route_progress_s": 0.3002886176109314,
+          "recovery_attempts": 0,
+          "reposition_reinitializations": 1,
+          "explicit_stop": false,
+          "can_act": true,
+          "blueprint_propulsion_force": [
+            -4115.174800012276,
+            -68262.95573491401,
+            3245.6932569820196
+          ],
+          "blueprint_rudder_force_local": [
+            0,
+            -5587.232351303101,
+            0
+          ],
+          "goal_llh": [
+            107.42784721439551,
+            21.027206683648842,
+            9.655612950110557
+          ],
+          "chart_en_m": [
+            14474.658497967392,
+            4068.5089399222043,
+            0
+          ],
+          "distance_to_goal_m": 844.3845617608395,
+          "chart_water": true,
+          "physics": true,
+          "speed_mps": 14.865371464529442,
+          "plans": 9,
+          "last_sweep_actor": "None"
+        }
+      },
+      {
+        "label": "Friendly_AI_2",
+        "en_m": [
+          13994.574694456021,
+          2667.6580029343163
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions": 0,
+        "returns": 0,
+        "defense_distance_m": 259.1011449296461,
+        "tactic": "<ShipTacticalState.PATROL: 0>",
+        "retreats": 0,
+        "shots": 0,
+        "target": null,
+        "navigation": {
+          "operational_chart": true,
+          "navigation_cell_size_m": 25,
+          "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+          "label": "Friendly_AI_2",
+          "controller": "AIController_3",
+          "team": 0,
+          "class": "EShipHullClass::Medium",
+          "tactical_state": "EShipTacticalState::Patrol",
+          "navigation_state": "EShipNavigationState::FollowRoute",
+          "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+          "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "legs": 2,
+          "waypoint_index": 1,
+          "waypoint_count": 2,
+          "path_success": true,
+          "failure": "",
+          "throttle": 0,
+          "rudder": 0.6000000238418579,
+          "time_without_route_progress_s": 5.4228434562683105,
+          "recovery_attempts": 0,
+          "reposition_reinitializations": 1,
+          "explicit_stop": false,
+          "can_act": true,
+          "blueprint_propulsion_force": [
+            0,
+            0,
+            0
+          ],
+          "blueprint_rudder_force_local": [
+            0,
+            7200.000286102295,
+            0
+          ],
+          "goal_llh": [
+            107.4259139019073,
+            21.01636977291385,
+            8.030024762384114
+          ],
+          "chart_en_m": [
+            13994.574694456021,
+            2667.6580029343163,
+            0
+          ],
+          "distance_to_goal_m": 532.9425939711011,
+          "chart_water": true,
+          "physics": true,
+          "speed_mps": 1.4287470798430015,
+          "plans": 3,
+          "last_sweep_actor": "None"
+        }
+      }
+    ],
+    "field": {
+      "seed": 20261028,
+      "ready": true,
+      "status": "SEED 20261028",
+      "error": "",
+      "attempts": 27,
+      "physical_layout_retries": 0,
+      "used_safe_fallback": false,
+      "physical_navigation_charts": {
+        "EShipHullClass::Medium": {
+          "clear_cells": 2133,
+          "connected_regions": 2
+        },
+        "EShipHullClass::Small": {
+          "clear_cells": 3890,
+          "connected_regions": 1
+        }
+      },
+      "ships": [
+        {
+          "ship": "BP_Ship0",
+          "team": 0,
+          "slot": 0,
+          "sector": "S17_09",
+          "spawn_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "target_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "heading": 0,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14237.5,
+            2962.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "Friendly_AI_1",
+          "team": 0,
+          "slot": 1,
+          "sector": "S12_10",
+          "spawn_en_m": [
+            14337.5,
+            3462.5
+          ],
+          "target_en_m": [
+            13662.5,
+            3837.5
+          ],
+          "heading": -81.46923065185547,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14000,
+            3650
+          ],
+          "mission": "Western island defensive patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "Friendly_AI_2",
+          "team": 0,
+          "slot": 2,
+          "sector": "S19_07",
+          "spawn_en_m": [
+            14012.5,
+            2762.5
+          ],
+          "target_en_m": [
+            13462.5,
+            2637.5
+          ],
+          "heading": 90,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            13737.5,
+            2700
+          ],
+          "mission": "Western island defensive patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy2",
+          "team": 1,
+          "slot": 0,
+          "sector": "S06_17",
+          "spawn_en_m": [
+            15012.5,
+            4062.5
+          ],
+          "target_en_m": [
+            14862.5,
+            3662.5
+          ],
+          "heading": 110.55604553222656,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14937.5,
+            3862.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy3",
+          "team": 1,
+          "slot": 1,
+          "sector": "S03_17",
+          "spawn_en_m": [
+            14962.5,
+            4437.5
+          ],
+          "target_en_m": [
+            14887.5,
+            3937.5
+          ],
+          "heading": 98.53076934814453,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            14925,
+            4187.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        },
+        {
+          "ship": "BP_ShipEnemy",
+          "team": 1,
+          "slot": 2,
+          "sector": "S01_18",
+          "spawn_en_m": [
+            15112.5,
+            4612.5
+          ],
+          "target_en_m": [
+            15012.5,
+            4162.5
+          ],
+          "heading": 102.52880859375,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "defense_anchor_en_m": [
+            15062.5,
+            4387.5
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0
+        }
+      ]
+    }
+  },
+  "raw_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\BLUE_DEFENSE_FIRST_DIAGNOSTIC_RAW.json",
+  "raw_sha256": "5c3a7fa44a4e2418583af7e7d268dc194ec56d53a7e9679d384e87db5b781493"
+}

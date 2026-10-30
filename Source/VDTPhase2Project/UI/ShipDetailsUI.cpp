@@ -2,6 +2,8 @@
 
 #include "../CustomPlayerController.h"
 #include "../ShipCombatComponent.h"
+#include "../NavalBattleUI.h"
+#include "../NavalBattlefieldSubsystem.h"
 #include "Brushes/SlateRoundedBoxBrush.h"
 #include "CesiumGeoreference.h"
 #include "EngineUtils.h"
@@ -229,6 +231,12 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                             .Text(FText::FromString(TEXT("--")))
                         ]
                     ]
+                    + SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)
+                    [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(AccentColor) ]
+                    + SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
+                    [ SAssignNew(MissionText,STextBlock).Font(ValueFont).ColorAndOpacity(LabelColor) ]
+                    + SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
+                    [ SAssignNew(BattleStatusText,STextBlock).Font(ValueFont).ColorAndOpacity(ValueColor) ]
                 ]
             ]
         ];
@@ -263,10 +271,11 @@ void UShipDetailsUI::UpdateDetails()
         return;
     }
 
-    APawn* Ship = ResolveSelectedShip();
+    APawn* Ship = ResolveSelectedShip();DisplayedShip=Ship;
     if (!IsValid(Ship))
     {
         ShipNameText->SetText(FText::FromString(TEXT("--")));
+        AmmoText=IdentityText=TEXT("--");MagazineText->SetText(FText::FromString(AmmoText));MissionText->SetText(FText::FromString(IdentityText));
         LongitudeText->SetText(FText::FromString(TEXT("--")));
         LatitudeText->SetText(FText::FromString(TEXT("--")));
         SpeedText->SetText(FText::FromString(TEXT("--")));
@@ -275,6 +284,32 @@ void UShipDetailsUI::UpdateDetails()
         return;
     }
 
+    if(const auto* Weapon=Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        const int32 Seconds=FMath::CeilToInt(Weapon->ReloadRemaining());
+        AmmoText=Weapon->bIsDestroyed?TEXT("WEAPON OFFLINE"):Weapon->bReloading?
+            FString::Printf(TEXT("AMMO: %d/%d  |  RELOADING: %02d:%02d"),Weapon->RoundsRemaining,Weapon->MagazineCapacity,Seconds/60,Seconds%60):
+            FString::Printf(TEXT("AMMO: %d/%d"),Weapon->RoundsRemaining,Weapon->MagazineCapacity);
+        MagazineText->SetText(FText::FromString(AmmoText));
+        IdentityText=Weapon->Team()==0?TEXT("BLUE"):Weapon->Team()==1?TEXT("RED"):TEXT("NEUTRAL");
+        for(const auto& Tag:Ship->Tags)
+        {
+            const FString Value=Tag.ToString();
+            if(Value.StartsWith(TEXT("AI.Role.")))IdentityText+=TEXT(" | ")+Value.Mid(8);
+            if(Value.StartsWith(TEXT("AI.State.")))IdentityText+=TEXT(" | ")+Value.Mid(9);
+        }
+        MissionText->SetText(FText::FromString(IdentityText));
+    }
+    if(const auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())
+    {
+        BattleText=FString::Printf(TEXT("BLUE %d  |  RED %d"),Battle->BlueAlive,Battle->RedAlive);
+        if(!Battle->Outcome.IsEmpty())BattleText+=TEXT(" | ")+Battle->Outcome;
+        else if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->IsEnabled() && !Field->bReady)
+            BattleText+=Field->InitializationError.IsEmpty()?TEXT(" | PREPARING BATTLEFIELD"):TEXT(" | SETUP FAILED - press P");
+        else if(Battle->BattleMode==ENavalBattleMode::TurnBased)
+            BattleText+=FString::Printf(TEXT(" | %s %.0fs"),*Battle->ActiveTurnLabel,Battle->TurnSecondsRemaining());
+        BattleStatusText->SetText(FText::FromString(BattleText));
+    }
     // Show the same designer-authored identity as the minimap instead of the
     // long engine object name (for example, "BP_ShipEnemy_C_UAID_...").
     FString DisplayName;

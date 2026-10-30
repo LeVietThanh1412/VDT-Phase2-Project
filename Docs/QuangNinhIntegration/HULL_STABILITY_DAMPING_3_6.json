@@ -1,0 +1,270 @@
+{
+  "status": "FAILED",
+  "phase": "measure",
+  "ships": {
+    "BP_ShipEnemy2": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "ai": true,
+      "initial": [
+        133616.7353420371,
+        -943427.4402383602,
+        504.44756384329116
+      ],
+      "initial_yaw": 132.67836792831787,
+      "samples": 1048,
+      "water_samples": 1045,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.3308916985988617,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "90.0",
+        "linear_damping": "0.5",
+        "angular_damping": "0.6499999761581421",
+        "vertical_damping_multiplier": "0.800000011920929",
+        "displacement_multiplier": "0.6000000238418579"
+      },
+      "max_travel_m": 128.85122859683872,
+      "max_yaw_change_deg": 179.86800702105313,
+      "max_speed_mps": 18.646233086957285,
+      "max_abs_vz_mps": 3.572561950683594,
+      "max_angular_speed_dps": 58.935086624062954,
+      "patrol_arrivals": 2,
+      "contact_fraction": 0.9971374045801527,
+      "max_roll_deg": 15.860663739792942,
+      "max_pitch_deg": 5.488504198050064,
+      "p95_roll_deg": 10.898232672461452,
+      "p95_pitch_deg": 4.176388065271373,
+      "p99_vz_mps": 2.8106634521484377,
+      "heave_range_m": 3.122090906047653,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": true,
+        "responsive": true
+      }
+    },
+    "BP_ShipEnemy": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "ai": true,
+      "initial": [
+        176528.9146767582,
+        -984244.1926968946,
+        426.50375177597795
+      ],
+      "initial_yaw": 139.50326506357047,
+      "samples": 1048,
+      "water_samples": 1046,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.24921779707074165,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "150.0",
+        "linear_damping": "0.5",
+        "angular_damping": "0.5",
+        "vertical_damping_multiplier": "1.0",
+        "displacement_multiplier": "1.0"
+      },
+      "max_travel_m": 190.85320168274902,
+      "max_yaw_change_deg": 126.49518876329694,
+      "max_speed_mps": 18.778638772605117,
+      "max_abs_vz_mps": 3.224542236328125,
+      "max_angular_speed_dps": 31.363914952646237,
+      "patrol_arrivals": 1,
+      "contact_fraction": 0.9980916030534351,
+      "max_roll_deg": 16.55624362697601,
+      "max_pitch_deg": 3.5922108485459625,
+      "p95_roll_deg": 9.153198509978337,
+      "p95_pitch_deg": 2.251598038286717,
+      "p99_vz_mps": 2.493396911621094,
+      "heave_range_m": 2.9660431279635002,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": true,
+        "responsive": true
+      }
+    },
+    "Friendly_AI_1": {
+      "hull_class": "<ShipHullClass.LARGE: 1>",
+      "ai": true,
+      "initial": [
+        48592.33248798543,
+        -799820.8670817966,
+        480.2514315424067
+      ],
+      "initial_yaw": 164.51648677856682,
+      "samples": 1048,
+      "water_samples": 1035,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.45929599925875664,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "240.0",
+        "linear_damping": "0.550000011920929",
+        "angular_damping": "0.6499999761581421",
+        "vertical_damping_multiplier": "3.5999999046325684",
+        "displacement_multiplier": "1.600000023841858"
+      },
+      "max_travel_m": 309.6168358672964,
+      "max_yaw_change_deg": 16.81688796760409,
+      "max_speed_mps": 17.923700735301296,
+      "max_abs_vz_mps": 5.222037353515625,
+      "max_angular_speed_dps": 16.173515892618468,
+      "patrol_arrivals": 1,
+      "contact_fraction": 0.9875954198473282,
+      "max_roll_deg": 17.700627347776333,
+      "max_pitch_deg": 3.542329924218054,
+      "p95_roll_deg": 12.20069346162353,
+      "p95_pitch_deg": 2.406851763497912,
+      "p99_vz_mps": 3.7746200561523438,
+      "heave_range_m": 2.9824839724589616,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": false,
+        "responsive": true
+      }
+    },
+    "Friendly_AI_2": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "ai": true,
+      "initial": [
+        79327.70898429317,
+        -865374.819796862,
+        395.46056183062154
+      ],
+      "initial_yaw": -84.95536376714996,
+      "samples": 1048,
+      "water_samples": 1047,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.10962919890880585,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "150.0",
+        "linear_damping": "0.5",
+        "angular_damping": "0.5",
+        "vertical_damping_multiplier": "1.0",
+        "displacement_multiplier": "1.0"
+      },
+      "max_travel_m": 180.62904092302043,
+      "max_yaw_change_deg": 179.9225464293968,
+      "max_speed_mps": 18.862475293491933,
+      "max_abs_vz_mps": 3.8419815063476563,
+      "max_angular_speed_dps": 37.01764187482249,
+      "patrol_arrivals": 1,
+      "contact_fraction": 0.9990458015267175,
+      "max_roll_deg": 18.51070131447193,
+      "max_pitch_deg": 3.6547082029489966,
+      "p95_roll_deg": 9.928925585791752,
+      "p95_pitch_deg": 2.4798032618801944,
+      "p99_vz_mps": 3.003404541015625,
+      "heave_range_m": 3.0477861481613022,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": true,
+        "responsive": true
+      }
+    },
+    "BP_ShipEnemy3": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "ai": true,
+      "initial": [
+        142514.2968905639,
+        -973419.010274896,
+        393.41649327557514
+      ],
+      "initial_yaw": 116.88144444804615,
+      "samples": 1048,
+      "water_samples": 1046,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0.22389870136976242,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "90.0",
+        "linear_damping": "0.5",
+        "angular_damping": "0.6499999761581421",
+        "vertical_damping_multiplier": "0.800000011920929",
+        "displacement_multiplier": "0.6000000238418579"
+      },
+      "max_travel_m": 168.60727149183884,
+      "max_yaw_change_deg": 179.97981512493084,
+      "max_speed_mps": 22.21850024555848,
+      "max_abs_vz_mps": 3.3050152587890627,
+      "max_angular_speed_dps": 54.907262417826544,
+      "patrol_arrivals": 1,
+      "contact_fraction": 0.9980916030534351,
+      "max_roll_deg": 15.03255867048029,
+      "max_pitch_deg": 5.8712831742496645,
+      "p95_roll_deg": 8.597212650996084,
+      "p95_pitch_deg": 3.931840944623175,
+      "p99_vz_mps": 2.546038055419922,
+      "heave_range_m": 2.4032955483688676,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": true,
+        "responsive": true
+      }
+    },
+    "BP_ShipSmall0": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "ai": false,
+      "initial": [
+        91273.94223355483,
+        -821301.8504002707,
+        335.5069715248649
+      ],
+      "initial_yaw": -6.84454288182258,
+      "samples": 1048,
+      "water_samples": 1048,
+      "loss_seconds": 0,
+      "max_loss_seconds": 0,
+      "physical_all": true,
+      "profiles": {
+        "mass_kg": "90.0",
+        "linear_damping": "0.5",
+        "angular_damping": "0.6499999761581421",
+        "vertical_damping_multiplier": "0.800000011920929",
+        "displacement_multiplier": "0.6000000238418579"
+      },
+      "max_travel_m": 0.7413684340275023,
+      "max_yaw_change_deg": 8.482117154944888,
+      "max_speed_mps": 3.29459716796875,
+      "max_abs_vz_mps": 3.29459716796875,
+      "max_angular_speed_dps": 39.67628562954857,
+      "patrol_arrivals": 0,
+      "contact_fraction": 1.0,
+      "max_roll_deg": 15.141297926373834,
+      "max_pitch_deg": 4.66207919351172,
+      "p95_roll_deg": 12.251928043711763,
+      "p95_pitch_deg": 2.9500184082648415,
+      "p99_vz_mps": 2.949234924316406,
+      "heave_range_m": 3.0736614938209406,
+      "checks": {
+        "physical": true,
+        "water_contact": true,
+        "no_uncontrolled_roll_pitch": true,
+        "vertical_response": true,
+        "responsive": true
+      }
+    }
+  },
+  "checks": {
+    "all_three_hull_classes": true,
+    "full_120_seconds": true,
+    "all_ships_stable_and_responsive": false
+  },
+  "error": null,
+  "last": 135.42426382005215,
+  "started": 1056.968,
+  "native_dll_sha256": "4ac861461a472fa8b7ce91670ff50cef06879cba6760ec2abcf9dd0f0581e355",
+  "ready_at": 10.30433802306652,
+  "at": 15.326424218714237,
+  "duration_game_seconds": 120.09783960133791
+}

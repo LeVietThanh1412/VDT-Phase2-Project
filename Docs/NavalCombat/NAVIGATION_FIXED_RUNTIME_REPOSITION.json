@@ -1,0 +1,190 @@
+{
+  "status": "PASSED",
+  "mode": "runtime_reposition",
+  "last": 242.15040299668908,
+  "camera_cycles": 4,
+  "frames": 13874,
+  "ships": {
+    "BP_ShipEnemy2": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_0",
+      "controller_same": true,
+      "physical": true,
+      "max_legs": 2,
+      "max_repositions": 1,
+      "max_speed_mps": 24.100216430226265,
+      "contact_loss_s": 0,
+      "max_contact_loss_s": 0.5011647008359432
+    },
+    "BP_ShipEnemy": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_1",
+      "controller_same": true,
+      "physical": true,
+      "max_legs": 2,
+      "max_repositions": 0,
+      "max_speed_mps": 20.010848729395647,
+      "contact_loss_s": 0,
+      "max_contact_loss_s": 0.34667129814624786
+    },
+    "Friendly_AI_1": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_2",
+      "controller_same": true,
+      "physical": true,
+      "max_legs": 2,
+      "max_repositions": 0,
+      "max_speed_mps": 24.387440752022307,
+      "contact_loss_s": 0,
+      "max_contact_loss_s": 0.5099291987717152
+    },
+    "Friendly_AI_2": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_3",
+      "controller_same": true,
+      "physical": true,
+      "max_legs": 2,
+      "max_repositions": 0,
+      "max_speed_mps": 19.93299318472968,
+      "contact_loss_s": 0,
+      "max_contact_loss_s": 0.44472189992666245
+    },
+    "BP_ShipEnemy3": {
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_4",
+      "controller_same": true,
+      "physical": true,
+      "max_legs": 2,
+      "max_repositions": 0,
+      "max_speed_mps": 23.884957792291793,
+      "contact_loss_s": 0,
+      "max_contact_loss_s": 0.33221640065312386
+    }
+  },
+  "terrain": {
+    "filtered_tiles": 292,
+    "removed_water_triangles": 23243,
+    "retained_land_triangles": 986019,
+    "retained_submerged_triangles": 1481,
+    "removed_sea_skirt_triangles": 6355,
+    "skirt_metadata_tiles": 292,
+    "last_error": ""
+  },
+  "reposition": {
+    "ship": "BP_ShipEnemy2",
+    "time": 70.4468266107142,
+    "before_count": 0,
+    "en_before": [
+      12686.9662099135,
+      -3979.44605820015
+    ],
+    "requested_offset_m": 100,
+    "a": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+    "b": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+    "replanned": true,
+    "targets_preserved": true,
+    "first_observed_replan_time": 71.44307930767536
+  },
+  "error": null,
+  "loop_status": "ALL_FIVE_LOOPS_VERIFIED",
+  "duration_seconds": 244.052886698395,
+  "arrivals": [
+    {
+      "ship": "Friendly_AI_1",
+      "t": 59.374112010002136,
+      "leg": 1,
+      "arrived_at": "TP_Friendly_Patrol_B",
+      "distance_m": 79.7996291787099,
+      "allowed_m": 80.0,
+      "speed_mps": 0.08814694055092336
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 61.3793145082891,
+      "leg": 1,
+      "arrived_at": "TP_Red03_B",
+      "distance_m": 79.63063671035108,
+      "allowed_m": 80.0,
+      "speed_mps": 0.13145589582863543
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 70.4468266107142,
+      "leg": 1,
+      "arrived_at": "TP_Red02_B",
+      "distance_m": 79.65533068709004,
+      "allowed_m": 80.0,
+      "speed_mps": 0.03367795922965625
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 74.4938979074359,
+      "leg": 1,
+      "arrived_at": "TP_Blue02_B",
+      "distance_m": 79.52456409546235,
+      "allowed_m": 80.0,
+      "speed_mps": 0.051616736974136324
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 80.53358851000667,
+      "leg": 1,
+      "arrived_at": "TP_ShipEnemy_OpenSeaDestination",
+      "distance_m": 79.93058798789654,
+      "allowed_m": 80.0,
+      "speed_mps": 0.07215438066638166
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "t": 174.43683739751577,
+      "leg": 2,
+      "arrived_at": "TP_Red03_A",
+      "distance_m": 79.22426278033332,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1075928751899884
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "t": 176.44704319909215,
+      "leg": 2,
+      "arrived_at": "TP_Friendly_Patrol_A",
+      "distance_m": 79.16601419321448,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1296782304737096
+    },
+    {
+      "ship": "BP_ShipEnemy2",
+      "t": 179.46862909942865,
+      "leg": 2,
+      "arrived_at": "TP_Red02_A",
+      "distance_m": 79.47224918128339,
+      "allowed_m": 80.0,
+      "speed_mps": 0.1501885382557215
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "t": 232.96150210127234,
+      "leg": 2,
+      "arrived_at": "TP_ShipEnemy_AStarDestination",
+      "distance_m": 79.42176628599681,
+      "allowed_m": 80.0,
+      "speed_mps": 0.06504556878558575
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "t": 244.052886698395,
+      "leg": 2,
+      "arrived_at": "TP_Blue02_A",
+      "distance_m": 79.14234570209467,
+      "allowed_m": 80.0,
+      "speed_mps": 0.15283605433320843
+    }
+  ],
+  "required_arrivals_per_ai": 2,
+  "checks": {
+    "all_five_required_arrivals": true,
+    "exact_live_target_endpoints": true,
+    "five_independent_controllers": true,
+    "continuously_physical": true,
+    "generated_sea_skirts_filtered": true,
+    "real_submerged_geometry_retained": true,
+    "automatic_reposition_replan": true
+  },
+  "raw_local_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\NAVIGATION_FIXED_RUNTIME_REPOSITION_RAW.json",
+  "raw_sha256": "6a41d1ea41ca17d5860524d506dbddadbfda7fa7a4b520e76cf81e12a0bb8c7a"
+}

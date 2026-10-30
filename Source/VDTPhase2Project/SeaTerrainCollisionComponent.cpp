@@ -2,6 +2,10 @@
 #include "SeaNavigationMap.h"
 #include "Cesium3DTileset.h"
 #include "CesiumGeoreference.h"
+#include "CesiumLoadedTile.h"
+#include <CesiumGltf/AccessorView.h>
+#include <CesiumGltf/Model.h>
+#include <CesiumGltfContent/SkirtMeshMetadata.h>
 #include "Chaos/TriangleMeshImplicitObject.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
@@ -114,17 +118,49 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
     // A tile may stream out and return. Reuse identical collision instead of
     // growing duplicate geometry every time the player turns the camera.
     if (const auto *Cached = Tiles.FindByPredicate([&](const FTile &T)
-                                                   { return T.GeometryHash == Out.GeometryHash && T.RootRelative.Equals(Out.RootRelative, .001) && (T.Land == 0 || T.Collision.IsValid()); }))
+                                                   { return T.GeometryHash == Out.GeometryHash && T.RootRelative.Equals(Out.RootRelative, .001) && (T.Land == 0 || T.Collision.IsValid() || T.WaterDetailCollision.IsValid()); }))
     {
         Out.Land = Cached->Land;
         Out.Water = Cached->Water;
         Out.Bathymetry = Cached->Bathymetry;
+        Out.SeaSkirts = Cached->SeaSkirts;
+        Out.bSkirtMetadata = Cached->bSkirtMetadata;
         Out.Collision = Cached->Collision;
+        Out.WaterDetailCollision = Cached->WaterDetailCollision;
         return true;
     }
     TArray<FVector> Vertices;
     TArray<int32> Indices;
+    TArray<int32> WaterDetailIndices;
     const FTransform Transform = Source->GetComponentTransform();
+    // Cesium expands skirts OUTWARD as well as downward. Longitude/latitude
+    // coincidence is not a valid skirt test (captured offsets: 0.23-0.49 m).
+    // Use the public loaded-primitive interface and generated-vertex metadata.
+    // Match positions rather than assuming Chaos preserves glTF vertex indices.
+    TSet<FVector3f> GeneratedSkirtPositions;
+    if(auto* Primitive=Cast<ICesiumLoadedTilePrimitive>(Source))
+    {
+        const auto* Gltf=Primitive->GetMeshPrimitive();
+        const auto* Model=Primitive->GetLoadedTile().GetGltfModel();
+        const auto Metadata=Gltf?CesiumGltfContent::SkirtMeshMetadata::parseFromGltfExtras(Gltf->extras):std::nullopt;
+        if(Metadata && Model)
+        {
+            const auto Attribute=Gltf->attributes.find("POSITION");
+            if(Attribute!=Gltf->attributes.end())
+            {
+                const CesiumGltf::AccessorView<FVector3f> Positions(*Model,Attribute->second);
+                if(Positions.status()==CesiumGltf::AccessorViewStatus::Valid)
+                {
+                    Out.bSkirtMetadata=true;
+                    const FVector Scale=Primitive->GetLoadedTile().GetGltfToUnrealLocalVertexPositionScaleFactor();
+                    const uint64 Begin=Metadata->noSkirtVerticesBegin,End=Begin+Metadata->noSkirtVerticesCount;
+                    for(int64 I=0;I<Positions.size();++I)
+                        if(uint64(I)<Begin || uint64(I)>=End)
+                            GeneratedSkirtPositions.Add(FVector3f(FVector(Positions[I])*Scale));
+                }
+            }
+        }
+    }
     // Read the retained CPU physics mesh, not GPU render buffers (Cesium may
     // discard those). Never mutate shared BodySetup or the plugin's meshes.
     for (const auto &Physics : Body->TriMeshGeometries)
@@ -135,7 +171,7 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
         const auto &Elements = Physics->Elements();
         const int32 Base = Vertices.Num();
         TArray<FVector2D> Metric;
-        TArray<FVector2D> LonLat;
+        TArray<bool> IsGeneratedSkirt;
         TArray<double> Height;
         for (int32 I = 0; I < static_cast<int32>(Particles.Size()); ++I)
         {
@@ -144,7 +180,7 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
             const FVector World = Transform.TransformPosition(Local) + FVector(GetWorld()->OriginLocation);
             Metric.Add(Chart->ToMetric(Georeference->TransformUnrealPositionToEarthCenteredEarthFixed(World)));
             const FVector LLH=Georeference->TransformUnrealPositionToLongitudeLatitudeHeight(World);
-            Height.Add(LLH.Z);LonLat.Add(FVector2D(LLH.X,LLH.Y));
+            Height.Add(LLH.Z);IsGeneratedSkirt.Add(GeneratedSkirtPositions.Contains(FVector3f(Local)));
         }
         auto Append = [&](const auto &Triangles)
         {
@@ -156,30 +192,20 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
                 const double Low=FMath::Min3(Height[A],Height[B],Height[C]);
                 const double High=FMath::Max3(Height[A],Height[B],Height[C]);
                 const bool SeaSurface=Low>=-SeaLevelToleranceM && High<=SeaLevelToleranceM;
-                bool SeaSkirt=false;
-                if(High<=SeaLevelToleranceM && High>=-SeaLevelToleranceM && Low<-SeaLevelToleranceM)
-                {
-                    // Quantized-mesh skirts duplicate an edge vertex's lon/lat
-                    // at a lower height. Remove only zero-surface skirts, never
-                    // arbitrary negative terrain/bathymetry or underwater rocks.
-                    const int32 Corners[]={A,B,C};
-                    for(int32 I:Corners)for(int32 J:Corners)
-                    {
-                        if(FMath::Abs(Height[I])>SeaLevelToleranceM || Height[J]>=-SeaLevelToleranceM)continue;
-                        const FVector2D Difference=LonLat[I]-LonLat[J];
-                        const double East=Difference.X*111320.*FMath::Cos(FMath::DegreesToRadians(LonLat[I].Y));
-                        const double North=Difference.Y*111320.;
-                        if(East*East+North*North<.05*.05)SeaSkirt=true;
-                    }
-                }
+                const bool SeaSkirt=High<=SeaLevelToleranceM && High>=-SeaLevelToleranceM && Low<-SeaLevelToleranceM &&
+                    (IsGeneratedSkirt[A] || IsGeneratedSkirt[B] || IsGeneratedSkirt[C]);
                 if (!SeaSurface && !SeaSkirt)
                 {
                     if(High<-SeaLevelToleranceM)++Out.Bathymetry;
-                    KeepOriginal();
-                    continue;
+                    // Coast support stays persistent. Inside certified chart
+                    // water, nonzero terrain belongs to its selected LOD: an
+                    // obsolete coarse interpolation is not bathymetry evidence.
+                    if(IsChartWater(Metric[A],Metric[B],Metric[C]))
+                    {WaterDetailIndices.Append({Base+A,Base+C,Base+B});++Out.Land;continue;}
                 }
-                if (IsChartWater(Metric[A], Metric[B], Metric[C]))
+                if ((SeaSurface || SeaSkirt) && IsChartWater(Metric[A], Metric[B], Metric[C]))
                 {
+                    if(SeaSkirt)++Out.SeaSkirts;
                     ++Out.Water;
                     continue;
                 }
@@ -204,7 +230,7 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
                     continue;
                 }
                 const TArray<FCoastalVertex> Original = {{Vertices[Base + A], Metric[A]}, {Vertices[Base + B], Metric[B]}, {Vertices[Base + C], Metric[C]}};
-                auto KeepClipped = [&](const FVector2D &Min, const FVector2D &Max)
+                auto KeepClipped = [&](const FVector2D &Min, const FVector2D &Max,bool WaterDetail=false)
                 {
                     if (Max.X <= Min.X || Max.Y <= Min.Y)
                         return;
@@ -219,23 +245,25 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
                         Vertices.Append({P[0].Local, P[J].Local, P[J + 1].Local});
                         // Chaos input is already wound for collision. Procedural
                         // mesh cooking flips normals, so reverse it once here.
-                        Indices.Append({Start, Start + 2, Start + 1});
+                        if(WaterDetail)WaterDetailIndices.Append({Start,Start+2,Start+1});
+                        else Indices.Append({Start, Start + 2, Start + 1});
                         ++Out.Land;
                     }
                 };
                 for (int32 Y = Y0; Y <= Y1; ++Y)
                     for (int32 X = X0; X <= X1; ++X)
-                        if (!Chart->IsWater(X, Y))
+                        if (!Chart->IsWater(X, Y) || (!SeaSurface && !SeaSkirt))
                         {
                             const FVector2D Min = ChartLo + FVector2D(X, Y) * Chart->CellSize;
-                            KeepClipped(Min, Min + FVector2D(Chart->CellSize));
+                            KeepClipped(Min, Min + FVector2D(Chart->CellSize),Chart->IsWater(X,Y));
                         }
                 // Never remove geometry outside the validated chart extent.
                 KeepClipped(Lo, FVector2D(FMath::Min(Hi.X, ChartLo.X), Hi.Y));
                 KeepClipped(FVector2D(FMath::Max(Lo.X, ChartHi.X), Lo.Y), Hi);
                 KeepClipped(FVector2D(FMath::Max(Lo.X, ChartLo.X), Lo.Y), FVector2D(FMath::Min(Hi.X, ChartHi.X), FMath::Min(Hi.Y, ChartLo.Y)));
                 KeepClipped(FVector2D(FMath::Max(Lo.X, ChartLo.X), FMath::Max(Lo.Y, ChartHi.Y)), FVector2D(FMath::Min(Hi.X, ChartHi.X), Hi.Y));
-                ++Out.Water;
+                if(SeaSurface || SeaSkirt)++Out.Water;
+                if(SeaSkirt)++Out.SeaSkirts;
             }
         };
         if (Elements.RequiresLargeIndices())
@@ -243,8 +271,9 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
         else
             Append(Elements.GetSmallIndexBuffer());
     }
-    if (!Indices.IsEmpty())
+    auto CreateProxy=[&](const TArray<int32>& Triangles)
     {
+        if(Triangles.IsEmpty())return static_cast<UProceduralMeshComponent*>(nullptr);
         auto *Proxy = NewObject<UProceduralMeshComponent>(GetOwner(), NAME_None, RF_Transient);
         Proxy->SetMobility(Source->Mobility);
         // Keep physical land after its render tile is hidden/unloaded. Colliding
@@ -261,12 +290,14 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
         Proxy->SetCanEverAffectNavigation(false);
         Proxy->SetCastShadow(false);
         Proxy->RegisterComponent();
-        Proxy->CreateMeshSection(0, Vertices, Indices, {}, {}, {}, {}, true);
+        Proxy->CreateMeshSection(0, Vertices, Triangles, {}, {}, {}, {}, true);
         Proxy->SetMeshSectionVisible(0, false);
         Proxy->SetHiddenInGame(true);
         Proxy->SetVisibility(false);
-        Out.Collision = Proxy;
-    }
+        return Proxy;
+    };
+    Out.Collision=CreateProxy(Indices);
+    Out.WaterDetailCollision=CreateProxy(WaterDetailIndices);
     return true;
 }
 bool USeaTerrainCollisionComponent::HasCollisionCoverageAt(const FVector &World) const
@@ -274,7 +305,7 @@ bool USeaTerrainCollisionComponent::HasCollisionCoverageAt(const FVector &World)
     for (const auto &Tile : Tiles)
     {
         const auto *Source = Tile.Source.Get();
-        if (!Source || !Source->IsVisible() || !Source->IsRegistered() || (Tile.Land > 0 && Tile.Water > 0 && !Tile.Collision.IsValid()))
+        if (!Source || !Source->IsVisible() || !Source->IsRegistered() || (Tile.Land > 0 && !Tile.Collision.IsValid() && !Tile.WaterDetailCollision.IsValid()))
             continue;
         const auto Box = Source->Bounds.GetBox();
         if (Box.IsInsideOrOn(FVector(World.X, World.Y, Box.GetCenter().Z)))
@@ -309,7 +340,7 @@ void USeaTerrainCollisionComponent::TickComponent(float Delta, ELevelTick Type, 
                 Tile = Tiles.FindByPredicate([&](const FTile &Cached)
                 {
                     return !Cached.Source.IsValid() && Cached.GeometryHash == Added.GeometryHash &&
-                        Cached.RootRelative.Equals(Added.RootRelative, .001) && Cached.Collision == Added.Collision;
+                        Cached.RootRelative.Equals(Added.RootRelative, .001) && Cached.Collision == Added.Collision && Cached.WaterDetailCollision==Added.WaterDetailCollision;
                 });
                 if (Tile)
                     *Tile = Added;
@@ -325,11 +356,18 @@ void USeaTerrainCollisionComponent::TickComponent(float Delta, ELevelTick Type, 
         Source->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     }
     FilteredTiles = Tiles.Num();
-    RetainedLandTriangles = RemovedWaterTriangles = RetainedSubmergedTriangles = 0;
+    TMap<UProceduralMeshComponent*,bool> DetailVisibility;
+    for(const auto& Tile:Tiles)if(auto* Detail=Tile.WaterDetailCollision.Get())
+    {
+        bool& Active=DetailVisibility.FindOrAdd(Detail);
+        Active|=Tile.Source.IsValid() && Tile.Source->IsVisible();
+    }
+    for(const auto& Entry:DetailVisibility)Entry.Key->SetCollisionEnabled(Entry.Value?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
+    RetainedLandTriangles = RemovedWaterTriangles = RetainedSubmergedTriangles = RemovedSeaSkirtTriangles = SkirtMetadataTiles = 0;
     TSet<const UProceduralMeshComponent *> Counted;
     for (const auto &Tile : Tiles)
     {
-        const auto *Proxy = Tile.Collision.Get();
+        const auto *Proxy = Tile.Collision.IsValid()?Tile.Collision.Get():Tile.WaterDetailCollision.Get();
         if (Proxy && Counted.Contains(Proxy))
             continue;
         if (Proxy)
@@ -337,6 +375,8 @@ void USeaTerrainCollisionComponent::TickComponent(float Delta, ELevelTick Type, 
         RetainedLandTriangles += Tile.Land;
         RemovedWaterTriangles += Tile.Water;
         RetainedSubmergedTriangles += Tile.Bathymetry;
+        RemovedSeaSkirtTriangles += Tile.SeaSkirts;
+        SkirtMetadataTiles += Tile.bSkirtMetadata?1:0;
     }
 }
 void USeaTerrainCollisionComponent::EndPlay(const EEndPlayReason::Type Reason)
@@ -347,6 +387,7 @@ void USeaTerrainCollisionComponent::EndPlay(const EEndPlayReason::Type Reason)
             Source->SetCollisionEnabled(Tile.Original);
         if (auto *Proxy = Tile.Collision.Get())
             Proxy->DestroyComponent();
+        if(auto* Proxy=Tile.WaterDetailCollision.Get())Proxy->DestroyComponent();
     }
     Tiles.Reset();
     Super::EndPlay(Reason);

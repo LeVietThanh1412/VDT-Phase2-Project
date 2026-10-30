@@ -1,0 +1,26 @@
+{
+  "status": "PASSED",
+  "compiled_source_commit": "533f576",
+  "tests": [
+    {
+      "path": "ShipEnemyNavigation.Component.IsolatedWorld",
+      "result": "Success",
+      "log_line": "[2026.10.29-13.19.58:412][588]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}"
+    },
+    {
+      "path": "ShipEnemyNavigation.Component.PublicState",
+      "result": "Success",
+      "log_line": "[2026.10.29-13.19.58:452][590]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}"
+    },
+    {
+      "path": "ShipEnemyNavigation.Planner.Geometry",
+      "result": "Success",
+      "log_line": "[2026.10.29-13.19.58:487][592]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}"
+    },
+    {
+      "path": "ShipEnemyNavigation.Planner.RealOSM",
+      "result": "Success",
+      "log_line": "[2026.10.29-13.19.58:518][594]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+    }
+  ]
+}

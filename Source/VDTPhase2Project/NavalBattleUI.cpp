@@ -1,4 +1,5 @@
 #include "NavalBattleUI.h"
+#include "NavalBattlefieldSubsystem.h"
 #include "ShipMovementComponent.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
@@ -210,7 +211,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
             if(IsValid(Controller) && !Controller->IsPlayerController())Controller->Destroy();
             Pawn->Destroy();continue;
         }
-        if(Selected)
+        if(Settings)
         {
             if(auto* Move=Pawn->FindComponentByClass<UShipMovementComponent>())Move->ApplyShipClass(Settings->HullClasses[Team*3+Slot]);
             if(auto* Combat=Pawn->FindComponentByClass<UShipCombatComponent>())Combat->SetShootingSkill(Settings->Difficulty);
@@ -221,6 +222,12 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         else if(Team==0)++BlueAlive;else ++RedAlive;
     }
     PlayerShip=Player->FindComponentByClass<UShipWeaponComponent>();bMatchConfigured=true;
+    if(auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>())
+    {
+        TArray<APawn*> Fleet;
+        for(const auto& Item:TurnRoster)if(auto* W=Item.Get())if(auto* P=Cast<APawn>(W->GetOwner()))Fleet.Add(P);
+        Field->InitializeFleet(Fleet);
+    }
     SetBattleMode(Settings?Settings->Mode:ENavalBattleMode::RealTime);
     return true;
 }
@@ -239,6 +246,7 @@ float UNavalBattleSubsystem::TurnSecondsRemaining() const
 bool UNavalBattleSubsystem::IsShipActive(AActor* Ship) const
 {
     if(!IsValid(Ship) || !Outcome.IsEmpty())return false;
+    if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && !Field->CanBeginCombat())return false;
     if(!bMatchConfigured)
     {
         const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
@@ -276,6 +284,12 @@ void UNavalBattleSubsystem::UpdateMatch()
     if(!bMatchConfigured)
     {
         ConfigureRoster();
+        return;
+    }
+    if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && !Field->CanBeginCombat())
+    {
+        // Preparation does not spend a ship's first turn. Physics still ticks.
+        if(BattleMode==ENavalBattleMode::TurnBased && ActiveTurnShip)TurnEndsAt=GetWorld()->GetTimeSeconds()+10;
         return;
     }
     if(BattleMode==ENavalBattleMode::TurnBased)

@@ -5,6 +5,7 @@
 #include "Components/Border.h"
 #include "Components/Button.h"
 #include "Components/ComboBoxString.h"
+#include "Components/EditableTextBox.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/ScaleBox.h"
@@ -47,7 +48,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     auto* Background=WidgetTree->ConstructWidget<UBorder>();Background->SetBrushColor(FLinearColor(.005f,.01f,.025f,.96f));
     WidgetTree->RootWidget=Background;
     auto* Scale=WidgetTree->ConstructWidget<UScaleBox>();Scale->SetStretch(EStretch::ScaleToFit);Background->AddChild(Scale);
-    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(640);Size->SetHeightOverride(560);Scale->AddChild(Size);
+    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(640);Size->SetHeightOverride(760);Scale->AddChild(Size);
     auto* Frame=WidgetTree->ConstructWidget<UBorder>();Frame->SetPadding(FMargin(22));Frame->SetBrushColor(FLinearColor(.015f,.03f,.055f,1));Size->AddChild(Frame);
     auto* Box=WidgetTree->ConstructWidget<UVerticalBox>();Frame->AddChild(Box);
     SetupText(WidgetTree,Box,TEXT("MATCH SETUP"),25,FLinearColor(.5f,.8f,1));
@@ -67,15 +68,21 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
             auto* Row=WidgetTree->ConstructWidget<UVerticalBox>();Column->AddChildToVerticalBox(Row);
             SlotRows[Team*3+I]=Row;
             SlotLabels[Team*3+I]=SetupText(WidgetTree,Row,TEXT(""),13);
-            HullSelectors[Team*3+I]=Choices(WidgetTree,Row,{TEXT("Small Ship"),TEXT("Big Ship")});
+            HullSelectors[Team*3+I]=Choices(WidgetTree,Row,{TEXT("Small"),TEXT("Large"),TEXT("Medium")});
         }
     }
-    auto* Difficulty=WidgetTree->ConstructWidget<UVerticalBox>();Box->AddChildToVerticalBox(Difficulty);
-    SetupText(WidgetTree,Difficulty,TEXT("AI shooting difficulty"),13);
-    DifficultySelector=Choices(WidgetTree,Difficulty,{TEXT("Easy"),TEXT("Normal"),TEXT("Hard")});
-    auto* PlayerTeam=WidgetTree->ConstructWidget<UVerticalBox>();Box->AddChildToVerticalBox(PlayerTeam);
-    SetupText(WidgetTree,PlayerTeam,TEXT("Choose player team"),13);
-    PlayerTeamSelector=Choices(WidgetTree,PlayerTeam,{TEXT("Blue Team"),TEXT("Red Team")});
+    auto* Options=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Options);
+    for(int32 I=0;I<3;++I)
+    {
+        auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();auto* LayoutSlot=Options->AddChildToHorizontalBox(Column);LayoutSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+        SetupText(WidgetTree,Column,I==0?TEXT("AI difficulty"):I==1?TEXT("Battle mode"):TEXT("Player team"),13);
+        if(I==0)DifficultySelector=Choices(WidgetTree,Column,{TEXT("Easy"),TEXT("Normal"),TEXT("Hard")});
+        else if(I==1)ModeSelector=Choices(WidgetTree,Column,{TEXT("Real-Time"),TEXT("Turn-Based (10s)")});
+        else PlayerTeamSelector=Choices(WidgetTree,Column,{TEXT("Blue Team"),TEXT("Red Team")});
+    }
+    SetupText(WidgetTree,Box,TEXT("Battlefield seed / 0 creates a new layout"),12,FLinearColor(.65f,.75f,.85f));
+    SeedInput=WidgetTree->ConstructWidget<UEditableTextBox>();SeedInput->SetText(FText::FromString(TEXT("0")));Box->AddChildToVerticalBox(SeedInput)->SetPadding(FMargin(0,3,0,6));
+    SetupText(WidgetTree,Box,TEXT("Small: 38 HP / 6 damage   Medium & Large: 100 / 10"),12,FLinearColor(.65f,.75f,.85f));
     Error=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(1,.4f,.3f));
     auto* Buttons=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Buttons)->SetPadding(FMargin(0,7,0,0));
     for(int32 I=0;I<2;++I)
@@ -99,8 +106,10 @@ void UShipSetupWidget::NativeConstruct()
     {
         BlueCountSelector->SetSelectedIndex(Settings->BlueCount-1);RedCountSelector->SetSelectedIndex(Settings->RedCount-1);
         DifficultySelector->SetSelectedIndex(static_cast<int32>(Settings->Difficulty));
+        if(ModeSelector)ModeSelector->SetSelectedIndex(static_cast<int32>(Settings->Mode));
         if(PlayerTeamSelector)PlayerTeamSelector->SetSelectedIndex(FMath::Clamp(Settings->PlayerTeam,0,1));
         for(int32 I=0;I<6;++I)HullSelectors[I]->SetSelectedIndex(static_cast<int32>(Settings->HullClasses[I]));
+        if(SeedInput)SeedInput->SetText(FText::FromString(FString::FromInt(Settings->BattlefieldSeed)));
     }
     RefreshSlots();SetKeyboardFocus();
 }
@@ -133,11 +142,15 @@ void UShipSetupWidget::NativeTick(const FGeometry& Geometry,float DeltaTime)
 bool UShipSetupWidget::ApplySelection()
 {
     auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();if(!Settings || HullSelectors.Num()!=6)return false;
+    int32 Seed=0;
+    if(!SeedInput || !LexTryParseString(Seed,*SeedInput->GetText().ToString()) || Seed<0)
+    {if(Error)Error->SetText(FText::FromString(TEXT("Use 0 for a new seed, or a positive integer.")));return false;}
     TArray<EShipHullClass> Classes;
-    for(const auto& Selector:HullSelectors)Classes.Add(Selector->GetSelectedIndex()==1?EShipHullClass::Large:EShipHullClass::Small);
+    for(const auto& Selector:HullSelectors)Classes.Add(static_cast<EShipHullClass>(Selector->GetSelectedIndex()));
     const bool OK=Settings->Configure(BlueCountSelector->GetSelectedIndex()+1,RedCountSelector->GetSelectedIndex()+1,Classes,
-        static_cast<EShipAISkill>(DifficultySelector->GetSelectedIndex()),ENavalBattleMode::RealTime,PlayerTeamSelector->GetSelectedIndex());
-    if(!OK && Error)Error->SetText(FText::FromString(TEXT("Select 1-3 ships per team and a difficulty.")));
+        static_cast<EShipAISkill>(DifficultySelector->GetSelectedIndex()),static_cast<ENavalBattleMode>(ModeSelector->GetSelectedIndex()),PlayerTeamSelector->GetSelectedIndex());
+    if(!OK && Error)Error->SetText(FText::FromString(TEXT("Select 1-3 ships per fleet, difficulty and mode.")));
+    if(OK)Settings->SetBattlefieldSeed(Seed);
     return OK;
 }
 

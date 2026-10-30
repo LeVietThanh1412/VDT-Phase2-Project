@@ -272,3 +272,29 @@ FString UShipCombatLibrary::InstallBattlePresentation()
     return TEXT("ERROR: editor required");
 #endif
 }
+
+#if WITH_EDITOR
+#include "Engine/GameViewportClient.h"
+#include "Framework/Application/SlateApplication.h"
+#include "Widgets/SViewport.h"
+#include "ImageUtils.h"
+#include "Misc/FileHelper.h"
+#include "HAL/FileManager.h"
+#endif
+FString UShipCombatLibrary::CaptureGameplayHUD(UObject* WorldContextObject,const FString& FilePath)
+{
+#if WITH_EDITOR
+    UWorld* World=WorldContextObject?WorldContextObject->GetWorld():nullptr;
+    auto* Client=World?World->GetGameViewport():nullptr;
+    const auto Viewport=Client?Client->GetGameViewportWidget():TSharedPtr<SViewport>();
+    if(!Viewport.IsValid())return TEXT("ERROR: no game viewport");
+    TArray<FColor> Pixels;FIntVector Size;
+    if(!FSlateApplication::Get().TakeScreenshot(Viewport.ToSharedRef(),Pixels,Size))return TEXT("ERROR: Slate capture failed");
+    for(auto& Pixel:Pixels)Pixel.A=255;
+    TArray<uint8> PNG;FImageUtils::CompressImageArray(Size.X,Size.Y,Pixels,PNG);
+    IFileManager::Get().MakeDirectory(*FPaths::GetPath(FilePath),true);
+    return FFileHelper::SaveArrayToFile(PNG,*FilePath)?FilePath:TEXT("ERROR: could not save PNG");
+#else
+    return TEXT("Editor-only HUD capture");
+#endif
+}

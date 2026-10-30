@@ -1,0 +1,273 @@
+{
+  "small_type": "StaticMesh",
+  "small_bounds_cm": "IsValid=true, Min=(X=-339.347 Y=-1222.189 Z=0.000), Max=(X=341.029 Y=1213.631 Z=800.000)",
+  "small_has_skeleton": false,
+  "small_lods": 1,
+  "small_fallback_lod0_vertices": 9735,
+  "small_sockets": [],
+  "small_simple_collision_elements": 1,
+  "small_collision_trace_flag": 0,
+  "texture_source_width": 4096,
+  "texture_source_height": 4096,
+  "texture_max_size": 0,
+  "small_material_expressions": [
+    {
+      "class": "MaterialExpressionMaterialFunctionCall"
+    },
+    {
+      "class": "MaterialExpressionConstant3Vector"
+    },
+    {
+      "class": "MaterialExpressionConstant3Vector"
+    },
+    {
+      "class": "MaterialExpressionConstant"
+    },
+    {
+      "class": "MaterialExpressionConstant3Vector"
+    },
+    {
+      "class": "MaterialExpressionLinearInterpolate"
+    },
+    {
+      "class": "MaterialExpressionConstant3Vector"
+    },
+    {
+      "class": "MaterialExpressionTextureSampleParameter2D",
+      "texture": "/Game/ShipSmall/Asset/shaded.shaded"
+    },
+    {
+      "class": "MaterialExpressionScalarParameter"
+    }
+  ],
+  "original_bones": [
+    {
+      "index": 0,
+      "name": "root",
+      "parent": -1,
+      "reference_local_pose": "0.000000,0.000000,0.000000|0.000000,0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 1,
+      "name": "geo_grp",
+      "parent": 0,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 2,
+      "name": "USS_Sampsonpart_03",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 3,
+      "name": "USS_Sampsonpart_01",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 4,
+      "name": "USS_Sampsonpart_02",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 5,
+      "name": "USS_Sampsonpart_01_vint_l",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 6,
+      "name": "USS_Sampsonpart_01_vint_r",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 7,
+      "name": "USS_Sampsonpart_02_gun",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 8,
+      "name": "USS_Sampsonpart_04",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 9,
+      "name": "USS_Sampsonpart_02_gun02",
+      "parent": 1,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,-0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 10,
+      "name": "skeleton_grp",
+      "parent": 0,
+      "reference_local_pose": "0.000000,-0.000000,0.000000|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 11,
+      "name": "root_jnt",
+      "parent": 10,
+      "reference_local_pose": "-0.000000,-0.000000,0.000000|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 12,
+      "name": "cog_jnt",
+      "parent": 11,
+      "reference_local_pose": "0.000000,0.000000,0.000000|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 13,
+      "name": "front_gun_h_jnt",
+      "parent": 12,
+      "reference_local_pose": "4907.657227,-5.639099,773.624756|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 14,
+      "name": "front_gun_v_jnt",
+      "parent": 13,
+      "reference_local_pose": "-14.211705,-0.033781,223.430908|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 15,
+      "name": "rear_gun_h_jnt",
+      "parent": 12,
+      "reference_local_pose": "-2807.943359,-6.314941,1128.148804|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 16,
+      "name": "rear_gun_v_jnt",
+      "parent": 15,
+      "reference_local_pose": "-2.609641,-0.000000,140.405167|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 17,
+      "name": "rear_gun_jnt",
+      "parent": 16,
+      "reference_local_pose": "-61.181370,0.000000,0.000000|0.000000,-0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 18,
+      "name": "lf_screw_jnt",
+      "parent": 12,
+      "reference_local_pose": "-6717.972656,-462.110779,-567.742981|3.500000,0.000000,0.000000|1.000000,1.000000,1.000000"
+    },
+    {
+      "index": 19,
+      "name": "rt_screw_jnt",
+      "parent": 12,
+      "reference_local_pose": "-6717.973633,449.168640,-567.743042|3.500000,0.000000,0.000000|1.000000,1.000000,1.000000"
+    }
+  ],
+  "original_muzzle_bone": "front_gun_v_jnt",
+  "original_muzzle_relative_position": "X=782.878 Y=0.000 Z=88.317",
+  "original_muzzle_relative_rotation": "P=0.000000 Y=0.000000 R=0.000000",
+  "original_imported_lod0_indices": 94860,
+  "original_lod0_sections": [
+    {
+      "material": 0,
+      "vertices": 1110,
+      "triangles": 716
+    },
+    {
+      "material": 1,
+      "vertices": 7888,
+      "triangles": 3286
+    },
+    {
+      "material": 2,
+      "vertices": 39483,
+      "triangles": 25906
+    },
+    {
+      "material": 3,
+      "vertices": 3338,
+      "triangles": 1712
+    }
+  ],
+  "original_dominant_skinning": [
+    {
+      "bone": "root",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "geo_grp",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_03",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_01",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_02",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_01_vint_l",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_01_vint_r",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_02_gun",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_04",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "USS_Sampsonpart_02_gun02",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "skeleton_grp",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "root_jnt",
+      "dominant_vertices": 0
+    },
+    {
+      "bone": "cog_jnt",
+      "dominant_vertices": 49321
+    },
+    {
+      "bone": "front_gun_h_jnt",
+      "dominant_vertices": 593
+    },
+    {
+      "bone": "front_gun_v_jnt",
+      "dominant_vertices": 200
+    },
+    {
+      "bone": "rear_gun_h_jnt",
+      "dominant_vertices": 199
+    },
+    {
+      "bone": "rear_gun_v_jnt",
+      "dominant_vertices": 744
+    },
+    {
+      "bone": "rear_gun_jnt",
+      "dominant_vertices": 202
+    },
+    {
+      "bone": "lf_screw_jnt",
+      "dominant_vertices": 280
+    },
+    {
+      "bone": "rt_screw_jnt",
+      "dominant_vertices": 280
+    }
+  ]
+}

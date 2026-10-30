@@ -38,7 +38,7 @@ void ACustomPlayerController::BeginPlay()
         if (IsValid(ShipDetailsUI))
         {
             ShipDetailsUI->AddToViewport();
-            ShipDetailsUI->SetVisibility(ESlateVisibility::Collapsed);
+            ShipDetailsUI->SetVisibility(ESlateVisibility::HitTestInvisible);
         }
     }
 

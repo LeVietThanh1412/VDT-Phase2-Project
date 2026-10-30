@@ -1,0 +1,74 @@
+{
+  "status": "MEASURED",
+  "scope": "Read-only current sector startup/travel; no tuning or all-class acceptance claim",
+  "ships": {
+    "BP_ShipEnemy2": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "samples": 514,
+      "water_samples": 511,
+      "max_abs_roll_deg": 20.85422062608911,
+      "max_abs_pitch_deg": 11.365471146343012,
+      "max_vertical_speed_mps": 3.464602355957031,
+      "min_heave_m": 0.0701185806153319,
+      "max_heave_m": 3.691421602791353,
+      "water_contact_fraction": 0.9941634241245136
+    },
+    "BP_ShipEnemy": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "samples": 514,
+      "water_samples": 510,
+      "max_abs_roll_deg": 22.269653036300976,
+      "max_abs_pitch_deg": 4.122457074936223,
+      "max_vertical_speed_mps": 4.36109619140625,
+      "min_heave_m": -0.7718717428092208,
+      "max_heave_m": 2.755223336770018,
+      "water_contact_fraction": 0.9922178988326849
+    },
+    "Friendly_AI_1": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "samples": 514,
+      "water_samples": 514,
+      "max_abs_roll_deg": 11.860311103605227,
+      "max_abs_pitch_deg": 6.610017114156056,
+      "max_vertical_speed_mps": 3.9258856201171874,
+      "min_heave_m": -0.9071262425180404,
+      "max_heave_m": 2.52530021604643,
+      "water_contact_fraction": 1.0
+    },
+    "Friendly_AI_2": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "samples": 514,
+      "water_samples": 506,
+      "max_abs_roll_deg": 13.478377455606507,
+      "max_abs_pitch_deg": 4.227616230963463,
+      "max_vertical_speed_mps": 5.65764404296875,
+      "min_heave_m": -1.2900615852747093,
+      "max_heave_m": 2.3935688627720446,
+      "water_contact_fraction": 0.9844357976653697
+    },
+    "BP_ShipEnemy3": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "samples": 514,
+      "water_samples": 505,
+      "max_abs_roll_deg": 10.512385117032796,
+      "max_abs_pitch_deg": 7.93882208850644,
+      "max_vertical_speed_mps": 4.373551635742188,
+      "min_heave_m": -0.6840446526782125,
+      "max_heave_m": 2.88407098851721,
+      "water_contact_fraction": 0.9824902723735408
+    },
+    "BP_Ship0": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "samples": 514,
+      "water_samples": 514,
+      "max_abs_roll_deg": 18.692743464932796,
+      "max_abs_pitch_deg": 2.599630126849208,
+      "max_vertical_speed_mps": 3.1044818115234376,
+      "min_heave_m": -0.06432164689359411,
+      "max_heave_m": 2.2847844428530095,
+      "water_contact_fraction": 1.0
+    }
+  },
+  "error": null,
+  "raw_path": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\SECTOR_PHYSICS_SAMPLES.json"
+}

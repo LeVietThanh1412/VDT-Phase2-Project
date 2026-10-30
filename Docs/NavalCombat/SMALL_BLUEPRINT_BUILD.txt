@@ -1,0 +1,3 @@
+OK: dedicated Small Blueprints
+BP_ShipSmall: inherited original gameplay, authored visible equipment, compiled/saved
+BP_ShipSmallAI: inherited original gameplay, authored visible equipment, compiled/saved

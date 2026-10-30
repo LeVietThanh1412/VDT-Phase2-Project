@@ -1,0 +1,26 @@
+{
+  "status": "PASSED",
+  "tests": [
+    {
+      "result": "Success",
+      "name": "IsolatedWorld",
+      "path": "ShipEnemyNavigation.Component.IsolatedWorld"
+    },
+    {
+      "result": "Success",
+      "name": "PublicState",
+      "path": "ShipEnemyNavigation.Component.PublicState"
+    },
+    {
+      "result": "Success",
+      "name": "Geometry",
+      "path": "ShipEnemyNavigation.Planner.Geometry"
+    },
+    {
+      "result": "Success",
+      "name": "RealOSM",
+      "path": "ShipEnemyNavigation.Planner.RealOSM"
+    }
+  ],
+  "note": "Isolated state/geometry/legacy-compatibility tests; actual physical motion is checked separately in PIE."
+}

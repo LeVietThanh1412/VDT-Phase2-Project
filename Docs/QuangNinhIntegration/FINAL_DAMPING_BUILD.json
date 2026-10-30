@@ -1,0 +1,9 @@
+{
+  "status": "PASSED",
+  "target": "VDTPhase2ProjectEditor Win64 Development",
+  "scope": "Native fallback matched to measured Large profile and compiled; actual120s measurements use the asset",
+  "native_dll_sha256": "716eb492bf7b932c4facd09730fc1bae8a31166dc23ef7e9332425a6010c9d6d",
+  "profile_sha256": "a910208bab940674b9e2df4e9a1a509089fadcb8597fcff36b27ee664239d867",
+  "source_sha256": "d2dbad9f6b321f6fe7146206f1d3abdb756ccf72a344fa782b1a8aced0da8ae1",
+  "build_log_sha256": "9ba63be4194935820a3dc03dcf96f4e91f80d204446ac4bada1701a65fa48a53"
+}

@@ -1,0 +1,772 @@
+{
+  "status": "PASSED",
+  "phase": "restart",
+  "ships": {
+    "BP_ShipEnemy2": {
+      "team": 1,
+      "player": false,
+      "start": [
+        15037.476046543805,
+        4062.572872032396
+      ],
+      "max_travel_m": 501.74135205689373,
+      "shots": 10,
+      "damage_events": 3,
+      "reloads_started": 1,
+      "reloads_completed": 1,
+      "max_phase": 1,
+      "interceptions": 0,
+      "returns": 0,
+      "retreats": 1,
+      "dead": false,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_0",
+      "depart_at": 15.839349683374166,
+      "released_at": 10.20934160426259,
+      "slot": 0,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    },
+    "BP_ShipEnemy": {
+      "team": 1,
+      "player": false,
+      "start": [
+        15237.2949853426,
+        4537.829108229877
+      ],
+      "max_travel_m": 852.5352778302016,
+      "shots": 4,
+      "damage_events": 0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "max_phase": 2,
+      "interceptions": 0,
+      "returns": 0,
+      "retreats": 0,
+      "dead": false,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_1",
+      "depart_at": 27.112255685031414,
+      "released_at": 24.531610183417797,
+      "slot": 2,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    },
+    "Friendly_AI_1": {
+      "team": 0,
+      "player": false,
+      "start": [
+        14137.500423731968,
+        2737.568293169308
+      ],
+      "max_travel_m": 665.5754888190135,
+      "shots": 0,
+      "damage_events": 0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "max_phase": 0,
+      "interceptions": 0,
+      "returns": 0,
+      "retreats": 0,
+      "dead": false,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_2",
+      "depart_at": 13.81069078296423,
+      "released_at": -1.0,
+      "slot": 1,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    },
+    "Friendly_AI_2": {
+      "team": 0,
+      "player": false,
+      "start": [
+        14312.06609098845,
+        3037.571337149314
+      ],
+      "max_travel_m": 446.52275100187416,
+      "shots": 6,
+      "damage_events": 17,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "max_phase": 0,
+      "interceptions": 1,
+      "returns": 0,
+      "retreats": 1,
+      "dead": true,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_3",
+      "depart_at": 12.784375585615635,
+      "released_at": -1.0,
+      "slot": 2,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    },
+    "BP_ShipEnemy3": {
+      "team": 1,
+      "player": false,
+      "start": [
+        15037.355338306183,
+        4437.628862928692
+      ],
+      "max_travel_m": 839.9503900353743,
+      "shots": 10,
+      "damage_events": 2,
+      "reloads_started": 1,
+      "reloads_completed": 1,
+      "max_phase": 2,
+      "interceptions": 0,
+      "returns": 0,
+      "retreats": 1,
+      "dead": false,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_4",
+      "depart_at": 21.963993184268475,
+      "released_at": 19.39164988324046,
+      "slot": 1,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    },
+    "BP_Ship0": {
+      "team": 0,
+      "player": true,
+      "start": [
+        13612.408550484433,
+        3961.6095050231233
+      ],
+      "max_travel_m": 2.563055581635839,
+      "shots": 10,
+      "damage_events": 0,
+      "reloads_started": 1,
+      "reloads_completed": 1,
+      "max_phase": 0,
+      "interceptions": 0,
+      "returns": 0,
+      "retreats": 0,
+      "dead": false,
+      "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.CustomPlayerController_0",
+      "depart_at": null,
+      "released_at": -1.0,
+      "slot": 0,
+      "last_failure_since": null,
+      "physical": true,
+      "hostile_targets": true
+    }
+  },
+  "checks": {
+    "six_seeded_ships_ready": true,
+    "friendly_filter_all_pairs": true,
+    "friendly_damage_rejected_all_six": true,
+    "hud_ammo_live": true,
+    "both_teams_native_ai_fire": true,
+    "actual_hostile_damage": true,
+    "magazine_and_reload_observed": true,
+    "red_sequential_release": true,
+    "red_reaches_assault": true,
+    "blue_intercepts": true,
+    "ai_physically_moving": true,
+    "standard_tags_and_hostile_targets": true,
+    "restart_fresh_magazines_and_health": true,
+    "restart_same_seed": true
+  },
+  "events": [
+    {
+      "t": 102.83881779760122,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 103.35595679655671,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 103.86168279498816,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 104.3710293956101,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 104.87737709656358,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 105.39444329589605,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 105.90253089740872,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 106.40893299505115,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 106.90971199795604,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 107.41848549619317,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 107.93407069519162,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 108.45464579761028,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 108.95654069632292,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 109.4777305945754,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 109.99193109571934,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 110.50299579650164,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 111.01194049790502,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 111.52582889795303,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 112.04025759547949,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 112.55888809636235,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 113.07370219752192,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 113.58622039481997,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 114.1022580973804,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 114.61687459796667,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 115.12004899606109,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 115.62267259508371,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 116.12443479523063,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 116.62739689648151,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 117.1434483975172,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 117.65884329751134,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 118.1727317944169,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 118.68217099457979,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 119.19678169488907,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 119.70393599569798,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 120.20976039767265,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 120.71605429798365,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 121.23001059517264,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 121.7356610968709,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 122.25490169599652,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 122.77320839464664,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 123.29210839793086,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 123.79929719492793,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 124.30846739560366,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 124.82150349766016,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 125.3425719961524,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    }
+  ],
+  "error": null,
+  "last": 190.2103435024619,
+  "started": 2588.078,
+  "native_dll_sha256": "716eb492bf7b932c4facd09730fc1bae8a31166dc23ef7e9332425a6010c9d6d",
+  "at": 10.20934160426259,
+  "initial_layout": {
+    "seed": 20261028,
+    "ready": true,
+    "status": "SEED 20261028",
+    "error": "",
+    "attempts": 10,
+    "assault_leader": "BP_ShipEnemy2",
+    "leader_changes": 0,
+    "physical_layout_retries": 0,
+    "used_safe_fallback": false,
+    "physical_navigation_charts": {
+      "EShipHullClass::Medium": {
+        "clear_cells": 2133,
+        "connected_regions": 2
+      },
+      "EShipHullClass::Large": {
+        "clear_cells": 2133,
+        "connected_regions": 2
+      },
+      "EShipHullClass::Small": {
+        "clear_cells": 3890,
+        "connected_regions": 1
+      }
+    },
+    "ships": [
+      {
+        "ship": "BP_Ship0",
+        "team": 0,
+        "slot": 0,
+        "sector": "S07_03",
+        "spawn_en_m": [
+          13612.5,
+          3962.5
+        ],
+        "target_en_m": [
+          13612.5,
+          3962.5
+        ],
+        "heading": 0,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          13612.5,
+          3962.5
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "Friendly_AI_1",
+        "team": 0,
+        "slot": 1,
+        "sector": "S20_08",
+        "spawn_en_m": [
+          14137.5,
+          2737.5
+        ],
+        "target_en_m": [
+          13462.5,
+          2762.5
+        ],
+        "heading": 164.0546112060547,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          13800,
+          2750
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "Friendly_AI_2",
+        "team": 0,
+        "slot": 2,
+        "sector": "S17_10",
+        "spawn_en_m": [
+          14312.5,
+          3037.5
+        ],
+        "target_en_m": [
+          14337.5,
+          3562.5
+        ],
+        "heading": -87.27368927001953,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          14325,
+          3300
+        ],
+        "mission": "Western island defensive patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy2",
+        "team": 1,
+        "slot": 0,
+        "sector": "S06_17",
+        "spawn_en_m": [
+          15037.5,
+          4062.5
+        ],
+        "target_en_m": [
+          14862.5,
+          3937.5
+        ],
+        "heading": 144.4623260498047,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          14950,
+          4000
+        ],
+        "mission": "Scout leading assault",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": true,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          14862.5,
+          3937.5
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy3",
+        "team": 1,
+        "slot": 1,
+        "sector": "S03_17",
+        "spawn_en_m": [
+          15037.5,
+          4437.5
+        ],
+        "target_en_m": [
+          14937.5,
+          4162.5
+        ],
+        "heading": 109.98310852050781,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          14987.5,
+          4300
+        ],
+        "mission": "Convoy: awaiting sequential safe departure",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          14937.5,
+          4162.5
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy",
+        "team": 1,
+        "slot": 2,
+        "sector": "S02_19",
+        "spawn_en_m": [
+          15237.5,
+          4537.5
+        ],
+        "target_en_m": [
+          15137.5,
+          4337.5
+        ],
+        "heading": 116.56504821777344,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "defense_anchor_en_m": [
+          15187.5,
+          4437.5
+        ],
+        "mission": "Convoy: awaiting sequential safe departure",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "mission_goal_en_m": [
+          15137.5,
+          4337.5
+        ]
+      }
+    ]
+  },
+  "screenshots": [
+    30,
+    90,
+    150
+  ],
+  "duration_game_seconds": 180.00100189819932,
+  "raw_sha256": "9cb21e185bfa599cce85f6bef58c425212033afaf0716a8895be0845e5ea5ff1",
+  "raw_path": "Saved\\INTEGRATED_SECTOR_BATTLE_FULL.json"
+}

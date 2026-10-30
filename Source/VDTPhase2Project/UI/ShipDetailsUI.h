@@ -16,6 +16,10 @@ class VDTPHASE2PROJECT_API UShipDetailsUI : public UUserWidget
 public:
     /** Updates the fallback target; normally the widget follows the controller's active selection. */
     void SetSelectedShip(APawn* InSelectedShip);
+    UPROPERTY(BlueprintReadOnly) FString AmmoText;
+    UPROPERTY(BlueprintReadOnly) FString IdentityText;
+    UPROPERTY(BlueprintReadOnly) FString BattleText;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<APawn> DisplayedShip;
 
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
@@ -34,4 +38,7 @@ private:
     TSharedPtr<STextBlock> SpeedText;
     TSharedPtr<STextBlock> HealthText;
     TSharedPtr<STextBlock> DirectionText;
+    TSharedPtr<STextBlock> MagazineText;
+    TSharedPtr<STextBlock> MissionText;
+    TSharedPtr<STextBlock> BattleStatusText;
 };

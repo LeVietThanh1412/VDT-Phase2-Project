@@ -105,6 +105,17 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void SetGeographicDestination(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation") void StartPatrol();
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
+    /** Development placement only: invalidate the old start/collision/arrival state.
+     * Does not move the body or change its patrol endpoints/possession. */
+    UFUNCTION(BlueprintCallable, Category="Navigation|Debug") void NotifyDevelopmentReposition();
+    UFUNCTION(BlueprintPure, Category="Navigation|Debug") FString GetNavigationDiagnostics() const;
+    UPROPERTY(BlueprintReadOnly, Category="Navigation|Debug") int32 RepositionReinitializations=0;
+    /** Refresh cached footprint after a prematch archetype replaces the physical hull. */
+    void RefreshHullGeometry();
+    /** Prematch only, immutable per-hull collision exclusions on the same
+     * geographic A*. Does not move or possess the ship. */
+    bool UseOperationalChart(TSharedPtr<const FSeaNavigationMap> Chart);
+    UPROPERTY(BlueprintReadOnly,Category="Navigation|Debug") bool bUsingOperationalChart=false;
     UFUNCTION(BlueprintCallable, Category="Navigation") void StopNavigation();
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginRetreatFrom(AActor* Threat,float RetreatDistanceM);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginBackwardRetreat(AActor* Threat,float DistanceM);
@@ -113,6 +124,8 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatBlocked=false;
     UPROPERTY(BlueprintReadOnly, Category="Navigation|Tactics") bool bBackwardRetreatCompleted=false;
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginPursuitOf(AActor* Threat,float StandOffDistanceM);
+    /** Shared mission intent: validates native A* and preserves original A/B. */
+    UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") bool BeginTacticalMoveTo(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation|Tactics") void ReturnToPatrol();
     UFUNCTION(BlueprintPure, Category="Navigation|Tactics") bool HasTacticalDestination() const { return bTacticalOverride; }
     UFUNCTION(BlueprintCallable, Category="Navigation") FVector GeographicToWorld(FVector LLH) const;
@@ -156,6 +169,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UCesiumGlobeAnchorComponent> GlobeAnchor;
     UPROPERTY(Transient) TObjectPtr<class AAIController> OwnedAimController;
     TSharedPtr<const FSeaNavigationMap> Map;
+    TSharedPtr<const FSeaNavigationMap> OriginalCoastMap;
     FNumericProperty* ThrottleProperty=nullptr;
     FNumericProperty* RudderProperty=nullptr;
     TArray<float> SensorAngles, SensorDistances;
@@ -169,6 +183,9 @@ private:
     int32 AvoidSide=0,RecoveryPhase=0,LastAvoidSide=0,AvoidSideChanges=0;
     bool bInitialized=false,bTargetB=true,bNeedsPlan=true,bHasGoal=false,bDead=false,bOriginChanged=false,bOwnsCommands=false,bExplicitStop=false;
     bool bTacticalOverride=false;
+    bool bHasObservedPosition=false;
+    FVector2D LastObservedPosition=FVector2D::ZeroVector;
+    float LastObservedSpeedMps=0;
     FVector TacticalDestination=FVector::ZeroVector;
     TWeakObjectPtr<AActor> ReverseThreat;
     FVector2D ReverseStart=FVector2D::ZeroVector;

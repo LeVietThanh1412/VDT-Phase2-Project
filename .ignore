@@ -1,4 +1,3 @@
-/.git
 /.vscode
 /Content
 /Data
@@ -6,8 +5,7 @@
 /Docs
 /Intermediate
 /Saved
-/TextBP
 /Tools
+/Plugins/FunplayMCP/Content
 /Plugins/SpecialAgent/Content
 /Plugins/SpecialAgent/Intermediate
-/Plugins/UnrealMCPBridge/Intermediate

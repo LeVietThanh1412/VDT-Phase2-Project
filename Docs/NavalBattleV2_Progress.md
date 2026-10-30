@@ -1,5 +1,138 @@
 # Naval Battle V2 — progress ledger
 
+## Small milestone gate PASSED — 2026-10-27
+
+SMALL_MILESTONE_QA.json hashes six passing actual PIE evidence files: settled
+Small/Medium response, real P-menu Small Blueprint spawn, 16-projectile damage
+matrix plus 65m sink/cleanup (94 checks), five physical AI with original
+controllers on an old runtime-only certified patrol fixture (23 checks), and
+underway player movement/reverse/firing/gun alignment (11 checks).
+
+Final compact hull preserves original sockets1-5 scaled .425; socket5 local
+[1942.25,-323,0]cm, no double scaling, rudder multiplier.5. Measured response:
+Small acceleration51.21 vs44.03, peak28.76 vs25.73m/s; mean yaw5.255 vs3.467deg/s
+(1.516x). Old rudder3.0 numbers below are superseded. All5AI traveled>900m.
+Fixed first-frame visible gun initialization; final rerun max error<.001cm.
+Retain the original failed pipeline JSON, snapshot failure and fixture failures.
+A repeat mesh-build render-resource crash was fixed by preserving existing
+geometry and updating sockets; no map/source model files were lost.
+
+Small assets saved/reopened and menu spawn retested. GMBP preserves its original
+controller/default pawn and selects BP_ShipSmall for a Small player. Base BP_Ship
+now defaults to Medium so existing original hull instances retain their identity.
+Raw Fab entitlement metadata, redundant thumbnails/FBX/PNG are local-only;
+necessary UAssets are intended for this private repository. Small milestone
+commit/push preparation is in progress. Main and the5pre-existing dirty actor
+packages remain untouched. Full demo NOT READY: randomized island field,
+>=5seeds, zero-stall diagnosis/fix, new full loop soak, mixed combat/turns,
+performance and final reopen/push/PR remain required.
+
+## Small milestone verification — 2026-10-27
+
+Saved the repaired source atlas material, compact Small hull, visible gun parts,
+Small/Medium profiles, dedicated BP_ShipSmall and BP_ShipSmallAI. GMBP inherits
+NavalGameMode so selecting Small for the player actually spawns BP_ShipSmall;
+original controller/default original pawn retained. Actual menu travel passed.
+Source boat has no rig/sockets. Its built-in gun is aft and static; the separate
+working gun is bow-mounted and follows the original yaw/pitch/muzzle pipeline.
+No duplicate simulated body or actor-wide scale; Small HP38/base6; Medium/Large
+100/base10. Original parent Blueprint force calls remain authoritative.
+
+Physical comparison after water settling: Small 51.40 vs Medium 44.03 m/s²,
+peak speed 28.76 vs25.73, mean absolute yaw5.084 vs3.458 deg/s (1.470x).
+Maximum roll7.87/8.34deg. Small pontoon radius100cm, not the rejected400cm;
+rudder3.0 and application-point scale.425. Source/profile build succeeded.
+38s underway passed movement/reverse/firing/alignment; actual texture now visible.
+
+The first matrix caught a real impact-time damage snapshot bug: a Small round
+became10 when the attacker changed profile in flight. Fixed InitializeSource to
+capture once, including after source destruction. New actual 16-shot matrix
+PASSED Small/Small, Small/Medium, Medium/Small, Small/Large; bow/mid/stern,
+friendly guards, once-only death,65m sink and cleanup. Retained the failure and
+a separate fixture-target interception failure. Do not erase these records.
+
+Small AI on both teams is being checked in a runtime-only old certified-layout
+fixture. This is NOT the required new randomized-field soak. The five pre-existing
+user-modified actor packages remain preserved and are not reset. Current saved
+positions include blocked cells, so the final demo is not ready until the new
+validated field, seed tests, stationary-AI diagnosis, full soak and reopen pass.
+No Small-phase commit/push/PR has been made yet. Source art licence Fab Standard
+is user-confirmed; private repository collaborator use only. Exclude entitlement
+metadata, redundant FBX/thumbnail source files from the intended milestone commit.
+
+## Small warship / randomized battlefield checkpoint — 2026-10-26
+
+**Controlling request:** attachment `29d40d15-cfb1-4f2b-9e19-c58867938252/Pasted text.txt`,
+plus the user's explicit requirement to inspect the Small ship skeleton itself.
+This extends the previous goal. Do not reuse the old 402.63 s patrol as proof
+for the future randomized island-rich battlefield.
+
+- Git audit: user/another session committed final-QA preparation as `2e51f06`
+  and merged PR #7 into main at `25baf4ca855fce6115a4a264f36d5c663996124d`.
+  This agent did not merge it. PR #7 is closed/merged; the old remote integration
+  branch is absent. Repository is authenticated as PRIVATE. Created local
+  `backup/quangninh-before-small-20261026` at 25baf4c, then
+  `feature/small-warship-seeded-battlefield`; no pushes/main changes in this phase.
+- Recovery PASSED: `Saved/active_small_ship_recovery.txt` points to
+  `SmallWarshipRecovery_20261026_202209`, 98 files / 170,772,980 bytes with
+  verified SHA-256 copies, unstaged/staged patches and original status/HEAD.
+  Includes source/config, original BPs/profiles, MainMap/ExternalActors and the
+  new Small model. Preserve the five pre-existing modified ship actor packages.
+- Editor was closed on arrival. Opened one unattended instance using the existing
+  filesystem DDC fallback, audited outside PIE, then closed cleanly for C++.
+  Dirty map/content lists were empty. No asset/level mutation in this new phase yet.
+- Phase 1 asset/skeleton audit IN_PROGRESS: `SMALL_FBX_SKELETON_AUDIT.json`
+  proves FBX 7400 contains one Mesh model/geometry, NO joint models, NO skin or
+  cluster deformers, NO animation stacks/layers/curves. Actual source geometry:
+  999,713 vertices and 5,999,970 polygon indices. The imported asset is StaticMesh,
+  not SkeletalMesh; 1 LOD/section, Nanite already enabled. Bounds are 680.375 ×
+  2435.821 × 800 cm (long axis Y), not a usable skeleton. Native static sockets
+  remain to be checked because the Python property is protected.
+- Source PNG is 4096×4096, not the listing's advertised 8K. Unreal's Blueprint
+  size initially returned resident 32×32; do not confuse that with source size.
+  Material `model` is opaque/default-lit with a material-function BaseColor input;
+  no material repair has been justified yet. `SMALL_UNREAL_ASSET_AUDIT.json`
+  records the actual objects, attachments and original ship rig.
+- Existing DDG102 skeleton has 20 bones. Front yaw `front_gun_h_jnt` (parent
+  cog_jnt), front pitch `front_gun_v_jnt` (child yaw), and muzzle socket exist.
+  A native read-only inspector now checks real skin weights/sections, sockets,
+  collision and texture source dimensions before choosing weapon reuse.
+  New `ShipArchetypeEditor.cpp` / `InspectArchetypeSources` are audit preparation,
+  not Small integration. No Small HP/damage/physics/gameplay changes yet.
+- The baseline clean-source Unity build exposed duplicate anonymous IgnoreWater
+  helpers in combat/navigation; renamed only the navigation helper/calls to
+  IgnoreNavigationWater. First audit build also needed explicit pointer type for
+  TObjectPtr socket iteration. Rebuild is in progress; do not claim compilation
+  until its terminal result is checked.
+- License: user explicitly confirmed **Fab Standard**. Source metadata identifies
+  “Sweeden Military Boat”, YourAverageGamer, Fab listing b6d0889d-e855-4b3f-bf48-5ec7f9f4a4a7.
+  Public listing fetch returned 403; exact licence is user-confirmed. Official
+  https://www.fab.com/eula permits sharing with project collaborators via a
+  private repository. Do not commit entitlement metadata or unnecessary thumbnails.
+- Previous final QA is NOT fully passed: default five-Small-placeholder patrol
+  completed 402.635 s / 15 arrivals / no nav errors, but strict summary 8/9
+  (Friendly_AI_2 sampled water contact 98.72% <99%). Frame test 4/4, max loss
+  0.3733 s, no floor hits. Mixed 3-Large/3-placeholder-Small real-time battle
+  completed 300 s but FAILED: Enemy3 Large exhausted recovery at t120.33,
+  Enemy2 Small at t218.99. Root cause not established; no fix applied. Preserve
+  `FINAL_INTEGRATED_BATTLE.json`, `FINAL_BATTLE_QA.json`, screenshots and memory
+  trace now committed in 2e51f06. Earlier process memory monitor was late/short;
+  no memory-leak-free claim. New task phase 7 must diagnose these stalls.
+- Original `promt.txt` / original “FINAL DEMO” task was not found in the bounded
+  project/parent/attachment search; c73b619d attachment is a duplicate of the new
+  Small task. Read existing progress/continuation; FINAL_DEMO_REPORT.md is absent.
+
+**Next:** finish native source audit; inspect the actual model appearance and bow
+axis. Build a coherent Small hull/weapon archetype on shared gameplay (one body,
+no oversized hidden hull, visible muzzle/aiming). Preserve original hull as Medium
+and Large profile; Small must become 38 HP / attacker damage 6 (5/6/5 rounded),
+faster/more agile. Verify independently, commit/push verified milestone. Then
+map-derived island-rich square, opposite team halves, one seeded spawn authority,
+class-safe routes, at least five real seeds and a NEW saved-layout soak; finish
+mixed-fleet stalls, all regressions, restart persistence, new PR. Do not stop at audit.
+
+Everything below this section is historical and does not override the new task.
+
 ## Active checkpoint — 2026-10-26
 
 Branch `feature/quangninh-battle-integration`, HEAD `faa966c` (pushed). Earlier
@@ -309,3 +442,80 @@ Next: finish all five loops, investigate any remaining stop/failure, rerun fresh
 - Full header inventory found negative elevations in 149 terrain tiles. The FINAL filter was narrowed to +/-0.05 m zero-level surfaces plus identified zero-level tile skirts, preserving other negative geometry. Native build and seven Blueprint compiles passed. The actor's tolerance is saved as 0.05 m. A fresh full patrol recheck is running; initial telemetry: five ships near 19 m/s, 1104 submerged triangles retained.
 - Core source: SeaTerrainCollisionComponent; no source dataset or Cesium plugin edit. Persistent report: Docs/QuangNinhIntegration/CESIUM_TERRAIN_COLLISION_FIX.md.
 - Pending: finish final 0.05 m repeat, record final collision evidence, focused core commit; then complete wider accuracy/tactical/VFX/spectator/turn/setup work. No new feature is marked complete prematurely.
+
+
+### 2026-10-27 sector defense/assault master - phase 0 and navigation reproduction
+
+- New authoritative task: attachment 8e30490c-8b1f-4503-9ad0-3a6b303b4980. Preserve selected candidate 1 at chart EN (14500,3500), 2500 m square; do not relocate terrain/georeference. New sectors/tactics/tags/buoyancy/magazine work remains pending until navigation passes.
+- Current branch feature/small-warship-seeded-battlefield, user setup commit 94f47aa after Small milestone 9f2bb3f. Seven binary assets already modified at task start; no reset. Verified SHA256 backup of 86 source/config/Blueprint/map actor files in Saved/active_navigation_recovery.txt. One authoritative editor launched; no competing editor found.
+- The saved DEMO_SAVED_PATROL_LOOPS.json is FAILED: TIME_LIMIT_REACHED at 600.75 s, all five AI only one arrival, then bounded recovery exhausted. Controller/physics retained; route endpoint assertions passed. This is current failure evidence, not a successful loop certificate.
+- Fresh NAVIGATION_REGRESSION_REPRO.json started against the current saved actor/target configuration with combat disabled only in disposable PIE. Trace the actual post-arrival steering, sensor and sweep data before changing owning logic.
+- Required phase order: repair/reposition navigation and focused verified commit; fixed sectors and deterministic safe spawning; Blue defense and Red scout assault; synchronized tags; measured buoyancy tuning; shared 10-round/30-second reload; integrated multi-seed/restart QA; reports/PR. No later phase is marked passed.
+
+### Geographic return-loop collision repair - fresh physical B/A/B PASS
+
+- Identified the actual return-route blocker: generated Cesium zero-surface skirts shifted laterally by 0.228-0.489 m, defeating the former 0.05 m coincidence heuristic. Public glTF skirt metadata now identifies the synthetic vertices; cooked-particle positions are matched without relying on Chaos index order. Only chart-water portions are removed. Land, seabed, source rendering and geographic A* remain intact.
+- NAVIGATION_FIXED_SAVED_PATROL.json PASSED at 393.57 actual game seconds after restart: all five completed at least B/A/B, 16 measured arrivals, exact live target endpoints, original controllers and continuous physics. Camera cycled six times. No automatic reposition resets during normal motion.
+- Structured diagnostics and explicit/automatic development-reposition invalidation added. Actual reposition, genuine selected-field island traversal, retained physical island support and combat-return gates are still pending; phase 1 is not yet complete. Buoyancy contacts are measured separately and are not misrepresented as a full stability pass.
+
+### Phase 1 VERIFIED - navigation, saved/runtime relocation and island traversal
+
+- NAVIGATION_PHASE1_VERIFIED.json aggregates eleven passing current reports. Native suite 4/4; saved fleet B/A/B 392.8 s; corrected runtime relocation B/A 242.15 s; saved editor relocation plus restart; candidate-1 island B/A 239.35 s with 2159 m physical travel and four native waypoints. Actual shoreline clearance >=176.60 m, planned >=226.01 m; all samples inside the selected field and no land intersections.
+- Physical island-support, repeated LOD and cache regression passed with real land/submerged geometry retained. Shared role/target-loss and target-health-death patrol return passed. Temporary excluded marker was rejected explicitly and recovered automatically when restored, followed by 374.34 m physical travel.
+- The failed runtime-relocation sampler ordering case remains preserved, with its actual fixture error documented; the rerun passed. The additional retreat fixture used a deliberately moved stationary threat and an actual hostile health death, and returned to original patrol. This does not claim natural full 3v3 combat or later sector/ammunition completion.
+- Only TP_Friendly_Patrol_A and the deliberately tested BP_ShipEnemy2 saved placement changed in this focused navigation milestone. Initial unrelated pending binary edits are retained. No terrain/georeference movement, graph rewrite, duplicate drive authority or normal-game teleport was introduced.
+- Next: fixed sector grid for the exact selected candidate, then seeded safe spawns, Blue defense/Red assault, tags, measured stability, magazines and combined QA in the user-specified order.
+
+### Phase 2 VERIFIED - exact candidate-1 sector grid
+
+- Navigation milestone 68be150 was normally pushed and remote SHA verified. Draft PR #11 targets main; no automatic merge.
+- Created the fixed 2500 x 2500 m, 25 x 25 logical sector grid from the original candidate script/metadata and actual coastline. No terrain/georeference changes or 625 TargetPoint actors. Source chart and data hashes are recorded.
+- 337 chart-navigable sectors; main field-connected component 332, two disconnected groups (4 and 1) excluded from spawn/patrol flags; 295 spatial spawn candidates at >=200 m anchor shore clearance. Six tactical regions are saved.
+- Native UNavalSectorSubsystem loads bounded, hash-validated data and exposes geographic queries and existing native A* routes. Fresh PIE passed all 625 indices, EN/world round-trip <=1.21e-9 m, five required tactical connections (3/2/3/2/5 waypoints), 11 original TargetPoints and six original combat pawns.
+- SECTOR_BATTLEFIELD_GUIDE.md, SECTOR_GRID_QA.json, SECTOR_GRID_PIE.json and cropped preview describe actual results. This milestone does not yet reposition the fleet or claim safe physical spawns. Next: deterministic seeded layout authority and runtime water/terrain/hull validation.
+
+
+### Phase 3 IN PROGRESS - actual seeded placement and collision regression
+
+- Added the seed field to the real existing prematch menu and native deterministic, bounded placement for the retained fleet. Default rollout is still disabled pending integrated acceptance. World travel preserves manual seed and class/mode choices.
+- Real physical startup found two Medium ships blocked by obsolete coarse nonzero water-area terrain triangles. Split persistent coast support from LOD-selected nonzero chart-water collision and added fixed-field Cesium coverage. Narrow sea-level tolerance and real selected seabed remain intact. Elevated-only spawn checks were corrected to query the operational waterline.
+- A repaired seed 20261028 passed all startup assertions, five controllers/routes and 76-462 m physical travel. Serial distinct-seed/replay tests are running. One later run lost buoyancy contact at a sampled instant despite physical travel: stability remains pending and the failed report is preserved.
+- Remaining phase-3 gates: multi-seed/replay summary, safe fallback, initial objective/route clearance, current island-collision regression and repeat navigation. Blue defense/Red assault, synchronized tags, measured stability, magazines and complete battle acceptance are still pending.
+
+
+### 2026-10-29 - current phase-3 operational routing validation
+
+- Preserved the first failed 11-run seed suite in Saved/SeedSuiteBeforeOperationalClearance. It proved same-seed layout equality but found unsafe routes and intermittent buoyancy contact. No failures were relabeled as success.
+- Added per-hull 25 m operational collision overlays in the same geographic frame, while retaining the 100 m logical sectors and original native A*. Four-corner streamed queries exclude blocked hull/turn cells; connectivity is recomputed. Existing five navigators receive immutable overlays before prematch release. Gun coastline LOS still uses the original coast chart, so hull-draft exclusions do not incorrectly block projectiles over water.
+- Fresh seed 20261028 passed 17 actual 60-second startup/travel assertions, all five original controllers and exact current marker locations; all five used their physical overlay and moved 333-770 m. A new 10-distinct-seed plus repeated-seed suite is running; island collision and seeded multi-leg patrol acceptance remain pending.
+- Read-only physics baseline measured up to 22.3 degrees roll and 5.66 m/s vertical speed, with occasional contact loss. Buoyancy is explicitly NOT certified as tuned. No physics/velocity clamp or freeze was introduced.
+
+
+### Phase 3 seeded startup suite VERIFIED
+
+- SEEDED_SPAWN_SUITE.json now PASSED: eleven independent real menu/travel PIE starts, ten distinct spatial seeds, every startup/initial-route/travel assertion passed. Repeated seed 20261028 exactly reproduced the canonical layout SHA256 f98266249aecd43a9ad77af5e2c9c850369b37967e0ad8aef6fb98f1c6949747. The sampled native Small collision grid had 3862 clear cells on the first cold run versus 3890 on warm runs; Medium stayed 2133. Despite that streaming difference, all six spawn/goal/heading assignments reproduced exactly.
+- This certifies seeded initialization and real initial physical movement, not sustained full battle, tuned buoyancy, assault or magazines. Island-support, all-three-class and repeated B/A/B checks are now running serially before the phase-3 delivery commit.
+- Diagnostic failures were SHA256 checked into Saved/SeedPlacementDiagnostics and indexed in SEEDED_REGRESSION_HISTORY.json. The original first failed 11-run suite remains Saved/SeedSuiteBeforeOperationalClearance. Existing user Blueprint/map edits remain untouched.
+
+
+### Phase 3 VERIFIED - physical seeded B/A/B continuation
+
+- The corrected SEEDED_REPEATED_PATROL.json PASSED all 18 checks over 485.94 game seconds after readiness. Actual arrival counts: Red Small lead 6, Red Medium 4, Blue Small defender 3, Blue Medium defender 4, Red Small follower 5 (22 total). All five completed at least B/A/B at their actual live markers, retained controllers/physics, and had valid continuing native paths at acceptance.
+- The prior 483.75-second run also physically completed B/A/B, but its instantaneous path assertion sampled the final ship's normal arrival/route-clear frame. That FAILED fixture is preserved as SEEDED_PATROL_ARRIVAL_FRAME_FIXTURE_FAILURE.json. The test now observes three additional actual planning seconds, then verifies continuing paths. Full rerun passed; no gameplay tolerance or movement behavior was changed to obtain it.
+- Binary provenance confirms the native DLL was unchanged throughout the rerun (compiled source milestone 533f576). Island support and mixed Small/Large/Medium startup also passed. Startup milestone 533f576 was pushed and its remote SHA verified; draft PR #11 remains open/unmerged. New Blue defender source is prepared but was not compiled during these measurements.
+- Next: compile and physically test bounded Blue interception/shared retreat/patrol return, then the Red scout assault. Tags, buoyancy tuning, magazines and full integrated combat remain pending.
+
+
+### Phase 4 IN PROGRESS - bounded Blue defense
+
+- Added guarded mission intent on the existing battlefield subsystem and a safe temporary geographic-goal API on the existing navigator. Original A/B references, controllers and Blueprint drive authority remain intact. Compiled normally after the frozen phase-3 tests finished.
+- First staged diagnostic found an invalid incoming fixture goal, a stand-off assumption inconsistent with saved 450 m retreat distance, and target retention outside the defensive region. Preserved the failed diagnostic, verified incoming goals through native A*, derived stand-off from actual combat thresholds, and applied the defensive target policy inside the existing shared scanner.
+- Prevented stationary-target mission updates from repeatedly clearing route/recovery state; blocked interceptions return to patrol with a 30 s mission retry delay. Shared retreat keeps priority. Fresh physical behavioral test is running; phase 4 is not yet passed. RED assault, tags, stability tuning, magazines and integrated demo acceptance remain pending.
+
+
+### Phase 4 VERIFIED - Blue interception, shared retreat and defensive return
+
+- Fresh BLUE_DEFENSE_PIE.json PASSED all ten checks over 314.95 game seconds / 618 samples. Both defenders intercepted, the shared guns fired 2/9 accepted shots, explicit hostile low-health damage produced a new shared retreat after a prior proximity retreat, and staged target health deaths were followed by valid original patrol routes and >25 m physical travel.
+- Controllers, original patrol references and continuous physics remained intact. Maximum defense-anchor distances were 692.82 m (Small) and 281.60 m (Medium), within the configured 800 m leash. Native navigation regression suite 4/4 passed after compilation. Raw/staged evidence scope is explicit; no natural-battle or stability-tuning claim.
+- Native target selection now respects the defensive policy while preserving faction/LOS/damage authority. Mission stand-off derives from saved retreat/gun limits; unchanged goals retain navigation recovery state. Shared retreats remain authoritative. Sector tactics are still development-gated.
+- Next: Red Small scout-led, distance-managed sequential assault with leader failure/recovery handling; then tags, measured buoyancy tuning, magazines and integrated acceptance.

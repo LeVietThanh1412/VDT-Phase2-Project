@@ -65,8 +65,18 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float MuzzleSpeedCmps=20000;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") float ShotCooldownSeconds=0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") int32 Faction=0;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Weapon|Magazine",meta=(ClampMin="1")) int32 MagazineCapacity=10;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Weapon|Magazine",meta=(ClampMin="0.1",Units="s")) float ReloadDurationSeconds=30;
+    UPROPERTY(BlueprintReadOnly, Category="Weapon|Magazine") int32 RoundsRemaining=0;
+    UPROPERTY(BlueprintReadOnly, Category="Weapon|Magazine") bool bReloading=false;
+    UPROPERTY(BlueprintReadOnly, Category="Weapon|Magazine") int32 ReloadsStarted=0;
+    UPROPERTY(BlueprintReadOnly, Category="Weapon|Magazine") int32 ReloadsCompleted=0;
+    UFUNCTION(BlueprintPure, Category="Weapon|Magazine") float ReloadRemaining() const;
+    /** Standard Actor.Tags mirror Team(), the applied hull and live mission; never independent team authority. */
+    UFUNCTION(BlueprintCallable, Category="Ship|Identity") void RefreshShipTags();
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon") FName MuzzleSocket=TEXT("front_gun_v_socket");
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health",meta=(ClampMin="1")) float MaxHealth=100;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Weapon",meta=(ClampMin="0")) float BaseProjectileDamage=10;
     UPROPERTY(BlueprintReadOnly, Category="Health") float CurrentHealth=100;
     UPROPERTY(BlueprintReadOnly, Category="Health") bool bIsDestroyed=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Health") float DestructionDelaySeconds=7;
@@ -127,6 +137,11 @@ protected:
 private:
     double LastShotTime=-1000;
     bool bDispatching=false;
+    bool bAcceptedDispatch=false;
+    double ReloadEndsAt=0;
+    FTimerHandle ReloadTimer;
+    void BeginReload();
+    void CompleteReload();
     FTimerHandle PresentationTimer;
     FTimerHandle DestructionTimer;
     double LastDestructionUpdate=0,DeathStartedAt=0,CapsizeElapsed=0;
@@ -223,6 +238,8 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Combat|Status") FString FiringStatus=TEXT("Initializing");
     UFUNCTION(BlueprintPure, Category="Combat") bool IsHostile(AActor* Candidate) const;
     UFUNCTION(BlueprintCallable, Category="Combat") void ScanTargets();
+    /** Runtime target assignment uses the shared hostility filter; does not rebuild Blueprint components. */
+    UFUNCTION(BlueprintCallable, Category="Combat") bool SetHostileTarget(AActor* Candidate);
     static UPrimitiveComponent* PhysicalHull(AActor* Ship);
 protected:
     virtual void BeginPlay() override;
@@ -264,6 +281,8 @@ public:
     /** Player input is returned unchanged; AI angles feed the SAME two existing bone nodes. */
     UFUNCTION(BlueprintPure, Category="Combat") static FRotator SelectGunAim(APawn* Ship,FRotator ManualAim);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallCombatIntegration();
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString VerifyMagazineFailurePath(APawn* TemplateShip);
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly,WorldContext="WorldContextObject")) static FString CaptureGameplayHUD(UObject* WorldContextObject,const FString& FilePath);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallBattlePresentation();
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString DisableSensorDebugDefaults();
     /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */

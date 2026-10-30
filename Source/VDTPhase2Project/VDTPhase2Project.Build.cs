@@ -13,10 +13,11 @@ public class VDTPhase2Project : ModuleRules
 		PrivateDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities", "Slate", "SlateCore", "Niagara", "ProceduralMeshComponent", "Chaos", "PhysicsCore" });
 		if (Target.bBuildEditor)
 		{
-			PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "BlueprintGraph", "KismetCompiler", "UMGEditor", "AssetRegistry" });
+            PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "BlueprintGraph", "KismetCompiler", "UMGEditor", "AssetRegistry", "MeshDescription", "StaticMeshDescription", "BlueprintEditorLibrary" });
 		}
 		// Compact offline regional map is staged into packaged games; no gameplay network service.
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/halong_navigation.json", StagedFileType.UFS);
+		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_sectors.json", StagedFileType.UFS);
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

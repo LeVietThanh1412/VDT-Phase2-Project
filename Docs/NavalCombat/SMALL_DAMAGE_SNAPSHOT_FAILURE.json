@@ -1,0 +1,51 @@
+{
+  "status": "FAILED",
+  "phase": "impact",
+  "checks": [
+    {
+      "name": "apply Small attacker",
+      "passed": true
+    },
+    {
+      "name": "apply Small victim",
+      "passed": true
+    },
+    {
+      "name": "victim initial HP Small",
+      "passed": true
+    },
+    {
+      "name": "bow original firing",
+      "passed": true
+    },
+    {
+      "name": "attacker damage snapshot",
+      "passed": true
+    },
+    {
+      "name": "in-flight Small round keeps damage after profile change",
+      "passed": true
+    },
+    {
+      "name": "Small vs Small bow measured delta",
+      "passed": false
+    }
+  ],
+  "rows": [
+    {
+      "attacker": "Small",
+      "victim": "Small",
+      "case": "bow",
+      "damage": 8.0,
+      "expected": 5,
+      "hp": 30.0,
+      "region": "<ShipHitRegion.BOW: 0>"
+    }
+  ],
+  "error": "Traceback (most recent call last):\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_small_damage_matrix.py\", line 67, in tick\n    check(attacker+' vs '+victim_class+' '+name+' measured delta',abs(delta-expected)<.001)\n  File \"E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Tools\\NavalCombat\\test_small_damage_matrix.py\", line 18, in check\n    st['checks'].append(dict(name=name,passed=bool(value)));assert value,name\n                                                            ^^^^^^^^^^^^^^^^^\nAssertionError: Small vs Small bow measured delta\n",
+  "pair": 0,
+  "case": 0,
+  "at": 6.016487792134285,
+  "before": 38.0,
+  "events": 0
+}
