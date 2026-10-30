@@ -29,8 +29,8 @@ def tick(dt):
         for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn):
             if (c:=a.get_component_by_class(unreal.ShipCombatComponent)):
                 weapon=a.get_component_by_class(unreal.ShipWeaponComponent)
-                c.enable_combat=bool(weapon and weapon.team() in globals().get('COMBAT_TEAMS',[]))
-            if a.get_component_by_class(unreal.ShipWeaponComponent):a.can_be_damaged=bool(globals().get('ALLOW_DAMAGE',False))
+                c.enable_combat=bool(weapon and not weapon.is_destroyed and weapon.team() in globals().get('COMBAT_TEAMS',[]))
+            if (weapon:=a.get_component_by_class(unreal.ShipWeaponComponent)):a.can_be_damaged=bool(globals().get('ALLOW_DAMAGE',False)) and not weapon.is_destroyed
             if globals().get('DEBUG',False) and (n:=a.get_component_by_class(unreal.ShipEnemyNavigationComponent)):n.draw_debug=True
         if st['phase']=='menu' and t>2:
             gi=unreal.GameplayStatics.get_game_instance(w)

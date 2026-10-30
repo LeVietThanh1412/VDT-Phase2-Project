@@ -13,3 +13,5 @@ Actual real-editor evidence:
 - RED_ASSAULT_LEADER_LOSS.json: PASS5 checks, staged hostile health death at~42.9s, native leader promotion and both survivors physically continuing>100m after death; ended132.83s. Original controllers and simulation retained.
 
 These are deliberately combat-disabled mission tests. They do not claim natural full-battle, ammo, stability or final-main acceptance. First interrupted sequential run and stale destroyed-actor Python wrapper failures are preserved under Saved. The fixed sampler queries currently live actors instead of dereferencing GC-invalid wrappers. No gameplay acceptance threshold was relaxed.
+
+Additional acceptance: RED_ASSAULT_FOLLOWER_LOSS.json PASS, staged slot1 follower destruction; scout retained without leadership churn and both survivors moved>100m in the next90s, same controllers/physics. Shared fixture legacy internal field names are explained in the report. Natural combined battle/restart PASS is recorded separately under QuangNinhIntegration.

@@ -7,7 +7,7 @@ import builtins,json,time,traceback,math,hashlib
 from pathlib import Path
 import unreal
 root=Path(unreal.Paths.project_dir());ed=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-failover=bool(globals().get('FAILOVER',False));output='RED_ASSAULT_LEADER_LOSS.json' if failover else 'RED_ASSAULT_NAVIGATION.json'
+follower_loss=bool(globals().get('FOLLOWER_LOSS',False));failover=bool(globals().get('FAILOVER',False)) or follower_loss;output='RED_ASSAULT_FOLLOWER_LOSS.json' if follower_loss else 'RED_ASSAULT_LEADER_LOSS.json' if failover else 'RED_ASSAULT_NAVIGATION.json'
 scope=dict(SEED=20261028,ENABLE_TACTICS=True,ENABLE_ASSAULT=True,OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=900,OUTPUT='RED_ASSAULT_STARTUP_TRANSIENT.json',OUTPUT_DIR='Saved',__name__='red_assault_startup')
 p=root/'Tools/NavalCombat/test_seeded_spawn.py';exec(compile(p.read_text(encoding='utf-8'),str(p),'exec'),scope)
 base=scope['st'];st=dict(status='RUNNING',scope='Combat-disabled physical convoy mission; any staged health death is explicit',failover=failover,phase='startup',rows=[],events=[],ships={},checks={},started=time.monotonic(),last=-1,error=None)
@@ -62,15 +62,19 @@ def tick(dt):
         if failover and st['phase']=='assault':
             leader=next((a for a in red if a.get_actor_label()==layout['assault_leader']),None)
             if leader and next(x for x in field.assignments if x.ship==leader).assault_phase>=1:
-                st['leader_changes_before_death']=layout['leader_changes'];st['dead_leader_label']=leader.get_actor_label();st['dead_leader']=leader
+                st['leader_changes_before_death']=layout['leader_changes']
+                if follower_loss:leader=next(a for a in red if next(x for x in field.assignments if x.ship==a).slot==1)
+                st['dead_leader_label']=leader.get_actor_label();st['dead_leader']=leader
                 st['survivor_positions']={a.get_actor_label():vec(grid.world_to_chart(a.get_actor_location())) for a in red if a!=leader}
                 leader.can_be_damaged=True;st['checks']['staged_hostile_health_death_accepted']=leader.get_component_by_class(unreal.ShipWeaponComponent).receive_ship_damage(1000,st['player']);leader.can_be_damaged=False
                 st.update(phase='leader_loss',death_at=t);st['events'].append(dict(t=t,event='explicit_leader_health_death',ship=leader.get_actor_label()));save()
         if failover and st['phase']=='leader_loss' and t-st['death_at']>90:
             survivors=[r for label,r in st['ships'].items() if label!=st['dead_leader_label']]
             progressed=all(math.dist(st['survivor_positions'][label],r.get('last_position',r['start']))>100 for label,r in st['ships'].items() if label!=st['dead_leader_label'])
-            if progressed and layout['leader_changes']>st['leader_changes_before_death'] and layout['assault_leader'] not in ['none',st['dead_leader_label']]:
-                st['checks'].update(new_live_leader_selected=True,both_survivors_physically_continue=True,original_survivor_controllers=all(r['controller_same'] and r['physical'] for r in survivors))
+            leader_ok=(layout['assault_leader']==st['initial_leader'] and layout['leader_changes']==st['leader_changes_before_death']) if follower_loss else layout['leader_changes']>st['leader_changes_before_death']
+            if progressed and leader_ok and layout['assault_leader'] not in ['none',st['dead_leader_label']]:
+                st['checks']['live_leader_retained_after_follower_death' if follower_loss else 'new_live_leader_selected']=True
+                st['checks'].update(both_survivors_physically_continue=True,original_survivor_controllers=all(r['controller_same'] and r['physical'] for r in survivors))
                 finish('PASSED' if all(st['checks'].values()) else 'FAILED');return
         if not failover and all(r['max_phase']>=3 for r in st['ships'].values()):
             if 'all_contact_at' not in st:st['all_contact_at']=t
