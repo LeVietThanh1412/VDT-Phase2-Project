@@ -78,6 +78,7 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
     {if(!bCachedCamera){OriginalCameraSocketOffset=Arm->SocketOffset;bCachedCamera=true;}Arm->SocketOffset=OriginalCameraSocketOffset+P->CameraOffset;}
     if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>())
     {N->MaxHealth=P->MaxHealth;if(auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())N->Health=Weapon->CurrentHealth;N->RefreshHullGeometry();}
+    if(auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())Weapon->RefreshShipTags();
     bProfileApplied=true;return true;
 }
 void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)

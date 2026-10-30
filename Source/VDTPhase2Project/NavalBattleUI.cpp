@@ -139,13 +139,14 @@ TSharedRef<SWidget> UShipHUDWidget::RebuildWidget()
     Frame->SetPadding(FMargin(18, 12));
     auto *FrameSlot = Canvas->AddChildToCanvas(Frame);
     FrameSlot->SetPosition(FVector2D(24, 24));
-    FrameSlot->SetSize(FVector2D(440, 190));
+    FrameSlot->SetSize(FVector2D(440, 220));
     auto *Box = WidgetTree->ConstructWidget<UVerticalBox>();
     Frame->AddChild(Box);
     Text(WidgetTree, Box, 12, FLinearColor(.3f, .7f, 1))->SetText(FText::FromString(TEXT("NAVAL BATTLE  /  BLUE FLEET")));
     Score = Text(WidgetTree, Box, 23, FLinearColor::White);
     Health = Text(WidgetTree, Box, 16, FLinearColor::White);
     Bar = Progress(WidgetTree, Box, 16);
+    Ammo = Text(WidgetTree, Box, 16, FLinearColor(.65f,.85f,1));
     Notice = Text(WidgetTree, Box, 14, FLinearColor(1, .8f, .35f));
     Turn = Text(WidgetTree, Box, 14, FLinearColor(.55f,.85f,1));
     Result = WidgetTree->ConstructWidget<UTextBlock>();
@@ -175,6 +176,11 @@ void UShipHUDWidget::Refresh(UNavalBattleSubsystem *Battle)
         float Fraction = Ship->CurrentHealth / FMath::Max(Ship->MaxHealth, 1.f);
         Bar->SetPercent(Fraction);
         Bar->SetFillColorAndOpacity(HPColor(Fraction));
+        const int32 Seconds=FMath::CeilToInt(Ship->ReloadRemaining());
+        AmmoText=Ship->bIsDestroyed?TEXT("WEAPON OFFLINE"):Ship->bReloading?
+            FString::Printf(TEXT("AMMO: %d/%d  |  RELOADING: %02d:%02d"),Ship->RoundsRemaining,Ship->MagazineCapacity,Seconds/60,Seconds%60):
+            FString::Printf(TEXT("AMMO: %d/%d"),Ship->RoundsRemaining,Ship->MagazineCapacity);
+        if(Ammo)Ammo->SetText(FText::FromString(AmmoText));
     }
     Notice->SetText(FText::FromString(Battle->Notification));
     if(Turn)
@@ -361,8 +367,9 @@ void UNavalBattleSubsystem::UpdateMatch()
         const auto* W=IsValid(ActiveTurnShip)?ActiveTurnShip->FindComponentByClass<UShipWeaponComponent>():nullptr;
         if(!Outcome.IsEmpty())ActiveTurnShip=nullptr;
         else if(!W || W->bIsDestroyed || GetWorld()->GetTimeSeconds()>=TurnEndsAt)AdvanceTurn();
-        RefreshHUD();
     }
+    // Real-time play also needs the authoritative reload countdown refreshed.
+    RefreshHUD();
 }
 void UNavalBattleSubsystem::RefreshHUD()
 {

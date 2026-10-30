@@ -49,11 +49,13 @@ public:
     UPROPERTY(BlueprintReadOnly) FString HealthText;
     UPROPERTY(BlueprintReadOnly) FString ScoreText;
     UPROPERTY(BlueprintReadOnly) FString ResultText;
+    UPROPERTY(BlueprintReadOnly) FString AmmoText;
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
 private:
     UPROPERTY(Transient) TObjectPtr<UProgressBar> Bar;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Health;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> Ammo;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Score;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Notice;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Result;

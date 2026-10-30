@@ -60,6 +60,7 @@ UShipWeaponComponent::UShipWeaponComponent(){PrimaryComponentTick.bCanEverTick=f
 void UShipWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();CurrentHealth=FMath::Max(1.f,MaxHealth);bIsDestroyed=false;
+    MagazineCapacity=FMath::Max(1,MagazineCapacity);RoundsRemaining=MagazineCapacity;bReloading=false;ReloadsStarted=ReloadsCompleted=0;RefreshShipTags();
     GetOwner()->OnTakeAnyDamage.AddUniqueDynamic(this,&UShipWeaponComponent::OnDamaged);
     if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RegisterShip(this);
     GetWorld()->GetTimerManager().SetTimer(PresentationTimer,this,&UShipWeaponComponent::UpdatePresentation,.5f,true);
@@ -68,6 +69,7 @@ void UShipWeaponComponent::BeginPlay()
 }
 void UShipWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    GetWorld()->GetTimerManager().ClearTimer(ReloadTimer);
     GetWorld()->GetTimerManager().ClearTimer(PresentationTimer);
     GetWorld()->GetTimerManager().ClearTimer(DestructionTimer);
     if(DestructionFX){DestructionFX->DeactivateImmediate();DestructionFX->DestroyComponent();DestructionFX=nullptr;}
@@ -122,7 +124,7 @@ bool UShipWeaponComponent::ReceiveShipDamage(float Damage,AActor* Causer)
 bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
 {
     if(bIsDestroyed)return false;
-    bIsDestroyed=true;CurrentHealth=0;DeathReason=Reason;DestructionStage=EShipDestructionStage::Dying;++DestructionEvents;
+    bIsDestroyed=true;GetWorld()->GetTimerManager().ClearTimer(ReloadTimer);bReloading=false;RefreshShipTags();CurrentHealth=0;DeathReason=Reason;DestructionStage=EShipDestructionStage::Dying;++DestructionEvents;
     DeathStartedAt=GetWorld()->GetTimeSeconds();GetOwner()->Tags.AddUnique(TEXT("Dead"));SetCanShoot(GetOwner(),false);
     GetOwner()->SetLifeSpan(0); // Staged presentation owns cleanup, including player wrecks.
     if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>()){N->Health=0;N->StopNavigation();N->SetDriveCommand(0,0);}
@@ -242,6 +244,7 @@ void UShipWeaponComponent::RefreshHealthUI()
 }
 void UShipWeaponComponent::UpdatePresentation()
 {
+    RefreshShipTags();
     auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn)return;
     if(Pawn->IsPlayerControlled())
     {
@@ -270,6 +273,42 @@ USkeletalMeshComponent* UShipWeaponComponent::Mesh() const
     for(auto* C:Components)if(C->GetFName()==TEXT("Ship"))return C;
     return nullptr;
 }
+float UShipWeaponComponent::ReloadRemaining() const
+{return bReloading && GetWorld()?FMath::Max(0.,ReloadEndsAt-GetWorld()->GetTimeSeconds()):0;}
+void UShipWeaponComponent::BeginReload()
+{
+    if(bIsDestroyed || bReloading || RoundsRemaining>0)return;
+    bReloading=true;++ReloadsStarted;ReloadEndsAt=GetWorld()->GetTimeSeconds()+FMath::Max(.1f,ReloadDurationSeconds);
+    GetWorld()->GetTimerManager().SetTimer(ReloadTimer,this,&UShipWeaponComponent::CompleteReload,FMath::Max(.1f,ReloadDurationSeconds),false);
+}
+void UShipWeaponComponent::CompleteReload()
+{
+    if(bIsDestroyed || !bReloading)return;
+    RoundsRemaining=FMath::Max(1,MagazineCapacity);bReloading=false;++ReloadsCompleted;
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
+}
+void UShipWeaponComponent::RefreshShipTags()
+{
+    auto* Owner=GetOwner();if(!Owner)return;
+    Owner->Tags.RemoveAll([](FName Tag){const FString S=Tag.ToString();return S.StartsWith(TEXT("Team.")) || S.StartsWith(TEXT("Ship.Class.")) || S.StartsWith(TEXT("AI.Role.")) || S.StartsWith(TEXT("AI.State."));});
+    if(Team()==0)Owner->Tags.AddUnique(TEXT("Team.Blue"));else if(Team()==1)Owner->Tags.AddUnique(TEXT("Team.Red"));
+    if(const auto* M=Owner->FindComponentByClass<UShipMovementComponent>())
+        Owner->Tags.AddUnique(M->HullClass==EShipHullClass::Small?TEXT("Ship.Class.Small"):M->HullClass==EShipHullClass::Large?TEXT("Ship.Class.Large"):TEXT("Ship.Class.Medium"));
+    const auto* N=Owner->FindComponentByClass<UShipEnemyNavigationComponent>();
+    const auto* C=Owner->FindComponentByClass<UShipCombatComponent>();
+    if(!N || !C || bIsDestroyed)return;
+    const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();
+    const auto* A=Field?Field->Assignments.FindByPredicate([&](const FNavalSpawnAssignment& Item){return Item.Ship==Owner;}):nullptr;
+    FName Role=Team()==0?TEXT("AI.Role.Defender"):TEXT("AI.Role.Attacker");
+    if(Team()==1 && A && Field->AreTacticsEnabled() && Field->AssaultLeader.IsValid())Role=Field->AssaultLeader.Get()==Owner?TEXT("AI.Role.Scout"):A->AssaultPhase<3?TEXT("AI.Role.Follower"):TEXT("AI.Role.Attacker");
+    Owner->Tags.AddUnique(Role);
+    FName State=TEXT("AI.State.Patrol");
+    if(A && A->Team==1 && A->bAssaultReleased)State=TEXT("AI.State.Approach");
+    if(C->TacticalState==EShipTacticalState::Engage)State=TEXT("AI.State.Attack");
+    if(C->TacticalState==EShipTacticalState::Retreat || C->TacticalState==EShipTacticalState::Escape || C->TacticalState==EShipTacticalState::BackwardRetreat)State=TEXT("AI.State.Retreat");
+    if(C->TacticalState==EShipTacticalState::ReturnToPatrol || (N->NavigationState==EShipNavigationState::Failed || N->NavigationState==EShipNavigationState::Recovery) || (A && A->MissionRouteRetries>0))State=TEXT("AI.State.Recovery");
+    Owner->Tags.AddUnique(State);
+}
 float UShipWeaponComponent::CooldownRemaining() const
 {return GetWorld()?FMath::Max(0.,LastShotTime+ShotCooldownSeconds-GetWorld()->GetTimeSeconds()):0;}
 bool UShipWeaponComponent::FirePlayer()
@@ -282,9 +321,10 @@ bool UShipWeaponComponent::FirePlayer()
 bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FVector OptionalLaunchVelocity,bool HasLaunch)
 {
     RejectionReason.Empty();
+    if(bIsDestroyed){RejectionReason=TEXT("Destroyed");return false;}
+    if(bReloading || RoundsRemaining<=0){RejectionReason=TEXT("Reloading");return false;}
     USkeletalMeshComponent* Visual=Mesh();
     if(!Visual || !Visual->DoesSocketExist(MuzzleSocket)){RejectionReason=TEXT("Missing muzzle");return false;}
-    if(bIsDestroyed){RejectionReason=TEXT("Destroyed");return false;}
     if(!UNavalBattleSubsystem::CanShipAct(GetOwner())){RejectionReason=TEXT("Inactive action window");return false;}
     if(bDispatching || CooldownRemaining()>0 || !CanShoot(GetOwner())){RejectionReason=TEXT("Cooldown/recoil");return false;}
     FVector Launch=OptionalLaunchVelocity;
@@ -315,7 +355,7 @@ bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FV
     Ballistic->SetPropertyValue_InContainer(Parameters.GetStructMemory(),HasLaunch);
     LastMuzzle=Start;LastLaunchVelocity=Launch;
     const int32 Before=ShotsFired;
-    bDispatching=true;SetCanShoot(GetOwner(),false);
+    bDispatching=true;bAcceptedDispatch=false;SetCanShoot(GetOwner(),false);
     GetOwner()->ProcessEvent(Event,Parameters.GetStructMemory());
     bDispatching=false;
     if(ShotsFired==Before){SetCanShoot(GetOwner(),true);RejectionReason=TEXT("Original Blueprint projectile spawn failed");return false;}
@@ -324,6 +364,11 @@ bool UShipWeaponComponent::TryFireWeapon(FVector Location,AActor* TargetActor,FV
 void UShipWeaponComponent::FinishShot(AActor* Projectile)
 {
     if(!IsValid(Projectile))return;
+    if(Projectile==LastProjectile)return;
+    if(!bDispatching || bAcceptedDispatch || bIsDestroyed || bReloading || RoundsRemaining<=0 ||
+        !Projectile->FindComponentByClass<UShipProjectileDamageComponent>() || !Projectile->FindComponentByClass<UProjectileMovementComponent>())
+    {Projectile->Destroy();return;}
+    bAcceptedDispatch=true;
     Projectile->SetOwner(GetOwner());Projectile->SetInstigator(Cast<APawn>(GetOwner()));
     if(auto* Round=Projectile->FindComponentByClass<UShipProjectileDamageComponent>())Round->InitializeSource(GetOwner());
     TArray<UPrimitiveComponent*> Own,Shell;GetOwner()->GetComponents(Own);Projectile->GetComponents(Shell);
@@ -339,6 +384,8 @@ void UShipWeaponComponent::FinishShot(AActor* Projectile)
     if(const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>())
         Projectile->SetLifeSpan(FMath::Clamp(Combat->EngagementRadiusM*100/FMath::Max(1.f,MuzzleSpeedCmps)*1.3f+.5f,1.f,30.f));
     LastShotTime=GetWorld()->GetTimeSeconds();LastProjectile=Projectile;++ShotsFired;
+    --RoundsRemaining;if(RoundsRemaining==0)BeginReload();
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
     UE_LOG(LogTemp,Display,TEXT("ShipWeapon shot=%d ship=%s projectile=%s muzzle=%s launch=%s owner=%s instigator=%s"),
         ShotsFired,*GetNameSafe(GetOwner()),*GetNameSafe(Projectile),*LastMuzzle.ToString(),*LastLaunchVelocity.ToString(),*GetNameSafe(Projectile->GetOwner()),*GetNameSafe(Projectile->GetInstigator()));
 }
@@ -386,9 +433,15 @@ bool UShipCombatComponent::IsHostile(AActor* Candidate) const
 {
     if(Weapon && Weapon->bIsDestroyed)return false;
     if(!IsValid(Candidate) || Candidate==GetOwner() || Candidate->IsActorBeingDestroyed() || Candidate->ActorHasTag(TEXT("Dead")))return false;
-    if(Faction==2)return false;
-    if(const auto* W=Candidate->FindComponentByClass<UShipWeaponComponent>())return !W->bIsDestroyed && W->Team()!=Faction && W->Team()!=2;
+    const int32 OwnTeam=Weapon?Weapon->Team():Faction;
+    if(OwnTeam<0 || OwnTeam>1)return false;
+    if(const auto* W=Candidate->FindComponentByClass<UShipWeaponComponent>())return !W->bIsDestroyed && W->Team()>=0 && W->Team()<=1 && W->Team()!=OwnTeam;
     return false;
+}
+bool UShipCombatComponent::SetHostileTarget(AActor* Candidate)
+{
+    if(Candidate && !IsHostile(Candidate))return false;
+    Target=Candidate;return true;
 }
 bool UShipCombatComponent::Visible(AActor* Candidate) const
 {

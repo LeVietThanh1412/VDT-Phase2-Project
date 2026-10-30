@@ -1,0 +1,80 @@
+{
+  "status": "PASSED",
+  "scope": "Read-only six-ship mixed-hull runtime identity, during 120s physics fixture",
+  "rows": [
+    {
+      "ship": "BP_ShipEnemy2",
+      "team": 1,
+      "class_name": "Small",
+      "tags": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Small",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ]
+    },
+    {
+      "ship": "BP_ShipEnemy",
+      "team": 1,
+      "class_name": "Medium",
+      "tags": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Medium",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ]
+    },
+    {
+      "ship": "Friendly_AI_1",
+      "team": 0,
+      "class_name": "Large",
+      "tags": [
+        "Battle3v3",
+        "Friendly",
+        "Team.Blue",
+        "Ship.Class.Large",
+        "AI.Role.Defender",
+        "AI.State.Patrol"
+      ]
+    },
+    {
+      "ship": "Friendly_AI_2",
+      "team": 0,
+      "class_name": "Medium",
+      "tags": [
+        "Battle3v3",
+        "Friendly",
+        "Team.Blue",
+        "Ship.Class.Medium",
+        "AI.Role.Defender",
+        "AI.State.Patrol"
+      ]
+    },
+    {
+      "ship": "BP_ShipEnemy3",
+      "team": 1,
+      "class_name": "Small",
+      "tags": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Small",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ]
+    },
+    {
+      "ship": "BP_ShipSmall0",
+      "team": 0,
+      "class_name": "Small",
+      "tags": [
+        "Team.Blue",
+        "Ship.Class.Small"
+      ]
+    }
+  ]
+}
