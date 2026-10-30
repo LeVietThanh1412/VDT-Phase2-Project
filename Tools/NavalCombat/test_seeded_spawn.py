@@ -32,13 +32,19 @@ def tick(dt):
                 c.enable_combat=bool(weapon and not weapon.is_destroyed and weapon.team() in globals().get('COMBAT_TEAMS',[]))
             if (weapon:=a.get_component_by_class(unreal.ShipWeaponComponent)):a.can_be_damaged=bool(globals().get('ALLOW_DAMAGE',False)) and not weapon.is_destroyed
             if globals().get('DEBUG',False) and (n:=a.get_component_by_class(unreal.ShipEnemyNavigationComponent)):n.draw_debug=True
-        if st['phase']=='menu' and t>2:
+        if st['phase']=='menu' and time.monotonic()-st['started']>2:
             gi=unreal.GameplayStatics.get_game_instance(w)
             settings=lib.call_method('GetGameInstanceSubsystem',args=(gi,unreal.NavalMatchSettings.static_class()))
+            if globals().get('VERIFY_DEFAULT_FLAGS',False):
+                assert settings.use_sector_battlefield and settings.enable_sector_tactics and settings.enable_red_assault,'Production scenario flags are disabled'
+                st['default_scenario_flags_verified']=True
             settings.use_sector_battlefield=True
             settings.enable_sector_tactics=bool(globals().get('ENABLE_TACTICS',False))
             settings.enable_red_assault=bool(globals().get('ENABLE_ASSAULT',False))
-            pc=unreal.GameplayStatics.get_player_controller(w,0);pc.toggle_match_setup();ui=pc.setup_widget
+            pc=unreal.GameplayStatics.get_player_controller(w,0)
+            if not pc.setup_widget:pc.toggle_match_setup()
+            ui=pc.setup_widget
+            ui.player_team_selector.set_selected_index(int(globals().get('PLAYER_TEAM',0)))
             ui.seed_input.set_text(str(seed));ui.mode_selector.set_selected_index(0)
             if 'HULL_CLASSES' in globals():
                 assert len(HULL_CLASSES)==6
@@ -102,6 +108,12 @@ def tick(dt):
                 st['hull_capture']=rows;save()
             if t-st['ready_at']<float(globals().get('OBSERVE_SECONDS',35)):return
             fleet=[a for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn) if a.get_component_by_class(unreal.ShipWeaponComponent)]
+            # A wave can briefly uncover a pontoon; capture an actual all-wet
+            # sample within a bounded2s window, never force contact or retry indefinitely.
+            if not all(a.get_component_by_class(unreal.BuoyancyComponent).is_in_water_body() for a in fleet):
+                if 'contact_sample_deadline' not in st:st['contact_sample_deadline']=t+2
+                if t<st['contact_sample_deadline']:return
+            st['contact_sample_time']=t
             ai=[a for a in fleet if a.get_component_by_class(unreal.ShipEnemyNavigationComponent)]
             assignments=st['layout']['ships'];positions=[a['spawn_en_m'] for a in assignments]
             canonical=[{k:v for k,v in a.items() if k in ['team','slot','sector','spawn_en_m','target_en_m','heading']} for a in assignments]
@@ -126,8 +138,10 @@ def tick(dt):
             st['ai_diagnostics']=[json.loads(a.get_component_by_class(unreal.ShipEnemyNavigationComponent).get_navigation_diagnostics()) for a in ai]
             st['travel_m']={a.get_actor_label():math.dist(st['initial_positions'][a.get_actor_label()],grid.world_to_chart(a.get_actor_location()).to_tuple()) for a in ai}
             st['checks']['all_five_physically_moved']=all(d>35 for d in st['travel_m'].values())
-            blue_goals=[a['target_en_m'] for a in assignments if a['team']==0 and a['slot']>0]
-            st['checks']['distinct_blue_patrol_destinations']=len(blue_goals)<2 or math.dist(*blue_goals)>=200
+            player_labels={a.get_actor_label() for a in fleet if a.is_player_controlled()}
+            blue_goals=[a['target_en_m'] for a in assignments if a['team']==0 and a['ship'] not in player_labels]
+            st['checks']['distinct_blue_patrol_destinations']=all(math.dist(a,b)>=200 for i,a in enumerate(blue_goals) for b in blue_goals[i+1:])
+            st['checks']['selected_player_team_preserved']=next(a for a in fleet if a.is_player_controlled()).get_component_by_class(unreal.ShipWeaponComponent).team()==int(globals().get('PLAYER_TEAM',0))
             if required_legs:
                 records=st['patrol_tracking']
                 st['checks']['five_repeated_physical_patrols']=len(records)==5 and all(r['last_legs']>=required_legs and r['physical'] and r['controller_same'] and all(e['within_arrival_radius'] for e in r['arrivals']) for r in records.values())

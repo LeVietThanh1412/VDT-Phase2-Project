@@ -1,6 +1,6 @@
 # Final naval battle QA - integration pending
 
-Pre-merge gameplay acceptance: **PASS**. Final merged-main acceptance: **NOT TESTED**.
+Pre-merge gameplay acceptance: **PASS**. Post-main-sync combined gameplay: **PASS** in a clean checkout. Final remote-main build/smoke is recorded by the delivery audit.
 
 | Test | Environment | Result | Evidence |
 |---|---|---|---|
@@ -21,3 +21,11 @@ Measured final60-second physical displacement: Red scout159m, RedMedium229m, Red
 Failures preserved: interrupted editor run; Python stale destroyed-actor wrapper failures; editor property reconstruction in the first magazine target-switch fixture; rejected Large damping trials1.8/2.8/3.6 and body-only tuning; first combined fixture incorrectly re-enabled combat on wrecks. Fixes retain thresholds and archives; passing reports replace neither raw failures nor their history. No navigator rewrite or historical A*/ten-seed rerun occurred.
 
 Remaining before delivery: clean-checkout asset/reference validation; enable verified sector/tactics default flow; merge latest main into existing feature; preserve new main UI and integrate ammo into its selected-ship panel; post-sync build and combined QA; push/PR11 merge under repository policy; final remote-main build/smoke. A separate controlled terrain-impact recovery fixture has not been completed. Scene-only screenshot attempts do not prove visible UMG; final merged UI still needs visual inspection.
+
+## Main synchronization validation
+
+UE5.6 clean release checkout build PASS. The same180-second mixed-class, native Blue/Red battle and menu restart passed all14 checks after source conflict resolution, using the new selected-ship HUD and production default flags. The new panel magazine/death/spam/world-time reload fixture passed all10 checks. Actual Slate HUD rendering was inspected in MERGED_HUD_RELOADING.png. Original six local user edits were not part of this checkout.
+
+Conflicts were seven text files, no binary conflicts. The original water-ignore helper name was retained consistently (no navigation logic rewrite). New main team-selection/slot rows, controls, markers and selected-ship UI were preserved; seed,3 classes and both modes were composed into that flow. VisualStudioTools remains enabled when installed and is optional when absent, avoiding a non-gameplay IDE-plugin build failure.
+
+The Red-player extension initially failed physical placement for its third Blue patrol. That extra patrol now uses the already-defined north-watch zone, with all physical/route/separation checks retained; the default Blue-player seeded path is unchanged. A later one-frame contact sample failed during a normal wave gap. The focused startup fixture now waits at most2s for an actual all-wet sample, with unchanged physics/stability limits; failures remain archived. Red-player final result is recorded in RED_PLAYER_POSTSYNC_STARTUP.json. No historical ten-seed/A* suite was repeated.

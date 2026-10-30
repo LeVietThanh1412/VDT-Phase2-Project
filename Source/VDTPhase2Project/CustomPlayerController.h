@@ -4,7 +4,11 @@
 #include "GameFramework/PlayerController.h"
 #include "CustomPlayerController.generated.h"
 
+class ACameraActor;
 class AFreeCameraPawn;
+class UButtonTutorialsUI;
+class UShipDetailsUI;
+class USpringArmComponent;
 class UShipSetupWidget;
 
 /** Views ships with Q without taking their AI controllers; F toggles free flight. */
@@ -14,31 +18,82 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
     GENERATED_BODY()
 
 public:
-    virtual void SetupInputComponent() override;
     virtual void BeginPlay() override;
+    virtual void PlayerTick(float DeltaTime) override;
+    virtual void SetupInputComponent() override;
     UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
     UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
     UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
-    virtual void PlayerTick(float DeltaTime) override;
     virtual void OnPossess(APawn* InPawn) override;
     UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
     UFUNCTION(BlueprintCallable, Category="Spectator") void ShowBattlefieldOverview();
     UPROPERTY(BlueprintReadOnly, Category="Spectator") bool bDeathSpectating=false;
     UPROPERTY(BlueprintReadOnly, Category="Spectator") TObjectPtr<APawn> FollowedTeammate;
     UFUNCTION(BlueprintCallable, Category="Camera")
+
+    /** Returns the ship selected by the controller, including while free camera is active. */
+    APawn* GetSelectedShip() const;
+
+private:
     void ToggleFreeCamera();
+    void ToggleBattlefieldOverview();
+    void RestoreRecentShipView();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
+    void ToggleShipDetailsUI();
+    void ToggleButtonTutorials();
+
+    /** Makes the viewed ship the selection used by the camera and the details panel. */
+    void ApplyShipView(APawn* InShip);
+
+    /** Uses an orbit camera for AI ships so the player can look around without possessing them. */
+    void SetShipViewTarget(APawn* InShip, float BlendTime);
+    void UpdateShipViewCamera(ACameraActor* Camera);
+    ACameraActor* GetNextShipViewCamera();
+    ACameraActor* CreateShipViewCamera();
+
+    /**
+     * AI controllers keep the hull's roll in their control rotation, and the ship's
+     * spring arms inherit it, which tilts the view. Level only the arms of the ship
+     * being observed, then restore their authored values when the player looks away.
+     */
+    void SetHorizonLock(APawn* InShip, bool bEnabled);
 
 private:
     void EnterDeathSpectator();
     bool bMenuPausedWorld=false;
+    bool bBattlefieldOverview=false;
     UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
     UPROPERTY()
     TObjectPtr<APawn> PreviousPawn;
 
+    /** Ship the player is currently watching with Q (not necessarily the possessed pawn). */
+    UPROPERTY()
+    TObjectPtr<APawn> ViewedShip;
+
+    /**
+     * Orbit cameras alternate as view targets. Reusing one camera for every
+     * AI ship makes SetViewTargetWithBlend a no-op, so enemy-to-enemy switches
+     * would cut instead of blending. Three cameras also let a rapid Q press
+     * replace a blend that is still running.
+     */
+    UPROPERTY()
+    TArray<TObjectPtr<ACameraActor>> ShipViewCameras;
+
+    /** Incoming camera while a blend is running; the outgoing camera must stay put. */
+    UPROPERTY()
+    TObjectPtr<ACameraActor> ActiveShipViewCamera;
+
+    TMap<TWeakObjectPtr<USpringArmComponent>, bool> SavedSpringArmRollInheritance;
+
     UPROPERTY()
     TObjectPtr<AFreeCameraPawn> FreeCameraPawn;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UShipDetailsUI> ShipDetailsUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UButtonTutorialsUI> ButtonTutorialsUI;
 
     // The normal pawn's camera rotation must survive a round trip through free camera.
     FRotator PreviousControlRotation = FRotator::ZeroRotator;

@@ -42,14 +42,14 @@ bool UNavalBattlefieldSubsystem::AreTacticsEnabled() const
 bool UNavalBattlefieldSubsystem::IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const
 {
     if(!bReady || !AreTacticsEnabled())return true;
-    const auto* A=Assignments.FindByPredicate([Ship](const FNavalSpawnAssignment& Item){return Item.Ship==Ship && Item.Team==0 && Item.Slot>0;});
+    const auto* A=Assignments.FindByPredicate([Ship](const FNavalSpawnAssignment& Item){return Item.Ship==Ship && Item.Team==0 && !Item.Ship->IsPlayerControlled();});
     if(!A)return true;
     if(!IsValid(Target))return false;
     const auto Enemy=GetWorld()->GetSubsystem<UNavalSectorSubsystem>()->WorldToChart(Target->GetActorLocation());
     return Enemy.X<=14750 && FVector2D::Distance(Enemy,A->DefensiveAnchorEN)<=DefensiveLeashM+250;
 }
 void UNavalBattlefieldSubsystem::Fail(const FString& Reason)
-{bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;B->RefreshHUD();}}
+{bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}}
 void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
 {
     if(!IsEnabled()){Status=TEXT("Sector placement disabled during development");return;}
@@ -79,7 +79,7 @@ void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
     }
     if(auto* PC=UGameplayStatics::GetPlayerController(this,0))if(LoadingCamera)PC->SetViewTarget(LoadingCamera);
     Status=TEXT("Preparing battlefield...");
-    if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;B->RefreshHUD();}
+    if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}
 }
 TSharedPtr<const FSeaNavigationMap> UNavalBattlefieldSubsystem::NavigationChartForShip(APawn* Ship) const
 {
@@ -153,15 +153,18 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
     if(auto* Player=UGameplayStatics::GetPlayerPawn(this,0);Blue.Remove(Player))Blue.Insert(Player,0);
     // Prefer the actual selected Small hull as the leading scout, keeping all
     // selected classes and pawn identities intact in custom fleet presets.
-    const int32 Scout=Red.IndexOfByPredicate([](APawn* P){const auto* M=P->FindComponentByClass<UShipMovementComponent>();return M && M->HullClass==EShipHullClass::Small;});
+    int32 Scout=INDEX_NONE,BestClass=MAX_int32;
+    for(int32 I=0;I<Red.Num();++I)if(!Red[I]->IsPlayerControlled())if(const auto* M=Red[I]->FindComponentByClass<UShipMovementComponent>())
+    {const int32 Rank=M->HullClass==EShipHullClass::Small?0:M->HullClass==EShipHullClass::Medium?1:2;if(Rank<BestClass){BestClass=Rank;Scout=I;}}
     if(Scout>0){APawn* P=Red[Scout];Red.RemoveAt(Scout);Red.Insert(P,0);}
     if(Blue.IsEmpty() || Red.IsEmpty())return false;
-    TArray<int32> Defense,Patrol,Staging,LeadStaging,Approach;
+    TArray<int32> Defense,Patrol,NorthWatch,Staging,LeadStaging,Approach;
     for(int32 I=0;I<Grid->Sectors.Num();++I)
     {
         const auto& S=Grid->Sectors[I];if(!S.bSpawnEligible)continue;
         if(S.Zones.Contains(TEXT("BLUE_DEFENSE_CORE")) && S.AnchorEN.X<14450)Defense.Add(I);
         if(S.Zones.Contains(TEXT("BLUE_WEST_ISLAND_PATROL")) && S.AnchorEN.X<14450)Patrol.Add(I);
+        if(S.Zones.Contains(TEXT("BLUE_NORTH_WATCH")) && S.AnchorEN.X<14450)NorthWatch.Add(I);
         if(S.Zones.Contains(TEXT("RED_STAGING")))
         {Staging.Add(I);if(S.AnchorEN.Y<4200)LeadStaging.Add(I);}
         if(S.Zones.Contains(TEXT("RED_APPROACH")))Approach.Add(I);
@@ -195,7 +198,7 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
                 if(StartCell==INDEX_NONE || GoalCell==INDEX_NONE)return false;
                 Start=Map->Center(StartCell);Goal=Map->Center(GoalCell);
             }
-            const bool Player=Team==0 && Slot==0;if(Player)Goal=Start;
+            const bool Player=P->IsPlayerControlled();if(Player)Goal=Start;
             if(const auto* N=P->FindComponentByClass<UShipEnemyNavigationComponent>();N && FVector2D::Distance(Start,Goal)<=N->ArrivalRadiusM*2+20)return false;
             FSeaRouteResult Route;
             if(Player){Route.bSuccess=true;Route.Points.Add(Start);}
@@ -204,7 +207,7 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
             for(const auto& Q:Route.Points)if(!Grid->IsInsideField(Q))return false;
             int32 First=1;
             while(First<Route.Points.Num()-1 && FVector2D::Distance(Start,Route.Points[First])<80 && Map->SegmentClear(Start,Route.Points[First+1]))++First;
-            const auto D=Player?FVector2D(1,0):Route.Points[First]-Start;const float Heading=FMath::RadiansToDegrees(FMath::Atan2(-D.Y,D.X));
+            const auto D=Player?FVector2D(Team==0?1:-1,0):Route.Points[First]-Start;const float Heading=FMath::RadiansToDegrees(FMath::Atan2(-D.Y,D.X));
             if(!SafePoint(P,Start,Heading) || !SafePoint(P,Goal,Heading))return false;
             const float Radius=SpawnHullRadius(P);
             for(int32 OtherIndex=0;OtherIndex<Assignments.Num();++OtherIndex)
@@ -212,12 +215,12 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
                 const auto& Other=Assignments[OtherIndex];
                 const float Separation=FMath::Max(220.f,Radius+Other.HullRadiusM+65);
                 if(FVector2D::Distance(Start,Other.SpawnEN)<Separation)return false;
-                if(Team==Other.Team && (Team==1 || (Slot>0 && Other.Slot>0)) && FVector2D::Distance(Goal,Other.TargetEN)<220)return false;
+                if(Team==Other.Team && (Team==1 || (!Player && !Other.Ship->IsPlayerControlled())) && FVector2D::Distance(Goal,Other.TargetEN)<220)return false;
                 if(Team==0 && Other.Team==0)
                 {
                     for(int32 K=1;K<Route.Points.Num();++K)
                         if(FMath::PointDistToSegment(FVector(Other.SpawnEN,0),FVector(Route.Points[K-1],0),FVector(Route.Points[K],0))<FMath::Max(300.f,Separation))return false;
-                    if(Other.Slot>0)for(int32 K=1;K<AcceptedRoutes[OtherIndex].Num();++K)
+                    if(!Other.Ship->IsPlayerControlled())for(int32 K=1;K<AcceptedRoutes[OtherIndex].Num();++K)
                     {
                         const auto& Prior=AcceptedRoutes[OtherIndex];
                         if(FMath::PointDistToSegment(FVector(Start,0),FVector(Prior[K-1],0),FVector(Prior[K],0))<FMath::Max(300.f,Separation))return false;
@@ -231,15 +234,18 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
         for(int32 I=0;I<Blue.Num() && Good;++I)
         {
             const auto Map=NavigationChartForShip(Blue[I]);
+            // Red-player mode adds a third Blue AI. Reserve the existing north-watch
+            // corridor for that extra patrol instead of crowding all three into west routes.
+            const auto& PatrolPool=I==0 && !Blue[I]->IsPlayerControlled() && !NorthWatch.IsEmpty()?NorthWatch:Patrol;
             // Keep each already accepted defender while trying the next slot.
             // Restarting the entire six-ship draw on one unsafe sample makes
             // the probability of a valid mixed-hull layout needlessly tiny.
             bool Placed=false;
             for(int32 PlacementTry=0;PlacementTry<48 && !Placed;++PlacementTry)
             {
-                const int32 Cell=Pick(Defense);const auto Start=Grid->Sectors[Cell].AnchorEN;FVector2D Goal=Start;bool Found=I==0;
+                const int32 Cell=Pick(Defense);const auto Start=Grid->Sectors[Cell].AnchorEN;FVector2D Goal=Start;bool Found=Blue[I]->IsPlayerControlled();
                 for(int32 Try=0;Try<32 && !Found;++Try)
-                {const auto Candidate=Grid->Sectors[Pick(Patrol)].AnchorEN;const double D=FVector2D::Distance(Start,Candidate);if(D>350 && D<1000 && Map->FindPath(Start,Candidate,75000,250).bSuccess){Goal=Candidate;Found=true;}}
+                {const auto Candidate=Grid->Sectors[Pick(PatrolPool)].AnchorEN;const double D=FVector2D::Distance(Start,Candidate);if(D>350 && D<1000 && Map->FindPath(Start,Candidate,75000,250).bSuccess){Goal=Candidate;Found=true;}}
                 if(Found)Placed=Add(Blue[I],0,I,Cell,Goal);
             }
             Good=Placed;
@@ -288,7 +294,7 @@ bool UNavalBattlefieldSubsystem::ValidatePhysicalLayout(bool& Waiting)
     for(auto& A:Assignments)
     {
         FSeaRouteResult Route;
-        if(A.Team==0 && A.Slot==0){Route.bSuccess=true;Route.Points.Add(A.SpawnEN);}
+        if(A.Ship->IsPlayerControlled()){Route.bSuccess=true;Route.Points.Add(A.SpawnEN);}
         else Route=NavigationChartForShip(A.Ship)->FindPath(A.SpawnEN,A.TargetEN,75000,250);
         if(!CheckPhysicalAssignment(A,Route,Waiting)){if(!Waiting)Fail(LastPhysicalRejection);return false;}
     }
@@ -405,7 +411,7 @@ void UNavalBattlefieldSubsystem::UpdateDefenders()
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
     for(auto& A:Assignments)
     {
-        if(A.Team!=0 || A.Slot==0 || !IsValid(A.Ship))continue;
+        if(A.Team!=0 || !IsValid(A.Ship) || A.Ship->IsPlayerControlled())continue;
         auto* W=A.Ship->FindComponentByClass<UShipWeaponComponent>();auto* C=A.Ship->FindComponentByClass<UShipCombatComponent>();auto* N=A.Ship->FindComponentByClass<UShipEnemyNavigationComponent>();
         if(!W || !C || !N || W->bIsDestroyed || W->Team()!=0){A.MissionState=TEXT("Defender unavailable");continue;}
         if(!UNavalBattleSubsystem::CanShipAct(A.Ship))continue;
@@ -623,7 +629,7 @@ void UNavalBattlefieldSubsystem::Tick(float Dt)
     }
     bReady=true;Status=FString::Printf(TEXT("SEED %d"),ActualSeed);
     if(auto* PC=UGameplayStatics::GetPlayerController(this,0))if(APawn* P=PC->GetPawn())PC->SetViewTarget(P);
-    if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError.Empty();B->Notification=Status;B->RefreshHUD();}
+    if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError.Empty();B->Notification=Status;}
 }
 void UNavalBattlefieldSubsystem::Deinitialize()
 {

@@ -5,7 +5,7 @@ manual-input emulation; no health, ammo, transforms or AI targets are altered.
 import unreal,builtins,json,time,math,traceback,hashlib
 from pathlib import Path
 root=Path(unreal.Paths.project_dir());ed=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
-scope=dict(SEED=20261028,HULL_CLASSES=[2,1,2,0,0,2],ENABLE_TACTICS=True,ENABLE_ASSAULT=True,COMBAT_TEAMS=[0,1],ALLOW_DAMAGE=True,OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=1800,OUTPUT='COMBINED_STARTUP.json',OUTPUT_DIR='Saved',__name__='combined_start')
+scope=dict(SEED=20261028,VERIFY_DEFAULT_FLAGS=True,HULL_CLASSES=[2,1,2,0,0,2],ENABLE_TACTICS=True,ENABLE_ASSAULT=True,COMBAT_TEAMS=[0,1],ALLOW_DAMAGE=True,OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=1800,OUTPUT='COMBINED_STARTUP.json',OUTPUT_DIR='Saved',__name__='combined_start')
 p=root/'Tools/NavalCombat/test_seeded_spawn.py';exec(compile(p.read_text(encoding='utf-8'),str(p),'exec'),scope)
 base=scope['st'];st=dict(status='RUNNING',phase='startup',rows=[],ships={},checks={},events=[],error=None,last=-1,started=time.monotonic(),native_dll_sha256=hashlib.sha256((root/'Binaries/Win64/UnrealEditor-VDTPhase2Project.dll').read_bytes()).hexdigest())
 builtins.integrated_sector_probe=st
@@ -54,7 +54,7 @@ def tick(dt):
    st['checks']['restart_same_seed']=field.actual_seed==20261028
    finish('PASSED' if all(st['checks'].values()) else 'FAILED');return
   if t-st['last']<.5:return
-  st['last']=t;field=st['field'];grid=st['grid'];battle=scope['sub'](w,unreal.NavalBattleSubsystem);sample=[]
+  st['last']=t;field=st['field'];grid=st['grid'];battle=scope['sub'](w,unreal.NavalBattleSubsystem);sample=[];player_inputs=[]
   for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn):
    label=a.get_actor_label()
    if label not in st['ships']:continue
@@ -78,12 +78,16 @@ def tick(dt):
     assert r['last_failure_since'] is None or t-r['last_failure_since']<45,'Navigation permanently failed'
     if weapon.team()==0:assert math.dist(pos,list(assignment.defensive_anchor_en.to_tuple()))<=field.defensive_leash_m+150 and pos[0]<=14750,'Blue left authorized defensive route allowance'
    # Explicit ordinary trigger emulation; AI aiming, firing and damage stay native.
-   if r['player'] and weapon.shots_fired<10:weapon.fire_player()
+   if r['player'] and weapon.shots_fired<10:player_inputs.append(weapon)
    sample.append(dict(ship=label,team=weapon.team(),hp=weapon.current_health,ammo=weapon.rounds_remaining,reload_remaining=weapon.reload_remaining(),shots=weapon.shots_fired,en_m=pos,phase=assignment.assault_phase,mission=assignment.mission_state,tags=tags,nav=str(n.navigation_state) if n else None,target=c.target.get_actor_label() if c and c.target else None,roll=h.get_world_rotation().roll,pitch=h.get_world_rotation().pitch))
   st['rows'].append(dict(t=t,ships=sample,leader=field.assault_leader.get_actor_label() if field.assault_leader else None,leader_changes=field.assault_leader_changes,outcome=battle.outcome))
-  if battle.hud and battle.player_ship and not battle.player_ship.is_destroyed:
-   p=battle.player_ship;text=battle.hud.ammo_text;assert ('RELOADING:' in text)==p.reloading
+  widgets=unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.ShipDetailsUI,False)
+  assert widgets and widgets[0].is_visible(),'Selected-ship HUD missing or hidden'
+  hud=widgets[0];displayed=hud.displayed_ship
+  if displayed and not (p:=displayed.get_component_by_class(unreal.ShipWeaponComponent)).is_destroyed:
+   text=hud.ammo_text;assert ('RELOADING:' in text)==p.reloading
    st['checks']['hud_ammo_live']=('AMMO: '+str(p.rounds_remaining)+'/10') in text
+  for weapon in player_inputs:weapon.fire_player()
   for at in [30,90,150,240]:
    if t-st['at']>=at and at not in st.setdefault('screenshots',[]):
     unreal.SystemLibrary.execute_console_command(w,'Shot showui filename='+str(root/'Docs/QuangNinhIntegration'/('COMBINED_'+str(at)+'.png')));st['screenshots'].append(at)

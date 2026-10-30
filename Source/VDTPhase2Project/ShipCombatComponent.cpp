@@ -56,13 +56,39 @@ FVector VelocityOf(AActor* Ship)
 }
 }
 
+FString UShipIdentityComponent::GetDisplayName() const
+{
+    if(!ShipName.IsEmpty())return ShipName;
+    const AActor* Owner=GetOwner();
+    if(!Owner)return TEXT("Ship");
+    if(const APawn* Pawn=Cast<APawn>(Owner))
+        if(Pawn->IsPlayerControlled())return TEXT("Player Ship");
+    const FString Label=Owner->GetActorNameOrLabel();
+    return Label.IsEmpty()?Owner->GetName():Label;
+}
+FString UShipIdentityComponent::GetTeamName() const
+{
+    if(!TeamName.IsEmpty())return TeamName;
+    const AActor* Owner=GetOwner();
+    if(Owner)
+        if(const auto* Weapon=Owner->FindComponentByClass<UShipWeaponComponent>())
+            return Weapon->Team()==0?TEXT("Blue"):TEXT("Red");
+    return TEXT("Blue");
+}
+void UShipIdentityComponent::BeginPlay()
+{
+    Super::BeginPlay();
+    if(!TeamName.IsEmpty())return;
+    const AActor* Owner=GetOwner();
+    const auto* Weapon=Owner?Owner->FindComponentByClass<UShipWeaponComponent>():nullptr;
+    TeamName=Weapon && Weapon->Team()!=0?TEXT("Red"):TEXT("Blue");
+}
 UShipWeaponComponent::UShipWeaponComponent(){PrimaryComponentTick.bCanEverTick=false;}
 void UShipWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();CurrentHealth=FMath::Max(1.f,MaxHealth);bIsDestroyed=false;
     MagazineCapacity=FMath::Max(1,MagazineCapacity);RoundsRemaining=MagazineCapacity;bReloading=false;ReloadsStarted=ReloadsCompleted=0;RefreshShipTags();
     GetOwner()->OnTakeAnyDamage.AddUniqueDynamic(this,&UShipWeaponComponent::OnDamaged);
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RegisterShip(this);
     GetWorld()->GetTimerManager().SetTimer(PresentationTimer,this,&UShipWeaponComponent::UpdatePresentation,.5f,true);
     LastDestructionUpdate=GetWorld()->GetTimeSeconds();
     GetWorld()->GetTimerManager().SetTimer(DestructionTimer,this,&UShipWeaponComponent::UpdateDestruction,.1f,true);
@@ -77,6 +103,36 @@ void UShipWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
 }
 int32 UShipWeaponComponent::Team() const
 {if(const auto* C=GetOwner()->FindComponentByClass<UShipCombatComponent>())return C->Faction;return Faction;}
+FString UShipWeaponComponent::GetShipName() const
+{
+    const AActor* Owner=GetOwner();
+    if(!Owner)return TEXT("Ship");
+    if(const auto* Identity=Owner->FindComponentByClass<UShipIdentityComponent>())
+        return Identity->GetDisplayName();
+    if(const APawn* Pawn=Cast<APawn>(Owner))
+        if(Pawn->IsPlayerControlled())return TEXT("Player Ship");
+    const FString Label=Owner->GetActorNameOrLabel();
+    return Label.IsEmpty()?Owner->GetName():Label;
+}
+FString UShipWeaponComponent::GetTeamName() const
+{
+    const AActor* Owner=GetOwner();
+    if(Owner)
+        if(const auto* Identity=Owner->FindComponentByClass<UShipIdentityComponent>())
+            return Identity->GetTeamName();
+    return Team()==0?TEXT("Blue"):TEXT("Red");
+}
+FString UShipCombatLibrary::GetShipNameForObject(UObject* Object)
+{
+    const AActor* Ship=Cast<AActor>(Object);
+    if(!Ship)return TEXT("Ship");
+    if(const auto* Identity=Ship->FindComponentByClass<UShipIdentityComponent>())
+        return Identity->GetDisplayName();
+    if(const auto* Weapon=Ship->FindComponentByClass<UShipWeaponComponent>())
+        return Weapon->GetShipName();
+    const FString Label=Ship->GetActorNameOrLabel();
+    return Label.IsEmpty()?Ship->GetName():Label;
+}
 void UShipWeaponComponent::OnDamaged(AActor*,float Damage,const UDamageType*,AController*,AActor* Causer)
 {ReceiveShipDamage(Damage,Causer);}
 bool UShipWeaponComponent::ReceiveHullImpact(AActor* Projectile,FVector ImpactWorld)
@@ -155,7 +211,6 @@ bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
             if(DestructionFX){DestructionFX->SetVariableVec3(TEXT("User.BoxSize"),FVector(6000,1500,800)*EffectScale);DestructionFX->SetRelativeScale3D(FVector(EffectScale));}
         }
     }
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);
     OnShipDestroyed.Broadcast(this,Attacker);OnHealthChanged.Broadcast(this,CurrentHealth,MaxHealth);RefreshHealthUI();
     UE_LOG(LogTemp,Display,TEXT("ShipBattle destroyed ship=%s team=%d reason=%s attacker=%s event=%d"),*GetNameSafe(GetOwner()),Team(),*UEnum::GetValueAsString(Reason),*GetNameSafe(Attacker),DestructionEvents);
     return true;
@@ -240,7 +295,6 @@ void UShipWeaponComponent::UpdateDestruction()
 void UShipWeaponComponent::RefreshHealthUI()
 {
     if(HealthWidget)if(auto* Widget=Cast<UShipHealthBarWidget>(HealthWidget->GetUserWidgetObject()))Widget->Refresh(this);
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
 }
 void UShipWeaponComponent::UpdatePresentation()
 {
@@ -248,7 +302,6 @@ void UShipWeaponComponent::UpdatePresentation()
     auto* Pawn=Cast<APawn>(GetOwner());if(!Pawn)return;
     if(Pawn->IsPlayerControlled())
     {
-        if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->EnsureHUD();
         GetWorld()->GetTimerManager().ClearTimer(PresentationTimer);return;
     }
     if(!HealthWidget && !bIsDestroyed)
@@ -285,7 +338,6 @@ void UShipWeaponComponent::CompleteReload()
 {
     if(bIsDestroyed || !bReloading)return;
     RoundsRemaining=FMath::Max(1,MagazineCapacity);bReloading=false;++ReloadsCompleted;
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
 }
 void UShipWeaponComponent::RefreshShipTags()
 {
@@ -385,7 +437,6 @@ void UShipWeaponComponent::FinishShot(AActor* Projectile)
         Projectile->SetLifeSpan(FMath::Clamp(Combat->EngagementRadiusM*100/FMath::Max(1.f,MuzzleSpeedCmps)*1.3f+.5f,1.f,30.f));
     LastShotTime=GetWorld()->GetTimeSeconds();LastProjectile=Projectile;++ShotsFired;
     --RoundsRemaining;if(RoundsRemaining==0)BeginReload();
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RefreshHUD();
     UE_LOG(LogTemp,Display,TEXT("ShipWeapon shot=%d ship=%s projectile=%s muzzle=%s launch=%s owner=%s instigator=%s"),
         ShotsFired,*GetNameSafe(GetOwner()),*GetNameSafe(Projectile),*LastMuzzle.ToString(),*LastLaunchVelocity.ToString(),*GetNameSafe(Projectile->GetOwner()),*GetNameSafe(Projectile->GetInstigator()));
 }

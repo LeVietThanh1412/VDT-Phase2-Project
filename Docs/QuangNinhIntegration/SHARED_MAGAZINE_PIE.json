@@ -5,8 +5,8 @@
     "BP_ShipEnemy2": {
       "player": false,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -15,14 +15,14 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": true
     },
     "BP_ShipEnemy": {
       "player": false,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -31,14 +31,14 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": true
     },
     "Friendly_AI_1": {
       "player": false,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -47,14 +47,14 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": false
     },
     "Friendly_AI_2": {
       "player": false,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -63,14 +63,14 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": true
     },
     "BP_ShipEnemy3": {
       "player": false,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -79,14 +79,14 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": true
     },
     "BP_Ship0": {
       "player": true,
       "shots": 10,
-      "empty_at": 13.399952106177807,
-      "lowest_countdown": 0.009467199444770813,
+      "empty_at": 13.268880028277636,
+      "lowest_countdown": 0.031165901571512222,
       "one_round_per_shot": true,
       "target_switch_preserved": true,
       "duplicate_callback_preserved": true,
@@ -95,7 +95,7 @@
       "first_shot_rounds": 9,
       "last_remaining": 30.0,
       "first_countdown": 30.0,
-      "reload_elapsed": 30.160366099327803,
+      "reload_elapsed": 30.1314161978662,
       "reload_finished_inactive_turn": true
     }
   },
@@ -112,9 +112,9 @@
     "death_blocks_fire": true
   },
   "error": null,
-  "started": 1651.75,
-  "last": 43.56031820550561,
-  "at": 10.296139005571604,
+  "started": 22486.156,
+  "last": 43.40029622614384,
+  "at": 10.185629721730947,
   "failed_completion_probe": {
     "status": "PASSED",
     "scope": "Transient null-projectile producer through actual shared dispatch; not allocator-failure injection",
@@ -124,9 +124,6 @@
     "shots": 0,
     "input_gate_restored": true
   },
-  "turn_reload": true,
-  "raw_path": "Saved\\SHARED_MAGAZINE_FULL.json",
-  "raw_sha256": "0a89599e33c92c361a56315754533499478595109160e9a1158aa42e921755a3",
-  "sample_count": 1224,
-  "native_dll_sha256": "8a28a915a19caf3ea673065aba9f0312cff8de793a83fc9498e8b649cec9b67e"
+  "hud_capture": "E:\\LeVietThanh1412-Product\\VDT-QuangNinh-Release\\Docs\\QuangNinhIntegration\\MERGED_HUD_RELOADING.png",
+  "turn_reload": true
 }

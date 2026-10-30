@@ -6,12 +6,12 @@
       "team": 1,
       "player": false,
       "start": [
-        15037.476046543805,
-        4062.572872032396
+        15037.477147283795,
+        4062.556531615507
       ],
-      "max_travel_m": 501.74135205689373,
-      "shots": 10,
-      "damage_events": 3,
+      "max_travel_m": 446.8850145953266,
+      "shots": 11,
+      "damage_events": 2,
       "reloads_started": 1,
       "reloads_completed": 1,
       "max_phase": 1,
@@ -20,8 +20,8 @@
       "retreats": 1,
       "dead": false,
       "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_0",
-      "depart_at": 15.839349683374166,
-      "released_at": 10.20934160426259,
+      "depart_at": 15.857831120491028,
+      "released_at": 10.177588518708944,
       "slot": 0,
       "last_failure_since": null,
       "physical": true,
@@ -31,11 +31,11 @@
       "team": 1,
       "player": false,
       "start": [
-        15237.2949853426,
-        4537.829108229877
+        15237.254896510534,
+        4537.83282004718
       ],
-      "max_travel_m": 852.5352778302016,
-      "shots": 4,
+      "max_travel_m": 790.9182033444121,
+      "shots": 3,
       "damage_events": 0,
       "reloads_started": 0,
       "reloads_completed": 0,
@@ -45,8 +45,8 @@
       "retreats": 0,
       "dead": false,
       "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_1",
-      "depart_at": 27.112255685031414,
-      "released_at": 24.531610183417797,
+      "depart_at": 27.63188222423196,
+      "released_at": 24.95329762250185,
       "slot": 2,
       "last_failure_since": null,
       "physical": true,
@@ -56,10 +56,10 @@
       "team": 0,
       "player": false,
       "start": [
-        14137.500423731968,
-        2737.568293169308
+        14137.500111163354,
+        2737.5724873720364
       ],
-      "max_travel_m": 665.5754888190135,
+      "max_travel_m": 658.5972642776225,
       "shots": 0,
       "damage_events": 0,
       "reloads_started": 0,
@@ -70,7 +70,7 @@
       "retreats": 0,
       "dead": false,
       "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_2",
-      "depart_at": 13.81069078296423,
+      "depart_at": 13.797671020030975,
       "released_at": -1.0,
       "slot": 1,
       "last_failure_since": null,
@@ -81,12 +81,12 @@
       "team": 0,
       "player": false,
       "start": [
-        14312.06609098845,
-        3037.571337149314
+        14312.081547816986,
+        3037.573164854177
       ],
-      "max_travel_m": 446.52275100187416,
-      "shots": 6,
-      "damage_events": 17,
+      "max_travel_m": 446.42952682061446,
+      "shots": 8,
+      "damage_events": 16,
       "reloads_started": 0,
       "reloads_completed": 0,
       "max_phase": 0,
@@ -95,7 +95,7 @@
       "retreats": 1,
       "dead": true,
       "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_3",
-      "depart_at": 12.784375585615635,
+      "depart_at": 12.78668811917305,
       "released_at": -1.0,
       "slot": 2,
       "last_failure_since": null,
@@ -106,22 +106,22 @@
       "team": 1,
       "player": false,
       "start": [
-        15037.355338306183,
-        4437.628862928692
+        15037.372865645984,
+        4437.601214109405
       ],
-      "max_travel_m": 839.9503900353743,
-      "shots": 10,
-      "damage_events": 2,
-      "reloads_started": 1,
-      "reloads_completed": 1,
+      "max_travel_m": 772.5347906225913,
+      "shots": 8,
+      "damage_events": 3,
+      "reloads_started": 0,
+      "reloads_completed": 0,
       "max_phase": 2,
       "interceptions": 0,
       "returns": 0,
       "retreats": 1,
       "dead": false,
       "controller": "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.AIController_4",
-      "depart_at": 21.963993184268475,
-      "released_at": 19.39164988324046,
+      "depart_at": 22.000365421175957,
+      "released_at": 19.36181442067027,
       "slot": 1,
       "last_failure_since": null,
       "physical": true,
@@ -131,10 +131,10 @@
       "team": 0,
       "player": true,
       "start": [
-        13612.408550484433,
-        3961.6095050231233
+        13612.410107717627,
+        3961.5622063520204
       ],
-      "max_travel_m": 2.563055581635839,
+      "max_travel_m": 2.566317171253832,
       "shots": 10,
       "damage_events": 0,
       "reloads_started": 1,
@@ -171,7 +171,7 @@
   },
   "events": [
     {
-      "t": 102.83881779760122,
+      "t": 117.88020472973585,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -179,7 +179,7 @@
       "combat": false
     },
     {
-      "t": 103.35595679655671,
+      "t": 118.39235582947731,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -187,7 +187,7 @@
       "combat": false
     },
     {
-      "t": 103.86168279498816,
+      "t": 118.90481042861938,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -195,7 +195,7 @@
       "combat": false
     },
     {
-      "t": 104.3710293956101,
+      "t": 119.41179752722383,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -203,7 +203,7 @@
       "combat": false
     },
     {
-      "t": 104.87737709656358,
+      "t": 119.92685462906957,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -211,7 +211,7 @@
       "combat": false
     },
     {
-      "t": 105.39444329589605,
+      "t": 120.43074993044138,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -219,7 +219,7 @@
       "combat": false
     },
     {
-      "t": 105.90253089740872,
+      "t": 120.93535462766886,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -227,7 +227,7 @@
       "combat": false
     },
     {
-      "t": 106.40893299505115,
+      "t": 121.4534711278975,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -235,7 +235,7 @@
       "combat": false
     },
     {
-      "t": 106.90971199795604,
+      "t": 121.96434243023396,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -243,7 +243,7 @@
       "combat": false
     },
     {
-      "t": 107.41848549619317,
+      "t": 122.4665658287704,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -251,7 +251,7 @@
       "combat": false
     },
     {
-      "t": 107.93407069519162,
+      "t": 122.96838712692261,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -259,7 +259,7 @@
       "combat": false
     },
     {
-      "t": 108.45464579761028,
+      "t": 123.48209282755852,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -267,7 +267,7 @@
       "combat": false
     },
     {
-      "t": 108.95654069632292,
+      "t": 123.98276752978563,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -275,7 +275,7 @@
       "combat": false
     },
     {
-      "t": 109.4777305945754,
+      "t": 124.4971965290606,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -283,7 +283,7 @@
       "combat": false
     },
     {
-      "t": 109.99193109571934,
+      "t": 125.00286012887955,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -291,7 +291,7 @@
       "combat": false
     },
     {
-      "t": 110.50299579650164,
+      "t": 125.51208062842488,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -299,7 +299,7 @@
       "combat": false
     },
     {
-      "t": 111.01194049790502,
+      "t": 126.02700762823224,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -307,7 +307,7 @@
       "combat": false
     },
     {
-      "t": 111.52582889795303,
+      "t": 126.53693382814527,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -315,7 +315,7 @@
       "combat": false
     },
     {
-      "t": 112.04025759547949,
+      "t": 127.05268482863903,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -323,7 +323,7 @@
       "combat": false
     },
     {
-      "t": 112.55888809636235,
+      "t": 127.56446363031864,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -331,7 +331,7 @@
       "combat": false
     },
     {
-      "t": 113.07370219752192,
+      "t": 128.06557662785053,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -339,7 +339,7 @@
       "combat": false
     },
     {
-      "t": 113.58622039481997,
+      "t": 128.57181752845645,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -347,7 +347,7 @@
       "combat": false
     },
     {
-      "t": 114.1022580973804,
+      "t": 129.08336762711406,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -355,7 +355,7 @@
       "combat": false
     },
     {
-      "t": 114.61687459796667,
+      "t": 129.58339282870293,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -363,7 +363,7 @@
       "combat": false
     },
     {
-      "t": 115.12004899606109,
+      "t": 130.09738962724805,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -371,7 +371,7 @@
       "combat": false
     },
     {
-      "t": 115.62267259508371,
+      "t": 130.59998792782426,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -379,7 +379,7 @@
       "combat": false
     },
     {
-      "t": 116.12443479523063,
+      "t": 131.1009810268879,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -387,7 +387,7 @@
       "combat": false
     },
     {
-      "t": 116.62739689648151,
+      "t": 131.60950012877584,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -395,7 +395,7 @@
       "combat": false
     },
     {
-      "t": 117.1434483975172,
+      "t": 132.11804652959108,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -403,7 +403,7 @@
       "combat": false
     },
     {
-      "t": 117.65884329751134,
+      "t": 132.62246222794056,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -411,7 +411,7 @@
       "combat": false
     },
     {
-      "t": 118.1727317944169,
+      "t": 133.12993712723255,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -419,7 +419,7 @@
       "combat": false
     },
     {
-      "t": 118.68217099457979,
+      "t": 133.64241622760892,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -427,7 +427,7 @@
       "combat": false
     },
     {
-      "t": 119.19678169488907,
+      "t": 134.156971629709,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -435,7 +435,7 @@
       "combat": false
     },
     {
-      "t": 119.70393599569798,
+      "t": 134.6707263290882,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -443,7 +443,7 @@
       "combat": false
     },
     {
-      "t": 120.20976039767265,
+      "t": 135.17237632721663,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -451,7 +451,7 @@
       "combat": false
     },
     {
-      "t": 120.71605429798365,
+      "t": 135.69132732972503,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -459,7 +459,7 @@
       "combat": false
     },
     {
-      "t": 121.23001059517264,
+      "t": 136.19420982897282,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -467,7 +467,7 @@
       "combat": false
     },
     {
-      "t": 121.7356610968709,
+      "t": 136.7006088271737,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -475,7 +475,7 @@
       "combat": false
     },
     {
-      "t": 122.25490169599652,
+      "t": 137.2052014283836,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -483,7 +483,7 @@
       "combat": false
     },
     {
-      "t": 122.77320839464664,
+      "t": 137.72330932691693,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -491,7 +491,7 @@
       "combat": false
     },
     {
-      "t": 123.29210839793086,
+      "t": 138.24143083021045,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -499,7 +499,7 @@
       "combat": false
     },
     {
-      "t": 123.79929719492793,
+      "t": 138.75548072904348,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -507,7 +507,7 @@
       "combat": false
     },
     {
-      "t": 124.30846739560366,
+      "t": 139.27081502974033,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -515,7 +515,7 @@
       "combat": false
     },
     {
-      "t": 124.82150349766016,
+      "t": 139.78316082805395,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -523,7 +523,15 @@
       "combat": false
     },
     {
-      "t": 125.3425719961524,
+      "t": 140.28764792904258,
+      "event": "dead_commands_observed",
+      "ship": "Friendly_AI_2",
+      "throttle": 0.0,
+      "rudder": 0.0,
+      "combat": false
+    },
+    {
+      "t": 140.79606723040342,
       "event": "dead_commands_observed",
       "ship": "Friendly_AI_2",
       "throttle": 0.0,
@@ -532,10 +540,10 @@
     }
   ],
   "error": null,
-  "last": 190.2103435024619,
-  "started": 2588.078,
-  "native_dll_sha256": "716eb492bf7b932c4facd09730fc1bae8a31166dc23ef7e9332425a6010c9d6d",
-  "at": 10.20934160426259,
+  "last": 190.3659602329135,
+  "started": 20642.156,
+  "native_dll_sha256": "238012c2054cc329a672c937156f08ad2e1b2f74ee46cd2d5d7fef079b9ab2de",
+  "at": 10.177588518708944,
   "initial_layout": {
     "seed": 20261028,
     "ready": true,
@@ -766,7 +774,5 @@
     90,
     150
   ],
-  "duration_game_seconds": 180.00100189819932,
-  "raw_sha256": "9cb21e185bfa599cce85f6bef58c425212033afaf0716a8895be0845e5ea5ff1",
-  "raw_path": "Saved\\INTEGRATED_SECTOR_BATTLE_FULL.json"
+  "duration_game_seconds": 180.18837171420455
 }

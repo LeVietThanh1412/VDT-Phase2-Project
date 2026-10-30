@@ -6,6 +6,7 @@
 class UComboBoxString;
 class UTextBlock;
 class UEditableTextBox;
+class UVerticalBox;
 
 /** Selections prepare a fresh match, reusing the map's ships and patrol actors. */
 UCLASS()
@@ -20,6 +21,7 @@ public:
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> BlueCountSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> RedCountSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> DifficultySelector;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> PlayerTeamSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> ModeSelector;
     UPROPERTY(BlueprintReadOnly) TArray<TObjectPtr<UComboBoxString>> HullSelectors;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UEditableTextBox> SeedInput;
@@ -29,6 +31,11 @@ protected:
     virtual void NativeTick(const FGeometry& Geometry,float DeltaTime) override;
     virtual FReply NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event) override;
 private:
+    UFUNCTION() void OnQuitClicked();
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Error;
-    int32 LastBlue=-1,LastRed=-1;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> QuitLabel;
+    UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
+    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
+    int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1;
+    bool bInitialSetup=true;
 };

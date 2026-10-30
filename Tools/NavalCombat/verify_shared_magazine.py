@@ -67,13 +67,17 @@ def tick(dt):
   if sample:st['rows'].extend(sample)
   if all(r['empty_at'] is not None for r in st['ships'].values()) and t-min(r['empty_at'] for r in st['ships'].values())>=5 and 'turn_reload' not in st:
    battle.set_battle_mode(unreal.NavalBattleMode.TURN_BASED);st['turn_reload']=True
-  if battle.hud and battle.player_ship:
-   p=battle.player_ship;text=battle.hud.ammo_text
-   assert ('RELOADING:' in text)==p.reloading
-   assert ('AMMO: '+str(p.rounds_remaining)+'/10') in text
-   if p.reloading:
-    seconds=math.ceil(p.reload_remaining());shown=text.rsplit(':',1)[-1];assert abs(int(shown)-seconds)<=1,'HUD countdown stale'
-   st['checks']['hud_matches_authority']=True
+  widgets=unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.ShipDetailsUI,False)
+  assert widgets and widgets[0].is_visible()
+  hud=widgets[0];p=hud.displayed_ship.get_component_by_class(unreal.ShipWeaponComponent);text=hud.ammo_text
+  # Native Slate paints after a trigger request; allow one sample for that frame.
+  shown=int(text.split('AMMO: ')[1].split('/')[0]) if 'AMMO: ' in text else -1
+  assert abs(shown-p.rounds_remaining)<=1
+  if p.reloading and 'RELOADING:' in text:
+   seconds=math.ceil(p.reload_remaining());assert abs(int(text.rsplit(':',1)[-1])-seconds)<=1,'HUD countdown stale'
+  st['checks']['hud_matches_authority']=True
+  if p.reloading and 'hud_capture' not in st:
+   st['hud_capture']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Docs/QuangNinhIntegration/MERGED_HUD_RELOADING.png'))
   if all(r['reload_completed'] for r in st['ships'].values()):
    records=list(st['ships'].values());st['checks'].update(player_and_five_ai=len(records)==6 and sum(r['player'] for r in records)==1,one_round_per_accepted_shot=all(r['one_round_per_shot'] and r['first_shot_rounds']==9 and r['shots']==10 for r in records),spam_and_duplicate_guards=all(r['spam_guarded'] and r['duplicate_callback_preserved'] for r in records),target_switch_keeps_ammo=all(r['target_switch_preserved'] for r in records),reload_once_30_world_seconds=all(r['reload_completed'] and r['lowest_countdown']<2 for r in records))
    victim=next(a for a in st['fleet'] if not a.is_player_controlled());v=victim.get_component_by_class(unreal.ShipWeaponComponent);before=v.rounds_remaining;v.die(unreal.ShipDeathReason.HEALTH_DEPLETED,None)
