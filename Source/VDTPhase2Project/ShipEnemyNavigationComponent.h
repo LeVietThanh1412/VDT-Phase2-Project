@@ -2,8 +2,9 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "SeaNavigationMap.h"
 #include "ShipEnemyNavigationComponent.generated.h"
+
+struct FSeaNavigationMap;
 
 class ACesiumGeoreference;
 class UCesiumGlobeAnchorComponent;

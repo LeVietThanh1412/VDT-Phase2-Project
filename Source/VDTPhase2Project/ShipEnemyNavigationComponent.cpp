@@ -1,4 +1,6 @@
 #include "ShipEnemyNavigationComponent.h"
+#include "SeaNavigationMap.h"
+#include "Private/NavalWaterQueries.h"
 #include "NavalBattleUI.h"
 #include "ShipCombatComponent.h"
 #include "ShipMovementComponent.h"
@@ -75,8 +77,7 @@ FNumericProperty* Numeric(UObject* O,const TCHAR* N)
 {return CastField<FNumericProperty>(O->GetClass()->FindPropertyByName(FName(N)));}
 FVector2D Rotate2D(const FVector2D& V,double Degrees)
 {const double A=FMath::DegreesToRadians(Degrees);return FVector2D(V.X*FMath::Cos(A)-V.Y*FMath::Sin(A),V.X*FMath::Sin(A)+V.Y*FMath::Cos(A));}
-void IgnoreNavigationWater(UWorld* W,FCollisionQueryParams& Q)
-{for(TActorIterator<AActor> I(W);I;++I){const FString N=I->GetClass()->GetName();if(N.StartsWith(TEXT("WaterBody")) || N==TEXT("WaterZone"))Q.AddIgnoredActor(*I);}}
+
 }
 
 UShipEnemyNavigationComponent::UShipEnemyNavigationComponent()
@@ -539,7 +540,7 @@ float UShipEnemyNavigationComponent::SensorDistance(float Angle) const
 }
 bool UShipEnemyNavigationComponent::SweepClear(const FVector& A,const FVector& B,float Radius) const
 {
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyNavigationSweep),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyNavigationSweep),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     // Horizontal clearance must not also become the vessel's draft. A 40 m sphere
     // falsely starts penetrating a 24 m-deep seabed beneath this ~10 m keel.
     // Preserve the full hull's vertical range, offset above/below its actual pivot.
@@ -591,7 +592,7 @@ void UShipEnemyNavigationComponent::UpdatePerception()
     if(!Candidate || Candidate==GetOwner() || !Candidate->IsPlayerControlled() || (PlayerShipClass && !Candidate->IsA(PlayerShipClass)))
     {DetectedPlayer=nullptr;return;}
     const float D=FVector::Dist2D(Hull->GetComponentLocation(),Candidate->GetActorLocation())/100;
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyShipPerception),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyShipPerception),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     FHitResult Hit;const FVector A=Hull->GetComponentLocation()+FVector(0,0,1500),B=Candidate->GetActorLocation()+FVector(0,0,1500);
     const bool Visible=!GetWorld()->LineTraceSingleByChannel(Hit,A,B,ECC_Visibility,Q) || Hit.GetActor()==Candidate;
     if(D<=DetectionRadiusM && Visible){DetectedPlayer=Candidate;LastSeenTime=Now;}
@@ -1166,7 +1167,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             const FBox Local=Hull->GetLocalBounds().GetBox();
             const FVector Center=Hull->GetComponentTransform().TransformPosition(Local.GetCenter());
             const FVector Extent=Local.GetExtent()*Hull->GetComponentScale().GetAbs()+FVector(200);
-            FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+            FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
             const float PreferredSide=R*RudderSign<0?-1.f:1.f;
             for(float Side:{PreferredSide,-PreferredSide})
             {

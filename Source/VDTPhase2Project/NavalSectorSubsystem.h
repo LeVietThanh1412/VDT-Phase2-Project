@@ -1,8 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
-#include "SeaNavigationMap.h"
 #include "NavalSectorSubsystem.generated.h"
+
+struct FSeaNavigationMap;
 
 /** Logical spatial data, never a permanent actor per cell. */
 USTRUCT(BlueprintType)
