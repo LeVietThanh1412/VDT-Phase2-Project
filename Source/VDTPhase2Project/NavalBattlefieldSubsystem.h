@@ -19,6 +19,8 @@ struct FNavalSpawnAssignment
     UPROPERTY(BlueprintReadOnly) FName SpawnSector;
     UPROPERTY(BlueprintReadOnly) FVector2D SpawnEN=FVector2D::ZeroVector;
     UPROPERTY(BlueprintReadOnly) FVector2D TargetEN=FVector2D::ZeroVector;
+    UPROPERTY(BlueprintReadOnly) TArray<FVector2D> PatrolCircuitEN;
+    UPROPERTY(BlueprintReadOnly) int32 CircuitStartIndex=0;
     UPROPERTY(BlueprintReadOnly) float HeadingDegrees=0;
     UPROPERTY(BlueprintReadOnly) float HullRadiusM=0;
     UPROPERTY(BlueprintReadOnly) bool bPhysicalClearanceVerified=false;
@@ -34,6 +36,10 @@ struct FNavalSpawnAssignment
     UPROPERTY(BlueprintReadOnly) double AssaultReleasedAt=-1;
     UPROPERTY(BlueprintReadOnly) float FormationDistanceM=0;
     UPROPERTY(BlueprintReadOnly) int32 MissionRouteRetries=0;
+    UPROPERTY(BlueprintReadOnly) bool bSearchingCircuit=false;
+    UPROPERTY(BlueprintReadOnly) int32 SearchCircuitIndex=0;
+    UPROPERTY(BlueprintReadOnly) int32 SearchGoalsReached=0;
+    int32 PendingSearchIndex=INDEX_NONE;
     bool bDefensiveIntercept=false;
     double LastMissionPlanAt=-1000;
     double MissionRetryAt=0;
@@ -61,9 +67,11 @@ public:
     UFUNCTION(BlueprintCallable,Category="Battlefield|Debug",meta=(DevelopmentOnly)) bool ValidateDevelopmentPlacement(APawn* Ship,FVector2D Position,float HeadingDegrees);
     UFUNCTION(BlueprintPure,Category="Battlefield") bool AreTacticsEnabled() const;
     bool IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Defense",meta=(ClampMin="500",ClampMax="1000",Units="m")) float DefensiveLeashM=800;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Defense",meta=(ClampMin="500",ClampMax="1000",Units="m")) float DefensiveLeashM=900;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Assault",meta=(ClampMin="180",ClampMax="350",Units="m")) float FormationSpacingM=240;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Assault",meta=(ClampMin="1",ClampMax="15",Units="s")) float FormationDepartureIntervalSeconds=3;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Search",meta=(ClampMin="10",Units="s")) float LostContactSearchDelaySeconds=45;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Search",meta=(ClampMin="60",Units="s")) float ContactMemoryLifetimeSeconds=240;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield|Assault") TWeakObjectPtr<APawn> AssaultLeader;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield|Assault") int32 AssaultLeaderChanges=0;
     UPROPERTY(BlueprintReadOnly,Category="Battlefield") int32 ActualSeed=0;
@@ -77,6 +85,7 @@ public:
     TSharedPtr<const FSeaNavigationMap> NavigationChartForShip(APawn* Ship) const;
 private:
     bool GenerateLayout(const TArray<APawn*>& Ships);
+    bool GenerateIslandLayout(const TArray<APawn*>& Ships);
     bool ValidatePhysicalLayout(bool& bWaitingForTerrain);
     bool CheckPhysicalAssignment(FNavalSpawnAssignment& Assignment,const FSeaRouteResult& Route,bool& bWaitingForTerrain);
     bool BuildOperationalCharts();
@@ -103,4 +112,6 @@ private:
     FVector2D ScoutContactEN=FVector2D::ZeroVector;
     double ScoutContactAt=-1000;
     TMap<EShipHullClass,TSharedPtr<const FSeaNavigationMap>> OperationalCharts;
+    struct FObservedContact {FVector2D Position=FVector2D::ZeroVector,Velocity=FVector2D::ZeroVector;double SeenAt=-1000;float HeadingDegrees=0;};
+    TMap<TWeakObjectPtr<AActor>,FObservedContact> ObservedContacts;
 };

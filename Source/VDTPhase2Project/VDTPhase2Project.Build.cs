@@ -18,6 +18,7 @@ public class VDTPhase2Project : ModuleRules
 		// Compact offline regional map is staged into packaged games; no gameplay network service.
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/halong_navigation.json", StagedFileType.UFS);
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_sectors.json", StagedFileType.UFS);
+		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_demo_routes.json", StagedFileType.UFS);
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

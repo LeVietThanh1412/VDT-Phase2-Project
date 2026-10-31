@@ -259,6 +259,7 @@ void UShipEnemyNavigationComponent::StartPatrol()
     bTacticalOverride=false;
     NavigationMode=EShipNavigationMode::Patrol;bHasGoal=false;bNeedsPlan=true;bExplicitStop=false;
     if(PatrolActorA || PatrolActorB)bTargetB=bStartAtPatrolB;
+    PatrolCircuitIndex=PatrolCircuitActors.IsEmpty()?0:FMath::Clamp(PatrolCircuitIndex,0,PatrolCircuitActors.Num()-1);
     CurrentRoute.Reset();bPathfindingSucceeded=false;ArrivalTime=-1;
     RecoveryAttemptCount=0;RecoveryPhase=0;FailedCorridors.Reset();
     AvoidElapsed=0;AvoidSide=0;LastAvoidSide=0;AvoidSideChanges=0;
@@ -307,6 +308,8 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
     J->SetStringField(TEXT("patrol_b"),GetNameSafe(PatrolActorB));
     J->SetStringField(TEXT("active_target"),GetNameSafe(DestinationActor(this)));
     J->SetNumberField(TEXT("legs"),PatrolLegsCompleted);
+    J->SetNumberField(TEXT("circuit_targets"),PatrolCircuitActors.Num());J->SetNumberField(TEXT("circuit_index"),PatrolCircuitIndex);
+    J->SetNumberField(TEXT("circuits_completed"),PatrolCircuitsCompleted);
     J->SetNumberField(TEXT("waypoint_index"),CurrentWaypointIndex);
     J->SetNumberField(TEXT("waypoint_count"),CurrentRoute.Num());
     J->SetBoolField(TEXT("path_success"),bPathfindingSucceeded);
@@ -635,15 +638,28 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
     }
     if(NavigationMode==EShipNavigationMode::Patrol)
     {
-        const bool bActorPatrol=PatrolActorA || PatrolActorB;
-        if(bActorPatrol && (!IsValid(PatrolActorA) || !IsValid(PatrolActorB) || PatrolActorA==PatrolActorB || PatrolActorA->GetWorld()!=GetWorld() || PatrolActorB->GetWorld()!=GetWorld()))
+        const bool Circuit=!PatrolCircuitActors.IsEmpty();
+        if(Circuit)
+        {
+            if(PatrolCircuitActors.Num()<3 || !PatrolCircuitActors.IsValidIndex(PatrolCircuitIndex))
+            {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Patrol circuit requires at least three targets and a valid current index"));return;}
+            for(int32 I=0;I<PatrolCircuitActors.Num();++I)
+            {
+                const auto* A=PatrolCircuitActors[I].Get();const auto* B=PatrolCircuitActors[(I+1)%PatrolCircuitActors.Num()].Get();
+                if(!IsValid(A) || !IsValid(B) || A->GetWorld()!=GetWorld() || B->GetWorld()!=GetWorld() ||
+                    FVector2D::Distance(LLHToMetric(WorldToGeographic(A->GetActorLocation())),LLHToMetric(WorldToGeographic(B->GetActorLocation())))<=ArrivalRadiusM*2)
+                {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Patrol circuit has missing, wrong-world or overlapping targets"));return;}
+            }
+        }
+        const bool bActorPatrol=Circuit || PatrolActorA || PatrolActorB;
+        if(!Circuit && bActorPatrol && (!IsValid(PatrolActorA) || !IsValid(PatrolActorB) || PatrolActorA==PatrolActorB || PatrolActorA->GetWorld()!=GetWorld() || PatrolActorB->GetWorld()!=GetWorld()))
         {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Two-point patrol requires both valid same-world Target Point actors"));return;}
-        if(bActorPatrol && FVector2D::Distance(LLHToMetric(WorldToGeographic(PatrolActorA->GetActorLocation())),LLHToMetric(WorldToGeographic(PatrolActorB->GetActorLocation())))<=ArrivalRadiusM*2)
+        if(!Circuit && bActorPatrol && FVector2D::Distance(LLHToMetric(WorldToGeographic(PatrolActorA->GetActorLocation())),LLHToMetric(WorldToGeographic(PatrolActorB->GetActorLocation())))<=ArrivalRadiusM*2)
         {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Two-point patrol targets have overlapping arrival zones"));return;}
-        const AActor* Assigned=bTargetB?PatrolActorB.Get():PatrolActorA.Get();
+        const AActor* Assigned=Circuit?PatrolCircuitActors[PatrolCircuitIndex].Get():(bTargetB?PatrolActorB.Get():PatrolActorA.Get());
         const FVector LLH=IsValid(Assigned)?WorldToGeographic(Assigned->GetActorLocation()):(bTargetB?PatrolPointB:PatrolPointA);
         FVector2D Target=LLHToMetric(LLH);
-        const FVector Offset=bTargetB?PatrolOffsetB:PatrolOffsetA;
+        const FVector Offset=Circuit?FVector::ZeroVector:(bTargetB?PatrolOffsetB:PatrolOffsetA);
         const FVector2D OffsetTarget=Target+FVector2D(Offset.X,Offset.Y);
         if(!Offset.IsNearlyZero() && Map->IsWater(OffsetTarget) && Map->SegmentClear(Target,OffsetTarget))Target=OffsetTarget;
         auto& Track=DestinationState(this);
@@ -861,7 +877,13 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             {
                 if(bDrawDebug)UE_LOG(LogTemp,Display,TEXT("ShipNavigation ARRIVAL leg=%d target=%s distance=%.3fm speed=%.3fm/s switching=%s"),
                     PatrolLegsCompleted,*GetNameSafe(DestinationActor(this)),GoalDistance,Speed,bTargetB?TEXT("A"):TEXT("B"));
-                bTargetB=!bTargetB;++PatrolLegsCompleted;bHasGoal=false;bNeedsPlan=true;
+                if(!PatrolCircuitActors.IsEmpty())
+                {
+                    PatrolCircuitIndex=(PatrolCircuitIndex+1)%PatrolCircuitActors.Num();++CircuitLegsCompleted;
+                    PatrolCircuitsCompleted=CircuitLegsCompleted/PatrolCircuitActors.Num();
+                }
+                else bTargetB=!bTargetB;
+                ++PatrolLegsCompleted;bHasGoal=false;bNeedsPlan=true;
                 CurrentRoute.Reset();bPathfindingSucceeded=false;ArrivalTime=-1;RecoveryAttemptCount=0;FailedCorridors.Reset();
             }
         }

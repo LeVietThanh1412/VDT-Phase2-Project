@@ -211,6 +211,9 @@ bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
             if(DestructionFX){DestructionFX->SetVariableVec3(TEXT("User.BoxSize"),FVector(6000,1500,800)*EffectScale);DestructionFX->SetRelativeScale3D(FVector(EffectScale));}
         }
     }
+    // The fleet counter is a gameplay authority, not a widget listener. Notify
+    // it on the same guarded death transition, before the wreck is cleaned up.
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);
     OnShipDestroyed.Broadcast(this,Attacker);OnHealthChanged.Broadcast(this,CurrentHealth,MaxHealth);RefreshHealthUI();
     UE_LOG(LogTemp,Display,TEXT("ShipBattle destroyed ship=%s team=%d reason=%s attacker=%s event=%d"),*GetNameSafe(GetOwner()),Team(),*UEnum::GetValueAsString(Reason),*GetNameSafe(Attacker),DestructionEvents);
     return true;

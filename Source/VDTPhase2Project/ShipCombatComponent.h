@@ -237,6 +237,8 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Combat|Status") FVector LaunchVelocity=FVector::ZeroVector;
     UPROPERTY(BlueprintReadOnly, Category="Combat|Status") FString FiringStatus=TEXT("Initializing");
     UFUNCTION(BlueprintPure, Category="Combat") bool IsHostile(AActor* Candidate) const;
+    /** Mission memory may record only a hostile visible to the existing sensor. */
+    bool CanObserveHostile(AActor* Candidate) const { return IsHostile(Candidate) && Visible(Candidate); }
     UFUNCTION(BlueprintCallable, Category="Combat") void ScanTargets();
     /** Runtime target assignment uses the shared hostility filter; does not rebuild Blueprint components. */
     UFUNCTION(BlueprintCallable, Category="Combat") bool SetHostileTarget(AActor* Candidate);

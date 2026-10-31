@@ -36,6 +36,11 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolPointB = FVector::ZeroVector;
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorA;
     UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TObjectPtr<AActor> PatrolActorB;
+    /** Optional ordered closed circuit. Empty keeps the original A/B patrol. */
+    UPROPERTY(EditInstanceOnly, BlueprintReadWrite, Category="Patrol") TArray<TObjectPtr<AActor>> PatrolCircuitActors;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") int32 PatrolCircuitIndex=0;
+    UPROPERTY(BlueprintReadOnly, Category="Status") int32 CircuitLegsCompleted=0;
+    UPROPERTY(BlueprintReadOnly, Category="Status") int32 PatrolCircuitsCompleted=0;
     /** Formation offsets in fixed-chart East/North meters, validated against water. */
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetA=FVector::ZeroVector;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetB=FVector::ZeroVector;

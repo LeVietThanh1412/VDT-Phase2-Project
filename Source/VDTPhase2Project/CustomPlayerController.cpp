@@ -4,6 +4,8 @@
 #include "UI/ButtonTutorialsUI.h"
 #include "UI/ShipDetailsUI.h"
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "NavalBattleUI.h"
 #include "Camera/CameraActor.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
@@ -111,9 +113,22 @@ void ACustomPlayerController::EnterDeathSpectator()
     PreviousPawn=nullptr;
     NextTeammate();
 }
+void ACustomPlayerController::BeginFullAIDemo(APawn* InitialShip)
+{
+    bFullAISpectating=true;bDeathSpectating=false;OriginalPlayerShip=nullptr;
+    FreeCameraPawn=Cast<AFreeCameraPawn>(GetPawn());
+    ApplyShipView(InitialShip);
+    // The authored minimap constructs before the sixth demo pawn is spawned.
+    // Rebuild that same widget once from the now-complete roster, preserving
+    // its projection, artwork and marker behavior instead of adding an overlay.
+    TArray<UUserWidget*> Maps;UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this,Maps,UShipMinimapWidget::StaticClass(),true);
+    for(auto* Existing:Maps)if(auto* Replacement=CreateWidget<UUserWidget>(this,Existing->GetClass()))
+    {Existing->RemoveFromParent();Replacement->AddToViewport();}
+}
 
 void ACustomPlayerController::NextTeammate()
 {
+    if(bFullAISpectating){CycleShipCamera();return;}
     if(!bDeathSpectating)return;
     const auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
     const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
@@ -155,6 +170,7 @@ void ACustomPlayerController::ShowBattlefieldOverview()
     FreeCameraPawn->SetHeightLimits(Eye.Z-180000,Eye.Z+180000);
     SetControlRotation((Focus-Eye).Rotation());FollowedTeammate=nullptr;
     SetViewTargetWithBlend(FreeCameraPawn,.25f);
+    bBattlefieldOverview=true;
 }
 
 void ACustomPlayerController::ToggleBattlefieldOverview()
@@ -182,7 +198,7 @@ void ACustomPlayerController::RestoreRecentShipView()
     // Q and F both leave the overview by returning to the ship the player was
     // watching before the overview, not to whichever pawn was possessed.
     APawn* RecentShip=ViewedShip.Get();
-    if(IsValid(FreeCameraPawn))ToggleFreeCamera();
+    if(IsValid(FreeCameraPawn) && !bFullAISpectating)ToggleFreeCamera();
     if(IsValid(RecentShip))
     {
         ApplyShipView(RecentShip);
@@ -301,7 +317,7 @@ void ACustomPlayerController::CycleShipCamera()
         }
     }
 
-    if (IsValid(FreeCameraPawn))
+    if (IsValid(FreeCameraPawn) && !bFullAISpectating)
     {
         SavedFreeCameraLocation = FreeCameraPawn->GetActorLocation();
         SavedFreeCameraRotation = GetControlRotation();
@@ -318,7 +334,10 @@ void ACustomPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
     const auto* Weapon = IsValid(OriginalPlayerShip) ? OriginalPlayerShip->FindComponentByClass<UShipWeaponComponent>() : nullptr;
-    if (!bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
+    if (!bFullAISpectating && !bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
+    if(bFullAISpectating && IsValid(ViewedShip))
+        if(const auto* W=ViewedShip->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)
+        {ViewedShip=nullptr;ActiveShipViewCamera=nullptr;CycleShipCamera();}
     if (bDeathSpectating && FollowedTeammate)
     {
         const auto* FollowWeapon = IsValid(FollowedTeammate) ? FollowedTeammate->FindComponentByClass<UShipWeaponComponent>() : nullptr;
@@ -516,6 +535,7 @@ void ACustomPlayerController::SetHorizonLock(APawn* InShip, bool bEnabled)
 
 void ACustomPlayerController::ToggleFreeCamera()
 {
+    if(bFullAISpectating){ShowBattlefieldOverview();return;}
     if(bDeathSpectating){ShowBattlefieldOverview();return;}
     // Keep free-camera transform across toggles, but never possess the same pawn twice.
     if (IsValid(FreeCameraPawn))

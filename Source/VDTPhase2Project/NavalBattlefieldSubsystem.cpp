@@ -2,11 +2,13 @@
 #include "NavalSectorSubsystem.h"
 #include "NavalMatchSettings.h"
 #include "NavalBattleUI.h"
+#include "CustomPlayerController.h"
 #include "ShipCombatComponent.h"
 #include "ShipEnemyNavigationComponent.h"
 #include "ShipMovementComponent.h"
 #include "SeaTerrainCollisionComponent.h"
 #include "Cesium3DTileset.h"
+#include "CesiumSunSky.h"
 #include "CesiumGlobeAnchorComponent.h"
 #include "CesiumGeoreference.h"
 #include "BuoyancyComponent.h"
@@ -24,6 +26,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Json.h"
 #include "Misc/Base64.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "Engine/TargetPoint.h"
 
 namespace
 {
@@ -46,11 +51,16 @@ bool UNavalBattlefieldSubsystem::IsDefensiveTargetAllowed(AActor* Ship,AActor* T
     const auto* A=Assignments.FindByPredicate([Ship](const FNavalSpawnAssignment& Item){return Item.Ship==Ship && Item.Team==0 && !Item.Ship->IsPlayerControlled();});
     if(!A)return true;
     if(!IsValid(Target))return false;
+    // Defense bounds restrict movement, not a legitimate shot at a nearby
+    // attacker across the sector line. The shared gun still enforces range,
+    // LOS, mechanical arc, alignment and the real ballistic path.
+    if(const auto* C=Ship->FindComponentByClass<UShipCombatComponent>();C &&
+        FVector::Distance(Ship->GetActorLocation(),Target->GetActorLocation())<=C->EngagementRadiusM*100)return true;
     const auto Enemy=GetWorld()->GetSubsystem<UNavalSectorSubsystem>()->WorldToChart(Target->GetActorLocation());
     return Enemy.X<=14750 && FVector2D::Distance(Enemy,A->DefensiveAnchorEN)<=DefensiveLeashM+250;
 }
 void UNavalBattlefieldSubsystem::Fail(const FString& Reason)
-{bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}}
+{bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;UE_LOG(LogTemp,Warning,TEXT("NavalBattlefield seed=%d SETUP FAILED: %s"),ActualSeed,*Reason);if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}}
 void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
 {
     if(!IsEnabled()){Status=TEXT("Sector placement disabled during development");return;}
@@ -58,7 +68,11 @@ void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
     RetainedFleet.Reset();for(auto* P:Ships)RetainedFleet.Add(P);
     PhysicalLayoutRetries=0;bUsedSafeFallback=false;bPhysicalSearch=false;LastPhysicalRejection.Empty();TerrainStableSince=-1;OperationalCharts.Reset();
     AssaultLeader.Reset();AssaultLeaderChanges=0;bAssaultInitialized=false;LastAssaultUpdateAt=-1000;ScoutContactAt=-1000;
+    ObservedContacts.Reset();
     auto* S=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    if(S->bUseIslandPatrolCircuit && AreTacticsEnabled())
+        for(TActorIterator<ACesiumSunSky> Sky(GetWorld());Sky;++Sky)
+        {Sky->SolarTime=10.5;Sky->UseDaylightSavingTime=false;Sky->UpdateSun();}
     ActualSeed=S->BattlefieldSeed>0?S->BattlefieldSeed:FMath::RandRange(1,MAX_int32);LayoutRandom.Initialize(ActualSeed);
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
     if(!Grid || !Grid->bGridReady){Fail(Grid?Grid->GridError:TEXT("Sector subsystem missing"));return;}
@@ -133,15 +147,22 @@ bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
         auto Chart=MakeShared<FSeaNavigationMap>(*Coast);const FBox B=H->GetLocalBounds().GetBox();const FVector Scale=H->GetComponentScale().GetAbs();
         // Logical sectors stay 100 m. Collision sampling uses a lightweight
         // local 25 m grid, retaining the exact ECEF/ENU frame and original coast.
-        Chart->CellSize=25;Chart->Width=FMath::RoundToInt(Grid->WidthM/25);Chart->Height=FMath::RoundToInt(Grid->HeightM/25);
-        Chart->MinEast=Grid->CenterEN.X-Grid->WidthM*.5;Chart->MinNorth=Grid->CenterEN.Y-Grid->HeightM*.5;
+        const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+        // The drawing's west passage touches the spawn box edge. Survey an
+        // additional western corridor instead of reducing real hull clearance.
+        // The original 625 logical sectors and all spawn bounds remain intact.
+        const double WestExtension=AreTacticsEnabled() && Settings->bUseIslandPatrolCircuit?600.:0.;
+        Chart->CellSize=25;Chart->Width=FMath::RoundToInt((Grid->WidthM+WestExtension)/25);Chart->Height=FMath::RoundToInt(Grid->HeightM/25);
+        Chart->MinEast=Grid->CenterEN.X-Grid->WidthM*.5-WestExtension;Chart->MinNorth=Grid->CenterEN.Y-Grid->HeightM*.5;
         Chart->Cells.Init(0,Chart->Width*Chart->Height);Chart->Clearance.Init(0,Chart->Cells.Num());
         const float Radius=SpawnHullRadius(P);
         FVector Extent=B.GetExtent()*Scale+FVector(200);Extent.X=Extent.Y=(Radius+2)*100;
         for(int32 Id=0;Id<Chart->Cells.Num();++Id)
         {
             const auto Center=Chart->Center(Id);
-            bool Clear=Coast->IsWater(Center) && Grid->IsInsideField(Center,Radius+30+Chart->CellSize*.5);
+            const double Inset=Radius+30+Chart->CellSize*.5;
+            bool Clear=Coast->IsWater(Center) && Center.X>=Chart->MinEast+Inset && Center.X<=Chart->MinEast+Chart->Width*25-Inset &&
+                Center.Y>=Chart->MinNorth+Inset && Center.Y<=Chart->MinNorth+Chart->Height*25-Inset;
             if(Clear)for(int32 Corner=0;Corner<4 && Clear;++Corner)
             {
                 const FVector2D EN=Center+FVector2D(Corner&1?.5:-.5,Corner&2?.5:-.5)*Chart->CellSize;
@@ -177,6 +198,12 @@ bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
 }
 bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
 {
+    const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    if(AreTacticsEnabled() && Settings->bUseIslandPatrolCircuit)
+    {
+        if(!bPhysicalSearch){Assignments.Reset();return true;}
+        return GenerateIslandLayout(Ships);
+    }
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();const auto SourceMap=Grid->NavigationChart();
     TArray<APawn*> Blue,Red;
     for(auto* P:Ships)if(IsValid(P))if(auto* W=P->FindComponentByClass<UShipWeaponComponent>()){if(W->Team()==0)Blue.Add(P);else if(W->Team()==1)Red.Add(P);}
@@ -303,6 +330,114 @@ bool UNavalBattlefieldSubsystem::GenerateLayout(const TArray<APawn*>& Ships)
     }
     Assignments.Reset();return false;
 }
+bool UNavalBattlefieldSubsystem::GenerateIslandLayout(const TArray<APawn*>& Ships)
+{
+    auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
+    FString Text;TSharedPtr<FJsonObject> Data;
+    if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("SeaNavigation/quangninh_demo_routes.json"))) ||
+        !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Data) || !Data.IsValid())
+    {LastPhysicalRejection=TEXT("Island demo route configuration missing/invalid");return false;}
+    auto ReadPoints=[&](const TCHAR* Key,TArray<FVector2D>& Out)
+    {
+        const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+        if(!Data->TryGetArrayField(Key,Values))return false;
+        for(const auto& Value:*Values)
+        {
+            const TArray<TSharedPtr<FJsonValue>>* XY=nullptr;
+            if(!Value->TryGetArray(XY) || XY->Num()!=2)return false;
+            double X=0,Y=0;if(!(*XY)[0]->TryGetNumber(X) || !(*XY)[1]->TryGetNumber(Y) || !FMath::IsFinite(X) || !FMath::IsFinite(Y))return false;
+            Out.Emplace(X,Y);
+        }
+        return true;
+    };
+    TArray<FVector2D> Loop,Heavy,RedSpawns,RedGoals;
+    if(!ReadPoints(TEXT("blue_small_circuit_en_m"),Loop) || Loop.Num()<6 || !ReadPoints(TEXT("blue_heavy_patrol_en_m"),Heavy) || Heavy.Num()!=2 ||
+        !ReadPoints(TEXT("red_spawn_hints_en_m"),RedSpawns) || RedSpawns.Num()!=3 || !ReadPoints(TEXT("red_approach_hints_en_m"),RedGoals) || RedGoals.Num()!=3)
+    {LastPhysicalRejection=TEXT("Island demo route points are malformed");return false;}
+    TArray<APawn*> Teams[2];
+    for(APawn* P:Ships)if(IsValid(P))if(const auto* W=P->FindComponentByClass<UShipWeaponComponent>();W && W->Team()>=0 && W->Team()<2)Teams[W->Team()].Add(P);
+    for(auto& Team:Teams)Team.Sort([](const APawn& A,const APawn& B){return A.GetFName().LexicalLess(B.GetFName());});
+    if(auto* Player=UGameplayStatics::GetPlayerPawn(this,0))for(auto& Team:Teams)if(Team.Remove(Player))Team.Insert(Player,0);
+    Teams[1].StableSort([](const APawn& A,const APawn& B)
+    {
+        const auto* MA=A.FindComponentByClass<UShipMovementComponent>();const auto* MB=B.FindComponentByClass<UShipMovementComponent>();
+        auto Rank=[](const UShipMovementComponent* M){return M && M->HullClass==EShipHullClass::Small?0:M && M->HullClass==EShipHullClass::Medium?1:2;};
+        return Rank(MA)<Rank(MB);
+    });
+    auto Nearby=[&](APawn* P,FVector2D Desired,FVector2D& Out)
+    {
+        const auto Map=NavigationChartForShip(P);TArray<TPair<double,FVector2D>> Options;
+        for(int32 I=0;I<Map->Cells.Num();++I)if(Map->Cells[I])
+        {const auto Q=Map->Center(I);const double D=FVector2D::Distance(Q,Desired);if(D<=180)Options.Emplace(D,Q);}
+        Options.Sort([](const auto& A,const auto& B){return A.Key<B.Key;});
+        for(int32 I=0;I<FMath::Min(40,Options.Num());++I)
+        {
+            FNavalSpawnAssignment Probe;Probe.Ship=P;Probe.SpawnEN=Probe.TargetEN=Options[I].Value;Probe.HullRadiusM=SpawnHullRadius(P);
+            FSeaRouteResult R;R.bSuccess=true;R.Points.Add(Probe.SpawnEN);bool Waiting=false;
+            if(CheckPhysicalAssignment(Probe,R,Waiting)){Out=Probe.SpawnEN;return true;}
+        }
+        return false;
+    };
+    LayoutRandom.Initialize(bUsedSafeFallback?20261028:ActualSeed);
+    for(LayoutAttempts=1;LayoutAttempts<=64;++LayoutAttempts)
+    {
+        Assignments.Reset();bool Good=true;
+        for(int32 Team=0;Team<2 && Good;++Team)for(int32 Slot=0;Slot<Teams[Team].Num() && Good;++Slot)
+        {
+            APawn* P=Teams[Team][Slot];const auto* M=P->FindComponentByClass<UShipMovementComponent>();const auto Map=NavigationChartForShip(P);
+            FNavalSpawnAssignment A;A.Ship=P;A.Team=Team;A.Slot=Slot;A.HullRadiusM=SpawnHullRadius(P);A.DefensiveAnchorEN=FVector2D(13900,3450);
+            const bool Small=M && M->HullClass==EShipHullClass::Small;
+            FVector2D StartHint=Team==0?(!Small && Slot==2?FVector2D(14412.5,4337.5):Loop[FMath::Min(Slot,2)]):RedSpawns[Slot];
+            if(ActualSeed!=20261028 || LayoutAttempts>1)StartHint+=FVector2D(LayoutRandom.FRandRange(-60,60),LayoutRandom.FRandRange(-60,60));
+            if(!Nearby(P,StartHint,A.SpawnEN) || !Grid->IsInsideField(A.SpawnEN,A.HullRadiusM+30) || (Team==0 && A.SpawnEN.X>=14500) || (Team==1 && A.SpawnEN.X<=14500))
+            {Good=false;break;}
+            if(Team==0 && Small && !P->IsPlayerControlled())
+            {
+                for(const auto& Hint:Loop)
+                {FVector2D Q;if(!Nearby(P,Hint,Q)){Good=false;break;}A.PatrolCircuitEN.Add(Q);}
+                if(!Good)break;
+                // Validate every closed-loop edge with the actual hull, not
+                // just the first leg or a nearest-water destination sample.
+                double Winding=0;
+                for(int32 I=0;I<A.PatrolCircuitEN.Num();++I)
+                {
+                    FNavalSpawnAssignment Edge=A;Edge.SpawnEN=A.PatrolCircuitEN[I];Edge.TargetEN=A.PatrolCircuitEN[(I+1)%A.PatrolCircuitEN.Num()];
+                    const auto R=Map->FindPath(Edge.SpawnEN,Edge.TargetEN,75000,250);bool Waiting=false;
+                    if(!CheckPhysicalAssignment(Edge,R,Waiting)){Good=false;break;}
+                    for(int32 K=1;K<R.Points.Num();++K)
+                    {
+                        const auto U=R.Points[K-1]-FVector2D(13750,3400),V=R.Points[K]-FVector2D(13750,3400);
+                        Winding+=FMath::FindDeltaAngleRadians(FMath::Atan2(U.Y,U.X),FMath::Atan2(V.Y,V.X));
+                    }
+                }
+                if(Good && FMath::Abs(FMath::Abs(Winding)-2*PI)>.1)
+                {LastPhysicalRejection=TEXT("Patrol circuit backtracks instead of encircling the island");Good=false;}
+                A.CircuitStartIndex=(Slot+1)%A.PatrolCircuitEN.Num();A.TargetEN=A.PatrolCircuitEN[A.CircuitStartIndex];
+            }
+            else
+            {
+                FVector2D GoalHint=Team==0?Heavy[Slot%2==0?1:0]:RedGoals[Slot];
+                if(ActualSeed!=20261028 || LayoutAttempts>1)GoalHint+=FVector2D(LayoutRandom.FRandRange(-40,40),LayoutRandom.FRandRange(-40,40));
+                if(!Nearby(P,GoalHint,A.TargetEN)){Good=false;break;}
+            }
+            if(!Good)break;
+            if(P->IsPlayerControlled())A.TargetEN=A.SpawnEN;
+            FSeaRouteResult Route;
+            if(P->IsPlayerControlled()){Route.bSuccess=true;Route.Points.Add(A.SpawnEN);}
+            else Route=Map->FindPath(A.SpawnEN,A.TargetEN,75000,250);
+            if(!Route.bSuccess || Route.Points.IsEmpty()){Good=false;break;}
+            const auto Direction=Route.Points.Num()>1?Route.Points[1]-A.SpawnEN:FVector2D(1,0);
+            A.HeadingDegrees=FMath::RadiansToDegrees(FMath::Atan2(-Direction.Y,Direction.X));
+            for(const auto& Other:Assignments)
+                if(FVector2D::Distance(A.SpawnEN,Other.SpawnEN)<FMath::Max(240.f,A.HullRadiusM+Other.HullRadiusM+65)){Good=false;break;}
+            bool Waiting=false;if(!Good || !CheckPhysicalAssignment(A,Route,Waiting)){Good=false;break;}
+            const int32 Sector=Grid->SectorAtChartPosition(A.SpawnEN);A.SpawnSector=Grid->Sectors.IsValidIndex(Sector)?Grid->Sectors[Sector].Id:NAME_None;
+            Assignments.Add(MoveTemp(A));
+        }
+        if(Good && Assignments.Num()==Ships.Num())return true;
+    }
+    Assignments.Reset();return false;
+}
 bool UNavalBattlefieldSubsystem::ValidatePhysicalLayout(bool& Waiting)
 {
     Waiting=false;auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();auto* Ocean=SectorOcean(GetWorld());
@@ -378,6 +513,12 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();auto* Ocean=SectorOcean(GetWorld());
     for(auto& A:Assignments)
     {
+        if(auto* Identity=A.Ship->FindComponentByClass<UShipIdentityComponent>())
+        {
+            const auto* S=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+            if(S->bUseIslandPatrolCircuit && AreTacticsEnabled())
+                Identity->ShipName=A.Team==0?FString::Printf(TEXT("Blue Defender %d"),A.Slot+1):A.Slot==0?TEXT("Red Scout"):FString::Printf(TEXT("Red Escort %d"),A.Slot+1);
+        }
         auto* Hull=UShipCombatComponent::PhysicalHull(A.Ship);auto* Anchor=A.Ship->FindComponentByClass<UCesiumGlobeAnchorComponent>();if(!Hull || !Anchor || !Ocean)return false;
         auto* Geo=Anchor->ResolveGeoreference();FVector P=Grid->ChartToWorld(A.SpawnEN),Water,Normal,Velocity;float Depth=0;
         Ocean->GetWaterSurfaceInfoAtLocation(P,Water,Normal,Velocity,Depth,false);P.Z=Water.Z+600;
@@ -385,6 +526,17 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
         A.Ship->SetActorRotation(FRotator(0,A.HeadingDegrees,0));Anchor->Sync();Hull->SetPhysicsLinearVelocity(FVector::ZeroVector);Hull->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);Hull->WakeAllRigidBodies();
         if(auto* N=A.Ship->FindComponentByClass<UShipEnemyNavigationComponent>())
         {
+            N->PatrolCircuitActors.Reset();N->PatrolCircuitIndex=A.CircuitStartIndex;
+            for(int32 I=0;I<A.PatrolCircuitEN.Num();++I)
+            {
+                auto* Marker=GetWorld()->SpawnActor<ATargetPoint>();if(!Marker)return false;
+                FVector T=Grid->ChartToWorld(A.PatrolCircuitEN[I]);Ocean->GetWaterSurfaceInfoAtLocation(T,Water,Normal,Velocity,Depth,false);T.Z=Water.Z;
+                Marker->GetRootComponent()->SetMobility(EComponentMobility::Movable);Marker->SetActorLocation(T);
+#if WITH_EDITOR
+                Marker->SetActorLabel(FString::Printf(TEXT("TP_Blue%d_Circuit_%02d"),A.Slot+1,I+1));
+#endif
+                N->PatrolCircuitActors.Add(Marker);
+            }
             for(int32 I=0;I<2;++I)
             {
                 AActor* Marker=I==0?N->PatrolActorA.Get():N->PatrolActorB.Get();if(!IsValid(Marker))return false;
@@ -464,7 +616,7 @@ void UNavalBattlefieldSubsystem::UpdateDefenders()
         {
             if(A.bDefensiveIntercept)
             {N->ReturnToPatrol();A.bDefensiveIntercept=false;++A.DefensiveReturns;A.LastMissionPlanAt=Now;}
-            A.MissionState=TEXT("Western island defensive patrol");continue;
+            A.MissionState=N->PatrolCircuitActors.IsEmpty()?TEXT("Eastern island defensive patrol"):TEXT("Closed island defense circuit");continue;
         }
         if(Now-A.LastMissionPlanAt<5)continue;
         A.LastMissionPlanAt=Now;
@@ -532,6 +684,27 @@ void UNavalBattlefieldSubsystem::UpdateAssault()
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();
     bool AnyActive=false;for(const auto& A:Assignments)if(A.Team==1 && IsValid(A.Ship) && UNavalBattleSubsystem::CanShipAct(A.Ship)){AnyActive=true;break;}
     if(!AnyActive)return;
+    // Share genuine LOS sightings, including visible ships that were not the
+    // gun's nearest selected target. Never sample a hidden enemy's current pose.
+    for(const auto& Red:Assignments)if(Red.Team==1 && IsValid(Red.Ship))
+    {
+        const auto* RW=Red.Ship->FindComponentByClass<UShipWeaponComponent>();const auto* C=Red.Ship->FindComponentByClass<UShipCombatComponent>();
+        if(!RW || RW->bIsDestroyed || !C || !C->bEnableCombat)continue;
+        for(const auto& Blue:Assignments)if(Blue.Team==0 && IsValid(Blue.Ship) && C->CanObserveHostile(Blue.Ship))
+        {
+            auto& Contact=ObservedContacts.FindOrAdd(Blue.Ship);Contact.SeenAt=Now;Contact.Position=Grid->WorldToChart(Blue.Ship->GetActorLocation());
+            auto* H=UShipCombatComponent::PhysicalHull(Blue.Ship);
+            Contact.Velocity=H?Grid->WorldToChart(Blue.Ship->GetActorLocation()+H->GetPhysicsLinearVelocity())-Contact.Position:FVector2D::ZeroVector;
+            Contact.HeadingDegrees=H?H->GetComponentRotation().Yaw:0;
+        }
+    }
+    const FObservedContact* LastLiveContact=nullptr;
+    for(auto I=ObservedContacts.CreateIterator();I;++I)
+    {
+        const auto* Ship=I.Key().Get();const auto* W=Ship?Ship->FindComponentByClass<UShipWeaponComponent>():nullptr;
+        if(!W || W->bIsDestroyed || Now-I.Value().SeenAt>FMath::Max(ContactMemoryLifetimeSeconds,LostContactSearchDelaySeconds+30)){I.RemoveCurrent();continue;}
+        if(!LastLiveContact || I.Value().SeenAt>LastLiveContact->SeenAt)LastLiveContact=&I.Value();
+    }
     if(!bAssaultInitialized)
     {
         for(auto& A:Assignments)if(A.Team==1 && IsValid(A.Ship))
@@ -572,6 +745,56 @@ void UNavalBattlefieldSubsystem::UpdateAssault()
         const auto Position=Grid->WorldToChart(A.Ship->GetActorLocation());
         const bool Retreat=C->TacticalState==EShipTacticalState::Retreat || C->TacticalState==EShipTacticalState::Escape || C->TacticalState==EShipTacticalState::BackwardRetreat || C->TacticalState==EShipTacticalState::ReturnToPatrol;
         if(Retreat){A.MissionState=TEXT("Shared retreat; assault objective retained");continue;}
+        const auto* Movement=A.Ship->FindComponentByClass<UShipMovementComponent>();
+        const auto* Circuit=Assignments.FindByPredicate([](const FNavalSpawnAssignment& B){return B.Team==0 && B.PatrolCircuitEN.Num()>=3;});
+        if(C->bEnableCombat && Movement && Movement->HullClass==EShipHullClass::Small && Circuit && A.AssaultPhase>=2 &&
+            (A.bSearchingCircuit || (LastLiveContact && Now-LastLiveContact->SeenAt>=LostContactSearchDelaySeconds)))
+        {
+            const auto& Points=Circuit->PatrolCircuitEN;
+            if(!A.bSearchingCircuit)
+            {
+                const auto Predicted=LastLiveContact->Position+(LastLiveContact->Velocity*FMath::Min(45.,Now-LastLiveContact->SeenAt)).GetClampedToMaxSize(600.);
+                double Best=DBL_MAX;
+                for(int32 I=0;I<Points.Num();++I)
+                    if(const double D=FVector2D::Distance(Points[I],Predicted);D<Best){Best=D;A.SearchCircuitIndex=I;}
+                A.bSearchingCircuit=true;A.PendingSearchIndex=A.SearchCircuitIndex;A.MissionRouteRetries=0;
+            }
+            if(A.bSearchingCircuit)
+            {
+                // The Small scout independently searches the known corridor;
+                // heavy escorts cannot be ordered into its disconnected passage.
+                N->CruiseSpeedMps=FMath::Max(1.f,A.BaseCruiseSpeedMps);
+                if(A.PendingSearchIndex!=INDEX_NONE)
+                {
+                    if(A.MissionRouteRetries>=3)
+                    {N->StopNavigation();A.MissionState=TEXT("Scout search unavailable after bounded retries");continue;}
+                    if(Now>=A.MissionRetryAt)
+                    {
+                        const int32 Retries=A.MissionRouteRetries;
+                        if(SetAssaultGoal(A,Points[A.PendingSearchIndex]))
+                        {A.SearchCircuitIndex=A.PendingSearchIndex;A.PendingSearchIndex=INDEX_NONE;A.MissionRouteRetries=Retries;}
+                        else{A.MissionRetryAt=Now+15;++A.MissionRouteRetries;N->StopNavigation();}
+                    }
+                    A.MissionState=TEXT("Scout: planning last-known island search");continue;
+                }
+                auto* H=UShipCombatComponent::PhysicalHull(A.Ship);
+                const bool At=H && FVector2D::Distance(Position,A.MissionGoalEN)<=N->ArrivalRadiusM &&
+                    FVector::VectorPlaneProject(H->GetPhysicsLinearVelocity(),H->GetUpVector()).Size()<150;
+                if(At)
+                {
+                    ++A.SearchGoalsReached;A.PendingSearchIndex=(A.SearchCircuitIndex+Points.Num()-1)%Points.Num();A.MissionRouteRetries=0;
+                    if(!LastLiveContact && A.SearchGoalsReached%Points.Num()==0)
+                    {A.bSearchingCircuit=false;A.PendingSearchIndex=INDEX_NONE;A.MissionRetryAt=Now+LostContactSearchDelaySeconds;AdvanceAssault(A);A.MissionState=TEXT("Scout search exhausted; returning to accessible assault area");}
+                }
+                else if(N->NavigationState==EShipNavigationState::Failed)
+                {
+                    ++A.MissionRouteRetries;A.PendingSearchIndex=A.SearchCircuitIndex;A.MissionRetryAt=Now+15;N->StopNavigation();
+                }
+                A.MissionState=A.MissionRouteRetries>=3?TEXT("Scout search unavailable after bounded retries"):
+                    C->Target && C->bTargetVisible?TEXT("Scout: contact on island search route"):TEXT("Scout: searching last-known island corridor");
+                continue;
+            }
+        }
         if(!A.bAssaultReleased)
         {
             A.FormationWaitSeconds+=Dt;
@@ -659,7 +882,11 @@ void UNavalBattlefieldSubsystem::Tick(float Dt)
         {Fail(TEXT("Ship drifted outside accepted water while settling"));return;}
     }
     bReady=true;Status=FString::Printf(TEXT("SEED %d"),ActualSeed);
-    if(auto* PC=UGameplayStatics::GetPlayerController(this,0))if(APawn* P=PC->GetPawn())PC->SetViewTarget(P);
+    if(auto* PC=UGameplayStatics::GetPlayerController(this,0))
+    {
+        if(auto* Custom=Cast<ACustomPlayerController>(PC);Custom && Custom->bFullAISpectating)Custom->ShowBattlefieldOverview();
+        else if(APawn* P=PC->GetPawn())PC->SetViewTarget(P);
+    }
     if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError.Empty();B->Notification=Status;}
 }
 void UNavalBattlefieldSubsystem::Deinitialize()
@@ -669,7 +896,7 @@ void UNavalBattlefieldSubsystem::Deinitialize()
         if(auto* Manager=StreamingCameraManager.Get())Manager->AdditionalCameras.RemoveAll([this](const FCesiumCamera& C){return C.CameraComponent.Get()==LoadingCamera->GetCameraComponent();});
         LoadingCamera->Destroy();
     }
-    LoadingCamera=nullptr;StreamingCameraManager.Reset();Assignments.Reset();RetainedFleet.Reset();OperationalCharts.Reset();Super::Deinitialize();
+    LoadingCamera=nullptr;StreamingCameraManager.Reset();Assignments.Reset();RetainedFleet.Reset();OperationalCharts.Reset();ObservedContacts.Reset();Super::Deinitialize();
 }
 FString UNavalBattlefieldSubsystem::LayoutReport() const
 {
@@ -689,9 +916,13 @@ FString UNavalBattlefieldSubsystem::LayoutReport() const
     {
         auto O=MakeShared<FJsonObject>();O->SetStringField(TEXT("ship"),A.Ship?A.Ship->GetActorNameOrLabel():TEXT("missing"));O->SetNumberField(TEXT("team"),A.Team);O->SetNumberField(TEXT("slot"),A.Slot);O->SetStringField(TEXT("sector"),A.SpawnSector.ToString());
         O->SetArrayField(TEXT("spawn_en_m"),{MakeShared<FJsonValueNumber>(A.SpawnEN.X),MakeShared<FJsonValueNumber>(A.SpawnEN.Y)});O->SetArrayField(TEXT("target_en_m"),{MakeShared<FJsonValueNumber>(A.TargetEN.X),MakeShared<FJsonValueNumber>(A.TargetEN.Y)});O->SetNumberField(TEXT("heading"),A.HeadingDegrees);O->SetBoolField(TEXT("physical_clearance"),A.bPhysicalClearanceVerified);O->SetStringField(TEXT("depth_status"),A.DepthStatus);
+        TArray<TSharedPtr<FJsonValue>> Circuit;
+        for(const auto& P:A.PatrolCircuitEN)Circuit.Add(MakeShared<FJsonValueArray>(TArray<TSharedPtr<FJsonValue>>{MakeShared<FJsonValueNumber>(P.X),MakeShared<FJsonValueNumber>(P.Y)}));
+        O->SetArrayField(TEXT("patrol_circuit_en_m"),Circuit);O->SetNumberField(TEXT("circuit_start_index"),A.CircuitStartIndex);
         O->SetArrayField(TEXT("defense_anchor_en_m"),{MakeShared<FJsonValueNumber>(A.DefensiveAnchorEN.X),MakeShared<FJsonValueNumber>(A.DefensiveAnchorEN.Y)});
         O->SetStringField(TEXT("mission"),A.MissionState);O->SetNumberField(TEXT("interceptions_started"),A.InterceptionsStarted);O->SetNumberField(TEXT("defensive_returns"),A.DefensiveReturns);
         O->SetNumberField(TEXT("assault_phase"),A.AssaultPhase);O->SetNumberField(TEXT("assault_goals_reached"),A.AssaultGoalsReached);O->SetBoolField(TEXT("assault_released"),A.bAssaultReleased);O->SetNumberField(TEXT("formation_distance_m"),A.FormationDistanceM);O->SetNumberField(TEXT("mission_route_retries"),A.MissionRouteRetries);
+        O->SetBoolField(TEXT("searching_circuit"),A.bSearchingCircuit);O->SetNumberField(TEXT("search_circuit_index"),A.SearchCircuitIndex);O->SetNumberField(TEXT("search_goals_reached"),A.SearchGoalsReached);
         O->SetArrayField(TEXT("mission_goal_en_m"),{MakeShared<FJsonValueNumber>(A.MissionGoalEN.X),MakeShared<FJsonValueNumber>(A.MissionGoalEN.Y)});Items.Add(MakeShared<FJsonValueObject>(O));
     }
     J->SetArrayField(TEXT("ships"),Items);FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
