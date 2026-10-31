@@ -23,6 +23,7 @@
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
 #include "Json.h"
+#include "Misc/Base64.h"
 
 namespace
 {
@@ -86,6 +87,36 @@ TSharedPtr<const FSeaNavigationMap> UNavalBattlefieldSubsystem::NavigationChartF
     const auto* M=Ship?Ship->FindComponentByClass<UShipMovementComponent>():nullptr;
     if(M)if(const auto* Chart=OperationalCharts.Find(M->HullClass))return *Chart;
     return GetWorld()->GetSubsystem<UNavalSectorSubsystem>()->NavigationChart();
+}
+FString UNavalBattlefieldSubsystem::InspectNavigationChart(APawn* Ship) const
+{
+    const auto Map=NavigationChartForShip(Ship);auto J=MakeShared<FJsonObject>();
+    if(Map.IsValid())
+    {
+        J->SetNumberField(TEXT("width"),Map->Width);J->SetNumberField(TEXT("height"),Map->Height);
+        J->SetNumberField(TEXT("cell_size_m"),Map->CellSize);J->SetNumberField(TEXT("min_east"),Map->MinEast);J->SetNumberField(TEXT("min_north"),Map->MinNorth);
+        J->SetStringField(TEXT("cells_base64"),FBase64::Encode(Map->Cells));
+        J->SetBoolField(TEXT("surveyed"),bPhysicalSearch);
+    }
+    FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
+}
+FString UNavalBattlefieldSubsystem::InspectNavigationRoute(APawn* Ship,FVector2D Start,FVector2D Goal) const
+{
+    const auto Map=NavigationChartForShip(Ship);auto J=MakeShared<FJsonObject>();
+    FSeaRouteResult Route;if(Map.IsValid())Route=Map->FindPath(Start,Goal,75000,250);
+    J->SetBoolField(TEXT("success"),Route.bSuccess);J->SetStringField(TEXT("failure"),Route.Failure);
+    J->SetNumberField(TEXT("expansions"),Route.Expansions);J->SetNumberField(TEXT("milliseconds"),Route.Milliseconds);
+    TArray<TSharedPtr<FJsonValue>> Points;
+    for(const auto& P:Route.Points)Points.Add(MakeShared<FJsonValueArray>(TArray<TSharedPtr<FJsonValue>>{MakeShared<FJsonValueNumber>(P.X),MakeShared<FJsonValueNumber>(P.Y)}));
+    J->SetArrayField(TEXT("points"),Points);
+    FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
+}
+bool UNavalBattlefieldSubsystem::ValidateDevelopmentPlacement(APawn* Ship,FVector2D Position,float HeadingDegrees)
+{
+    if(!bReady || !IsValid(Ship) || !NavigationChartForShip(Ship)->IsWater(Position))return false;
+    FNavalSpawnAssignment A;A.Ship=Ship;A.SpawnEN=A.TargetEN=Position;A.HeadingDegrees=HeadingDegrees;A.HullRadiusM=SpawnHullRadius(Ship);
+    FSeaRouteResult Route;Route.bSuccess=true;Route.Points.Add(Position);bool Waiting=false;
+    return CheckPhysicalAssignment(A,Route,Waiting);
 }
 bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
 {

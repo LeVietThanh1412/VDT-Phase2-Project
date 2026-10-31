@@ -55,6 +55,10 @@ public:
     UFUNCTION(BlueprintPure,Category="Battlefield") bool IsEnabled() const;
     UFUNCTION(BlueprintPure,Category="Battlefield") bool CanBeginCombat() const {return !IsEnabled() || bReady;}
     UFUNCTION(BlueprintPure,Category="Battlefield") FString LayoutReport() const;
+    /** Read-only QA access to the exact surveyed chart and native planner. */
+    UFUNCTION(BlueprintCallable,Category="Battlefield|Debug",meta=(DevelopmentOnly)) FString InspectNavigationChart(APawn* Ship) const;
+    UFUNCTION(BlueprintCallable,Category="Battlefield|Debug",meta=(DevelopmentOnly)) FString InspectNavigationRoute(APawn* Ship,FVector2D Start,FVector2D Goal) const;
+    UFUNCTION(BlueprintCallable,Category="Battlefield|Debug",meta=(DevelopmentOnly)) bool ValidateDevelopmentPlacement(APawn* Ship,FVector2D Position,float HeadingDegrees);
     UFUNCTION(BlueprintPure,Category="Battlefield") bool AreTacticsEnabled() const;
     bool IsDefensiveTargetAllowed(AActor* Ship,AActor* Target) const;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Battlefield|Defense",meta=(ClampMin="500",ClampMax="1000",Units="m")) float DefensiveLeashM=800;
