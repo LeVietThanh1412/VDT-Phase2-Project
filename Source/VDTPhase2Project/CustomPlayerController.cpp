@@ -139,7 +139,8 @@ void ACustomPlayerController::NextTeammate()
     if(Friends.IsEmpty()){ShowBattlefieldOverview();return;}
     const int32 Index=Friends.IndexOfByKey(FollowedTeammate);
     FollowedTeammate=Friends[(Index+1)%Friends.Num()];
-    SetViewTargetWithBlend(FollowedTeammate,.25f);
+    ApplyShipView(FollowedTeammate);
+    SetShipViewTarget(FollowedTeammate,.25f);
 }
 
 void ACustomPlayerController::ShowBattlefieldOverview()
