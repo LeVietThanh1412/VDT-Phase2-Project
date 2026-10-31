@@ -1,6 +1,15 @@
+# Current developer entrypoints
+
+- Architecture: [project structure](Docs/Architecture/PROJECT_STRUCTURE.md)
+- QA: [test entrypoints](Tools/Testing/README.md)
+- Cleanup/recovery: [audit](Docs/Maintenance/CLEANUP_AUDIT.md)
+- Fixed terrain/sector frame: [battlefield guide](Docs/QuangNinhIntegration/SECTOR_BATTLEFIELD_GUIDE.md)
+
+Current final-stabilization status: IN PROGRESS. Historical bounded battles are not Full AI winner acceptance. No terrain, asset package or native movement behavior is changed by the cleanup milestone.
+
 # VDT Phase 2 Project
 
-Project Unreal Engine cho prototype/trình diễn tác chiến hải quân, tập trung vào điều khiển tàu, ngắm bắn, projectile, hiệu ứng chiến đấu và môi trường biển. Gameplay hiện được tổ chức chủ yếu bằng Blueprint và Enhanced Input; module C++ chỉ đóng vai trò module game cơ bản.
+Project Unreal Engine cho prototype/trình diễn tác chiến hải quân, tập trung vào điều khiển tàu, ngắm bắn, projectile, hiệu ứng chiến đấu và môi trường biển. Gameplay uses native geographic navigation, tactical missions, shared combat/health/reload, physics profiles and UI, while retaining the original Blueprint propulsion, turret and projectile graphs.
 
 ## Mục lục
 
