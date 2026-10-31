@@ -50,25 +50,29 @@ TSharedPtr<const FSeaNavigationMap> FSeaNavigationMap::Load(const FString& Filen
     for (int32 Id=0;Id<M->Cells.Num();++Id)
         if (M->Cells[Id]>1 || ((Id%M->Width==0 || Id%M->Width==M->Width-1 || Id<M->Width || Id>=M->Cells.Num()-M->Width) && M->Cells[Id]!=0))
         { Error=TEXT("Invalid cells or unblocked coverage boundary"); return nullptr; }
-    // Shared once-per-load connectivity prevents behaviors choosing an unreachable water pocket.
-    M->ConnectedRegions.Init(0,M->Cells.Num());int32 Region=0;TArray<int32> Queue;
-    for(int32 Seed=0;Seed<M->Cells.Num();++Seed)
+    M->RebuildConnectedRegions();
+    TSharedPtr<const FSeaNavigationMap> Immutable=M;
+    Cache.Add(Filename,Immutable); return Immutable;
+}
+
+void FSeaNavigationMap::RebuildConnectedRegions()
+{
+    ConnectedRegions.Init(0,Cells.Num());int32 Region=0;TArray<int32> Queue;
+    for(int32 Seed=0;Seed<Cells.Num();++Seed)
     {
-        if(!M->Cells[Seed] || M->ConnectedRegions[Seed])continue;
-        ++Region;Queue.Reset();Queue.Add(Seed);M->ConnectedRegions[Seed]=Region;
+        if(!Cells[Seed] || ConnectedRegions[Seed])continue;
+        ++Region;Queue.Reset();Queue.Add(Seed);ConnectedRegions[Seed]=Region;
         for(int32 Head=0;Head<Queue.Num();++Head)
         {
-            const int32 Id=Queue[Head],X=Id%M->Width,Y=Id/M->Width;
+            const int32 Id=Queue[Head],X=Id%Width,Y=Id/Width;
             for(int32 DY=-1;DY<=1;++DY)for(int32 DX=-1;DX<=1;++DX)
             {
                 const int32 NX=X+DX,NY=Y+DY;
-                if((DX==0 && DY==0) || !M->IsWater(NX,NY) || (DX && DY && (!M->IsWater(X+DX,Y) || !M->IsWater(X,Y+DY))))continue;
-                const int32 Next=NY*M->Width+NX;if(!M->ConnectedRegions[Next]){M->ConnectedRegions[Next]=Region;Queue.Add(Next);}
+                if((DX==0 && DY==0) || !IsWater(NX,NY) || (DX && DY && (!IsWater(X+DX,Y) || !IsWater(X,Y+DY))))continue;
+                const int32 Next=NY*Width+NX;if(!ConnectedRegions[Next]){ConnectedRegions[Next]=Region;Queue.Add(Next);}
             }
         }
     }
-    TSharedPtr<const FSeaNavigationMap> Immutable=M;
-    Cache.Add(Filename,Immutable); return Immutable;
 }
 
 bool FSeaNavigationMap::IsWater(int32 X,int32 Y) const

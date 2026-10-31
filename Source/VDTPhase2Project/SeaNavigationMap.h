@@ -20,6 +20,8 @@ struct VDTPHASE2PROJECT_API FSeaNavigationMap
     FVector East = FVector(1,0,0), North = FVector(0,1,0);
     TArray<uint8> Cells, Clearance;
     TArray<int32> ConnectedRegions;
+    /** Same eight-neighbor/corner policy for source and surveyed charts. */
+    void RebuildConnectedRegions();
     bool IsWater(int32 X, int32 Y) const;
     bool IsWater(const FVector2D& P) const;
     bool SameWaterRegion(const FVector2D& A, const FVector2D& B) const;

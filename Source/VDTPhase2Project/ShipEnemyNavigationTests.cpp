@@ -33,6 +33,14 @@ bool FSeaGridCases::RunTest(const FString&)
     auto Grid=[](){FSeaNavigationMap M;M.Width=30;M.Height=30;M.CellSize=100;M.Cells.Init(1,900);M.Clearance.Init(5,900);for(int32 I=0;I<30;++I){M.Cells[I]=M.Cells[870+I]=M.Cells[I*30]=M.Cells[I*30+29]=0;}return M;};
     auto Certify=[&](const FSeaNavigationMap& M,const FSeaRouteResult& R){TestTrue(TEXT("A* succeeds"),R.bSuccess);for(int32 I=1;I<R.Points.Num();++I)TestTrue(TEXT("Every smoothed segment safe"),M.SegmentClear(R.Points[I-1],R.Points[I]));};
     auto M=Grid();Certify(M,M.FindPath(FVector2D(250,250),FVector2D(2650,2650),75000,1000));
+    M.RebuildConnectedRegions();
+    TestTrue(TEXT("Rebuilt open chart has connected endpoints"),M.SameWaterRegion(FVector2D(250,250),FVector2D(2650,2650)));
+    for(int32 Y=1;Y<29;++Y)M.Cells[Y*30+15]=0;
+    M.RebuildConnectedRegions();
+    TestFalse(TEXT("Surveyed wall splits connectivity after rebuild"),M.SameWaterRegion(FVector2D(250,250),FVector2D(2650,2650)));
+    M.Cells[15*30+15]=1;M.RebuildConnectedRegions();
+    TestTrue(TEXT("Opening restores connectivity after rebuild"),M.SameWaterRegion(FVector2D(250,250),FVector2D(2650,2650)));
+    M=Grid();
     const FVector2D OffCenter(2667.125,2641.75);
     const auto Exact=M.FindPath(FVector2D(251.25,242.5),OffCenter,75000,1000);
     Certify(M,Exact);

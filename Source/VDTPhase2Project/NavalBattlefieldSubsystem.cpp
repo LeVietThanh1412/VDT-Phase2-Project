@@ -175,23 +175,7 @@ bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
             Chart->Cells[Id]=Clear?1:0;
             if(Clear){const int32 OriginalId=Coast->CellAt(Center);Chart->Clearance[Id]=Coast->Clearance.IsValidIndex(OriginalId)?Coast->Clearance[OriginalId]:0;}
         }
-        // Recompute true per-class connectivity after physical exclusions.
-        Chart->ConnectedRegions.Init(0,Chart->Cells.Num());int32 Region=0;TArray<int32> Queue;
-        for(int32 Seed=0;Seed<Chart->Cells.Num();++Seed)
-        {
-            if(!Chart->Cells[Seed] || Chart->ConnectedRegions[Seed])continue;
-            ++Region;Queue.Reset();Queue.Add(Seed);Chart->ConnectedRegions[Seed]=Region;
-            for(int32 Head=0;Head<Queue.Num();++Head)
-            {
-                const int32 Id=Queue[Head],X=Id%Chart->Width,Y=Id/Chart->Width;
-                for(int32 DY=-1;DY<=1;++DY)for(int32 DX=-1;DX<=1;++DX)
-                {
-                    if((DX==0 && DY==0) || !Chart->IsWater(X+DX,Y+DY) || (DX && DY && (!Chart->IsWater(X+DX,Y) || !Chart->IsWater(X,Y+DY))))continue;
-                    const int32 Next=(Y+DY)*Chart->Width+X+DX;
-                    if(!Chart->ConnectedRegions[Next]){Chart->ConnectedRegions[Next]=Region;Queue.Add(Next);}
-                }
-            }
-        }
+        Chart->RebuildConnectedRegions();
         OperationalCharts.Add(M->HullClass,Chart);
     }
     return !OperationalCharts.IsEmpty();
