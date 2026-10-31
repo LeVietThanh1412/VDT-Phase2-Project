@@ -364,11 +364,23 @@ bool UNavalBattlefieldSubsystem::GenerateIslandLayout(const TArray<APawn*>& Ship
         auto Rank=[](const UShipMovementComponent* M){return M && M->HullClass==EShipHullClass::Small?0:M && M->HullClass==EShipHullClass::Medium?1:2;};
         return Rank(MA)<Rank(MB);
     });
-    auto Nearby=[&](APawn* P,FVector2D Desired,FVector2D& Out)
+    auto Nearby=[&](APawn* P,FVector2D Desired,FVector2D& Out,int32 SpawnTeam=-1,bool Goal=false)
     {
         const auto Map=NavigationChartForShip(P);TArray<TPair<double,FVector2D>> Options;
         for(int32 I=0;I<Map->Cells.Num();++I)if(Map->Cells[I])
-        {const auto Q=Map->Center(I);const double D=FVector2D::Distance(Q,Desired);if(D<=180)Options.Emplace(D,Q);}
+        {
+            const auto Q=Map->Center(I);const double D=FVector2D::Distance(Q,Desired);
+            if(SpawnTeam>=0 && (!Grid->IsInsideField(Q,SpawnHullRadius(P)+30) ||
+                (SpawnTeam==0 && Q.X>=(P->IsPlayerControlled()?14750:14500)) || (SpawnTeam==1 && Q.X<=14500)))continue;
+            if(Goal)
+            {
+                bool Occupied=false;
+                for(const auto& Other:Assignments)if(Other.Ship!=P && Other.Ship->IsPlayerControlled() &&
+                    FVector2D::Distance(Q,Other.SpawnEN)<FMath::Max(260.f,Other.HullRadiusM+SpawnHullRadius(P)+100)){Occupied=true;break;}
+                if(Occupied)continue;
+            }
+            if(D<=(Goal?350:180))Options.Emplace(D,Q);
+        }
         Options.Sort([](const auto& A,const auto& B){return A.Key<B.Key;});
         for(int32 I=0;I<FMath::Min(40,Options.Num());++I)
         {
@@ -387,9 +399,9 @@ bool UNavalBattlefieldSubsystem::GenerateIslandLayout(const TArray<APawn*>& Ship
             APawn* P=Teams[Team][Slot];const auto* M=P->FindComponentByClass<UShipMovementComponent>();const auto Map=NavigationChartForShip(P);
             FNavalSpawnAssignment A;A.Ship=P;A.Team=Team;A.Slot=Slot;A.HullRadiusM=SpawnHullRadius(P);A.DefensiveAnchorEN=FVector2D(13900,3450);
             const bool Small=M && M->HullClass==EShipHullClass::Small;
-            FVector2D StartHint=Team==0?(!Small && Slot==2?FVector2D(14412.5,4337.5):Loop[FMath::Min(Slot,2)]):RedSpawns[Slot];
+            FVector2D StartHint=Team==0?(P->IsPlayerControlled()?FVector2D(14687.5,3287.5):!Small && Slot==2?FVector2D(14212.5,2937.5):Loop[FMath::Min(Slot,2)]):RedSpawns[Slot];
             if(ActualSeed!=20261028 || LayoutAttempts>1)StartHint+=FVector2D(LayoutRandom.FRandRange(-60,60),LayoutRandom.FRandRange(-60,60));
-            if(!Nearby(P,StartHint,A.SpawnEN) || !Grid->IsInsideField(A.SpawnEN,A.HullRadiusM+30) || (Team==0 && A.SpawnEN.X>=14500) || (Team==1 && A.SpawnEN.X<=14500))
+            if(!Nearby(P,StartHint,A.SpawnEN,Team))
             {Good=false;break;}
             if(Team==0 && Small && !P->IsPlayerControlled())
             {
@@ -418,7 +430,7 @@ bool UNavalBattlefieldSubsystem::GenerateIslandLayout(const TArray<APawn*>& Ship
             {
                 FVector2D GoalHint=Team==0?Heavy[Slot%2==0?1:0]:RedGoals[Slot];
                 if(ActualSeed!=20261028 || LayoutAttempts>1)GoalHint+=FVector2D(LayoutRandom.FRandRange(-40,40),LayoutRandom.FRandRange(-40,40));
-                if(!Nearby(P,GoalHint,A.TargetEN)){Good=false;break;}
+                if(!Nearby(P,GoalHint,A.TargetEN,-1,true)){Good=false;break;}
             }
             if(!Good)break;
             if(P->IsPlayerControlled())A.TargetEN=A.SpawnEN;
