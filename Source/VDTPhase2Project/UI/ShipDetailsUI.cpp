@@ -13,6 +13,7 @@
 #include "Styling/CoreStyle.h"
 #include "UObject/UnrealType.h"
 #include "Widgets/Images/SImage.h"
+#include "Widgets/Input/SButton.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SGridPanel.h"
@@ -240,7 +241,61 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                     [ SAssignNew(BattleStatusText,STextBlock).Font(ValueFont).ColorAndOpacity(ValueColor) ]
                 ]
             ]
+        ]
+        + SOverlay::Slot()
+        .HAlign(HAlign_Center)
+        .VAlign(VAlign_Top)
+        .Padding(FMargin(32.0f))
+        [
+            SNew(SBox)
+            .MinDesiredWidth(320.0f)
+            .Visibility_UObject(this,&UShipDetailsUI::GetMatchResultVisibility)
+            [
+                SNew(SBorder)
+                .Padding(FMargin(22.0f,18.0f))
+                .BorderImage(&PanelBrush)
+                [
+                    SNew(SVerticalBox)
+                    + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center)
+                    [
+                        SNew(STextBlock)
+                        .Font(NameFont)
+                        .ColorAndOpacity(AccentColor)
+                        .Text_UObject(this,&UShipDetailsUI::GetMatchResultText)
+                    ]
+                    + SVerticalBox::Slot().AutoHeight().Padding(0,14,0,0)
+                    [
+                        SNew(SButton)
+                        .ContentPadding(FMargin(18.0f,10.0f))
+                        .HAlign(HAlign_Center)
+                        .OnClicked_UObject(this,&UShipDetailsUI::ReturnToSetup)
+                        [
+                            SNew(STextBlock)
+                            .Font(ValueFont)
+                            .Text(FText::FromString(TEXT("RETURN TO SETUP")))
+                        ]
+                    ]
+                ]
+            ]
         ];
+}
+
+EVisibility UShipDetailsUI::GetMatchResultVisibility() const
+{
+    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
+    return Battle && !Battle->Outcome.IsEmpty()?EVisibility::Visible:EVisibility::Collapsed;
+}
+
+FText UShipDetailsUI::GetMatchResultText() const
+{
+    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
+    return Battle?FText::FromString(Battle->Outcome):FText::GetEmpty();
+}
+
+FReply UShipDetailsUI::ReturnToSetup()
+{
+    if(auto* Controller=Cast<ACustomPlayerController>(GetOwningPlayer()))Controller->ReturnToMatchSetup();
+    return FReply::Handled();
 }
 
 void UShipDetailsUI::NativeConstruct()
@@ -272,6 +327,19 @@ void UShipDetailsUI::UpdateDetails()
         return;
     }
 
+    // Match state remains visible even after the selected ship/wreck is gone.
+    if(const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr)
+    {
+        BattleText=FString::Printf(TEXT("BLUE %d  |  RED %d"),Battle->BlueAlive,Battle->RedAlive);
+        if(const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();Settings && Settings->bFullAIDemo)
+            BattleText=TEXT("FULL AI  |  ")+BattleText;
+        if(!Battle->Outcome.IsEmpty())BattleText+=TEXT(" | ")+Battle->Outcome;
+        else if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->IsEnabled() && !Field->bReady)
+            BattleText+=Field->InitializationError.IsEmpty()?TEXT(" | PREPARING BATTLEFIELD"):TEXT(" | SETUP FAILED - press P");
+        else if(Battle->BattleMode==ENavalBattleMode::TurnBased)
+            BattleText+=FString::Printf(TEXT(" | %s %.0fs"),*Battle->ActiveTurnLabel,Battle->TurnSecondsRemaining());
+        BattleStatusText->SetText(FText::FromString(BattleText));
+    }
     APawn* Ship = ResolveSelectedShip();DisplayedShip=Ship;
     if (!IsValid(Ship))
     {
@@ -300,18 +368,6 @@ void UShipDetailsUI::UpdateDetails()
             if(Value.StartsWith(TEXT("AI.State.")))IdentityText+=TEXT(" | ")+Value.Mid(9);
         }
         MissionText->SetText(FText::FromString(IdentityText));
-    }
-    if(const auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())
-    {
-        BattleText=FString::Printf(TEXT("BLUE %d  |  RED %d"),Battle->BlueAlive,Battle->RedAlive);
-        if(const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();Settings && Settings->bFullAIDemo)
-            BattleText=TEXT("FULL AI  |  ")+BattleText;
-        if(!Battle->Outcome.IsEmpty())BattleText+=TEXT(" | ")+Battle->Outcome;
-        else if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->IsEnabled() && !Field->bReady)
-            BattleText+=Field->InitializationError.IsEmpty()?TEXT(" | PREPARING BATTLEFIELD"):TEXT(" | SETUP FAILED - press P");
-        else if(Battle->BattleMode==ENavalBattleMode::TurnBased)
-            BattleText+=FString::Printf(TEXT(" | %s %.0fs"),*Battle->ActiveTurnLabel,Battle->TurnSecondsRemaining());
-        BattleStatusText->SetText(FText::FromString(BattleText));
     }
     // Show the same designer-authored identity as the minimap instead of the
     // long engine object name (for example, "BP_ShipEnemy_C_UAID_...").

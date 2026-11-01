@@ -23,6 +23,8 @@ public:
     virtual void SetupInputComponent() override;
     UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
     UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
+    UFUNCTION(BlueprintCallable, Category="Match") void ReturnToMatchSetup();
+    void ShowMatchResult();
     UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
     virtual void OnPossess(APawn* InPawn) override;
     UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();

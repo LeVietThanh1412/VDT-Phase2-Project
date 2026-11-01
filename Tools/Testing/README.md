@@ -4,6 +4,7 @@ Use one Editor and one PIE fixture at a time. Freeze the loaded native DLL durin
 
 | Purpose | Fixture |
 |---|---|
+| Result to setup / Back to Game / clean match restart | verify_return_to_setup.py;6 controlled result cases; optional real mouse click |
 | Full AI contact / natural winner / menu variants / turns | verify_final_demo.py; KIND=nonlethal/lethal/patrol/turns |
 | Serial matrix, stop on first failure | run_final_regressions.py; optional TESTS list |
 | Damage / roles / death / capsize / spectator / shooter cleanup | verify_core_gameplay.py; controlled damage/capsize |
