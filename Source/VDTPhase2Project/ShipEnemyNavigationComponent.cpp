@@ -37,6 +37,8 @@ struct FDestinationTracking
     bool bExplicitCommand=false, bHasSnappedGoal=false;
     int32 PlanCount=0, ConsecutivePlanFailures=0;
     double RetryAt=0, LastTelemetry=-1;
+    double RecoveryRetryAt=0;
+    int32 RecoveryRetries=0;
     float AvoidAngle=45;
     TWeakObjectPtr<AActor> SweepActor;
     FVector SweepCenter=FVector::ZeroVector;
@@ -170,6 +172,13 @@ void UShipEnemyNavigationComponent::Fail(const FString& S)
 {
     if(bDrawDebug && LastNavigationFailureReason!=S)UE_LOG(LogTemp,Warning,TEXT("ShipNavigation %s: %s"),*GetNameSafe(GetOwner()),*S);
     LastNavigationFailureReason=S;NavigationState=EShipNavigationState::Failed;bPathfindingSucceeded=false;DesiredSpeed=0;
+    DestinationState(this).RecoveryRetryAt=0;
+    // A moving hull can exhaust local recovery without invalidating this water
+    // route. Leave commands stopped during backoff, then let the same planner
+    // and traffic arbitration reassess it. Configuration/land failures stay hard.
+    if(S==TEXT("Bounded recovery attempts exhausted") || S==TEXT("Local avoidance/replan budget exhausted") ||
+       S==TEXT("Recovery could not stabilize velocity within its time budget"))
+        DestinationState(this).RecoveryRetryAt=GetWorld()->GetTimeSeconds()+FMath::Max(30.f,StuckWindowSeconds*2);
 }
 void UShipEnemyNavigationComponent::SetDriveCommand(float T,float R)
 {
@@ -338,6 +347,8 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
     if(const auto* Track=DestinationTracking.Find(const_cast<UShipEnemyNavigationComponent*>(this)))
     {
         J->SetNumberField(TEXT("plans"),Track->PlanCount);
+        J->SetNumberField(TEXT("recovery_retries"),Track->RecoveryRetries);
+        J->SetNumberField(TEXT("recovery_retry_at"),Track->RecoveryRetryAt);
         J->SetStringField(TEXT("last_sweep_actor"),GetNameSafe(Track->SweepActor.Get()));
     }
     FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
@@ -802,8 +813,15 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     SelectObjective(P);
     if(NavigationState==EShipNavigationState::Failed)
     {
-        const auto& Track=DestinationState(this);
-        if(NavigationMode==EShipNavigationMode::Patrol && bHasGoal && Track.ConsecutivePlanFailures>0 && Track.ConsecutivePlanFailures<=3 && GetWorld()->GetTimeSeconds()>=Track.RetryAt)
+        auto& Track=DestinationState(this);
+        if(bHasGoal && Track.RecoveryRetryAt>0 && GetWorld()->GetTimeSeconds()>=Track.RecoveryRetryAt && Map->IsWater(P))
+        {
+            Track.RecoveryRetryAt=0;++Track.RecoveryRetries;Track.TrafficRadius=0;
+            RecoveryPhase=0;RecoveryAttemptCount=0;TimeSinceProgress=0;BestRemainingDistance=DBL_MAX;
+            FailedCorridors.Reset();AvoidElapsed=0;AvoidSide=0;AvoidSideChanges=0;
+            bNeedsPlan=true;NavigationState=EShipNavigationState::Replan;
+        }
+        else if(NavigationMode==EShipNavigationMode::Patrol && bHasGoal && Track.ConsecutivePlanFailures>0 && Track.ConsecutivePlanFailures<=3 && GetWorld()->GetTimeSeconds()>=Track.RetryAt)
         {bNeedsPlan=true;NavigationState=EShipNavigationState::Replan;}
         else{SetDriveCommand(0,0);return true;}
     }
@@ -1110,7 +1128,10 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             // Stable right of way prevents reciprocal soft-braking deadlocks.
             // The other vessel yields; the priority vessel still uses every
             // existing hull sweep, land check and emergency brake below.
-            if(HasShipRightOfWay(this,*Other,Now))continue;
+            const auto* OtherNav=Other->FindComponentByClass<UShipEnemyNavigationComponent>();
+            const bool Following=OtherNav && IsValid(OtherNav->Heading) &&
+                FVector::DotProduct(Forward,OtherNav->Heading->GetForwardVector())>.5f;
+            if(!Following && HasShipRightOfWay(this,*Other,Now))continue;
             const double Closing=FVector::DotProduct(Velocity-OtherHull->GetPhysicsLinearVelocity(),Flat.GetSafeNormal())/100;
             if(Closing>.2 || Distance<SafeShipSeparationM*.85)
             {
