@@ -1,13 +1,13 @@
 # Production refactor report
 
-Status: **IN_PROGRESS**. Tested pre-refactor baseline: `b9fb0e0`; see `CODEBASE_AUDIT.md`. Tools/Docs cleanup is not evidence of completed production-source cleanup.
+Status: **COMPLETE for the documented demo scope; DEMO_READY_WITH_LIMITATIONS**. Tested pre-refactor baseline: `b9fb0e0`; see `CODEBASE_AUDIT.md`. Tools/Docs cleanup is not evidence of completed production-source cleanup.
 
 | Refactor | Concrete problem | Scope | Validation / result |
 |---|---|---|---|
 | R1: connectivity rebuild | Two copies of the same eight-neighbor flood fill can diverge on diagonal clearance or region numbering. | `SeaNavigationMap` and battlefield operational survey. Preserve algorithms, coordinate frame and iteration order. | C++ build,39 Blueprint compiles, all4 native automation tests (including connectivity split/reopen assertions), and natural seed20261029 match passed in251.65s. See `Docs/Testing/R1_NATURAL_MATCH.json`. |
 | R2: tactical/query separation | Prematch survey/placement and tactical search/convoy state transitions share one large file; water-query filtering is repeated across runtime systems. | Existing subsystem method definitions and shared internal queries; explicit includes/forward declarations. No reflected class or asset relocation. | C++ build,39 Blueprint compiles, all4 native tests and a natural seed20261030 match passed (RED WINS,605.36s). The five moved mission bodies match the baseline exactly after the ocean-helper rename. Broader final regression matrix remains pending. |
 
-No production class/function has been deleted. `bProfileApplied` is public Blueprint-readable despite no C++ reads, so it is retained. Legacy navigation/projectile code has explicit absence-of-shared-combat guards and is retained. Final acceptance requires C++, affected Blueprints, native tests, real patrol/contact/player regressions and natural full matches on the refactored implementation.
+No reflected class or public API has been removed. Duplicate private implementations were consolidated; mission definitions moved without new ownership. `bProfileApplied` is public Blueprint-readable despite no C++ reads, so it is retained. Legacy navigation/projectile code has explicit absence-of-shared-combat guards and is retained. Final acceptance requires C++, affected Blueprints, native tests, real patrol/contact/player regressions and natural full matches on the refactored implementation.
 
 R3 verified: the controlled death regression reproduced a stale HUD selection after NextTeammate changed only the camera target. Reuse ApplyShipView and SetShipViewTarget, already used by live spectator cycling, so selection, horizon lock and independent orbit agree. Preserve AI possession. C++ build succeeded;39 Blueprints compiled; all4 native automation tests passed. The controlled player-death PIE passed all12 checks, including HUD follows teammate, unchanged AIControllers, cached projectile after shooter cleanup and physical capsize. Shared magazine and120-second all-class hull stability also passed. Evidence: Docs/Testing/CORE_GAMEPLAY_REGRESSION.json, SHARED_MAGAZINE_REGRESSION.json and HULL_STABILITY_REGRESSION.json.
 
@@ -16,3 +16,14 @@ R4 proposal: endurance reproduced a terminal recovery failure with a valid water
 R4 follow-up: backoff-only endurance still bunched following hulls. Right-of-way currently bypasses all soft separation even for similarly headed ships. Preserve following-distance braking when headings agree; retain existing crossing priority, swept avoidance and emergency brakes. The failed backoff-only trace remains NAVIGATION_BACKOFF_ONLY_FAILED.json.
 
 R4 verified for the intended demonstration: C++ build,39 Blueprints,4 native tests; all3 Blue hulls completed one physical island circuit by749.64s with zero recovery retries; the exact original player+5AI composition completed B/A/B/A in667.86s; a natural seed20261028 match ended BLUE WINS in371.89s with all six firing and all five deaths due to health depletion. Controlled core lifecycle passed again. New-fleet legacy A/B and assault-disabled reverse-flow heavy-convoy stress remain explicitly uncertified; see failure reports. No arbitrary hull layout is declared safe.
+
+## Modified production files and final checks
+
+- R1: SeaNavigationMap.h/.cpp, NavalBattlefieldSubsystem.cpp and ShipEnemyNavigationTests.cpp; one exact connectivity algorithm and split/reopen regression.
+- R2: NavalBattlefieldSubsystem.cpp, new NavalBattlefieldTactics.cpp, new Private/NavalWaterQueries.h/.cpp, NavalSectorSubsystem.h/.cpp, ShipCombatComponent.cpp and ShipEnemyNavigationComponent.h/.cpp. Five mission bodies were checked against the pre-move implementation after helper renaming.
+- R3: CustomPlayerController.cpp; death spectator uses the same selection/horizon/orbit helpers as ordinary inspection.
+- R4: ShipEnemyNavigationComponent.cpp; following braking, narrow recovery-backoff eligibility and telemetry. No new actuator/manager or A* rewrite.
+
+After R4: natural BLUE WINS371.89s, exact original five-AI B/A/B/A667.86s, three physical island circuits749.64s, seven additional seed startups,120s alternating turns and120s all-class hull stability. Cold restart then passed real300m reverse fire/physical patrol return and all-six contact on three seeds (15.55/11.54/11.03s), including team tags and retained controllers. Seed20261028 initial layout replayed exactly. Final production commit bb9b507; source remained frozen throughout these checks.
+
+No speculative performance optimization is claimed. Native search timings/plan counts, process samples and a20-minute Editor stats capture were reviewed; no measured bottleneck justified changing A* budgets, physics profiles or Cesium cache lifetimes. Remaining debt: large steering/combat/controller classes, hard-coded asset paths and conditional legacy compatibility paths. Alternative new-fleet legacy A/B and heavy reverse-flow stress are not certified; see FINAL_QA_REPORT.md rather than treating every configuration as safe.

@@ -5,7 +5,7 @@
 - Cleanup/recovery: [audit](Docs/Maintenance/CLEANUP_AUDIT.md)
 - Fixed terrain/sector frame: [battlefield guide](Docs/QuangNinhIntegration/SECTOR_BATTLEFIELD_GUIDE.md)
 
-Current final-stabilization status: IN PROGRESS. Historical bounded battles are not Full AI winner acceptance. No terrain, asset package or native movement behavior is changed by the cleanup milestone.
+Current verification: **DEMO_READY_WITH_LIMITATIONS** for the documented island-defense preset. Start with [demo setup](Docs/Demo/DEMO_SETUP.md) or `powershell -NoProfile -ExecutionPolicy Bypass -File .\Tools\RunDemo.ps1`. See [final QA](Docs/Testing/FINAL_QA_REPORT.md), [source audit](Docs/Architecture/CODEBASE_AUDIT.md) and [verified refactors](Docs/Architecture/REFACTOR_REPORT.md). Four natural3v3 matches completed across incremental builds; the final native build won in371.89s. Uncertified alternative fleet/path combinations are explicitly listed.
 
 # VDT Phase 2 Project
 

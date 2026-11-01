@@ -1,0 +1,953 @@
+{
+  "status": "PASSED",
+  "phase": "return",
+  "checks": {
+    "low_health_reverse": true,
+    "physical_backward_motion": true,
+    "real_shot_while_reversing": true,
+    "returned_to_patrol": true,
+    "original_targets": true,
+    "physical_resume": true,
+    "controller_and_physics": true
+  },
+  "error": null,
+  "last_candidate_check": 10.204425998032093,
+  "at": 45.26541790366173,
+  "anchors": [
+    "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+    "/Game/Levels/UEDPIE_0_MainMapLevel.MainMapLevel:PersistentLevel.TargetPoint_UAID_40C2BA430821B90C03_2096054066"
+  ],
+  "controller": "AIController_0",
+  "seek_check": 10.259220197796822,
+  "reverse_diagnostics": {
+    "operational_chart": true,
+    "navigation_cell_size_m": 25,
+    "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+    "label": "BP_ShipEnemy2",
+    "controller": "AIController_0",
+    "team": 1,
+    "class": "EShipHullClass::Small",
+    "tactical_state": "EShipTacticalState::Patrol",
+    "navigation_state": "EShipNavigationState::Replan",
+    "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+    "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+    "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+    "legs": 0,
+    "circuit_targets": 0,
+    "circuit_index": 0,
+    "circuits_completed": 0,
+    "waypoint_index": 1,
+    "waypoint_count": 0,
+    "path_success": true,
+    "failure": "",
+    "throttle": 0.022297900170087814,
+    "rudder": -0.04459580034017563,
+    "time_without_route_progress_s": 0.054794199764728546,
+    "recovery_attempts": 0,
+    "reposition_reinitializations": 1,
+    "explicit_stop": false,
+    "can_act": true,
+    "blueprint_propulsion_force": [
+      -5612.015173587702,
+      9323.524745641596,
+      976.7354078393341
+    ],
+    "blueprint_rudder_force_local": [
+      0,
+      -267.5748020410538,
+      0
+    ],
+    "goal_llh": [
+      107.44159768552973,
+      21.03222140794048,
+      -13.090006515009348
+    ],
+    "chart_en_m": [
+      14937.258639506686,
+      4137.800665043906,
+      0
+    ],
+    "distance_to_goal_m": 298.89898850079965,
+    "chart_water": true,
+    "physics": true,
+    "speed_mps": 1.6800216095969265,
+    "plans": 1,
+    "recovery_retries": 0,
+    "recovery_retry_at": 0,
+    "last_sweep_actor": "None"
+  },
+  "reverse_distance_m": 300,
+  "return_start": [
+    15017.409034001921,
+    4264.804508419509
+  ],
+  "rows_count": 533,
+  "min_signed_speed_mps": -4.513279438018799,
+  "samples_1s": [
+    {
+      "t": 10.259220197796822,
+      "phase": "reverse",
+      "en": [
+        14937.258639506686,
+        4137.800665043906
+      ],
+      "speed": 0.19754022359848022,
+      "shots": 0,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 0,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 11.493830602616072,
+      "phase": "reverse",
+      "en": [
+        14937.960856506805,
+        4138.328293435838
+      ],
+      "speed": -2.585819721221924,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 12.5132913030684,
+      "phase": "reverse",
+      "en": [
+        14939.990412361038,
+        4141.362750373351
+      ],
+      "speed": -4.222737789154053,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 13.53779710456729,
+      "phase": "reverse",
+      "en": [
+        14942.386735059486,
+        4145.107166691252
+      ],
+      "speed": -4.421059608459473,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 14.552843403071165,
+      "phase": "reverse",
+      "en": [
+        14944.961026894374,
+        4148.839988680931
+      ],
+      "speed": -4.464532375335693,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 15.578007504343987,
+      "phase": "reverse",
+      "en": [
+        14947.338049285794,
+        4152.409753843108
+      ],
+      "speed": -4.469346523284912,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 16.61345300450921,
+      "phase": "reverse",
+      "en": [
+        14950.061461065503,
+        4156.23286333856
+      ],
+      "speed": -4.464599609375,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 17.619100503623486,
+      "phase": "reverse",
+      "en": [
+        14952.679368166355,
+        4159.96195236655
+      ],
+      "speed": -4.461604595184326,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 18.632085103541613,
+      "phase": "reverse",
+      "en": [
+        14955.151230832531,
+        4163.763449621945
+      ],
+      "speed": -4.461849689483643,
+      "shots": 1,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 19.660159405320883,
+      "phase": "reverse",
+      "en": [
+        14957.662331645693,
+        4167.633926092038
+      ],
+      "speed": -4.448259353637695,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 20.715670105069876,
+      "phase": "reverse",
+      "en": [
+        14960.218880550616,
+        4171.575277723079
+      ],
+      "speed": -4.473191738128662,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 21.72931430488825,
+      "phase": "reverse",
+      "en": [
+        14962.68228696393,
+        4175.310382443017
+      ],
+      "speed": -4.468616008758545,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 22.744029704481363,
+      "phase": "reverse",
+      "en": [
+        14965.186971231513,
+        4179.04514649824
+      ],
+      "speed": -4.464661121368408,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 23.760084304958582,
+      "phase": "reverse",
+      "en": [
+        14967.716869802887,
+        4182.8443766921855
+      ],
+      "speed": -4.470672607421875,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 24.778272803872824,
+      "phase": "reverse",
+      "en": [
+        14970.405594215288,
+        4186.6055484722965
+      ],
+      "speed": -4.477973937988281,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 25.84688540548086,
+      "phase": "reverse",
+      "en": [
+        14972.990423281342,
+        4190.647837929096
+      ],
+      "speed": -4.494728088378906,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 26.86407370492816,
+      "phase": "reverse",
+      "en": [
+        14975.32367445325,
+        4194.521249226229
+      ],
+      "speed": -4.459450721740723,
+      "shots": 2,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 27.885793402791023,
+      "phase": "reverse",
+      "en": [
+        14977.62088855838,
+        4198.465724548138
+      ],
+      "speed": -4.455098628997803,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 28.901629704982042,
+      "phase": "reverse",
+      "en": [
+        14979.876778318769,
+        4202.400057426908
+      ],
+      "speed": -4.45949649810791,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 29.92256550490856,
+      "phase": "reverse",
+      "en": [
+        14982.171620426096,
+        4206.304565720502
+      ],
+      "speed": -4.477808952331543,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 31.025191202759743,
+      "phase": "reverse",
+      "en": [
+        14984.827680821223,
+        4210.386843815255
+      ],
+      "speed": -4.473933219909668,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 32.035356905311346,
+      "phase": "reverse",
+      "en": [
+        14987.33335332988,
+        4214.1509638061
+      ],
+      "speed": -4.469828128814697,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 33.04715300351381,
+      "phase": "reverse",
+      "en": [
+        14989.912494041055,
+        4217.958426915826
+      ],
+      "speed": -4.486260890960693,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 34.062943905591965,
+      "phase": "reverse",
+      "en": [
+        14992.280694456786,
+        4221.835896859528
+      ],
+      "speed": -4.510130882263184,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 35.08320290222764,
+      "phase": "reverse",
+      "en": [
+        14994.578753930233,
+        4225.7345035191365
+      ],
+      "speed": -4.494372367858887,
+      "shots": 3,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 36.184202402830124,
+      "phase": "reverse",
+      "en": [
+        14996.977634904704,
+        4229.962625059563
+      ],
+      "speed": -4.466143608093262,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 37.2106366045773,
+      "phase": "reverse",
+      "en": [
+        14999.15967748838,
+        4233.958502829643
+      ],
+      "speed": -4.462250709533691,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 38.242814004421234,
+      "phase": "reverse",
+      "en": [
+        15001.409657839578,
+        4237.93298116542
+      ],
+      "speed": -4.4712724685668945,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 39.26201810315251,
+      "phase": "reverse",
+      "en": [
+        15003.749095280706,
+        4241.780955600721
+      ],
+      "speed": -4.481675624847412,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 40.31116920337081,
+      "phase": "reverse",
+      "en": [
+        15006.17260036736,
+        4245.772361131725
+      ],
+      "speed": -4.476339817047119,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 41.375610902905464,
+      "phase": "reverse",
+      "en": [
+        15008.66534206779,
+        4249.820009098625
+      ],
+      "speed": -4.461152076721191,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 42.38717980310321,
+      "phase": "reverse",
+      "en": [
+        15011.008793034209,
+        4253.714103511798
+      ],
+      "speed": -4.46382999420166,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 43.40373820438981,
+      "phase": "reverse",
+      "en": [
+        15013.316096898425,
+        4257.670733324792
+      ],
+      "speed": -4.471165657043457,
+      "shots": 4,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 44.413580402731895,
+      "phase": "reverse",
+      "en": [
+        15015.571437580322,
+        4261.594063281784
+      ],
+      "speed": -4.469892978668213,
+      "shots": 5,
+      "state": "<ShipTacticalState.BACKWARD_RETREAT: 7>",
+      "reverse": true,
+      "retreats": 1,
+      "resumed": 0,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 45.46469580382109,
+      "phase": "return",
+      "en": [
+        15017.892431325203,
+        4265.643577146926
+      ],
+      "speed": -4.338916778564453,
+      "shots": 5,
+      "state": "<ShipTacticalState.RETURN_TO_PATROL: 3>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 46.49879860505462,
+      "phase": "return",
+      "en": [
+        15019.553549732793,
+        4268.501082922751
+      ],
+      "speed": -1.591278314590454,
+      "shots": 5,
+      "state": "<ShipTacticalState.RETURN_TO_PATROL: 3>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 47.5124193020165,
+      "phase": "return",
+      "en": [
+        15019.43224958979,
+        4268.273093843381
+      ],
+      "speed": 2.495572328567505,
+      "shots": 5,
+      "state": "<ShipTacticalState.RETURN_TO_PATROL: 3>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 48.514528304338455,
+      "phase": "return",
+      "en": [
+        15015.257822811043,
+        4261.421385389076
+      ],
+      "speed": 14.265501976013184,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 49.52749800309539,
+      "phase": "return",
+      "en": [
+        15004.882087846754,
+        4244.2593768069655
+      ],
+      "speed": 23.704620361328125,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 50.58011560514569,
+      "phase": "return",
+      "en": [
+        14992.012203455795,
+        4222.71925692656
+      ],
+      "speed": 22.423009872436523,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 51.6442105025053,
+      "phase": "return",
+      "en": [
+        14979.582390309984,
+        4202.451642300351
+      ],
+      "speed": 22.419641494750977,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 52.65538730472326,
+      "phase": "return",
+      "en": [
+        14967.479332274768,
+        4182.919264524742
+      ],
+      "speed": 22.408706665039062,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 53.664698503911495,
+      "phase": "return",
+      "en": [
+        14955.196809682226,
+        4163.869455871663
+      ],
+      "speed": 22.54091453552246,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 54.678158704191446,
+      "phase": "return",
+      "en": [
+        14942.933173344198,
+        4144.536720369576
+      ],
+      "speed": 22.409265518188477,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 55.73556900396943,
+      "phase": "return",
+      "en": [
+        14930.725985854144,
+        4124.110536984234
+      ],
+      "speed": 22.411834716796875,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 56.811821702867746,
+      "phase": "return",
+      "en": [
+        14918.279161008335,
+        4103.406961124773
+      ],
+      "speed": 21.977718353271484,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 57.819998402148485,
+      "phase": "return",
+      "en": [
+        14908.45625504504,
+        4083.5275326104297
+      ],
+      "speed": 21.702800750732422,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 58.823414504528046,
+      "phase": "return",
+      "en": [
+        14898.371150320436,
+        4064.2415727488255
+      ],
+      "speed": 20.833436965942383,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 59.83062270283699,
+      "phase": "return",
+      "en": [
+        14889.605426238388,
+        4045.9505904494217
+      ],
+      "speed": 19.22696876525879,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 60.92760260403156,
+      "phase": "return",
+      "en": [
+        14882.23960495816,
+        4026.4582654075575
+      ],
+      "speed": 18.363201141357422,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 61.948114804923534,
+      "phase": "return",
+      "en": [
+        14874.936784598704,
+        4009.8296463319557
+      ],
+      "speed": 17.487157821655273,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 62.96334670484066,
+      "phase": "return",
+      "en": [
+        14868.19777786566,
+        3993.905022289045
+      ],
+      "speed": 16.521276473999023,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 63.97127180546522,
+      "phase": "return",
+      "en": [
+        14861.418405388904,
+        3979.2075906096034
+      ],
+      "speed": 15.35629940032959,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    },
+    {
+      "t": 64.98409500345588,
+      "phase": "return",
+      "en": [
+        14855.082858294018,
+        3965.7966836255964
+      ],
+      "speed": 14.033075332641602,
+      "shots": 5,
+      "state": "<ShipTacticalState.PATROL: 0>",
+      "reverse": false,
+      "retreats": 1,
+      "resumed": 1,
+      "physics": true,
+      "controller": "AIController_0"
+    }
+  ],
+  "scope": "Controlled300m native reverse opportunity. Other fixture actor ticks/physics disabled; subject physics, transform, actual gun and AIController unchanged. No fake projectile or drive command. Not a natural match."
+}

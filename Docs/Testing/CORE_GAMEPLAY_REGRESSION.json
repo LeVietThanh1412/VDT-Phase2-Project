@@ -37,10 +37,10 @@
   ],
   "events": [],
   "error": null,
-  "started": 56125.0,
+  "started": 69309.062,
   "source_name": "BP_ShipSmall_C_0",
-  "at": 12.891727846115828,
+  "at": 12.875265516340733,
   "prior_shots": 0,
   "hunter_exit": "Hunter pursuit timeout",
-  "death_at": 18.813539143651724
+  "death_at": 18.789174515753984
 }

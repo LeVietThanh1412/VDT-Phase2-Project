@@ -1,17 +1,20 @@
 # Naval QA entrypoints
 
-Use one Unreal Editor and one PIE fixture at a time. A running soak owns its loaded native DLL: compile/restart only after it ends. Current fixtures use the existing SpecialAgent bridge at localhost8767 through Tools/SeaNavigation/mcp_client.py. Load MainMapLevel, then execute one fixture through that bridge. Each fixture must report its own terminal status; launch/import/compile is not a pass.
+Use one Editor and one PIE fixture at a time. Freeze the loaded native DLL during physical tests. Wait for native automation to finish before PIE; it can end an active play world. Execute through Tools/SeaNavigation/mcp_client.py at the existing local bridge. Import/launch/compilation alone is not a pass.
 
-| Purpose | Current fixture |
+| Purpose | Fixture |
 |---|---|
-| Seeded startup / repeated patrol | Tools/NavalCombat/test_seeded_spawn.py (REQUIRED_LEGS, ENABLE_TACTICS=false, ENABLE_ASSAULT=false) |
-| Saved targets / runtime ship reposition | Tools/NavalCombat/verify_navigation_repair.py |
-| Invalid/destroyed targets | Tools/NavalCombat/verify_temporary_patrol_failure.py and verify_target_death_patrol_return.py |
-| Island detour | Tools/NavalCombat/verify_navigation_island_pie.py |
-| Magazine / visible HUD | Tools/NavalCombat/verify_shared_magazine.py |
-| Blue defense | Tools/NavalCombat/verify_blue_defense.py |
-| Red convoy / leader/follower death | Tools/NavalCombat/verify_red_assault.py |
-| Mixed-class120s stability | Tools/NavalCombat/verify_hull_stability.py |
-| Bounded player+5AI battle/restart | Tools/NavalCombat/verify_integrated_sector_battle.py |
+| Full AI contact / natural winner / menu variants / turns | verify_final_demo.py; KIND=nonlethal/lethal/patrol/turns |
+| Serial matrix, stop on first failure | run_final_regressions.py; optional TESTS list |
+| Damage / roles / death / capsize / spectator / shooter cleanup | verify_core_gameplay.py; controlled damage/capsize |
+| Real Enhanced Input and original BP projectile | verify_player_input.py |
+| Controlled300m reverse fire / original patrol return | verify_tactical_retreat.py; other fixture ticks/physics disabled, subject remains physical |
+| Physical Small circuit and additional stress | verify_navigation_soak.py; combined reverse-flow stress is uncertified; inspect actual status |
+| Last-known search / true reacquisition | verify_scout_reacquisition.py; four fixture deaths, not a natural3v3 |
+| Live marker / explicit development ship relocation | verify_dynamic_patrol.py |
+| Exact original five-AI A/B fleet | ../NavalCombat/test_seeded_spawn.py; HULL_CLASSES=[2,0,2,0,0,2],REQUIRED_LEGS=4,ENABLE_TACTICS=False,ENABLE_ASSAULT=False |
+| Shared10-round/30s magazine | ../NavalCombat/verify_shared_magazine.py |
+|120s all-class flotation/response | ../NavalCombat/verify_hull_stability.py |
+| Read-only process samples | monitor_process.py Saved/PROBE.json Saved/PROCESS.json |
 
-The last row is not a completed Full AI battle. Full AI encounter/winner fixtures are outstanding in this stabilization task. Earlier tests/results are evidence to inspect, not proof of current acceptance. The legacy NavalCombat directory remains because fixtures refer to one another by path; migration requires updating those callers together. Historical mutators/diagnostics are quarantined in Tools/Archive/NavalCombat.
+Results/restrictions: Docs/Testing/FINAL_QA_REPORT.md. Final production bb9b507; earlier natural wins use incremental builds. Legacy NavalCombat fixtures can reference old UI/startup assumptions: inspect before reuse. Some write into Docs/QuangNinhIntegration; preserve new raw output in Saved and publish compact current summaries without overwriting history. Historical mutators remain quarantined under Tools/Archive/NavalCombat.

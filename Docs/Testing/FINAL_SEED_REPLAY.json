@@ -1,0 +1,10 @@
+{
+  "status": "PASSED",
+  "seed": 20261028,
+  "runs": [
+    "Saved/POST_R4_NATURAL_MATCH.json",
+    "Saved/COLD_CONTACT_20261028.json"
+  ],
+  "scope": "Exact team/slot initial spawn, target, heading, circuit points and circuit start index; real native placement in natural run versus cold restart.",
+  "equal": true
+}

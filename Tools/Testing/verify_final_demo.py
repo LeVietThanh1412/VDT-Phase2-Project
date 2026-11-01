@@ -58,6 +58,8 @@ def tick(dt):
     for a in fleet:
      wpn=a.get_component_by_class(unreal.ShipWeaponComponent);assert wpn.max_health==100 and wpn.base_projectile_damage==10,'Wrong standard demo balance'
      assert wpn.magazine_capacity==10 and wpn.reload_duration_seconds==30,'Wrong standard magazine/reload'
+     st.setdefault('team_tags',{})[a.get_name()]=[str(x) for x in a.tags]
+     assert ('Team.Blue' if wpn.team()==0 else 'Team.Red') in st['team_tags'][a.get_name()],'Missing authoritative team tag'
     save()
   if st['phase']=='observe':
    st['frame_times'].append(float(dt))

@@ -48,3 +48,7 @@ Every proposed script move has zero filename/import references in tracked source
 ## Baseline limitations
 
 Full AI Demo is absent in current source. The prior battle evidence is bounded180s player+five AI, not an all-six lethal winner. New requirement requests a left island circuit and shared contact approach. Arrival currently gates on total3D velocity<0.5m/s for2s; wave-induced heave is a hypothesis for intermittent arrival stalls, not yet a confirmed runtime root cause. C++ Development Editor build passed (up to date). MainMapLevel loaded and all 39 project Blueprint/AnimBlueprint/WidgetBlueprint packages compiled with generated classes and no new compiler-error log lines. See `Docs/Testing/CLEANUP_COMPILE_AND_LOAD.json`. All 28 archive Git blobs match the baseline exactly, and working-file SHA256 values match the manifest (Git normalizes CRLF where configured). Content, Source, Config and Plugins are unchanged. Target transforms and navigation behavior remain for the subsequent runtime audit.
+
+## Subsequent production work
+
+The preceding section describes only the9be1d79 cleanup checkpoint. Full AI and natural wins are now implemented and recorded in Docs/Testing/FINAL_QA_REPORT.md. Runtime investigation rejected the initial heave hypothesis: arrival already projects away vertical velocity. The actual end-to-end source audit and R1-R4 refactors are documented separately in Docs/Architecture/CODEBASE_AUDIT.md and REFACTOR_REPORT.md; Tools/Docs archiving alone is not source-cleanup certification.

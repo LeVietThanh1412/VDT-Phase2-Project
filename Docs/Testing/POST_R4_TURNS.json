@@ -1,0 +1,1002 @@
+{
+  "status": "PASSED",
+  "kind": "turns",
+  "seed": 20261028,
+  "full_ai": true,
+  "phase": "observe",
+  "started": 71691.671,
+  "ships": {
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+      "label": "BP_ShipEnemy2",
+      "player_controlled": false,
+      "team": 1,
+      "class_name": "<ShipHullClass.SMALL: 0>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 299.4095075570287,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        14826.175521751014,
+        3899.7905166588685
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.049602240324020386,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+      "label": "Friendly_AI_1",
+      "player_controlled": false,
+      "team": 0,
+      "class_name": "<ShipHullClass.SMALL: 0>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 197.0312073349478,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        14385.955352762794,
+        3500.552056418373
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.035200268030166626,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+      "label": "Friendly_AI_2",
+      "player_controlled": false,
+      "team": 0,
+      "class_name": "<ShipHullClass.SMALL: 0>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 185.51960289359778,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        14414.55696361523,
+        3889.9913707082396
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.041797757148742676,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+      "label": "BP_ShipEnemy3",
+      "player_controlled": false,
+      "team": 1,
+      "class_name": "<ShipHullClass.LARGE: 1>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 161.47197070665902,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        15445.48570224367,
+        4469.803476861772
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.12139976024627686,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+      "label": "BP_ShipEnemy",
+      "player_controlled": false,
+      "team": 1,
+      "class_name": "<ShipHullClass.MEDIUM: 2>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 377.1271190798521,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        15063.440079504466,
+        4189.616290035462
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.051800161600112915,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    },
+    "Demo_Blue_Flagship": {
+      "label": "BP_ShipSmallAI",
+      "player_controlled": false,
+      "team": 0,
+      "class_name": "<ShipHullClass.SMALL: 0>",
+      "first_detection": null,
+      "first_in_range": null,
+      "first_visible": null,
+      "first_valid_opportunity": null,
+      "first_shot": null,
+      "shots": 0,
+      "hits": 0,
+      "damage_events": 0,
+      "distance_m": 168.14813197058234,
+      "physical": true,
+      "controller_preserved": true,
+      "dead": false,
+      "recoveries": 0,
+      "legs": 0,
+      "failures": [],
+      "last_en": [
+        14384.085575745336,
+        4192.3399866724285
+      ],
+      "hp": 100.0,
+      "reloads_started": 0,
+      "reloads_completed": 0,
+      "circuits": 0,
+      "circuit_legs": 0,
+      "max_search_ms": 0.03699958324432373,
+      "plan_count": 1,
+      "recovery_retries": 0,
+      "was_stuck": false,
+      "retreats": 0,
+      "backward_retreats": 0,
+      "patrols_resumed": 0
+    }
+  },
+  "error": null,
+  "camera_checks": [
+    {
+      "t": 20.216536227613688,
+      "all_controllers_unchanged": true,
+      "no_ship_player_possession": true
+    }
+  ],
+  "native_dll_sha256": "2c878924550b903158048375de64f1ba6658f6d919d090020d208c4bf97670ac",
+  "production_sources_sha256": "d7027048b0d768759a249400ad7c5afbe77dc818a4ab4f4c378363ccef40b0a5",
+  "init_last": 10,
+  "initialization": {
+    "t": 10.0096001252532,
+    "status": "Settling fleet on water...",
+    "error": "",
+    "configured": true,
+    "fleet": 6
+  },
+  "ready_at": 10.192934427410364,
+  "layout": {
+    "seed": 20261028,
+    "ready": true,
+    "status": "SEED 20261028",
+    "error": "",
+    "attempts": 10,
+    "assault_leader": "none",
+    "leader_changes": 0,
+    "physical_layout_retries": 0,
+    "used_safe_fallback": false,
+    "physical_navigation_charts": {
+      "EShipHullClass::Small": {
+        "clear_cells": 4759,
+        "connected_regions": 2
+      },
+      "EShipHullClass::Large": {
+        "clear_cells": 2553,
+        "connected_regions": 2
+      },
+      "EShipHullClass::Medium": {
+        "clear_cells": 2553,
+        "connected_regions": 2
+      }
+    },
+    "ships": [
+      {
+        "ship": "Friendly_AI_1",
+        "team": 0,
+        "slot": 0,
+        "sector": "S14_11",
+        "spawn_en_m": [
+          14362.5,
+          3312.5
+        ],
+        "target_en_m": [
+          14412.5,
+          3687.5
+        ],
+        "heading": -82.40535736083984,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [
+          [
+            14312.5,
+            3287.5
+          ],
+          [
+            14412.5,
+            3687.5
+          ],
+          [
+            14412.5,
+            4087.5
+          ],
+          [
+            14187.5,
+            4312.5
+          ],
+          [
+            13762.5,
+            4112.5
+          ],
+          [
+            13162.5,
+            3737.5
+          ],
+          [
+            12812.5,
+            3337.5
+          ],
+          [
+            13112.5,
+            2787.5
+          ],
+          [
+            13762.5,
+            2537.5
+          ],
+          [
+            14212.5,
+            2937.5
+          ]
+        ],
+        "circuit_start_index": 1,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "Friendly_AI_2",
+        "team": 0,
+        "slot": 1,
+        "sector": "S10_11",
+        "spawn_en_m": [
+          14412.5,
+          3712.5
+        ],
+        "target_en_m": [
+          14412.5,
+          4087.5
+        ],
+        "heading": -90,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [
+          [
+            14312.5,
+            3287.5
+          ],
+          [
+            14412.5,
+            3687.5
+          ],
+          [
+            14412.5,
+            4087.5
+          ],
+          [
+            14187.5,
+            4312.5
+          ],
+          [
+            13762.5,
+            4112.5
+          ],
+          [
+            13162.5,
+            3737.5
+          ],
+          [
+            12812.5,
+            3337.5
+          ],
+          [
+            13112.5,
+            2787.5
+          ],
+          [
+            13762.5,
+            2537.5
+          ],
+          [
+            14212.5,
+            2937.5
+          ]
+        ],
+        "circuit_start_index": 2,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "BP_ShipSmallAI",
+        "team": 0,
+        "slot": 2,
+        "sector": "S07_11",
+        "spawn_en_m": [
+          14412.5,
+          4037.5
+        ],
+        "target_en_m": [
+          14187.5,
+          4312.5
+        ],
+        "heading": -90,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [
+          [
+            14312.5,
+            3287.5
+          ],
+          [
+            14412.5,
+            3687.5
+          ],
+          [
+            14412.5,
+            4087.5
+          ],
+          [
+            14187.5,
+            4312.5
+          ],
+          [
+            13762.5,
+            4112.5
+          ],
+          [
+            13162.5,
+            3737.5
+          ],
+          [
+            12812.5,
+            3337.5
+          ],
+          [
+            13112.5,
+            2787.5
+          ],
+          [
+            13762.5,
+            2537.5
+          ],
+          [
+            14212.5,
+            2937.5
+          ]
+        ],
+        "circuit_start_index": 3,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy2",
+        "team": 1,
+        "slot": 0,
+        "sector": "S06_17",
+        "spawn_en_m": [
+          14987.5,
+          4137.5
+        ],
+        "target_en_m": [
+          14637.5,
+          3712.5
+        ],
+        "heading": 129.4724578857422,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [],
+        "circuit_start_index": 0,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy",
+        "team": 1,
+        "slot": 1,
+        "sector": "S03_20",
+        "spawn_en_m": [
+          15337.5,
+          4387.5
+        ],
+        "target_en_m": [
+          14787.5,
+          3962.5
+        ],
+        "heading": 142.30575561523438,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [],
+        "circuit_start_index": 0,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      },
+      {
+        "ship": "BP_ShipEnemy3",
+        "team": 1,
+        "slot": 2,
+        "sector": "S02_23",
+        "spawn_en_m": [
+          15562.5,
+          4512.5
+        ],
+        "target_en_m": [
+          14912.5,
+          4262.5
+        ],
+        "heading": 158.96249389648438,
+        "physical_clearance": true,
+        "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+        "patrol_circuit_en_m": [],
+        "circuit_start_index": 0,
+        "defense_anchor_en_m": [
+          13900,
+          3450
+        ],
+        "mission": "Initial patrol",
+        "interceptions_started": 0,
+        "defensive_returns": 0,
+        "assault_phase": 0,
+        "assault_goals_reached": 0,
+        "assault_released": false,
+        "formation_distance_m": 0,
+        "mission_route_retries": 0,
+        "searching_circuit": false,
+        "search_circuit_index": 0,
+        "search_goals_reached": 0,
+        "mission_goal_en_m": [
+          0,
+          0
+        ]
+      }
+    ]
+  },
+  "controllers": {
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+    "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+    "Demo_Blue_Flagship": "AIController_5"
+  },
+  "last": 130.21991812810302,
+  "turns": [
+    {
+      "number": 1,
+      "age": 0.0,
+      "team": 0,
+      "actor": "Demo_Blue_Flagship"
+    },
+    {
+      "number": 2,
+      "age": 10.023601800203323,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247"
+    },
+    {
+      "number": 3,
+      "age": 20.0550606995821,
+      "team": 0,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985"
+    },
+    {
+      "number": 4,
+      "age": 30.16533349826932,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248"
+    },
+    {
+      "number": 5,
+      "age": 40.22703519836068,
+      "team": 0,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986"
+    },
+    {
+      "number": 6,
+      "age": 50.268934298306704,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711"
+    },
+    {
+      "number": 7,
+      "age": 60.286350797861814,
+      "team": 0,
+      "actor": "Demo_Blue_Flagship"
+    },
+    {
+      "number": 8,
+      "age": 70.33449889719486,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247"
+    },
+    {
+      "number": 9,
+      "age": 80.38726769760251,
+      "team": 0,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985"
+    },
+    {
+      "number": 10,
+      "age": 90.93300279974937,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248"
+    },
+    {
+      "number": 11,
+      "age": 100.96498239785433,
+      "team": 0,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986"
+    },
+    {
+      "number": 12,
+      "age": 111.00547399744391,
+      "team": 1,
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711"
+    }
+  ],
+  "camera_checked": true,
+  "duration": 120.02698370069265,
+  "samples_count": 240,
+  "samples_first": {
+    "t": 10.192934427410364,
+    "age": 0.0,
+    "outcome": "",
+    "blue": 3,
+    "red": 3,
+    "ships": [
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "en": [
+          14987.435389047905,
+          4137.597454790867
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.REPLAN: 4>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 1.6735116577148437,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "en": [
+          14362.56242863854,
+          3312.409473898462
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.REPLAN: 4>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 1.7362278747558593,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+        "en": [
+          14412.458372446239,
+          3712.3286266841997
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.REPLAN: 4>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 1.836455078125,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "en": [
+          15562.5113723781,
+          4512.514813589917
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.IDLE: 0>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 1.8468826293945313,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+        "en": [
+          15337.670585629105,
+          4387.393508469954
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.IDLE: 0>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 1.872344970703125,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "Demo_Blue_Flagship",
+        "en": [
+          14412.408448147318,
+          4037.33700338418
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.REPLAN: 4>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 2.039450225830078,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      }
+    ],
+    "projectiles": 0
+  },
+  "samples_last": {
+    "t": 130.21991812810302,
+    "age": 120.02698370069265,
+    "outcome": "",
+    "blue": 3,
+    "red": 3,
+    "ships": [
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "en": [
+          14826.175521751014,
+          3899.7905166588685
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 0.5838124465942383,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "en": [
+          14385.955352762794,
+          3500.552056418373
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 0.1412827777862549,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+        "en": [
+          14414.55696361523,
+          3889.9913707082396
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 0.39245024238715515,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "en": [
+          15445.48570224367,
+          4469.803476861772
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 0.3428828430175781,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+        "en": [
+          15063.440079504466,
+          4189.616290035462
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Disabled/passive",
+        "speed": 18.224251825281844,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      },
+      {
+        "ship": "Demo_Blue_Flagship",
+        "en": [
+          14384.085575745336,
+          4192.3399866724285
+        ],
+        "rounds": 10,
+        "reloading": false,
+        "reload_remaining": 0.0,
+        "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>",
+        "legs": 0,
+        "tactics": "<ShipTacticalState.PATROL: 0>",
+        "target": null,
+        "distance": null,
+        "visible": false,
+        "solution": false,
+        "firing": "Inactive action window",
+        "speed": 0.7802017211914063,
+        "hp": 100.0,
+        "shots": 0,
+        "in_water": true
+      }
+    ],
+    "projectiles": 0
+  },
+  "frame_times_count": 7119,
+  "frame_times_first": 0.01681319996714592,
+  "frame_times_last": 0.017636001110076904
+}

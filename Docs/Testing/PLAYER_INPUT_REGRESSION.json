@@ -1,0 +1,50 @@
+{
+  "status": "PASSED",
+  "checks": {
+    "forward_physical_travel": true,
+    "rudder_yaw": true,
+    "mouse_look": true,
+    "original_projectile_fired": true,
+    "aim_camera": true,
+    "released_aim_camera": true,
+    "physics_and_possession": true
+  },
+  "error": null,
+  "rows_count": 186,
+  "rows_first": {
+    "age": 0.024706099182367325,
+    "pos": [
+      78818.04243964105,
+      -856288.7618065154,
+      448.0578331651948
+    ],
+    "yaw": 0.13465496525566548,
+    "look": [
+      0.0,
+      -90.00000000000001
+    ],
+    "shots": 0,
+    "gun": false,
+    "fov": 90.0,
+    "physics": true,
+    "player": true
+  },
+  "rows_last": {
+    "age": 20.93831529468298,
+    "pos": [
+      112036.66143532717,
+      -855445.4007674671,
+      416.05937053172755
+    ],
+    "yaw": 19.684418954076996,
+    "look": [
+      341.0,
+      308.0
+    ],
+    "shots": 1,
+    "gun": false,
+    "fov": 90.0,
+    "physics": true,
+    "player": true
+  }
+}
