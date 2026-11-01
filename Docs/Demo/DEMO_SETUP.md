@@ -41,3 +41,7 @@ A failed setup reports its reason and keeps combat gated. Correct the path/strea
 Use the recommended Small/Small/Small Blue versus Small/Large/Medium Red island-defense preset. Medium/Large Blue ships use the eastern arc. Do not demonstrate the unverified assault-disabled heavy-convoy reverse A/B stress layout or assume any newly selected legacy fleet/path combination is safe. For the verified original A/B demonstration use Blue Medium/Small/Medium and Red Small/Small/Medium, seed20261028, sector tactics/assault disabled in the development fixture. That exact fleet completed B/A/B/A on all five AI in667.86s; it differs from the new Full AI fleet.
 
 The final build keeps existing user-owned mesh, Blueprint and physics assets. Small uses a static model with no skeleton; its visible gun follows the retained gun rig. Use Q to inspect the Small hull and gun before returning to overview. The global minimap scale is preserved and its labels can cluster. This is Windows Editor/PIE evidence; packaging and external-dataset portability are not certified.
+
+## After a match
+
+When either team wins, click **RETURN TO SETUP** on the result card. The existing setup menu keeps your selections. Choose **START NEW MATCH** to reset the match, or **BACK TO GAME** to view the finished battle; the result button remains clickable. This also works after player Victory/Defeat and wreck cleanup. See ../Testing/RETURN_TO_SETUP_QA.md for the six verified result/restart cases.

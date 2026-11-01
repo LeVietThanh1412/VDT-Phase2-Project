@@ -342,6 +342,7 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
 {
     if (Fallen.Contains(Ship) || !Registered.Contains(Ship))
         return;
+    const bool bHadOutcome=!Outcome.IsEmpty();
     Fallen.Add(Ship);
     if (Ship->Team() == 0)
         BlueAlive = FMath::Max(0, BlueAlive - 1);
@@ -358,4 +359,7 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         Outcome = TEXT("VICTORY");
     else if ((PlayerTeam==0?BlueAlive:RedAlive) == 0)
         Outcome = TEXT("DEFEAT");
+    if(!bHadOutcome && !Outcome.IsEmpty())
+        if(auto* PC=Cast<ACustomPlayerController>(UGameplayStatics::GetPlayerController(GetWorld(),0)))
+            PC->ShowMatchResult();
 }

@@ -1,0 +1,1463 @@
+{
+  "status": "PASSED",
+  "build": {
+    "native_dll_sha256": "f0b9bacca378f37ddfe585a07f6cc9a969bc4ea27f68064e05399e35eea3a6cf",
+    "production_sources_sha256": "6fd77f5ddc067760a5b3967aca154d89ba5c21609680f8515b24bd382e6d2e6a",
+    "profile_assets_sha256": {
+      "DA_LargeShip.uasset": "7e2810dc1e7d65b1336a85bdab1e506960da47fa7551e4a7b37278b72be6bd9c",
+      "DA_MediumShip.uasset": "12c71677e53098bd6bfe42bf0d57e54f83e65622c6cfac2803b0268beed3049a",
+      "DA_SmallShip.uasset": "4509bed1506795836f3375c9b2b3bdbd82b06da26f671895119146777bd78c52"
+    },
+    "fps_cap": 30
+  },
+  "suite": [
+    {
+      "script": "Tools/Testing/verify_player_input.py",
+      "options": {
+        "OUTPUT": "BUOYANCY_STEERING_SMALL.json",
+        "HULL_CLASSES": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2
+        ]
+      },
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "script": "Tools/Testing/verify_player_input.py",
+      "options": {
+        "OUTPUT": "BUOYANCY_STEERING_LARGE.json",
+        "PLAYER_TEAM": 1,
+        "HULL_CLASSES": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          2
+        ]
+      },
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "script": "Tools/Testing/verify_player_input.py",
+      "options": {
+        "OUTPUT": "BUOYANCY_STEERING_MEDIUM.json",
+        "PLAYER_TEAM": 1,
+        "HULL_CLASSES": [
+          0,
+          0,
+          0,
+          2,
+          1,
+          2
+        ]
+      },
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "script": "Tools/NavalCombat/verify_stationary_buoyancy.py",
+      "options": {
+        "OUTPUT": "BUOYANCY_FINAL_IDLE_FIRE.json"
+      },
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "script": "Tools/NavalCombat/verify_hull_stability.py",
+      "options": {
+        "OUTPUT": "BUOYANCY_UNDERWAY_120S.json"
+      },
+      "status": "PASSED",
+      "error": null
+    },
+    {
+      "script": "Tools/Testing/verify_final_demo.py",
+      "options": {
+        "KIND": "nonlethal",
+        "HULL_CLASSES": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2
+        ],
+        "OUTPUT": "BUOYANCY_SIX_SHIP_COMBAT.json",
+        "CAPTURE": false
+      },
+      "status": "PASSED",
+      "error": null
+    }
+  ],
+  "steering": {
+    "SMALL": {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "right_yaw_degrees": 35.74806223749684,
+      "left_yaw_degrees": -33.111552388739,
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        20.0
+      ]
+    },
+    "MEDIUM": {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "right_yaw_degrees": 23.55833110511975,
+      "left_yaw_degrees": -20.823623725258017,
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        6.0
+      ]
+    },
+    "LARGE": {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "right_yaw_degrees": 9.510568627011736,
+      "left_yaw_degrees": -8.911151512065771,
+      "hull_class": "<ShipHullClass.LARGE: 1>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        6.0
+      ]
+    }
+  },
+  "idle_firing": {
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+      "idle": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 600,
+        "p95_roll": 0.03480137755907085,
+        "p95_pitch": 0.43169252093755467,
+        "max_roll": 0.04400171646383334,
+        "max_pitch": 0.4969759228123698,
+        "p99_vz": 0.46289295196533203,
+        "heave_range": 0.8590110791188255,
+        "root_z_range": 0.8590110791188255,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": -0.0037823864821583935,
+        "p95_pitch_oscillation": 0.43547490741971306
+      },
+      "firing": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 593,
+        "p95_roll": 0.04151538397439936,
+        "p95_pitch": 0.4948410959274828,
+        "max_roll": 0.05294848880294007,
+        "max_pitch": 0.5332836897071564,
+        "p99_vz": 0.30990352630615237,
+        "heave_range": 0.5246324609830334,
+        "root_z_range": 0.5246324609830335,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": 0.08529964860325435,
+        "p95_pitch_oscillation": 0.4277662112754408
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+      "idle": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 600,
+        "p95_roll": 0.07428131198429355,
+        "p95_pitch": 0.43260621858381904,
+        "max_roll": 0.09203485110089103,
+        "max_pitch": 0.5304942727518103,
+        "p99_vz": 0.5350712585449219,
+        "heave_range": 0.8532567916553262,
+        "root_z_range": 0.8532567916553262,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": 0.0718620250480232,
+        "p95_pitch_oscillation": 0.44091100631473845
+      },
+      "firing": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 593,
+        "p95_roll": 0.07243740262924801,
+        "p95_pitch": 0.5003931889039466,
+        "max_roll": 0.088473267057168,
+        "max_pitch": 0.6421703535783782,
+        "p99_vz": 0.5225276565551757,
+        "heave_range": 0.9373479967145169,
+        "root_z_range": 0.9373479967145171,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": 0.07708182058804822,
+        "p95_pitch_oscillation": 0.5002751508663572
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+      "idle": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 600,
+        "p95_roll": 0.02312213227140295,
+        "p95_pitch": 0.3910427705695838,
+        "max_roll": 0.02453934521285829,
+        "max_pitch": 0.507183858032943,
+        "p99_vz": 0.5636440277099609,
+        "heave_range": 0.9709168291725763,
+        "root_z_range": 0.9709168291725758,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": 0.004756716094136023,
+        "p95_pitch_oscillation": 0.3939772704076283
+      },
+      "firing": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 593,
+        "p95_roll": 0.038683893849318876,
+        "p95_pitch": 0.6242281998220319,
+        "max_roll": 0.04522017836659048,
+        "max_pitch": 0.6992269596790393,
+        "p99_vz": 0.6630734252929688,
+        "heave_range": 1.2197359707309772,
+        "root_z_range": 1.219735970730977,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": 0.10719337882180935,
+        "p95_pitch_oscillation": 0.5170348210002226
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+      "idle": {
+        "cls": "<ShipHullClass.LARGE: 1>",
+        "samples": 600,
+        "p95_roll": 0.11111532908065526,
+        "p95_pitch": 1.3340247953407809,
+        "max_roll": 0.13027912486387164,
+        "max_pitch": 1.426052880119414,
+        "p99_vz": 0.4306427764892578,
+        "heave_range": 0.589752978263345,
+        "root_z_range": 0.5897529782633448,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": -0.9263171843955582,
+        "p95_pitch_oscillation": 0.4513920257850976
+      },
+      "firing": {
+        "cls": "<ShipHullClass.LARGE: 1>",
+        "samples": 593,
+        "p95_roll": 0.15755902403024907,
+        "p95_pitch": 1.536825599438146,
+        "max_roll": 0.17832456723963877,
+        "max_pitch": 1.7071945492863851,
+        "p99_vz": 0.40933761596679685,
+        "heave_range": 1.0093896360046604,
+        "root_z_range": 1.0093896360046597,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": -1.0284197543217766,
+        "p95_pitch_oscillation": 0.6693420479026444
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+      "idle": {
+        "cls": "<ShipHullClass.MEDIUM: 2>",
+        "samples": 600,
+        "p95_roll": 0.11859193991685385,
+        "p95_pitch": 1.3647969427358932,
+        "max_roll": 0.1271637493194426,
+        "max_pitch": 1.4983902509485463,
+        "p99_vz": 0.5563968276977539,
+        "heave_range": 1.0455092985713492,
+        "root_z_range": 1.0455092985713494,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": -0.9776406614339395,
+        "p95_pitch_oscillation": 0.44872235578235264
+      },
+      "firing": {
+        "cls": "<ShipHullClass.MEDIUM: 2>",
+        "samples": 593,
+        "p95_roll": 0.13669250888661935,
+        "p95_pitch": 1.510230351688506,
+        "max_roll": 0.1610489382717555,
+        "max_pitch": 1.7304365568866726,
+        "p99_vz": 0.6250954055786133,
+        "heave_range": 1.3204094679529963,
+        "root_z_range": 1.320409467952996,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": -0.8972101207065651,
+        "p95_pitch_oscillation": 0.8332264361801075
+      }
+    },
+    "Demo_Blue_Flagship": {
+      "idle": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 600,
+        "p95_roll": 0.1315105639937428,
+        "p95_pitch": 0.30702822385376294,
+        "max_roll": 0.1530910300755295,
+        "max_pitch": 0.35752095998947214,
+        "p99_vz": 0.5894287109375,
+        "heave_range": 1.2094277942440819,
+        "root_z_range": 1.2094277942440819,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 0,
+        "mean_pitch_trim": 0.03180354079054555,
+        "p95_pitch_oscillation": 0.32448089942650143
+      },
+      "firing": {
+        "cls": "<ShipHullClass.SMALL: 0>",
+        "samples": 593,
+        "p95_roll": 0.15480578950081278,
+        "p95_pitch": 0.2598708601459304,
+        "max_roll": 0.16188929951925962,
+        "max_pitch": 0.3260579797700416,
+        "p99_vz": 0.6120669937133789,
+        "heave_range": 1.1800381834856069,
+        "root_z_range": 1.1800381834856069,
+        "water_fraction": 1.0,
+        "physical": true,
+        "no_drive": true,
+        "shots": 10,
+        "mean_pitch_trim": 0.020316691958038226,
+        "p95_pitch_oscillation": 0.2536061495448361
+      }
+    }
+  },
+  "runtime_profiles": {
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 4,
+        "weight_sum": 1.0,
+        "mass_kg": 90.0
+      },
+      "mass_kg": "90.0",
+      "linear_damping": "0.5",
+      "angular_damping": "0.6499999761581421",
+      "inertia_scale": "<Struct 'Vector' (0x000002440CDE0A40) {x: 1.000000, y: 1.000000, z: 20.000000}>",
+      "vertical_damping_multiplier": "0.800000011920929",
+      "pontoon_radius_multiplier": "2.0",
+      "displacement_multiplier": "0.07500000298023224",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 4,
+        "weight_sum": 1.0,
+        "mass_kg": 90.0
+      },
+      "mass_kg": "90.0",
+      "linear_damping": "0.5",
+      "angular_damping": "0.6499999761581421",
+      "inertia_scale": "<Struct 'Vector' (0x000002440CDE0A40) {x: 1.000000, y: 1.000000, z: 20.000000}>",
+      "vertical_damping_multiplier": "0.800000011920929",
+      "pontoon_radius_multiplier": "2.0",
+      "displacement_multiplier": "0.07500000298023224",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 4,
+        "weight_sum": 1.0,
+        "mass_kg": 90.0
+      },
+      "mass_kg": "90.0",
+      "linear_damping": "0.5",
+      "angular_damping": "0.6499999761581421",
+      "inertia_scale": "<Struct 'Vector' (0x000002440CDE0A40) {x: 1.000000, y: 1.000000, z: 20.000000}>",
+      "vertical_damping_multiplier": "0.800000011920929",
+      "pontoon_radius_multiplier": "2.0",
+      "displacement_multiplier": "0.07500000298023224",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+      "hull_class": "<ShipHullClass.LARGE: 1>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 6,
+        "weight_sum": 1.0,
+        "mass_kg": 240.0
+      },
+      "mass_kg": "240.0",
+      "linear_damping": "0.8999999761581421",
+      "angular_damping": "0.6499999761581421",
+      "inertia_scale": "<Struct 'Vector' (0x000002440DDAFC40) {x: 1.000000, y: 1.000000, z: 6.000000}>",
+      "vertical_damping_multiplier": "3.5999999046325684",
+      "pontoon_radius_multiplier": "1.0",
+      "displacement_multiplier": "1.600000023841858",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 4,
+        "weight_sum": 1.0,
+        "mass_kg": 150.0
+      },
+      "mass_kg": "150.0",
+      "linear_damping": "0.5",
+      "angular_damping": "0.5",
+      "inertia_scale": "<Struct 'Vector' (0x000002420D3E8640) {x: 1.000000, y: 1.000000, z: 6.000000}>",
+      "vertical_damping_multiplier": "1.0",
+      "pontoon_radius_multiplier": "2.0",
+      "displacement_multiplier": "0.125",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    },
+    "Demo_Blue_Flagship": {
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "diagnostics": {
+        "async": false,
+        "pontoons": 4,
+        "weight_sum": 1.0,
+        "mass_kg": 90.0
+      },
+      "mass_kg": "90.0",
+      "linear_damping": "0.5",
+      "angular_damping": "0.6499999761581421",
+      "inertia_scale": "<Struct 'Vector' (0x000002440CDE0A40) {x: 1.000000, y: 1.000000, z: 20.000000}>",
+      "vertical_damping_multiplier": "0.800000011920929",
+      "pontoon_radius_multiplier": "2.0",
+      "displacement_multiplier": "0.07500000298023224",
+      "heave_damping_per_second": "20.0",
+      "roll_damping_per_second": "30.0",
+      "pitch_damping_per_second": "15.0"
+    }
+  },
+  "underway": {
+    "status": "PASSED",
+    "phase": "measure",
+    "ships": {
+      "BP_ShipEnemy2": {
+        "hull_class": "<ShipHullClass.SMALL: 0>",
+        "ai": true,
+        "initial": [
+          133324.20867578825,
+          -943145.4523817103,
+          416.0149082646591
+        ],
+        "initial_yaw": 135.0152732292813,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "90.0",
+          "linear_damping": "0.5",
+          "angular_damping": "0.6499999761581421",
+          "vertical_damping_multiplier": "0.800000011920929",
+          "displacement_multiplier": "0.07500000298023224"
+        },
+        "max_travel_m": 124.51599471168124,
+        "max_yaw_change_deg": 179.93416052266068,
+        "max_speed_mps": 18.640285969760885,
+        "max_abs_vz_mps": 0.7317014312744141,
+        "max_angular_speed_dps": 4.138402901232544,
+        "patrol_arrivals": 2,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 0.3030151141592647,
+        "max_pitch_deg": 0.7456985338380345,
+        "p95_roll_deg": 0.24402432178238673,
+        "p95_pitch_deg": 0.6246518604113477,
+        "p99_vz_mps": 0.5987517166137696,
+        "heave_range_m": 1.7470481429158553,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      },
+      "Friendly_AI_1": {
+        "hull_class": "<ShipHullClass.LARGE: 1>",
+        "ai": true,
+        "initial": [
+          49534.837102587255,
+          -800035.9271332223,
+          462.1211489671074
+        ],
+        "initial_yaw": 163.60069913101566,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "240.0",
+          "linear_damping": "0.8999999761581421",
+          "angular_damping": "0.6499999761581421",
+          "vertical_damping_multiplier": "3.5999999046325684",
+          "displacement_multiplier": "1.600000023841858"
+        },
+        "max_travel_m": 319.2550247363035,
+        "max_yaw_change_deg": 55.35855499986047,
+        "max_speed_mps": 13.839011795253993,
+        "max_abs_vz_mps": 0.6347977447509766,
+        "max_angular_speed_dps": 0.8342702550481859,
+        "patrol_arrivals": 1,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 0.4398543479895239,
+        "max_pitch_deg": 1.5664090176482546,
+        "p95_roll_deg": 0.4011444633831617,
+        "p95_pitch_deg": 1.3831846587557375,
+        "p99_vz_mps": 0.5591048049926758,
+        "heave_range_m": 1.5688422749155813,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      },
+      "Friendly_AI_2": {
+        "hull_class": "<ShipHullClass.MEDIUM: 2>",
+        "ai": true,
+        "initial": [
+          79360.18931680218,
+          -865761.4737668416,
+          403.81545423256654
+        ],
+        "initial_yaw": -85.56761381507195,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "150.0",
+          "linear_damping": "0.5",
+          "angular_damping": "0.5",
+          "vertical_damping_multiplier": "1.0",
+          "displacement_multiplier": "0.125"
+        },
+        "max_travel_m": 176.68987036058437,
+        "max_yaw_change_deg": 179.88062302327978,
+        "max_speed_mps": 18.92032442218882,
+        "max_abs_vz_mps": 0.6640133666992187,
+        "max_angular_speed_dps": 3.046402320697294,
+        "patrol_arrivals": 1,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 2.222770475412689,
+        "max_pitch_deg": 1.621635890324115,
+        "p95_roll_deg": 2.1187275477510075,
+        "p95_pitch_deg": 1.3871165496474307,
+        "p99_vz_mps": 0.5932590866088867,
+        "heave_range_m": 1.395205789607851,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      },
+      "BP_ShipEnemy3": {
+        "hull_class": "<ShipHullClass.SMALL: 0>",
+        "ai": true,
+        "initial": [
+          142341.43973115037,
+          -973062.0917292084,
+          395.6293175850126
+        ],
+        "initial_yaw": 116.57637459549981,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "90.0",
+          "linear_damping": "0.5",
+          "angular_damping": "0.6499999761581421",
+          "vertical_damping_multiplier": "0.800000011920929",
+          "displacement_multiplier": "0.07500000298023224"
+        },
+        "max_travel_m": 164.76865382380345,
+        "max_yaw_change_deg": 179.96678474561952,
+        "max_speed_mps": 22.332720528322458,
+        "max_abs_vz_mps": 0.6197629547119141,
+        "max_angular_speed_dps": 4.298196269236467,
+        "patrol_arrivals": 1,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 0.8524096609962326,
+        "max_pitch_deg": 1.2587339233545736,
+        "p95_roll_deg": 0.7855574820978543,
+        "p95_pitch_deg": 0.968441620977036,
+        "p99_vz_mps": 0.5508297348022461,
+        "heave_range_m": 1.799884813687629,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      },
+      "BP_ShipEnemy": {
+        "hull_class": "<ShipHullClass.MEDIUM: 2>",
+        "ai": true,
+        "initial": [
+          176234.63933045478,
+          -984005.1244668101,
+          421.39703747857646
+        ],
+        "initial_yaw": 138.0011502296911,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "150.0",
+          "linear_damping": "0.5",
+          "angular_damping": "0.5",
+          "vertical_damping_multiplier": "1.0",
+          "displacement_multiplier": "0.125"
+        },
+        "max_travel_m": 186.96061482104423,
+        "max_yaw_change_deg": 138.42091813872548,
+        "max_speed_mps": 18.914667462566296,
+        "max_abs_vz_mps": 0.6152513122558594,
+        "max_angular_speed_dps": 2.6919994948521047,
+        "patrol_arrivals": 1,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 1.604098274399861,
+        "max_pitch_deg": 1.640111479968312,
+        "p95_roll_deg": 1.3831250710698562,
+        "p95_pitch_deg": 1.3472568236716722,
+        "p99_vz_mps": 0.503471565246582,
+        "heave_range_m": 1.1655631995421607,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      },
+      "BP_ShipSmall0": {
+        "hull_class": "<ShipHullClass.SMALL: 0>",
+        "ai": false,
+        "initial": [
+          91291.21575746116,
+          -821252.5642051569,
+          405.02319454877886
+        ],
+        "initial_yaw": -0.12237621103122365,
+        "samples": 1196,
+        "water_samples": 1196,
+        "loss_seconds": 0,
+        "max_loss_seconds": 0,
+        "physical_all": true,
+        "profiles": {
+          "mass_kg": "90.0",
+          "linear_damping": "0.5",
+          "angular_damping": "0.6499999761581421",
+          "vertical_damping_multiplier": "0.800000011920929",
+          "displacement_multiplier": "0.07500000298023224"
+        },
+        "max_travel_m": 0.025383718125688258,
+        "max_yaw_change_deg": 0.23717959181459491,
+        "max_speed_mps": 0.6794510650634765,
+        "max_abs_vz_mps": 0.6794510650634765,
+        "max_angular_speed_dps": 0.35812779684632895,
+        "patrol_arrivals": 0,
+        "contact_fraction": 1.0,
+        "max_roll_deg": 0.1691865783967046,
+        "max_pitch_deg": 0.6366814538711764,
+        "p95_roll_deg": 0.15735173996978347,
+        "p95_pitch_deg": 0.4440335948813186,
+        "p99_vz_mps": 0.601070671081543,
+        "heave_range_m": 1.2950840379872341,
+        "checks": {
+          "physical": true,
+          "water_contact": true,
+          "no_uncontrolled_roll_pitch": true,
+          "vertical_response": true,
+          "responsive": true
+        }
+      }
+    },
+    "checks": {
+      "all_three_hull_classes": true,
+      "full_120_seconds": true,
+      "all_ships_stable_and_responsive": true
+    },
+    "error": null,
+    "last": 137.79135031998158,
+    "started": 1680.39,
+    "native_dll_sha256": "f0b9bacca378f37ddfe585a07f6cc9a969bc4ea27f68064e05399e35eea3a6cf",
+    "ready_at": 12.694740012288094,
+    "at": 17.719300910830498,
+    "duration_game_seconds": 120.07204940915108
+  },
+  "combat": {
+    "status": "PASSED",
+    "kind": "nonlethal",
+    "seed": 20261028,
+    "full_ai": true,
+    "phase": "observe",
+    "started": 1824.718,
+    "ships": {
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+        "label": "BP_ShipEnemy2",
+        "player_controlled": false,
+        "team": 1,
+        "class_name": "<ShipHullClass.SMALL: 0>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 2.500043798238039,
+        "shots": 2,
+        "hits": 0,
+        "damage_events": 0,
+        "distance_m": 181.2615675215841,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          14872.279611567084,
+          3997.551428140444
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0.08519738912582397,
+        "plan_count": 1,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      },
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+        "label": "Friendly_AI_1",
+        "player_controlled": false,
+        "team": 0,
+        "class_name": "<ShipHullClass.SMALL: 0>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 2.000041998922825,
+        "shots": 2,
+        "hits": 0,
+        "damage_events": 0,
+        "distance_m": 172.97103577752847,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          14385.311607429621,
+          3483.959919560832
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0.03889948129653931,
+        "plan_count": 1,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      },
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+        "label": "Friendly_AI_2",
+        "player_controlled": false,
+        "team": 0,
+        "class_name": "<ShipHullClass.SMALL: 0>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 3.0000456981360912,
+        "shots": 2,
+        "hits": 1,
+        "damage_events": 0,
+        "distance_m": 104.25334046122694,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          14412.462729287647,
+          3816.743954795841
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0.031203031539916992,
+        "plan_count": 1,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      },
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+        "label": "BP_ShipEnemy3",
+        "player_controlled": false,
+        "team": 1,
+        "class_name": "<ShipHullClass.LARGE: 1>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 15.503971699625254,
+        "shots": 1,
+        "hits": 0,
+        "damage_events": 0,
+        "distance_m": 0.13309748863038862,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          15562.538206651521,
+          4512.530256231386
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0,
+        "plan_count": 0,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      },
+      "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+        "label": "BP_ShipEnemy",
+        "player_controlled": false,
+        "team": 1,
+        "class_name": "<ShipHullClass.MEDIUM: 2>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 1.5000056996941566,
+        "shots": 2,
+        "hits": 1,
+        "damage_events": 0,
+        "distance_m": 88.29692037003105,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          15267.885028379198,
+          4333.767181667332
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0.04789978265762329,
+        "plan_count": 1,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      },
+      "Demo_Blue_Flagship": {
+        "label": "BP_ShipSmallAI",
+        "player_controlled": false,
+        "team": 0,
+        "class_name": "<ShipHullClass.SMALL: 0>",
+        "first_detection": 0.500002097338438,
+        "first_in_range": 0.500002097338438,
+        "first_visible": 0.500002097338438,
+        "first_valid_opportunity": 1.0000041984021664,
+        "first_shot": 4.000056397169828,
+        "shots": 2,
+        "hits": 0,
+        "damage_events": 0,
+        "distance_m": 100.68232686468694,
+        "physical": true,
+        "controller_preserved": true,
+        "dead": false,
+        "recoveries": 0,
+        "legs": 0,
+        "failures": [],
+        "last_en": [
+          14405.375470789926,
+          4137.47429734212
+        ],
+        "hp": 100.0,
+        "reloads_started": 0,
+        "reloads_completed": 0,
+        "circuits": 0,
+        "circuit_legs": 0,
+        "max_search_ms": 0.040102750062942505,
+        "plan_count": 1,
+        "recovery_retries": 0,
+        "was_stuck": false,
+        "retreats": 0,
+        "backward_retreats": 0,
+        "patrols_resumed": 0
+      }
+    },
+    "error": null,
+    "camera_checks": [
+      {
+        "t": 22.99686862900853,
+        "all_controllers_unchanged": true,
+        "no_ship_player_possession": true
+      }
+    ],
+    "native_dll_sha256": "f0b9bacca378f37ddfe585a07f6cc9a969bc4ea27f68064e05399e35eea3a6cf",
+    "production_sources_sha256": "6fd77f5ddc067760a5b3967aca154d89ba5c21609680f8515b24bd382e6d2e6a",
+    "init_last": 12,
+    "initialization": {
+      "t": 12.030119728296995,
+      "status": "Settling fleet on water...",
+      "error": "",
+      "configured": true,
+      "fleet": 6
+    },
+    "ready_at": 12.996789630502462,
+    "layout": {
+      "seed": 20261028,
+      "ready": true,
+      "status": "SEED 20261028",
+      "error": "",
+      "attempts": 10,
+      "assault_leader": "none",
+      "leader_changes": 0,
+      "physical_layout_retries": 0,
+      "used_safe_fallback": false,
+      "physical_navigation_charts": {
+        "EShipHullClass::Small": {
+          "clear_cells": 4759,
+          "connected_regions": 2
+        },
+        "EShipHullClass::Large": {
+          "clear_cells": 2553,
+          "connected_regions": 2
+        },
+        "EShipHullClass::Medium": {
+          "clear_cells": 2553,
+          "connected_regions": 2
+        }
+      },
+      "ships": [
+        {
+          "ship": "Friendly_AI_1",
+          "team": 0,
+          "slot": 0,
+          "sector": "S14_11",
+          "spawn_en_m": [
+            14362.5,
+            3312.5
+          ],
+          "target_en_m": [
+            14412.5,
+            3687.5
+          ],
+          "heading": -82.40535736083984,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [
+            [
+              14312.5,
+              3287.5
+            ],
+            [
+              14412.5,
+              3687.5
+            ],
+            [
+              14412.5,
+              4087.5
+            ],
+            [
+              14187.5,
+              4312.5
+            ],
+            [
+              13762.5,
+              4112.5
+            ],
+            [
+              13162.5,
+              3737.5
+            ],
+            [
+              12812.5,
+              3337.5
+            ],
+            [
+              13112.5,
+              2787.5
+            ],
+            [
+              13762.5,
+              2537.5
+            ],
+            [
+              14212.5,
+              2937.5
+            ]
+          ],
+          "circuit_start_index": 1,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        },
+        {
+          "ship": "Friendly_AI_2",
+          "team": 0,
+          "slot": 1,
+          "sector": "S10_11",
+          "spawn_en_m": [
+            14412.5,
+            3712.5
+          ],
+          "target_en_m": [
+            14412.5,
+            4087.5
+          ],
+          "heading": -90,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [
+            [
+              14312.5,
+              3287.5
+            ],
+            [
+              14412.5,
+              3687.5
+            ],
+            [
+              14412.5,
+              4087.5
+            ],
+            [
+              14187.5,
+              4312.5
+            ],
+            [
+              13762.5,
+              4112.5
+            ],
+            [
+              13162.5,
+              3737.5
+            ],
+            [
+              12812.5,
+              3337.5
+            ],
+            [
+              13112.5,
+              2787.5
+            ],
+            [
+              13762.5,
+              2537.5
+            ],
+            [
+              14212.5,
+              2937.5
+            ]
+          ],
+          "circuit_start_index": 2,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        },
+        {
+          "ship": "BP_ShipSmallAI",
+          "team": 0,
+          "slot": 2,
+          "sector": "S07_11",
+          "spawn_en_m": [
+            14412.5,
+            4037.5
+          ],
+          "target_en_m": [
+            14187.5,
+            4312.5
+          ],
+          "heading": -90,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [
+            [
+              14312.5,
+              3287.5
+            ],
+            [
+              14412.5,
+              3687.5
+            ],
+            [
+              14412.5,
+              4087.5
+            ],
+            [
+              14187.5,
+              4312.5
+            ],
+            [
+              13762.5,
+              4112.5
+            ],
+            [
+              13162.5,
+              3737.5
+            ],
+            [
+              12812.5,
+              3337.5
+            ],
+            [
+              13112.5,
+              2787.5
+            ],
+            [
+              13762.5,
+              2537.5
+            ],
+            [
+              14212.5,
+              2937.5
+            ]
+          ],
+          "circuit_start_index": 3,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        },
+        {
+          "ship": "BP_ShipEnemy2",
+          "team": 1,
+          "slot": 0,
+          "sector": "S06_17",
+          "spawn_en_m": [
+            14987.5,
+            4137.5
+          ],
+          "target_en_m": [
+            14637.5,
+            3712.5
+          ],
+          "heading": 129.4724578857422,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [],
+          "circuit_start_index": 0,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        },
+        {
+          "ship": "BP_ShipEnemy",
+          "team": 1,
+          "slot": 1,
+          "sector": "S03_20",
+          "spawn_en_m": [
+            15337.5,
+            4387.5
+          ],
+          "target_en_m": [
+            14787.5,
+            3962.5
+          ],
+          "heading": 142.30575561523438,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [],
+          "circuit_start_index": 0,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        },
+        {
+          "ship": "BP_ShipEnemy3",
+          "team": 1,
+          "slot": 2,
+          "sector": "S02_23",
+          "spawn_en_m": [
+            15562.5,
+            4512.5
+          ],
+          "target_en_m": [
+            14912.5,
+            4262.5
+          ],
+          "heading": 158.96249389648438,
+          "physical_clearance": true,
+          "depth_status": "Streamed actual hull, turn areas and entire initial route checked at waterline with 2 m clearance; dynamic stability and bathymetry not certified",
+          "patrol_circuit_en_m": [],
+          "circuit_start_index": 0,
+          "defense_anchor_en_m": [
+            13900,
+            3450
+          ],
+          "mission": "Initial patrol",
+          "interceptions_started": 0,
+          "defensive_returns": 0,
+          "assault_phase": 0,
+          "assault_goals_reached": 0,
+          "assault_released": false,
+          "formation_distance_m": 0,
+          "mission_route_retries": 0,
+          "searching_circuit": false,
+          "search_circuit_index": 0,
+          "search_goals_reached": 0,
+          "mission_goal_en_m": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    "controllers": {
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+      "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+      "Demo_Blue_Flagship": "AIController_5"
+    },
+    "team_tags": {
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Small",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ],
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": [
+        "Battle3v3",
+        "Friendly",
+        "Team.Blue",
+        "Ship.Class.Small",
+        "AI.Role.Defender",
+        "AI.State.Patrol"
+      ],
+      "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": [
+        "Battle3v3",
+        "Friendly",
+        "Team.Blue",
+        "Ship.Class.Small",
+        "AI.Role.Defender",
+        "AI.State.Patrol"
+      ],
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Large",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ],
+      "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": [
+        "Battle3v3",
+        "Enemy",
+        "Team.Red",
+        "Ship.Class.Medium",
+        "AI.Role.Attacker",
+        "AI.State.Patrol"
+      ],
+      "Demo_Blue_Flagship": [
+        "Team.Blue",
+        "Ship.Class.Small",
+        "AI.Role.Defender",
+        "AI.State.Patrol"
+      ]
+    },
+    "last": 28.500761330127716,
+    "camera_checked": true,
+    "duration": 15.503971699625254
+  },
+  "blueprint_count": 39
+}

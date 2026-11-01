@@ -88,6 +88,27 @@ void ACustomPlayerController::CloseMatchSetup()
     }
     bShowMouseCursor=false;SetInputMode(FInputModeGameOnly());
     if(bMenuPausedWorld)SetPause(false);bMenuPausedWorld=false;
+    if(const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;Battle && !Battle->Outcome.IsEmpty())
+        ShowMatchResult();
+}
+
+void ACustomPlayerController::ReturnToMatchSetup()
+{
+    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
+    if(!Battle || Battle->Outcome.IsEmpty() || SetupWidget)return;
+    ToggleMatchSetup();
+}
+
+void ACustomPlayerController::ShowMatchResult()
+{
+    if(!IsLocalController())return;
+    if(!IsValid(ShipDetailsUI))ToggleShipDetailsUI();
+    if(ShipDetailsUI)ShipDetailsUI->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+    bShowMouseCursor=true;
+    FInputModeGameAndUI Mode;
+    Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    Mode.SetHideCursorDuringCapture(false);
+    SetInputMode(Mode);
 }
 
 void ACustomPlayerController::OnPossess(APawn* InPawn)

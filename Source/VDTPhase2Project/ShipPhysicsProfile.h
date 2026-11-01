@@ -29,6 +29,11 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Movement") float CruiseSpeed=20;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") float DisplacementMultiplier=1;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") float VerticalDampingMultiplier=1;
+    /** Passive water resistance in both vertical directions; does not resist forward motion. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float HeaveDampingPerSecond=20;
+    /** Hull-local angular resistance. Yaw remains governed by the original rudder/body damping. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float RollDampingPerSecond=30;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float PitchDampingPerSecond=15;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") float PontoonRadiusMultiplier=1;
     /** Empty preserves the verified existing four-pontoon layout. */
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") TArray<FVector> PontoonLocations;

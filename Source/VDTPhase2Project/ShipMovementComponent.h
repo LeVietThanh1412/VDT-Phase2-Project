@@ -5,7 +5,7 @@
 #include "BuoyancyTypes.h"
 #include "ShipMovementComponent.generated.h"
 
-/** Filters the force supplied to the original Blueprint AddForce. Never applies force itself. */
+/** Filters Blueprint propulsion and supplies passive water resistance, without pose/velocity overrides. */
 UCLASS(ClassGroup=(Movement),meta=(BlueprintSpawnableComponent))
 class VDTPHASE2PROJECT_API UShipMovementComponent : public UActorComponent
 {
@@ -27,6 +27,7 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Propulsion",meta=(ClampMin="0.05",ClampMax="0.95")) float ReverseForceRatio=.45f;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Propulsion",meta=(ClampMin="0.1",Units="m/s")) float SpeedLimitBlendMps=1;
     UFUNCTION(BlueprintPure,Category="Propulsion") float SignedForwardSpeed() const;
+    UFUNCTION(BlueprintPure,Category="Buoyancy|Diagnostics") FString GetBuoyancyDiagnostics() const;
     UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterPropulsion(AActor* Ship,FVector OriginalForce);
     UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterRudder(AActor* Ship,FVector OriginalForce);
     UFUNCTION(BlueprintPure,Category="Propulsion") static FVector FilterRudderLocation(AActor* Ship,FVector OriginalLocation);
@@ -39,6 +40,10 @@ protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction) override;
 private:
+    UPROPERTY(Transient) TObjectPtr<class UPrimitiveComponent> DampingHull;
+    UPROPERTY(Transient) TObjectPtr<class UBuoyancyComponent> DampingBuoyancy;
+    UPROPERTY(Transient) TObjectPtr<class UShipWeaponComponent> DampingWeapon;
+    void ApplyWaterResistance(float DeltaTime);
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> OriginalHull;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> BoatVisual;
     UPROPERTY(Transient) TObjectPtr<class UStaticMeshComponent> GunYaw;

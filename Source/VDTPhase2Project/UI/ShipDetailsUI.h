@@ -6,6 +6,8 @@
 
 class APawn;
 class STextBlock;
+class FReply;
+struct EVisibility;
 
 /** C++ HUD panel that displays live data for the ship selected by CustomPlayerController. */
 UCLASS()
@@ -29,6 +31,9 @@ protected:
 private:
     APawn* ResolveSelectedShip() const;
     void UpdateDetails();
+    EVisibility GetMatchResultVisibility() const;
+    FText GetMatchResultText() const;
+    FReply ReturnToSetup();
 
     TWeakObjectPtr<APawn> SelectedShip;
 
