@@ -1,4 +1,5 @@
 #include "ShipCombatComponent.h"
+#include "Private/NavalWaterQueries.h"
 #include "ShipMovementComponent.h"
 #include "ShipProjectileDamageComponent.h"
 #include "NavalBattleUI.h"
@@ -35,11 +36,6 @@
 
 namespace
 {
-void IgnoreWater(UWorld* World,FCollisionQueryParams& Query)
-{
-    for(TActorIterator<AActor> It(World);It;++It)
-        if(It->GetClass()->GetName().StartsWith(TEXT("WaterBody")) || It->GetClass()->GetName()==TEXT("WaterZone"))Query.AddIgnoredActor(*It);
-}
 bool CanShoot(AActor* Ship)
 {
     const auto* P=FindFProperty<FBoolProperty>(Ship->GetClass(),TEXT("CanShoot"));
@@ -211,6 +207,9 @@ bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
             if(DestructionFX){DestructionFX->SetVariableVec3(TEXT("User.BoxSize"),FVector(6000,1500,800)*EffectScale);DestructionFX->SetRelativeScale3D(FVector(EffectScale));}
         }
     }
+    // The fleet counter is a gameplay authority, not a widget listener. Notify
+    // it on the same guarded death transition, before the wreck is cleaned up.
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);
     OnShipDestroyed.Broadcast(this,Attacker);OnHealthChanged.Broadcast(this,CurrentHealth,MaxHealth);RefreshHealthUI();
     UE_LOG(LogTemp,Display,TEXT("ShipBattle destroyed ship=%s team=%d reason=%s attacker=%s event=%d"),*GetNameSafe(GetOwner()),Team(),*UEnum::GetValueAsString(Reason),*GetNameSafe(Attacker),DestructionEvents);
     return true;
@@ -498,7 +497,7 @@ bool UShipCombatComponent::Visible(AActor* Candidate) const
 {
     if(!Visual || !Candidate)return false;
     if(Navigation && !Navigation->WaterLineClear(Visual->GetSocketLocation(Weapon->MuzzleSocket),AimPoint(Candidate)))return false;
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipCombatLOS),true,GetOwner());IgnoreWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipCombatLOS),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     const FVector Start=Visual->GetSocketLocation(Weapon->MuzzleSocket),Delta=AimPoint(Candidate)-Start;
     const float Limit=FMath::Max(DetectionRadiusM,EngagementRadiusM)*100;
     if(Delta.Size()>Limit)return false;
@@ -692,7 +691,7 @@ bool UShipCombatComponent::ClearArc(FVector Start,FVector Launch,float Flight,FS
     for(auto* C:Components)if((C->GetFName()==TEXT("ShipSM") || C->GetFName()==TEXT("Ship")) &&
         C->LineTraceComponent(SelfHit,Start+Launch.GetSafeNormal()*200,Start+Launch.GetSafeNormal()*20000,OwnQuery))
     {Reason=TEXT("Own hull/superstructure obstructs muzzle");return false;}
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipCombatArc),true,GetOwner());IgnoreWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipCombatArc),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     FVector Previous=Start;
     const int32 Steps=FMath::Clamp(FMath::CeilToInt(Flight*30),2,1800);
     for(int32 I=1;I<=Steps;++I)

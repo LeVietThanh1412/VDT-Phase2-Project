@@ -1,0 +1,348 @@
+{
+  "date": "2026-11-01",
+  "git_baseline": "b05711ebb788cb9e22d96861df07b98b419fdbf9",
+  "module_files": 53,
+  "lines": 9113,
+  "files": [
+    {
+      "path": "Source/VDTPhase2Project/Actor/Pawn/FreeCameraPawn.cpp",
+      "lines": 123,
+      "sha256": "6e6965fc9ad0c95987270bc35c58002503e19269907aa86bccf89dbf1f6771ef",
+      "tick_definitions": [
+        "void AFreeCameraPawn::Tick(float DeltaSeconds)",
+        "Super::Tick(DeltaSeconds);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/Actor/Pawn/FreeCameraPawn.h",
+      "lines": 50,
+      "sha256": "4ffdc5d0dd4c56a821851261487032ae2db8777d8b9d2eaecbcfd9aaac38daba",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/CustomPlayerController.cpp",
+      "lines": 611,
+      "sha256": "1eb83a7a9ee5950c00328af48db80b9d7ba0226c28c3971eb9a97df930bdb938",
+      "tick_definitions": [
+        "void ACustomPlayerController::PlayerTick(float DeltaTime)",
+        "Super::PlayerTick(DeltaTime);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/CustomPlayerController.h",
+      "lines": 117,
+      "sha256": "0d14a524bc80cc8ad542b17fecaf3c262a40c661d112c52742e1beb597371f05",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalBattlefieldSubsystem.cpp",
+      "lines": 621,
+      "sha256": "b71b81bad5d319bea1235b0daef454afa150183f40e17c0d1883d08b395baf40",
+      "tick_definitions": [
+        "void UNavalBattlefieldSubsystem::Tick(float Dt)"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalBattlefieldSubsystem.h",
+      "lines": 117,
+      "sha256": "415fde823702bc18873068c41d04121d7190cc9d32c01b615e84b41e3c9a3f52",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalBattlefieldTactics.cpp",
+      "lines": 318,
+      "sha256": "319162324d946e76d53910b609dd9528d9dfc02f21d68fca6b2bd84d8cccc79b",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalBattleUI.cpp",
+      "lines": 361,
+      "sha256": "870263789162dddcc3e8eaa827d0ae1b559ea3ed52a7b8db2b6e66cece2b4b28",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalBattleUI.h",
+      "lines": 94,
+      "sha256": "4a72b0dae79cf867cdd01a4ada3d6fdec435e6423fd404577c00a4dc53699aa2",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalGameMode.cpp",
+      "lines": 15,
+      "sha256": "d7d671a191051296e4ed0b44e077240caf1bd2829906a992d381a0da9ed07166",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalGameMode.h",
+      "lines": 13,
+      "sha256": "367c0dea600a82ecb258dae1d25362051785e949a902b9c229cf89575d2e6052",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalMatchSettings.cpp",
+      "lines": 13,
+      "sha256": "5215800fefa819f9eeea39a47d7baf62b6dc980e24bcc31516302a47a602527b",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalMatchSettings.h",
+      "lines": 35,
+      "sha256": "b0993b475f9229df84259e9c9845005e8692e51c1a1f35dd255df042d72377d4",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalSectorSubsystem.cpp",
+      "lines": 107,
+      "sha256": "f251fbecab24c4f0098a513d0cc3fd58ccdf25b47efd719fd97861dc386984cd",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/NavalSectorSubsystem.h",
+      "lines": 67,
+      "sha256": "f890a7f6946048e5b95663c94a80da6fff88d68eb7d7c4010c501022922f4251",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/Private/NavalWaterQueries.cpp",
+      "lines": 19,
+      "sha256": "2d4c6c911a154731a1775b0767bc229966d5ca06358396220ebfa3b344c0c81c",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/Private/NavalWaterQueries.h",
+      "lines": 13,
+      "sha256": "193db30e278057ae76d72e8f75e6ae02859cad1bb410073f28ab25e8c86c101e",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/SeaNavigationMap.cpp",
+      "lines": 196,
+      "sha256": "bf577519a91f5c15fc7bcf1f20638004c6ec2b0e005b2586c973f5feec1d6c45",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/SeaNavigationMap.h",
+      "lines": 36,
+      "sha256": "319e333b3ee38e8fa57057dfdcb902708fe18a6492c53458ca839c0bc8cc94b3",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/SeaTerrainCollisionComponent.cpp",
+      "lines": 394,
+      "sha256": "2b78d95d553f4442f2dd198c554f5cc79ce6d4d43e8f177584024e85a63d4f5f",
+      "tick_definitions": [
+        "void USeaTerrainCollisionComponent::TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction *Function)",
+        "Super::TickComponent(Delta, Type, Function);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/SeaTerrainCollisionComponent.h",
+      "lines": 53,
+      "sha256": "5a51aed38f5bed7b68cbe937430c0dea593b25e206a420a0b989003634541f84",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipArchetypeEditor.cpp",
+      "lines": 267,
+      "sha256": "8998fd594aed5e221b763b5546bdf4278027dd695f6e11cbf0dd69f8fcd24d9a",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipCombatComponent.cpp",
+      "lines": 837,
+      "sha256": "617a3dfd48cecd295f75c5283574f4c35b2471783cb8c7a371a3568f7c63a7d6",
+      "tick_definitions": [
+        "void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)",
+        "Super::TickComponent(Dt,Type,Tick);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipCombatComponent.h",
+      "lines": 294,
+      "sha256": "b38e109eb5e98de44c2536cc2587ab9f3ce3509b573a517e6b05e2f7d135ed55",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipCombatEditor.cpp",
+      "lines": 300,
+      "sha256": "6b194a4399a2f8fa23717c9fa24d83d320d6645868df5014f7678bc8b263eb4f",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipDebugEditor.cpp",
+      "lines": 44,
+      "sha256": "2eb1fabd256ab13924bb6dcec2b05521c3dde6102b44d93c3c35bd95d0746a39",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipDestructionEditor.cpp",
+      "lines": 99,
+      "sha256": "b2679adbcef2ae03bbf75e9ba8900b48cbec3332b6825676ffb8c4d733ef7c8c",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyNavigationComponent.cpp",
+      "lines": 1263,
+      "sha256": "716bbe36bebf25fefafa05e04adba96898b6150d7bf83962df33fb6bf9fc0774",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyNavigationComponent.h",
+      "lines": 201,
+      "sha256": "61152fc05c19327b8f6829a2e9d6c3f4c9c6c7e66a5e3903a8ce02bf9ccbd52f",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyNavigationEditor.cpp",
+      "lines": 174,
+      "sha256": "3afa8fb3ec9131a345665cccac22c913e469942f06372ce14fd2c467556677d3",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyNavigationTests.cpp",
+      "lines": 571,
+      "sha256": "aea8f47b2308b304a95afaabc677f9afea4a2501ddb3831b6d5b569cd86d88fb",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyProjectile.cpp",
+      "lines": 43,
+      "sha256": "38dfb0a7158d7b27918211e7bcf43c56c8f81478c45a71328bb5a3e1917fa33f",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipEnemyProjectile.h",
+      "lines": 26,
+      "sha256": "a52c96a9885ed90276e2cb48833e5703a3fdd7c6f7dcd6e9890104710daf3a19",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipMovementComponent.cpp",
+      "lines": 200,
+      "sha256": "8a42ddacdd4a34c04d62295f7ee21c0390f0626318f346b42f21d11d91b6a2f5",
+      "tick_definitions": [
+        "void UShipMovementComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction)",
+        "Super::TickComponent(DeltaTime,TickType,TickFunction);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipMovementComponent.h",
+      "lines": 59,
+      "sha256": "3d03a783373314cd54c50ee2ec0c32735993d61a0504264a35f22b911816acfc",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipMovementEditor.cpp",
+      "lines": 117,
+      "sha256": "aa4033cb16bce28c38436f40e8d41fe616065d90b8b38e35d9f0a23185bc95b3",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipPhysicsProfile.cpp",
+      "lines": 31,
+      "sha256": "d2dbad9f6b321f6fe7146206f1d3abdb756ccf72a344fa782b1a8aced0da8ae1",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipPhysicsProfile.h",
+      "lines": 54,
+      "sha256": "ef6e2ad2746f8633528d16360aeb030ea81bc4fb415b3bb75e4fe7473057d368",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipProjectileDamageComponent.cpp",
+      "lines": 13,
+      "sha256": "182e1c8860dbd98f46c5ba831f53b0a6fc619f4b3451556f8003852912ac1bf4",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipProjectileDamageComponent.h",
+      "lines": 24,
+      "sha256": "66d4bdda3f872b6ab27a4af34d349cdfd7a828a19e345dbb25e191272e07e011",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipSetupWidget.cpp",
+      "lines": 195,
+      "sha256": "4477cad87e8c518f4d6b1221507da18a91f3bca1e1fc6db080ededa960d28d6a",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipSetupWidget.h",
+      "lines": 44,
+      "sha256": "99f90104f9ea7d50ea33d51914be8c32e167c6c165e3718142a3682818fa78a4",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipWreckBillboardComponent.cpp",
+      "lines": 118,
+      "sha256": "ed018c69590dfca439569e2cfbfbfeee30f0b81b8b6b1cd4d22800893b4fcad4",
+      "tick_definitions": [
+        "void UShipWreckBillboardComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction)",
+        "Super::TickComponent(DeltaTime,TickType,TickFunction);"
+      ]
+    },
+    {
+      "path": "Source/VDTPhase2Project/ShipWreckBillboardComponent.h",
+      "lines": 34,
+      "sha256": "0c9f9869b8600e864d8a500bbb772a8198394c1b0268f557cdea2a27e09605d2",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/Tests/ShipWeaponFailureProbe.cpp",
+      "lines": 42,
+      "sha256": "b16053635da27ec7b86e2b0e6183032f5d79774430f1fb9c32fa3847e4bd839d",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/Tests/ShipWeaponFailureProbe.h",
+      "lines": 20,
+      "sha256": "bdf37f34ef0a80144eec45e29add49d3551799ce65bc01a5ff421517bd3255fd",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/UI/ButtonTutorialsUI.cpp",
+      "lines": 124,
+      "sha256": "cbd5838e0b0560568760e223003e80d5dfe57dd8a0d8c0da63f752c483105a84",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/UI/ButtonTutorialsUI.h",
+      "lines": 37,
+      "sha256": "5897adcb9faa3633d9a5e9cb9174e42cb39c82363d5483ce987a3f4b5f230e06",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/UI/ShipDetailsUI.cpp",
+      "lines": 422,
+      "sha256": "b8ea2a375b0b6dbaf0355509c0a59c6dc189e6caf648bb9667f7c482b10abfab",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/UI/ShipDetailsUI.h",
+      "lines": 44,
+      "sha256": "a5bb065166285bccb8ea26f0db85cef6625862a3aa7f94da805265bd5acb5cc4",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/VDTPhase2Project.Build.cs",
+      "lines": 31,
+      "sha256": "5ce07ed7830ae677d5a7d5de45d88d6299381b3ae092bcd76d972f3ae154dc58",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/VDTPhase2Project.cpp",
+      "lines": 6,
+      "sha256": "3c03da6246cca604d36f5e473132d13a0a768e6b29773ff00a953381f16953d5",
+      "tick_definitions": []
+    },
+    {
+      "path": "Source/VDTPhase2Project/VDTPhase2Project.h",
+      "lines": 6,
+      "sha256": "4694b655856b269fc41b195971214f8e629857c7e5d6f34002a066cd4af3037c",
+      "tick_definitions": []
+    }
+  ],
+  "scope": "Read all production/editor/test module entrypoints; findings and retained Blueprint/compatibility dependencies in CODEBASE_AUDIT.md. No asset package movement.",
+  "tested_production_commit": "bb9b507"
+}

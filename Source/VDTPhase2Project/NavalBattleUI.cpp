@@ -1,6 +1,10 @@
 #include "NavalBattleUI.h"
 #include "NavalBattlefieldSubsystem.h"
 #include "ShipMovementComponent.h"
+#include "ShipEnemyNavigationComponent.h"
+#include "CustomPlayerController.h"
+#include "Engine/TargetPoint.h"
+#include "AIController.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
 #include "ShipCombatComponent.h"
@@ -146,6 +150,7 @@ void UNavalBattleSubsystem::Deinitialize()
     GetWorld()->GetTimerManager().ClearTimer(MatchTimer);
     TurnRoster.Empty();ActiveTurnShip=nullptr;
     PlayerShip = nullptr;
+    DemoCommandShip=nullptr;
     Registered.Empty();
     Fallen.Empty();
     Super::Deinitialize();
@@ -170,7 +175,34 @@ void UNavalBattleSubsystem::OnWorldBeginPlay(UWorld& World)
 bool UNavalBattleSubsystem::ConfigureRoster()
 {
     auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0);
-    APawn* Player=PC?PC->GetPawn():nullptr;
+    auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    const bool FullAI=Settings && Settings->bFullAIDemo;
+    if(FullAI && !IsValid(DemoCommandShip))
+    {
+        // Reuse the production AI Blueprint and its original physics graph. The
+        // normal player Blueprint remains unchanged; no AI ever loses possession.
+        const bool Small=Settings->HullClasses.Num()==6 && Settings->HullClasses[0]==EShipHullClass::Small;
+        UClass* Class=LoadClass<APawn>(nullptr,Small?TEXT("/Game/ShipSmall/BluePrint/BP_ShipSmallAI.BP_ShipSmallAI_C"):TEXT("/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy_C"));
+        FActorSpawnParameters Params;Params.Name=TEXT("Demo_Blue_Flagship");Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        const FTransform Spawn=PC && PC->GetPawn()?PC->GetPawn()->GetActorTransform():FTransform::Identity;
+        DemoCommandShip=Class?GetWorld()->SpawnActor<APawn>(Class,Spawn,Params):nullptr;
+        if(!DemoCommandShip){ConfigurationError=TEXT("Full AI: production AI ship could not spawn");return false;}
+        if(auto* C=DemoCommandShip->FindComponentByClass<UShipCombatComponent>())C->Faction=0;
+        if(auto* W=DemoCommandShip->FindComponentByClass<UShipWeaponComponent>())W->Faction=0;
+        if(auto* Identity=DemoCommandShip->FindComponentByClass<UShipIdentityComponent>())Identity->ShipName=TEXT("Blue Flagship");
+        if(auto* N=DemoCommandShip->FindComponentByClass<UShipEnemyNavigationComponent>())
+        {
+            N->PatrolActorA=GetWorld()->SpawnActor<ATargetPoint>();N->PatrolActorB=GetWorld()->SpawnActor<ATargetPoint>();
+            N->bNewNavigationEnabled=true;N->Role=EShipEnemyRole::Fighter;
+        }
+        DemoCommandShip->SpawnDefaultController();
+        // The placed-ship Blueprint has no spawned-pawn controller class.
+        // Give the sixth hull the same native controller used by placed AI.
+        if(!DemoCommandShip->GetController())
+            if(auto* AI=GetWorld()->SpawnActor<AAIController>())AI->Possess(DemoCommandShip);
+        if(!DemoCommandShip->GetController()){ConfigurationError=TEXT("Full AI: sixth ship has no AI controller");return false;}
+    }
+    APawn* Player=FullAI?DemoCommandShip.Get():(PC?PC->GetPawn().Get():nullptr);
     if(!Player || !Player->FindComponentByClass<UShipWeaponComponent>())return false;
     TArray<APawn*> Teams[2];
     for(TActorIterator<APawn> It(GetWorld());It;++It)
@@ -178,9 +210,8 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     // Wait for the existing always-loaded five AI, never spawn replacements.
     if(Teams[0].Num()!=3 || Teams[1].Num()!=3)return false;
     for(auto& Team:Teams)Team.Sort([](const APawn& A,const APawn& B){return A.GetFName().LexicalLess(B.GetFName());});
-    auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
     const bool Selected=Settings && Settings->bExplicitSelection;
-    const int32 PlayerTeam=Selected?FMath::Clamp(Settings->PlayerTeam,0,1):0;
+    const int32 PlayerTeam=Selected && !FullAI?FMath::Clamp(Settings->PlayerTeam,0,1):0;
     auto* PlayerWeapon=Player->FindComponentByClass<UShipWeaponComponent>();
     const int32 OldPlayerTeam=PlayerWeapon->Team();
     if(OldPlayerTeam!=PlayerTeam)
@@ -215,13 +246,21 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         {
             if(auto* Move=Pawn->FindComponentByClass<UShipMovementComponent>())Move->ApplyShipClass(Settings->HullClasses[Team*3+Slot]);
             if(auto* Combat=Pawn->FindComponentByClass<UShipCombatComponent>())Combat->SetShootingSkill(Settings->Difficulty);
+            if(Settings->bStandardDemoBalance)
+            {
+                W->MaxHealth=W->CurrentHealth=100;W->BaseProjectileDamage=10;
+                if(auto* N=Pawn->FindComponentByClass<UShipEnemyNavigationComponent>()){N->MaxHealth=N->Health=100;}
+            }
         }
+        if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>())Identity->TeamName=Team==0?TEXT("Blue"):TEXT("Red");
+        W->RefreshShipTags();
         TurnRoster.Add(W);Registered.Add(W);
-        TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
+        TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,!FullAI && Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
         if(W->bIsDestroyed)Fallen.Add(W);
         else if(Team==0)++BlueAlive;else ++RedAlive;
     }
     PlayerShip=Player->FindComponentByClass<UShipWeaponComponent>();bMatchConfigured=true;
+    if(FullAI)if(auto* Custom=Cast<ACustomPlayerController>(PC))Custom->BeginFullAIDemo(Player);
     if(auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>())
     {
         TArray<APawn*> Fleet;
@@ -310,7 +349,12 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         RedAlive = FMath::Max(0, RedAlive - 1);
     const auto* Settings=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
     const int32 PlayerTeam=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
-    if ((PlayerTeam==0?RedAlive:BlueAlive) == 0)
+    if(Settings && Settings->bFullAIDemo)
+    {
+        if(RedAlive==0)Outcome=TEXT("BLUE WINS");
+        else if(BlueAlive==0)Outcome=TEXT("RED WINS");
+    }
+    else if ((PlayerTeam==0?RedAlive:BlueAlive) == 0)
         Outcome = TEXT("VICTORY");
     else if ((PlayerTeam==0?BlueAlive:RedAlive) == 0)
         Outcome = TEXT("DEFEAT");

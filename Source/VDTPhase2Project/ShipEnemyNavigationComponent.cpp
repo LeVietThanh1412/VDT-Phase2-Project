@@ -1,4 +1,6 @@
 #include "ShipEnemyNavigationComponent.h"
+#include "SeaNavigationMap.h"
+#include "Private/NavalWaterQueries.h"
 #include "NavalBattleUI.h"
 #include "ShipCombatComponent.h"
 #include "ShipMovementComponent.h"
@@ -35,6 +37,8 @@ struct FDestinationTracking
     bool bExplicitCommand=false, bHasSnappedGoal=false;
     int32 PlanCount=0, ConsecutivePlanFailures=0;
     double RetryAt=0, LastTelemetry=-1;
+    double RecoveryRetryAt=0;
+    int32 RecoveryRetries=0;
     float AvoidAngle=45;
     TWeakObjectPtr<AActor> SweepActor;
     FVector SweepCenter=FVector::ZeroVector;
@@ -75,8 +79,7 @@ FNumericProperty* Numeric(UObject* O,const TCHAR* N)
 {return CastField<FNumericProperty>(O->GetClass()->FindPropertyByName(FName(N)));}
 FVector2D Rotate2D(const FVector2D& V,double Degrees)
 {const double A=FMath::DegreesToRadians(Degrees);return FVector2D(V.X*FMath::Cos(A)-V.Y*FMath::Sin(A),V.X*FMath::Sin(A)+V.Y*FMath::Cos(A));}
-void IgnoreNavigationWater(UWorld* W,FCollisionQueryParams& Q)
-{for(TActorIterator<AActor> I(W);I;++I){const FString N=I->GetClass()->GetName();if(N.StartsWith(TEXT("WaterBody")) || N==TEXT("WaterZone"))Q.AddIgnoredActor(*I);}}
+
 }
 
 UShipEnemyNavigationComponent::UShipEnemyNavigationComponent()
@@ -169,6 +172,13 @@ void UShipEnemyNavigationComponent::Fail(const FString& S)
 {
     if(bDrawDebug && LastNavigationFailureReason!=S)UE_LOG(LogTemp,Warning,TEXT("ShipNavigation %s: %s"),*GetNameSafe(GetOwner()),*S);
     LastNavigationFailureReason=S;NavigationState=EShipNavigationState::Failed;bPathfindingSucceeded=false;DesiredSpeed=0;
+    DestinationState(this).RecoveryRetryAt=0;
+    // A moving hull can exhaust local recovery without invalidating this water
+    // route. Leave commands stopped during backoff, then let the same planner
+    // and traffic arbitration reassess it. Configuration/land failures stay hard.
+    if(S==TEXT("Bounded recovery attempts exhausted") || S==TEXT("Local avoidance/replan budget exhausted") ||
+       S==TEXT("Recovery could not stabilize velocity within its time budget"))
+        DestinationState(this).RecoveryRetryAt=GetWorld()->GetTimeSeconds()+FMath::Max(30.f,StuckWindowSeconds*2);
 }
 void UShipEnemyNavigationComponent::SetDriveCommand(float T,float R)
 {
@@ -259,6 +269,7 @@ void UShipEnemyNavigationComponent::StartPatrol()
     bTacticalOverride=false;
     NavigationMode=EShipNavigationMode::Patrol;bHasGoal=false;bNeedsPlan=true;bExplicitStop=false;
     if(PatrolActorA || PatrolActorB)bTargetB=bStartAtPatrolB;
+    PatrolCircuitIndex=PatrolCircuitActors.IsEmpty()?0:FMath::Clamp(PatrolCircuitIndex,0,PatrolCircuitActors.Num()-1);
     CurrentRoute.Reset();bPathfindingSucceeded=false;ArrivalTime=-1;
     RecoveryAttemptCount=0;RecoveryPhase=0;FailedCorridors.Reset();
     AvoidElapsed=0;AvoidSide=0;LastAvoidSide=0;AvoidSideChanges=0;
@@ -307,6 +318,8 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
     J->SetStringField(TEXT("patrol_b"),GetNameSafe(PatrolActorB));
     J->SetStringField(TEXT("active_target"),GetNameSafe(DestinationActor(this)));
     J->SetNumberField(TEXT("legs"),PatrolLegsCompleted);
+    J->SetNumberField(TEXT("circuit_targets"),PatrolCircuitActors.Num());J->SetNumberField(TEXT("circuit_index"),PatrolCircuitIndex);
+    J->SetNumberField(TEXT("circuits_completed"),PatrolCircuitsCompleted);
     J->SetNumberField(TEXT("waypoint_index"),CurrentWaypointIndex);
     J->SetNumberField(TEXT("waypoint_count"),CurrentRoute.Num());
     J->SetBoolField(TEXT("path_success"),bPathfindingSucceeded);
@@ -334,6 +347,8 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
     if(const auto* Track=DestinationTracking.Find(const_cast<UShipEnemyNavigationComponent*>(this)))
     {
         J->SetNumberField(TEXT("plans"),Track->PlanCount);
+        J->SetNumberField(TEXT("recovery_retries"),Track->RecoveryRetries);
+        J->SetNumberField(TEXT("recovery_retry_at"),Track->RecoveryRetryAt);
         J->SetStringField(TEXT("last_sweep_actor"),GetNameSafe(Track->SweepActor.Get()));
     }
     FString Out;FJsonSerializer::Serialize(J,TJsonWriterFactory<>::Create(&Out));return Out;
@@ -536,7 +551,7 @@ float UShipEnemyNavigationComponent::SensorDistance(float Angle) const
 }
 bool UShipEnemyNavigationComponent::SweepClear(const FVector& A,const FVector& B,float Radius) const
 {
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyNavigationSweep),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyNavigationSweep),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     // Horizontal clearance must not also become the vessel's draft. A 40 m sphere
     // falsely starts penetrating a 24 m-deep seabed beneath this ~10 m keel.
     // Preserve the full hull's vertical range, offset above/below its actual pivot.
@@ -588,7 +603,7 @@ void UShipEnemyNavigationComponent::UpdatePerception()
     if(!Candidate || Candidate==GetOwner() || !Candidate->IsPlayerControlled() || (PlayerShipClass && !Candidate->IsA(PlayerShipClass)))
     {DetectedPlayer=nullptr;return;}
     const float D=FVector::Dist2D(Hull->GetComponentLocation(),Candidate->GetActorLocation())/100;
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyShipPerception),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(EnemyShipPerception),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
     FHitResult Hit;const FVector A=Hull->GetComponentLocation()+FVector(0,0,1500),B=Candidate->GetActorLocation()+FVector(0,0,1500);
     const bool Visible=!GetWorld()->LineTraceSingleByChannel(Hit,A,B,ECC_Visibility,Q) || Hit.GetActor()==Candidate;
     if(D<=DetectionRadiusM && Visible){DetectedPlayer=Candidate;LastSeenTime=Now;}
@@ -635,15 +650,28 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
     }
     if(NavigationMode==EShipNavigationMode::Patrol)
     {
-        const bool bActorPatrol=PatrolActorA || PatrolActorB;
-        if(bActorPatrol && (!IsValid(PatrolActorA) || !IsValid(PatrolActorB) || PatrolActorA==PatrolActorB || PatrolActorA->GetWorld()!=GetWorld() || PatrolActorB->GetWorld()!=GetWorld()))
+        const bool Circuit=!PatrolCircuitActors.IsEmpty();
+        if(Circuit)
+        {
+            if(PatrolCircuitActors.Num()<3 || !PatrolCircuitActors.IsValidIndex(PatrolCircuitIndex))
+            {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Patrol circuit requires at least three targets and a valid current index"));return;}
+            for(int32 I=0;I<PatrolCircuitActors.Num();++I)
+            {
+                const auto* A=PatrolCircuitActors[I].Get();const auto* B=PatrolCircuitActors[(I+1)%PatrolCircuitActors.Num()].Get();
+                if(!IsValid(A) || !IsValid(B) || A->GetWorld()!=GetWorld() || B->GetWorld()!=GetWorld() ||
+                    FVector2D::Distance(LLHToMetric(WorldToGeographic(A->GetActorLocation())),LLHToMetric(WorldToGeographic(B->GetActorLocation())))<=ArrivalRadiusM*2)
+                {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Patrol circuit has missing, wrong-world or overlapping targets"));return;}
+            }
+        }
+        const bool bActorPatrol=Circuit || PatrolActorA || PatrolActorB;
+        if(!Circuit && bActorPatrol && (!IsValid(PatrolActorA) || !IsValid(PatrolActorB) || PatrolActorA==PatrolActorB || PatrolActorA->GetWorld()!=GetWorld() || PatrolActorB->GetWorld()!=GetWorld()))
         {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Two-point patrol requires both valid same-world Target Point actors"));return;}
-        if(bActorPatrol && FVector2D::Distance(LLHToMetric(WorldToGeographic(PatrolActorA->GetActorLocation())),LLHToMetric(WorldToGeographic(PatrolActorB->GetActorLocation())))<=ArrivalRadiusM*2)
+        if(!Circuit && bActorPatrol && FVector2D::Distance(LLHToMetric(WorldToGeographic(PatrolActorA->GetActorLocation())),LLHToMetric(WorldToGeographic(PatrolActorB->GetActorLocation())))<=ArrivalRadiusM*2)
         {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(TEXT("Two-point patrol targets have overlapping arrival zones"));return;}
-        const AActor* Assigned=bTargetB?PatrolActorB.Get():PatrolActorA.Get();
+        const AActor* Assigned=Circuit?PatrolCircuitActors[PatrolCircuitIndex].Get():(bTargetB?PatrolActorB.Get():PatrolActorA.Get());
         const FVector LLH=IsValid(Assigned)?WorldToGeographic(Assigned->GetActorLocation()):(bTargetB?PatrolPointB:PatrolPointA);
         FVector2D Target=LLHToMetric(LLH);
-        const FVector Offset=bTargetB?PatrolOffsetB:PatrolOffsetA;
+        const FVector Offset=Circuit?FVector::ZeroVector:(bTargetB?PatrolOffsetB:PatrolOffsetA);
         const FVector2D OffsetTarget=Target+FVector2D(Offset.X,Offset.Y);
         if(!Offset.IsNearlyZero() && Map->IsWater(OffsetTarget) && Map->SegmentClear(Target,OffsetTarget))Target=OffsetTarget;
         auto& Track=DestinationState(this);
@@ -785,8 +813,15 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     SelectObjective(P);
     if(NavigationState==EShipNavigationState::Failed)
     {
-        const auto& Track=DestinationState(this);
-        if(NavigationMode==EShipNavigationMode::Patrol && bHasGoal && Track.ConsecutivePlanFailures>0 && Track.ConsecutivePlanFailures<=3 && GetWorld()->GetTimeSeconds()>=Track.RetryAt)
+        auto& Track=DestinationState(this);
+        if(bHasGoal && Track.RecoveryRetryAt>0 && GetWorld()->GetTimeSeconds()>=Track.RecoveryRetryAt && Map->IsWater(P))
+        {
+            Track.RecoveryRetryAt=0;++Track.RecoveryRetries;Track.TrafficRadius=0;
+            RecoveryPhase=0;RecoveryAttemptCount=0;TimeSinceProgress=0;BestRemainingDistance=DBL_MAX;
+            FailedCorridors.Reset();AvoidElapsed=0;AvoidSide=0;AvoidSideChanges=0;
+            bNeedsPlan=true;NavigationState=EShipNavigationState::Replan;
+        }
+        else if(NavigationMode==EShipNavigationMode::Patrol && bHasGoal && Track.ConsecutivePlanFailures>0 && Track.ConsecutivePlanFailures<=3 && GetWorld()->GetTimeSeconds()>=Track.RetryAt)
         {bNeedsPlan=true;NavigationState=EShipNavigationState::Replan;}
         else{SetDriveCommand(0,0);return true;}
     }
@@ -861,7 +896,13 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             {
                 if(bDrawDebug)UE_LOG(LogTemp,Display,TEXT("ShipNavigation ARRIVAL leg=%d target=%s distance=%.3fm speed=%.3fm/s switching=%s"),
                     PatrolLegsCompleted,*GetNameSafe(DestinationActor(this)),GoalDistance,Speed,bTargetB?TEXT("A"):TEXT("B"));
-                bTargetB=!bTargetB;++PatrolLegsCompleted;bHasGoal=false;bNeedsPlan=true;
+                if(!PatrolCircuitActors.IsEmpty())
+                {
+                    PatrolCircuitIndex=(PatrolCircuitIndex+1)%PatrolCircuitActors.Num();++CircuitLegsCompleted;
+                    PatrolCircuitsCompleted=CircuitLegsCompleted/PatrolCircuitActors.Num();
+                }
+                else bTargetB=!bTargetB;
+                ++PatrolLegsCompleted;bHasGoal=false;bNeedsPlan=true;
                 CurrentRoute.Reset();bPathfindingSucceeded=false;ArrivalTime=-1;RecoveryAttemptCount=0;FailedCorridors.Reset();
             }
         }
@@ -1087,7 +1128,10 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             // Stable right of way prevents reciprocal soft-braking deadlocks.
             // The other vessel yields; the priority vessel still uses every
             // existing hull sweep, land check and emergency brake below.
-            if(HasShipRightOfWay(this,*Other,Now))continue;
+            const auto* OtherNav=Other->FindComponentByClass<UShipEnemyNavigationComponent>();
+            const bool Following=OtherNav && IsValid(OtherNav->Heading) &&
+                FVector::DotProduct(Forward,OtherNav->Heading->GetForwardVector())>.5f;
+            if(!Following && HasShipRightOfWay(this,*Other,Now))continue;
             const double Closing=FVector::DotProduct(Velocity-OtherHull->GetPhysicsLinearVelocity(),Flat.GetSafeNormal())/100;
             if(Closing>.2 || Distance<SafeShipSeparationM*.85)
             {
@@ -1144,7 +1188,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             const FBox Local=Hull->GetLocalBounds().GetBox();
             const FVector Center=Hull->GetComponentTransform().TransformPosition(Local.GetCenter());
             const FVector Extent=Local.GetExtent()*Hull->GetComponentScale().GetAbs()+FVector(200);
-            FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());IgnoreNavigationWater(GetWorld(),Q);
+            FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
             const float PreferredSide=R*RudderSign<0?-1.f:1.f;
             for(float Side:{PreferredSide,-PreferredSide})
             {

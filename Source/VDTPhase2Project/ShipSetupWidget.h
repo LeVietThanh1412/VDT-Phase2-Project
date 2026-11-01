@@ -23,6 +23,9 @@ public:
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> DifficultySelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> PlayerTeamSelector;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> ModeSelector;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> ControlSelector;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> BalanceSelector;
+    UPROPERTY(BlueprintReadOnly) TObjectPtr<UComboBoxString> NavigationSelector;
     UPROPERTY(BlueprintReadOnly) TArray<TObjectPtr<UComboBoxString>> HullSelectors;
     UPROPERTY(BlueprintReadOnly) TObjectPtr<UEditableTextBox> SeedInput;
 protected:
@@ -36,6 +39,6 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> QuitLabel;
     UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
     UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
-    int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1;
+    int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1,LastControl=-1;
     bool bInitialSetup=true;
 };

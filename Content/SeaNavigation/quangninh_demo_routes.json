@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "coordinate_system": "WGS84_ECEF_FIXED_ENU_METERS",
+  "demo_seed": 20261028,
+  "blue_small_circuit_en_m": [
+    [
+      14312.5,
+      3287.5
+    ],
+    [
+      14412.5,
+      3687.5
+    ],
+    [
+      14412.5,
+      4087.5
+    ],
+    [
+      14187.5,
+      4312.5
+    ],
+    [
+      13762.5,
+      4112.5
+    ],
+    [
+      13162.5,
+      3737.5
+    ],
+    [
+      12812.5,
+      3337.5
+    ],
+    [
+      13112.5,
+      2787.5
+    ],
+    [
+      13762.5,
+      2537.5
+    ],
+    [
+      14212.5,
+      2937.5
+    ]
+  ],
+  "blue_heavy_patrol_en_m": [
+    [
+      14312.5,
+      3287.5
+    ],
+    [
+      14512.5,
+      3987.5
+    ]
+  ],
+  "red_spawn_hints_en_m": [
+    [
+      15037.5,
+      4187.5
+    ],
+    [
+      15287.5,
+      4437.5
+    ],
+    [
+      15512.5,
+      4562.5
+    ]
+  ],
+  "red_approach_hints_en_m": [
+    [
+      14612.5,
+      3712.5
+    ],
+    [
+      14762.5,
+      3962.5
+    ],
+    [
+      14912.5,
+      4212.5
+    ]
+  ],
+  "defensive_anchor_en_m": [
+    13900,
+    3450
+  ],
+  "notes": [
+    "Original625 spawn sectors retained. Navigation survey extends600m west to circumnavigate the same island group without reducing shore/hull clearance.",
+    "Small ships can complete the loop; Medium/Large use the eastern defensive arc because the west/north passages fail their surveyed connectivity.",
+    "Hints must pass the native per-hull A* and real hull/keel checks at every match start. Not certified bathymetry."
+  ]
+}

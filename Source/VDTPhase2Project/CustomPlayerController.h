@@ -27,6 +27,8 @@ public:
     virtual void OnPossess(APawn* InPawn) override;
     UFUNCTION(BlueprintCallable, Category="Spectator") void NextTeammate();
     UFUNCTION(BlueprintCallable, Category="Spectator") void ShowBattlefieldOverview();
+    void BeginFullAIDemo(APawn* InitialShip);
+    UPROPERTY(BlueprintReadOnly, Category="Spectator") bool bFullAISpectating=false;
     UPROPERTY(BlueprintReadOnly, Category="Spectator") bool bDeathSpectating=false;
     UPROPERTY(BlueprintReadOnly, Category="Spectator") TObjectPtr<APawn> FollowedTeammate;
     UFUNCTION(BlueprintCallable, Category="Camera")

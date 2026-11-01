@@ -48,7 +48,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     auto* Background=WidgetTree->ConstructWidget<UBorder>();Background->SetBrushColor(FLinearColor(.005f,.01f,.025f,.96f));
     WidgetTree->RootWidget=Background;
     auto* Scale=WidgetTree->ConstructWidget<UScaleBox>();Scale->SetStretch(EStretch::ScaleToFit);Background->AddChild(Scale);
-    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(640);Size->SetHeightOverride(760);Scale->AddChild(Size);
+    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(700);Size->SetHeightOverride(900);Scale->AddChild(Size);
     auto* Frame=WidgetTree->ConstructWidget<UBorder>();Frame->SetPadding(FMargin(22));Frame->SetBrushColor(FLinearColor(.015f,.03f,.055f,1));Size->AddChild(Frame);
     auto* Box=WidgetTree->ConstructWidget<UVerticalBox>();Frame->AddChild(Box);
     SetupText(WidgetTree,Box,TEXT("MATCH SETUP"),25,FLinearColor(.5f,.8f,1));
@@ -82,7 +82,10 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     }
     SetupText(WidgetTree,Box,TEXT("Battlefield seed / 0 creates a new layout"),12,FLinearColor(.65f,.75f,.85f));
     SeedInput=WidgetTree->ConstructWidget<UEditableTextBox>();SeedInput->SetText(FText::FromString(TEXT("0")));Box->AddChildToVerticalBox(SeedInput)->SetPadding(FMargin(0,3,0,6));
-    SetupText(WidgetTree,Box,TEXT("Small: 38 HP / 6 damage   Medium & Large: 100 / 10"),12,FLinearColor(.65f,.75f,.85f));
+    SetupText(WidgetTree,Box,TEXT("Control"),13);
+    ControlSelector=Choices(WidgetTree,Box,{TEXT("Player + AI"),TEXT("Full AI Demo / spectator")});
+    BalanceSelector=Choices(WidgetTree,Box,{TEXT("Standard demo: 100 HP / 10 damage"),TEXT("Class balance: Small 38/6, Medium & Large 100/10")});
+    NavigationSelector=Choices(WidgetTree,Box,{TEXT("Island defense demo"),TEXT("Placed ships and targets / Player + AI")});
     Error=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(1,.4f,.3f));
     auto* Buttons=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Buttons)->SetPadding(FMargin(0,7,0,0));
     for(int32 I=0;I<2;++I)
@@ -108,6 +111,9 @@ void UShipSetupWidget::NativeConstruct()
         DifficultySelector->SetSelectedIndex(static_cast<int32>(Settings->Difficulty));
         if(ModeSelector)ModeSelector->SetSelectedIndex(static_cast<int32>(Settings->Mode));
         if(PlayerTeamSelector)PlayerTeamSelector->SetSelectedIndex(FMath::Clamp(Settings->PlayerTeam,0,1));
+        if(ControlSelector)ControlSelector->SetSelectedIndex(Settings->bFullAIDemo?1:0);
+        if(BalanceSelector)BalanceSelector->SetSelectedIndex(Settings->bStandardDemoBalance?0:1);
+        if(NavigationSelector)NavigationSelector->SetSelectedIndex(Settings->bUseSectorBattlefield?0:1);
         for(int32 I=0;I<6;++I)HullSelectors[I]->SetSelectedIndex(static_cast<int32>(Settings->HullClasses[I]));
         if(SeedInput)SeedInput->SetText(FText::FromString(FString::FromInt(Settings->BattlefieldSeed)));
     }
@@ -119,6 +125,7 @@ void UShipSetupWidget::RefreshSlots()
     if(!BlueCountSelector || !RedCountSelector || !PlayerTeamSelector || SlotRows.Num()!=6)return;
     LastBlue=BlueCountSelector->GetSelectedIndex()+1;LastRed=RedCountSelector->GetSelectedIndex()+1;
     LastPlayerTeam=PlayerTeamSelector->GetSelectedIndex();
+    LastControl=ControlSelector?ControlSelector->GetSelectedIndex():0;
     for(int32 Team=0;Team<2;++Team)
     {
         const int32 Count=Team==0?LastBlue:LastRed;
@@ -126,7 +133,7 @@ void UShipSetupWidget::RefreshSlots()
         {
             const int32 Index=Team*3+ShipIndex;
             if(SlotRows[Index])SlotRows[Index]->SetVisibility(ShipIndex<Count?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
-            if(SlotLabels[Index])SlotLabels[Index]->SetText(FText::FromString(FString::Printf(TEXT("Ship %d  /  %s"),ShipIndex+1,Team==LastPlayerTeam && ShipIndex==0?TEXT("PLAYER"):TEXT("AI"))));
+            if(SlotLabels[Index])SlotLabels[Index]->SetText(FText::FromString(FString::Printf(TEXT("Ship %d  /  %s"),ShipIndex+1,LastControl==0 && Team==LastPlayerTeam && ShipIndex==0?TEXT("PLAYER"):TEXT("AI"))));
         }
     }
 }
@@ -135,13 +142,15 @@ void UShipSetupWidget::NativeTick(const FGeometry& Geometry,float DeltaTime)
 {
     Super::NativeTick(Geometry,DeltaTime);
     if(BlueCountSelector && RedCountSelector && PlayerTeamSelector &&
-        (LastBlue!=BlueCountSelector->GetSelectedIndex()+1 || LastRed!=RedCountSelector->GetSelectedIndex()+1 || LastPlayerTeam!=PlayerTeamSelector->GetSelectedIndex()))
+        (LastBlue!=BlueCountSelector->GetSelectedIndex()+1 || LastRed!=RedCountSelector->GetSelectedIndex()+1 || LastPlayerTeam!=PlayerTeamSelector->GetSelectedIndex() || LastControl!=ControlSelector->GetSelectedIndex()))
         RefreshSlots();
 }
 
 bool UShipSetupWidget::ApplySelection()
 {
     auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();if(!Settings || HullSelectors.Num()!=6)return false;
+    if(ControlSelector->GetSelectedIndex()==1 && NavigationSelector->GetSelectedIndex()==1)
+    {if(Error)Error->SetText(FText::FromString(TEXT("Full AI Demo requires Island defense demo navigation.")));return false;}
     int32 Seed=0;
     if(!SeedInput || !LexTryParseString(Seed,*SeedInput->GetText().ToString()) || Seed<0)
     {if(Error)Error->SetText(FText::FromString(TEXT("Use 0 for a new seed, or a positive integer.")));return false;}
@@ -150,7 +159,13 @@ bool UShipSetupWidget::ApplySelection()
     const bool OK=Settings->Configure(BlueCountSelector->GetSelectedIndex()+1,RedCountSelector->GetSelectedIndex()+1,Classes,
         static_cast<EShipAISkill>(DifficultySelector->GetSelectedIndex()),static_cast<ENavalBattleMode>(ModeSelector->GetSelectedIndex()),PlayerTeamSelector->GetSelectedIndex());
     if(!OK && Error)Error->SetText(FText::FromString(TEXT("Select 1-3 ships per fleet, difficulty and mode.")));
-    if(OK)Settings->SetBattlefieldSeed(Seed);
+    if(OK)
+    {
+        Settings->SetBattlefieldSeed(Seed);
+        Settings->bFullAIDemo=ControlSelector && ControlSelector->GetSelectedIndex()==1;
+        Settings->bStandardDemoBalance=!BalanceSelector || BalanceSelector->GetSelectedIndex()==0;
+        Settings->bUseSectorBattlefield=!NavigationSelector || NavigationSelector->GetSelectedIndex()==0;
+    }
     return OK;
 }
 

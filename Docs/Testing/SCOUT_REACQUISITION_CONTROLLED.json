@@ -1,0 +1,523 @@
+{
+  "status": "PASSED",
+  "phase": "seeking",
+  "forced_deaths": [
+    {
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+      "team": 1,
+      "reason": "<ShipDeathReason.HEALTH_DEPLETED: 0>"
+    },
+    {
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+      "team": 0,
+      "reason": "<ShipDeathReason.HEALTH_DEPLETED: 0>"
+    },
+    {
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+      "team": 0,
+      "reason": "<ShipDeathReason.HEALTH_DEPLETED: 0>"
+    },
+    {
+      "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+      "team": 1,
+      "reason": "<ShipDeathReason.HEALTH_DEPLETED: 0>"
+    }
+  ],
+  "samples": [
+    {
+      "age": 0.016666699200868607,
+      "visible": true,
+      "range": 566.4336547851562,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.PATROL: 1>"
+    },
+    {
+      "age": 10.0556930154562,
+      "visible": true,
+      "range": 494.37188720703125,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 20.07618761435151,
+      "visible": true,
+      "range": 468.57177734375,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 30.11472111567855,
+      "visible": true,
+      "range": 484.3441162109375,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 40.14582011476159,
+      "visible": true,
+      "range": 510.28546142578125,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 50.196994714438915,
+      "visible": true,
+      "range": 575.5086059570312,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 60.23058921471238,
+      "visible": false,
+      "range": 0.0,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 70.26896161586046,
+      "visible": false,
+      "range": 0.0,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 80.31865191459656,
+      "visible": false,
+      "range": 0.0,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 90.36922701448202,
+      "visible": false,
+      "range": 0.0,
+      "search": false,
+      "search_goals": 0,
+      "mission": "Scout leading assault",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 100.41829161345959,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 110.4620408155024,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 120.52804311364889,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 130.5781274139881,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 140.59322931617498,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.AVOID: 3>"
+    },
+    {
+      "age": 150.62766171619296,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.AVOID: 3>"
+    },
+    {
+      "age": 160.65504821389914,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 170.70172311365604,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 180.7364142164588,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 190.78324761614203,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 200.8397189155221,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 210.89448061585426,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 0,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 220.96185521408916,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 231.03193961456418,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 241.05948511511087,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 251.06847191601992,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.AVOID: 3>"
+    },
+    {
+      "age": 261.1068410202861,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 271.1437568180263,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 281.1809320189059,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 1,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.AVOID: 3>"
+    },
+    {
+      "age": 291.25739051774144,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 2,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 301.30299102142453,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 2,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 311.35189731791615,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 2,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 321.39722671732306,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 2,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 331.44104731827974,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 3,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 341.4845576174557,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 3,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 351.5276924222708,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 3,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 361.5641198195517,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 4,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 371.5847856141627,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 4,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 381.61662700772285,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 4,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 391.6373643092811,
+      "visible": false,
+      "range": 0.0,
+      "search": true,
+      "search_goals": 5,
+      "mission": "Scout: searching last-known island corridor",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 401.6851755157113,
+      "visible": true,
+      "range": 1015.82568359375,
+      "search": true,
+      "search_goals": 5,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 411.7503298185766,
+      "visible": true,
+      "range": 905.2338256835938,
+      "search": true,
+      "search_goals": 5,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 421.81819961965084,
+      "visible": true,
+      "range": 720.1786499023438,
+      "search": true,
+      "search_goals": 5,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 431.8697058185935,
+      "visible": true,
+      "range": 615.3163452148438,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 441.9027506224811,
+      "visible": true,
+      "range": 537.3702392578125,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 451.94329261779785,
+      "visible": true,
+      "range": 483.48004150390625,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Scout: contact on island search route",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    },
+    {
+      "age": 461.9902018159628,
+      "visible": true,
+      "range": 424.8478698730469,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 472.0449280105531,
+      "visible": true,
+      "range": 394.68695068359375,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 482.0997555144131,
+      "visible": true,
+      "range": 338.8659362792969,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 492.1369361244142,
+      "visible": true,
+      "range": 289.013671875,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 502.1740144342184,
+      "visible": true,
+      "range": 295.15118408203125,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 512.2229968309402,
+      "visible": true,
+      "range": 379.4455261230469,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 522.2782175205648,
+      "visible": true,
+      "range": 466.95404052734375,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FLEE: 5>"
+    },
+    {
+      "age": 531.8250725269318,
+      "visible": true,
+      "range": 547.2808837890625,
+      "search": true,
+      "search_goals": 6,
+      "mission": "Shared retreat; assault objective retained",
+      "nav": "<ShipNavigationState.FOLLOW_ROUTE: 2>"
+    }
+  ],
+  "first_seen": 0.016666699200868607,
+  "lost": 52.20500781387091,
+  "search_started": 96.90360101312399,
+  "reacquired": 399.6588526107371,
+  "error": null,
+  "last": 531.8250725269318,
+  "base_status": "PASSED",
+  "scope": "Controlled survival fixture: four guarded artificial damage deaths isolate two physical Small ships; not counted as a natural3v3 match. No survivor teleport or target assignment. Damage withheld until genuine reacquisition.",
+  "sample_count": 1060
+}

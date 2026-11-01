@@ -4,6 +4,7 @@
 #include "../ShipCombatComponent.h"
 #include "../NavalBattleUI.h"
 #include "../NavalBattlefieldSubsystem.h"
+#include "Engine/GameInstance.h"
 #include "Brushes/SlateRoundedBoxBrush.h"
 #include "CesiumGeoreference.h"
 #include "EngineUtils.h"
@@ -303,6 +304,8 @@ void UShipDetailsUI::UpdateDetails()
     if(const auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())
     {
         BattleText=FString::Printf(TEXT("BLUE %d  |  RED %d"),Battle->BlueAlive,Battle->RedAlive);
+        if(const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();Settings && Settings->bFullAIDemo)
+            BattleText=TEXT("FULL AI  |  ")+BattleText;
         if(!Battle->Outcome.IsEmpty())BattleText+=TEXT(" | ")+Battle->Outcome;
         else if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->IsEnabled() && !Field->bReady)
             BattleText+=Field->InitializationError.IsEmpty()?TEXT(" | PREPARING BATTLEFIELD"):TEXT(" | SETUP FAILED - press P");

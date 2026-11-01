@@ -1,6 +1,15 @@
+# Current developer entrypoints
+
+- Architecture: [project structure](Docs/Architecture/PROJECT_STRUCTURE.md)
+- QA: [test entrypoints](Tools/Testing/README.md)
+- Cleanup/recovery: [audit](Docs/Maintenance/CLEANUP_AUDIT.md)
+- Fixed terrain/sector frame: [battlefield guide](Docs/QuangNinhIntegration/SECTOR_BATTLEFIELD_GUIDE.md)
+
+Current verification: **DEMO_READY_WITH_LIMITATIONS** for the documented island-defense preset. Start with [demo setup](Docs/Demo/DEMO_SETUP.md) or `powershell -NoProfile -ExecutionPolicy Bypass -File .\Tools\RunDemo.ps1`. See [final QA](Docs/Testing/FINAL_QA_REPORT.md), [source audit](Docs/Architecture/CODEBASE_AUDIT.md) and [verified refactors](Docs/Architecture/REFACTOR_REPORT.md). Four natural3v3 matches completed across incremental builds; the final native build won in371.89s. Uncertified alternative fleet/path combinations are explicitly listed.
+
 # VDT Phase 2 Project
 
-Project Unreal Engine cho prototype/trình diễn tác chiến hải quân, tập trung vào điều khiển tàu, ngắm bắn, projectile, hiệu ứng chiến đấu và môi trường biển. Gameplay hiện được tổ chức chủ yếu bằng Blueprint và Enhanced Input; module C++ chỉ đóng vai trò module game cơ bản.
+Project Unreal Engine cho prototype/trình diễn tác chiến hải quân, tập trung vào điều khiển tàu, ngắm bắn, projectile, hiệu ứng chiến đấu và môi trường biển. Gameplay uses native geographic navigation, tactical missions, shared combat/health/reload, physics profiles and UI, while retaining the original Blueprint propulsion, turret and projectile graphs.
 
 ## Mục lục
 

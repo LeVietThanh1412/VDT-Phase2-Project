@@ -1,4 +1,5 @@
 #include "NavalSectorSubsystem.h"
+#include "SeaNavigationMap.h"
 #include "CesiumGeoreference.h"
 #include "Engine/World.h"
 #include "Json.h"

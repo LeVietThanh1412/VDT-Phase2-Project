@@ -1,0 +1,1083 @@
+{
+  "status": "CIRCUIT_PASSED_AB_STRESS_INCOMPLETE",
+  "phase": "ab",
+  "ships": {
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+      "label": "BP_ShipEnemy2",
+      "team": 1,
+      "controller": "AIController_0",
+      "distance_m": 10517.711289419538,
+      "last_pos": [
+        14901.132022903226,
+        4120.275569024094
+      ],
+      "legs": 20,
+      "circuit_legs": 0,
+      "circuits": 0,
+      "arrivals": [
+        {
+          "age": 59.03541440144181,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 78.96275726496177,
+          "speed_mps": 0.8223280857526415
+        },
+        {
+          "age": 232.7193535119295,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.61297294842173,
+          "speed_mps": 0.09708084614106319
+        },
+        {
+          "age": 331.19723042473197,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.26878969603221,
+          "speed_mps": 0.3923446249030299
+        },
+        {
+          "age": 401.86164988949895,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.27615783639538,
+          "speed_mps": 0.38541366188281573
+        },
+        {
+          "age": 492.05488486588,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 78.9405749404013,
+          "speed_mps": 0.36273500997275215
+        },
+        {
+          "age": 674.8421988785267,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.37864003392085,
+          "speed_mps": 0.34828017378133663
+        },
+        {
+          "age": 781.6982245631516,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.34436770291482,
+          "speed_mps": 0.36897753474565625
+        },
+        {
+          "age": 856.1660870425403,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.4794902851023,
+          "speed_mps": 0.314360285280727
+        },
+        {
+          "age": 955.058495901525,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.6106690378892,
+          "speed_mps": 1.2452361789863218
+        },
+        {
+          "age": 1044.9108053669333,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.4416730812897,
+          "speed_mps": 1.1332327960372672
+        },
+        {
+          "age": 1131.855985302478,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 78.75636837567149,
+          "speed_mps": 0.25086929467715346
+        },
+        {
+          "age": 1220.9663200117648,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.44559216031593,
+          "speed_mps": 0.8168575676208838
+        },
+        {
+          "age": 1314.6531900130212,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.31535781344948,
+          "speed_mps": 1.8472237325830165
+        },
+        {
+          "age": 1396.3893947154284,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.15477507156027,
+          "speed_mps": 2.0173332050794888
+        },
+        {
+          "age": 1481.3151313103735,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.61646989293551,
+          "speed_mps": 0.7994560916709917
+        },
+        {
+          "age": 1571.5213873460889,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.1222092656559,
+          "speed_mps": 1.6992245471709955
+        },
+        {
+          "age": 1679.8380719050765,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 79.69389631328451,
+          "speed_mps": 0.6885936746714072
+        },
+        {
+          "age": 1763.0785641223192,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.49136263890281,
+          "speed_mps": 0.14813505318704534
+        },
+        {
+          "age": 1870.4266775771976,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+          "distance_m": 78.66769435162793,
+          "speed_mps": 1.6785021528623978
+        },
+        {
+          "age": 1954.0867761708796,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+          "distance_m": 79.87515199205721,
+          "speed_mps": 0.1406965135962492
+        }
+      ],
+      "failures": [],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 6,
+      "last_goal": {
+        "name": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+        "en": [
+          14637.48238862179,
+          3712.5070051366997
+        ]
+      },
+      "total": 20,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247",
+        "label": "BP_ShipEnemy2",
+        "controller": "AIController_0",
+        "team": 1,
+        "class": "EShipHullClass::Small",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::FollowRoute",
+        "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096050065",
+        "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+        "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096054066",
+        "legs": 20,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 0,
+        "waypoint_index": 1,
+        "waypoint_count": 2,
+        "path_success": true,
+        "failure": "",
+        "throttle": 0,
+        "rudder": 0.6000000238418579,
+        "time_without_route_progress_s": 3.948967695236206,
+        "recovery_attempts": 0,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          0,
+          0,
+          0
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          3600.0001430511475,
+          0
+        ],
+        "goal_llh": [
+          107.43722548650358,
+          21.026070206837577,
+          9.570327197304836
+        ],
+        "chart_en_m": [
+          14901.132022903226,
+          4120.275569024094,
+          0
+        ],
+        "distance_to_goal_m": 485.57834728432385,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 1.0243934245452493,
+        "plans": 25,
+        "recovery_retries": 0,
+        "recovery_retry_at": 0,
+        "last_sweep_actor": "None"
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+      "label": "Friendly_AI_1",
+      "team": 0,
+      "controller": "AIController_1",
+      "distance_m": 10851.529580919749,
+      "last_pos": [
+        14465.31485069086,
+        3422.787553759576
+      ],
+      "legs": 25,
+      "circuit_legs": 10,
+      "circuits": 1,
+      "arrivals": [
+        {
+          "age": 37.93110600113869,
+          "phase": "circuit",
+          "target": "TargetPoint_3",
+          "distance_m": 79.7059646424798,
+          "speed_mps": 0.3865936541533664
+        },
+        {
+          "age": 91.7832699008286,
+          "phase": "circuit",
+          "target": "TargetPoint_4",
+          "distance_m": 79.64422936862573,
+          "speed_mps": 0.5391365152028099
+        },
+        {
+          "age": 146.8564730025828,
+          "phase": "circuit",
+          "target": "TargetPoint_5",
+          "distance_m": 79.62351751678536,
+          "speed_mps": 0.6088053684068152
+        },
+        {
+          "age": 198.20222111046314,
+          "phase": "circuit",
+          "target": "TargetPoint_6",
+          "distance_m": 79.29414559833693,
+          "speed_mps": 0.2340810585694841
+        },
+        {
+          "age": 321.07063081488013,
+          "phase": "circuit",
+          "target": "TargetPoint_7",
+          "distance_m": 79.61988679243179,
+          "speed_mps": 0.590035784239136
+        },
+        {
+          "age": 381.87726056575775,
+          "phase": "circuit",
+          "target": "TargetPoint_8",
+          "distance_m": 79.46297044672343,
+          "speed_mps": 0.4787417596544441
+        },
+        {
+          "age": 458.2036935687065,
+          "phase": "circuit",
+          "target": "TargetPoint_9",
+          "distance_m": 79.53331713247873,
+          "speed_mps": 0.3091151444269901
+        },
+        {
+          "age": 554.3425088860095,
+          "phase": "circuit",
+          "target": "TargetPoint_10",
+          "distance_m": 79.64383321648405,
+          "speed_mps": 0.283238926332444
+        },
+        {
+          "age": 642.1597932912409,
+          "phase": "circuit",
+          "target": "TargetPoint_11",
+          "distance_m": 79.79546114351199,
+          "speed_mps": 0.20445709999769618
+        },
+        {
+          "age": 700.4246629886329,
+          "phase": "circuit",
+          "target": "TargetPoint_2",
+          "distance_m": 79.60593902180055,
+          "speed_mps": 0.9383640007667724
+        },
+        {
+          "age": 787.6512713730335,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.60909544742702,
+          "speed_mps": 0.16638933421300903
+        },
+        {
+          "age": 882.5413750559092,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 78.8651719150753,
+          "speed_mps": 0.18940906135444813
+        },
+        {
+          "age": 954.7355534024537,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.13461755068889,
+          "speed_mps": 0.1538619938900572
+        },
+        {
+          "age": 1035.7776211574674,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 79.32419802218037,
+          "speed_mps": 1.233282965636581
+        },
+        {
+          "age": 1105.6866803951561,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.1138867558576,
+          "speed_mps": 0.9283432403129165
+        },
+        {
+          "age": 1187.9896288253367,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 78.92266084770648,
+          "speed_mps": 0.514193776808912
+        },
+        {
+          "age": 1284.377120155841,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.48806108191093,
+          "speed_mps": 0.5113223123682572
+        },
+        {
+          "age": 1375.680429060012,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 78.66469046177119,
+          "speed_mps": 0.6737989242284261
+        },
+        {
+          "age": 1451.1452503427863,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.08179805539629,
+          "speed_mps": 0.22129991962138532
+        },
+        {
+          "age": 1540.520079959184,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 78.98668269786184,
+          "speed_mps": 0.7100517470526434
+        },
+        {
+          "age": 1620.5359333567321,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.18341703074259,
+          "speed_mps": 0.5840330223531739
+        },
+        {
+          "age": 1696.5729538574815,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 79.03703956499554,
+          "speed_mps": 1.4117844232295829
+        },
+        {
+          "age": 1776.2646181546152,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.1482516031559,
+          "speed_mps": 1.1682470243121177
+        },
+        {
+          "age": 1853.6653714366257,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+          "distance_m": 79.19264692295374,
+          "speed_mps": 0.17465001507985836
+        },
+        {
+          "age": 1929.3528349101543,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+          "distance_m": 79.02374331588929,
+          "speed_mps": 0.14918628304589004
+        }
+      ],
+      "failures": [],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 10,
+      "last_goal": {
+        "name": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+        "en": [
+          14362.482909794278,
+          3312.5067978342313
+        ]
+      },
+      "total": 35,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985",
+        "label": "Friendly_AI_1",
+        "controller": "AIController_1",
+        "team": 0,
+        "class": "EShipHullClass::Small",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::FollowRoute",
+        "patrol_a": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+        "patrol_b": "TargetPoint_UAID_40C2BA430821690C03_1728545984",
+        "active_target": "TargetPoint_UAID_40C2BA430821690C03_1728534983",
+        "legs": 25,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 1,
+        "waypoint_index": 1,
+        "waypoint_count": 2,
+        "path_success": true,
+        "failure": "",
+        "throttle": 0.08567406982183456,
+        "rudder": 0.7373701930046082,
+        "time_without_route_progress_s": 0.26151230931282043,
+        "recovery_attempts": 0,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          -2776.0915053262734,
+          41806.10092997744,
+          2624.5538947114655
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          4424.221158027649,
+          0
+        ],
+        "goal_llh": [
+          107.43457673060983,
+          21.022459576826215,
+          8.969702436924154
+        ],
+        "chart_en_m": [
+          14465.31485069086,
+          3422.787553759576,
+          0
+        ],
+        "distance_to_goal_m": 150.7854541933742,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 10.387497869973776,
+        "plans": 16,
+        "recovery_retries": 0,
+        "recovery_retry_at": 0,
+        "last_sweep_actor": "None"
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+      "label": "Friendly_AI_2",
+      "team": 0,
+      "controller": "AIController_2",
+      "distance_m": 7484.221707645092,
+      "last_pos": [
+        14428.012692828224,
+        3900.0503924844306
+      ],
+      "legs": 16,
+      "circuit_legs": 10,
+      "circuits": 1,
+      "arrivals": [
+        {
+          "age": 51.72861320152879,
+          "phase": "circuit",
+          "target": "TargetPoint_14",
+          "distance_m": 79.54057965257957,
+          "speed_mps": 1.0146210872513934
+        },
+        {
+          "age": 97.81526340171695,
+          "phase": "circuit",
+          "target": "TargetPoint_15",
+          "distance_m": 79.35079205931162,
+          "speed_mps": 2.5688101972063
+        },
+        {
+          "age": 159.8856582082808,
+          "phase": "circuit",
+          "target": "TargetPoint_16",
+          "distance_m": 79.27294056865595,
+          "speed_mps": 0.18741652803623854
+        },
+        {
+          "age": 265.4368331171572,
+          "phase": "circuit",
+          "target": "TargetPoint_17",
+          "distance_m": 79.60935635950544,
+          "speed_mps": 0.06070990860083096
+        },
+        {
+          "age": 342.4533189088106,
+          "phase": "circuit",
+          "target": "TargetPoint_18",
+          "distance_m": 79.565902126847,
+          "speed_mps": 2.8637504912256344
+        },
+        {
+          "age": 424.5486289933324,
+          "phase": "circuit",
+          "target": "TargetPoint_19",
+          "distance_m": 79.32315189572086,
+          "speed_mps": 0.7654636923600653
+        },
+        {
+          "age": 506.61906887963414,
+          "phase": "circuit",
+          "target": "TargetPoint_20",
+          "distance_m": 79.58528899256824,
+          "speed_mps": 0.17722309307291312
+        },
+        {
+          "age": 591.6773806884885,
+          "phase": "circuit",
+          "target": "TargetPoint_21",
+          "distance_m": 79.63932764428584,
+          "speed_mps": 0.544029091781119
+        },
+        {
+          "age": 647.8125081919134,
+          "phase": "circuit",
+          "target": "TargetPoint_12",
+          "distance_m": 79.56357725883902,
+          "speed_mps": 1.565457577067004
+        },
+        {
+          "age": 712.831963699311,
+          "phase": "circuit",
+          "target": "TargetPoint_13",
+          "distance_m": 79.71946915098468,
+          "speed_mps": 0.172726497615996
+        },
+        {
+          "age": 805.8969123028219,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "distance_m": 79.58776306567728,
+          "speed_mps": 0.5590116541135276
+        },
+        {
+          "age": 902.8520817831159,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+          "distance_m": 79.02900086334678,
+          "speed_mps": 0.5788388145452719
+        },
+        {
+          "age": 1104.2152747884393,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "distance_m": 79.20445012219038,
+          "speed_mps": 0.17968731324046572
+        },
+        {
+          "age": 1196.4290673546493,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+          "distance_m": 79.11998475682788,
+          "speed_mps": 1.6903129621735178
+        },
+        {
+          "age": 1297.0623964853585,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+          "distance_m": 79.59556247306489,
+          "speed_mps": 1.6313164824314719
+        },
+        {
+          "age": 1888.8145629130304,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+          "distance_m": 79.19237492945861,
+          "speed_mps": 0.2679876656053478
+        }
+      ],
+      "failures": [],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 10,
+      "last_goal": {
+        "name": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+        "en": [
+          14412.484071196974,
+          4087.5063358724697
+        ]
+      },
+      "total": 26,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+        "label": "Friendly_AI_2",
+        "controller": "AIController_2",
+        "team": 0,
+        "class": "EShipHullClass::Small",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::Avoid",
+        "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096030063",
+        "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+        "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+        "legs": 16,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 1,
+        "waypoint_index": 1,
+        "waypoint_count": 2,
+        "path_success": true,
+        "failure": "",
+        "throttle": 0.12880872189998627,
+        "rudder": 0.21904323995113373,
+        "time_without_route_progress_s": 0.21347570419311523,
+        "recovery_attempts": 0,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          490.5240548265255,
+          -63099.54779840064,
+          -1367.5992804475409
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          1314.2594397068024,
+          0
+        ],
+        "goal_llh": [
+          107.43506416882187,
+          21.02945896936863,
+          10.082141950627449
+        ],
+        "chart_en_m": [
+          14428.012692828224,
+          3900.0503924844306,
+          0
+        ],
+        "distance_to_goal_m": 188.09802976422776,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 11.128483160934145,
+        "plans": 20,
+        "recovery_retries": 0,
+        "recovery_retry_at": 0,
+        "last_sweep_actor": "None"
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+      "label": "BP_ShipEnemy3",
+      "team": 1,
+      "controller": "AIController_3",
+      "distance_m": 1441.1014661382083,
+      "last_pos": [
+        15288.211118420464,
+        4266.624935577167
+      ],
+      "legs": 1,
+      "circuit_legs": 0,
+      "circuits": 0,
+      "arrivals": [
+        {
+          "age": 63.54464669898152,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+          "distance_m": 79.44975636986612,
+          "speed_mps": 0.06201553033902073
+        }
+      ],
+      "failures": [
+        "Bounded recovery attempts exhausted"
+      ],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 1,
+      "last_goal": {
+        "name": "TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+        "en": [
+          15562.479659927065,
+          4512.508090507222
+        ]
+      },
+      "total": 1,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248",
+        "label": "BP_ShipEnemy3",
+        "controller": "AIController_3",
+        "team": 1,
+        "class": "EShipHullClass::Large",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::Failed",
+        "patrol_a": "TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+        "patrol_b": "TargetPoint_UAID_40C2BA430821B90C03_2096061068",
+        "active_target": "TargetPoint_UAID_40C2BA430821B90C03_2096058067",
+        "legs": 1,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 0,
+        "waypoint_index": 1,
+        "waypoint_count": 2,
+        "path_success": false,
+        "failure": "Bounded recovery attempts exhausted",
+        "throttle": 0,
+        "rudder": 0,
+        "time_without_route_progress_s": 16.260005950927734,
+        "recovery_attempts": 3,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          0,
+          0,
+          0
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          0,
+          0
+        ],
+        "goal_llh": [
+          107.44613095974168,
+          21.033288209326038,
+          10.991149176260171
+        ],
+        "chart_en_m": [
+          15288.211118420464,
+          4266.624935577167,
+          0
+        ],
+        "distance_to_goal_m": 368.3500491922284,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 0.4076457977294923,
+        "plans": 56,
+        "recovery_retries": 12,
+        "recovery_retry_at": 2009.088342949748,
+        "last_sweep_actor": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711"
+      }
+    },
+    "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+      "label": "BP_ShipEnemy",
+      "team": 1,
+      "controller": "AIController_4",
+      "distance_m": 3756.824229124167,
+      "last_pos": [
+        15278.176677522988,
+        4334.58444035003
+      ],
+      "legs": 4,
+      "circuit_legs": 0,
+      "circuits": 0,
+      "arrivals": [
+        {
+          "age": 46.089997198432684,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+          "distance_m": 79.83245297288227,
+          "speed_mps": 0.05899195324617684
+        },
+        {
+          "age": 259.8999319151044,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA430821150C03_1217123199",
+          "distance_m": 78.82646598985076,
+          "speed_mps": 0.16331977445313825
+        },
+        {
+          "age": 512.0273603796959,
+          "phase": "circuit",
+          "target": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+          "distance_m": 78.5436050338965,
+          "speed_mps": 0.7051481703622935
+        },
+        {
+          "age": 834.8002260364592,
+          "phase": "ab",
+          "target": "TargetPoint_UAID_40C2BA430821150C03_1217123199",
+          "distance_m": 79.61107601969954,
+          "speed_mps": 0.27523155593837356
+        }
+      ],
+      "failures": [],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 3,
+      "last_goal": {
+        "name": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+        "en": [
+          14787.48216125946,
+          3962.507095573121
+        ]
+      },
+      "total": 4,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711",
+        "label": "BP_ShipEnemy",
+        "controller": "AIController_4",
+        "team": 1,
+        "class": "EShipHullClass::Medium",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::Avoid",
+        "patrol_a": "TargetPoint_UAID_40C2BA430821150C03_1217123199",
+        "patrol_b": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+        "active_target": "TargetPoint_UAID_40C2BA4308211B0C03_1660229255",
+        "legs": 4,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 0,
+        "waypoint_index": 1,
+        "waypoint_count": 3,
+        "path_success": true,
+        "failure": "",
+        "throttle": 0,
+        "rudder": -0.06938327848911285,
+        "time_without_route_progress_s": 0.01734989881515503,
+        "recovery_attempts": 0,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          0,
+          0,
+          0
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          -832.5993418693542,
+          0
+        ],
+        "goal_llh": [
+          107.43867058820193,
+          21.028327004049505,
+          9.96020016421256
+        ],
+        "chart_en_m": [
+          15278.176677522988,
+          4334.58444035003,
+          0
+        ],
+        "distance_to_goal_m": 615.8105705375215,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 0.38287990220956003,
+        "plans": 36,
+        "recovery_retries": 0,
+        "recovery_retry_at": 0,
+        "last_sweep_actor": "None"
+      }
+    },
+    "Demo_Blue_Flagship": {
+      "label": "BP_ShipSmallAI",
+      "team": 0,
+      "controller": "AIController_5",
+      "distance_m": 6780.586132944883,
+      "last_pos": [
+        14417.766576499183,
+        4083.5372370476034
+      ],
+      "legs": 14,
+      "circuit_legs": 10,
+      "circuits": 1,
+      "arrivals": [
+        {
+          "age": 61.9443300999701,
+          "phase": "circuit",
+          "target": "TargetPoint_25",
+          "distance_m": 59.67231789838161,
+          "speed_mps": 2.0125568042090656
+        },
+        {
+          "age": 130.2267015017569,
+          "phase": "circuit",
+          "target": "TargetPoint_26",
+          "distance_m": 59.8800693041117,
+          "speed_mps": 0.46607567680378914
+        },
+        {
+          "age": 218.71389631554484,
+          "phase": "circuit",
+          "target": "TargetPoint_27",
+          "distance_m": 59.496323128131664,
+          "speed_mps": 0.3138993996101754
+        },
+        {
+          "age": 309.01298281922936,
+          "phase": "circuit",
+          "target": "TargetPoint_28",
+          "distance_m": 59.74335177100584,
+          "speed_mps": 0.4868385239776067
+        },
+        {
+          "age": 392.6323580816388,
+          "phase": "circuit",
+          "target": "TargetPoint_29",
+          "distance_m": 59.766852419907224,
+          "speed_mps": 0.2511133938096454
+        },
+        {
+          "age": 473.4739115536213,
+          "phase": "circuit",
+          "target": "TargetPoint_30",
+          "distance_m": 59.79230807446076,
+          "speed_mps": 0.354787360724199
+        },
+        {
+          "age": 555.5463663935661,
+          "phase": "circuit",
+          "target": "TargetPoint_31",
+          "distance_m": 59.86449059316582,
+          "speed_mps": 0.11056613424079291
+        },
+        {
+          "age": 614.0322536751628,
+          "phase": "circuit",
+          "target": "TargetPoint_22",
+          "distance_m": 59.74022247573531,
+          "speed_mps": 0.8166873550413782
+        },
+        {
+          "age": 676.1180253699422,
+          "phase": "circuit",
+          "target": "TargetPoint_23",
+          "distance_m": 59.96445702458521,
+          "speed_mps": 0.5376135706282991
+        },
+        {
+          "age": 749.6379380486906,
+          "phase": "circuit",
+          "target": "TargetPoint_24",
+          "distance_m": 59.62362060408654,
+          "speed_mps": 0.9940919129011845
+        },
+        {
+          "age": 821.6568481139839,
+          "phase": "ab",
+          "target": "TargetPoint_1",
+          "distance_m": 59.8406718332414,
+          "speed_mps": 1.076612782607129
+        },
+        {
+          "age": 953.8392107002437,
+          "phase": "ab",
+          "target": "TargetPoint_0",
+          "distance_m": 59.58578900009008,
+          "speed_mps": 1.0800222058371165
+        },
+        {
+          "age": 1206.2730772830546,
+          "phase": "ab",
+          "target": "TargetPoint_1",
+          "distance_m": 59.84951351702229,
+          "speed_mps": 0.5759635114437855
+        },
+        {
+          "age": 1421.0047546699643,
+          "phase": "ab",
+          "target": "TargetPoint_0",
+          "distance_m": 58.562533843063946,
+          "speed_mps": 0.3803232747724898
+        }
+      ],
+      "failures": [],
+      "physical": true,
+      "controller_preserved": true,
+      "ab_start": 10,
+      "last_goal": {
+        "name": "TargetPoint_1",
+        "en": [
+          14187.485485465539,
+          4312.50577333025
+        ]
+      },
+      "total": 24,
+      "diagnostics": {
+        "operational_chart": true,
+        "navigation_cell_size_m": 25,
+        "actor": "Demo_Blue_Flagship",
+        "label": "BP_ShipSmallAI",
+        "controller": "AIController_5",
+        "team": 0,
+        "class": "EShipHullClass::Small",
+        "tactical_state": "EShipTacticalState::Patrol",
+        "navigation_state": "EShipNavigationState::FollowRoute",
+        "patrol_a": "TargetPoint_0",
+        "patrol_b": "TargetPoint_1",
+        "active_target": "TargetPoint_1",
+        "legs": 14,
+        "circuit_targets": 0,
+        "circuit_index": 0,
+        "circuits_completed": 1,
+        "waypoint_index": 2,
+        "waypoint_count": 3,
+        "path_success": true,
+        "failure": "",
+        "throttle": 0,
+        "rudder": 0.6000000238418579,
+        "time_without_route_progress_s": 0.01734989881515503,
+        "recovery_attempts": 0,
+        "reposition_reinitializations": 1,
+        "explicit_stop": false,
+        "can_act": true,
+        "blueprint_propulsion_force": [
+          0,
+          0,
+          0
+        ],
+        "blueprint_rudder_force_local": [
+          0,
+          3600.0001430511475,
+          0
+        ],
+        "goal_llh": [
+          107.43290152243937,
+          21.031492907292893,
+          10.393789628275218
+        ],
+        "chart_en_m": [
+          14417.766576499183,
+          4083.5372370476034,
+          0
+        ],
+        "distance_to_goal_m": 324.7398520270524,
+        "chart_water": true,
+        "physics": true,
+        "speed_mps": 0.3293772720621869,
+        "plans": 125,
+        "recovery_retries": 0,
+        "recovery_retry_at": 0,
+        "last_sweep_actor": "None"
+      }
+    }
+  },
+  "events": [
+    {
+      "age": 749.6379380486906,
+      "action": "Clear Blue optional circuits and restart original A/B; no hull/target movement"
+    }
+  ],
+  "error": null,
+  "last": 1999.1731543019414,
+  "age": 1989.0949072651565,
+  "circuit_completed_at": 749.6379380486906,
+  "scope": "All three Blue Small hulls physically completed the island circuit. Additional assault-disabled reverse-flow A/B stress did not complete for heavy Red hulls; it is not certified."
+}

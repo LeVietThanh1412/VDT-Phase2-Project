@@ -81,6 +81,7 @@ public:
 private:
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Registered;
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Fallen;
+    UPROPERTY(Transient) TObjectPtr<APawn> DemoCommandShip;
     FTimerHandle MatchTimer;
     TArray<TWeakObjectPtr<UShipWeaponComponent>> TurnRoster;
     TArray<FString> TurnLabels;
