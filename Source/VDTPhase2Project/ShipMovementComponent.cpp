@@ -5,8 +5,10 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "BuoyancyComponent.h"
+#include "WaterBodyComponent.h"
 #include "ShipEnemyNavigationComponent.h"
 #include "PhysicsEngine/BodyInstance.h"
+#include "Physics/SimpleSuspension.h"
 #include "GameFramework/SpringArmComponent.h"
 
 namespace
@@ -19,7 +21,7 @@ FVector Forward(AActor* Ship)
 }
 }
 UShipMovementComponent::UShipMovementComponent()
-{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;}
+{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PrePhysics;}
 void UShipMovementComponent::BeginPlay()
 {
     Super::BeginPlay();if(Profile)ApplyProfile(Profile);else ApplyShipClass(HullClass);
@@ -35,6 +37,8 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
 {
     auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner());
     const auto* W=GetOwner()->FindComponentByClass<UShipWeaponComponent>();if(!P || !Hull || (W && W->bIsDestroyed))return false;
+    DampingHull=Hull;DampingBuoyancy=GetOwner()->FindComponentByClass<UBuoyancyComponent>();
+    DampingWeapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>();
     ApplyEquipment(P);
     if(auto* Visual=GetOwner()->FindComponentByClass<USkeletalMeshComponent>())
     {
@@ -49,10 +53,14 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
     if(auto* Body=Hull->GetBodyInstance())Body->UpdateMassProperties();
     if(auto* B=GetOwner()->FindComponentByClass<UBuoyancyComponent>())
     {
+        // Match setup selects hull classes after BeginPlay. The Water async aux
+        // snapshots scalar settings only once per body; use its supported sync
+        // path so the selected profile, not the initial Blueprint, supplies lift.
+        B->bUseAsyncPath=false;
         if(!bCachedBuoyancy){OriginalBuoyancy=B->BuoyancyData;bCachedBuoyancy=true;}
         B->BuoyancyData=OriginalBuoyancy;
-        B->BuoyancyData.BuoyancyCoefficient*=FMath::Max(.1f,P->DisplacementMultiplier);
-        B->BuoyancyData.MaxBuoyantForce*=FMath::Max(.1f,P->DisplacementMultiplier);
+        B->BuoyancyData.BuoyancyCoefficient*=FMath::Max(.001f,P->DisplacementMultiplier);
+        B->BuoyancyData.MaxBuoyantForce*=FMath::Max(.001f,P->DisplacementMultiplier);
         B->BuoyancyData.BuoyancyDamp*=FMath::Max(.1f,P->VerticalDampingMultiplier);
         B->BuoyancyData.BuoyancyDamp2*=FMath::Max(.1f,P->VerticalDampingMultiplier);
         if(!P->PontoonLocations.IsEmpty())
@@ -62,6 +70,20 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
         }
         for(auto& Pontoon:B->BuoyancyData.Pontoons)Pontoon.Radius*=FMath::Clamp(P->PontoonRadiusMultiplier,.2f,5.f);
         B->UpdatePontoonCoefficients();
+        // UE caches weights by enabled mask alone. A replaced 4->4 layout can
+        // otherwise retain default weights of 1 (four times the intended lift).
+        // Reuse the engine's sprung-mass solver with the actual hull-local COM.
+        if(const auto* Body=Hull->GetBodyInstance())
+        {
+            TArray<FVector> Locations;TArray<float> Weights;
+            for(const auto& Pontoon:B->BuoyancyData.Pontoons)if(Pontoon.bEnabled)
+                Locations.Add(Pontoon.bUseCenterSocket?Hull->GetSocketTransform(Pontoon.CenterSocket,RTS_Component).GetLocation():Pontoon.RelativeLocation);
+            Weights.SetNumZeroed(Locations.Num());
+            if(!FSimpleSuspensionHelpers::ComputeSprungMasses(Locations,Body->GetMassSpaceLocal().GetLocation(),1.f,Weights))return false;
+            float WeightSum=0;for(float Weight:Weights){if(!FMath::IsFinite(Weight) || Weight<0)return false;WeightSum+=Weight;}
+            if(!FMath::IsNearlyEqual(WeightSum,1.f,.001f))return false;
+            int32 Index=0;for(auto& Pontoon:B->BuoyancyData.Pontoons)if(Pontoon.bEnabled)Pontoon.PontoonCoefficient=Weights[Index++];
+        }
     }
     Profile=P;HullClass=P->HullClass;AppliedPropulsionScale=FMath::Max(.1f,P->PropulsionScale);AppliedRudderScale=FMath::Max(.1f,P->RudderScale);
     ForwardMaxSpeed=FMath::Max(1.f,P->ForwardMaxSpeed);ReverseMaxSpeed=FMath::Max(1.f,P->ReverseMaxSpeed);
@@ -81,6 +103,13 @@ bool UShipMovementComponent::ApplyProfile(UShipPhysicsProfile* P)
     if(auto* Weapon=GetOwner()->FindComponentByClass<UShipWeaponComponent>())Weapon->RefreshShipTags();
     bProfileApplied=true;return true;
 }
+FString UShipMovementComponent::GetBuoyancyDiagnostics() const
+{
+    if(!IsValid(DampingBuoyancy) || !IsValid(DampingHull))return TEXT("{}");
+    float WeightSum=0;for(const auto& Pontoon:DampingBuoyancy->BuoyancyData.Pontoons)if(Pontoon.bEnabled)WeightSum+=Pontoon.PontoonCoefficient;
+    return FString::Printf(TEXT("{\"async\":%s,\"pontoons\":%d,\"weight_sum\":%.6f,\"mass_kg\":%.3f}"),
+        DampingBuoyancy->IsUsingAsyncPath()?TEXT("true"):TEXT("false"),DampingBuoyancy->BuoyancyData.Pontoons.Num(),WeightSum,DampingHull->GetMass());
+}
 void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)
 {
     auto* Hull=Cast<UStaticMeshComponent>(UShipCombatComponent::PhysicalHull(GetOwner()));
@@ -93,7 +122,7 @@ void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)
         OriginalVisualCollision=AuthoredSmall?ECollisionEnabled::QueryAndPhysics:Driver->GetCollisionEnabled();bCachedEquipment=true;
     }
     const bool Small=P->StaticVisualMesh!=nullptr;
-    SetComponentTickEnabled(Small);
+    SetComponentTickEnabled(Small || P->HeaveDampingPerSecond>0 || P->RollDampingPerSecond>0 || P->PitchDampingPerSecond>0);
     Hull->SetStaticMesh(P->HullCollisionMesh?P->HullCollisionMesh.Get():OriginalHull.Get());
     Driver->SetRelativeTransform(Small?P->WeaponDriverTransform:OriginalVisualTransform);
     Driver->SetHiddenInGame(Small);Driver->SetVisibility(!Small,false);
@@ -147,12 +176,46 @@ void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)
 void UShipMovementComponent::TickComponent(float DeltaTime,ELevelTick TickType,FActorComponentTickFunction* TickFunction)
 {
     Super::TickComponent(DeltaTime,TickType,TickFunction);
+    ApplyWaterResistance(DeltaTime);
     if(!Profile || !Profile->StaticVisualMesh)return;
     if(auto* Driver=GetOwner()->FindComponentByClass<USkeletalMeshComponent>())
     {
         if(GunYaw)GunYaw->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_h_jnt")));
         if(GunPitch)GunPitch->SetWorldTransform(Driver->GetSocketTransform(TEXT("front_gun_v_jnt")));
     }
+}
+void UShipMovementComponent::ApplyWaterResistance(float DeltaTime)
+{
+    if(!IsValid(Profile) || !IsValid(DampingHull) || !IsValid(DampingBuoyancy) ||
+       (IsValid(DampingWeapon) && DampingWeapon->bIsDestroyed) || !DampingHull->IsSimulatingPhysics() ||
+       !FMath::IsFinite(DeltaTime) || DeltaTime<=0)return;
+    bool Immersed=DampingBuoyancy->IsInWaterBody();
+    // All spherical supports can briefly clear a trough while the keel is still
+    // submerged. Dropping resistance in that frame caused a free-fall/rebound.
+    // Query only that uncommon case, and never retain water drag on a dry hull.
+    if(!Immersed && DampingBuoyancy->IsOverlappingWaterBody())
+    {
+        for(UWaterBodyComponent* Water:DampingBuoyancy->GetCurrentWaterBodyComponents())
+        {
+            if(!IsValid(Water))continue;
+            FVector Surface,Normal,Flow;float Depth;
+            Water->GetWaterSurfaceInfoAtLocation(DampingHull->GetComponentLocation(),Surface,Normal,Flow,Depth);
+            if(DampingHull->Bounds.Origin.Z-DampingHull->Bounds.BoxExtent.Z<Surface.Z){Immersed=true;break;}
+        }
+    }
+    if(!Immersed)return;
+    const FVector Velocity=DampingHull->GetPhysicsLinearVelocity();
+    const FVector AngularVelocity=DampingHull->GetPhysicsAngularVelocityInRadians();
+    if(Velocity.ContainsNaN() || AngularVelocity.ContainsNaN())return;
+    // Exponential drag expressed as acceleration: frame-safe at low FPS, with no
+    // velocity assignment. Chaos integrates force/torque; do not multiply by dt.
+    const auto Rate=[DeltaTime](float PerSecond)
+    {return FMath::IsFinite(PerSecond)?(1.f-FMath::Exp(-FMath::Clamp(PerSecond,0.f,60.f)*DeltaTime))/DeltaTime:0.f;};
+    DampingHull->AddForce(FVector(0,0,-DampingHull->GetMass()*Velocity.Z*Rate(Profile->HeaveDampingPerSecond)));
+    const FQuat Rotation=DampingHull->GetComponentQuat();
+    const FVector LocalOmega=Rotation.UnrotateVector(AngularVelocity);
+    const FVector AngularDrag(-LocalOmega.X*Rate(Profile->RollDampingPerSecond),-LocalOmega.Y*Rate(Profile->PitchDampingPerSecond),0);
+    DampingHull->AddTorqueInRadians(Rotation.RotateVector(AngularDrag),NAME_None,true);
 }
 FVector UShipMovementComponent::FilterRudderLocation(AActor* Ship,FVector OriginalLocation)
 {
