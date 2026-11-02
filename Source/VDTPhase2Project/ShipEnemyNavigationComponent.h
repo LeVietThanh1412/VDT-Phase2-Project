@@ -46,6 +46,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetA=FVector::ZeroVector;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") FVector PatrolOffsetB=FVector::ZeroVector;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") bool bStartAtPatrolB=false;
+    /** Authored-map mode keeps the assigned A/B route while shared guns still engage. */
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol") bool bKeepAuthoredPatrol=false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolWaitSeconds = 2;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Patrol", meta=(ClampMin="0")) float PatrolStartupDelaySeconds = 0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Control", meta=(Units="m",ClampMin="0")) float SafeShipSeparationM = 300;
@@ -110,6 +112,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Navigation") void SetDriveCommand(float Throttle, float Rudder);
     UFUNCTION(BlueprintCallable, Category="Navigation") void SetGeographicDestination(FVector LongitudeLatitudeHeight);
     UFUNCTION(BlueprintCallable, Category="Navigation") void StartPatrol();
+    /** Prepare authored A/B references; route validation defaults on and may wait for the physical survey. */
+    UFUNCTION(BlueprintCallable, Category="Navigation") bool PrepareAuthoredPatrol(FString& OutError,bool bValidateRoutes=true);
     UFUNCTION(BlueprintCallable, Category="Navigation") void RequestReplan();
     /** Development placement only: invalidate the old start/collision/arrival state.
      * Does not move the body or change its patrol endpoints/possession. */

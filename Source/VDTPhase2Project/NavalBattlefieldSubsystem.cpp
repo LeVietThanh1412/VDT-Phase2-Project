@@ -63,13 +63,45 @@ void UNavalBattlefieldSubsystem::Fail(const FString& Reason)
 {bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;UE_LOG(LogTemp,Warning,TEXT("NavalBattlefield seed=%d SETUP FAILED: %s"),ActualSeed,*Reason);if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}}
 void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
 {
-    if(!IsEnabled()){Status=TEXT("Sector placement disabled during development");return;}
     bInitialized=true;bReady=false;InitializedAt=GetWorld()->GetTimeSeconds();PlacedAt=-1;LayoutAttempts=0;InitializationError.Empty();Assignments.Reset();
     RetainedFleet.Reset();for(auto* P:Ships)RetainedFleet.Add(P);
     PhysicalLayoutRetries=0;bUsedSafeFallback=false;bPhysicalSearch=false;LastPhysicalRejection.Empty();TerrainStableSince=-1;OperationalCharts.Reset();
     AssaultLeader.Reset();AssaultLeaderChanges=0;bAssaultInitialized=false;LastAssaultUpdateAt=-1000;ScoutContactAt=-1000;
     ObservedContacts.Reset();
     auto* S=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
+    bUsingAuthoredLayout=!IsEnabled();
+    if(bUsingAuthoredLayout)
+    {
+        ActualSeed=S->BattlefieldSeed>0?S->BattlefieldSeed:FMath::RandRange(1,MAX_int32);
+        FBox Coverage(ForceInit);
+        for(APawn* Ship:Ships)
+        {
+            Coverage+=Ship->GetActorLocation();
+            if(auto* Nav=Ship->FindComponentByClass<UShipEnemyNavigationComponent>())
+            {
+                FString Error;
+                // Validate references now; the exact directed routes must use
+                // the physical chart built after this authored area is streamed.
+                if(!Nav->PrepareAuthoredPatrol(Error,false)){Fail(Error);return;}
+                Coverage+=Nav->PatrolActorA->GetActorLocation();Coverage+=Nav->PatrolActorB->GetActorLocation();
+            }
+        }
+        // Stream the user's area, without changing any authored pose or marker.
+        if(Coverage.IsValid)
+        {
+            const FVector Focus=Coverage.GetCenter(),Eye=Focus+FVector(0,0,FMath::Max(230000.,Coverage.GetExtent().GetMax()*1.5));
+            LoadingCamera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation());
+            if(LoadingCamera)
+            {
+                FCesiumCamera View;View.ParameterSource=ECameraParameterSource::CameraComponent;View.CameraComponent=LoadingCamera->GetCameraComponent();View.ViewportSize=FVector2D(8192,8192);
+                StreamingCameraManager=ACesiumCameraManager::GetDefaultCameraManager(this);
+                if(StreamingCameraManager.IsValid())StreamingCameraManager->AdditionalCameras.Add(View);
+            }
+        }
+        Status=TEXT("MY MAP: settling authored ships; patrol starts at A");
+        if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ConfigurationError=Status;
+        return;
+    }
     if(S->bUseIslandPatrolCircuit && AreTacticsEnabled())
         for(TActorIterator<ACesiumSunSky> Sky(GetWorld());Sky;++Sky)
         {Sky->SolarTime=10.5;Sky->UseDaylightSavingTime=false;Sky->UpdateSun();}
@@ -151,8 +183,26 @@ bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
         // additional western corridor instead of reducing real hull clearance.
         // The original 625 logical sectors and all spawn bounds remain intact.
         const double WestExtension=AreTacticsEnabled() && Settings->bUseIslandPatrolCircuit?600.:0.;
-        Chart->CellSize=25;Chart->Width=FMath::RoundToInt((Grid->WidthM+WestExtension)/25);Chart->Height=FMath::RoundToInt(Grid->HeightM/25);
-        Chart->MinEast=Grid->CenterEN.X-Grid->WidthM*.5-WestExtension;Chart->MinNorth=Grid->CenterEN.Y-Grid->HeightM*.5;
+        Chart->CellSize=25;
+        if(bUsingAuthoredLayout)
+        {
+            FBox2D Bounds(ForceInit);
+            for(APawn* Ship:RetainedFleet)
+            {
+                Bounds+=Grid->WorldToChart(Ship->GetActorLocation());
+                if(const auto* Nav=Ship->FindComponentByClass<UShipEnemyNavigationComponent>())
+                {if(Nav->PatrolActorA)Bounds+=Grid->WorldToChart(Nav->PatrolActorA->GetActorLocation());if(Nav->PatrolActorB)Bounds+=Grid->WorldToChart(Nav->PatrolActorB->GetActorLocation());}
+            }
+            Bounds=Bounds.ExpandBy(500.);
+            Chart->MinEast=FMath::FloorToDouble(Bounds.Min.X/25)*25;Chart->MinNorth=FMath::FloorToDouble(Bounds.Min.Y/25)*25;
+            Chart->Width=FMath::CeilToInt((Bounds.Max.X-Chart->MinEast)/25);Chart->Height=FMath::CeilToInt((Bounds.Max.Y-Chart->MinNorth)/25);
+            if(int64(Chart->Width)*Chart->Height>250000){Fail(TEXT("MY MAP: authored area is too large for the bounded local collision survey"));return false;}
+        }
+        else
+        {
+            Chart->Width=FMath::RoundToInt((Grid->WidthM+WestExtension)/25);Chart->Height=FMath::RoundToInt(Grid->HeightM/25);
+            Chart->MinEast=Grid->CenterEN.X-Grid->WidthM*.5-WestExtension;Chart->MinNorth=Grid->CenterEN.Y-Grid->HeightM*.5;
+        }
         Chart->Cells.Init(0,Chart->Width*Chart->Height);Chart->Clearance.Init(0,Chart->Cells.Num());
         const float Radius=SpawnHullRadius(P);
         FVector Extent=B.GetExtent()*Scale+FVector(200);Extent.X=Extent.Y=(Radius+2)*100;
@@ -160,7 +210,7 @@ bool UNavalBattlefieldSubsystem::BuildOperationalCharts()
         {
             const auto Center=Chart->Center(Id);
             const double Inset=Radius+30+Chart->CellSize*.5;
-            bool Clear=Coast->IsWater(Center) && Center.X>=Chart->MinEast+Inset && Center.X<=Chart->MinEast+Chart->Width*25-Inset &&
+            bool Clear=Coast->IsUnbufferedWater(Center) && Center.X>=Chart->MinEast+Inset && Center.X<=Chart->MinEast+Chart->Width*25-Inset &&
                 Center.Y>=Chart->MinNorth+Inset && Center.Y<=Chart->MinNorth+Chart->Height*25-Inset;
             if(Clear)for(int32 Corner=0;Corner<4 && Clear;++Corner)
             {
@@ -549,6 +599,38 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
 }
 void UNavalBattlefieldSubsystem::Tick(float Dt)
 {
+    if(bUsingAuthoredLayout)
+    {
+        if(!bInitialized || bReady || !InitializationError.IsEmpty())return;
+        const double Age=GetWorld()->GetTimeSeconds()-InitializedAt;
+        if(Age>30){Fail(TEXT("MY MAP: a placed ship did not settle in water. Check its starting height, water contact and collision."));return;}
+        if(Age<6)return;
+        for(TActorIterator<ACesium3DTileset> Tile(GetWorld());Tile;++Tile)
+            if(Tile->FindComponentByClass<USeaTerrainCollisionComponent>() && Tile->GetLoadProgress()<99.9f){TerrainStableSince=-1;return;}
+        if(TerrainStableSince<0)TerrainStableSince=GetWorld()->GetTimeSeconds();
+        if(GetWorld()->GetTimeSeconds()-TerrainStableSince<2)return;
+        if(!bPhysicalSearch)
+        {
+            if(!BuildOperationalCharts())return;
+            bPhysicalSearch=true;
+            for(APawn* Ship:RetainedFleet)if(auto* Nav=Ship->FindComponentByClass<UShipEnemyNavigationComponent>())
+            {
+                FString Error;
+                if(!Nav->UseOperationalChart(NavigationChartForShip(Ship)) || !Nav->PrepareAuthoredPatrol(Error))
+                {Fail(Error.IsEmpty()?TEXT("MY MAP: could not apply the surveyed route chart"):Error);return;}
+            }
+        }
+        for(APawn* Ship:RetainedFleet)
+        {
+            const auto* Buoyancy=IsValid(Ship)?Ship->FindComponentByClass<UBuoyancyComponent>():nullptr;
+            const auto* Hull=IsValid(Ship)?UShipCombatComponent::PhysicalHull(Ship):nullptr;
+            if(!Buoyancy || !Buoyancy->IsInWaterBody() || !Hull || !Hull->IsSimulatingPhysics())return;
+        }
+        bReady=true;Status=FString::Printf(TEXT("MY MAP | A-B PATROL | SEED %d"),ActualSeed);
+        if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){Battle->ConfigurationError.Empty();Battle->Notification=Status;}
+        if(auto* PC=Cast<ACustomPlayerController>(UGameplayStatics::GetPlayerController(this,0));PC && PC->bFullAISpectating)PC->ShowBattlefieldOverview();
+        return;
+    }
     if(LoadingCamera)if(auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>())LoadingCamera->SetActorLocation(Grid->ChartToWorld(Grid->CenterEN)+FVector(0,0,230000));
     if(bReady && AreTacticsEnabled()){UpdateDefenders();UpdateAssault();}
     if(!IsEnabled() || !bInitialized || bReady || !InitializationError.IsEmpty())return;
@@ -593,6 +675,7 @@ void UNavalBattlefieldSubsystem::Deinitialize()
 FString UNavalBattlefieldSubsystem::LayoutReport() const
 {
     auto J=MakeShared<FJsonObject>();J->SetNumberField(TEXT("seed"),ActualSeed);J->SetBoolField(TEXT("ready"),bReady);J->SetStringField(TEXT("status"),Status);J->SetStringField(TEXT("error"),InitializationError);J->SetNumberField(TEXT("attempts"),LayoutAttempts);
+    J->SetBoolField(TEXT("authored_layout"),bUsingAuthoredLayout);
     J->SetStringField(TEXT("assault_leader"),AssaultLeader.IsValid()?AssaultLeader->GetActorNameOrLabel():TEXT("none"));J->SetNumberField(TEXT("leader_changes"),AssaultLeaderChanges);
     J->SetNumberField(TEXT("physical_layout_retries"),PhysicalLayoutRetries);J->SetBoolField(TEXT("used_safe_fallback"),bUsedSafeFallback);
     auto Charts=MakeShared<FJsonObject>();

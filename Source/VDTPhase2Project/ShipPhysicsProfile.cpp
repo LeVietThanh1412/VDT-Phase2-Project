@@ -17,7 +17,7 @@ void UShipPhysicsProfile::SetDefaults(EShipHullClass Type)
     // Double the lighter hulls' support radius, compensating r^3 volume so
     // displacement stays the same while troughs no longer uncover all supports.
     DisplacementMultiplier=Large?1.6f:.125f;VerticalDampingMultiplier=Large?3.6f:1;PontoonRadiusMultiplier=Large?1:2;
-    HeaveDampingPerSecond=20;RollDampingPerSecond=30;PitchDampingPerSecond=15;
+    HeaveDampingPerSecond=20;LateralDampingPerSecond=4;RollDampingPerSecond=30;PitchDampingPerSecond=15;
     MaxHealth=100;BaseProjectileDamage=10;
     PontoonLocations.Reset();
     // Keep the four authored end supports; a middle pair samples the 100m gap

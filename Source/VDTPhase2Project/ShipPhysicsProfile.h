@@ -31,6 +31,8 @@ public:
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") float VerticalDampingMultiplier=1;
     /** Passive water resistance in both vertical directions; does not resist forward motion. */
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float HeaveDampingPerSecond=20;
+    /** Keel resistance to sideways rudder drift; no forward-speed or yaw damping. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="30")) float LateralDampingPerSecond=4;
     /** Hull-local angular resistance. Yaw remains governed by the original rudder/body damping. */
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float RollDampingPerSecond=30;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float PitchDampingPerSecond=15;

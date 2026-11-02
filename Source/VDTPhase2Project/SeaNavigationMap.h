@@ -19,6 +19,14 @@ struct VDTPHASE2PROJECT_API FSeaNavigationMap
     FVector OriginLLH = FVector::ZeroVector, OriginECEF = FVector::ZeroVector;
     FVector East = FVector(1,0,0), North = FVector(0,1,0);
     TArray<uint8> Cells, Clearance;
+    /** Raw shoreline only, separate from the inflated navigation exclusion. */
+    int32 CoastWidth=0,CoastHeight=0;
+    double CoastCellSize=0,CoastMinEast=0,CoastMinNorth=0;
+    TArray<uint8> CoastWater;
+    bool IsUnbufferedWater(const FVector2D& P) const;
+    TSharedPtr<const FSeaNavigationMap> UnbufferedCoastView() const;
+    /** A safe stopping point within the requested arrival zone; never moves its actor. */
+    bool ResolveArrivalGoal(const FVector2D& Requested,double ArrivalRadius,const FVector2D& Reference,FVector2D& Out) const;
     TArray<int32> ConnectedRegions;
     /** Same eight-neighbor/corner policy for source and surveyed charts. */
     void RebuildConnectedRegions();

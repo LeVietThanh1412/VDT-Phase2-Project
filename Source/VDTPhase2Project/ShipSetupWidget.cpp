@@ -1,6 +1,7 @@
 #include "ShipSetupWidget.h"
 #include "CustomPlayerController.h"
 #include "NavalMatchSettings.h"
+#include "NavalBattleUI.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
@@ -80,13 +81,28 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
         else if(I==1)ModeSelector=Choices(WidgetTree,Column,{TEXT("Real-Time"),TEXT("Turn-Based (10s)")});
         else PlayerTeamSelector=Choices(WidgetTree,Column,{TEXT("Blue Team"),TEXT("Red Team")});
     }
-    SetupText(WidgetTree,Box,TEXT("Battlefield seed / 0 creates a new layout"),12,FLinearColor(.65f,.75f,.85f));
+    SetupText(WidgetTree,Box,TEXT("Seed / positive = repeatable, 0 = a new random seed"),12,FLinearColor(.65f,.75f,.85f));
     SeedInput=WidgetTree->ConstructWidget<UEditableTextBox>();SeedInput->SetText(FText::FromString(TEXT("0")));Box->AddChildToVerticalBox(SeedInput)->SetPadding(FMargin(0,3,0,6));
     SetupText(WidgetTree,Box,TEXT("Control"),13);
     ControlSelector=Choices(WidgetTree,Box,{TEXT("Player + AI"),TEXT("Full AI Demo / spectator")});
     BalanceSelector=Choices(WidgetTree,Box,{TEXT("Standard demo: 100 HP / 10 damage"),TEXT("Class balance: Small 38/6, Medium & Large 100/10")});
-    NavigationSelector=Choices(WidgetTree,Box,{TEXT("Island defense demo"),TEXT("Placed ships and targets / Player + AI")});
-    Error=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(1,.4f,.3f));
+    // Retain the selector API for existing Blueprint/tools, without displaying the
+    // old scenario dropdown. Authored and generated layouts are explicit actions.
+    NavigationSelector=WidgetTree->ConstructWidget<UComboBoxString>();
+    NavigationSelector->AddOption(TEXT("Generated from seed"));NavigationSelector->AddOption(TEXT("My map / A-B patrol"));
+    NavigationSelector->SetSelectedIndex(1);
+    SetupText(WidgetTree,Box,TEXT("Initial positions and patrol targets"),13);
+    auto* LayoutButtons=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(LayoutButtons)->SetPadding(FMargin(0,4,0,5));
+    for(int32 I=0;I<2;++I)
+    {
+        auto* Button=WidgetTree->ConstructWidget<UButton>();
+        auto* LayoutSlot=LayoutButtons->AddChildToHorizontalBox(Button);LayoutSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));LayoutSlot->SetPadding(FMargin(I?8:0,0,0,0));
+        SetupText(WidgetTree,Button,I?TEXT("GENERATE FROM SEED"):TEXT("USE MY MAP (A-B)"),13);
+        if(I){GenerateFromSeedButton=Button;Button->OnClicked.AddDynamic(this,&UShipSetupWidget::GenerateFromSeed);}
+        else {UseMyMapButton=Button;Button->OnClicked.AddDynamic(this,&UShipSetupWidget::UseMyMap);}
+    }
+    LayoutDescription=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(.65f,.8f,.9f));LayoutDescription->SetAutoWrapText(true);
+    Error=SetupText(WidgetTree,Box,TEXT(""),12,FLinearColor(1,.4f,.3f));Error->SetAutoWrapText(true);
     auto* Buttons=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(Buttons)->SetPadding(FMargin(0,7,0,0));
     for(int32 I=0;I<2;++I)
     {
@@ -117,7 +133,32 @@ void UShipSetupWidget::NativeConstruct()
         for(int32 I=0;I<6;++I)HullSelectors[I]->SetSelectedIndex(static_cast<int32>(Settings->HullClasses[I]));
         if(SeedInput)SeedInput->SetText(FText::FromString(FString::FromInt(Settings->BattlefieldSeed)));
     }
-    RefreshSlots();SetKeyboardFocus();
+    if(const auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>();Battle && Error && !Battle->ConfigurationError.IsEmpty())Error->SetText(FText::FromString(Battle->ConfigurationError));
+    RefreshSlots();RefreshLayout();SetKeyboardFocus();
+}
+
+void UShipSetupWidget::UseMyMap()
+{
+    if(NavigationSelector)NavigationSelector->SetSelectedIndex(1);
+    RefreshLayout();
+}
+
+void UShipSetupWidget::GenerateFromSeed()
+{
+    if(NavigationSelector)NavigationSelector->SetSelectedIndex(0);
+    RefreshLayout();
+}
+
+void UShipSetupWidget::RefreshLayout()
+{
+    LastLayout=NavigationSelector?NavigationSelector->GetSelectedIndex():1;
+    const bool Authored=LastLayout==1;
+    const FLinearColor Selected(.03f,.36f,.5f),Other(.09f,.13f,.19f);
+    if(UseMyMapButton)UseMyMapButton->SetBackgroundColor(Authored?Selected:Other);
+    if(GenerateFromSeedButton)GenerateFromSeedButton->SetBackgroundColor(Authored?Other:Selected);
+    if(LayoutDescription)LayoutDescription->SetText(FText::FromString(Authored?
+        TEXT("MY MAP: place ships and assign A/B in the Editor before Play. Keep those positions; AI goes to A, then B, then repeats. Seed does not move authored ships."):
+        TEXT("GENERATED: the seed chooses checked starting positions and routes. Use the same positive seed and fleet to repeat a layout; 0 requests a new seed.")));
 }
 
 void UShipSetupWidget::RefreshSlots()
@@ -144,13 +185,12 @@ void UShipSetupWidget::NativeTick(const FGeometry& Geometry,float DeltaTime)
     if(BlueCountSelector && RedCountSelector && PlayerTeamSelector &&
         (LastBlue!=BlueCountSelector->GetSelectedIndex()+1 || LastRed!=RedCountSelector->GetSelectedIndex()+1 || LastPlayerTeam!=PlayerTeamSelector->GetSelectedIndex() || LastControl!=ControlSelector->GetSelectedIndex()))
         RefreshSlots();
+    if(NavigationSelector && LastLayout!=NavigationSelector->GetSelectedIndex())RefreshLayout();
 }
 
 bool UShipSetupWidget::ApplySelection()
 {
     auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();if(!Settings || HullSelectors.Num()!=6)return false;
-    if(ControlSelector->GetSelectedIndex()==1 && NavigationSelector->GetSelectedIndex()==1)
-    {if(Error)Error->SetText(FText::FromString(TEXT("Full AI Demo requires Island defense demo navigation.")));return false;}
     int32 Seed=0;
     if(!SeedInput || !LexTryParseString(Seed,*SeedInput->GetText().ToString()) || Seed<0)
     {if(Error)Error->SetText(FText::FromString(TEXT("Use 0 for a new seed, or a positive integer.")));return false;}
@@ -165,6 +205,10 @@ bool UShipSetupWidget::ApplySelection()
         Settings->bFullAIDemo=ControlSelector && ControlSelector->GetSelectedIndex()==1;
         Settings->bStandardDemoBalance=!BalanceSelector || BalanceSelector->GetSelectedIndex()==0;
         Settings->bUseSectorBattlefield=!NavigationSelector || NavigationSelector->GetSelectedIndex()==0;
+        Settings->bEnableSectorTactics=Settings->bUseSectorBattlefield;
+        Settings->bEnableRedAssault=Settings->bUseSectorBattlefield;
+        Settings->bUseIslandPatrolCircuit=Settings->bUseSectorBattlefield;
+        if(Error)Error->SetText(FText::GetEmpty());
     }
     return OK;
 }

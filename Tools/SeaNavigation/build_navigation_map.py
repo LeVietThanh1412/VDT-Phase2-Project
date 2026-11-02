@@ -8,6 +8,7 @@ import shapely
 from shapely.geometry import box, shape, mapping
 from PIL import Image
 from common import ROOT, ORIGIN, O, E, N, metric_geometry, write_json, read_json
+from build_unbuffered_coast import add_unbuffered_coast
 
 
 def main():
@@ -50,11 +51,13 @@ def main():
               'safety_status':'OSM_COASTLINE_ONLY_DEPTH_UNKNOWN',
               'height_convention':'Coastlines projected at ellipsoid h=0; route EN coordinates are horizontal only. No bathymetry.',
               'attribution':'© OpenStreetMap contributors; https://www.openstreetmap.org/copyright; ODbL 1.0'}
+    add_unbuffered_coast(metadata)
     write_json(ROOT/'Content/SeaNavigation/halong_navigation.json',metadata)
     write_json(ROOT/'Data/SeaNavigation/halong_buffered_enu.geojson',{'type':'Feature','properties':{'units':'meters','crs':'fixed_ENU','margin_m':args.safety_margin},'geometry':mapping(buffered.intersection(bounds))})
     pixels=np.zeros((size,size,3),dtype=np.uint8);pixels[:]=[75,90,55];pixels[water]=[25,100,165]
     Image.fromarray(np.flipud(pixels)).resize((1200,1200)).save(ROOT/'Data/SeaNavigation/navigation_grid.png')
-    print({k:v for k,v in metadata.items() if not k.endswith('base64') and k!='source_manifest'})
+    print({k:v for k,v in metadata.items() if not k.endswith('base64') and k not in ('source_manifest','unbuffered_coast')})
+    print('Regenerate sector data after changing the navigation chart: Tools/NavalCombat/build_sector_battlefield.py')
 
 
 if __name__=='__main__':main()

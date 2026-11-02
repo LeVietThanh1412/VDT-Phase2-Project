@@ -247,6 +247,7 @@
       ]
     }
   ],
-  "data_sha256": "be2fd26f17df3a5051c2a3604ea7f225f7af5bde3d15acb50083e49df23aeede",
-  "limitation": "Spatial coastline/chart certification only; physical hull overlap, water coverage and underwater clearance belong to runtime spawn validation. Real bathymetry is not certified."
+  "data_sha256": "84913c0524813ac61ce9bf5e86b7f433cd19ad8cee62d882e81c3d1674488889",
+  "limitation": "Spatial coastline/chart certification only; physical hull overlap, water coverage and underwater clearance belong to runtime spawn validation. Real bathymetry is not certified.",
+  "fingerprint_refresh": "2026-11-02: original navigation JSON fields verified unchanged against HEAD, accounting for CRLF. Added raw-coast mask only. Chart fingerprints updated; all 625 sector records, zones and representatives unchanged."
 }

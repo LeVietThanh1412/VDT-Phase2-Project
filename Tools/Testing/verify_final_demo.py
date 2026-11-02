@@ -38,9 +38,11 @@ def tick(dt):
    ui=pc.setup_widget;ui.blue_count_selector.set_selected_index(int(globals().get('BLUE_COUNT',3))-1);ui.red_count_selector.set_selected_index(int(globals().get('RED_COUNT',3))-1);ui.control_selector.set_selected_index(1 if full_ai else 0);ui.balance_selector.set_selected_index(0)
    ui.seed_input.set_text(str(seed));ui.mode_selector.set_selected_index(int(globals().get('BATTLE_MODE',0)))
    ui.player_team_selector.set_selected_index(int(globals().get('PLAYER_TEAM',0)))
-   if 'HULL_CLASSES' in globals():
-    for c,i in zip(ui.hull_selectors,HULL_CLASSES):c.set_selected_index(i)
-   st.update(phase='initialization',old_world=w);ui.start_match();save();return
+   ui.generate_from_seed()
+   for c,i in zip(ui.hull_selectors,globals().get('HULL_CLASSES',[0,0,0,0,1,2])):c.set_selected_index(i)
+   st.update(phase='initialization',old_world=w);ui.start_match()
+   settings.enable_sector_tactics=bool(globals().get('TACTICS',True));settings.enable_red_assault=bool(globals().get('ASSAULT',True));settings.use_island_patrol_circuit=settings.enable_sector_tactics
+   save();return
   if st['phase']=='initialization' and w!=st['old_world']:
    field=sub(w,unreal.NavalBattlefieldSubsystem);battle=sub(w,unreal.NavalBattleSubsystem)
    if int(t)!=st.get('init_last',-1):

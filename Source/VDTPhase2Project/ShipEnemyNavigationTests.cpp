@@ -86,6 +86,16 @@ bool FSeaGridCases::RunTest(const FString&)
     M.Cells.Reset();
     const auto Empty=M.FindPath(FVector2D(250,250),FVector2D(2650,1450));
     TestTrue(TEXT("Empty malformed grid fails without a partial route"),!Empty.bSuccess && Empty.Points.IsEmpty() && !Empty.Failure.IsEmpty());
+    M=Grid();M.CoastWidth=M.Width;M.CoastHeight=M.Height;M.CoastCellSize=M.CellSize;M.CoastMinEast=M.MinEast;M.CoastMinNorth=M.MinNorth;M.CoastWater=M.Cells;
+    // A real-water marker can lie inside the vessel exclusion. Its stopping
+    // point must stay on safe chart water AND inside the authored arrival zone.
+    M.Cells[15*30+15]=0;M.RebuildConnectedRegions();FVector2D Approach;
+    TestTrue(TEXT("Real-water excluded marker resolves a bounded approach"),M.ResolveArrivalGoal(FVector2D(1550,1550),200,FVector2D(350,1550),Approach));
+    TestTrue(TEXT("Approach is accepted water within the arrival zone"),M.IsWater(Approach) && FVector2D::Distance(Approach,FVector2D(1550,1550))<190);
+    Certify(M,M.FindPath(FVector2D(350,1550),Approach,75000,1000));
+    TestFalse(TEXT("No safe point outside a small arrival zone is accepted"),M.ResolveArrivalGoal(FVector2D(1550,1550),40,FVector2D(350,1550),Approach));
+    M.CoastWater[15*30+15]=0;
+    TestFalse(TEXT("A marker on raw land never becomes a water approach"),M.ResolveArrivalGoal(FVector2D(1550,1550),200,FVector2D(350,1550),Approach));
     // U-shaped inlet remains escapable through its opening rather than crossing its walls.
     M=Grid();for(int32 Y=8;Y<22;++Y){M.Cells[Y*30+8]=0;M.Cells[Y*30+21]=0;}for(int32 X=8;X<22;++X)M.Cells[8*30+X]=0;
     Certify(M,M.FindPath(FVector2D(1450,1450),FVector2D(1450,450),75000,1000));

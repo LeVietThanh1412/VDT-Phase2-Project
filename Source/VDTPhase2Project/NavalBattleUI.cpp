@@ -177,6 +177,21 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     auto* PC=UGameplayStatics::GetPlayerController(GetWorld(),0);
     auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
     const bool FullAI=Settings && Settings->bFullAIDemo;
+    ATargetPoint* AuthoredPlayerA=nullptr;ATargetPoint* AuthoredPlayerB=nullptr;
+    if(FullAI && !Settings->bUseSectorBattlefield)
+    {
+        int32 CountA=0,CountB=0;
+        for(TActorIterator<ATargetPoint> It(GetWorld());It;++It)
+        {
+            if(It->ActorHasTag(TEXT("Naval.PlayerPatrol.A"))){AuthoredPlayerA=*It;++CountA;}
+            if(It->ActorHasTag(TEXT("Naval.PlayerPatrol.B"))){AuthoredPlayerB=*It;++CountB;}
+        }
+        if(CountA!=1 || CountB!=1 || AuthoredPlayerA==AuthoredPlayerB)
+        {
+            ConfigurationError=FString::Printf(TEXT("MY MAP / Full AI: tag exactly one TargetPoint Naval.PlayerPatrol.A and one different TargetPoint Naval.PlayerPatrol.B (found A=%d, B=%d). Fix the Actor Tags before starting."),CountA,CountB);
+            return false;
+        }
+    }
     if(FullAI && !IsValid(DemoCommandShip))
     {
         // Reuse the production AI Blueprint and its original physics graph. The
@@ -192,7 +207,14 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         if(auto* Identity=DemoCommandShip->FindComponentByClass<UShipIdentityComponent>())Identity->ShipName=TEXT("Blue Flagship");
         if(auto* N=DemoCommandShip->FindComponentByClass<UShipEnemyNavigationComponent>())
         {
-            N->PatrolActorA=GetWorld()->SpawnActor<ATargetPoint>();N->PatrolActorB=GetWorld()->SpawnActor<ATargetPoint>();
+            if(Settings->bUseSectorBattlefield)
+            {N->PatrolActorA=GetWorld()->SpawnActor<ATargetPoint>();N->PatrolActorB=GetWorld()->SpawnActor<ATargetPoint>();}
+            else
+            {
+                // The unique authored pair was validated before spawning, so a
+                // failed setup cannot leave a sixth hull that bypasses validation.
+                N->PatrolActorA=AuthoredPlayerA;N->PatrolActorB=AuthoredPlayerB;
+            }
             N->bNewNavigationEnabled=true;N->Role=EShipEnemyRole::Fighter;
         }
         DemoCommandShip->SpawnDefaultController();
@@ -216,12 +238,15 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     const int32 OldPlayerTeam=PlayerWeapon->Team();
     if(OldPlayerTeam!=PlayerTeam)
     {
-        // Move the player to the chosen side: swap hulls with an AI of that fleet and
-        // flip both factions so targeting and markers follow the new team.
+        // Swap poses only for generated placement. An authored map keeps every
+        // placed pose/PlayerStart; faction changes still follow the selected team.
         APawn* Other=Teams[PlayerTeam][0];
         const FTransform PlayerTransform=Player->GetActorTransform();
-        Player->SetActorTransform(Other->GetActorTransform(),false,nullptr,ETeleportType::TeleportPhysics);
-        Other->SetActorTransform(PlayerTransform,false,nullptr,ETeleportType::TeleportPhysics);
+        if(Settings->bUseSectorBattlefield)
+        {
+            Player->SetActorTransform(Other->GetActorTransform(),false,nullptr,ETeleportType::TeleportPhysics);
+            Other->SetActorTransform(PlayerTransform,false,nullptr,ETeleportType::TeleportPhysics);
+        }
         if(auto* Combat=Player->FindComponentByClass<UShipCombatComponent>())Combat->Faction=PlayerTeam;
         if(auto* Combat=Other->FindComponentByClass<UShipCombatComponent>())Combat->Faction=1-PlayerTeam;
         PlayerWeapon->Faction=PlayerTeam;
@@ -245,6 +270,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         if(Settings)
         {
             if(auto* Move=Pawn->FindComponentByClass<UShipMovementComponent>())Move->ApplyShipClass(Settings->HullClasses[Team*3+Slot]);
+            if(auto* Nav=Pawn->FindComponentByClass<UShipEnemyNavigationComponent>())Nav->bKeepAuthoredPatrol=!Settings->bUseSectorBattlefield;
             if(auto* Combat=Pawn->FindComponentByClass<UShipCombatComponent>())Combat->SetShootingSkill(Settings->Difficulty);
             if(Settings->bStandardDemoBalance)
             {
@@ -288,6 +314,7 @@ bool UNavalBattleSubsystem::IsShipActive(AActor* Ship) const
     if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && !Field->CanBeginCombat())return false;
     if(!bMatchConfigured)
     {
+        if(!ConfigurationError.IsEmpty())return false;
         const auto* Settings=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
         return !Settings || Settings->Mode==ENavalBattleMode::RealTime;
     }

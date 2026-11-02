@@ -59,7 +59,8 @@ public:
     virtual void Deinitialize() override;
     void InitializeFleet(const TArray<APawn*>& Ships);
     UFUNCTION(BlueprintPure,Category="Battlefield") bool IsEnabled() const;
-    UFUNCTION(BlueprintPure,Category="Battlefield") bool CanBeginCombat() const {return !IsEnabled() || bReady;}
+    UFUNCTION(BlueprintPure,Category="Battlefield") bool CanBeginCombat() const {return (IsEnabled() || bUsingAuthoredLayout)?bReady:true;}
+    UPROPERTY(BlueprintReadOnly,Category="Battlefield") bool bUsingAuthoredLayout=false;
     UFUNCTION(BlueprintPure,Category="Battlefield") FString LayoutReport() const;
     /** Read-only QA access to the exact surveyed chart and native planner. */
     UFUNCTION(BlueprintCallable,Category="Battlefield|Debug",meta=(DevelopmentOnly)) FString InspectNavigationChart(APawn* Ship) const;

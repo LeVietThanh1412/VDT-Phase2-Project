@@ -50,9 +50,56 @@ TSharedPtr<const FSeaNavigationMap> FSeaNavigationMap::Load(const FString& Filen
     for (int32 Id=0;Id<M->Cells.Num();++Id)
         if (M->Cells[Id]>1 || ((Id%M->Width==0 || Id%M->Width==M->Width-1 || Id<M->Width || Id>=M->Cells.Num()-M->Width) && M->Cells[Id]!=0))
         { Error=TEXT("Invalid cells or unblocked coverage boundary"); return nullptr; }
+    const TSharedPtr<FJsonObject>* Raw=nullptr;
+    if(J->TryGetObjectField(TEXT("unbuffered_coast"),Raw))
+    {
+        double RW=0,RH=0;FString Bytes;
+        if(!(*Raw)->TryGetNumberField(TEXT("width"),RW) || !(*Raw)->TryGetNumberField(TEXT("height"),RH) ||
+           RW<3 || RH<3 || RW>4096 || RH>4096 || RW!=FMath::FloorToDouble(RW) || RH!=FMath::FloorToDouble(RH) ||
+           !(*Raw)->TryGetNumberField(TEXT("cell_size"),M->CoastCellSize) || !FMath::IsFinite(M->CoastCellSize) || M->CoastCellSize<1 ||
+           !(*Raw)->TryGetNumberField(TEXT("min_east"),M->CoastMinEast) || !(*Raw)->TryGetNumberField(TEXT("min_north"),M->CoastMinNorth) ||
+           !FMath::IsNearlyEqual(M->CoastMinEast,M->MinEast,.001) || !FMath::IsNearlyEqual(M->CoastMinNorth,M->MinNorth,.001) ||
+           !FMath::IsNearlyEqual(RW*M->CoastCellSize,M->Width*M->CellSize,.001) || !FMath::IsNearlyEqual(RH*M->CoastCellSize,M->Height*M->CellSize,.001) ||
+           !(*Raw)->TryGetStringField(TEXT("cells_base64"),Bytes) || !FBase64::Decode(Bytes,M->CoastWater) || M->CoastWater.Num()!=int64(RW)*int64(RH))
+        {Error=TEXT("Invalid unbuffered coastline mask");return nullptr;}
+        M->CoastWidth=int32(RW);M->CoastHeight=int32(RH);
+        for(int32 Id=0;Id<M->CoastWater.Num();++Id)
+            if(M->CoastWater[Id]>1 || ((Id%M->CoastWidth==0 || Id%M->CoastWidth==M->CoastWidth-1 || Id<M->CoastWidth || Id>=M->CoastWater.Num()-M->CoastWidth) && M->CoastWater[Id]))
+            {Error=TEXT("Invalid unbuffered coastline cells or boundary");return nullptr;}
+    }
     M->RebuildConnectedRegions();
     TSharedPtr<const FSeaNavigationMap> Immutable=M;
     Cache.Add(Filename,Immutable); return Immutable;
+}
+
+bool FSeaNavigationMap::IsUnbufferedWater(const FVector2D& P) const
+{
+    if(CoastWater.IsEmpty())return IsWater(P);
+    if(!FMath::IsFinite(P.X) || !FMath::IsFinite(P.Y))return false;
+    const double X=(P.X-CoastMinEast)/CoastCellSize,Y=(P.Y-CoastMinNorth)/CoastCellSize;
+    if(X<0 || Y<0 || X>=CoastWidth || Y>=CoastHeight)return false;
+    return CoastWater[FMath::FloorToInt(Y)*CoastWidth+FMath::FloorToInt(X)]!=0;
+}
+TSharedPtr<const FSeaNavigationMap> FSeaNavigationMap::UnbufferedCoastView() const
+{
+    auto View=MakeShared<FSeaNavigationMap>(*this);
+    if(!CoastWater.IsEmpty())
+    {View->Width=CoastWidth;View->Height=CoastHeight;View->CellSize=CoastCellSize;View->MinEast=CoastMinEast;View->MinNorth=CoastMinNorth;View->Cells=CoastWater;View->Clearance.Reset();View->ConnectedRegions.Reset();View->CoastWater.Reset();}
+    return View;
+}
+bool FSeaNavigationMap::ResolveArrivalGoal(const FVector2D& Requested,double Radius,const FVector2D& Reference,FVector2D& Out) const
+{
+    if(IsWater(Requested) && SegmentClear(Center(CellAt(Requested)),Requested)){Out=Requested;return true;}
+    if(!IsUnbufferedWater(Requested) || !IsWater(Reference) || !FMath::IsFinite(Radius) || Radius<=10)return false;
+    double Best=FMath::Square(FMath::Max(0.,Radius-10));bool Found=false;
+    const int32 X0=FMath::Max(0,FMath::FloorToInt((Requested.X-Radius-MinEast)/CellSize)),X1=FMath::Min(Width-1,FMath::FloorToInt((Requested.X+Radius-MinEast)/CellSize));
+    const int32 Y0=FMath::Max(0,FMath::FloorToInt((Requested.Y-Radius-MinNorth)/CellSize)),Y1=FMath::Min(Height-1,FMath::FloorToInt((Requested.Y+Radius-MinNorth)/CellSize));
+    for(int32 Y=Y0;Y<=Y1;++Y)for(int32 X=X0;X<=X1;++X)
+    {
+        if(!IsWater(X,Y))continue;const FVector2D P=Center(Y*Width+X);const double D=FVector2D::DistSquared(P,Requested);
+        if(D<Best && SameWaterRegion(Reference,P)){Best=D;Out=P;Found=true;}
+    }
+    return Found;
 }
 
 void FSeaNavigationMap::RebuildConnectedRegions()

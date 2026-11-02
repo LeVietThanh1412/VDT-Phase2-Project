@@ -47,6 +47,19 @@ def tick(dt):
    if not full_ai and loser==player_team and any(a.get_name()==s['initial_player_ship'] for a in fleet):
     assert t-s['outcome_at']<120,'Player wreck did not complete its native cleanup'
     return
+   # In a hidden/occluded Editor Slate may not tick the HUD until it paints.
+   # Render the actual viewport before inspecting the displayed result text.
+   if not s.get('result_rendered'):
+    s.setdefault('render_started',time.monotonic())
+    if time.monotonic()<s.get('render_next_at',0):return
+    rendered=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Saved'/name.replace('.json','_RESULT.png')))
+    s['render_next_at']=time.monotonic()+.5
+    if rendered.startswith('ERROR:'):
+     s['render_error']=rendered;save()
+     assert time.monotonic()-s['render_started']<10,'Editor viewport could not paint the result: '+rendered
+     return
+    s['result_rendered']=rendered
+    return
    hud=unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.ShipDetailsUI,False);assert len(hud)==1
    assert hud[0].get_visibility()==unreal.SlateVisibility.SELF_HIT_TEST_INVISIBLE
    assert pc.show_mouse_cursor,'Result did not release the mouse cursor'
