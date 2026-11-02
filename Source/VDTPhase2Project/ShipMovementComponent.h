@@ -20,6 +20,9 @@ public:
     /** Values passed by the existing Blueprint to its AddForce nodes. */
     UPROPERTY(BlueprintReadOnly,Category="Propulsion|Diagnostics") FVector LastPropulsionForce=FVector::ZeroVector;
     UPROPERTY(BlueprintReadOnly,Category="Propulsion|Diagnostics") FVector LastRudderForce=FVector::ZeroVector;
+    /** Player thrust assist; AI retains its existing navigation arbitration. */
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Propulsion|Shoreline") bool bPreventPlayerGrounding=true;
+    UPROPERTY(BlueprintReadOnly,Category="Propulsion|Diagnostics") bool bShorelineBlocked=false;
     UFUNCTION(BlueprintCallable,Category="Ship class") bool ApplyShipClass(EShipHullClass Type);
     UFUNCTION(BlueprintCallable,Category="Ship class") bool ApplyProfile(UShipPhysicsProfile* NewProfile);
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Propulsion",meta=(ClampMin="1",Units="m/s")) float ForwardMaxSpeed=26;

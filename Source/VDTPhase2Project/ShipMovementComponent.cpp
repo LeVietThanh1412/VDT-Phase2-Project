@@ -10,6 +10,9 @@
 #include "PhysicsEngine/BodyInstance.h"
 #include "Physics/SimpleSuspension.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/Pawn.h"
+#include "Engine/World.h"
+#include "Private/NavalWaterQueries.h"
 
 namespace
 {
@@ -122,7 +125,7 @@ void UShipMovementComponent::ApplyEquipment(UShipPhysicsProfile* P)
         OriginalVisualCollision=AuthoredSmall?ECollisionEnabled::QueryAndPhysics:Driver->GetCollisionEnabled();bCachedEquipment=true;
     }
     const bool Small=P->StaticVisualMesh!=nullptr;
-    SetComponentTickEnabled(Small || P->HeaveDampingPerSecond>0 || P->RollDampingPerSecond>0 || P->PitchDampingPerSecond>0);
+    SetComponentTickEnabled(Small || P->HeaveDampingPerSecond>0 || P->LateralDampingPerSecond>0 || P->RollDampingPerSecond>0 || P->PitchDampingPerSecond>0);
     Hull->SetStaticMesh(P->HullCollisionMesh?P->HullCollisionMesh.Get():OriginalHull.Get());
     Driver->SetRelativeTransform(Small?P->WeaponDriverTransform:OriginalVisualTransform);
     Driver->SetHiddenInGame(Small);Driver->SetVisibility(!Small,false);
@@ -212,6 +215,12 @@ void UShipMovementComponent::ApplyWaterResistance(float DeltaTime)
     const auto Rate=[DeltaTime](float PerSecond)
     {return FMath::IsFinite(PerSecond)?(1.f-FMath::Exp(-FMath::Clamp(PerSecond,0.f,60.f)*DeltaTime))/DeltaTime:0.f;};
     DampingHull->AddForce(FVector(0,0,-DampingHull->GetMass()*Velocity.Z*Rate(Profile->HeaveDampingPerSecond)));
+    // The inherited stern force also pushes the hull sideways. Without keel
+    // resistance a zero-throttle 180-degree turn drifts about 100 m, defeating
+    // the navigator's checked turning envelope. Resist side slip at the COM;
+    // the original rudder torque and forward propulsion remain authoritative.
+    const FVector Side=FVector::CrossProduct(FVector::UpVector,Forward(GetOwner())).GetSafeNormal();
+    DampingHull->AddForce(-Side*FVector::DotProduct(Velocity,Side)*DampingHull->GetMass()*Rate(Profile->LateralDampingPerSecond));
     const FQuat Rotation=DampingHull->GetComponentQuat();
     const FVector LocalOmega=Rotation.UnrotateVector(AngularVelocity);
     const FVector AngularDrag(-LocalOmega.X*Rate(Profile->RollDampingPerSecond),-LocalOmega.Y*Rate(Profile->PitchDampingPerSecond),0);
@@ -243,10 +252,37 @@ FVector UShipMovementComponent::FilterPropulsion(AActor* Ship,FVector Force)
 {
     if(!IsValid(Ship) || Force.ContainsNaN())return FVector::ZeroVector;
     auto* M=Ship->FindComponentByClass<UShipMovementComponent>();
-    if(M)M->LastPropulsionForce=FVector::ZeroVector;
+    if(M){M->LastPropulsionForce=FVector::ZeroVector;M->bShorelineBlocked=false;}
     if(!UNavalBattleSubsystem::CanShipAct(Ship))return FVector::ZeroVector;
     if(const auto* W=Ship->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)return FVector::ZeroVector;
     if(!M)return Force;
+    if(const auto* Pawn=Cast<APawn>(Ship);Pawn && Pawn->IsPlayerControlled() && M->bPreventPlayerGrounding && !Force.IsNearlyZero())
+    {
+        if(auto* Hull=UShipCombatComponent::PhysicalHull(Ship);Hull && Hull->IsSimulatingPhysics())
+        {
+            const FVector F=Forward(Ship).GetSafeNormal();const float Intent=FVector::DotProduct(Force,F);
+            if(FMath::Abs(Intent)>KINDA_SMALL_NUMBER)
+            {
+                const FVector Direction=F*(Intent>0?1.f:-1.f);
+                const float TowardSpeed=FVector::DotProduct(Hull->GetPhysicsLinearVelocity(),Direction)/100;
+                const float Horizon=FMath::Clamp(FMath::Max(0.f,TowardSpeed)*4+20,20.f,180.f);
+                const FBox Local=Hull->GetLocalBounds().GetBox();const FVector Center=Hull->GetComponentTransform().TransformPosition(Local.GetCenter());
+                const FVector Extent=Local.GetExtent()*Hull->GetComponentScale().GetAbs()+FVector(100);
+                FCollisionQueryParams Q(SCENE_QUERY_STAT(PlayerShorelineThrust),true,Ship);NavalWaterQueries::IgnoreWaterActors(Ship->GetWorld(),Q);
+                FHitResult Hit;
+                if(Ship->GetWorld()->SweepSingleByChannel(Hit,Center,Center+Direction*Horizon*100,Hull->GetComponentQuat(),ECC_Visibility,FCollisionShape::MakeBox(Extent),Q) &&
+                   (!Hit.bStartPenetrating || FVector::DotProduct(Direction,Hit.ImpactNormal)<=.05) &&
+                   !(Hit.bStartPenetrating && Intent<0 && FVector::DotProduct(Direction,Hit.ImpactNormal)>=-.05))
+                {
+                    // Brake through the existing physical actuator before the
+                    // keel meets terrain. Rudder and reverse escape stay free.
+                    M->bShorelineBlocked=true;
+                    M->LastPropulsionForce=TowardSpeed>.5f?-Direction*FMath::Abs(Intent)*M->AppliedPropulsionScale:FVector::ZeroVector;
+                    return M->LastPropulsionForce;
+                }
+            }
+        }
+    }
     const float Speed=M->SignedForwardSpeed(),Thrust=FVector::DotProduct(Force,Forward(Ship));
     const float Blend=FMath::Max(.1f,M->SpeedLimitBlendMps);
     float Scale=1;

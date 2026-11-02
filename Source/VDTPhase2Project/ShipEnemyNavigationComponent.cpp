@@ -34,6 +34,10 @@ struct FDestinationTracking
     TWeakObjectPtr<AActor> Actor;
     FVector SampleECEF=FVector::ZeroVector;
     FVector2D SnappedGoal=FVector2D::ZeroVector;
+    FVector2D ApproachRequested=FVector2D::ZeroVector,ApproachResolved=FVector2D::ZeroVector;
+    const FSeaNavigationMap* ApproachMap=nullptr;
+    double ApproachRadius=0;
+    bool bApproachCached=false;
     bool bExplicitCommand=false, bHasSnappedGoal=false;
     int32 PlanCount=0, ConsecutivePlanFailures=0;
     double RetryAt=0, LastTelemetry=-1;
@@ -275,6 +279,52 @@ void UShipEnemyNavigationComponent::StartPatrol()
     AvoidElapsed=0;AvoidSide=0;LastAvoidSide=0;AvoidSideChanges=0;
     DestinationState(this)=FDestinationTracking();NavigationState=EShipNavigationState::Patrol;
 }
+bool UShipEnemyNavigationComponent::PrepareAuthoredPatrol(FString& OutError,bool bValidateRoutes)
+{
+    OutError.Empty();
+    if(!GetWorld() || !IsValid(GetOwner()))
+    {OutError=TEXT("Authored patrol requires a ship in a live world");return false;}
+    bNewNavigationEnabled=true;bKeepAuthoredPatrol=true;bOwnsCommands=true;
+    auto Reject=[&](const FString& Reason)
+    {
+        OutError=FString::Printf(TEXT("%s: %s"),*GetOwner()->GetActorNameOrLabel(),*Reason);
+        CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(OutError);SetDriveCommand(0,0);return false;
+    };
+    if(bDead || (GetOwner()->FindComponentByClass<UShipWeaponComponent>() && GetOwner()->FindComponentByClass<UShipWeaponComponent>()->bIsDestroyed))
+        return Reject(TEXT("a destroyed ship cannot start an authored patrol"));
+    // Keep a prepared operational chart. Reinitialization otherwise reloads the
+    // coarse coast map and would silently discard the field's physical survey.
+    if(!bInitialized || !Map.IsValid() || !IsValid(Hull) || !IsValid(Heading) || !IsValid(GlobeAnchor) ||
+       !IsValid(Georeference) || GlobeAnchor->ResolveGeoreference()!=Georeference)
+        if(!InitializeNavigation())return Reject(LastNavigationFailureReason);
+    bStartAtPatrolB=false;NavigationMode=EShipNavigationMode::Patrol;
+    PatrolCircuitActors.Reset();PatrolCircuitIndex=0;PatrolOffsetA=PatrolOffsetB=FVector::ZeroVector;
+    StartPatrol();NotifyDevelopmentReposition();
+    if(!IsValid(PatrolActorA) || !IsValid(PatrolActorB) || PatrolActorA==PatrolActorB ||
+       PatrolActorA->GetWorld()!=GetWorld() || PatrolActorB->GetWorld()!=GetWorld())
+        return Reject(FString::Printf(TEXT("assign two distinct same-world patrol markers (A=%s, B=%s)"),*GetNameSafe(PatrolActorA),*GetNameSafe(PatrolActorB)));
+    const FVector2D Start=PositionMetric();
+    const FVector2D A=Map->ToMetric(WorldToECEF(PatrolActorA->GetActorLocation()));
+    const FVector2D B=Map->ToMetric(WorldToECEF(PatrolActorB->GetActorLocation()));
+    if(FVector2D::Distance(A,B)<=ArrivalRadiusM*2)
+        return Reject(FString::Printf(TEXT("%s and %s have overlapping arrival zones; separate them by more than %.0f m"),*GetNameSafe(PatrolActorA),*GetNameSafe(PatrolActorB),ArrivalRadiusM*2));
+    if(bValidateRoutes)
+    {
+        FVector2D SafeA,SafeB;
+        if(!Map->ResolveArrivalGoal(A,ArrivalRadiusM,Start,SafeA) || !Map->ResolveArrivalGoal(B,ArrivalRadiusM,Start,SafeB))
+            return Reject(TEXT("no safe water approach inside an authored A/B arrival zone; check marker clearance for this hull"));
+        auto ValidateLeg=[&](const FVector2D& From,const FVector2D& To,const FString& Label)
+        {
+            const FSeaRouteResult Route=Map->FindPath(From,To,MaxSearchExpansions,MaxSearchMilliseconds);
+            return Route.bSuccess || Reject(FString::Printf(TEXT("authored %s route rejected: %s"),*Label,*Route.Failure));
+        };
+        if(!ValidateLeg(Start,SafeA,FString::Printf(TEXT("start -> A (%s)"),*PatrolActorA->GetActorNameOrLabel())) ||
+           !ValidateLeg(SafeA,SafeB,FString::Printf(TEXT("A (%s) -> B (%s)"),*PatrolActorA->GetActorNameOrLabel(),*PatrolActorB->GetActorNameOrLabel())) ||
+           !ValidateLeg(SafeB,SafeA,FString::Printf(TEXT("B (%s) -> A (%s)"),*PatrolActorB->GetActorNameOrLabel(),*PatrolActorA->GetActorNameOrLabel())))return false;
+    }
+    PatrolLegsCompleted=0;CircuitLegsCompleted=0;PatrolCircuitsCompleted=0;
+    SelectObjective(Start);SetDriveCommand(0,0);return true;
+}
 void UShipEnemyNavigationComponent::RequestReplan()
 {
     bExplicitStop=false;
@@ -301,6 +351,7 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
 {
     auto J=MakeShared<FJsonObject>();
     J->SetBoolField(TEXT("operational_chart"),bUsingOperationalChart);
+    J->SetBoolField(TEXT("keep_authored_patrol"),bKeepAuthoredPatrol);
     if(Map.IsValid())J->SetNumberField(TEXT("navigation_cell_size_m"),Map->CellSize);
     auto Vector=[&](const TCHAR* Key,const FVector& V)
     {J->SetArrayField(Key,{MakeShared<FJsonValueNumber>(V.X),MakeShared<FJsonValueNumber>(V.Y),MakeShared<FJsonValueNumber>(V.Z)});};
@@ -339,7 +390,10 @@ FString UShipEnemyNavigationComponent::GetNavigationDiagnostics() const
     if(Map && IsValid(Hull) && IsValid(Georeference))
     {
         const auto P=PositionMetric();Vector(TEXT("chart_en_m"),FVector(P,0));
-        J->SetNumberField(TEXT("distance_to_goal_m"),FVector2D::Distance(P,GoalMetric));
+        J->SetNumberField(TEXT("distance_to_goal_m"),FVector2D::Distance(P,LLHToMetric(CurrentFinalDestination)));
+        J->SetNumberField(TEXT("distance_to_approach_m"),FVector2D::Distance(P,GoalMetric));
+        Vector(TEXT("approach_en_m"),FVector(GoalMetric,0));
+        J->SetBoolField(TEXT("authored_standoff"),bKeepAuthoredPatrol && !GoalMetric.Equals(LLHToMetric(CurrentFinalDestination),1));
         J->SetBoolField(TEXT("chart_water"),Map->IsWater(P));
         J->SetBoolField(TEXT("physics"),Hull->IsSimulatingPhysics());
         J->SetNumberField(TEXT("speed_mps"),Hull->GetPhysicsLinearVelocity().Size()/100);
@@ -614,7 +668,7 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
     if(bTacticalOverride)
     {GoalMetric=LLHToMetric(TacticalDestination);CurrentFinalDestination=TacticalDestination;return;}
     const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>();
-    const bool IndependentFighter=Role==EShipEnemyRole::Fighter && Combat;
+    const bool IndependentFighter=bKeepAuthoredPatrol || (Role==EShipEnemyRole::Fighter && Combat);
     if(IsValid(DetectedPlayer) && Role!=EShipEnemyRole::Passive && !IndependentFighter)
     {
         const FVector2D Player=Map->ToMetric(WorldToECEF(DetectedPlayer->GetActorLocation()));
@@ -675,6 +729,17 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
         const FVector2D OffsetTarget=Target+FVector2D(Offset.X,Offset.Y);
         if(!Offset.IsNearlyZero() && Map->IsWater(OffsetTarget) && Map->SegmentClear(Target,OffsetTarget))Target=OffsetTarget;
         auto& Track=DestinationState(this);
+        if(bKeepAuthoredPatrol && bUsingOperationalChart && bActorPatrol)
+        {
+            if(!Track.bApproachCached || Track.ApproachMap!=Map.Get() || !Track.ApproachRequested.Equals(Target,.01) || Track.ApproachRadius!=ArrivalRadiusM)
+            {
+                FVector2D Resolved;
+                if(!Map->ResolveArrivalGoal(Target,ArrivalRadiusM,P,Resolved))
+                {CurrentRoute.Reset();bHasGoal=false;bNeedsPlan=false;Fail(FString::Printf(TEXT("No safe approach within %.0f m of %s"),ArrivalRadiusM,*GetNameSafe(Assigned)));return;}
+                Track.ApproachRequested=Target;Track.ApproachResolved=Resolved;Track.ApproachMap=Map.Get();Track.ApproachRadius=ArrivalRadiusM;Track.bApproachCached=true;
+            }
+            Target=Track.ApproachResolved;
+        }
         const FVector ECEF=IsValid(Assigned)?WorldToECEF(Assigned->GetActorLocation()):FVector::ZeroVector;
         const bool bChanged=!bHasGoal || !Target.Equals(GoalMetric,1) ||
             (bActorPatrol && (Track.Actor.Get()!=Assigned || FVector::Distance(ECEF,Track.SampleECEF)>1.));
@@ -684,7 +749,7 @@ void UShipEnemyNavigationComponent::SelectObjective(const FVector2D& P)
             // Keep the actual anchor's height as well as its horizontal position.
             // ENU projection alone loses ellipsoid height and makes debug/final
             // world endpoints differ from the actor even with zero formation offset.
-            CurrentFinalDestination=Target.Equals(LLHToMetric(LLH),1.e-5)?LLH:
+            CurrentFinalDestination=(bKeepAuthoredPatrol || Target.Equals(LLHToMetric(LLH),1.e-5))?LLH:
                 Georeference->GetEllipsoid()->EllipsoidCenteredEllipsoidFixedToLongitudeLatitudeHeight(Map->ToECEF(Target));
             CurrentFinalDestination.Z=LLH.Z;bNeedsPlan=true;bHasGoal=true;ArrivalTime=-1;
             CurrentRoute.Reset();bPathfindingSucceeded=false;RecoveryPhase=0;RecoveryAttemptCount=0;FailedCorridors.Reset();
@@ -882,7 +947,10 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     if(PatrolOffsetA.IsNearlyZero() && PatrolOffsetB.IsNearlyZero() && !DestinationState(this).bExplicitCommand && GoalMetric.Equals(LLHToMetric(CurrentFinalDestination),1.e-5))
         if(const AActor* Target=DestinationActor(this);IsValid(Target))AcceptanceGoal=Map->ToMetric(WorldToECEF(Target->GetActorLocation()));
     const double GoalDistance=FVector2D::Distance(P,AcceptanceGoal);
-    if(GoalDistance<=ArrivalRadiusM && Map->SegmentClear(P,AcceptanceGoal))
+    const bool AuthoredStandoff=bKeepAuthoredPatrol && !GoalMetric.Equals(LLHToMetric(CurrentFinalDestination),1);
+    const double RouteArrivalRadius=AuthoredStandoff?FMath::Min(10.,ArrivalRadiusM*.2):ArrivalRadiusM;
+    const bool WithinAuthoredZone=!AuthoredStandoff || FVector2D::Distance(P,LLHToMetric(CurrentFinalDestination))<=ArrivalRadiusM;
+    if(GoalDistance<=RouteArrivalRadius && WithinAuthoredZone && Map->SegmentClear(P,AcceptanceGoal))
     {
         DestinationState(this).YieldSince=-1;TrafficWaitSeconds=0;
         DesiredSpeed=0;T=SignedSpeed>0.5f?-0.12f:SignedSpeed<-.5f?0.12f:0;
@@ -891,7 +959,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
         {
             if(ArrivalTime<0)ArrivalTime=Now;
             const auto* Combat=GetOwner()->FindComponentByClass<UShipCombatComponent>();
-            const bool IndependentFighter=Role==EShipEnemyRole::Fighter && Combat;
+            const bool IndependentFighter=bKeepAuthoredPatrol || (Role==EShipEnemyRole::Fighter && Combat);
             if(!bTacticalOverride && NavigationMode==EShipNavigationMode::Patrol && (IndependentFighter || Role==EShipEnemyRole::Passive || !IsValid(DetectedPlayer)) && Now-ArrivalTime>=PatrolWaitSeconds)
             {
                 if(bDrawDebug)UE_LOG(LogTemp,Display,TEXT("ShipNavigation ARRIVAL leg=%d target=%s distance=%.3fm speed=%.3fm/s switching=%s"),
@@ -990,7 +1058,7 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     double Remaining=FVector2D::Distance(P,W);
     for(int32 I=CurrentWaypointIndex;I<CurrentRoute.Num()-1;++I)Remaining+=FVector2D::Distance(WP(I),WP(I+1));
     double TargetSpeed=CruiseSpeedMps;
-    TargetSpeed=FMath::Min(TargetSpeed,FMath::Sqrt(2.*FMath::Max(0.01f,BrakingDecelerationMps2)*FMath::Max(0.,Remaining-ArrivalRadiusM)));
+    TargetSpeed=FMath::Min(TargetSpeed,FMath::Sqrt(2.*FMath::Max(0.01f,BrakingDecelerationMps2)*FMath::Max(0.,Remaining-RouteArrivalRadius)));
     // Upcoming corner limits velocity BEFORE entering the turn, including minimum practical radius.
     if(CurrentWaypointIndex<CurrentRoute.Num()-1)
     {
@@ -1008,7 +1076,12 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     if(bCollisionDataUncertain)TargetSpeed=FMath::Min(TargetSpeed,4.);
     float Front=FMath::Min3(SensorDistance(0),SensorDistance(30),SensorDistance(-30));
     const double StopDistance=Speed*Speed/(2*FMath::Max(0.01f,BrakingDecelerationMps2))+Speed*2+LocalClearanceMarginM;
-    const double Horizon=FMath::Clamp(StopDistance+HullRadiusM,80.,600.);
+    const double FullHorizon=FMath::Clamp(StopDistance+HullRadiusM,80.,600.);
+    // A standoff endpoint already has a checked full-hull footprint. Looking
+    // through it into the excluded shore made avoidance reject the final safe
+    // approach. Keep the independent emergency sensors/braking active.
+    const double Horizon=AuthoredStandoff && CurrentWaypointIndex==CurrentRoute.Num()-1?
+        FMath::Min(FullHorizon,FMath::Max(RouteArrivalRadius,FVector2D::Distance(P,W))):FullHorizon;
     const FVector Predicted=Hull->GetComponentLocation()+F*Horizon*100;
     const bool SweepBlocked=bUseHullSweep && !SweepClear(Hull->GetComponentLocation(),Predicted,HullHalfWidthM+LocalClearanceMarginM);
     AActor* ForwardObstacle=SweepBlocked?DestinationState(this).SweepActor.Get():nullptr;
@@ -1051,8 +1124,26 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     // the arrival threshold. The chart and collision must both cover that disk.
     const double TurnDrift=Speed*Speed/(2*FMath::Max(0.01f,BrakingDecelerationMps2))+Speed*2;
     const double TurnEnvelope=HullRadiusM+LocalClearanceMarginM+TurnDrift;
-    const bool bSafeSlowTurn=Map->SafetyMargin>=TurnEnvelope &&
-        SweepClear(Hull->GetComponentLocation(),Hull->GetComponentLocation(),TurnEnvelope);
+    const float RouteTurnSide=Error<0?-1.f:1.f;
+    auto CanRotateSafely=[&](float Side)
+    {
+        const FBox Local=Hull->GetLocalBounds().GetBox();
+        const FVector Center=Hull->GetComponentTransform().TransformPosition(Local.GetCenter());
+        const FVector COM=Hull->GetCenterOfMass();
+        const FVector Extent=Local.GetExtent()*Hull->GetComponentScale().GetAbs()+FVector(200);
+        const FQuat Delta(Up,FMath::DegreesToRadians(Side*4.f));
+        const FVector NextCenter=COM+Delta.RotateVector(Center-COM);
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
+        if(GetWorld()->OverlapBlockingTestByChannel(NextCenter,Delta*Hull->GetComponentQuat(),ECC_Visibility,FCollisionShape::MakeBox(Extent),Q))return false;
+        const FVector2D Drift=Map->ToMetric(WorldToECEF(Hull->GetComponentLocation()+Hull->GetRightVector()*Side*500));
+        return Map->SegmentClear(P,Drift);
+    };
+    // Near a coast the whole turning disk can overlap land while the narrow
+    // hull's next rotation is safe. Keep that checked route-directed rotation
+    // in the intentional-turn state instead of alternating avoidance/recovery.
+    const bool bSafeSlowTurn=((Map->SafetyMargin>=TurnEnvelope || bUsingOperationalChart) &&
+        SweepClear(Hull->GetComponentLocation(),Hull->GetComponentLocation(),TurnEnvelope)) ||
+        (Speed<1.5 && FMath::Abs(Error)>15 && Map->SafetyMargin>HullRadiusM+5 && CanRotateSafely(RouteTurnSide));
     const bool bPreTurning=FMath::Abs(Error)>15 && (ChartBlocked || SweepBlocked || FMath::Abs(Error)>60) &&
         (Front>StopDistance+10 || bSafeSlowTurn);
     if(bPreTurning)
@@ -1180,22 +1271,14 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
     {
         T=SignedSpeed>0.5f && SensorDistance(180)>HullRadiusM+LocalClearanceMarginM?-0.15f:0;
         if(!(bPreTurning && bSafeSlowTurn))R=0;
-        if(Speed<1.5f && NavigationState!=EShipNavigationState::Failed && Map->SafetyMargin>HullRadiusM+5)
+        if(!(bPreTurning && bSafeSlowTurn) && Speed<1.5f && NavigationState!=EShipNavigationState::Failed && Map->SafetyMargin>HullRadiusM+5)
         {
             // A full-turn inflated square can overlap a nearby ship even when
             // a small rotation of the actual narrow hull is safe. Check that
             // next rotation explicitly instead of locking both rudders forever.
-            const FBox Local=Hull->GetLocalBounds().GetBox();
-            const FVector Center=Hull->GetComponentTransform().TransformPosition(Local.GetCenter());
-            const FVector Extent=Local.GetExtent()*Hull->GetComponentScale().GetAbs()+FVector(200);
-            FCollisionQueryParams Q(SCENE_QUERY_STAT(ShipStationaryTurn),true,GetOwner());NavalWaterQueries::IgnoreWaterActors(GetWorld(),Q);
-            const float PreferredSide=R*RudderSign<0?-1.f:1.f;
-            for(float Side:{PreferredSide,-PreferredSide})
+            for(float Side:{RouteTurnSide,-RouteTurnSide})
             {
-                const FQuat Next=FQuat(Up,FMath::DegreesToRadians(Side*4.f))*Hull->GetComponentQuat();
-                if(GetWorld()->OverlapBlockingTestByChannel(Center,Next,ECC_Visibility,FCollisionShape::MakeBox(Extent),Q))continue;
-                const FVector2D Drift=Map->ToMetric(WorldToECEF(Hull->GetComponentLocation()+Hull->GetRightVector()*Side*500));
-                if(!Map->SegmentClear(P,Drift))continue;
+                if(!CanRotateSafely(Side))continue;
                 T=0;R=.45f*Side*RudderSign;break;
             }
         }

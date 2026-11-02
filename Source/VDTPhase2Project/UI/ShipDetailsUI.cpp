@@ -2,6 +2,7 @@
 
 #include "../CustomPlayerController.h"
 #include "../ShipCombatComponent.h"
+#include "../ShipMovementComponent.h"
 #include "../NavalBattleUI.h"
 #include "../NavalBattlefieldSubsystem.h"
 #include "Engine/GameInstance.h"
@@ -341,6 +342,8 @@ void UShipDetailsUI::UpdateDetails()
         BattleStatusText->SetText(FText::FromString(BattleText));
     }
     APawn* Ship = ResolveSelectedShip();DisplayedShip=Ship;
+    if(IsValid(Ship))if(const auto* Move=Ship->FindComponentByClass<UShipMovementComponent>();Move && Move->bShorelineBlocked)
+    {BattleText+=TEXT(" | SHALLOW WATER AHEAD - turn or reverse");BattleStatusText->SetText(FText::FromString(BattleText));}
     if (!IsValid(Ship))
     {
         ShipNameText->SetText(FText::FromString(TEXT("--")));

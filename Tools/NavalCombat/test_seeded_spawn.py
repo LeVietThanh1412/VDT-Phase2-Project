@@ -36,7 +36,7 @@ def tick(dt):
             gi=unreal.GameplayStatics.get_game_instance(w)
             settings=lib.call_method('GetGameInstanceSubsystem',args=(gi,unreal.NavalMatchSettings.static_class()))
             if globals().get('VERIFY_DEFAULT_FLAGS',False):
-                assert settings.use_sector_battlefield and settings.enable_sector_tactics and settings.enable_red_assault,'Production scenario flags are disabled'
+                assert not settings.use_sector_battlefield and not settings.enable_sector_tactics and not settings.enable_red_assault,'Default authored layout was not selected'
                 st['default_scenario_flags_verified']=True
             settings.use_sector_battlefield=True
             settings.enable_sector_tactics=bool(globals().get('ENABLE_TACTICS',False))
@@ -44,12 +44,14 @@ def tick(dt):
             pc=unreal.GameplayStatics.get_player_controller(w,0)
             if not pc.setup_widget:pc.toggle_match_setup()
             ui=pc.setup_widget
+            ui.generate_from_seed();ui.control_selector.set_selected_index(0)
             ui.player_team_selector.set_selected_index(int(globals().get('PLAYER_TEAM',0)))
             ui.seed_input.set_text(str(seed));ui.mode_selector.set_selected_index(0)
-            if 'HULL_CLASSES' in globals():
-                assert len(HULL_CLASSES)==6
-                for selector,index in zip(ui.hull_selectors,HULL_CLASSES):selector.set_selected_index(index)
-            st.update(old_world=w,phase='initialization');ui.start_match();save();return
+            classes=globals().get('HULL_CLASSES',[2,0,2,0,0,2]);assert len(classes)==6
+            for selector,index in zip(ui.hull_selectors,classes):selector.set_selected_index(index)
+            st.update(old_world=w,phase='initialization');ui.start_match()
+            settings.enable_sector_tactics=bool(globals().get('ENABLE_TACTICS',False));settings.enable_red_assault=bool(globals().get('ENABLE_ASSAULT',False));settings.use_island_patrol_circuit=settings.enable_sector_tactics
+            save();return
         if st['phase']=='initialization' and w!=st['old_world']:
             field=sub(w,unreal.NavalBattlefieldSubsystem);grid=sub(w,unreal.NavalSectorSubsystem)
             fleet=[a for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn) if a.get_component_by_class(unreal.ShipWeaponComponent)]

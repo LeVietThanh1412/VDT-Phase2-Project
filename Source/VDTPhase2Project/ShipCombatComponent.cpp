@@ -601,6 +601,16 @@ void UShipCombatComponent::UpdateTactics()
             RetreatThreat.Reset();
     };
     if(Weapon->bIsDestroyed){Change(EShipTacticalState::Dead);return;}
+    if(Navigation->bKeepAuthoredPatrol)
+    {
+        // Authored A/B routes own movement in this mode. Keep normal target
+        // scans, visibility, turret tracking and shared weapon dispatch below.
+        if(Navigation->HasTacticalDestination()){Navigation->ReturnToPatrol();++PatrolsResumed;}
+        bHunterPursuitActive=false;HunterLostSince=-1;RetreatThreat.Reset();
+        Change(Navigation->Role==EShipEnemyRole::Passive?EShipTacticalState::Passive:
+            bEnableCombat && Engage?EShipTacticalState::Engage:EShipTacticalState::Patrol);
+        return;
+    }
     if(!bEnableCombat || Navigation->Role==EShipEnemyRole::Passive)
     {if(Navigation->HasTacticalDestination())Navigation->ReturnToPatrol();bHunterPursuitActive=false;Change(Navigation->Role==EShipEnemyRole::Passive?EShipTacticalState::Passive:EShipTacticalState::Patrol);return;}
     if(TacticalState==EShipTacticalState::Retreat || TacticalState==EShipTacticalState::Escape || TacticalState==EShipTacticalState::BackwardRetreat)

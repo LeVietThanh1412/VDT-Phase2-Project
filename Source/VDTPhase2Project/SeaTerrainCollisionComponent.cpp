@@ -82,6 +82,10 @@ void USeaTerrainCollisionComponent::BeginPlay()
         SetComponentTickEnabled(false);
         return;
     }
+    // An exclusion buffer is for vessel planning, not a physical sea floor.
+    // Use raw coast cells for DEM clipping; actual land and submerged nonzero
+    // terrain still retain collision under the existing selected-LOD policy.
+    Chart=Chart->UnbufferedCoastView();
     // Cesium selects tiles and toggles native collision in its actor tick.
     // Filter after that selection, BEFORE Chaos simulates this frame.
     AddTickPrerequisiteActor(Terrain);
@@ -105,6 +109,7 @@ bool USeaTerrainCollisionComponent::IsChartWater(const FVector2D &A, const FVect
 }
 bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTile &Out)
 {
+    const double BuildStarted=FPlatformTime::Seconds();
     UStaticMesh *Mesh = Source->GetStaticMesh();
     auto *Body = Mesh ? Mesh->GetBodySetup() : nullptr;
     if (!Body || Body->TriMeshGeometries.IsEmpty())
@@ -250,13 +255,29 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
                         ++Out.Land;
                     }
                 };
-                for (int32 Y = Y0; Y <= Y1; ++Y)
-                    for (int32 X = X0; X <= X1; ++X)
-                        if (!Chart->IsWater(X, Y) || (!SeaSurface && !SeaSkirt))
-                        {
-                            const FVector2D Min = ChartLo + FVector2D(X, Y) * Chart->CellSize;
-                            KeepClipped(Min, Min + FVector2D(Chart->CellSize),Chart->IsWater(X,Y));
-                        }
+                // Merge identical row runs before clipping. This retains the
+                // exact same union of coastal cells without cooking a separate
+                // triangle fan for every 25 m cell in a coarse terrain triangle.
+                struct FCoastRect {int32 X0,X1,Y0,Y1;bool Water;};
+                TArray<FCoastRect> Rectangles;TArray<int32> Previous,Current;
+                for(int32 Y=Y0;Y<=Y1;++Y)
+                {
+                    Current.Reset();
+                    for(int32 X=X0;X<=X1;)
+                    {
+                        const bool Water=Chart->IsWater(X,Y);const int32 Begin=X++;
+                        while(X<=X1 && Chart->IsWater(X,Y)==Water)++X;
+                        if(Water && (SeaSurface || SeaSkirt))continue;
+                        int32 Match=INDEX_NONE;
+                        for(int32 Id:Previous)if(Rectangles[Id].X0==Begin && Rectangles[Id].X1==X && Rectangles[Id].Water==Water){Match=Id;break;}
+                        if(Match==INDEX_NONE)Match=Rectangles.Add({Begin,X,Y,Y+1,Water});
+                        else Rectangles[Match].Y1=Y+1;
+                        Current.Add(Match);
+                    }
+                    Swap(Previous,Current);
+                }
+                for(const auto& R:Rectangles)
+                    KeepClipped(ChartLo+FVector2D(R.X0,R.Y0)*Chart->CellSize,ChartLo+FVector2D(R.X1,R.Y1)*Chart->CellSize,R.Water);
                 // Never remove geometry outside the validated chart extent.
                 KeepClipped(Lo, FVector2D(FMath::Min(Hi.X, ChartLo.X), Hi.Y));
                 KeepClipped(FVector2D(FMath::Max(Lo.X, ChartHi.X), Lo.Y), Hi);
@@ -298,6 +319,8 @@ bool USeaTerrainCollisionComponent::BuildTile(UStaticMeshComponent *Source, FTil
     };
     Out.Collision=CreateProxy(Indices);
     Out.WaterDetailCollision=CreateProxy(WaterDetailIndices);
+    const double Milliseconds=(FPlatformTime::Seconds()-BuildStarted)*1000;
+    if(Milliseconds>250)UE_LOG(LogTemp,Display,TEXT("SeaTerrain collision build %.1f ms: land=%d water=%d vertices=%d source=%s"),Milliseconds,Out.Land,Out.Water,Vertices.Num(),*Source->GetName());
     return true;
 }
 bool USeaTerrainCollisionComponent::HasCollisionCoverageAt(const FVector &World) const

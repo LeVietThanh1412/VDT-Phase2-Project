@@ -8,8 +8,8 @@ from pathlib import Path
 import numpy as np
 ROOT=Path(__file__).resolve().parents[2]
 class CoastGeometry:
-    def __init__(self):
-        self.chart=json.loads((ROOT/'Content/SeaNavigation/halong_navigation.json').read_text())
+    def __init__(self,chart=None):
+        self.chart=chart if chart is not None else json.loads((ROOT/'Content/SeaNavigation/halong_navigation.json').read_text())
         g=json.loads((ROOT/'Data/SeaNavigation/halong_land.geojson').read_text())['features'][0]['geometry']
         source=g['coordinates'] if g['type']=='MultiPolygon' else [g['coordinates']]
         self.polygons=[];starts=[];ends=[]

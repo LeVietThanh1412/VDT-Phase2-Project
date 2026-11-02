@@ -1,0 +1,87 @@
+[
+  {
+    "image": "sector_grid.png",
+    "source": "Docs/QuangNinhIntegration/SECTOR_GRID_PREVIEW.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "seeded_layout.png",
+    "source": "Docs/QuangNinhIntegration/SEEDED_LAYOUT_VERIFIED.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "island_field.png",
+    "source": "Docs/QuangNinhIntegration/SEEDED_FIELD_CANDIDATE_1.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "small_ship.png",
+    "source": "Docs/NavalCombat/SMALL_FIXED_NORMAL00000.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "small_gun.png",
+    "source": "Docs/NavalCombat/SMALL_FIXED_GUN00000.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "burning_ship.png",
+    "source": "Docs/NavalCombat/QUANGNINH_BURN00000.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "sinking_ship.png",
+    "source": "Docs/NavalCombat/QUANGNINH_SINK00000.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "result_return.png",
+    "source": "Saved/USER_SHORE_RETURN_RESULT.png",
+    "description": "B0E80908 controlled result with a real desktop Return-to-Setup click; not a natural elimination match."
+  },
+  {
+    "image": "player_defeat.png",
+    "source": "Docs/Testing/RETURN_PLAYER_RED_DEFEAT.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "setup_menu.png",
+    "source": "Saved/RETURN_BLUE_WIN_MENU.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "buoyancy_latest.png",
+    "source": "Saved/AUTHORED_FINAL_BUOYANCY.png",
+    "description": "Historical native D0FE049B controlled idle/firing illustration. Current B0E80908 numerical trace is USER_SHORE_BUOYANCY.json; its offscreen capture failed and is not relabeled as this image."
+  },
+  {
+    "image": "global_minimap.png",
+    "source": "Docs/Testing/COLD_DEMO_HUD.png",
+    "description": "Screenshot or spatial evidence retained from the project; caption identifies historical illustration."
+  },
+  {
+    "image": "setup_authored.png",
+    "source": "Saved menu capture 2026-11-02",
+    "description": "Current manual/generation buttons; all default Medium."
+  },
+  {
+    "image": "authored_full_ai.png",
+    "source": "Saved/AUTHORED_FINAL_SIX_AI_LOOPS.json",
+    "description": "Historical D0FE049B manual-map test; unused as current-layout proof."
+  },
+  {
+    "image": "authored_routes.png",
+    "source": "Saved/USER_LAYOUT_ROUTE_MAP.json + Saved/USER_LAYOUT_FINAL_LOOPS.json",
+    "description": "B0E80908 actual physical patrol tracks over raw coast and native 25 m Medium survey, user layout 2026-11-02. Damage disabled, no sailed-pose correction."
+  },
+  {
+    "image": "shoreline_medium.png",
+    "source": "Saved/SHORELINE_MEDIUM.png",
+    "description": "B0E80908 held-forward-input shoreline test at the reported coast, physics active."
+  },
+  {
+    "image": "shoreline_small.png",
+    "source": "Saved/SHORELINE_SMALL.png",
+    "description": "B0E80908 held-forward-input shoreline test at the reported coast, physics active."
+  }
+]

@@ -1,0 +1,219 @@
+% Content-only draft. Parent supplies documentclass, fonts, preamble and title.
+% Packages: graphicx, hyperref/xurl, longtable, tabularx, booktabs, amsmath.
+% Verify the final manual A/B implementation and append its actual regression.
+
+\chapter{Tổng quan và cách đọc báo cáo}
+\label{chap:tongquan}
+
+\section{Mục tiêu của dự án}
+\textbf{VDT Phase 2 Naval Battle} là dự án Unreal Engine 5.6 trình diễn tác chiến hải quân trên địa hình Quảng Ninh. Dự án kết hợp điều khiển tàu, AI tuần tra và tìm đường A*, ngắm bắn đạn đạo, sát thương, rút lui, chìm tàu và giao diện theo dõi trận đấu.
+
+Trận đấu có từ một đến ba tàu mỗi đội; cấu hình đầy đủ là 3v3. Người sử dụng có thể trực tiếp lái một tàu trong chế độ Player + AI hoặc để sáu tàu do AI điều khiển trong Full AI Demo rồi quan sát qua camera độc lập.
+
+Báo cáo phục vụ cả người trình diễn và người dựng map. Các phần thao tác mô tả cách mở dự án, bố trí tàu, gán A/B, điều khiển và khởi động lại trận. Các phần kỹ thuật giải thích dữ liệu, profile, quyền điều khiển và điểm vào của source/Blueprint để tiếp tục phát triển.
+
+\section{Phạm vi xác nhận}
+Một tính năng có source hoặc có giao diện chưa đồng nghĩa mọi cấu hình của nó đều được kiểm chứng. Cần phân biệt:
+\begin{itemize}
+ \item \textbf{Có triển khai:} có đường thực thi trong mã hoặc Blueprint.
+ \item \textbf{Có bằng chứng chạy thử:} có kết quả build, automation hoặc PIE của cấu hình và phiên bản xác định.
+ \item \textbf{Còn giới hạn:} chưa chứng minh cho mọi seed, đội hình, tuyến, nền tảng hoặc bản đóng gói.
+\end{itemize}
+Các phép thử tắt sát thương, cố ý gây chết hoặc cô lập số tàu được gọi là \emph{thử nghiệm có kiểm soát}. Chúng không được đổi tên thành trận 3v3 kết thúc tự nhiên.
+
+\section{Danh mục tính năng}
+\begin{longtable}{@{}p{0.25\linewidth}p{0.67\linewidth}@{}}
+\toprule
+\textbf{Nhóm} & \textbf{Chức năng chính}\\ \midrule
+\endfirsthead
+\toprule
+\textbf{Nhóm} & \textbf{Chức năng chính}\\ \midrule
+\endhead
+Thiết lập trận & Số tàu, loại tàu, đội người chơi, độ khó, cân bằng HP/damage, thời gian thực hoặc theo lượt.\\
+Tự dựng map & Giữ vị trí tác giả đặt; AI chạy từ xuất phát tới A, B rồi lặp A/B.\\
+Sinh theo seed & Tái lập bố trí bằng seed dương hoặc yêu cầu seed mới bằng 0.\\
+Điều khiển & Tiến/lùi, bẻ lái, nhìn quanh, camera ngắm và projectile Blueprint gốc.\\
+Điều hướng & A* địa lý, vùng nước liên thông, waypoint, cảm biến vật cản, tránh tàu và recovery.\\
+Chiến thuật & Passive/Coward/Fighter/Hunter; đánh rồi rút, lùi có bắn, quay về tuần tra và nhiệm vụ sector.\\
+Chiến đấu & Chọn địch, LOS, bắn đón, sai số độ khó, giới hạn pháo và kiểm tra đường đạn.\\
+Đạn và damage & Băng 10, nạp tự động 30 giây game, sát thương vùng và chống ghi nhận trùng.\\
+Vòng đời & HP, capsize, chết một lần, cháy/chìm/dọn xác, alive counter và kết quả.\\
+Vật lý/thiết bị & Hai họ hình học, ba profile Small/Medium/Large, phao, lực đẩy, bánh lái và cản nước thụ động.\\
+Quan sát & Q xem tàu không chiếm AIController, toàn cảnh, spectator sau khi chết, HUD/minimap/healthbar.\\
+Khởi động lại & RETURN TO SETUP, giữ lựa chọn và tạo trận mới sạch.\\
+Phát triển & Công cụ tích hợp Blueprint, chẩn đoán, chuẩn bị chart và lưu bằng chứng kiểm thử.\\
+\bottomrule
+\end{longtable}
+
+\chapter{Môi trường và dữ liệu}
+\label{chap:moitruong}
+
+\section{Yêu cầu để mở dự án}
+Môi trường đã sử dụng là Windows, Unreal Engine 5.6, Visual Studio/MSVC và Windows SDK phù hợp để build C++. Cấu hình hiển thị chính dùng DirectX 12/Shader Model 6.
+
+Các hệ thống tích hợp gồm Cesium for Unreal (địa lý/terrain), Water (ocean/buoyancy), Enhanced Input, UMG/Slate, Niagara và ProceduralMeshComponent. Modeling Tools cùng các plugin SpecialAgent/FunplayMCP hỗ trợ tác giả và tự động hóa trong Editor; AI trong trận không phụ thuộc một dịch vụ AI đám mây.
+
+\textbf{Mở và chạy:}
+\begin{enumerate}
+ \item Tải đủ source và nội dung Git LFS; pointer LFS chưa tải không phải asset Unreal hoàn chỉnh.
+ \item Mở \path{VDTPhase2Project.uproject} bằng Unreal 5.6; build Editor nếu được yêu cầu.
+ \item Chờ asset/shader tải xong rồi mở \path{/Game/Levels/MainMapLevel}.
+ \item Kiểm tra terrain, mặt nước và đội hình; nhấn Play để vào setup.
+\end{enumerate}
+GameMode Blueprint chính là \path{/Game/Ship/BluePrint/GMBP}, phối hợp lớp native \path{NavalGameMode}. TestLevel và level showcase asset là môi trường phụ, không tự có đầy đủ trận hải chiến.
+
+Target phát triển là \path{VDTPhase2ProjectEditor Win64 Development}. Khi build trực tiếp, dùng Build.bat của Unreal với đường dẫn \path{VDTPhase2Project.uproject}, tùy chọn \path{-WaitMutex -NoHotReloadFromIDE}. Tránh nhiều Editor cùng ghi vào một bản project.
+
+\section{Terrain và imagery Quảng Ninh}
+Dữ liệu ngoài project nằm tại:
+\begin{quote}
+\path{E:/LeVietThanh1412-Product/QuangNinh}
+\end{quote}
+Đường dẫn tương thích trên máy hiện tại là \path{E:/UnrealTerrainSet/QuangNinh}. Terrain và imagery dùng lần lượt:
+\begin{quote}
+\path{file:///E:/UnrealTerrainSet/QuangNinh/Terrain/layer.json}\\
+\path{file:///E:/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml}
+\end{quote}
+\textbf{Kiểm tra trong Editor:}
+\begin{enumerate}
+ \item Chọn \path{QuangNinh_Terrain}, xem nguồn URL trong Details.
+ \item Kiểm tra component imagery và URL của nó.
+ \item Chờ tile cần thiết được tải, kiểm tra bờ/đảo và mặt nước.
+ \item Chỉ lưu map khi chủ động thay cấu hình. Không di chuyển terrain hoặc georeference để kéo chúng về gần tàu.
+\end{enumerate}
+Độ cao LLH là độ cao ellipsoid WGS84, không đồng nhất Z Unreal. Spawning phải truy vấn mặt nước thật, không dùng một hằng số LLH như mực biển ở mọi vị trí.
+
+\section{Dữ liệu runtime và hệ tọa độ}
+\begin{tabularx}{\linewidth}{@{}p{0.43\linewidth}X@{}}
+\toprule
+\textbf{Tệp} & \textbf{Vai trò}\\ \midrule
+\path{Content/SeaNavigation/halong_navigation.json} & Chart nước/đất, clearance và hệ tọa độ cho A*. Tên tệp vẫn là entrypoint hiện tại.\\
+\path{Content/SeaNavigation/quangninh_sectors.json} & Sector logic, vùng chiến thuật và ứng viên spawn/patrol.\\
+\path{Content/SeaNavigation/quangninh_demo_routes.json} & Điểm tham chiếu cho bố trí và tuyến sinh tự động.\\
+\bottomrule
+\end{tabularx}
+
+Build.cs khai báo staging ba JSON này. Điều đó không tự đóng gói bộ terrain bên ngoài. Chart có nguồn bờ biển và độ sâu chưa được chứng nhận thủy đạc.
+
+Ba hệ đơn vị cần phân biệt:
+\begin{itemize}
+ \item Unreal world: vị trí actor/component, centimet.
+ \item LLH: kinh độ độ, vĩ độ độ, độ cao ellipsoid mét.
+ \item Chart EN: East/North mét trên khung tiếp tuyến cố định suy ra từ WGS84 ECEF.
+\end{itemize}
+Chart có gốc LLH \((107.296416,20.992597,0)\), ô 100 m và lưới \(400\times400\). Gốc chart không phải mặc nhiên là gốc georeference của level. Dùng API chuyển đổi, không cộng EN mét trực tiếp vào vector Unreal centimet.
+
+\section{Editor world và PIE}
+Editor world là nơi dựng/lưu map; PIE là bản world chạy thử. Di chuyển \path{BP_Ship0} hoặc TargetPoint trong lúc Play thường chỉ tác động phiên đó. Để bố trí tồn tại qua lần chạy mới:
+\begin{enumerate}
+ \item Stop PIE, sửa tàu/PlayerStart/A/B trong Editor world.
+ \item Save các actor/map/package đã thay đổi.
+ \item Play lại và chọn \textbf{USE MY MAP (A-B)}.
+\end{enumerate}
+Không xem pawn sinh động trong PIE là một cấu hình xuất phát đã được lưu.
+
+\chapter{Match Setup và dựng map thủ công}
+\label{chap:setup}
+
+\section{Hai cách bố trí}
+Giao diện tách \textbf{USE MY MAP (A-B)} và \textbf{GENERATE FROM SEED}. My Map giữ bố trí tác giả, còn Generated cho phép hệ thống chọn vị trí/tuyến từ dữ liệu sector. Khi kiểm tra A/B tự đặt phải dùng My Map; không kỳ vọng chế độ sinh seed đồng thời giữ nguyên mọi actor tự bố trí.
+
+Tàu người chơi mặc định \textbf{Medium}; có thể đổi Small hoặc Large trong ô loại tàu của slot PLAYER. Ba giá trị này là profile, không phải ba đội khác nhau.
+
+\section{Các trường và nút}
+\begin{longtable}{@{}p{0.28\linewidth}p{0.64\linewidth}@{}}
+\toprule
+\textbf{Trường} & \textbf{Cách sử dụng}\\ \midrule
+\endfirsthead
+\toprule
+\textbf{Trường} & \textbf{Cách sử dụng}\\ \midrule
+\endhead
+BLUE/RED TEAM & Chọn từ một tới ba tàu mỗi bên. Slot ngoài số lượng chọn không tham gia roster mới.\\
+Ship / PLAYER & Slot người chơi là slot đầu của đội được chọn. Full AI thay quyền điều khiển slot này bằng AI.\\
+Small/Medium/Large & Chọn profile và thiết bị cho mỗi slot.\\
+AI difficulty & Easy, Normal, Hard: phản ứng ngắm/thu nhận và sai số khác nhau.\\
+Battle mode & Real-Time hoặc Turn-Based (10s).\\
+Player team & Blue hoặc Red; không có nghĩa điều khiển đồng thời toàn đội.\\
+Seed & Số nguyên không âm. Dương để tái lập; 0 yêu cầu seed mới. Trong My Map, seed không di chuyển tàu đã đặt.\\
+Control & Player + AI hoặc Full AI Demo / spectator.\\
+Balance & Standard demo 100 HP/base damage 10, hoặc cân bằng theo class.\\
+START NEW MATCH & Áp lựa chọn và tạo trận sạch qua luồng load/travel hiện có.\\
+BACK TO GAME/QUIT & Trở về trận hiện tại; ở menu khởi đầu nút phụ có thể là QUIT.\\
+\bottomrule
+\end{longtable}
+Nhấn P để pause và mở setup. Sau khi bắt đầu trận cần chờ chuẩn bị/ổn định nổi. \texttt{PREPARING BATTLEFIELD} không phải kết quả thua.
+
+\section{Đặt tàu và điểm xuất phát}
+\begin{enumerate}
+ \item Mở MainMapLevel khi chưa Play.
+ \item Chọn từng AI, ví dụ \path{Friendly_AI_1}, \path{Friendly_AI_2} và các \path{BP_ShipEnemy}.
+ \item Đặt cả thân trong vùng nước, chừa chỗ quay và hướng mũi thuận với chặng đầu.
+ \item Với tàu GameMode sinh cho người chơi, đặt \path{PlayerStart}.
+ \item Chọn hull phù hợp không gian. Small đi được không có nghĩa Medium/Large đi được.
+\end{enumerate}
+
+\section{Gán A/B riêng cho từng AI}
+\label{sec:manualab}
+\begin{enumerate}
+ \item Tạo hai Target Point trong nước, đặt tên dễ đọc, ví dụ \path{TP_Friendly_01_A} và \path{TP_Friendly_01_B}.
+ \item Chọn tàu rồi component \path{ShipEnemyNavigationComponent}.
+ \item Gán \path{PatrolActorA} và \path{PatrolActorB} bằng object picker.
+ \item Chọn Patrol; để \path{PatrolCircuitActors} trống nếu muốn đúng vòng hai điểm.
+ \item Kiểm tra New Navigation Enabled và dùng Blueprint AI đã tích hợp.
+ \item Lặp lại cho từng tàu rồi Save map/external actor.
+\end{enumerate}
+Tên chỉ là quy ước. Object được gán mới quyết định liên kết. Không gán nhầm tất cả tàu vào một cặp trừ khi cố ý thiết kế điểm chờ chung.
+
+\begin{center}
+\begin{tabularx}{0.97\linewidth}{@{}p{0.25\linewidth}XX@{}}
+\toprule
+\textbf{Ví dụ tàu} & \textbf{A} & \textbf{B}\\ \midrule
+\path{Friendly_AI_1} & \path{TP_Friendly_01_A} & \path{TP_Friendly_01_B}\\
+\path{Friendly_AI_2} & \path{TP_Friendly_02_A} & \path{TP_Friendly_02_B}\\
+\path{BP_ShipEnemy} & \path{TP_Red_01_A} & \path{TP_Red_01_B}\\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section{Chạy và xác nhận vòng lặp}
+Chọn My Map, bắt đầu và kiểm tra:
+\[
+\text{xuất phát}\longrightarrow A\longrightarrow B\longrightarrow A\longrightarrow B\longrightarrow\cdots
+\]
+Không đặt xuất phát ngay trong vùng đến A nếu muốn khán giả nhìn rõ chặng đầu. Nếu đã ở trong bán kính chấp nhận, việc chuyển nhanh sang B có thể hợp lệ.
+
+Theo dõi active goal, khoảng cách và \path{PatrolLegsCompleted}. Một lần quay mũi tại A chưa chứng minh đã tới B. Để nghiệm thu nên xem ít nhất bốn chặng liên tiếp của đúng actor, đặc biệt actor từng đứng yên.
+
+Trong Player + AI, tàu người chơi không tự chạy A/B. Trong Full AI, mọi slot AI cần cấu hình tuần tra hợp lệ, bao gồm slot thay tàu người chơi.
+% Integration: parent must insert final sixth-AI authoring rule and new A/B QA.
+
+\section{Quy tắc thiết kế đường chạy}
+\begin{itemize}
+ \item A/B khác nhau, đủ xa, cùng vùng nước liên thông với tàu.
+ \item Bán kính đến đích mặc định C++ là 60 m; hai vùng A/B chồng mạnh sẽ không tạo chặng rõ ràng.
+ \item Chừa khoảng trống ngoài điểm cuối để quay đầu, nhất là thân dài.
+ \item Không xếp đè thân tàu hoặc đặt nhiều điểm chờ trùng nhau.
+ \item Giao cắt hai tuyến ở nước rộng, tách thời điểm đến bằng khoảng xuất phát hoặc thời gian chờ.
+\end{itemize}
+Một đoạn thẳng nhìn không cắt đảo trên ảnh vẫn có thể không đủ clearance/collision cho thân thực.
+
+\section{Sinh bố trí bằng seed}
+\begin{enumerate}
+ \item Chọn Generated, đội hình, các class và control mode.
+ \item Nhập seed dương, ví dụ 20261028; nhập 0 nếu muốn seed mới.
+ \item Bắt đầu, chờ streaming, kiểm tra footprint/keel/mặt nước và settling.
+ \item Nếu fail, đọc lý do thay vì cưỡng ép spawn qua validation.
+\end{enumerate}
+Seed tái lập bố trí trong cùng điều kiện dữ liệu và cấu hình, không xác định toàn bộ kết quả trận. Hệ thống lưu \path{ActualSeed}, số lần thử, fallback và báo cáo bố trí để truy vết.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.77\linewidth]{images/seeded_layout.png}
+\caption{Ảnh lưu của một phép kiểm tra bố trí bằng seed. Các đoạn thẳng là quan hệ gán spawn--goal, không phải quỹ đạo vật lý đã chạy; map thủ công không bị buộc theo bố trí này.}
+\label{fig:seedlayout}
+\end{figure}
+
+\section{Thời gian thực và theo lượt}
+Real-Time cho các tàu sống nhận cửa sổ hành động đồng thời. Turn-Based cấp lượt 10 giây cho từng tàu, luân phiên hai đội và bỏ qua tàu chết. Chỉ tàu đang có lượt phát lệnh hành động; vật lý, nước, damage và projectile đã sinh vẫn theo thời gian world.
+
+\textbf{Cách demo:} nhìn tên tàu/lượt trên HUD, chờ vài lần đổi đội và kiểm tra tàu không có lượt không nhận propulsion chủ động. Đây không phải bàn cờ đóng băng toàn bộ thế giới giữa hai lượt.
