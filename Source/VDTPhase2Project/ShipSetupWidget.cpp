@@ -133,13 +133,26 @@ UComboBoxString* Choices(UWidgetTree* Tree,UVerticalBox* Parent,const TArray<FSt
     return Combo;
 }
 
-/** Compact combo used inside a team header row. */
-UComboBoxString* HeaderChoices(UWidgetTree* Tree,UHorizontalBox* Parent,const TArray<FString>& Options,float Width)
+/** Small square button used for the per-team add/remove ship actions. */
+UButton* MiniButton(UWidgetTree* Tree,UPanelWidget* Parent,const FString& Label,float Width,float Height)
 {
-    auto* Combo=MakeChoices(Tree,Options);
-    auto* Size=Tree->ConstructWidget<USizeBox>();Size->SetWidthOverride(Width);Size->AddChild(Combo);
-    auto* Slot=Parent->AddChildToHorizontalBox(Size);Slot->SetVerticalAlignment(VAlign_Center);
-    return Combo;
+    auto* Button=Tree->ConstructWidget<UButton>();
+    FButtonStyle Style;
+    Style.Normal=FSlateRoundedBoxBrush(FLinearColor(.06f,.12f,.19f,1.f),5.f,FLinearColor(.16f,.34f,.5f,.75f),1.f);
+    Style.Hovered=FSlateRoundedBoxBrush(FLinearColor(.09f,.19f,.29f,1.f),5.f,FLinearColor(.32f,.62f,.88f,.9f),1.f);
+    Style.Pressed=FSlateRoundedBoxBrush(FLinearColor(.03f,.08f,.14f,1.f),5.f,FLinearColor(.32f,.62f,.88f,.9f),1.f);
+    Style.Disabled=FSlateRoundedBoxBrush(FLinearColor(.04f,.06f,.09f,1.f),5.f,FLinearColor(.13f,.2f,.28f,.45f),1.f);
+    Style.NormalPadding=FMargin(2.f);
+    Style.PressedPadding=FMargin(2.f);
+    Button->SetStyle(Style);
+    Button->AddChild(MakeText(Tree,Label,13,FLinearColor(.92f,.96f,1.f),true));
+    auto* Size=Tree->ConstructWidget<USizeBox>();
+    Size->SetWidthOverride(Width);Size->SetHeightOverride(Height);Size->AddChild(Button);
+    if(auto* Slot=Cast<UHorizontalBoxSlot>(Parent->AddChild(Size)))
+    {
+        Slot->SetPadding(FMargin(4.f,0.f,0.f,0.f));Slot->SetVerticalAlignment(VAlign_Center);
+    }
+    return Button;
 }
 }
 
@@ -204,15 +217,16 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     SeedStyle.BackgroundImageHovered=FSlateRoundedBoxBrush(FieldHover,6.f,FieldHoverOutline,1.f);
     SeedStyle.BackgroundImageFocused=FSlateRoundedBoxBrush(FLinearColor(.02f,.055f,.09f,1.f),6.f,FLinearColor(.35f,.75f,1.f,.9f),1.f);
     SeedStyle.BackgroundImageReadOnly=SeedStyle.BackgroundImageNormal;
-    SeedStyle.Padding=FMargin(10.f,6.f);
+    SeedStyle.Padding=FMargin(10.f,3.f);
+    SeedStyle.TextStyle.Font.Size=12;
     SeedStyle.ForegroundColor=FSlateColor(FLinearColor(.92f,.97f,1.f));
     SeedStyle.BackgroundColor=FSlateColor(FLinearColor::White);
     SeedInput->WidgetStyle=SeedStyle;
     SeedInput->SetText(FText::FromString(TEXT("0")));
     auto* SeedInputSize=WidgetTree->ConstructWidget<USizeBox>();
-    SeedInputSize->SetWidthOverride(170.f);SeedInputSize->AddChild(SeedInput);
+    SeedInputSize->SetHeightOverride(26.f);SeedInputSize->AddChild(SeedInput);
     auto* SeedInputSlot=SeedRow->AddChildToVerticalBox(SeedInputSize);
-    SeedInputSlot->SetPadding(FMargin(0.f,5.f,0.f,0.f));SeedInputSlot->SetHorizontalAlignment(HAlign_Left);
+    SeedInputSlot->SetPadding(FMargin(0.f,5.f,0.f,0.f));SeedInputSlot->SetHorizontalAlignment(HAlign_Fill);
     LayoutDescription=MakeText(WidgetTree,TEXT(""),11,FLinearColor(.55f,.8f,.9f));LayoutDescription->SetAutoWrapText(true);
     Deploy->AddChildToVerticalBox(LayoutDescription)->SetPadding(FMargin(0.f,10.f,0.f,0.f));
 
@@ -236,9 +250,13 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     SetupText(WidgetTree,BalanceColumn,TEXT("SHIP MODE"),11,TextMuted);
     BalanceSelector=Choices(WidgetTree,BalanceColumn,{TEXT("Standard: 100 HP / 10 damage"),TEXT("Class balance: Small 38/6, others 100/10")});
 
+    // Hidden compatibility selectors: the visible UI uses + / X buttons instead.
+    BlueCountSelector=MakeChoices(WidgetTree,{TEXT("1 ship"),TEXT("2 ships"),TEXT("3 ships")});
+    RedCountSelector=MakeChoices(WidgetTree,{TEXT("1 ship"),TEXT("2 ships"),TEXT("3 ships")});
     auto* Teams=WidgetTree->ConstructWidget<UHorizontalBox>();
     Team->AddChildToVerticalBox(Teams)->SetPadding(FMargin(0.f,6.f,0.f,0.f));
     HullSelectors.Empty();HullSelectors.SetNum(6);
+    ShipRemoveButtons.Empty();ShipRemoveButtons.SetNum(6);
     SlotRows.Empty();SlotRows.SetNum(6);
     SlotLabels.Empty();SlotLabels.SetNum(6);
     for(int32 TeamIndex=0;TeamIndex<2;++TeamIndex)
@@ -259,14 +277,45 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
         TeamHeader->AddChildToHorizontalBox(MakeText(WidgetTree,TeamIndex==0?TEXT("BLUE TEAM"):TEXT("RED TEAM"),13,TeamColor,true));
         auto* HeaderSpacer=WidgetTree->ConstructWidget<UVerticalBox>();
         TeamHeader->AddChildToHorizontalBox(HeaderSpacer)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-        auto* Count=HeaderChoices(WidgetTree,TeamHeader,{TEXT("1 ship"),TEXT("2 ships"),TEXT("3 ships")},112.f);
-        if(TeamIndex==0)BlueCountSelector=Count;else RedCountSelector=Count;
+        auto* AddButton=MiniButton(WidgetTree,TeamHeader,TEXT("+"),24.f,24.f);
+        AddButton->SetToolTipText(FText::FromString(TEXT("Add a ship")));
+        if(TeamIndex==0)
+        {
+            BlueAddButton=AddButton;
+            AddButton->OnClicked.AddDynamic(this,&UShipSetupWidget::AddBlueShip);
+        }
+        else
+        {
+            RedAddButton=AddButton;
+            AddButton->OnClicked.AddDynamic(this,&UShipSetupWidget::AddRedShip);
+        }
         for(int32 ShipIndex=0;ShipIndex<3;++ShipIndex)
         {
+            const int32 Index=TeamIndex*3+ShipIndex;
             auto* Row=WidgetTree->ConstructWidget<UVerticalBox>();Column->AddChildToVerticalBox(Row);
-            SlotRows[TeamIndex*3+ShipIndex]=Row;
-            SlotLabels[TeamIndex*3+ShipIndex]=SetupText(WidgetTree,Row,TEXT(""),11,FLinearColor(.62f,.75f,.88f));
-            HullSelectors[TeamIndex*3+ShipIndex]=Choices(WidgetTree,Row,{TEXT("Small"),TEXT("Large"),TEXT("Medium")});
+            SlotRows[Index]=Row;
+            auto* ShipRow=WidgetTree->ConstructWidget<UHorizontalBox>();Row->AddChildToVerticalBox(ShipRow);
+            auto* ShipInfo=WidgetTree->ConstructWidget<UVerticalBox>();
+            ShipRow->AddChildToHorizontalBox(ShipInfo)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+            SlotLabels[Index]=SetupText(WidgetTree,ShipInfo,TEXT(""),11,FLinearColor(.62f,.75f,.88f));
+            HullSelectors[Index]=Choices(WidgetTree,ShipInfo,{TEXT("Small"),TEXT("Large"),TEXT("Medium")});
+            auto* RemoveButton=MiniButton(WidgetTree,ShipRow,TEXT("X"),24.f,24.f);
+            RemoveButton->SetToolTipText(FText::FromString(TEXT("Remove this ship")));
+            if(auto* RemoveSlot=Cast<UHorizontalBoxSlot>(RemoveButton->Slot))
+            {
+                RemoveSlot->SetVerticalAlignment(VAlign_Bottom);
+                RemoveSlot->SetPadding(FMargin(6.f,0.f,0.f,7.f));
+            }
+            ShipRemoveButtons[Index]=RemoveButton;
+            switch(Index)
+            {
+            case 0: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveBlueShip0);break;
+            case 1: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveBlueShip1);break;
+            case 2: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveBlueShip2);break;
+            case 3: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveRedShip0);break;
+            case 4: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveRedShip1);break;
+            default: RemoveButton->OnClicked.AddDynamic(this,&UShipSetupWidget::RemoveRedShip2);break;
+            }
         }
     }
 
@@ -336,8 +385,8 @@ void UShipSetupWidget::RefreshLayout()
     // until "Generate from seed" is active.
     if(SeedRow)SeedRow->SetVisibility(Authored?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
     if(LayoutDescription)LayoutDescription->SetText(FText::FromString(Authored?
-        TEXT("MY MAP: place ships and assign A/B in the Editor before Play. Keep those positions; AI goes to A, then B, then repeats. Seed does not move authored ships."):
-        TEXT("GENERATED: the seed chooses checked starting positions and routes. Use the same positive seed and fleet to repeat a layout; 0 requests a new seed.")));
+        TEXT("MY MAP: uses your placed ships and their A/B patrol. Seed is ignored."):
+        TEXT("GENERATED: seed picks start positions and routes. Same seed + fleet = same layout; 0 = random.")));
 }
 
 void UShipSetupWidget::RefreshSlots()
@@ -347,6 +396,12 @@ void UShipSetupWidget::RefreshSlots()
     LastPlayerTeam=PlayerTeamSelector->GetSelectedIndex();
     LastControl=ControlSelector?ControlSelector->GetSelectedIndex():0;
     if(PlayerTeamColumn)PlayerTeamColumn->SetVisibility(LastControl==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+    if(BlueAddButton)BlueAddButton->SetIsEnabled(LastBlue<3);
+    if(RedAddButton)RedAddButton->SetIsEnabled(LastRed<3);
+    for(int32 I=0;I<ShipRemoveButtons.Num();++I)
+    {
+        if(ShipRemoveButtons[I])ShipRemoveButtons[I]->SetIsEnabled((I/3==0?LastBlue:LastRed)>1);
+    }
     for(int32 Team=0;Team<2;++Team)
     {
         const int32 Count=Team==0?LastBlue:LastRed;
@@ -358,6 +413,40 @@ void UShipSetupWidget::RefreshSlots()
         }
     }
 }
+
+void UShipSetupWidget::AdjustShipCount(int32 Team,int32 Delta)
+{
+    auto* Selector=Team==0?BlueCountSelector.Get():RedCountSelector.Get();
+    if(!Selector)return;
+    Selector->SetSelectedIndex(FMath::Clamp(Selector->GetSelectedIndex()+Delta,0,2));
+    RefreshSlots();
+}
+
+void UShipSetupWidget::RemoveShip(int32 Team,int32 ShipIndex)
+{
+    auto* Selector=Team==0?BlueCountSelector.Get():RedCountSelector.Get();
+    if(!Selector)return;
+    const int32 Count=Selector->GetSelectedIndex()+1;
+    if(Count<=1 || ShipIndex<0 || ShipIndex>=Count)return;
+    const int32 Base=Team*3;
+    // Keep the remaining ships in order by shifting the hull choices down.
+    for(int32 I=ShipIndex;I<Count-1;++I)
+    {
+        if(HullSelectors.IsValidIndex(Base+I+1) && HullSelectors[Base+I] && HullSelectors[Base+I+1])
+            HullSelectors[Base+I]->SetSelectedIndex(HullSelectors[Base+I+1]->GetSelectedIndex());
+    }
+    Selector->SetSelectedIndex(Count-2);
+    RefreshSlots();
+}
+
+void UShipSetupWidget::AddBlueShip(){AdjustShipCount(0,1);}
+void UShipSetupWidget::AddRedShip(){AdjustShipCount(1,1);}
+void UShipSetupWidget::RemoveBlueShip0(){RemoveShip(0,0);}
+void UShipSetupWidget::RemoveBlueShip1(){RemoveShip(0,1);}
+void UShipSetupWidget::RemoveBlueShip2(){RemoveShip(0,2);}
+void UShipSetupWidget::RemoveRedShip0(){RemoveShip(1,0);}
+void UShipSetupWidget::RemoveRedShip1(){RemoveShip(1,1);}
+void UShipSetupWidget::RemoveRedShip2(){RemoveShip(1,2);}
 
 void UShipSetupWidget::NativeTick(const FGeometry& Geometry,float DeltaTime)
 {
