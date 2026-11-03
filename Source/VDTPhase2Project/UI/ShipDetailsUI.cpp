@@ -14,7 +14,6 @@
 #include "Styling/CoreStyle.h"
 #include "UObject/UnrealType.h"
 #include "Widgets/Images/SImage.h"
-#include "Widgets/Input/SButton.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SGridPanel.h"
@@ -24,9 +23,9 @@
 
 namespace
 {
-    const FLinearColor PanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
-    const FLinearColor PanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
-    const FLinearColor AccentColor(0.35f, 0.85f, 1.0f, 1.0f);
+    const FLinearColor DetailsPanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
+    const FLinearColor DetailsPanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
+    const FLinearColor DetailsAccentColor(0.35f, 0.85f, 1.0f, 1.0f);
     const FLinearColor LabelColor(0.55f, 0.70f, 0.80f, 1.0f);
     const FLinearColor ValueColor(0.93f, 0.97f, 1.0f, 1.0f);
 
@@ -88,7 +87,7 @@ void UShipDetailsUI::SetSelectedShip(APawn* InSelectedShip)
 
 TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
 {
-    static const FSlateRoundedBoxBrush PanelBrush(PanelFillColor, 16.0f, PanelOutlineColor, 1.5f);
+    static const FSlateRoundedBoxBrush PanelBrush(DetailsPanelFillColor, 16.0f, DetailsPanelOutlineColor, 1.5f);
     static const FSlateRoundedBoxBrush SeparatorBrush(FLinearColor(0.20f, 0.55f, 0.70f, 0.45f), 0.5f);
 
     // Bold typeface plus a thin 1px outline keeps the ship name visually heavy.
@@ -98,7 +97,6 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
         FFontOutlineSettings(1, FLinearColor(0.02f, 0.16f, 0.24f, 1.0f)));
     const FSlateFontInfo LabelFont = FCoreStyle::GetDefaultFontStyle(TEXT("Regular"), 14.0f);
     const FSlateFontInfo ValueFont = FCoreStyle::GetDefaultFontStyle(TEXT("Regular"), 14.0f);
-
     return SNew(SOverlay)
         + SOverlay::Slot()
         .HAlign(HAlign_Left)
@@ -118,7 +116,7 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                     [
                         SAssignNew(ShipNameText, STextBlock)
                         .Font(NameFont)
-                        .ColorAndOpacity(AccentColor)
+                        .ColorAndOpacity(DetailsAccentColor)
                         .Text(FText::FromString(TEXT("--")))
                     ]
                     + SVerticalBox::Slot()
@@ -235,64 +233,10 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                         ]
                     ]
                     + SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)
-                    [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(AccentColor) ]
-                ]
-            ]
-        ]
-        + SOverlay::Slot()
-        .HAlign(HAlign_Center)
-        .VAlign(VAlign_Top)
-        .Padding(FMargin(32.0f, 104.0f, 32.0f, 32.0f))
-        [
-            SNew(SBox)
-            .MinDesiredWidth(320.0f)
-            .Visibility_UObject(this,&UShipDetailsUI::GetMatchResultVisibility)
-            [
-                SNew(SBorder)
-                .Padding(FMargin(22.0f,18.0f))
-                .BorderImage(&PanelBrush)
-                [
-                    SNew(SVerticalBox)
-                    + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center)
-                    [
-                        SNew(STextBlock)
-                        .Font(NameFont)
-                        .ColorAndOpacity(AccentColor)
-                        .Text_UObject(this,&UShipDetailsUI::GetMatchResultText)
-                    ]
-                    + SVerticalBox::Slot().AutoHeight().Padding(0,14,0,0)
-                    [
-                        SNew(SButton)
-                        .ContentPadding(FMargin(18.0f,10.0f))
-                        .HAlign(HAlign_Center)
-                        .OnClicked_UObject(this,&UShipDetailsUI::ReturnToSetup)
-                        [
-                            SNew(STextBlock)
-                            .Font(ValueFont)
-                            .Text(FText::FromString(TEXT("RETURN TO SETUP")))
-                        ]
-                    ]
+                    [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(DetailsAccentColor) ]
                 ]
             ]
         ];
-}
-
-EVisibility UShipDetailsUI::GetMatchResultVisibility() const
-{
-    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
-    return Battle && !Battle->Outcome.IsEmpty()?EVisibility::Visible:EVisibility::Collapsed;
-}
-
-FText UShipDetailsUI::GetMatchResultText() const
-{
-    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
-    return Battle?FText::FromString(Battle->Outcome):FText::GetEmpty();
-}
-
-FReply UShipDetailsUI::ReturnToSetup()
-{
-    if(auto* Controller=Cast<ACustomPlayerController>(GetOwningPlayer()))Controller->ReturnToMatchSetup();
-    return FReply::Handled();
 }
 
 void UShipDetailsUI::NativeConstruct()
@@ -342,7 +286,7 @@ void UShipDetailsUI::UpdateDetails()
     if (!IsValid(Ship))
     {
         ShipNameText->SetText(FText::FromString(TEXT("--")));
-        ShipNameText->SetColorAndOpacity(FSlateColor(AccentColor));
+        ShipNameText->SetColorAndOpacity(FSlateColor(DetailsAccentColor));
         AmmoText=IdentityText=TEXT("--");MagazineText->SetText(FText::FromString(AmmoText));
         LongitudeText->SetText(FText::FromString(TEXT("--")));
         LatitudeText->SetText(FText::FromString(TEXT("--")));
@@ -382,7 +326,7 @@ void UShipDetailsUI::UpdateDetails()
     {
         DisplayName = MakeShipDisplayName(Ship->GetName());
     }
-    FLinearColor NameColor = AccentColor;
+    FLinearColor NameColor = DetailsAccentColor;
     if (const UShipWeaponComponent* Weapon = Ship->FindComponentByClass<UShipWeaponComponent>())
     {
         if (Weapon->Team() == 0)

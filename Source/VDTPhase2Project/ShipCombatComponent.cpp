@@ -166,7 +166,9 @@ bool UShipWeaponComponent::ReceiveShipDamage(float Damage,AActor* Causer)
     if(Source==GetOwner() || SourceTeam==Team() || SourceTeam<0 || SourceTeam>1 || Team()<0 || Team()>1)
     {++RejectedTeamHits;return false;}
     if(Round && !Round->ClaimVictim(GetOwner()))return false;
+    const float AppliedDamage=FMath::Min(Damage,CurrentHealth);
     CurrentHealth=FMath::Clamp(CurrentHealth-Damage,0.f,FMath::Max(1.f,MaxHealth));++AcceptedDamageEvents;
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->RecordDamage(SourceWeapon,this,AppliedDamage);
     if(auto* N=GetOwner()->FindComponentByClass<UShipEnemyNavigationComponent>())N->Health=CurrentHealth;
     if(CurrentHealth>0)if(auto* C=GetOwner()->FindComponentByClass<UShipCombatComponent>())C->OnHostileHit(Source);
     UE_LOG(LogTemp,Display,TEXT("ShipBattle damage ship=%s team=%d sourceTeam=%d hp=%.1f damage=%.1f projectile=%s"),*GetNameSafe(GetOwner()),Team(),SourceTeam,CurrentHealth,Damage,*GetNameSafe(Causer));
@@ -209,7 +211,13 @@ bool UShipWeaponComponent::Die(EShipDeathReason Reason,AActor* Attacker)
     }
     // The fleet counter is a gameplay authority, not a widget listener. Notify
     // it on the same guarded death transition, before the wreck is cleaned up.
-    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ShipDestroyed(this);
+    if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())
+    {
+        if(IsValid(Attacker))
+            if(auto* AttackerWeapon=Attacker->FindComponentByClass<UShipWeaponComponent>())
+                if(AttackerWeapon!=this)Battle->RecordElimination(AttackerWeapon);
+        Battle->ShipDestroyed(this);
+    }
     OnShipDestroyed.Broadcast(this,Attacker);OnHealthChanged.Broadcast(this,CurrentHealth,MaxHealth);RefreshHealthUI();
     UE_LOG(LogTemp,Display,TEXT("ShipBattle destroyed ship=%s team=%d reason=%s attacker=%s event=%d"),*GetNameSafe(GetOwner()),Team(),*UEnum::GetValueAsString(Reason),*GetNameSafe(Attacker),DestructionEvents);
     return true;
