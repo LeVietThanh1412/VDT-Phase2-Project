@@ -331,7 +331,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     for(int32 I=0;I<2;++I)
     {
         auto* Button=ActionButton(WidgetTree,I?TEXT("QUIT"):TEXT("START NEW MATCH"),15,
-            I?FLinearColor(.08f,.13f,.2f):FLinearColor(.02f,.42f,.55f));
+            I?FLinearColor(.08f,.13f,.2f):FLinearColor(.30f,.66f,.38f));
         auto* LayoutSlot=Buttons->AddChildToHorizontalBox(Button);
         LayoutSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));LayoutSlot->SetPadding(FMargin(I?8.f:0.f,0.f,I?0.f:8.f,0.f));
         if(I){QuitLabel=Cast<UTextBlock>(Button->GetContent());Button->OnClicked.AddDynamic(this,&UShipSetupWidget::OnQuitClicked);}
@@ -485,7 +485,12 @@ bool UShipSetupWidget::ApplySelection()
 void UShipSetupWidget::StartMatch()
 {
     if(!ApplySelection())return;
-    if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer()))PC->CloseMatchSetup();
+    if(auto* PC=Cast<ACustomPlayerController>(GetOwningPlayer()))
+    {
+        PC->CloseMatchSetup();
+        PC->StartNewMatch();
+        return;
+    }
     UGameplayStatics::OpenLevel(this,FName(TEXT("/Game/Levels/MainMapLevel")));
 }
 

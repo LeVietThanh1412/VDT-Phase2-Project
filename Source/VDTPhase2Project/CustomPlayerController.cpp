@@ -2,12 +2,14 @@
 
 #include "Actor/Pawn/FreeCameraPawn.h"
 #include "UI/ButtonTutorialsUI.h"
+#include "UI/LoadingScreenWidget.h"
 #include "UI/ShipDetailsUI.h"
 #include "UI/TeamCountBarWidget.h"
 #include "UI/KillFeedWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "NavalBattleUI.h"
+#include "NavalBattlefieldSubsystem.h"
 #include "Camera/CameraActor.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/World.h"
@@ -20,6 +22,7 @@
 #include "CesiumGeoreference.h"
 #include "ShipSetupWidget.h"
 #include "Engine/GameInstance.h"
+#include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 
 void ACustomPlayerController::BeginPlay()
@@ -34,6 +37,11 @@ void ACustomPlayerController::BeginPlay()
     if (!IsLocalController())
     {
         return;
+    }
+
+    if (Settings && Settings->bExplicitSelection)
+    {
+        ShowLoadingScreen();
     }
 
     if (!IsValid(ShipDetailsUI))
@@ -112,6 +120,94 @@ void ACustomPlayerController::CloseMatchSetup()
     if(bMenuPausedWorld)SetPause(false);bMenuPausedWorld=false;
     if(const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;Battle && !Battle->Outcome.IsEmpty())
         ShowMatchResult();
+}
+
+void ACustomPlayerController::StartNewMatch()
+{
+    if (!IsLocalController())
+    {
+        return;
+    }
+
+    // Keep the loading overlay visible while the level travels; the new
+    // controller's BeginPlay shows it again until the battlefield is ready.
+    bTravelPending = true;
+    ShowLoadingScreen();
+    GetWorld()->GetTimerManager().SetTimer(LoadingTravelTimer, this, &ACustomPlayerController::OpenMatchLevel, 0.25f, false);
+}
+
+void ACustomPlayerController::OpenMatchLevel()
+{
+    UGameplayStatics::OpenLevel(this, FName(TEXT("/Game/Levels/MainMapLevel")));
+}
+
+void ACustomPlayerController::ShowLoadingScreen()
+{
+    if (!IsLocalController() || IsValid(LoadingScreenUI))
+    {
+        return;
+    }
+
+    LoadingScreenUI = CreateWidget<ULoadingScreenWidget>(this, ULoadingScreenWidget::StaticClass());
+    if (!IsValid(LoadingScreenUI))
+    {
+        return;
+    }
+
+    LoadingScreenUI->AddToViewport(1000);
+    SetIgnoreMoveInput(true);
+    SetIgnoreLookInput(true);
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeUIOnly());
+
+    if (UWorld* World = GetWorld())
+    {
+        World->GetTimerManager().SetTimer(LoadingWatchTimer, this, &ACustomPlayerController::CheckLoadingComplete, 0.1f, true);
+    }
+}
+
+void ACustomPlayerController::HideLoadingScreen()
+{
+    if (IsValid(LoadingScreenUI))
+    {
+        LoadingScreenUI->RemoveFromParent();
+        LoadingScreenUI = nullptr;
+    }
+
+    if (UWorld* World = GetWorld())
+    {
+        World->GetTimerManager().ClearTimer(LoadingWatchTimer);
+    }
+
+    ResetIgnoreMoveInput();
+    ResetIgnoreLookInput();
+    bShowMouseCursor = false;
+    SetInputMode(FInputModeGameOnly());
+}
+
+void ACustomPlayerController::CheckLoadingComplete()
+{
+    if (bTravelPending || !IsValid(LoadingScreenUI))
+    {
+        return;
+    }
+
+    const UWorld* World = GetWorld();
+    if (!World)
+    {
+        HideLoadingScreen();
+        return;
+    }
+
+    const auto* Battle = World->GetSubsystem<UNavalBattleSubsystem>();
+    const auto* Field = World->GetSubsystem<UNavalBattlefieldSubsystem>();
+    const bool bReady = Battle && Battle->bMatchConfigured && (!Field || Field->CanBeginCombat());
+    const bool bFailed = (Field && !Field->InitializationError.IsEmpty()) ||
+        (Battle && !Battle->bMatchConfigured && !Battle->ConfigurationError.IsEmpty());
+    if (bReady || bFailed)
+    {
+        HideLoadingScreen();
+    }
 }
 
 void ACustomPlayerController::ReturnToMatchSetup()
@@ -209,9 +305,9 @@ void ACustomPlayerController::ShowBattlefieldOverview()
             const FVector LLH=Geo->TransformUnrealPositionToLongitudeLatitudeHeight(Focus);
             Up=(Geo->TransformLongitudeLatitudeHeightPositionToUnreal(LLH+FVector(0,0,1))-Focus).GetSafeNormal();
         }
-    const FVector Eye=Focus+Up*180000-FVector::VectorPlaneProject(FVector(1,0,0),Up).GetSafeNormal()*65000;
+    const FVector Eye=Focus+Up*50000-FVector::VectorPlaneProject(FVector(1,0,0),Up).GetSafeNormal()*65000;
     FreeCameraPawn->SetActorLocation(Eye,false,nullptr,ETeleportType::TeleportPhysics);
-    FreeCameraPawn->SetHeightLimits(Eye.Z-180000,Eye.Z+180000);
+    FreeCameraPawn->SetHeightLimits(Eye.Z-50000,Eye.Z+50000);
     SetControlRotation((Focus-Eye).Rotation());FollowedTeammate=nullptr;
     SetViewTargetWithBlend(FreeCameraPawn,.25f);
     bBattlefieldOverview=true;
