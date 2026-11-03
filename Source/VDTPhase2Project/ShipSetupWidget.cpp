@@ -16,6 +16,8 @@
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Engine/GameInstance.h"
+#include "Fonts/CompositeFont.h"
+#include "Misc/Paths.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "InputCoreTypes.h"
@@ -24,10 +26,7 @@
 namespace
 {
 const FLinearColor TextMuted(.55f,.68f,.82f);
-const FLinearColor TextFaint(.42f,.55f,.68f);
 const FLinearColor AccentCyan(.35f,.82f,1.f);
-const FLinearColor AccentBlue(.45f,.65f,1.f);
-const FLinearColor AccentTeam(.65f,.8f,1.f);
 const FLinearColor CardFill(.025f,.05f,.085f,1.f);
 const FLinearColor CardOutline(1.f,1.f,1.f,.05f);
 const FLinearColor FieldFill(.02f,.045f,.075f,1.f);
@@ -42,6 +41,46 @@ UTextBlock* MakeText(UWidgetTree* Tree,const FString& Value,int32 Size,FLinearCo
     auto Font=Text->GetFont();Font.Size=Size;
     if(bBold)Font.TypefaceFontName=FName(TEXT("Bold"));
     Text->SetFont(Font);Text->SetColorAndOpacity(Color);
+    return Text;
+}
+
+TSharedPtr<const FCompositeFont> GetNavyHeadingFont()
+{
+    static TSharedPtr<const FCompositeFont> Font;
+    if (!Font.IsValid())
+    {
+        const FString FontPath = FPaths::ConvertRelativePathToFull(
+            FPaths::ProjectContentDir() / TEXT("Fonts/BlackOpsOne-Regular.ttf"));
+        if (FPaths::FileExists(FontPath))
+        {
+            Font = MakeShared<FCompositeFont>(
+                FName(TEXT("Regular")),
+                FontPath,
+                EFontHinting::Default,
+                EFontLoadingPolicy::LazyLoad);
+        }
+    }
+    return Font;
+}
+
+/** Headings use the Navy-style face without synthetic bold; fallback stays bold. */
+UTextBlock* MakeHeading(UWidgetTree* Tree,const FString& Value,int32 Size,FLinearColor Color,bool bNavyFont=false)
+{
+    auto* Text=MakeText(Tree,Value,Size,Color,false);
+    auto Font=Text->GetFont();
+    if (bNavyFont)
+    {
+        if (const TSharedPtr<const FCompositeFont> NavyFont = GetNavyHeadingFont())
+        {
+            Font = FSlateFontInfo(NavyFont, Size, NAME_None);
+            Text->SetFont(Font);
+            return Text;
+        }
+    }
+    Font.TypefaceFontName=FName(TEXT("Bold"));
+    Font.OutlineSettings.OutlineSize=1;
+    Font.OutlineSettings.OutlineColor=Color;
+    Text->SetFont(Font);
     return Text;
 }
 
@@ -60,8 +99,8 @@ void AddDivider(UWidgetTree* Tree,UVerticalBox* Parent,FMargin Padding)
     Parent->AddChildToVerticalBox(LineSize)->SetPadding(Padding);
 }
 
-/** A rounded card with an accent title, used to separate the setup groups. */
-UVerticalBox* Section(UWidgetTree* Tree,UVerticalBox* Parent,const FString& Title,const FLinearColor& Accent)
+/** A rounded card with a shared heading style, used to separate the setup groups. */
+UVerticalBox* Section(UWidgetTree* Tree,UVerticalBox* Parent,const FString& Title)
 {
     auto* Card=Tree->ConstructWidget<UBorder>();
     Card->SetBrush(FSlateRoundedBoxBrush(CardFill,8.f,CardOutline,1.f));
@@ -70,15 +109,9 @@ UVerticalBox* Section(UWidgetTree* Tree,UVerticalBox* Parent,const FString& Titl
     auto* Body=Tree->ConstructWidget<UVerticalBox>();Card->AddChild(Body);
 
     auto* Header=Tree->ConstructWidget<UHorizontalBox>();Body->AddChildToVerticalBox(Header);
-    auto* Bar=Tree->ConstructWidget<UBorder>();
-    Bar->SetBrush(FSlateRoundedBoxBrush(Accent,2.f));
-    auto* BarSize=Tree->ConstructWidget<USizeBox>();
-    BarSize->SetWidthOverride(3.f);BarSize->SetHeightOverride(13.f);BarSize->AddChild(Bar);
-    auto* BarSlot=Header->AddChildToHorizontalBox(BarSize);
-    BarSlot->SetPadding(FMargin(0.f,1.f,8.f,0.f));BarSlot->SetVerticalAlignment(VAlign_Center);
-    Header->AddChildToHorizontalBox(MakeText(Tree,Title,13,Accent,true));
+    Header->AddChildToHorizontalBox(MakeHeading(Tree,Title,18,AccentCyan,true));
 
-    AddDivider(Tree,Body,FMargin(0.f,8.f,0.f,12.f));
+    AddDivider(Tree,Body,FMargin(0.f,10.f,0.f,12.f));
     return Body;
 }
 
@@ -162,14 +195,14 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     auto* Background=WidgetTree->ConstructWidget<UBorder>();Background->SetBrushColor(FLinearColor(.004f,.008f,.018f,.97f));
     WidgetTree->RootWidget=Background;
     auto* Scale=WidgetTree->ConstructWidget<UScaleBox>();Scale->SetStretch(EStretch::ScaleToFit);Background->AddChild(Scale);
-    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(780);Size->SetHeightOverride(1010);Scale->AddChild(Size);
+    auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetWidthOverride(780);Size->SetHeightOverride(1040);Scale->AddChild(Size);
     auto* Frame=WidgetTree->ConstructWidget<UBorder>();
     Frame->SetBrush(FSlateRoundedBoxBrush(FLinearColor(.012f,.025f,.045f,1.f),14.f,FLinearColor(.12f,.28f,.42f,.5f),1.f));
     Frame->SetPadding(FMargin(26.f,22.f,26.f,22.f));Size->AddChild(Frame);
     auto* Box=WidgetTree->ConstructWidget<UVerticalBox>();Frame->AddChild(Box);
 
     auto* HeaderRow=WidgetTree->ConstructWidget<UHorizontalBox>();Box->AddChildToVerticalBox(HeaderRow);
-    HeaderRow->AddChildToHorizontalBox(MakeText(WidgetTree,TEXT("MATCH SETTINGS"),26,FLinearColor(.86f,.95f,1.f),true));
+    HeaderRow->AddChildToHorizontalBox(MakeHeading(WidgetTree,TEXT("MATCH SETTINGS"),36,FLinearColor(.86f,.95f,1.f),true));
     auto* CloseHint=WidgetTree->ConstructWidget<UBorder>();
     CloseHint->SetBrush(FSlateRoundedBoxBrush(FLinearColor(.04f,.1f,.16f,1.f),5.f,FLinearColor(.2f,.45f,.6f,.5f),1.f));
     CloseHint->SetPadding(FMargin(9.f,4.f));
@@ -178,11 +211,11 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     CloseSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     CloseSlot->SetHorizontalAlignment(HAlign_Right);CloseSlot->SetVerticalAlignment(VAlign_Center);
     auto* AccentLine=WidgetTree->ConstructWidget<UBorder>();AccentLine->SetBrush(FSlateRoundedBoxBrush(AccentCyan,1.5f));
-    auto* AccentSize=WidgetTree->ConstructWidget<USizeBox>();AccentSize->SetWidthOverride(56.f);AccentSize->SetHeightOverride(3.f);AccentSize->AddChild(AccentLine);
+    auto* AccentSize=WidgetTree->ConstructWidget<USizeBox>();AccentSize->SetWidthOverride(72.f);AccentSize->SetHeightOverride(4.f);AccentSize->AddChild(AccentLine);
     auto* AccentSlot=Box->AddChildToVerticalBox(AccentSize);AccentSlot->SetPadding(FMargin(1.f,12.f,0.f,14.f));AccentSlot->SetHorizontalAlignment(HAlign_Left);
 
     // GENERAL: AI difficulty and battle mode.
-    auto* General=Section(WidgetTree,Box,TEXT("GENERAL"),AccentCyan);
+    auto* General=Section(WidgetTree,Box,TEXT("GENERAL"));
     auto* GeneralRow=WidgetTree->ConstructWidget<UHorizontalBox>();General->AddChildToVerticalBox(GeneralRow);
     for(int32 I=0;I<2;++I)
     {
@@ -194,7 +227,7 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     }
 
     // DEPLOY TROOPS: layout source buttons share a row; the seed field is the second row.
-    auto* Deploy=Section(WidgetTree,Box,TEXT("DEPLOY TROOPS"),AccentBlue);
+    auto* Deploy=Section(WidgetTree,Box,TEXT("DEPLOY TROOPS"));
     auto* DeployRow=WidgetTree->ConstructWidget<UHorizontalBox>();Deploy->AddChildToVerticalBox(DeployRow);
     for(int32 I=0;I<2;++I)
     {
@@ -208,9 +241,6 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     Deploy->AddChildToVerticalBox(SeedRow)->SetPadding(FMargin(0.f,10.f,0.f,0.f));
     auto* SeedHeader=WidgetTree->ConstructWidget<UHorizontalBox>();SeedRow->AddChildToVerticalBox(SeedHeader);
     SeedHeader->AddChildToHorizontalBox(MakeText(WidgetTree,TEXT("BATTLEFIELD SEED"),11,TextMuted));
-    auto* SeedHint=MakeText(WidgetTree,TEXT("0 = new random   /   positive = repeatable"),10,TextFaint);
-    auto* HintSlot=SeedHeader->AddChildToHorizontalBox(SeedHint);
-    HintSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));HintSlot->SetHorizontalAlignment(HAlign_Right);
     SeedInput=WidgetTree->ConstructWidget<UEditableTextBox>();
     auto SeedStyle=SeedInput->WidgetStyle;
     SeedStyle.BackgroundImageNormal=FSlateRoundedBoxBrush(FieldFill,6.f,FieldOutline,1.f);
@@ -227,11 +257,11 @@ TSharedRef<SWidget> UShipSetupWidget::RebuildWidget()
     SeedInputSize->SetHeightOverride(26.f);SeedInputSize->AddChild(SeedInput);
     auto* SeedInputSlot=SeedRow->AddChildToVerticalBox(SeedInputSize);
     SeedInputSlot->SetPadding(FMargin(0.f,5.f,0.f,0.f));SeedInputSlot->SetHorizontalAlignment(HAlign_Fill);
-    LayoutDescription=MakeText(WidgetTree,TEXT(""),11,FLinearColor(.55f,.8f,.9f));LayoutDescription->SetAutoWrapText(true);
+    LayoutDescription=MakeText(WidgetTree,TEXT(""),11,FLinearColor(.60f,.63f,.66f,.55f));LayoutDescription->SetAutoWrapText(true);
     Deploy->AddChildToVerticalBox(LayoutDescription)->SetPadding(FMargin(0.f,10.f,0.f,0.f));
 
     // TEAM SETUP: control and ship mode, then the two fleets.
-    auto* Team=Section(WidgetTree,Box,TEXT("TEAM SETUP"),AccentTeam);
+    auto* Team=Section(WidgetTree,Box,TEXT("TEAM SETUP"));
     // CONTROL MODE row: player team sits beside it only while a player is present.
     auto* ControlRow=WidgetTree->ConstructWidget<UHorizontalBox>();Team->AddChildToVerticalBox(ControlRow);
     auto* ControlColumn=WidgetTree->ConstructWidget<UVerticalBox>();
@@ -385,8 +415,8 @@ void UShipSetupWidget::RefreshLayout()
     // until "Generate from seed" is active.
     if(SeedRow)SeedRow->SetVisibility(Authored?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
     if(LayoutDescription)LayoutDescription->SetText(FText::FromString(Authored?
-        TEXT("MY MAP: uses your placed ships and their A/B patrol. Seed is ignored."):
-        TEXT("GENERATED: seed picks start positions and routes. Same seed + fleet = same layout; 0 = random.")));
+        TEXT("Manually: uses your placed ships and their A/B patrol. Seed is ignored."):
+        TEXT("Seed: picks start positions and routes. Same seed + fleet = same layout; 0 = random.")));
 }
 
 void UShipSetupWidget::RefreshSlots()

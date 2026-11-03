@@ -16,9 +16,9 @@
 
 namespace
 {
-    const FLinearColor PanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
-    const FLinearColor PanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
-    const FLinearColor AccentColor(0.35f, 0.85f, 1.0f, 1.0f);
+    const FLinearColor SummaryPanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
+    const FLinearColor SummaryPanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
+    const FLinearColor SummaryAccentColor(0.35f, 0.85f, 1.0f, 1.0f);
     const FLinearColor SummaryValueColor(0.72f, 0.76f, 0.80f, 1.0f);
     const FLinearColor BlueTeamColor(0.28f, 0.60f, 1.0f, 1.0f);
     const FLinearColor RedTeamColor(1.0f, 0.36f, 0.32f, 1.0f);
@@ -28,7 +28,7 @@ namespace
 
 TSharedRef<SWidget> UMatchSummaryWidget::RebuildWidget()
 {
-    static const FSlateRoundedBoxBrush PanelBrush(PanelFillColor, 16.0f, PanelOutlineColor, 1.5f);
+    static const FSlateRoundedBoxBrush PanelBrush(SummaryPanelFillColor, 16.0f, SummaryPanelOutlineColor, 1.5f);
     static const FSlateRoundedBoxBrush SeparatorBrush(FLinearColor(0.20f, 0.55f, 0.70f, 0.45f), 0.5f);
 
     const FSlateFontInfo SummaryTitleFont = FCoreStyle::GetDefaultFontStyle(TEXT("Bold"), 30.0f);
@@ -139,7 +139,7 @@ TSharedRef<SWidget> UMatchSummaryWidget::RebuildWidget()
                     [
                         SNew(STextBlock)
                         .Font(SummaryTitleFont)
-                        .ColorAndOpacity(FSlateColor(AccentColor))
+                        .ColorAndOpacity(FSlateColor(SummaryAccentColor))
                         .Text(FText::FromString(TEXT("MATCH SUMMARY")))
                     ]
                     + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center).Padding(0, 2, 0, 0)
@@ -241,7 +241,7 @@ FLinearColor UMatchSummaryWidget::GetOutcomeColor() const
     const auto* Battle = GetWorld() ? GetWorld()->GetSubsystem<UNavalBattleSubsystem>() : nullptr;
     if (!Battle)
     {
-        return AccentColor;
+        return SummaryAccentColor;
     }
     if (Battle->Outcome == TEXT("VICTORY"))
     {
@@ -259,7 +259,7 @@ FLinearColor UMatchSummaryWidget::GetOutcomeColor() const
     {
         return RedTeamColor;
     }
-    return AccentColor;
+    return SummaryAccentColor;
 }
 
 FReply UMatchSummaryWidget::ReturnToSetup()

@@ -23,9 +23,9 @@
 
 namespace
 {
-    const FLinearColor PanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
-    const FLinearColor PanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
-    const FLinearColor AccentColor(0.35f, 0.85f, 1.0f, 1.0f);
+    const FLinearColor DetailsPanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
+    const FLinearColor DetailsPanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
+    const FLinearColor DetailsAccentColor(0.35f, 0.85f, 1.0f, 1.0f);
     const FLinearColor LabelColor(0.55f, 0.70f, 0.80f, 1.0f);
     const FLinearColor ValueColor(0.93f, 0.97f, 1.0f, 1.0f);
 
@@ -87,7 +87,7 @@ void UShipDetailsUI::SetSelectedShip(APawn* InSelectedShip)
 
 TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
 {
-    static const FSlateRoundedBoxBrush PanelBrush(PanelFillColor, 16.0f, PanelOutlineColor, 1.5f);
+    static const FSlateRoundedBoxBrush PanelBrush(DetailsPanelFillColor, 16.0f, DetailsPanelOutlineColor, 1.5f);
     static const FSlateRoundedBoxBrush SeparatorBrush(FLinearColor(0.20f, 0.55f, 0.70f, 0.45f), 0.5f);
 
     // Bold typeface plus a thin 1px outline keeps the ship name visually heavy.
@@ -116,7 +116,7 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                     [
                         SAssignNew(ShipNameText, STextBlock)
                         .Font(NameFont)
-                        .ColorAndOpacity(AccentColor)
+                        .ColorAndOpacity(DetailsAccentColor)
                         .Text(FText::FromString(TEXT("--")))
                     ]
                     + SVerticalBox::Slot()
@@ -233,7 +233,7 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                         ]
                     ]
                     + SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)
-                    [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(AccentColor) ]
+                    [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(DetailsAccentColor) ]
                 ]
             ]
         ];
@@ -286,7 +286,7 @@ void UShipDetailsUI::UpdateDetails()
     if (!IsValid(Ship))
     {
         ShipNameText->SetText(FText::FromString(TEXT("--")));
-        ShipNameText->SetColorAndOpacity(FSlateColor(AccentColor));
+        ShipNameText->SetColorAndOpacity(FSlateColor(DetailsAccentColor));
         AmmoText=IdentityText=TEXT("--");MagazineText->SetText(FText::FromString(AmmoText));
         LongitudeText->SetText(FText::FromString(TEXT("--")));
         LatitudeText->SetText(FText::FromString(TEXT("--")));
@@ -326,7 +326,7 @@ void UShipDetailsUI::UpdateDetails()
     {
         DisplayName = MakeShipDisplayName(Ship->GetName());
     }
-    FLinearColor NameColor = AccentColor;
+    FLinearColor NameColor = DetailsAccentColor;
     if (const UShipWeaponComponent* Weapon = Ship->FindComponentByClass<UShipWeaponComponent>())
     {
         if (Weapon->Team() == 0)
