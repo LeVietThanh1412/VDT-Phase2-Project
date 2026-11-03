@@ -3,6 +3,7 @@
 #include "Actor/Pawn/FreeCameraPawn.h"
 #include "UI/ButtonTutorialsUI.h"
 #include "UI/ShipDetailsUI.h"
+#include "UI/TeamCountBarWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "NavalBattleUI.h"
@@ -41,6 +42,16 @@ void ACustomPlayerController::BeginPlay()
         {
             ShipDetailsUI->AddToViewport();
             ShipDetailsUI->SetVisibility(ESlateVisibility::HitTestInvisible);
+        }
+    }
+
+    if (!IsValid(TeamCountBarUI))
+    {
+        TeamCountBarUI = CreateWidget<UTeamCountBarWidget>(this, UTeamCountBarWidget::StaticClass());
+        if (IsValid(TeamCountBarUI))
+        {
+            TeamCountBarUI->AddToViewport();
+            TeamCountBarUI->SetVisibility(ESlateVisibility::HitTestInvisible);
         }
     }
 

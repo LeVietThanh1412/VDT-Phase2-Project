@@ -8,6 +8,7 @@ class ACameraActor;
 class AFreeCameraPawn;
 class UButtonTutorialsUI;
 class UShipDetailsUI;
+class UTeamCountBarWidget;
 class USpringArmComponent;
 class UShipSetupWidget;
 
@@ -95,6 +96,9 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UShipDetailsUI> ShipDetailsUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UTeamCountBarWidget> TeamCountBarUI;
 
     UPROPERTY(Transient)
     TObjectPtr<UButtonTutorialsUI> ButtonTutorialsUI;
