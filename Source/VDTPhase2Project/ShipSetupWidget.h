@@ -45,6 +45,10 @@ private:
     UFUNCTION() void OnQuitClicked();
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Error;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> QuitLabel;
+    /** Second row of Deploy Troops; only visible for generated layouts. */
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> SeedRow;
+    /** Player team picker; only visible when Control Mode includes a player. */
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PlayerTeamColumn;
     UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
     UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
     int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1,LastControl=-1,LastLayout=-1;
