@@ -3,6 +3,7 @@
 #include "Actor/Pawn/FreeCameraPawn.h"
 #include "UI/ButtonTutorialsUI.h"
 #include "UI/LoadingScreenWidget.h"
+#include "UI/MatchSummaryWidget.h"
 #include "UI/ShipDetailsUI.h"
 #include "UI/TeamCountBarWidget.h"
 #include "UI/KillFeedWidget.h"
@@ -24,6 +25,43 @@
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+
+namespace
+{
+    TMap<TWeakObjectPtr<UUserWidget>, ESlateVisibility> GLoadingHiddenWidgets;
+
+    void HideLoadingWidgets(UObject* WorldContext)
+    {
+        TArray<UUserWidget*> Minimaps;
+        UWidgetBlueprintLibrary::GetAllWidgetsOfClass(WorldContext, Minimaps, UShipMinimapWidget::StaticClass(), true);
+        for (UUserWidget* Minimap : Minimaps)
+        {
+            if (!IsValid(Minimap) || Minimap->GetVisibility() == ESlateVisibility::Collapsed)
+            {
+                continue;
+            }
+
+            const TWeakObjectPtr<UUserWidget> Key(Minimap);
+            if (!GLoadingHiddenWidgets.Contains(Key))
+            {
+                GLoadingHiddenWidgets.Add(Key, Minimap->GetVisibility());
+            }
+            Minimap->SetVisibility(ESlateVisibility::Collapsed);
+        }
+    }
+
+    void RestoreLoadingWidgets()
+    {
+        for (const TPair<TWeakObjectPtr<UUserWidget>, ESlateVisibility>& Pair : GLoadingHiddenWidgets)
+        {
+            if (UUserWidget* Minimap = Pair.Key.Get())
+            {
+                Minimap->SetVisibility(Pair.Value);
+            }
+        }
+        GLoadingHiddenWidgets.Reset();
+    }
+}
 
 void ACustomPlayerController::BeginPlay()
 {
@@ -50,7 +88,8 @@ void ACustomPlayerController::BeginPlay()
         if (IsValid(ShipDetailsUI))
         {
             ShipDetailsUI->AddToViewport();
-            ShipDetailsUI->SetVisibility(ESlateVisibility::HitTestInvisible);
+            // The details panel is opened with I; do not cover the battlefield by default.
+            ShipDetailsUI->SetVisibility(ESlateVisibility::Collapsed);
         }
     }
 
@@ -60,7 +99,9 @@ void ACustomPlayerController::BeginPlay()
         if (IsValid(TeamCountBarUI))
         {
             TeamCountBarUI->AddToViewport();
-            TeamCountBarUI->SetVisibility(ESlateVisibility::HitTestInvisible);
+            TeamCountBarUI->SetVisibility(IsValid(LoadingScreenUI)
+                ? ESlateVisibility::Collapsed
+                : ESlateVisibility::HitTestInvisible);
         }
     }
 
@@ -163,6 +204,11 @@ void ACustomPlayerController::ShowLoadingScreen()
     }
 
     LoadingScreenUI->AddToViewport(1000);
+    HideLoadingWidgets(this);
+    if (IsValid(TeamCountBarUI))
+    {
+        TeamCountBarUI->SetVisibility(ESlateVisibility::Collapsed);
+    }
     SetIgnoreMoveInput(true);
     SetIgnoreLookInput(true);
     bShowMouseCursor = false;
@@ -187,6 +233,11 @@ void ACustomPlayerController::HideLoadingScreen()
         World->GetTimerManager().ClearTimer(LoadingWatchTimer);
     }
 
+    RestoreLoadingWidgets();
+    if (IsValid(TeamCountBarUI))
+    {
+        TeamCountBarUI->SetVisibility(ESlateVisibility::HitTestInvisible);
+    }
     ResetIgnoreMoveInput();
     ResetIgnoreLookInput();
     bShowMouseCursor = false;
@@ -198,6 +249,14 @@ void ACustomPlayerController::CheckLoadingComplete()
     if (bTravelPending || !IsValid(LoadingScreenUI))
     {
         return;
+    }
+
+    // The authored minimap can be created after the loading overlay; keep it hidden
+    // until the battlefield is ready.
+    HideLoadingWidgets(this);
+    if (IsValid(TeamCountBarUI))
+    {
+        TeamCountBarUI->SetVisibility(ESlateVisibility::Collapsed);
     }
 
     const UWorld* World = GetWorld();
@@ -222,24 +281,27 @@ void ACustomPlayerController::ReturnToMatchSetup()
 {
     const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
     if(!Battle || Battle->Outcome.IsEmpty() || SetupWidget)return;
+    if(IsValid(MatchSummaryUI))
+    {
+        MatchSummaryUI->RemoveFromParent();
+        MatchSummaryUI=nullptr;
+    }
     ToggleMatchSetup();
 }
 
 void ACustomPlayerController::ShowMatchResult()
 {
     if(!IsLocalController())return;
-    // Rebuild the HUD after the outcome so the scoreboard captures the final
-    // per-ship stats; a high Z-order puts the summary above the live HUD.
-    if(IsValid(ShipDetailsUI))
+    // The summary is its own full-screen widget so the live ship HUD stays independent.
+    if(IsValid(MatchSummaryUI))
     {
-        ShipDetailsUI->RemoveFromParent();
-        ShipDetailsUI=nullptr;
+        MatchSummaryUI->RemoveFromParent();
+        MatchSummaryUI=nullptr;
     }
-    ShipDetailsUI=CreateWidget<UShipDetailsUI>(this,UShipDetailsUI::StaticClass());
-    if(IsValid(ShipDetailsUI))
+    MatchSummaryUI=CreateWidget<UMatchSummaryWidget>(this,UMatchSummaryWidget::StaticClass());
+    if(IsValid(MatchSummaryUI))
     {
-        ShipDetailsUI->AddToViewport(200);
-        ShipDetailsUI->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+        MatchSummaryUI->AddToViewport(200);
     }
     bShowMouseCursor=true;
     FInputModeGameAndUI Mode;
@@ -383,8 +445,8 @@ void ACustomPlayerController::ToggleShipDetailsUI()
     {
         return;
     }
-    // The end-of-match summary lives in this widget; keep it on screen.
-    if(const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr; Battle && !Battle->Outcome.IsEmpty())
+    // Keep the live details panel from stealing focus while the summary is open.
+    if(IsValid(MatchSummaryUI))
     {
         return;
     }

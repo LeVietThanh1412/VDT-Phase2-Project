@@ -9,6 +9,7 @@ class ACameraActor;
 class AFreeCameraPawn;
 class UButtonTutorialsUI;
 class ULoadingScreenWidget;
+class UMatchSummaryWidget;
 class UShipDetailsUI;
 class UTeamCountBarWidget;
 class UKillFeedWidget;
@@ -119,6 +120,9 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<ULoadingScreenWidget> LoadingScreenUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UMatchSummaryWidget> MatchSummaryUI;
 
     FTimerHandle LoadingWatchTimer;
     FTimerHandle LoadingTravelTimer;
