@@ -44,6 +44,4 @@ private:
     TSharedPtr<STextBlock> HealthText;
     TSharedPtr<STextBlock> DirectionText;
     TSharedPtr<STextBlock> MagazineText;
-    TSharedPtr<STextBlock> MissionText;
-    TSharedPtr<STextBlock> BattleStatusText;
 };

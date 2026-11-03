@@ -236,17 +236,13 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
                     ]
                     + SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)
                     [ SAssignNew(MagazineText,STextBlock).Font(ValueFont).ColorAndOpacity(AccentColor) ]
-                    + SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
-                    [ SAssignNew(MissionText,STextBlock).Font(ValueFont).ColorAndOpacity(LabelColor) ]
-                    + SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
-                    [ SAssignNew(BattleStatusText,STextBlock).Font(ValueFont).ColorAndOpacity(ValueColor) ]
                 ]
             ]
         ]
         + SOverlay::Slot()
         .HAlign(HAlign_Center)
         .VAlign(VAlign_Top)
-        .Padding(FMargin(32.0f))
+        .Padding(FMargin(32.0f, 104.0f, 32.0f, 32.0f))
         [
             SNew(SBox)
             .MinDesiredWidth(320.0f)
@@ -339,15 +335,15 @@ void UShipDetailsUI::UpdateDetails()
             BattleText+=Field->InitializationError.IsEmpty()?TEXT(" | PREPARING BATTLEFIELD"):TEXT(" | SETUP FAILED - press P");
         else if(Battle->BattleMode==ENavalBattleMode::TurnBased)
             BattleText+=FString::Printf(TEXT(" | %s %.0fs"),*Battle->ActiveTurnLabel,Battle->TurnSecondsRemaining());
-        BattleStatusText->SetText(FText::FromString(BattleText));
     }
     APawn* Ship = ResolveSelectedShip();DisplayedShip=Ship;
     if(IsValid(Ship))if(const auto* Move=Ship->FindComponentByClass<UShipMovementComponent>();Move && Move->bShorelineBlocked)
-    {BattleText+=TEXT(" | SHALLOW WATER AHEAD - turn or reverse");BattleStatusText->SetText(FText::FromString(BattleText));}
+    {BattleText+=TEXT(" | SHALLOW WATER AHEAD - turn or reverse");}
     if (!IsValid(Ship))
     {
         ShipNameText->SetText(FText::FromString(TEXT("--")));
-        AmmoText=IdentityText=TEXT("--");MagazineText->SetText(FText::FromString(AmmoText));MissionText->SetText(FText::FromString(IdentityText));
+        ShipNameText->SetColorAndOpacity(FSlateColor(AccentColor));
+        AmmoText=IdentityText=TEXT("--");MagazineText->SetText(FText::FromString(AmmoText));
         LongitudeText->SetText(FText::FromString(TEXT("--")));
         LatitudeText->SetText(FText::FromString(TEXT("--")));
         SpeedText->SetText(FText::FromString(TEXT("--")));
@@ -370,7 +366,6 @@ void UShipDetailsUI::UpdateDetails()
             if(Value.StartsWith(TEXT("AI.Role.")))IdentityText+=TEXT(" | ")+Value.Mid(8);
             if(Value.StartsWith(TEXT("AI.State.")))IdentityText+=TEXT(" | ")+Value.Mid(9);
         }
-        MissionText->SetText(FText::FromString(IdentityText));
     }
     // Show the same designer-authored identity as the minimap instead of the
     // long engine object name (for example, "BP_ShipEnemy_C_UAID_...").
@@ -387,6 +382,19 @@ void UShipDetailsUI::UpdateDetails()
     {
         DisplayName = MakeShipDisplayName(Ship->GetName());
     }
+    FLinearColor NameColor = AccentColor;
+    if (const UShipWeaponComponent* Weapon = Ship->FindComponentByClass<UShipWeaponComponent>())
+    {
+        if (Weapon->Team() == 0)
+        {
+            NameColor = FLinearColor(0.32f, 0.66f, 1.0f, 1.0f);
+        }
+        else if (Weapon->Team() == 1)
+        {
+            NameColor = FLinearColor(1.0f, 0.32f, 0.28f, 1.0f);
+        }
+    }
+    ShipNameText->SetColorAndOpacity(FSlateColor(NameColor));
     ShipNameText->SetText(FText::FromString(DisplayName));
 
     FVector GeographicCoordinates = Ship->GetActorLocation();

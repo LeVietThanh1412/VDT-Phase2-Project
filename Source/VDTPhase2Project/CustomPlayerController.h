@@ -1,13 +1,17 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/TimerHandle.h"
 #include "GameFramework/PlayerController.h"
 #include "CustomPlayerController.generated.h"
 
 class ACameraActor;
 class AFreeCameraPawn;
 class UButtonTutorialsUI;
+class ULoadingScreenWidget;
 class UShipDetailsUI;
+class UTeamCountBarWidget;
+class UKillFeedWidget;
 class USpringArmComponent;
 class UShipSetupWidget;
 
@@ -24,6 +28,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
     UFUNCTION(BlueprintCallable, Category="Match") void CloseMatchSetup();
     UFUNCTION(BlueprintCallable, Category="Match") void ReturnToMatchSetup();
+    /** Shows the loading screen, then travels to the demo level. */
+    void StartNewMatch();
     void ShowMatchResult();
     UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
     virtual void OnPossess(APawn* InPawn) override;
@@ -46,6 +52,10 @@ private:
     void CycleShipCamera();
     void ToggleShipDetailsUI();
     void ToggleButtonTutorials();
+    void ShowLoadingScreen();
+    void HideLoadingScreen();
+    void CheckLoadingComplete();
+    void OpenMatchLevel();
 
     /** Makes the viewed ship the selection used by the camera and the details panel. */
     void ApplyShipView(APawn* InShip);
@@ -97,7 +107,20 @@ private:
     TObjectPtr<UShipDetailsUI> ShipDetailsUI;
 
     UPROPERTY(Transient)
+    TObjectPtr<UTeamCountBarWidget> TeamCountBarUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UKillFeedWidget> KillFeedUI;
+
+    UPROPERTY(Transient)
     TObjectPtr<UButtonTutorialsUI> ButtonTutorialsUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<ULoadingScreenWidget> LoadingScreenUI;
+
+    FTimerHandle LoadingWatchTimer;
+    FTimerHandle LoadingTravelTimer;
+    bool bTravelPending=false;
 
     // The normal pawn's camera rotation must survive a round trip through free camera.
     FRotator PreviousControlRotation = FRotator::ZeroRotator;

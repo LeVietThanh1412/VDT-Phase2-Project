@@ -43,8 +43,26 @@ protected:
 private:
     void RefreshLayout();
     UFUNCTION() void OnQuitClicked();
+    UFUNCTION() void AddBlueShip();
+    UFUNCTION() void AddRedShip();
+    UFUNCTION() void RemoveBlueShip0();
+    UFUNCTION() void RemoveBlueShip1();
+    UFUNCTION() void RemoveBlueShip2();
+    UFUNCTION() void RemoveRedShip0();
+    UFUNCTION() void RemoveRedShip1();
+    UFUNCTION() void RemoveRedShip2();
+    void AdjustShipCount(int32 Team,int32 Delta);
+    void RemoveShip(int32 Team,int32 ShipIndex);
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Error;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> QuitLabel;
+    /** Second row of Deploy Troops; only visible for generated layouts. */
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> SeedRow;
+    /** Player team picker; only visible when Control Mode includes a player. */
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PlayerTeamColumn;
+    UPROPERTY(Transient) TObjectPtr<UButton> BlueAddButton;
+    UPROPERTY(Transient) TObjectPtr<UButton> RedAddButton;
+    /** Per-ship delete buttons, three per team. */
+    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> ShipRemoveButtons;
     UPROPERTY(Transient) TArray<TObjectPtr<UVerticalBox>> SlotRows;
     UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> SlotLabels;
     int32 LastBlue=-1,LastRed=-1,LastPlayerTeam=-1,LastControl=-1,LastLayout=-1;
