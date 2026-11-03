@@ -9,6 +9,7 @@ class AFreeCameraPawn;
 class UButtonTutorialsUI;
 class UShipDetailsUI;
 class UTeamCountBarWidget;
+class UKillFeedWidget;
 class USpringArmComponent;
 class UShipSetupWidget;
 
@@ -99,6 +100,9 @@ private:
 
     UPROPERTY(Transient)
     TObjectPtr<UTeamCountBarWidget> TeamCountBarUI;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UKillFeedWidget> KillFeedUI;
 
     UPROPERTY(Transient)
     TObjectPtr<UButtonTutorialsUI> ButtonTutorialsUI;

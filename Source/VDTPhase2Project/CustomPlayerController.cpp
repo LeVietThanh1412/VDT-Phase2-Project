@@ -4,6 +4,7 @@
 #include "UI/ButtonTutorialsUI.h"
 #include "UI/ShipDetailsUI.h"
 #include "UI/TeamCountBarWidget.h"
+#include "UI/KillFeedWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "NavalBattleUI.h"
@@ -52,6 +53,16 @@ void ACustomPlayerController::BeginPlay()
         {
             TeamCountBarUI->AddToViewport();
             TeamCountBarUI->SetVisibility(ESlateVisibility::HitTestInvisible);
+        }
+    }
+
+    if (!IsValid(KillFeedUI))
+    {
+        KillFeedUI = CreateWidget<UKillFeedWidget>(this, UKillFeedWidget::StaticClass());
+        if (IsValid(KillFeedUI))
+        {
+            KillFeedUI->AddToViewport();
+            KillFeedUI->SetVisibility(ESlateVisibility::HitTestInvisible);
         }
     }
 
