@@ -103,7 +103,7 @@ void ACustomPlayerController::ToggleMatchSetup()
     SetupWidget=CreateWidget<UShipSetupWidget>(this,UShipSetupWidget::StaticClass());
     if(!SetupWidget)return;
     bMenuPausedWorld=!GetWorld()->IsPaused();
-    SetPause(true);SetupWidget->AddToViewport(100);bShowMouseCursor=true;
+    SetPause(true);SetupWidget->AddToViewport(300);bShowMouseCursor=true;
     FInputModeGameAndUI Mode;Mode.SetWidgetToFocus(SetupWidget->TakeWidget());Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
     SetInputMode(Mode);SetupWidget->SetKeyboardFocus();
 }
@@ -139,6 +139,14 @@ void ACustomPlayerController::StartNewMatch()
 void ACustomPlayerController::OpenMatchLevel()
 {
     UGameplayStatics::OpenLevel(this, FName(TEXT("/Game/Levels/MainMapLevel")));
+}
+
+void ACustomPlayerController::RestartMatch()
+{
+    if(auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr)
+        if(const auto* Field=GetWorld()?GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>():nullptr; Field && Field->ActualSeed>0)
+            Settings->BattlefieldSeed=Field->ActualSeed;
+    StartNewMatch();
 }
 
 void ACustomPlayerController::ShowLoadingScreen()
@@ -220,8 +228,19 @@ void ACustomPlayerController::ReturnToMatchSetup()
 void ACustomPlayerController::ShowMatchResult()
 {
     if(!IsLocalController())return;
-    if(!IsValid(ShipDetailsUI))ToggleShipDetailsUI();
-    if(ShipDetailsUI)ShipDetailsUI->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+    // Rebuild the HUD after the outcome so the scoreboard captures the final
+    // per-ship stats; a high Z-order puts the summary above the live HUD.
+    if(IsValid(ShipDetailsUI))
+    {
+        ShipDetailsUI->RemoveFromParent();
+        ShipDetailsUI=nullptr;
+    }
+    ShipDetailsUI=CreateWidget<UShipDetailsUI>(this,UShipDetailsUI::StaticClass());
+    if(IsValid(ShipDetailsUI))
+    {
+        ShipDetailsUI->AddToViewport(200);
+        ShipDetailsUI->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+    }
     bShowMouseCursor=true;
     FInputModeGameAndUI Mode;
     Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
@@ -361,6 +380,11 @@ APawn* ACustomPlayerController::GetSelectedShip() const
 void ACustomPlayerController::ToggleShipDetailsUI()
 {
     if (!IsLocalController())
+    {
+        return;
+    }
+    // The end-of-match summary lives in this widget; keep it on screen.
+    if(const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr; Battle && !Battle->Outcome.IsEmpty())
     {
         return;
     }

@@ -30,6 +30,8 @@ public:
     UFUNCTION(BlueprintCallable, Category="Match") void ReturnToMatchSetup();
     /** Shows the loading screen, then travels to the demo level. */
     void StartNewMatch();
+    /** Reloads the level with the same settings and the exact same battlefield seed. */
+    void RestartMatch();
     void ShowMatchResult();
     UPROPERTY(BlueprintReadOnly, Category="Match") TObjectPtr<UShipSetupWidget> SetupWidget;
     virtual void OnPossess(APawn* InPawn) override;

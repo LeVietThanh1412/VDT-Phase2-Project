@@ -10,6 +10,18 @@ class UImage;
 class UProgressBar;
 class UTextBlock;
 
+/** Persistent per-ship scoreboard row; survives the wreck's staged cleanup. */
+struct FNavalShipScore
+{
+    FString ShipName;
+    int32 Team=0;
+    int32 Slot=0;
+    float DamageDealt=0;
+    float DamageTaken=0;
+    int32 Eliminations=0;
+    bool bSunk=false;
+};
+
 /** Native base for WBP_MainMinimap: removes a ship's marker once it is sunk. */
 UCLASS()
 class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
@@ -63,6 +75,10 @@ public:
     virtual void Deinitialize() override;
     void RegisterShip(UShipWeaponComponent* Ship);
     void ShipDestroyed(UShipWeaponComponent* Ship);
+    /** Damage is recorded in the subsystem so the summary survives wreck cleanup. */
+    void RecordDamage(UShipWeaponComponent* Source,UShipWeaponComponent* Victim,float Damage);
+    void RecordElimination(UShipWeaponComponent* Killer);
+    const TArray<FNavalShipScore>& GetScoreEntries() const { return ScoreEntries; }
     UFUNCTION(BlueprintCallable) void SetBattleMode(ENavalBattleMode Mode);
     UFUNCTION(BlueprintPure) float TurnSecondsRemaining() const;
     UFUNCTION(BlueprintPure) bool IsShipActive(AActor* Ship) const;
@@ -81,6 +97,8 @@ public:
 private:
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Registered;
     TSet<TWeakObjectPtr<UShipWeaponComponent>> Fallen;
+    TArray<FNavalShipScore> ScoreEntries;
+    TMap<TWeakObjectPtr<UShipWeaponComponent>,int32> ScoreIndexByShip;
     UPROPERTY(Transient) TObjectPtr<APawn> DemoCommandShip;
     FTimerHandle MatchTimer;
     TArray<TWeakObjectPtr<UShipWeaponComponent>> TurnRoster;

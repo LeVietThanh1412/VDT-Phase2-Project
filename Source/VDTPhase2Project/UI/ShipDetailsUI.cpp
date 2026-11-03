@@ -11,6 +11,7 @@
 #include "EngineUtils.h"
 #include "Fonts/SlateFontInfo.h"
 #include "GameFramework/Pawn.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Styling/CoreStyle.h"
 #include "UObject/UnrealType.h"
 #include "Widgets/Images/SImage.h"
@@ -29,6 +30,10 @@ namespace
     const FLinearColor AccentColor(0.35f, 0.85f, 1.0f, 1.0f);
     const FLinearColor LabelColor(0.55f, 0.70f, 0.80f, 1.0f);
     const FLinearColor ValueColor(0.93f, 0.97f, 1.0f, 1.0f);
+    const FLinearColor BlueTeamColor(0.28f, 0.60f, 1.0f, 1.0f);
+    const FLinearColor RedTeamColor(1.0f, 0.36f, 0.32f, 1.0f);
+    const FLinearColor VictoryColor(0.35f, 0.95f, 0.55f, 1.0f);
+    const FLinearColor DefeatColor(1.0f, 0.40f, 0.35f, 1.0f);
 
     bool TryGetNumericProperty(const UObject* Object, std::initializer_list<FName> PropertyNames, double& OutValue)
     {
@@ -98,6 +103,62 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
         FFontOutlineSettings(1, FLinearColor(0.02f, 0.16f, 0.24f, 1.0f)));
     const FSlateFontInfo LabelFont = FCoreStyle::GetDefaultFontStyle(TEXT("Regular"), 14.0f);
     const FSlateFontInfo ValueFont = FCoreStyle::GetDefaultFontStyle(TEXT("Regular"), 14.0f);
+    const FSlateFontInfo SummaryTitleFont = FCoreStyle::GetDefaultFontStyle(TEXT("Bold"), 30.0f);
+    const FSlateFontInfo SummaryOutcomeFont = FCoreStyle::GetDefaultFontStyle(TEXT("Bold"), 16.0f);
+    const FSlateFontInfo SummaryHeaderFont = FCoreStyle::GetDefaultFontStyle(TEXT("Bold"), 11.0f);
+    const FSlateFontInfo SummaryRowFont = FCoreStyle::GetDefaultFontStyle(TEXT("Regular"), 13.0f);
+    const FSlateFontInfo SummaryButtonFont = FCoreStyle::GetDefaultFontStyle(TEXT("Bold"), 12.0f);
+
+    const auto* Battle = GetWorld() ? GetWorld()->GetSubsystem<UNavalBattleSubsystem>() : nullptr;
+    TSharedRef<SGridPanel> ScoreGrid = SNew(SGridPanel)
+        .FillColumn(0, 2.4f)
+        .FillColumn(1, 0.8f)
+        .FillColumn(2, 1.2f)
+        .FillColumn(3, 1.2f)
+        .FillColumn(4, 1.2f);
+    int32 ScoreRow = 0;
+    auto AddScoreCell = [&](int32 Column, int32 Row, const FText& Text, const FSlateFontInfo& Font,
+        const FLinearColor& Color, EHorizontalAlignment Align)
+    {
+        ScoreGrid->AddSlot(Column, Row)
+        .Padding(FMargin(Column == 0 ? 0.0f : 8.0f, 5.0f, Column == 4 ? 0.0f : 8.0f, 5.0f))
+        .HAlign(Align)
+        .VAlign(VAlign_Center)
+        [
+            SNew(STextBlock)
+            .Font(Font)
+            .ColorAndOpacity(FSlateColor(Color))
+            .Text(Text)
+        ];
+    };
+    AddScoreCell(0, ScoreRow, FText::FromString(TEXT("SHIP")), SummaryHeaderFont, LabelColor, HAlign_Left);
+    AddScoreCell(1, ScoreRow, FText::FromString(TEXT("TEAM")), SummaryHeaderFont, LabelColor, HAlign_Center);
+    AddScoreCell(2, ScoreRow, FText::FromString(TEXT("DAMAGE DEALT")), SummaryHeaderFont, LabelColor, HAlign_Right);
+    AddScoreCell(3, ScoreRow, FText::FromString(TEXT("DAMAGE TAKEN")), SummaryHeaderFont, LabelColor, HAlign_Right);
+    AddScoreCell(4, ScoreRow, FText::FromString(TEXT("ELIMINATIONS")), SummaryHeaderFont, LabelColor, HAlign_Right);
+    if (Battle)
+    {
+        for (const FNavalShipScore& Score : Battle->GetScoreEntries())
+        {
+            ++ScoreRow;
+            const FLinearColor TeamColor = Score.Team == 0 ? BlueTeamColor : RedTeamColor;
+            const FString ShipName = Score.ShipName.IsEmpty() ? TEXT("Ship") : Score.ShipName;
+            AddScoreCell(0, ScoreRow, FText::FromString(ShipName), SummaryRowFont, TeamColor, HAlign_Left);
+            AddScoreCell(1, ScoreRow, FText::FromString(Score.Team == 0 ? TEXT("BLUE") : TEXT("RED")),
+                SummaryRowFont, TeamColor, HAlign_Center);
+            AddScoreCell(2, ScoreRow, FText::FromString(FString::Printf(TEXT("%.0f"), Score.DamageDealt)),
+                SummaryRowFont, ValueColor, HAlign_Right);
+            AddScoreCell(3, ScoreRow, FText::FromString(FString::Printf(TEXT("%.0f"), Score.DamageTaken)),
+                SummaryRowFont, ValueColor, HAlign_Right);
+            AddScoreCell(4, ScoreRow, FText::FromString(FString::FromInt(Score.Eliminations)),
+                SummaryRowFont, ValueColor, HAlign_Right);
+        }
+    }
+    if (ScoreRow == 0)
+    {
+        ++ScoreRow;
+        AddScoreCell(0, ScoreRow, FText::FromString(TEXT("No score data")), SummaryRowFont, LabelColor, HAlign_Left);
+    }
 
     return SNew(SOverlay)
         + SOverlay::Slot()
@@ -240,36 +301,93 @@ TSharedRef<SWidget> UShipDetailsUI::RebuildWidget()
             ]
         ]
         + SOverlay::Slot()
-        .HAlign(HAlign_Center)
-        .VAlign(VAlign_Top)
-        .Padding(FMargin(32.0f, 104.0f, 32.0f, 32.0f))
         [
-            SNew(SBox)
-            .MinDesiredWidth(320.0f)
+            SNew(SOverlay)
             .Visibility_UObject(this,&UShipDetailsUI::GetMatchResultVisibility)
+            + SOverlay::Slot()
             [
                 SNew(SBorder)
-                .Padding(FMargin(22.0f,18.0f))
-                .BorderImage(&PanelBrush)
+                .Padding(FMargin(0.0f))
+                .BorderBackgroundColor(FSlateColor(FLinearColor(0.0f, 0.0f, 0.0f, 0.62f)))
+            ]
+            + SOverlay::Slot()
+            .HAlign(HAlign_Center)
+            .VAlign(VAlign_Center)
+            [
+                SNew(SBox)
+                .WidthOverride(880.0f)
                 [
-                    SNew(SVerticalBox)
-                    + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center)
+                    SNew(SBorder)
+                    .Padding(FMargin(30.0f, 24.0f))
+                    .BorderImage(&PanelBrush)
                     [
-                        SNew(STextBlock)
-                        .Font(NameFont)
-                        .ColorAndOpacity(AccentColor)
-                        .Text_UObject(this,&UShipDetailsUI::GetMatchResultText)
-                    ]
-                    + SVerticalBox::Slot().AutoHeight().Padding(0,14,0,0)
-                    [
-                        SNew(SButton)
-                        .ContentPadding(FMargin(18.0f,10.0f))
-                        .HAlign(HAlign_Center)
-                        .OnClicked_UObject(this,&UShipDetailsUI::ReturnToSetup)
+                        SNew(SVerticalBox)
+                        + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center)
                         [
                             SNew(STextBlock)
-                            .Font(ValueFont)
-                            .Text(FText::FromString(TEXT("RETURN TO SETUP")))
+                            .Font(SummaryTitleFont)
+                            .ColorAndOpacity(FSlateColor(AccentColor))
+                            .Text(FText::FromString(TEXT("MATCH SUMMARY")))
+                        ]
+                        + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center).Padding(0, 2, 0, 0)
+                        [
+                            SNew(STextBlock)
+                            .Font(SummaryOutcomeFont)
+                            .ColorAndOpacity_Lambda([this]() { return FSlateColor(GetOutcomeColor()); })
+                            .Text_UObject(this,&UShipDetailsUI::GetMatchResultText)
+                        ]
+                        + SVerticalBox::Slot().AutoHeight().Padding(0, 14, 0, 10)
+                        [
+                            SNew(SBox)
+                            .HeightOverride(1.0f)
+                            [
+                                SNew(SImage)
+                                .Image(&SeparatorBrush)
+                            ]
+                        ]
+                        + SVerticalBox::Slot().AutoHeight()
+                        [
+                            ScoreGrid
+                        ]
+                        + SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Center).Padding(0, 22, 0, 0)
+                        [
+                            SNew(SHorizontalBox)
+                            + SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 10, 0)
+                            [
+                                SNew(SButton)
+                                .ContentPadding(FMargin(18.0f, 10.0f))
+                                .ButtonColorAndOpacity(FLinearColor(0.16f, 0.34f, 0.52f))
+                                .OnClicked_UObject(this,&UShipDetailsUI::ReturnToSetup)
+                                [
+                                    SNew(STextBlock)
+                                    .Font(SummaryButtonFont)
+                                    .Text(FText::FromString(TEXT("RETURN TO MAP SETTING")))
+                                ]
+                            ]
+                            + SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 10, 0)
+                            [
+                                SNew(SButton)
+                                .ContentPadding(FMargin(18.0f, 10.0f))
+                                .ButtonColorAndOpacity(FLinearColor(0.30f, 0.66f, 0.38f))
+                                .OnClicked_UObject(this,&UShipDetailsUI::RestartMatch)
+                                [
+                                    SNew(STextBlock)
+                                    .Font(SummaryButtonFont)
+                                    .Text(FText::FromString(TEXT("RESTART")))
+                                ]
+                            ]
+                            + SHorizontalBox::Slot().AutoWidth()
+                            [
+                                SNew(SButton)
+                                .ContentPadding(FMargin(18.0f, 10.0f))
+                                .ButtonColorAndOpacity(FLinearColor(0.62f, 0.20f, 0.20f))
+                                .OnClicked_UObject(this,&UShipDetailsUI::QuitMatch)
+                                [
+                                    SNew(STextBlock)
+                                    .Font(SummaryButtonFont)
+                                    .Text(FText::FromString(TEXT("QUIT")))
+                                ]
+                            ]
                         ]
                     ]
                 ]
@@ -289,9 +407,33 @@ FText UShipDetailsUI::GetMatchResultText() const
     return Battle?FText::FromString(Battle->Outcome):FText::GetEmpty();
 }
 
+FLinearColor UShipDetailsUI::GetOutcomeColor() const
+{
+    const auto* Battle=GetWorld()?GetWorld()->GetSubsystem<UNavalBattleSubsystem>():nullptr;
+    if(!Battle)return AccentColor;
+    if(Battle->Outcome==TEXT("VICTORY"))return VictoryColor;
+    if(Battle->Outcome==TEXT("DEFEAT"))return DefeatColor;
+    if(Battle->Outcome==TEXT("BLUE WINS"))return BlueTeamColor;
+    if(Battle->Outcome==TEXT("RED WINS"))return RedTeamColor;
+    return AccentColor;
+}
+
 FReply UShipDetailsUI::ReturnToSetup()
 {
+    SetVisibility(ESlateVisibility::Collapsed);
     if(auto* Controller=Cast<ACustomPlayerController>(GetOwningPlayer()))Controller->ReturnToMatchSetup();
+    return FReply::Handled();
+}
+
+FReply UShipDetailsUI::RestartMatch()
+{
+    if(auto* Controller=Cast<ACustomPlayerController>(GetOwningPlayer()))Controller->RestartMatch();
+    return FReply::Handled();
+}
+
+FReply UShipDetailsUI::QuitMatch()
+{
+    UKismetSystemLibrary::QuitGame(this,GetOwningPlayer(),EQuitPreference::Quit,false);
     return FReply::Handled();
 }
 

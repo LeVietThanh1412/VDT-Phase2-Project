@@ -33,7 +33,10 @@ private:
     void UpdateDetails();
     EVisibility GetMatchResultVisibility() const;
     FText GetMatchResultText() const;
+    FLinearColor GetOutcomeColor() const;
     FReply ReturnToSetup();
+    FReply RestartMatch();
+    FReply QuitMatch();
 
     TWeakObjectPtr<APawn> SelectedShip;
 

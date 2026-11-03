@@ -257,6 +257,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
     }
     Teams[PlayerTeam].Remove(Player);Teams[PlayerTeam].Insert(Player,0);
     TurnRoster.Empty();TurnLabels.Empty();Registered.Empty();Fallen.Empty();BlueAlive=0;RedAlive=0;Outcome.Empty();
+    ScoreEntries.Reset();ScoreIndexByShip.Reset();
     for(int32 Team=0;Team<2;++Team)for(int32 Slot=0;Slot<3;++Slot)
     {
         APawn* Pawn=Teams[Team][Slot];auto* W=Pawn->FindComponentByClass<UShipWeaponComponent>();
@@ -281,6 +282,10 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>())Identity->TeamName=Team==0?TEXT("Blue"):TEXT("Red");
         W->RefreshShipTags();
         TurnRoster.Add(W);Registered.Add(W);
+        const int32 ScoreIndex=ScoreEntries.AddDefaulted();
+        FNavalShipScore& Score=ScoreEntries[ScoreIndex];
+        Score.ShipName=W->GetShipName();Score.Team=Team;Score.Slot=Slot;Score.bSunk=W->bIsDestroyed;
+        ScoreIndexByShip.Add(W,ScoreIndex);
         TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,!FullAI && Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
         if(W->bIsDestroyed)Fallen.Add(W);
         else if(Team==0)++BlueAlive;else ++RedAlive;
@@ -365,12 +370,32 @@ void UNavalBattleSubsystem::UpdateMatch()
         else if(!W || W->bIsDestroyed || GetWorld()->GetTimeSeconds()>=TurnEndsAt)AdvanceTurn();
     }
 }
+void UNavalBattleSubsystem::RecordDamage(UShipWeaponComponent* Source,UShipWeaponComponent* Victim,float Damage)
+{
+    if(Damage<=0)return;
+    if(Source && Source!=Victim)
+        if(const int32* Index=ScoreIndexByShip.Find(Source))
+            ScoreEntries[*Index].DamageDealt+=Damage;
+    if(Victim)
+        if(const int32* Index=ScoreIndexByShip.Find(Victim))
+            ScoreEntries[*Index].DamageTaken+=Damage;
+}
+
+void UNavalBattleSubsystem::RecordElimination(UShipWeaponComponent* Killer)
+{
+    if(!Killer)return;
+    if(const int32* Index=ScoreIndexByShip.Find(Killer))
+        ++ScoreEntries[*Index].Eliminations;
+}
+
 void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
 {
     if (Fallen.Contains(Ship) || !Registered.Contains(Ship))
         return;
     const bool bHadOutcome=!Outcome.IsEmpty();
     Fallen.Add(Ship);
+    if(const int32* Index=ScoreIndexByShip.Find(Ship))
+        ScoreEntries[*Index].bSunk=true;
     if (Ship->Team() == 0)
         BlueAlive = FMath::Max(0, BlueAlive - 1);
     else if (Ship->Team() == 1)
