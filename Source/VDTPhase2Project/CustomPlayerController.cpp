@@ -32,6 +32,14 @@ namespace
 
     void HideLoadingWidgets(UObject* WorldContext)
     {
+        for (auto It = GLoadingHiddenWidgets.CreateIterator(); It; ++It)
+        {
+            if (!It.Key().IsValid())
+            {
+                It.RemoveCurrent();
+            }
+        }
+
         TArray<UUserWidget*> Minimaps;
         UWidgetBlueprintLibrary::GetAllWidgetsOfClass(WorldContext, Minimaps, UShipMinimapWidget::StaticClass(), true);
         for (UUserWidget* Minimap : Minimaps)
@@ -154,6 +162,33 @@ void ACustomPlayerController::BeginPlay()
     }
 }
 
+void ACustomPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    if (UWorld* World = GetWorld())
+    {
+        World->GetTimerManager().ClearTimer(LoadingWatchTimer);
+        World->GetTimerManager().ClearTimer(LoadingTravelTimer);
+    }
+
+    for (TObjectPtr<ACameraActor>& Camera : ShipViewCameras)
+    {
+        if (IsValid(Camera))
+        {
+            Camera->Destroy();
+        }
+    }
+    ShipViewCameras.Reset();
+    ActiveShipViewCamera = nullptr;
+
+    if (IsValid(FreeCameraPawn))
+    {
+        FreeCameraPawn->Destroy();
+        FreeCameraPawn = nullptr;
+    }
+    SavedSpringArmRollInheritance.Reset();
+    Super::EndPlay(EndPlayReason);
+}
+
 void ACustomPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
@@ -208,6 +243,7 @@ void ACustomPlayerController::StartNewMatch()
 
 void ACustomPlayerController::OpenMatchLevel()
 {
+    bTravelPending = false;
     UGameplayStatics::OpenLevel(this, FName(TEXT("/Game/Levels/MainMapLevel")));
 }
 
@@ -379,22 +415,7 @@ void ACustomPlayerController::NextTeammate()
 {
     // Tab cycles the teammates of whichever team the camera is currently on, so
     // watching a red ship only ever steps through other red ships.
-    APawn* CurrentShip=ViewedShip.Get();
-    if(!IsValid(CurrentShip))
-        CurrentShip=IsValid(FreeCameraPawn)?PreviousPawn.Get():Cast<APawn>(GetViewTarget());
-
-    int32 Team=AnyTeam;
-    if(const auto* Weapon=IsValid(CurrentShip)?CurrentShip->FindComponentByClass<UShipWeaponComponent>():nullptr)
-    {
-        Team=Weapon->Team();
-    }
-    else
-    {
-        // No ship is being watched (for example during a free flight): fall back
-        // to the player's own team.
-        const auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
-        Team=Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
-    }
+    const int32 Team=ResolveViewedTeam();
 
     APawn* NextShip=CycleShipView(Team);
     if(bDeathSpectating && IsValid(NextShip))
@@ -526,7 +547,6 @@ void ACustomPlayerController::ToggleButtonTutorials()
 
 void ACustomPlayerController::CycleShipCamera()
 {
-    if(bDeathSpectating){NextTeammate();return;}
     if(bBattlefieldOverview)
     {
         bBattlefieldOverview=false;
@@ -534,8 +554,65 @@ void ACustomPlayerController::CycleShipCamera()
         return;
     }
 
-    // Q ignores teams and steps through every ship on the battlefield.
-    CycleShipView(AnyTeam);
+    // Q switches sides: blue -> red, red -> blue. Tab still cycles teammates
+    // inside the team that is currently being watched.
+    if(APawn* NextShip=CycleOpposingTeam())
+        if(bDeathSpectating)FollowedTeammate=NextShip;
+}
+
+APawn* ACustomPlayerController::ResolveViewedShip() const
+{
+    APawn* Ship = ViewedShip.Get();
+    if (!IsValid(Ship))
+    {
+        Ship = IsValid(FreeCameraPawn) ? PreviousPawn.Get() : Cast<APawn>(GetViewTarget());
+    }
+    return Ship;
+}
+
+int32 ACustomPlayerController::ResolveViewedTeam() const
+{
+    if(const APawn* Ship=ResolveViewedShip())
+        if(const auto* Weapon=Ship->FindComponentByClass<UShipWeaponComponent>())
+            return Weapon->Team();
+    const auto* Settings=GetGameInstance()?GetGameInstance()->GetSubsystem<UNavalMatchSettings>():nullptr;
+    return Settings && Settings->bExplicitSelection?FMath::Clamp(Settings->PlayerTeam,0,1):0;
+}
+
+void ACustomPlayerController::FocusShip(APawn* InShip)
+{
+    if(!IsValid(InShip))return;
+    if (IsValid(FreeCameraPawn) && !bFullAISpectating && !bDeathSpectating)
+    {
+        SavedFreeCameraLocation = FreeCameraPawn->GetActorLocation();
+        SavedFreeCameraRotation = GetControlRotation();
+        bHasSavedFreeCameraTransform = true;
+        ToggleFreeCamera();
+    }
+    bBattlefieldOverview = false;
+    ApplyShipView(InShip);
+    SetShipViewTarget(InShip, 0.25f);
+}
+
+APawn* ACustomPlayerController::CycleOpposingTeam()
+{
+    UWorld* World = GetWorld();
+    if (!World)return nullptr;
+
+    const int32 TargetTeam = 1 - ResolveViewedTeam();
+    TArray<APawn*> ShipPawns;
+    CollectShipPawns(World, TargetTeam, ShipPawns);
+    if (ShipPawns.Num() == 0)return nullptr;
+
+    // Advance through the destination team on repeated Q presses so pressing Q
+    // repeatedly still lets the player inspect every enemy ship.
+    int32& NextIndex = NextTeamShipIndex[TargetTeam];
+    if (!ShipPawns.IsValidIndex(NextIndex))NextIndex = 0;
+    APawn* NextShip = ShipPawns[NextIndex];
+    NextIndex = (NextIndex + 1) % ShipPawns.Num();
+
+    FocusShip(NextShip);
+    return NextShip;
 }
 
 APawn* ACustomPlayerController::CycleShipView(int32 TeamFilter)
@@ -554,11 +631,7 @@ APawn* ACustomPlayerController::CycleShipView(int32 TeamFilter)
     }
 
     // A camera change must not unpossess an independently controlled AI ship.
-    APawn* CurrentShip = ViewedShip.Get();
-    if (!IsValid(CurrentShip))
-    {
-        CurrentShip = IsValid(FreeCameraPawn) ? PreviousPawn.Get() : Cast<APawn>(GetViewTarget());
-    }
+    APawn* CurrentShip = ResolveViewedShip();
 
     APawn* NextShip = nullptr;
     if (ShipPawns.Num() == 1)
@@ -582,17 +655,7 @@ APawn* ACustomPlayerController::CycleShipView(int32 TeamFilter)
         return nullptr;
     }
 
-    if (IsValid(FreeCameraPawn) && !bFullAISpectating && !bDeathSpectating)
-    {
-        SavedFreeCameraLocation = FreeCameraPawn->GetActorLocation();
-        SavedFreeCameraRotation = GetControlRotation();
-        bHasSavedFreeCameraTransform = true;
-        ToggleFreeCamera();
-    }
-    bBattlefieldOverview = false;
-
-    ApplyShipView(NextShip);
-    SetShipViewTarget(NextShip, 0.25f);
+    FocusShip(NextShip);
     return NextShip;
 }
 
@@ -603,7 +666,7 @@ void ACustomPlayerController::PlayerTick(float DeltaTime)
     if (!bFullAISpectating && !bDeathSpectating && Weapon && Weapon->bIsDestroyed)EnterDeathSpectator();
     if(bFullAISpectating && IsValid(ViewedShip))
         if(const auto* W=ViewedShip->FindComponentByClass<UShipWeaponComponent>();W && W->bIsDestroyed)
-        {ViewedShip=nullptr;ActiveShipViewCamera=nullptr;CycleShipCamera();}
+        {ViewedShip=nullptr;ActiveShipViewCamera=nullptr;CycleShipView(AnyTeam);}
     if (bDeathSpectating && FollowedTeammate)
     {
         const auto* FollowWeapon = IsValid(FollowedTeammate) ? FollowedTeammate->FindComponentByClass<UShipWeaponComponent>() : nullptr;

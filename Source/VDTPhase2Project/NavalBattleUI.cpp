@@ -296,7 +296,7 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         TurnRoster.Add(W);Registered.Add(W);
         const int32 ScoreIndex=ScoreEntries.AddDefaulted();
         FNavalShipScore& Score=ScoreEntries[ScoreIndex];
-        Score.ShipName=W->GetShipName();Score.Team=Team;Score.Slot=Slot;Score.bSunk=W->bIsDestroyed;
+        Score.ShipName=W->GetShipName();Score.Team=Team;
         ScoreIndexByShip.Add(W,ScoreIndex);
         TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,!FullAI && Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
         if(W->bIsDestroyed)Fallen.Add(W);
@@ -406,8 +406,6 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         return;
     const bool bHadOutcome=!Outcome.IsEmpty();
     Fallen.Add(Ship);
-    if(const int32* Index=ScoreIndexByShip.Find(Ship))
-        ScoreEntries[*Index].bSunk=true;
     if (Ship->Team() == 0)
         BlueAlive = FMath::Max(0, BlueAlive - 1);
     else if (Ship->Team() == 1)

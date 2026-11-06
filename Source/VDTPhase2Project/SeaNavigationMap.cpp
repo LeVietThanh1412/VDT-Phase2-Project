@@ -34,10 +34,10 @@ TSharedPtr<const FSeaNavigationMap> FSeaNavigationMap::Load(const FString& Filen
         if (!J->TryGetArrayField(Key,V) || V->Num()!=3) return false;
         Out=FVector((*V)[0]->AsNumber(),(*V)[1]->AsNumber(),(*V)[2]->AsNumber()); return !Out.ContainsNaN();
     };
-    FString CellBytes,ClearBytes,CRS;
+    FString CellBytes,ClearBytes,CRS;FVector OriginLLH;
     if (!Number(TEXT("min_east"),M->MinEast) || !Number(TEXT("min_north"),M->MinNorth) ||
         !Number(TEXT("safety_margin"),M->SafetyMargin) || !Number(TEXT("max_vessel_radius_m"),M->MaxVesselRadius) ||
-        !Vector(TEXT("origin_llh"),M->OriginLLH) || !Vector(TEXT("origin_ecef"),M->OriginECEF) ||
+        !Vector(TEXT("origin_llh"),OriginLLH) || !Vector(TEXT("origin_ecef"),M->OriginECEF) ||
         !Vector(TEXT("east_axis"),M->East) || !Vector(TEXT("north_axis"),M->North) ||
         !J->TryGetStringField(TEXT("coordinate_system"),CRS) || CRS!=TEXT("WGS84_ECEF_FIXED_ENU_METERS") ||
         !J->TryGetStringField(TEXT("cells_base64"),CellBytes) || !FBase64::Decode(CellBytes,M->Cells) ||

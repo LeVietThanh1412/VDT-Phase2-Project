@@ -61,8 +61,27 @@ bool UNavalBattlefieldSubsystem::IsDefensiveTargetAllowed(AActor* Ship,AActor* T
 }
 void UNavalBattlefieldSubsystem::Fail(const FString& Reason)
 {bReady=false;InitializationError=Reason;Status=TEXT("Battlefield setup failed: ")+Reason;UE_LOG(LogTemp,Warning,TEXT("NavalBattlefield seed=%d SETUP FAILED: %s"),ActualSeed,*Reason);if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}}
+void UNavalBattlefieldSubsystem::SpawnLoadingCamera(const FVector& Eye,const FVector& Focus,bool bFocusPlayerView)
+{
+    LoadingCamera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation());
+    if(!LoadingCamera)return;
+    FCesiumCamera View;View.ParameterSource=ECameraParameterSource::CameraComponent;
+    View.CameraComponent=LoadingCamera->GetCameraComponent();View.ViewportSize=FVector2D(8192,8192);
+    // A fixed, non-rendering Cesium view keeps the field streamed
+    // independently of the spectator/player camera direction.
+    StreamingCameraManager=ACesiumCameraManager::GetDefaultCameraManager(this);
+    if(StreamingCameraManager.IsValid())StreamingCameraManager->AdditionalCameras.Add(View);
+    if(bFocusPlayerView)
+        if(auto* PC=UGameplayStatics::GetPlayerController(this,0))PC->SetViewTarget(LoadingCamera);
+}
 void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
 {
+    if(LoadingCamera)
+    {
+        if(auto* Manager=StreamingCameraManager.Get())Manager->AdditionalCameras.RemoveAll([this](const FCesiumCamera& C){return C.CameraComponent.Get()==LoadingCamera->GetCameraComponent();});
+        LoadingCamera->Destroy();LoadingCamera=nullptr;
+    }
+    StreamingCameraManager.Reset();
     bInitialized=true;bReady=false;InitializedAt=GetWorld()->GetTimeSeconds();PlacedAt=-1;LayoutAttempts=0;InitializationError.Empty();Assignments.Reset();
     RetainedFleet.Reset();for(auto* P:Ships)RetainedFleet.Add(P);
     PhysicalLayoutRetries=0;bUsedSafeFallback=false;bPhysicalSearch=false;LastPhysicalRejection.Empty();TerrainStableSince=-1;OperationalCharts.Reset();
@@ -87,16 +106,11 @@ void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
             }
         }
         // Stream the user's area, without changing any authored pose or marker.
-        if(Coverage.IsValid)
+        if (Coverage.IsValid)
         {
-            const FVector Focus=Coverage.GetCenter(),Eye=Focus+FVector(0,0,FMath::Max(230000.,Coverage.GetExtent().GetMax()*1.5));
-            LoadingCamera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation());
-            if(LoadingCamera)
-            {
-                FCesiumCamera View;View.ParameterSource=ECameraParameterSource::CameraComponent;View.CameraComponent=LoadingCamera->GetCameraComponent();View.ViewportSize=FVector2D(8192,8192);
-                StreamingCameraManager=ACesiumCameraManager::GetDefaultCameraManager(this);
-                if(StreamingCameraManager.IsValid())StreamingCameraManager->AdditionalCameras.Add(View);
-            }
+            const FVector Focus = Coverage.GetCenter();
+            const FVector Eye = Focus + FVector(0, 0, FMath::Max(230000., Coverage.GetExtent().GetMax() * 1.5));
+            SpawnLoadingCamera(Eye, Focus, false);
         }
         Status=TEXT("MY MAP: settling authored ships; patrol starts at A");
         if(auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>())Battle->ConfigurationError=Status;
@@ -114,17 +128,7 @@ void UNavalBattlefieldSubsystem::InitializeFleet(const TArray<APawn*>& Ships)
         if(!GenerateLayout(Ships)){Fail(TEXT("No separated, connected layout after bounded search and checked fallback"));return;}
     }
     const FVector Focus=Grid->ChartToWorld(Grid->CenterEN),Eye=Focus+FVector(0,0,230000);
-    LoadingCamera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation());
-    if(LoadingCamera)
-    {
-        FCesiumCamera Coverage;Coverage.ParameterSource=ECameraParameterSource::CameraComponent;
-        Coverage.CameraComponent=LoadingCamera->GetCameraComponent();Coverage.ViewportSize=FVector2D(8192,8192);
-        // A fixed, non-rendering Cesium view keeps the selected 2.5 km field
-        // streamed independently of spectator/player camera direction.
-        StreamingCameraManager=ACesiumCameraManager::GetDefaultCameraManager(this);
-        if(StreamingCameraManager.IsValid())StreamingCameraManager->AdditionalCameras.Add(Coverage);
-    }
-    if(auto* PC=UGameplayStatics::GetPlayerController(this,0))if(LoadingCamera)PC->SetViewTarget(LoadingCamera);
+    SpawnLoadingCamera(Eye,Focus,true);
     Status=TEXT("Preparing battlefield...");
     if(auto* B=GetWorld()->GetSubsystem<UNavalBattleSubsystem>()){B->ConfigurationError=Status;}
 }
@@ -485,7 +489,7 @@ bool UNavalBattlefieldSubsystem::GenerateIslandLayout(const TArray<APawn*>& Ship
 }
 bool UNavalBattlefieldSubsystem::ValidatePhysicalLayout(bool& Waiting)
 {
-    Waiting=false;auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();auto* Ocean=NavalWaterQueries::FindOcean(GetWorld());
+    Waiting=false;auto* Ocean=NavalWaterQueries::FindOcean(GetWorld());
     if(!Ocean){Fail(TEXT("WaterBodyOcean missing"));return false;}
     if(GetWorld()->GetTimeSeconds()-InitializedAt<6){Waiting=true;return false;}
     for(TActorIterator<ACesium3DTileset> I(GetWorld());I;++I)
@@ -564,10 +568,13 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
         A.Ship->SetActorRotation(FRotator(0,A.HeadingDegrees,0));Anchor->Sync();Hull->SetPhysicsLinearVelocity(FVector::ZeroVector);Hull->SetPhysicsAngularVelocityInDegrees(FVector::ZeroVector);Hull->WakeAllRigidBodies();
         if(auto* N=A.Ship->FindComponentByClass<UShipEnemyNavigationComponent>())
         {
+            for(AActor* OldMarker:N->PatrolCircuitActors)
+                if(IsValid(OldMarker) && OldMarker->ActorHasTag(TEXT("GeneratedPatrolMarker")))OldMarker->Destroy();
             N->PatrolCircuitActors.Reset();N->PatrolCircuitIndex=A.CircuitStartIndex;
             for(int32 I=0;I<A.PatrolCircuitEN.Num();++I)
             {
                 auto* Marker=GetWorld()->SpawnActor<ATargetPoint>();if(!Marker)return false;
+                Marker->Tags.Add(TEXT("GeneratedPatrolMarker"));
                 FVector T=Grid->ChartToWorld(A.PatrolCircuitEN[I]);Ocean->GetWaterSurfaceInfoAtLocation(T,Water,Normal,Velocity,Depth,false);T.Z=Water.Z;
                 Marker->GetRootComponent()->SetMobility(EComponentMobility::Movable);Marker->SetActorLocation(T);
 #if WITH_EDITOR
@@ -591,7 +598,7 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
     }
     return true;
 }
-void UNavalBattlefieldSubsystem::Tick(float Dt)
+void UNavalBattlefieldSubsystem::Tick(float)
 {
     if(bUsingAuthoredLayout)
     {
@@ -632,6 +639,7 @@ void UNavalBattlefieldSubsystem::Tick(float Dt)
     if(Now-InitializedAt>30){Fail(TEXT("Terrain/water initialization exceeded 30 seconds; no combat commands enabled"));return;}
     if(PlacedAt<0)
     {
+        ++PhysicalLayoutRetries;
         bool Waiting=false;if(!ValidatePhysicalLayout(Waiting))
         {
             if(Waiting)return;

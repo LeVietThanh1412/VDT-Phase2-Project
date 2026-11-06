@@ -69,7 +69,7 @@ TSharedRef<SWidget> UButtonTutorialsUI::RebuildWidget()
         {TEXT("P"), TEXT("Match settings")},
         {TEXT("I"), TEXT("Ship details")},
         {TEXT("F"), TEXT("Bird's eye camera")},
-        {TEXT("Q"), TEXT("Switch ship camera")},
+        {TEXT("Q"), TEXT("Switch team's camera")},
         {TEXT("Tab"), TEXT("Next teammate")}
     };
     for (const auto& Entry : Entries)

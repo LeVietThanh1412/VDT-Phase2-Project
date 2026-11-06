@@ -16,7 +16,7 @@ struct VDTPHASE2PROJECT_API FSeaNavigationMap
     static TSharedPtr<const FSeaNavigationMap> Load(const FString& Filename, FString& Error);
     int32 Width = 0, Height = 0;
     double CellSize = 100, MinEast = 0, MinNorth = 0, SafetyMargin = 0, MaxVesselRadius = 0;
-    FVector OriginLLH = FVector::ZeroVector, OriginECEF = FVector::ZeroVector;
+    FVector OriginECEF = FVector::ZeroVector;
     FVector East = FVector(1,0,0), North = FVector(0,1,0);
     TArray<uint8> Cells, Clearance;
     /** Raw shoreline only, separate from the inflated navigation exclusion. */
