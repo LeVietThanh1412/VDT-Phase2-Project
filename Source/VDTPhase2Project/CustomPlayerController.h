@@ -142,6 +142,7 @@ private:
     FTimerHandle LoadingWatchTimer;
     FTimerHandle LoadingTravelTimer;
     bool bTravelPending=false;
+    double LoadingStartedAt=0;
 
     /** Next ship to pick per team on successive Q presses (0 = Blue, 1 = Red). */
     int32 NextTeamShipIndex[2] = {0, 0};

@@ -492,7 +492,12 @@ bool UShipSetupWidget::ApplySelection()
     auto* Settings=GetGameInstance()->GetSubsystem<UNavalMatchSettings>();if(!Settings || HullSelectors.Num()!=6)return false;
     int32 Seed=0;
     if(!SeedInput || !LexTryParseString(Seed,*SeedInput->GetText().ToString()) || Seed<0)
-    {if(Error)Error->SetText(FText::FromString(TEXT("Use 0 for a new seed, or a positive integer.")));return false;}
+    {
+        // The seed field is hidden in manual deployment. A stale invalid value
+        // from the generated tab must not make that otherwise valid mode unusable.
+        if(NavigationSelector && NavigationSelector->GetSelectedIndex()==1)Seed=Settings->BattlefieldSeed;
+        else {if(Error)Error->SetText(FText::FromString(TEXT("Use 0 for a new seed, or a positive integer.")));return false;}
+    }
     TArray<EShipHullClass> Classes;
     for(const auto& Selector:HullSelectors)Classes.Add(static_cast<EShipHullClass>(Selector->GetSelectedIndex()));
     const bool OK=Settings->Configure(BlueCountSelector->GetSelectedIndex()+1,RedCountSelector->GetSelectedIndex()+1,Classes,

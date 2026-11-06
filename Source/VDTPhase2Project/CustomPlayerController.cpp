@@ -25,6 +25,7 @@
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "HAL/PlatformTime.h"
 
 namespace
 {
@@ -229,13 +230,15 @@ void ACustomPlayerController::CloseMatchSetup()
 
 void ACustomPlayerController::StartNewMatch()
 {
-    if (!IsLocalController())
+    if (!IsLocalController() || bTravelPending)
     {
         return;
     }
 
     // Keep the loading overlay visible while the level travels; the new
     // controller's BeginPlay shows it again until the battlefield is ready.
+    // A requested restart must progress even if the result/setup was paused.
+    SetPause(false);bMenuPausedWorld=false;
     bTravelPending = true;
     ShowLoadingScreen();
     GetWorld()->GetTimerManager().SetTimer(LoadingTravelTimer, this, &ACustomPlayerController::OpenMatchLevel, 0.25f, false);
@@ -269,6 +272,7 @@ void ACustomPlayerController::ShowLoadingScreen()
     }
 
     LoadingScreenUI->AddToViewport(1000);
+    LoadingStartedAt=FPlatformTime::Seconds();
     HideLoadingWidgets(this);
     if (IsValid(TeamCountBarUI))
     {
@@ -331,14 +335,22 @@ void ACustomPlayerController::CheckLoadingComplete()
         return;
     }
 
-    const auto* Battle = World->GetSubsystem<UNavalBattleSubsystem>();
+    auto* Battle = World->GetSubsystem<UNavalBattleSubsystem>();
     const auto* Field = World->GetSubsystem<UNavalBattlefieldSubsystem>();
     const bool bReady = Battle && Battle->bMatchConfigured && (!Field || Field->CanBeginCombat());
-    const bool bFailed = (Field && !Field->InitializationError.IsEmpty()) ||
+    bool bFailed = (Field && !Field->InitializationError.IsEmpty()) ||
         (Battle && !Battle->bMatchConfigured && !Battle->ConfigurationError.IsEmpty());
+    if(!bReady && !bFailed && FPlatformTime::Seconds()-LoadingStartedAt>90)
+    {
+        if(Battle)Battle->ConfigurationError=TEXT("Match setup timed out. Check loaded ships, patrol markers and terrain, then start a new match.");
+        bFailed=true;
+    }
     if (bReady || bFailed)
     {
         HideLoadingScreen();
+        // Reuse the teammate's menu and its existing error field. A preparation
+        // failure must offer a correction/retry instead of hiding the only UI.
+        if(bFailed && !SetupWidget)ToggleMatchSetup();
     }
 }
 
