@@ -600,6 +600,16 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
 }
 void UNavalBattlefieldSubsystem::Tick(float)
 {
+    // Match state owns the lifecycle. Preparation/mission ticks must not retain
+    // access to wrecks after an early result and their staged actor cleanup.
+    if(const auto* Battle=GetWorld()->GetSubsystem<UNavalBattleSubsystem>();Battle && !Battle->Outcome.IsEmpty())return;
+    if(bInitialized && !bReady && InitializationError.IsEmpty())
+        for(APawn* Ship:RetainedFleet)
+        {
+            const auto* Weapon=IsValid(Ship)?Ship->FindComponentByClass<UShipWeaponComponent>():nullptr;
+            if(!Weapon || Weapon->bIsDestroyed)
+            {Fail(TEXT("A ship was removed or destroyed during battlefield preparation. Start a new match."));return;}
+        }
     if(bUsingAuthoredLayout)
     {
         if(!bInitialized || bReady || !InitializationError.IsEmpty())return;

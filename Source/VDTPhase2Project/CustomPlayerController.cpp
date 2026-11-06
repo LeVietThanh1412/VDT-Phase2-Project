@@ -368,7 +368,10 @@ void ACustomPlayerController::ReturnToMatchSetup()
 
 void ACustomPlayerController::ShowMatchResult()
 {
-    if(!IsLocalController())return;
+    if(!IsLocalController() || bTravelPending)return;
+    // A very early result can precede the loading watcher's final tick. Cancel
+    // that transition first so it cannot later replace the result's cursor/mode.
+    if(IsValid(LoadingScreenUI))HideLoadingScreen();
     // The summary is its own full-screen widget so the live ship HUD stays independent.
     if(IsValid(MatchSummaryUI))
     {

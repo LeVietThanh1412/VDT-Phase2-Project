@@ -14,7 +14,7 @@ def save():(root/'Saved'/name).write_text(json.dumps({k:v for k,v in s.items() i
 def finish(status):
  s['status']=status;save();unreal.unregister_slate_post_tick_callback(s['handle'])
  if base['status']=='RUNNING':unreal.unregister_slate_post_tick_callback(base['handle']);base['status']='OWNED_BY_RESULT_FIXTURE'
- unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
+ if status=='PASSED' or not globals().get('HOLD_FAILURE',False):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
 def tick(dt):
  try:
   assert time.monotonic()-s['started']<300,'Result fixture wall-time limit'
@@ -27,7 +27,10 @@ def tick(dt):
    if c:=a.get_component_by_class(unreal.ShipCombatComponent):c.enable_combat=False
   if s['phase']=='startup':
    if base['status']=='FAILED':raise AssertionError(base.get('error'))
-   if base['phase']!='observe':return
+   if globals().get('EARLY_RESULT',False):
+    if base['phase']!='initialization' or w==base.get('old_world'):return
+    if not sub(w,unreal.NavalBattleSubsystem).match_configured or len(fleet)!=6:return
+   elif base['phase']!='observe':return
    unreal.unregister_slate_post_tick_callback(base['handle']);base['status']='OWNED_BY_RESULT_FIXTURE'
    pc.return_to_match_setup();assert not pc.setup_widget,'Return opened setup before a match result'
    s['checks']['inactive_before_result']=True
@@ -35,15 +38,22 @@ def tick(dt):
    if globals().get('HIDE_HUD',False):
     for hud in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.ShipDetailsUI,False):hud.set_visibility(unreal.SlateVisibility.COLLAPSED)
    source=next(a for a in fleet if a.get_component_by_class(unreal.ShipWeaponComponent).team()!=loser)
+   s['loading_before_outcome']=any(u.is_in_viewport() for u in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.LoadingScreenWidget,False))
    for a in fleet:
     wp=a.get_component_by_class(unreal.ShipWeaponComponent)
     if wp.team()==loser:a.can_be_damaged=True;assert wp.receive_ship_damage(1000,source)
    battle=sub(w,unreal.NavalBattleSubsystem);expected=('BLUE WINS' if loser==1 else 'RED WINS') if full_ai else ('VICTORY' if loser!=player_team else 'DEFEAT')
    assert battle.outcome==expected,(battle.outcome,expected)
+   s['cursor_when_outcome_set']=pc.show_mouse_cursor
+   s['loading_when_outcome_set']=any(u.is_in_viewport() for u in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.LoadingScreenWidget,False))
+   if globals().get('EARLY_RESULT',False):assert s['loading_before_outcome'],'Early-result fault missed the loading interval'
    s.update(outcome=battle.outcome,phase='result',outcome_at=t);save();return
   if s['phase']=='result':
    # Player defeat also exercises HUD operation after the selected wreck cleans up.
-   if t-s['outcome_at']<1:return
+   if t-s['outcome_at']<float(globals().get('RESULT_HOLD_SECONDS',1)):return
+   if any(u.is_in_viewport() for u in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.LoadingScreenWidget,False)):
+    assert t-s['outcome_at']<25,'Loading overlay obscured the finished match result'
+    return
    if not full_ai and loser==player_team and any(a.get_name()==s['initial_player_ship'] for a in fleet):
     assert t-s['outcome_at']<120,'Player wreck did not complete its native cleanup'
     return
@@ -60,13 +70,13 @@ def tick(dt):
      return
     s['result_rendered']=rendered
     return
-   hud=unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.ShipDetailsUI,False);assert len(hud)==1
-   assert hud[0].get_visibility()==unreal.SlateVisibility.SELF_HIT_TEST_INVISIBLE
+   summaries=[u for u in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.MatchSummaryWidget,False) if u.is_in_viewport()]
+   assert len(summaries)==1,'Latest teammate summary missing or duplicated'
    assert pc.show_mouse_cursor,'Result did not release the mouse cursor'
-   battle=sub(w,unreal.NavalBattleSubsystem);s['global_battle_text']=hud[0].battle_text
-   assert battle.outcome in hud[0].battle_text and f'BLUE {battle.blue_alive}  |  RED {battle.red_alive}' in hud[0].battle_text,'Match HUD is stale after losing the selected ship'
+   battle=sub(w,unreal.NavalBattleSubsystem)
+   assert battle.outcome==s['outcome'] and (battle.blue_alive==0 if loser==0 else battle.red_alive==0),'Global result/counters stale after wreck cleanup'
    s['checks']['global_result_and_counters_current']=True
-   s['checks']['result_hud_interactive']=True
+   s['checks']['teammate_summary_interactive']=True
    if not full_ai and loser==player_team:
     # The controller may select its free-camera pawn after the ship is removed.
     s['checks']['works_after_selected_ship_cleanup']=not any(a.get_name()==s['initial_player_ship'] for a in fleet)
