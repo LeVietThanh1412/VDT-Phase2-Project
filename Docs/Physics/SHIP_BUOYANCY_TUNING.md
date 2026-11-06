@@ -28,7 +28,7 @@ Small retains mass 90 kg, inertia dimension scale (1,1,20), body angular damping
 
 Heave resistance remains 20/s and lateral resistance 4/s. A 1–2° target is approximate calm-water behavior, not an angle limit or guarantee at every wave phase or heading. Directional waves, mean trim, contact with legitimate terrain, steering and firing can produce different excursions. Finite-duration PIE checks do not certify arbitrary frame rates, extreme sea states, multiplayer or packaged builds.
 
-## Verified tuning and measurements
+## Initial verified tuning and measurements (Small superseded below)
 
 | Hull | Roll rate before/after (1/s) | Pitch rate before/after (1/s) |
 |---|---|---|
@@ -59,3 +59,21 @@ All 15 hull/state checks passed. Every measured hull remained physical, alive an
 ![Raw measured idle hull attitude](../Testing/images/buoyancy-idle.png)
 
 Complete numeric data, centered statistics, contact, speed and angular-velocity statistics: [BUOYANCY_METRICS.json](../Testing/BUOYANCY_METRICS.json). The full protocol used the compiled physical implementation and final profile parameters. A subsequent native rebuild synchronized the fallback Medium pitch value; the integrated regression verifies that rebuilt executable. Raw recordings remain in Saved/WAVE_BASELINE.json and Saved/WAVE_TUNED_FULL.json.
+
+## Small follow-up requested on 2026-11-07
+
+The user requested approximately 2–3 degree movement for Small. Its final roll/pitch resistance is now **1.5/s and 0.8/s**, superseding the initial 3/s and 2/s values above. Medium remains 4/s and 5/s; Large remains 6/s and 4/s. All other hull, wave and movement parameters are unchanged. The saved Data Asset and native missing-asset fallback use the same rates.
+
+The complete five-state physical trial passed, with 100% water-contact samples. Small idle absolute pitch P95/max was 2.03/2.18 degrees; reverse P95/max 2.51/2.67 degrees; reverse-fire P95/max 2.37/2.52 degrees with ten original shots. Cruise and turn excursions were smaller because response depends on wave phase, heading and encounter speed. This is a physical response target, not a constant imposed angle or a 3-degree clamp.
+
+[Latest Small metrics](../Testing/SMALL_WAVE_FOLLOWUP.json) supersede the Small rows in the initial comparison. The original three-hull evidence is retained as history.
+
+| Small state | Roll RMS | Pitch RMS | Roll P95 | Pitch P95 |
+|---|---|---|---|---|
+| idle | 0.069 | 1.117 | 0.125 | 2.034 |
+| cruise | 0.053 | 0.706 | 0.075 | 0.970 |
+| turn | 0.354 | 0.569 | 0.597 | 0.969 |
+| reverse | 0.635 | 1.205 | 0.737 | 2.507 |
+| reverse_fire | 0.653 | 1.179 | 0.793 | 2.374 |
+
+The rebuilt final Small profile also passed real player forward travel, both rudder directions, mouse aim, firing and camera release. At the shoreline it retained 100% water contact, reached a maximum 2.64-degree pitch and physically reversed 99.6 metres. The [raw Small trace](../Testing/Traces/small-wave-final.csv) records simulation seconds, phase, angles in degrees, vertical/forward speeds in m/s, wave-relative heave and contact/shot flags.

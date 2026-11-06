@@ -29,7 +29,9 @@ void UShipPhysicsProfile::SetDefaults(EShipHullClass Type)
     if(Type==EShipHullClass::Small)
     {
         MassKg=90;PropulsionScale=.7f;RudderScale=.5f;
-        RollDampingPerSecond=3;PitchDampingPerSecond=2;
+        // Small-only follow-up: measured 2-3 degree wave excursions, with
+        // the same inertia, heave stability and original rudder authority.
+        RollDampingPerSecond=1.5f;PitchDampingPerSecond=.8f;
         // The compact hull needs more pitch inertia; vertical scaling preserves yaw.
         InertiaScale=FVector(1,1,20);
         CenterOfMassOffset=FVector(0,0,-150);LinearDamping=.5f;AngularDamping=.65f;
