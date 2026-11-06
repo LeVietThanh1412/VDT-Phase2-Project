@@ -557,12 +557,6 @@ bool UNavalBattlefieldSubsystem::PlaceFleet()
     auto* Grid=GetWorld()->GetSubsystem<UNavalSectorSubsystem>();auto* Ocean=NavalWaterQueries::FindOcean(GetWorld());
     for(auto& A:Assignments)
     {
-        if(auto* Identity=A.Ship->FindComponentByClass<UShipIdentityComponent>())
-        {
-            const auto* S=GetWorld()->GetGameInstance()->GetSubsystem<UNavalMatchSettings>();
-            if(S->bUseIslandPatrolCircuit && AreTacticsEnabled())
-                Identity->ShipName=A.Team==0?FString::Printf(TEXT("Blue Defender %d"),A.Slot+1):A.Slot==0?TEXT("Red Scout"):FString::Printf(TEXT("Red Escort %d"),A.Slot+1);
-        }
         auto* Hull=UShipCombatComponent::PhysicalHull(A.Ship);auto* Anchor=A.Ship->FindComponentByClass<UCesiumGlobeAnchorComponent>();if(!Hull || !Anchor || !Ocean)return false;
         auto* Geo=Anchor->ResolveGeoreference();FVector P=Grid->ChartToWorld(A.SpawnEN),Water,Normal,Velocity;float Depth=0;
         Ocean->GetWaterSurfaceInfoAtLocation(P,Water,Normal,Velocity,Depth,false);P.Z=Water.Z+600;

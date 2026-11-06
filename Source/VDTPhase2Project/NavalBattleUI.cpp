@@ -204,7 +204,6 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         if(!DemoCommandShip){ConfigurationError=TEXT("Full AI: production AI ship could not spawn");return false;}
         if(auto* C=DemoCommandShip->FindComponentByClass<UShipCombatComponent>())C->Faction=0;
         if(auto* W=DemoCommandShip->FindComponentByClass<UShipWeaponComponent>())W->Faction=0;
-        if(auto* Identity=DemoCommandShip->FindComponentByClass<UShipIdentityComponent>())Identity->ShipName=TEXT("Blue Flagship");
         if(auto* N=DemoCommandShip->FindComponentByClass<UShipEnemyNavigationComponent>())
         {
             if(Settings->bUseSectorBattlefield)
@@ -279,6 +278,19 @@ bool UNavalBattleSubsystem::ConfigureRoster()
                 if(auto* N=Pawn->FindComponentByClass<UShipEnemyNavigationComponent>()){N->MaxHealth=N->Health=100;}
             }
         }
+        // Name the ship from the hull class the player selected for this slot.
+        // Naming lives here, not in the battlefield placement, because this is
+        // the same slot index that applied ApplyShipClass above. The human
+        // player keeps the "Player Ship" fallback from GetDisplayName().
+        if(Settings && Settings->bUseIslandPatrolCircuit && !Pawn->IsPlayerControlled())
+            if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->AreTacticsEnabled())
+                if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>();Identity && Identity->ShipName.IsEmpty())
+                {
+                    const int32 ClassIndex=Team*3+Slot;
+                    const EShipHullClass Hull=Settings->HullClasses.IsValidIndex(ClassIndex)?Settings->HullClasses[ClassIndex]:EShipHullClass::Medium;
+                    const TCHAR* Role=Hull==EShipHullClass::Small?TEXT("Scout"):Hull==EShipHullClass::Large?TEXT("Escort"):TEXT("Defender");
+                    Identity->ShipName=FString::Printf(TEXT("%s %s %d"),Team==0?TEXT("Blue"):TEXT("Red"),Role,Slot+1);
+                }
         if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>())Identity->TeamName=Team==0?TEXT("Blue"):TEXT("Red");
         W->RefreshShipTags();
         TurnRoster.Add(W);Registered.Add(W);

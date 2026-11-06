@@ -84,6 +84,13 @@ void UShipWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();CurrentHealth=FMath::Max(1.f,MaxHealth);bIsDestroyed=false;
     MagazineCapacity=FMath::Max(1,MagazineCapacity);RoundsRemaining=MagazineCapacity;bReloading=false;ReloadsStarted=ReloadsCompleted=0;RefreshShipTags();
+    // Ship Blueprints inherit straight from APawn, so no native base class can
+    // carry the authored identity. Every ship has a weapon component: attach the
+    // identity here so names/teams work without editing any Blueprint.
+    if(AActor* Owner=GetOwner())
+        if(!Owner->FindComponentByClass<UShipIdentityComponent>())
+            if(auto* Identity=NewObject<UShipIdentityComponent>(Owner,TEXT("ShipIdentity"),RF_Transient))
+                Identity->RegisterComponent();
     GetOwner()->OnTakeAnyDamage.AddUniqueDynamic(this,&UShipWeaponComponent::OnDamaged);
     GetWorld()->GetTimerManager().SetTimer(PresentationTimer,this,&UShipWeaponComponent::UpdatePresentation,.5f,true);
     LastDestructionUpdate=GetWorld()->GetTimeSeconds();
