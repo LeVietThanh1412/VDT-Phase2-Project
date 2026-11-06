@@ -17,6 +17,7 @@ cases=globals().get('CASES',[
  dict(name='seed_asymmetric',manual=False,full=True,blue=2,red=3,skill=0,classes=[0,0,0,0,1,2]),
  dict(name='manual_red_small',manual=True,full=False,team=1,blue=3,red=1,skill=2,classes=[2,2,2,0,2,2]),
  dict(name='seed_zero_1v1',manual=False,full=True,blue=1,red=1,seed=0,classes=[0]*6),
+ dict(name='class_balance',manual=False,full=True,blue=3,red=3,balance=1,classes=[0,1,2,2,0,1]),
 ])
 name=globals().get('OUTPUT','MATCH_UI_INTEGRATION.json');s=dict(status='RUNNING',phase='menu',case=0,results=[],error=None,started=time.monotonic(),native_dll_sha256=hashlib.sha256((root/'Binaries/Win64/UnrealEditor-VDTPhase2Project.dll').read_bytes()).hexdigest());builtins.match_ui_probe=s
 lib=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBlueprintLibrary'))
@@ -47,7 +48,7 @@ def tick(dt):
     ui.call_method('AddRedShip');ui.call_method('RemoveRedShip1');assert ui.red_count_selector.get_selected_index()==0
     s['add_remove_limits_and_class_shift']=True
    ui.blue_count_selector.set_selected_index(case['blue']-1);ui.red_count_selector.set_selected_index(case['red']-1)
-   ui.control_selector.set_selected_index(int(case['full']));ui.player_team_selector.set_selected_index(case.get('team',0));ui.mode_selector.set_selected_index(case.get('mode',0));ui.difficulty_selector.set_selected_index(case.get('skill',1));ui.balance_selector.set_selected_index(0)
+   ui.control_selector.set_selected_index(int(case['full']));ui.player_team_selector.set_selected_index(case.get('team',0));ui.mode_selector.set_selected_index(case.get('mode',0));ui.difficulty_selector.set_selected_index(case.get('skill',1));ui.balance_selector.set_selected_index(case.get('balance',0))
    for c,i in zip(ui.hull_selectors,case['classes']):c.set_selected_index(i)
    ui.use_my_map() if case['manual'] else ui.generate_from_seed()
    ui.seed_input.set_text('-1');assert ui.apply_selection()==case['manual'];ui.seed_input.set_text(str(case.get('seed',20261028)));assert ui.apply_selection();ui.refresh_slots()
@@ -71,7 +72,16 @@ def tick(dt):
    assert not pc.setup_widget
    settings=lib.call_method('GetGameInstanceSubsystem',args=(unreal.GameplayStatics.get_game_instance(w),unreal.NavalMatchSettings.static_class()))
    assert list(settings.hull_classes)==[[unreal.ShipHullClass.SMALL,unreal.ShipHullClass.LARGE,unreal.ShipHullClass.MEDIUM][i] for i in case['classes']]
+   teams=[sorted([a for a in fleet if a.get_component_by_class(unreal.ShipWeaponComponent).team()==team],key=lambda a:a.get_name()) for team in range(2)]
+   command=next(a for a in fleet if a.is_player_controlled()) if not case['full'] else next(a for a in fleet if a.get_name().startswith('Demo_Blue_Flagship'))
+   team=command.get_component_by_class(unreal.ShipWeaponComponent).team();teams[team].remove(command);teams[team].insert(0,command)
+   for team,ships in enumerate(teams):
+    for slot,a in enumerate(ships):
+     assert a.get_component_by_class(unreal.ShipMovementComponent).hull_class==settings.hull_classes[team*3+slot],('Actual hull differs from menu',a.get_name(),team,slot)
    for a in fleet:
+    wp=a.get_component_by_class(unreal.ShipWeaponComponent);profile=a.get_component_by_class(unreal.ShipMovementComponent).profile
+    assert abs(wp.max_health-(profile.max_health if case.get('balance',0) else 100))<.01
+    assert abs(wp.base_projectile_damage-(profile.base_projectile_damage if case.get('balance',0) else 10))<.01
     c=a.get_component_by_class(unreal.ShipCombatComponent)
     if c:assert c.shooting_skill==[unreal.ShipAISkill.EASY,unreal.ShipAISkill.NORMAL,unreal.ShipAISkill.HARD][case.get('skill',1)]
    if not case['full']:

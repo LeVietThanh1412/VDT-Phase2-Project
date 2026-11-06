@@ -18,7 +18,9 @@ s=dict(status='RUNNING',phase='menu',started=time.monotonic(),ships={},rows=[],c
 builtins.authored_patrol_probe=s
 def save():
     p=root/'Saved'/output;tmp=p.with_suffix('.json.tmp')
-    tmp.write_text(json.dumps({k:v for k,v in s.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8');tmp.replace(p)
+    tmp.write_text(json.dumps({k:v for k,v in s.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8')
+    try:tmp.replace(p)
+    except PermissionError:pass  # Retry next sample if a Windows reader holds the snapshot.
 def finish(status):
     s['status']=status;save();unreal.unregister_slate_post_tick_callback(s['handle'])
     if not (status=='FAILED' and globals().get('HOLD_ON_FAILURE',False)):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
@@ -129,7 +131,7 @@ def tick(dt):
         if int(t)%5==0 and int(t)!=s.get('saved'):
             s['saved']=int(t);save()
         if t-s['ready_at']>8 and not s.get('captured'):
-            s['captured']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'reports/images/authored_patrol.png'))
+            s['captured']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Saved'/(Path(output).stem+'.png')))
         if all(r['legs']>=required for r in s['ships'].values()):
             s['checks']['all_physical_loops']=all(r['physical'] and r['controller_preserved'] and r['marker_refs'] and not r['tactical_override'] and r['max_speed']>3 and r['water_samples']/r['samples']>=.98 for r in s['ships'].values())
             assert all(s['checks'].values()),s['checks'];s['duration']=t-s['ready_at'];finish('PASSED')

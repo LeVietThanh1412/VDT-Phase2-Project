@@ -4,8 +4,8 @@ and lethal damage are explicit fixtures. Survivor navigation/physics remain live
 """
 import unreal,builtins,json,time,math,traceback
 from pathlib import Path
-root=Path(unreal.Paths.project_dir());p=root/'Tools/NavalCombat/test_seeded_spawn.py'
-ctx=dict(SEED=20261028,OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=700,OUTPUT='CORE_STARTUP.json',OUTPUT_DIR='Saved')
+root=Path(unreal.Paths.project_dir());p=root/'Tools/Testing/verify_final_demo.py'
+ctx=dict(KIND='patrol',FULL_AI=False,SEED=20261028,TACTICS=False,ASSAULT=False,OBSERVE_SECONDS=99999,WALL_LIMIT_SECONDS=700,OUTPUT='CORE_STARTUP.json',CAPTURE=False)
 exec(compile(p.read_text(encoding='utf-8'),str(p),'exec'),ctx);base=ctx['st']
 s=dict(status='RUNNING',phase='startup',checks={},impacts=[],events=[],error=None,started=time.monotonic());builtins.core_gameplay_probe=s
 lib=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBlueprintLibrary'))
@@ -68,10 +68,15 @@ def tick(dt):
     round=s['projectile'].get_component_by_class(unreal.ShipProjectileDamageComponent);assert round.source_team==0 and round.projectile_damage==10
     src.can_be_damaged=True;b=sub(w,unreal.NavalBattleSubsystem);before=b.blue_alive;assert wp.receive_ship_damage(1000,s['victim']);assert not wp.reloading and not wp.receive_ship_damage(1000,s['victim']) and b.blue_alive==before-1
     s['checks']['death_cancels_reload_once']=True;s['checks']['duplicate_death_counter_guard']=True;s.update(phase='wait_cleanup',death_at=t)
-    cap=s['capsize'];h=hull(cap);rot=h.get_world_rotation();h.set_world_rotation(unreal.Rotator(0,rot.yaw,179),False,True);h.set_physics_angular_velocity_in_degrees(unreal.Vector())
+    # Python's positional Rotator order is roll/pitch/yaw, unlike C++.
+    # Explicit keywords actually invert the hull instead of pitching by its yaw.
+    cap=s['capsize'];h=hull(cap);rot=h.get_world_rotation();h.set_world_rotation(unreal.Rotator(pitch=0,yaw=rot.yaw,roll=179),False,True);h.set_physics_angular_velocity_in_degrees(unreal.Vector())
     save()
   elif s['phase']=='wait_cleanup':
    pc=unreal.GameplayStatics.get_player_controller(w,0)
+   cap=s['capsize'];cw=weapon(cap)
+   if t-s['death_at']<10 and (not s.get('capsize_samples') or t-s['capsize_samples'][-1]['t']>.05):
+    s.setdefault('capsize_samples',[]).append(dict(t=t,angle=cw.current_capsize_angle,dead=cw.is_destroyed,reason=str(cw.death_reason),roll=hull(cap).get_world_rotation().roll,pitch=hull(cap).get_world_rotation().pitch))
    if t-s['death_at']>1:
     assert pc.death_spectating;s['checks']['player_death_spectator']=True
     assert pc.get_selected_ship()==pc.followed_teammate,'Death spectator HUD selection does not follow the observed teammate'

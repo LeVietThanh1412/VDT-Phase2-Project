@@ -16,7 +16,12 @@ lib=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBl
 def sub(w,c):return lib.call_method('GetWorldSubsystem',args=(w,c.static_class()))
 def save():
  data={k:v for k,v in st.items() if k not in ['handle','old_world','last_positions','last_shots']}
- tmp=root/'Saved'/(name+'.tmp');tmp.write_text(json.dumps(data,indent=2),encoding='utf-8');tmp.replace(root/'Saved'/name)
+ tmp=root/'Saved'/(name+'.tmp');tmp.write_text(json.dumps(data,indent=2),encoding='utf-8')
+ try:tmp.replace(root/'Saved'/name)
+ except PermissionError:
+  # A concurrent Windows reader may briefly deny rename. Keep the completed
+  # temporary snapshot and retry on the next sample instead of aborting PIE.
+  pass
 def end(status):
  st['status']=status;save();unreal.unregister_slate_post_tick_callback(st['handle'])
  if not globals().get('HOLD',False):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
@@ -81,7 +86,10 @@ def tick(dt):
      if n.stuck and not s.get('was_stuck',False):s['stuck_events']=s.get('stuck_events',0)+1
      s['was_stuck']=n.stuck
     if c:s.update(retreats=c.retreats_started,backward_retreats=c.backward_retreats_started,patrols_resumed=c.patrols_resumed)
-    if weapon.is_destroyed and 'death_age' not in s:s.update(death_age=age,death_reason=str(weapon.death_reason))
+    if weapon.is_destroyed and 'death_age' not in s:
+     s.update(death_age=age,death_reason=str(weapon.death_reason))
+     if kind=='lethal' and globals().get('CAPTURE',True):
+      s['death_capture']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Saved'/(name.removesuffix('.json')+'_DEATH_'+str(len([v for v in st['ships'].values() if v.get('dead')]))+'.png')))
     if n and n.last_navigation_failure_reason and n.last_navigation_failure_reason not in s['failures']:s['failures'].append(n.last_navigation_failure_reason)
     valid=c and c.target and c.is_hostile(c.target)
     in_range=bool(valid and c.min_engagement_radius_m<=c.distance_to_target_m<=c.engagement_radius_m)
@@ -118,6 +126,14 @@ def tick(dt):
     st['duration']=age;end('PASSED');return
    if kind=='lethal' and battle.outcome:
     assert battle.blue_alive==0 or battle.red_alive==0,'Winner with surviving opponents'
+    st.setdefault('outcome_first_seen',age)
+    summaries=[u for u in unreal.WidgetLibrary.get_all_widgets_of_class(w,unreal.MatchSummaryWidget,False) if u.is_in_viewport()]
+    if not summaries:
+     assert age-st['outcome_first_seen']<5,'Native winner did not display teammate match summary'
+     return
+    assert len(summaries)==1 and pc.show_mouse_cursor,'Result UI duplicated or mouse unavailable'
+    st['result_summary_visible']=True
+    if globals().get('CAPTURE',True):st['result_capture']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Saved'/(name.removesuffix('.json')+'_RESULT.png')))
     st.update(duration=age,outcome=battle.outcome,final_layout=json.loads(field.layout_report()));end('PASSED');return
    required_circuits=int(globals().get('REQUIRED_CIRCUITS',0))
    loops_done=not required_circuits or all(s.get('circuits',0)>=required_circuits for s in st['ships'].values() if s['team']==0)
