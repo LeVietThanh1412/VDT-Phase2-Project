@@ -1,0 +1,15 @@
+{
+  "asset": "/Game/LandscapeMaterials/Ocean/Custom_Waves_Ocean.Custom_Waves_Ocean",
+  "source": "GerstnerWaterWaves",
+  "generator": "GerstnerWaterWaveGeneratorSimple",
+  "NumWaves": "10",
+  "Seed": "0",
+  "MinWavelength": "3000.0",
+  "MaxWavelength": "8000.0",
+  "MinAmplitude": "35.0",
+  "MaxAmplitude": "70.0",
+  "WindAngleDeg": "-90.0",
+  "DirectionAngularSpreadDeg": "30.0",
+  "SmallWaveSteepness": "0.4000000059604645",
+  "LargeWaveSteepness": "0.10000000149011612"
+}

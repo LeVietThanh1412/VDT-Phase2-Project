@@ -17,7 +17,10 @@ void UShipPhysicsProfile::SetDefaults(EShipHullClass Type)
     // Double the lighter hulls' support radius, compensating r^3 volume so
     // displacement stays the same while troughs no longer uncover all supports.
     DisplacementMultiplier=Large?1.6f:.125f;VerticalDampingMultiplier=Large?3.6f:1;PontoonRadiusMultiplier=Large?1:2;
-    HeaveDampingPerSecond=20;LateralDampingPerSecond=4;RollDampingPerSecond=30;PitchDampingPerSecond=15;
+    HeaveDampingPerSecond=20;LateralDampingPerSecond=4;
+    // Measured ocean response: retain heave/keel stability, but let buoyancy
+    // produce gentle angular motion. These are passive rates, not angle targets.
+    RollDampingPerSecond=Large?6:4;PitchDampingPerSecond=Large?4:5;
     MaxHealth=100;BaseProjectileDamage=10;
     PontoonLocations.Reset();
     // Keep the four authored end supports; a middle pair samples the 100m gap
@@ -26,6 +29,7 @@ void UShipPhysicsProfile::SetDefaults(EShipHullClass Type)
     if(Type==EShipHullClass::Small)
     {
         MassKg=90;PropulsionScale=.7f;RudderScale=.5f;
+        RollDampingPerSecond=3;PitchDampingPerSecond=2;
         // The compact hull needs more pitch inertia; vertical scaling preserves yaw.
         InertiaScale=FVector(1,1,20);
         CenterOfMassOffset=FVector(0,0,-150);LinearDamping=.5f;AngularDamping=.65f;

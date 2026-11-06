@@ -34,8 +34,8 @@ public:
     /** Keel resistance to sideways rudder drift; no forward-speed or yaw damping. */
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="30")) float LateralDampingPerSecond=4;
     /** Hull-local angular resistance. Yaw remains governed by the original rudder/body damping. */
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float RollDampingPerSecond=30;
-    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float PitchDampingPerSecond=15;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float RollDampingPerSecond=4;
+    UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy|Stability",meta=(ClampMin="0",ClampMax="60")) float PitchDampingPerSecond=5;
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") float PontoonRadiusMultiplier=1;
     /** Empty preserves the verified existing four-pontoon layout. */
     UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Buoyancy") TArray<FVector> PontoonLocations;
