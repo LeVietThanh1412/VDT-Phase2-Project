@@ -53,6 +53,12 @@ private:
     void RestoreRecentShipView();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
+
+    /**
+     * Moves the view onto the next ship matching TeamFilter (INDEX_NONE = any team).
+     * Returns the ship the camera was moved to, or nullptr when nothing changed.
+     */
+    APawn* CycleShipView(int32 TeamFilter);
     void ToggleShipDetailsUI();
     void ToggleButtonTutorials();
     void ShowLoadingScreen();
