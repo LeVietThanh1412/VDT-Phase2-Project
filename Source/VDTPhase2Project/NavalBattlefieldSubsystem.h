@@ -96,6 +96,8 @@ private:
     bool AdvanceAssault(FNavalSpawnAssignment& Assignment);
     bool FindMissionGoal(const FNavalSpawnAssignment& Assignment,FVector2D Desired,bool bDefender,FVector2D& OutGoal,FVector2D Threat=FVector2D::ZeroVector,float MinimumThreatDistanceM=0) const;
     bool PlaceFleet();
+    /** Spawns the fixed Cesium coverage camera; optionally makes it the player view. */
+    void SpawnLoadingCamera(const FVector& Eye, const FVector& Focus, bool bFocusPlayerView);
     void Fail(const FString& Reason);
     FRandomStream LayoutRandom;
     UPROPERTY(Transient) TObjectPtr<ACameraActor> LoadingCamera;

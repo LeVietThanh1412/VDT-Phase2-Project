@@ -204,7 +204,6 @@ bool UNavalBattleSubsystem::ConfigureRoster()
         if(!DemoCommandShip){ConfigurationError=TEXT("Full AI: production AI ship could not spawn");return false;}
         if(auto* C=DemoCommandShip->FindComponentByClass<UShipCombatComponent>())C->Faction=0;
         if(auto* W=DemoCommandShip->FindComponentByClass<UShipWeaponComponent>())W->Faction=0;
-        if(auto* Identity=DemoCommandShip->FindComponentByClass<UShipIdentityComponent>())Identity->ShipName=TEXT("Blue Flagship");
         if(auto* N=DemoCommandShip->FindComponentByClass<UShipEnemyNavigationComponent>())
         {
             if(Settings->bUseSectorBattlefield)
@@ -279,12 +278,25 @@ bool UNavalBattleSubsystem::ConfigureRoster()
                 if(auto* N=Pawn->FindComponentByClass<UShipEnemyNavigationComponent>()){N->MaxHealth=N->Health=100;}
             }
         }
+        // Name the ship from the hull class the player selected for this slot.
+        // Naming lives here, not in the battlefield placement, because this is
+        // the same slot index that applied ApplyShipClass above. The human
+        // player keeps the "Player Ship" fallback from GetDisplayName().
+        if(Settings && Settings->bUseIslandPatrolCircuit && !Pawn->IsPlayerControlled())
+            if(const auto* Field=GetWorld()->GetSubsystem<UNavalBattlefieldSubsystem>();Field && Field->AreTacticsEnabled())
+                if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>();Identity && Identity->ShipName.IsEmpty())
+                {
+                    const int32 ClassIndex=Team*3+Slot;
+                    const EShipHullClass Hull=Settings->HullClasses.IsValidIndex(ClassIndex)?Settings->HullClasses[ClassIndex]:EShipHullClass::Medium;
+                    const TCHAR* Role=Hull==EShipHullClass::Small?TEXT("Scout"):Hull==EShipHullClass::Large?TEXT("Escort"):TEXT("Defender");
+                    Identity->ShipName=FString::Printf(TEXT("%s %s %d"),Team==0?TEXT("Blue"):TEXT("Red"),Role,Slot+1);
+                }
         if(auto* Identity=Pawn->FindComponentByClass<UShipIdentityComponent>())Identity->TeamName=Team==0?TEXT("Blue"):TEXT("Red");
         W->RefreshShipTags();
         TurnRoster.Add(W);Registered.Add(W);
         const int32 ScoreIndex=ScoreEntries.AddDefaulted();
         FNavalShipScore& Score=ScoreEntries[ScoreIndex];
-        Score.ShipName=W->GetShipName();Score.Team=Team;Score.Slot=Slot;Score.bSunk=W->bIsDestroyed;
+        Score.ShipName=W->GetShipName();Score.Team=Team;
         ScoreIndexByShip.Add(W,ScoreIndex);
         TurnLabels.Add(FString::Printf(TEXT("%s %d (%s)"),Team==0?TEXT("BLUE"):TEXT("RED"),Slot+1,!FullAI && Team==PlayerTeam && Slot==0?TEXT("YOU"):TEXT("AI")));
         if(W->bIsDestroyed)Fallen.Add(W);
@@ -394,8 +406,6 @@ void UNavalBattleSubsystem::ShipDestroyed(UShipWeaponComponent *Ship)
         return;
     const bool bHadOutcome=!Outcome.IsEmpty();
     Fallen.Add(Ship);
-    if(const int32* Index=ScoreIndexByShip.Find(Ship))
-        ScoreEntries[*Index].bSunk=true;
     if (Ship->Team() == 0)
         BlueAlive = FMath::Max(0, BlueAlive - 1);
     else if (Ship->Team() == 1)

@@ -20,7 +20,7 @@ namespace
         SLATE_BEGIN_ARGS(STeamCountBar) {}
         SLATE_END_ARGS()
 
-        void Construct(const FArguments& InArgs) {}
+        void Construct(const FArguments&) {}
 
         virtual FVector2D ComputeDesiredSize(float) const override
         {

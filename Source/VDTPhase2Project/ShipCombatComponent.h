@@ -8,12 +8,10 @@
 
 class USkeletalMeshComponent;
 class UPrimitiveComponent;
-class UProjectileMovementComponent;
-class UShipEnemyNavigationComponent;
 class UWidgetComponent;
 class UShipWeaponComponent;
-class UShipProjectileDamageComponent;
 class UNiagaraComponent;
+class ACameraActor;
 class UCesiumGlobeAnchorComponent;
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FShipHealthChanged,UShipWeaponComponent*,Ship,float,Current,float,Maximum);
@@ -101,6 +99,8 @@ public:
     UPROPERTY(BlueprintReadOnly, Category="Health") int32 AcceptedDamageEvents=0;
     UPROPERTY(BlueprintReadOnly, Category="Health") int32 RejectedTeamHits=0;
     UPROPERTY(BlueprintReadOnly, Category="Health") TObjectPtr<UWidgetComponent> HealthWidget;
+    /** Static camera left at the wreck while the player's ship is cleaned up. */
+    UPROPERTY(Transient) TObjectPtr<ACameraActor> WreckCamera;
     /** Single final damage authority, shared by manual player fire, AI and splash. */
     UFUNCTION(BlueprintCallable, Category="Health") bool ReceiveShipDamage(float Damage,AActor* Causer);
     UFUNCTION(BlueprintCallable, Category="Health") bool ReceiveHullImpact(AActor* Projectile,FVector ImpactWorld);
@@ -249,7 +249,7 @@ protected:
 private:
     bool Visible(AActor* Candidate) const;
     bool Solve(FVector Start,FVector Aim,FVector Velocity,FVector& Launch,FVector& Intercept) const;
-    bool UpdateAimSolution(float Dt,FVector Start);
+    bool UpdateAimSolution(FVector Start);
     bool ClearArc(FVector Start,FVector Launch,float FlightTime,FString& Reason) const;
     void UpdateTactics();
     void ChangeRole(EShipEnemyRole NewRole,const TCHAR* Reason);

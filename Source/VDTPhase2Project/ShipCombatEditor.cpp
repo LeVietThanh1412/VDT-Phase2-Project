@@ -4,7 +4,6 @@
 #if WITH_EDITOR
 #include "WidgetBlueprint.h"
 #include "Blueprint/WidgetBlueprintGeneratedClass.h"
-#include "Blueprint/WidgetTree.h"
 #include "Engine/Blueprint.h"
 #include "Engine/SimpleConstructionScript.h"
 #include "Engine/SCS_Node.h"
@@ -13,14 +12,11 @@
 #include "K2Node_CallFunction.h"
 #include "K2Node_CustomEvent.h"
 #include "K2Node_GenericToText.h"
-#include "K2Node_SpawnActorFromClass.h"
 #include "K2Node_VariableGet.h"
 #include "K2Node_Self.h"
-#include "K2Node_IfThenElse.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 #include "Kismet2/KismetEditorUtilities.h"
 #include "KismetCompiler.h"
-#include "GameFramework/Pawn.h"
 #include "Misc/PackageName.h"
 #include "UObject/SavePackage.h"
 namespace

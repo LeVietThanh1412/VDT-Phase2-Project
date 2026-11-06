@@ -15,11 +15,9 @@ struct FNavalShipScore
 {
     FString ShipName;
     int32 Team=0;
-    int32 Slot=0;
     float DamageDealt=0;
     float DamageTaken=0;
     int32 Eliminations=0;
-    bool bSunk=false;
 };
 
 /** Native base for WBP_MainMinimap: removes a ship's marker once it is sunk. */

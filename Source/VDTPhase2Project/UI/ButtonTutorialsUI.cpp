@@ -66,11 +66,11 @@ TSharedRef<SWidget> UButtonTutorialsUI::RebuildWidget()
     Guide->AddChildToVerticalBox(Header)->SetPadding(FMargin(0.f, 0.f, 0.f, 4.f));
 
     const TCHAR* Entries[][2] = {
-        {TEXT("Q"), TEXT("Switch ship camera")},
+        {TEXT("P"), TEXT("Match settings")},
         {TEXT("I"), TEXT("Ship details")},
         {TEXT("F"), TEXT("Bird's eye camera")},
-        {TEXT("Tab"), TEXT("Next teammate")},
-        {TEXT("P"), TEXT("Match settings")}
+        {TEXT("Q"), TEXT("Switch team's camera")},
+        {TEXT("Tab"), TEXT("Next teammate")}
     };
     for (const auto& Entry : Entries)
     {

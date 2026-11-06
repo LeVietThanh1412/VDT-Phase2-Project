@@ -24,6 +24,7 @@ class VDTPHASE2PROJECT_API ACustomPlayerController : public APlayerController
 
 public:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void SetupInputComponent() override;
     UFUNCTION(BlueprintCallable, Category="Match") void ToggleMatchSetup();
@@ -53,6 +54,20 @@ private:
     void RestoreRecentShipView();
     UFUNCTION(BlueprintCallable, Category="Camera")
     void CycleShipCamera();
+
+    /**
+     * Moves the view onto the next ship matching TeamFilter (INDEX_NONE = any team).
+     * Returns the ship the camera was moved to, or nullptr when nothing changed.
+     */
+    APawn* CycleShipView(int32 TeamFilter);
+    /** Ship the camera is currently following, falling back to the viewed/previous pawn. */
+    APawn* ResolveViewedShip() const;
+    /** Team of the followed ship, or the player's team when no ship is followed. */
+    int32 ResolveViewedTeam() const;
+    /** Q: jumps to the opposing team and advances through that team on repeat presses. */
+    APawn* CycleOpposingTeam();
+    /** Shared view switch used by both Q (team switch) and Tab (teammate cycle). */
+    void FocusShip(APawn* InShip);
     void ToggleShipDetailsUI();
     void ToggleButtonTutorials();
     void ShowLoadingScreen();
@@ -127,6 +142,9 @@ private:
     FTimerHandle LoadingWatchTimer;
     FTimerHandle LoadingTravelTimer;
     bool bTravelPending=false;
+
+    /** Next ship to pick per team on successive Q presses (0 = Blue, 1 = Red). */
+    int32 NextTeamShipIndex[2] = {0, 0};
 
     // The normal pawn's camera rotation must survive a round trip through free camera.
     FRotator PreviousControlRotation = FRotator::ZeroRotator;

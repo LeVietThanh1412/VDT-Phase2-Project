@@ -19,7 +19,6 @@
 #include "Camera/CameraActor.h"
 #include "TimerManager.h"
 #include "ShipEnemyNavigationComponent.h"
-#include "Animation/AnimInstance.h"
 #include "Components/PrimitiveComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -84,6 +83,13 @@ void UShipWeaponComponent::BeginPlay()
 {
     Super::BeginPlay();CurrentHealth=FMath::Max(1.f,MaxHealth);bIsDestroyed=false;
     MagazineCapacity=FMath::Max(1,MagazineCapacity);RoundsRemaining=MagazineCapacity;bReloading=false;ReloadsStarted=ReloadsCompleted=0;RefreshShipTags();
+    // Ship Blueprints inherit straight from APawn, so no native base class can
+    // carry the authored identity. Every ship has a weapon component: attach the
+    // identity here so names/teams work without editing any Blueprint.
+    if(AActor* Owner=GetOwner())
+        if(!Owner->FindComponentByClass<UShipIdentityComponent>())
+            if(auto* Identity=NewObject<UShipIdentityComponent>(Owner,TEXT("ShipIdentity"),RF_Transient))
+                Identity->RegisterComponent();
     GetOwner()->OnTakeAnyDamage.AddUniqueDynamic(this,&UShipWeaponComponent::OnDamaged);
     GetWorld()->GetTimerManager().SetTimer(PresentationTimer,this,&UShipWeaponComponent::UpdatePresentation,.5f,true);
     LastDestructionUpdate=GetWorld()->GetTimeSeconds();
@@ -95,6 +101,7 @@ void UShipWeaponComponent::EndPlay(const EEndPlayReason::Type Reason)
     GetWorld()->GetTimerManager().ClearTimer(PresentationTimer);
     GetWorld()->GetTimerManager().ClearTimer(DestructionTimer);
     if(DestructionFX){DestructionFX->DeactivateImmediate();DestructionFX->DestroyComponent();DestructionFX=nullptr;}
+    if(HealthWidget){HealthWidget->DestroyComponent();HealthWidget=nullptr;}
     GetOwner()->OnTakeAnyDamage.RemoveAll(this);Super::EndPlay(Reason);
 }
 int32 UShipWeaponComponent::Team() const
@@ -230,7 +237,13 @@ void UShipWeaponComponent::ProtectWreckCamera()
     {
         const FVector Focus=G->TransformLongitudeLatitudeHeightPositionToUnreal(WreckStartLLH);
         const FVector Eye=G->TransformLongitudeLatitudeHeightPositionToUnreal(WreckStartLLH+FVector(0,0,800));
-        if(auto* Camera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation()))PC->SetViewTarget(Camera);
+        if(WreckCamera){WreckCamera->Destroy();WreckCamera=nullptr;}
+        if(auto* Camera=GetWorld()->SpawnActor<ACameraActor>(Eye,(Focus-Eye).Rotation()))
+        {
+            // The controller switches to its spectator pawn on the next tick;
+            // bound the camera lifetime so a wreck never leaves an orphan actor.
+            Camera->SetLifeSpan(10.f);WreckCamera=Camera;PC->SetViewTarget(Camera);
+        }
     }
 }
 FString UShipWeaponComponent::DescribeDestructionFX() const
@@ -268,9 +281,10 @@ FString UShipWeaponComponent::DescribeDestructionFX() const
 void UShipWeaponComponent::UpdateDestruction()
 {
     const double Now=GetWorld()->GetTimeSeconds(),Dt=FMath::Max(0.,Now-LastDestructionUpdate);LastDestructionUpdate=Now;
-    auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner());if(!Hull)return;
+    auto* Hull=UShipCombatComponent::PhysicalHull(GetOwner());
     if(!bIsDestroyed)
     {
+        if(!Hull)return;
         if(!bEnableCapsizeDeath || !Hull->IsSimulatingPhysics())return;
         auto* Anchor=GetOwner()->FindComponentByClass<UCesiumGlobeAnchorComponent>();auto* G=Anchor?Anchor->ResolveGeoreference():nullptr;if(!G)return;
         const FVector LLH=G->TransformUnrealPositionToLongitudeLatitudeHeight(Hull->GetComponentLocation());
@@ -294,7 +308,7 @@ void UShipWeaponComponent::UpdateDestruction()
     if(Progress>=1)
     {
         if(DestructionFX && DestructionFX->IsActive())DestructionFX->Deactivate();
-        Hull->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        if(Hull)Hull->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         if(Elapsed>=Burn+Sink+FMath::Max(1.f,DestructionDelaySeconds))
         {DestructionStage=EShipDestructionStage::Cleanup;ProtectWreckCamera();GetOwner()->Destroy();}
     }
@@ -525,7 +539,7 @@ void UShipCombatComponent::SetShootingSkill(EShipAISkill Skill)
     AimRandom.Initialize(AccuracySeed+FCrc::StrCrc32(*GetOwner()->GetName())%100000);
     AimHistory.Reset();ObservedTarget.Reset();LastAimUpdate=-1000;bCachedAimSolution=false;CurrentAimErrorDegrees=FVector2D::ZeroVector;
 }
-bool UShipCombatComponent::UpdateAimSolution(float Dt,FVector Start)
+bool UShipCombatComponent::UpdateAimSolution(FVector Start)
 {
     const double Now=GetWorld()->GetTimeSeconds();
     if(ObservedTarget.Get()!=Target)
@@ -679,8 +693,7 @@ void UShipCombatComponent::UpdateTactics()
         if(Navigation->BeginRetreatFrom(Target,FMath::Max(SafeReengagementDistanceM,MinimumRetreatDistanceM+100)))
         {RetreatThreat=Target;RetreatStartSeparationM=FVector::Distance(AimPoint(GetOwner()),AimPoint(Target))/100;++RetreatsStarted;if(bPreferBackwardRetreat)++UnsafeReverseFallbacks;Change(EShipTacticalState::Escape);return;}
     }
-    if(TacticalState==EShipTacticalState::ReturnToPatrol)
-    {if(Now-StateSince>=3)Change(IsHostile(Target) && DistanceToTargetM<=EngagementRadiusM?EShipTacticalState::Engage:EShipTacticalState::Patrol);return;}
+    if(TacticalState==EShipTacticalState::ReturnToPatrol && Now-StateSince<3)return;
     if(Now-StateSince>=3)Change(IsHostile(Target) && DistanceToTargetM<=EngagementRadiusM?EShipTacticalState::Engage:EShipTacticalState::Patrol);
 }
 bool UShipCombatComponent::Solve(FVector Start,FVector Aim,FVector Velocity,FVector& Launch,FVector& Intercept) const
@@ -765,7 +778,7 @@ void UShipCombatComponent::TickComponent(float Dt,ELevelTick Type,FActorComponen
     if(CanEngage && IsHostile(Target))
     {
         DistanceToTargetM=FVector::Distance(Start,AimPoint(Target))/100;
-        Solution=UpdateAimSolution(Dt,Start);
+        Solution=UpdateAimSolution(Start);
         if(Solution)
         {
             // Full inverse component rotation compensates yaw, pitch AND roll.
