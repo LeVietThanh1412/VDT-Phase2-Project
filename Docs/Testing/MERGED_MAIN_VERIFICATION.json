@@ -1,0 +1,799 @@
+{
+  "status": "PASSED",
+  "functional_main": "9b915b0f1421627e033c3cb8defce13d1174a34a",
+  "project": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project",
+  "build_log": "Saved/MERGED_MAIN_BUILD.log",
+  "build_result": "Succeeded",
+  "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+  "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+  "blueprint_requests": 39,
+  "navigation_automation": [
+    "[2026.11.07-06.05.39:275][742]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}",
+    "[2026.11.07-06.05.39:311][744]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}",
+    "[2026.11.07-06.05.39:340][746]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}",
+    "[2026.11.07-06.05.39:371][748]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+  ],
+  "critical_errors": [],
+  "default_ui": {
+    "status": "PASSED",
+    "project": "E:/LeVietThanh1412-Product/VDT-Phase2-Project/",
+    "functional_main": "9b915b0f1421627e033c3cb8defce13d1174a34a",
+    "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+    "default_hulls": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ],
+    "menu_instances": 1,
+    "small_roll": 1.5,
+    "small_pitch": 0.800000011920929,
+    "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\MERGED_MAIN_DEFAULT_SETTINGS.png"
+  },
+  "mouse_small_manual_start": {
+    "status": "PASSED",
+    "input": "Actual desktop mouse changed default Medium to Small, then START NEW MATCH in manual mode",
+    "player_hull": "<ShipHullClass.SMALL: 0>",
+    "ships": 6,
+    "ai_controllers": 5,
+    "field_ready": true,
+    "error": "",
+    "loading_released": true,
+    "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\MERGED_MAIN_SMALL_MANUAL_START.png"
+  },
+  "assets": {
+    "status": "PASSED",
+    "functional_main": "9b915b0f1421627e033c3cb8defce13d1174a34a",
+    "rows": [
+      {
+        "path": "Content\\Levels\\MainMapLevel.umap",
+        "main_sha256": "0922a09c6ff41016611761885d6ee1fb91b030982dc018a206fc7c7531d233f0",
+        "feature_sha256": "0922a09c6ff41016611761885d6ee1fb91b030982dc018a206fc7c7531d233f0",
+        "matched": true
+      },
+      {
+        "path": "Content\\Levels\\TestLevel.umap",
+        "main_sha256": "2220e4b1f306df89b09faf99d17a2eebf866d81994b0031bf7f54e540143365c",
+        "feature_sha256": "2220e4b1f306df89b09faf99d17a2eebf866d81994b0031bf7f54e540143365c",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\AA\\01ARLYRIABQFRFNUC7EQRJ.uasset",
+        "main_sha256": "8a1ff917db5365efed362d564b220e45c1780e96f6a57e6383f80354ccd833b1",
+        "feature_sha256": "8a1ff917db5365efed362d564b220e45c1780e96f6a57e6383f80354ccd833b1",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\J0\\6O09QJSI5YZVUTK9AQK3FX.uasset",
+        "main_sha256": "59c678f748b690baa742c4e37d4acee5555be399d804b1b36b85d960f52a43d6",
+        "feature_sha256": "59c678f748b690baa742c4e37d4acee5555be399d804b1b36b85d960f52a43d6",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\M0\\0V8JDM2KMQQMNKFS3GB6UL.uasset",
+        "main_sha256": "844d3a17c72cdeee1ccdf0d1194d1372124d3773fe66ead22b6a0cbc8f0edcb0",
+        "feature_sha256": "844d3a17c72cdeee1ccdf0d1194d1372124d3773fe66ead22b6a0cbc8f0edcb0",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\QL\\0FVUSOARLCJ79PSI62OA1R.uasset",
+        "main_sha256": "fbff47cbfb7d9065cc4261493b93b3c4d1c7148d957f41369847920c641db4f6",
+        "feature_sha256": "fbff47cbfb7d9065cc4261493b93b3c4d1c7148d957f41369847920c641db4f6",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\D\\SC\\H4F2WB179QZZONBHYID8O0.uasset",
+        "main_sha256": "39d8d5ae76f8b074d63562927291eccd1f3ad62893642ca0350da0a02ac1a388",
+        "feature_sha256": "39d8d5ae76f8b074d63562927291eccd1f3ad62893642ca0350da0a02ac1a388",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\C\\6Q\\3K42UAGMLTPF3PCZPPPYCR.uasset",
+        "main_sha256": "20a7966b368ccc7899fcda83b9b89e5086a3f199eb7ab1c26407df80abf37f96",
+        "feature_sha256": "20a7966b368ccc7899fcda83b9b89e5086a3f199eb7ab1c26407df80abf37f96",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\B\\81\\IWCX7JS32YOAV9K198HB02.uasset",
+        "main_sha256": "2b982ba61db90aeb43045f858ca73ce7a13e4cc13d48c54edf9d5d2cbd82830b",
+        "feature_sha256": "2b982ba61db90aeb43045f858ca73ce7a13e4cc13d48c54edf9d5d2cbd82830b",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\B\\8F\\CHJKNRGBDUPAW44FPQ44PZ.uasset",
+        "main_sha256": "0df4e1a625e94d8f3ead4cd478819eaac0c8a9feb1656d95c912e269c96d26a7",
+        "feature_sha256": "0df4e1a625e94d8f3ead4cd478819eaac0c8a9feb1656d95c912e269c96d26a7",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\9\\DS\\MFAB2BQ8KDBVKGDEL9LBEU.uasset",
+        "main_sha256": "ab30edc2d12b030d10fb1847bfb4220329409245fb0e98435124c8abf4359f0f",
+        "feature_sha256": "ab30edc2d12b030d10fb1847bfb4220329409245fb0e98435124c8abf4359f0f",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\BG\\R5ML2YWL23227PXNQ95T99.uasset",
+        "main_sha256": "a3534b3a1238f10e24bdfc4c16e619b29efc2ecc22af7aa816250d4e97dc10f6",
+        "feature_sha256": "a3534b3a1238f10e24bdfc4c16e619b29efc2ecc22af7aa816250d4e97dc10f6",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\EV\\7OIH7LRFN7THN3ZZ65C9XO.uasset",
+        "main_sha256": "aa7027780fa686fd3577c4b1e14846b3f9590fa96adac1b019df7a92b9b32f77",
+        "feature_sha256": "aa7027780fa686fd3577c4b1e14846b3f9590fa96adac1b019df7a92b9b32f77",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\VM\\T46938KARG8V5IZOPUYDUD.uasset",
+        "main_sha256": "76e874d4a01cb60d9e98426ee121a2f8397b9914df66cc5e357d274bb8af94c3",
+        "feature_sha256": "76e874d4a01cb60d9e98426ee121a2f8397b9914df66cc5e357d274bb8af94c3",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\7\\L6\\7T25OG97O148W27EMK8JRX.uasset",
+        "main_sha256": "0e70a378537eb60f910bd3db2126ed28042b5b12e5e2a0e4fd680307d58c9a7b",
+        "feature_sha256": "0e70a378537eb60f910bd3db2126ed28042b5b12e5e2a0e4fd680307d58c9a7b",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\6\\6V\\AQIAW36XCXDG0W18BLJN8R.uasset",
+        "main_sha256": "e3157b75c13754742074b4d05f3af9bb4ca5c308bed75d7a615a96b6fe3d5c7e",
+        "feature_sha256": "e3157b75c13754742074b4d05f3af9bb4ca5c308bed75d7a615a96b6fe3d5c7e",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\6\\KT\\OKTK4YNX6YEY0QR4PIW9N0.uasset",
+        "main_sha256": "54f3b5213e993e9a7eadde7cded0633c6ead6770c697344e767bde52c19f58ba",
+        "feature_sha256": "54f3b5213e993e9a7eadde7cded0633c6ead6770c697344e767bde52c19f58ba",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\3J\\PPGJ8QPT3U7DO2996F8F6E.uasset",
+        "main_sha256": "445ced8cdc1c2c0a01b550ea7052df522ffa17f8768dab10d75f88d8edb16d99",
+        "feature_sha256": "445ced8cdc1c2c0a01b550ea7052df522ffa17f8768dab10d75f88d8edb16d99",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\7E\\ICGS1I1YL1VW4SK4OU97TD.uasset",
+        "main_sha256": "b069e5cca7256cf7627bc239bf237a679241dfccdfb79f4b5e78c92e5c94d60f",
+        "feature_sha256": "b069e5cca7256cf7627bc239bf237a679241dfccdfb79f4b5e78c92e5c94d60f",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\8B\\SRRSMEFJKXF3DM6V9NZ7EA.uasset",
+        "main_sha256": "9240282e01a94831794fde422ce25f323489857bca265331d3fa9cbb53fc30f1",
+        "feature_sha256": "9240282e01a94831794fde422ce25f323489857bca265331d3fa9cbb53fc30f1",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\KI\\KQB0BSM8A71UVZST3A1BWS.uasset",
+        "main_sha256": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112",
+        "feature_sha256": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\S1\\N3XR225AU972IEWKZ5VIKH.uasset",
+        "main_sha256": "a13f0493074f3c834be0aa19ea643d05e2437f74042daa68e0b9094896138499",
+        "feature_sha256": "a13f0493074f3c834be0aa19ea643d05e2437f74042daa68e0b9094896138499",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\XI\\UHWE9QEYP4574QIYCNQ7XE.uasset",
+        "main_sha256": "dc990a286343baeec7ddc1c6d8ad75bc31a3b12d1754f135a523de5b463b22ee",
+        "feature_sha256": "dc990a286343baeec7ddc1c6d8ad75bc31a3b12d1754f135a523de5b463b22ee",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\9N\\56OSUCIPCIXQTTGJPODCXJ.uasset",
+        "main_sha256": "347e74a3f3274e367645aaec911830b6acb4f67079bb5aec130d27b135e495ff",
+        "feature_sha256": "347e74a3f3274e367645aaec911830b6acb4f67079bb5aec130d27b135e495ff",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\AH\\DS9PU6CFVBRPOKHHD0O6OC.uasset",
+        "main_sha256": "415cd35ff706afdd9ec942f64736cddf0974eed0d7feefc1c8f3c1cce57a5da6",
+        "feature_sha256": "415cd35ff706afdd9ec942f64736cddf0974eed0d7feefc1c8f3c1cce57a5da6",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\HB\\8447XCUY35KZCJ0OGQXCFS.uasset",
+        "main_sha256": "f15cd128e04bc4864ec655da38e44448471144f8fbd6bdb96dda066e7a979017",
+        "feature_sha256": "f15cd128e04bc4864ec655da38e44448471144f8fbd6bdb96dda066e7a979017",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\2\\84\\4QCB91H4RTL2XUXXHXHL2N.uasset",
+        "main_sha256": "4ae0e61742d6c756e66b28bf3769a0c2863d321ab3ffe33b4b91ad060ff7ea84",
+        "feature_sha256": "4ae0e61742d6c756e66b28bf3769a0c2863d321ab3ffe33b4b91ad060ff7ea84",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\06\\KNCLXDEOKR8VCQZUTF9UI5.uasset",
+        "main_sha256": "f93e8137cc4ecf573d9bb9e40c4bc211089e5d75ba0dce7666862139cf380657",
+        "feature_sha256": "f93e8137cc4ecf573d9bb9e40c4bc211089e5d75ba0dce7666862139cf380657",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\AO\\0JX6KGB85VI8FGMJJP50TC.uasset",
+        "main_sha256": "9c1a9bd6ce82631298a1a680065e242c14952c839f33fb110ae9af6e110ba58b",
+        "feature_sha256": "9c1a9bd6ce82631298a1a680065e242c14952c839f33fb110ae9af6e110ba58b",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\MS\\LC9BZZ0JPJBJN9U5MJNJTN.uasset",
+        "main_sha256": "ac568836647fa96d2670e9038083b08eef8cb841e3e28b8440578475e691b36e",
+        "feature_sha256": "ac568836647fa96d2670e9038083b08eef8cb841e3e28b8440578475e691b36e",
+        "matched": true
+      },
+      {
+        "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\0\\I8\\9UWYX2NDJT6BT9QSQC8N3B.uasset",
+        "main_sha256": "8a30a77da194f021ef6dda957f4c19b43ef81d743e1b51084ab6462ab223e373",
+        "feature_sha256": "8a30a77da194f021ef6dda957f4c19b43ef81d743e1b51084ab6462ab223e373",
+        "matched": true
+      },
+      {
+        "path": "Content\\NavalBattle\\Profiles\\DA_LargeShip.uasset",
+        "main_sha256": "03906f2e3b70859f890d07af1f2dcd21b6a3f67e0cc209685dbbb35b17cc58cd",
+        "feature_sha256": "03906f2e3b70859f890d07af1f2dcd21b6a3f67e0cc209685dbbb35b17cc58cd",
+        "matched": true
+      },
+      {
+        "path": "Content\\NavalBattle\\Profiles\\DA_MediumShip.uasset",
+        "main_sha256": "cbfc0d05afadb585963a59390164328e8c272b4c598c69e39310b71eabcacb49",
+        "feature_sha256": "cbfc0d05afadb585963a59390164328e8c272b4c598c69e39310b71eabcacb49",
+        "matched": true
+      },
+      {
+        "path": "Content\\NavalBattle\\Profiles\\DA_SmallShip.uasset",
+        "main_sha256": "6664ef4c85c2f69b4ac5ba295ef240d90ce4851f0504e88606aa110a0ea0dcf3",
+        "feature_sha256": "6664ef4c85c2f69b4ac5ba295ef240d90ce4851f0504e88606aa110a0ea0dcf3",
+        "matched": true
+      }
+    ],
+    "user_font_sha256": "d0e98d5ef17ca931dec15b04d0ba547446ebb25a00e5a8913ef0bf91de3f6764"
+  },
+  "pie_suite": {
+    "status": "PASSED",
+    "index": 5,
+    "results": [
+      {
+        "script": "Tools/Testing/verify_match_settings_integration.py",
+        "options": {
+          "CASES": [
+            {
+              "name": "merged_main_authored_full",
+              "manual": true,
+              "full": true,
+              "blue": 3,
+              "red": 3,
+              "classes": [
+                2,
+                2,
+                2,
+                2,
+                2,
+                2
+              ]
+            }
+          ],
+          "OUTPUT": "MERGED_MAIN_AUTHORED.json"
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_player_input.py",
+        "options": {
+          "HULL_CLASSES": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "OUTPUT": "MERGED_MAIN_MEDIUM_PLAYER.json"
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_player_input.py",
+        "options": {
+          "HULL_CLASSES": [
+            0,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "OUTPUT": "MERGED_MAIN_SMALL_PLAYER.json"
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_final_demo.py",
+        "options": {
+          "KIND": "nonlethal",
+          "SEED": 20261028,
+          "OUTPUT": "MERGED_MAIN_SIX_CONTACT.json",
+          "CAPTURE": false
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_return_to_setup.py",
+        "options": {
+          "FULL_AI": true,
+          "OUTPUT": "MERGED_MAIN_RETURN.json"
+        },
+        "status": "PASSED",
+        "error": null
+      }
+    ],
+    "next_at": 4831.0,
+    "error": null,
+    "started": 4617.453,
+    "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03"
+  },
+  "checks": [
+    {
+      "status": "PASSED",
+      "phase": "observe",
+      "case": 1,
+      "results": [
+        {
+          "case": {
+            "name": "merged_main_authored_full",
+            "manual": true,
+            "full": true,
+            "blue": 3,
+            "red": 3,
+            "classes": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.621637012809515,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 6,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\UI_merged_main_authored_full_PLAY.png"
+        }
+      ],
+      "error": null,
+      "started": 4617.468,
+      "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+      "add_remove_limits_and_class_shift": true,
+      "menu_capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\UI_merged_main_authored_full_MENU.png",
+      "travel_at": 4618.484,
+      "ready_at": 8.621637012809515,
+      "controllers": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+        "Demo_Blue_Flagship": "AIController_5"
+      },
+      "raw_file": "Saved/MERGED_MAIN_AUTHORED.json",
+      "raw_sha256": "34fa3729d0e166e61888ec7ac021c229039f5f79fd39b5bf5701ce1d47f50e42"
+    },
+    {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "input_pattern": "offshore_short_3_9_11_18",
+      "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "right_yaw_degrees": 15.922094206069772,
+      "left_yaw_degrees": -15.17046354953112,
+      "hull_class": "<ShipHullClass.MEDIUM: 2>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        6.0
+      ],
+      "raw_file": "Saved/MERGED_MAIN_MEDIUM_PLAYER.json",
+      "raw_sha256": "adc80b8ae990c82d507c6f0e5dcc5eab6f9072679f7e6e13926cac08de3dd561"
+    },
+    {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "input_pattern": "offshore_short_3_9_11_18",
+      "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "right_yaw_degrees": 24.727841321380936,
+      "left_yaw_degrees": -26.62021600828217,
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        20.0
+      ],
+      "raw_file": "Saved/MERGED_MAIN_SMALL_PLAYER.json",
+      "raw_sha256": "fd3be8badc6e1cbabd5ce1ab984dd24d2cd458ce691185546586a8268dff19be"
+    },
+    {
+      "status": "PASSED",
+      "kind": "nonlethal",
+      "seed": 20261028,
+      "full_ai": true,
+      "phase": "observe",
+      "started": 4757.781,
+      "ships": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+          "label": "BP_ShipEnemy2",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 0.5123253986239433,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 1.0144991986453533,
+          "first_shot": 2.525118298828602,
+          "shots": 3,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 229.47415350100468,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14883.603501457146,
+            4017.4366510119844
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.04129856824874878,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+          "label": "Friendly_AI_1",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 0.5123253986239433,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 1.0144991986453533,
+          "first_shot": 2.0189510993659496,
+          "shots": 3,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 268.65958309865476,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14377.153592246626,
+            3548.294345437963
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.0330023467540741,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+          "label": "Friendly_AI_2",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 0.5123253986239433,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 1.0144991986453533,
+          "first_shot": 2.525118298828602,
+          "shots": 3,
+          "hits": 1,
+          "damage_events": 0,
+          "distance_m": 201.8656870860666,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14412.361816866023,
+            3889.393297021298
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.022098422050476074,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+          "label": "BP_ShipEnemy3",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.LARGE: 1>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 12.582513500005007,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 13.083682600408792,
+          "first_shot": 18.620887599885464,
+          "shots": 1,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 18.391985028645603,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            15497.046803302757,
+            4553.491997591193
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.0688992440700531,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+          "label": "BP_ShipEnemy",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.MEDIUM: 2>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 0.5123253986239433,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 1.0144991986453533,
+          "first_shot": 1.514988500624895,
+          "shots": 3,
+          "hits": 1,
+          "damage_events": 0,
+          "distance_m": 146.50096621075653,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            15179.02114309488,
+            4339.572497904527
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.05060061812400818,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "Demo_Blue_Flagship": {
+          "label": "BP_ShipSmallAI",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5123253986239433,
+          "first_in_range": 0.5123253986239433,
+          "first_visible": 0.5123253986239433,
+          "first_valid_opportunity": 1.0144991986453533,
+          "first_shot": 5.530958998948336,
+          "shots": 1,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 168.60733003689,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14293.088536414149,
+            4206.613477329995
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.03119930624961853,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        }
+      },
+      "error": null,
+      "camera_checks": [
+        {
+          "t": 24.18794970586896,
+          "all_controllers_unchanged": true,
+          "no_ship_player_possession": true
+        }
+      ],
+      "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "init_last": 14,
+      "initialization": {
+        "t": 14.009575005620718,
+        "status": "Settling fleet on water...",
+        "error": "",
+        "configured": true,
+        "fleet": 6
+      },
+      "ready_at": 14.126242104917765,
+      "controllers": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+        "Demo_Blue_Flagship": "AIController_5"
+      },
+      "team_tags": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Small",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": [
+          "Battle3v3",
+          "Friendly",
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": [
+          "Battle3v3",
+          "Friendly",
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Large",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Medium",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "Demo_Blue_Flagship": [
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ]
+      },
+      "last": 32.74712970480323,
+      "camera_checked": true,
+      "duration": 18.620887599885464,
+      "raw_file": "Saved/MERGED_MAIN_SIX_CONTACT.json",
+      "raw_sha256": "db071daf380baac5ad32c20fd92e814530862a84d87f134549708b36f0a4d6eb"
+    },
+    {
+      "status": "PASSED",
+      "phase": "restart",
+      "full_ai": true,
+      "losing_team": 1,
+      "player_team": 0,
+      "checks": {
+        "inactive_before_result": true,
+        "global_result_and_counters_current": true,
+        "teammate_summary_interactive": true,
+        "setup_opened": true,
+        "paused_and_cursor_visible": true,
+        "selections_preserved": true,
+        "idempotent": true,
+        "return_available_after_back_to_result": true,
+        "new_match_resets_result": true,
+        "six_ship_roster_restored": true
+      },
+      "error": null,
+      "started": 4795.609,
+      "native_dll_sha256": "702e9465b2c4d8a03a001fca8d5618106d58ba636ff309fbc4af57d777bb3a03",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "initial_player_ship": null,
+      "loading_before_outcome": true,
+      "cursor_when_outcome_set": true,
+      "loading_when_outcome_set": false,
+      "outcome": "BLUE WINS",
+      "outcome_at": 14.161311902105808,
+      "render_started": 4813.875,
+      "render_next_at": 4814.39,
+      "result_rendered": "E:\\LeVietThanh1412-Product\\VDT-Phase2-Project\\Saved\\MERGED_MAIN_RETURN_RESULT.png",
+      "click_method": "same controller action bound by result button",
+      "restart_at": 4813.984,
+      "raw_file": "Saved/MERGED_MAIN_RETURN.json",
+      "raw_sha256": "883c466dd8a231ee8ce52c968511ea79d1033e555b35598cc7cda4e1f6dda6a5"
+    }
+  ],
+  "log_sha256": "dcf14dc1eab5738f964a56efaf3bc2dcc5cd60c5cebcda54bafdb660384b991c",
+  "preserved_user_font_sha256": "d0e98d5ef17ca931dec15b04d0ba547446ebb25a00e5a8913ef0bf91de3f6764"
+}
