@@ -18,7 +18,9 @@ s=dict(status='RUNNING',phase='menu',started=time.monotonic(),ships={},rows=[],c
 builtins.authored_patrol_probe=s
 def save():
     p=root/'Saved'/output;tmp=p.with_suffix('.json.tmp')
-    tmp.write_text(json.dumps({k:v for k,v in s.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8');tmp.replace(p)
+    tmp.write_text(json.dumps({k:v for k,v in s.items() if k not in ['handle','old_world']},indent=2),encoding='utf-8')
+    try:tmp.replace(p)
+    except PermissionError:pass  # Retry next sample if a Windows reader holds the snapshot.
 def finish(status):
     s['status']=status;save();unreal.unregister_slate_post_tick_callback(s['handle'])
     if not (status=='FAILED' and globals().get('HOLD_ON_FAILURE',False)):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
@@ -38,7 +40,8 @@ def tick(dt):
             ui.use_my_map();ui.control_selector.set_selected_index(1 if full_ai else 0);ui.mode_selector.set_selected_index(0)
             player_team=int(globals().get('PLAYER_TEAM',0));ui.player_team_selector.set_selected_index(player_team)
             ui.blue_count_selector.set_selected_index(2);ui.red_count_selector.set_selected_index(2)
-            ui.seed_input.set_text('-1');s['checks']['invalid_seed_rejected']=not ui.apply_selection()
+            ui.generate_from_seed();ui.seed_input.set_text('-1');s['checks']['invalid_seed_rejected']=not ui.apply_selection()
+            ui.use_my_map();s['checks']['hidden_invalid_seed_does_not_block_manual']=ui.apply_selection()
             ui.seed_input.set_text('0');s['checks']['zero_seed_accepted']=ui.apply_selection()
             ui.seed_input.set_text('271828')
             if 'HULL_CLASSES' in globals():
@@ -90,8 +93,8 @@ def tick(dt):
                 s['ships'][a.get_name()]=dict(label='Blue Flagship (Full AI)' if a.get_name()=='Demo_Blue_Flagship' else label,controller=a.get_controller().get_name(),a=n.patrol_actor_a.get_name(),b=n.patrol_actor_b.get_name(),legs=0,arrivals=[],max_speed=0,max_pitch=0,max_roll=0,water_samples=0,samples=0,physical=True,marker_refs=True,controller_preserved=True,tactical_override=False)
             s.update(phase='observe',ready_at=t);save();return
         if s['phase']=='expected_setup_error':
-            if t<1:return
             b=sub(w,unreal.NavalBattleSubsystem)
+            if not pc.setup_widget:return
             assert not b.match_configured and 'MY MAP / Full AI:' in b.configuration_error,b.configuration_error
             assert len(fleet)==5 and not any(a.get_name()=='Demo_Blue_Flagship' for a in fleet),'Invalid configuration spawned an extra ship'
             for a in fleet:
@@ -128,7 +131,7 @@ def tick(dt):
         if int(t)%5==0 and int(t)!=s.get('saved'):
             s['saved']=int(t);save()
         if t-s['ready_at']>8 and not s.get('captured'):
-            s['captured']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'reports/images/authored_patrol.png'))
+            s['captured']=unreal.ShipCombatLibrary.capture_gameplay_hud(w,str(root/'Saved'/(Path(output).stem+'.png')))
         if all(r['legs']>=required for r in s['ships'].values()):
             s['checks']['all_physical_loops']=all(r['physical'] and r['controller_preserved'] and r['marker_refs'] and not r['tactical_override'] and r['max_speed']>3 and r['water_samples']/r['samples']>=.98 for r in s['ships'].values())
             assert all(s['checks'].values()),s['checks'];s['duration']=t-s['ready_at'];finish('PASSED')

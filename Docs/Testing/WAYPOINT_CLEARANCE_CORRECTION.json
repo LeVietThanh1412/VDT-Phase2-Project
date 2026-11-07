@@ -1,0 +1,63 @@
+{
+  "status": "VERIFIED_SAVED_MAP_ENDURANCE",
+  "actor": "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986",
+  "marker": "TargetPoint_UAID_40C2BA430821B90C03_2096046064",
+  "marker_label": "TP_Blue02_B",
+  "old_en": [
+    11441.844746031707,
+    -2677.528120240184
+  ],
+  "new_en": [
+    12000,
+    -3000
+  ],
+  "old_world": [
+    -208723.90914851427,
+    -267491.79080051184,
+    228.55807220935822
+  ],
+  "new_world": [
+    -152936.3769352436,
+    -235199.9672487676,
+    228.55807197093964
+  ],
+  "new_llh": [
+    107.41180677968106,
+    20.9654618115166,
+    2.9048825401391967
+  ],
+  "old_llh": [
+    107.40644191382006,
+    20.968377882601395,
+    3.190927776365861
+  ],
+  "asset_path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\AO\\0JX6KGB85VI8FGMJJP50TC.uasset",
+  "before_sha256": "0317265e8c7a191924a8971eabebfe50ca913be320cb428aaed2cce0b09a6b39",
+  "after_sha256": "9c1a9bd6ce82631298a1a680065e242c14952c839f33fb110ae9af6e110ba58b",
+  "saved_editor_world": [
+    -152936.3769352436,
+    -235199.9672487676,
+    228.55807197093964
+  ],
+  "previous_150m_candidate": {
+    "en": [
+      11562.745089489177,
+      -2766.3149827360835
+    ],
+    "after_sha256": "04875550fa0ebf507b701b40d19541fb84887b6f871f5b9bc837ea810c1b3353",
+    "finding": "Individual hull placement/route were valid, but only 118 m separated this B marker from the opposing A marker. A fresh six-ship run stalled for several minutes before a late arrival; this attempt is retained as a diagnostic, not endurance certification."
+  },
+  "candidate_before_sha256": "04875550fa0ebf507b701b40d19541fb84887b6f871f5b9bc837ea810c1b3353",
+  "original_to_final_distance_m": 644.6125974321619,
+  "all_12_headings": true,
+  "connected_route": true,
+  "opposing_a_en": [
+    11533.907046,
+    -2880.90329
+  ],
+  "marker_separation_m": 481.0682572164473,
+  "cold_reload_error_cm": 0.0,
+  "endurance_file": "AUTHORED_SIX_SHIP_PIE.json",
+  "duration_sim_seconds": 1350.934171512723,
+  "minimum_arrivals": 4
+}

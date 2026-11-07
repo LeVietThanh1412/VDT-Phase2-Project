@@ -1220,7 +1220,11 @@ bool UShipEnemyNavigationComponent::UpdateNavigation(float Dt)
             // The other vessel yields; the priority vessel still uses every
             // existing hull sweep, land check and emergency brake below.
             const auto* OtherNav=Other->FindComponentByClass<UShipEnemyNavigationComponent>();
+            // Following protects a moving lead vessel. A stopped, same-heading
+            // hull must not defeat the bounded traffic-priority lease forever;
+            // hull sweeps and the emergency brake still guard the physical gap.
             const bool Following=OtherNav && IsValid(OtherNav->Heading) &&
+                OtherHull->GetPhysicsLinearVelocity().Size()>100 &&
                 FVector::DotProduct(Forward,OtherNav->Heading->GetForwardVector())>.5f;
             if(!Following && HasShipRightOfWay(this,*Other,Now))continue;
             const double Closing=FVector::DotProduct(Velocity-OtherHull->GetPhysicsLinearVelocity(),Flat.GetSafeNormal())/100;

@@ -1,0 +1,262 @@
+{
+  "status": "PASSED",
+  "native_dll_sha256": "10f787b1de2408d06efe71df61f30a13dfd7c19ef5e995c6d6df6b89742947a8",
+  "matrix": {
+    "status": "PASSED",
+    "phase": "observe",
+    "case": 9,
+    "results": [
+      {
+        "case": {
+          "name": "manual_player",
+          "manual": true,
+          "full": false,
+          "blue": 3,
+          "red": 3,
+          "classes": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 8.227268308401108,
+        "actual_seed": 20261028,
+        "ships": 6,
+        "ai_controllers": 5,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_player_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "manual_full",
+          "manual": true,
+          "full": true,
+          "blue": 3,
+          "red": 3,
+          "classes": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 8.223619781434536,
+        "actual_seed": 20261028,
+        "ships": 6,
+        "ai_controllers": 6,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_full_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "seed_full",
+          "manual": false,
+          "full": true,
+          "blue": 3,
+          "red": 3,
+          "classes": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 13.825215216726065,
+        "actual_seed": 20261028,
+        "ships": 6,
+        "ai_controllers": 6,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_full_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "seed_red_player",
+          "manual": false,
+          "full": false,
+          "team": 1,
+          "blue": 3,
+          "red": 3,
+          "classes": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 13.964011199772358,
+        "actual_seed": 20261028,
+        "ships": 6,
+        "ai_controllers": 5,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_red_player_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "manual_1v1_turns",
+          "manual": true,
+          "full": false,
+          "blue": 1,
+          "red": 1,
+          "mode": 1,
+          "skill": 0,
+          "classes": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 8.246212404221296,
+        "actual_seed": 20261028,
+        "ships": 2,
+        "ai_controllers": 1,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_1v1_turns_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "manual_2v2_full_turns",
+          "manual": true,
+          "full": true,
+          "blue": 2,
+          "red": 2,
+          "mode": 1,
+          "skill": 2,
+          "classes": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 8.209877826273441,
+        "actual_seed": 20261028,
+        "ships": 4,
+        "ai_controllers": 4,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_2v2_full_turns_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "seed_asymmetric",
+          "manual": false,
+          "full": true,
+          "blue": 2,
+          "red": 3,
+          "skill": 0,
+          "classes": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 13.827346730977297,
+        "actual_seed": 20261028,
+        "ships": 5,
+        "ai_controllers": 5,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_asymmetric_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "manual_red_small",
+          "manual": true,
+          "full": false,
+          "team": 1,
+          "blue": 3,
+          "red": 1,
+          "skill": 2,
+          "classes": [
+            2,
+            2,
+            2,
+            0,
+            2,
+            2
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 8.22826087474823,
+        "actual_seed": 20261028,
+        "ships": 4,
+        "ai_controllers": 3,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_red_small_PLAY.png"
+      },
+      {
+        "case": {
+          "name": "seed_zero_1v1",
+          "manual": false,
+          "full": true,
+          "blue": 1,
+          "red": 1,
+          "seed": 0,
+          "classes": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "status": "PASSED",
+        "ready_at": 10.24553219228983,
+        "actual_seed": 1513862273,
+        "ships": 2,
+        "ai_controllers": 2,
+        "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_zero_1v1_PLAY.png"
+      }
+    ],
+    "error": null,
+    "started": 4286.703,
+    "native_dll_sha256": "10f787b1de2408d06efe71df61f30a13dfd7c19ef5e995c6d6df6b89742947a8",
+    "add_remove_limits_and_class_shift": true,
+    "menu_capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_zero_1v1_MENU.png",
+    "travel_at": 4506.906,
+    "ready_at": 10.24553219228983,
+    "controllers": {
+      "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+      "Demo_Blue_Flagship": "AIController_5"
+    },
+    "menu_at": 4505.875
+  },
+  "preparation_error": "MY MAP / Full AI: tag exactly one TargetPoint Naval.PlayerPatrol.A and one different TargetPoint Naval.PlayerPatrol.B (found A=0, B=1). Fix the Actor Tags before starting.",
+  "watchdog": {
+    "status": "PASSED",
+    "phase": "wait",
+    "started": 5238.046,
+    "error": null,
+    "fault_at": 5240.671,
+    "saved": 18,
+    "last_state": {
+      "configured": false,
+      "error": "",
+      "paused": false,
+      "menu": false
+    },
+    "elapsed_seconds": 90.0630000000001,
+    "error_shown": "Match setup timed out. Check loaded ships, patrol markers and terrain, then start a new match.",
+    "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_LOADING_TIMEOUT.png"
+  },
+  "all_medium_seed": {
+    "status": "PASSED",
+    "duration": 60.040259797126055
+  },
+  "limitation": "Handler-driven real menu/travel matrix. Desktop interaction and full natural-match regressions recorded separately."
+}

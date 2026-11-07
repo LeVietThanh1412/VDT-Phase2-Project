@@ -1,0 +1,33 @@
+{
+  "status": "PASSED",
+  "native_dll_sha256": "bf8b893a3b5ccc88e02bc9744982d81b2f723ec12683e27115a1c38a228519b6",
+  "build_log": "Saved/ASSAULT_RETRY_FINAL_BUILD.log",
+  "build_result": "Succeeded",
+  "navigation_log": "Saved/Logs/VDTPhase2Project.log",
+  "automation_successes": [
+    "[2026.11.07-05.05.26:068][ 44]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}",
+    "[2026.11.07-05.05.26:116][ 47]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}",
+    "[2026.11.07-05.05.26:156][ 49]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}",
+    "[2026.11.07-05.05.26:202][ 52]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+  ],
+  "blueprint_compile_requests": 39,
+  "blueprint_compiler_errors": 0,
+  "native_critical_errors": 0,
+  "previous_stationary_traffic_build": {
+    "status": "PASSED",
+    "native_dll_sha256": "9eb9db985a56281a8fc7a13a9f03a77386a4e4c9917deb7ca3bf42ab530f7845",
+    "build_log": "Saved/TRAFFIC_PRIORITY_BUILD.log",
+    "build_result": "Succeeded",
+    "navigation_log": "Saved/Logs/VDTPhase2Project-backup-2026.11.06-20.58.10.log",
+    "automation_successes": [
+      "[2026.11.06-20.38.00:389][692]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}",
+      "[2026.11.06-20.38.00:424][694]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}",
+      "[2026.11.06-20.38.00:467][697]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}",
+      "[2026.11.06-20.38.00:517][700]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+    ],
+    "blueprint_compile_requests": 39,
+    "blueprint_compiler_errors": 0,
+    "native_critical_errors": 0,
+    "note": "The earlier VDT.SeaNavigation command matched zero tests and is not counted; the corrected ShipEnemyNavigation filter executed all four tests. Isolated automation completed before PIE."
+  }
+}

@@ -1,5 +1,5 @@
 """Serialized final PIE matrix. Stops on the first failed fixture."""
-import unreal,builtins,json,time,traceback
+import unreal,builtins,json,time,traceback,hashlib
 from pathlib import Path
 root=Path(unreal.Paths.project_dir());ed=unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem)
 tests=globals().get('TESTS',[
@@ -13,9 +13,10 @@ tests=globals().get('TESTS',[
  ('Tools/NavalCombat/verify_shared_magazine.py','magazine_probe',{}),
  ('Tools/NavalCombat/verify_hull_stability.py','hull_stability_probe',dict(OUTPUT='FINAL_HULL_STABILITY.json')),
 ])
-suite=dict(status='RUNNING',index=-1,results=[],next_at=0,error=None,started=time.monotonic());builtins.final_regression_suite=suite
+output=globals().get('OUTPUT','FINAL_REGRESSION_SUITE.json')
+suite=dict(status='RUNNING',index=-1,results=[],next_at=0,error=None,started=time.monotonic(),native_dll_sha256=hashlib.sha256((root/'Binaries/Win64/UnrealEditor-VDTPhase2Project.dll').read_bytes()).hexdigest());builtins.final_regression_suite=suite
 
-def save():(root/'Saved/FINAL_REGRESSION_SUITE.json').write_text(json.dumps({k:v for k,v in suite.items() if k!='handle'},indent=2),encoding='utf-8')
+def save():(root/'Saved'/output).write_text(json.dumps({k:v for k,v in suite.items() if k!='handle'},indent=2),encoding='utf-8')
 def tick(dt):
  try:
   if suite['index']>=0:

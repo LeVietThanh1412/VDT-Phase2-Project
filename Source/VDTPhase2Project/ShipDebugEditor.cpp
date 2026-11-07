@@ -1,4 +1,6 @@
 #include "ShipCombatComponent.h"
+#include "Private/NavalWaterQueries.h"
+#include "WaterBodyComponent.h"
 #if WITH_EDITOR
 #include "Editor.h"
 #include "Engine/Blueprint.h"
@@ -6,7 +8,62 @@
 #include "K2Node_CallFunction.h"
 #include "Kismet2/BlueprintEditorUtils.h"
 #include "Kismet2/KismetEditorUtilities.h"
+#include "EdGraphSchema_K2.h"
 #endif
+
+bool UShipCombatLibrary::SampleOceanWaves(UObject* WorldContextObject,FVector Location,FVector& Surface,FVector& Normal)
+{
+    Surface=Location;Normal=FVector::UpVector;
+#if WITH_EDITOR
+    UWorld* World=WorldContextObject?WorldContextObject->GetWorld():nullptr;
+    if(!World)return false;
+    if(auto* Water=NavalWaterQueries::FindOcean(World))
+    {
+        const auto Result=Water->QueryWaterInfoClosestToWorldLocation(Location,
+            EWaterBodyQueryFlags::ComputeLocation|EWaterBodyQueryFlags::ComputeNormal|
+            EWaterBodyQueryFlags::ComputeDepth|EWaterBodyQueryFlags::IncludeWaves);
+        Surface=Result.GetWaterSurfaceLocation();Normal=Result.GetWaterSurfaceNormal();
+        return !Result.IsInExclusionVolume() && Water->HasWaves();
+    }
+#endif
+    return false;
+}
+
+FString UShipCombatLibrary::InspectImpactDebug(bool bDisable)
+{
+#if WITH_EDITOR
+    if(GEditor && GEditor->PlayWorld)return TEXT("ERROR: stop PIE before inspecting Blueprint graphs");
+    FString Report;
+    for(const TCHAR* Path:{TEXT("/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile"),TEXT("/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed")})
+    {
+        auto* BP=LoadObject<UBlueprint>(nullptr,Path);if(!BP)return TEXT("ERROR: missing projectile Blueprint");
+        TArray<UEdGraph*> Graphs;BP->GetAllGraphs(Graphs);int32 Changes=0;
+        for(auto* Graph:Graphs)for(UEdGraphNode* Node:Graph->Nodes)if(auto* Call=Cast<UK2Node_CallFunction>(Node))
+        {
+            if(Call->FunctionReference.GetMemberName()!=TEXT("DrawDebugSphere"))continue;
+            auto* In=Call->FindPin(UEdGraphSchema_K2::PN_Execute);
+            auto* Out=Call->FindPin(UEdGraphSchema_K2::PN_Then);
+            if(!In || !Out)return TEXT("ERROR: unexpected debug sphere pins; no save");
+            Report+=FString::Printf(TEXT("%s graph=%s node=%s inputs=%d outputs=%d\n"),Path,*Graph->GetName(),*Call->GetName(),In->LinkedTo.Num(),Out->LinkedTo.Num());
+            if(!bDisable || In->LinkedTo.IsEmpty())continue;
+            BP->Modify();Call->Modify();
+            const auto Sources=In->LinkedTo;const auto Destinations=Out->LinkedTo;
+            In->BreakAllPinLinks();Out->BreakAllPinLinks();
+            for(auto* Source:Sources)for(auto* Destination:Destinations)Source->MakeLinkTo(Destination);
+            ++Changes;
+        }
+        if(Changes)
+        {
+            FBlueprintEditorUtils::MarkBlueprintAsModified(BP);FKismetEditorUtilities::CompileBlueprint(BP);
+            if(BP->Status==BS_Error)return TEXT("ERROR: compile failed; no save");
+        }
+        Report+=FString::Printf(TEXT("changed=%d; caller owns backup/save\n"),Changes);
+    }
+    return Report;
+#else
+    return TEXT("ERROR: editor operation");
+#endif
+}
 
 FString UShipCombatLibrary::DisableSensorDebugDefaults()
 {

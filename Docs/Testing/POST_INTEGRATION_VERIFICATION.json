@@ -1,0 +1,715 @@
+{
+  "status": "PASSED",
+  "stage": "After fetch and merge main into feature, before PR",
+  "main_sha": "9c74630c7a72716678aff3eecef0e4e0eeea8157",
+  "merge_result": "Already up to date; no conflict",
+  "build_log": "Saved/POST_MAIN_TO_FEATURE_BUILD.log",
+  "build_result": "Succeeded",
+  "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9",
+  "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+  "blueprint_requests": 39,
+  "compiler_critical_errors": [],
+  "navigation_automation": [
+    "[2026.11.07-05.55.33:338][162]LogAutomationController: Display: Test Completed. Result={Success} Name={IsolatedWorld} Path={ShipEnemyNavigation.Component.IsolatedWorld}",
+    "[2026.11.07-05.55.33:372][164]LogAutomationController: Display: Test Completed. Result={Success} Name={PublicState} Path={ShipEnemyNavigation.Component.PublicState}",
+    "[2026.11.07-05.55.33:417][167]LogAutomationController: Display: Test Completed. Result={Success} Name={Geometry} Path={ShipEnemyNavigation.Planner.Geometry}",
+    "[2026.11.07-05.55.33:459][169]LogAutomationController: Display: Test Completed. Result={Success} Name={RealOSM} Path={ShipEnemyNavigation.Planner.RealOSM}"
+  ],
+  "pie_suite": {
+    "status": "PASSED",
+    "index": 4,
+    "results": [
+      {
+        "script": "Tools/Testing/verify_match_settings_integration.py",
+        "options": {
+          "OUTPUT": "POST_INTEGRATION_MATCH_UI.json"
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_player_input.py",
+        "options": {
+          "HULL_CLASSES": [
+            0,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "OUTPUT": "POST_INTEGRATION_SMALL_PLAYER.json"
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_final_demo.py",
+        "options": {
+          "KIND": "nonlethal",
+          "SEED": 20261028,
+          "OUTPUT": "POST_INTEGRATION_SIX_CONTACT.json",
+          "CAPTURE": false
+        },
+        "status": "PASSED",
+        "error": null
+      },
+      {
+        "script": "Tools/Testing/verify_return_to_setup.py",
+        "options": {
+          "FULL_AI": true,
+          "OUTPUT": "POST_INTEGRATION_RETURN.json"
+        },
+        "status": "PASSED",
+        "error": null
+      }
+    ],
+    "next_at": 4352.703,
+    "error": null,
+    "started": 3943.484,
+    "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9"
+  },
+  "checks": [
+    {
+      "status": "PASSED",
+      "phase": "observe",
+      "case": 10,
+      "results": [
+        {
+          "case": {
+            "name": "manual_player",
+            "manual": true,
+            "full": false,
+            "blue": 3,
+            "red": 3,
+            "classes": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.274402011185884,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 5,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_player_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "manual_full",
+            "manual": true,
+            "full": true,
+            "blue": 3,
+            "red": 3,
+            "classes": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.720284726470709,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 6,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_full_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "seed_full",
+            "manual": false,
+            "full": true,
+            "blue": 3,
+            "red": 3,
+            "classes": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 14.142433606088161,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 6,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_full_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "seed_red_player",
+            "manual": false,
+            "full": false,
+            "team": 1,
+            "blue": 3,
+            "red": 3,
+            "classes": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 14.406456496566534,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 5,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_red_player_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "manual_1v1_turns",
+            "manual": true,
+            "full": false,
+            "blue": 1,
+            "red": 1,
+            "mode": 1,
+            "skill": 0,
+            "classes": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.278496749699116,
+          "actual_seed": 20261028,
+          "ships": 2,
+          "ai_controllers": 1,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_1v1_turns_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "manual_2v2_full_turns",
+            "manual": true,
+            "full": true,
+            "blue": 2,
+            "red": 2,
+            "mode": 1,
+            "skill": 2,
+            "classes": [
+              2,
+              2,
+              2,
+              2,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.666586484760046,
+          "actual_seed": 20261028,
+          "ships": 4,
+          "ai_controllers": 4,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_2v2_full_turns_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "seed_asymmetric",
+            "manual": false,
+            "full": true,
+            "blue": 2,
+            "red": 3,
+            "skill": 0,
+            "classes": [
+              0,
+              0,
+              0,
+              0,
+              1,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 14.133223816752434,
+          "actual_seed": 20261028,
+          "ships": 5,
+          "ai_controllers": 5,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_asymmetric_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "manual_red_small",
+            "manual": true,
+            "full": false,
+            "team": 1,
+            "blue": 3,
+            "red": 1,
+            "skill": 2,
+            "classes": [
+              2,
+              2,
+              2,
+              0,
+              2,
+              2
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 8.227656502276659,
+          "actual_seed": 20261028,
+          "ships": 4,
+          "ai_controllers": 3,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_manual_red_small_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "seed_zero_1v1",
+            "manual": false,
+            "full": true,
+            "blue": 1,
+            "red": 1,
+            "seed": 0,
+            "classes": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 10.242327712476254,
+          "actual_seed": 657936001,
+          "ships": 2,
+          "ai_controllers": 2,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_seed_zero_1v1_PLAY.png"
+        },
+        {
+          "case": {
+            "name": "class_balance",
+            "manual": false,
+            "full": true,
+            "blue": 3,
+            "red": 3,
+            "balance": 1,
+            "classes": [
+              0,
+              1,
+              2,
+              2,
+              0,
+              1
+            ]
+          },
+          "status": "PASSED",
+          "ready_at": 14.146228596568108,
+          "actual_seed": 20261028,
+          "ships": 6,
+          "ai_controllers": 6,
+          "capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_class_balance_PLAY.png"
+        }
+      ],
+      "error": null,
+      "started": 3943.5,
+      "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9",
+      "add_remove_limits_and_class_shift": true,
+      "menu_capture": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\UI_class_balance_MENU.png",
+      "travel_at": 4192.531,
+      "ready_at": 14.146228596568108,
+      "controllers": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+        "Demo_Blue_Flagship": "AIController_5"
+      },
+      "menu_at": 4191.515,
+      "raw_file": "Saved/POST_INTEGRATION_MATCH_UI.json",
+      "raw_sha256": "4cfb070a129e17ddfa4241cac7b9f9b4a6efdd18b9f9d6414842ac373e0b64ee"
+    },
+    {
+      "status": "PASSED",
+      "checks": {
+        "forward_physical_travel": true,
+        "right_rudder_yaw": true,
+        "left_rudder_yaw": true,
+        "opposite_turn_directions": true,
+        "mouse_look": true,
+        "original_projectile_fired": true,
+        "aim_camera": true,
+        "released_aim_camera": true,
+        "physics_and_possession": true
+      },
+      "error": null,
+      "input_pattern": "offshore_short_3_9_11_18",
+      "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "right_yaw_degrees": 24.713611037594745,
+      "left_yaw_degrees": -26.53887179864236,
+      "hull_class": "<ShipHullClass.SMALL: 0>",
+      "profile_inertia_scale": [
+        1.0,
+        1.0,
+        20.0
+      ],
+      "raw_file": "Saved/POST_INTEGRATION_SMALL_PLAYER.json",
+      "raw_sha256": "e6e8e3f35c8fa01ad5b919a457ee6b6103d555a83ed7c3e6a229eb4331469453"
+    },
+    {
+      "status": "PASSED",
+      "kind": "nonlethal",
+      "seed": 20261028,
+      "full_ai": true,
+      "phase": "observe",
+      "started": 4280.921,
+      "ships": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": {
+          "label": "BP_ShipEnemy2",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 0.5091724023222923,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 1.009314302355051,
+          "first_shot": 2.5317051000893116,
+          "shots": 2,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 206.7134170506932,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14898.813768217839,
+            4034.369788774682
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.04560127854347229,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": {
+          "label": "Friendly_AI_1",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 0.5091724023222923,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 1.009314302355051,
+          "first_shot": 2.0281211994588375,
+          "shots": 2,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 260.6754369986186,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14375.172656877627,
+            3540.5597525387952
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.03049895167350769,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": {
+          "label": "Friendly_AI_2",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 0.5091724023222923,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 1.009314302355051,
+          "first_shot": 2.5317051000893116,
+          "shots": 2,
+          "hits": 1,
+          "damage_events": 0,
+          "distance_m": 191.33437309400392,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14412.370594940227,
+            3878.862021458254
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.023499131202697754,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": {
+          "label": "BP_ShipEnemy3",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.LARGE: 1>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 12.594906099140644,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 13.107768401503563,
+          "first_shot": 17.16864750161767,
+          "shots": 1,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 12.592495231186817,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            15501.99735608011,
+            4556.391833822836
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.07199868559837341,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": {
+          "label": "BP_ShipEnemy",
+          "player_controlled": false,
+          "team": 1,
+          "class_name": "<ShipHullClass.MEDIUM: 2>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 0.5091724023222923,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 1.009314302355051,
+          "first_shot": 1.515887301415205,
+          "shots": 2,
+          "hits": 1,
+          "damage_events": 0,
+          "distance_m": 128.42733400856233,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            15192.39737857495,
+            4351.706790184859
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.0469014048576355,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        },
+        "Demo_Blue_Flagship": {
+          "label": "BP_ShipSmallAI",
+          "player_controlled": false,
+          "team": 0,
+          "class_name": "<ShipHullClass.SMALL: 0>",
+          "first_detection": 0.5091724023222923,
+          "first_in_range": 0.5091724023222923,
+          "first_visible": 0.5091724023222923,
+          "first_valid_opportunity": 1.009314302355051,
+          "first_shot": 5.547108501195908,
+          "shots": 1,
+          "hits": 0,
+          "damage_events": 0,
+          "distance_m": 158.1758325109776,
+          "physical": true,
+          "controller_preserved": true,
+          "dead": false,
+          "recoveries": 0,
+          "legs": 0,
+          "failures": [],
+          "last_en": [
+            14300.45051877684,
+            4199.223096309215
+          ],
+          "hp": 100.0,
+          "reloads_started": 0,
+          "reloads_completed": 0,
+          "circuits": 0,
+          "circuit_legs": 0,
+          "max_search_ms": 0.030297785997390747,
+          "plan_count": 1,
+          "recovery_retries": 0,
+          "was_stuck": false,
+          "retreats": 0,
+          "backward_retreats": 0,
+          "patrols_resumed": 0
+        }
+      },
+      "error": null,
+      "camera_checks": [
+        {
+          "t": 24.200167808681726,
+          "all_controllers_unchanged": true,
+          "no_ship_player_possession": true
+        }
+      ],
+      "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "init_last": 14,
+      "initialization": {
+        "t": 14.013300206512213,
+        "status": "Settling fleet on water...",
+        "error": "",
+        "configured": true,
+        "fleet": 6
+      },
+      "ready_at": 14.129967406392097,
+      "controllers": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": "AIController_0",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": "AIController_1",
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": "AIController_2",
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": "AIController_3",
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": "AIController_4",
+        "Demo_Blue_Flagship": "AIController_5"
+      },
+      "team_tags": {
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1725799247": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Small",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728574985": [
+          "Battle3v3",
+          "Friendly",
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821690C03_1728622986": [
+          "Battle3v3",
+          "Friendly",
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821A90C03_1727108248": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Large",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "BP_ShipEnemy_C_UAID_40C2BA430821C30A03_1358068711": [
+          "Battle3v3",
+          "Enemy",
+          "Team.Red",
+          "Ship.Class.Medium",
+          "AI.Role.Attacker",
+          "AI.State.Patrol"
+        ],
+        "Demo_Blue_Flagship": [
+          "Team.Blue",
+          "Ship.Class.Small",
+          "AI.Role.Defender",
+          "AI.State.Patrol"
+        ]
+      },
+      "last": 31.298614908009768,
+      "camera_checked": true,
+      "duration": 17.16864750161767,
+      "raw_file": "Saved/POST_INTEGRATION_SIX_CONTACT.json",
+      "raw_sha256": "aa997a0793e95636f8916f0af61db9d0e17d6b7210fab1e7da16ec53adbeb251"
+    },
+    {
+      "status": "PASSED",
+      "phase": "restart",
+      "full_ai": true,
+      "losing_team": 1,
+      "player_team": 0,
+      "checks": {
+        "inactive_before_result": true,
+        "global_result_and_counters_current": true,
+        "teammate_summary_interactive": true,
+        "setup_opened": true,
+        "paused_and_cursor_visible": true,
+        "selections_preserved": true,
+        "idempotent": true,
+        "return_available_after_back_to_result": true,
+        "new_match_resets_result": true,
+        "six_ship_roster_restored": true
+      },
+      "error": null,
+      "started": 4317.281,
+      "native_dll_sha256": "df386d3acb19576261c761e2578c2234d60e884a1809613b2f8276ea2a2ef2e9",
+      "production_sources_sha256": "eb51849f8fb31cd8dfb44a457e1dd7248f26c681556533ef524dd46061783f03",
+      "initial_player_ship": null,
+      "loading_before_outcome": true,
+      "cursor_when_outcome_set": true,
+      "loading_when_outcome_set": false,
+      "outcome": "BLUE WINS",
+      "outcome_at": 14.14496261626482,
+      "render_started": 4335.453,
+      "render_next_at": 4335.984,
+      "result_rendered": "E:\\LeVietThanh1412-Product\\VDT-Phase2-UI-Buoyancy\\Saved\\POST_INTEGRATION_RETURN_RESULT.png",
+      "click_method": "same controller action bound by result button",
+      "restart_at": 4335.562,
+      "raw_file": "Saved/POST_INTEGRATION_RETURN.json",
+      "raw_sha256": "b40c5b184a4be9cd2e36067f517aceb951a7c0f85a87c4507ee3f0094f76f3d0"
+    }
+  ]
+}

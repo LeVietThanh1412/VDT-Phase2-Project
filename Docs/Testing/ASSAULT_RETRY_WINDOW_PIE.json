@@ -1,0 +1,55 @@
+{
+  "status": "PASSED",
+  "phase": "observe",
+  "checks": {
+    "cooldown_observed": true,
+    "fresh_goal": true,
+    "budget_reopened": true,
+    "physical_resume": true,
+    "controller": true,
+    "physics_and_water": true
+  },
+  "error": null,
+  "native_dll_sha256": "bf8b893a3b5ccc88e02bc9744982d81b2f723ec12683e27115a1c38a228519b6",
+  "start": [
+    15512.486259166688,
+    4562.505465610762
+  ],
+  "at": 14.150416187942028,
+  "prior_goals": 0,
+  "controller": "AIController_3",
+  "cooldown": 45.0,
+  "resumed_at": 45.21593878790736,
+  "duration": 49.37856399640441,
+  "sample_count": 494,
+  "first_sample": {
+    "t": 14.167082987725735,
+    "goals": 0,
+    "retries": 3,
+    "mission": "Convoy: awaiting sequential safe departure",
+    "throttle": 0.0,
+    "physics": true,
+    "water": true,
+    "en": [
+      15512.486239945938,
+      4562.505473326455
+    ]
+  },
+  "last_sample": {
+    "t": 63.52898018434644,
+    "goals": 1,
+    "retries": 0,
+    "mission": "Following independent convoy route",
+    "throttle": 0.06783817708492279,
+    "physics": true,
+    "water": true,
+    "en": [
+      15471.271831248076,
+      4534.097962968656
+    ]
+  },
+  "raw_file": "Saved/ASSAULT_RETRY_WINDOW.json",
+  "raw_sha256": "2aebf2d99dff8d48e1ad200a4574c8cb0b42e006a1ae5bafe432bee63c527a1e",
+  "fault": "Strategic retry budget set to three and public StopNavigation used. Existing initial MissionRetryAt remains zero; resumption must not occur before world time LostContactSearchDelaySeconds. No subject drive, destination or pose is injected after this fault.",
+  "source_change": "A failed/idle/arrived escort with an exhausted mission budget may reconsider a validated existing assault objective after cooldown. Active combat destinations and scout-search missions retain their own authority."
+}

@@ -287,6 +287,11 @@ public:
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly,WorldContext="WorldContextObject")) static FString CaptureGameplayHUD(UObject* WorldContextObject,const FString& FilePath);
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InstallBattlePresentation();
     UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString DisableSensorDebugDefaults();
+    /** Editor diagnostics only; includes the same physical waves sampled by buoyancy. */
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly,WorldContext="WorldContextObject"))
+    static bool SampleOceanWaves(UObject* WorldContextObject,FVector Location,FVector& Surface,FVector& Normal);
+    /** Audits first; optionally bypasses only cosmetic impact spheres, preserving execution flow. Caller saves. */
+    UFUNCTION(BlueprintCallable, Category="Combat|Editor",meta=(DevelopmentOnly)) static FString InspectImpactDebug(bool bDisable=false);
     /** Replaces only the old unfiltered radial-damage node; keeps impact FX. */
     UFUNCTION(BlueprintCallable, Category="Combat") static void ApplyProjectileImpact(AActor* Projectile,FHitResult Impact);
     /** Resolves a ship actor's designer-authored name for minimap markers. */

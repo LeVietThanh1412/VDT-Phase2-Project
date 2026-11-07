@@ -1,0 +1,11 @@
+{
+  "status": "PASSED",
+  "actions": "desktop mouse: remove/add third Blue ship, select Full AI, click Start",
+  "ships": 6,
+  "ai_controllers": 6,
+  "spectator": true,
+  "native_dll_sha256": "899fe5d7bdf1b010bd99319b806b9e165c8eba2e61f429c7ba7f82b4ac2a3929",
+  "fresh_pie_restart": true,
+  "quit_ends_pie": true,
+  "back_to_game": true
+}
