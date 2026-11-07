@@ -13,3 +13,7 @@ xelatex -interaction=nonstopmode -halt-on-error reports.tex
 ```
 
 Font: Times New Roman, Arial, Consolas. Hướng dẫn tự đặt tàu/target: Chương 3; điều khiển: Chương 4; quy trình demo: Chương 9. Các ảnh/lượt thử lịch sử được phân biệt với kết quả kiểm tra map mới.
+
+## Cap nhat mentor / UI / tau
+
+`mentor_update.tex` được nạp vào chương 11 của `reports.tex`: bảng đối chiếu yêu cầu mentor, danh mục tính năng tàu, hướng dẫn demo, profile Small 2–3 độ, bằng chứng sáu tàu và nguyên tắc tích hợp. Bản PDF hiện có 41 trang; XeLaTeX đã chạy nhiều lượt, kiểm tra bảng/ảnh và không còn overfull hay missing glyph. Trạng thái chứng nhận cuối theo Docs/Integration/GIT_MERGE_REPORT.md; không suy diễn build thành một trận thắng tự nhiên.

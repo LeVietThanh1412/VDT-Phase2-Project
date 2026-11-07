@@ -1,0 +1,210 @@
+{
+  "scope": "Original worktree checked before PR integration; feature differences are three profiles and one patrol target. Projectile Blueprints are separately included in the six intentional changed Content assets.",
+  "original_all_unchanged": true,
+  "rows": [
+    {
+      "path": "Content\\Levels\\MainMapLevel.umap",
+      "sha256": "0922a09c6ff41016611761885d6ee1fb91b030982dc018a206fc7c7531d233f0",
+      "original_current_sha256": "0922a09c6ff41016611761885d6ee1fb91b030982dc018a206fc7c7531d233f0",
+      "feature_sha256": "0922a09c6ff41016611761885d6ee1fb91b030982dc018a206fc7c7531d233f0"
+    },
+    {
+      "path": "Content\\Levels\\TestLevel.umap",
+      "sha256": "2220e4b1f306df89b09faf99d17a2eebf866d81994b0031bf7f54e540143365c",
+      "original_current_sha256": "2220e4b1f306df89b09faf99d17a2eebf866d81994b0031bf7f54e540143365c",
+      "feature_sha256": "2220e4b1f306df89b09faf99d17a2eebf866d81994b0031bf7f54e540143365c"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\AA\\01ARLYRIABQFRFNUC7EQRJ.uasset",
+      "sha256": "8a1ff917db5365efed362d564b220e45c1780e96f6a57e6383f80354ccd833b1",
+      "original_current_sha256": "8a1ff917db5365efed362d564b220e45c1780e96f6a57e6383f80354ccd833b1",
+      "feature_sha256": "8a1ff917db5365efed362d564b220e45c1780e96f6a57e6383f80354ccd833b1"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\J0\\6O09QJSI5YZVUTK9AQK3FX.uasset",
+      "sha256": "59c678f748b690baa742c4e37d4acee5555be399d804b1b36b85d960f52a43d6",
+      "original_current_sha256": "59c678f748b690baa742c4e37d4acee5555be399d804b1b36b85d960f52a43d6",
+      "feature_sha256": "59c678f748b690baa742c4e37d4acee5555be399d804b1b36b85d960f52a43d6"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\M0\\0V8JDM2KMQQMNKFS3GB6UL.uasset",
+      "sha256": "844d3a17c72cdeee1ccdf0d1194d1372124d3773fe66ead22b6a0cbc8f0edcb0",
+      "original_current_sha256": "844d3a17c72cdeee1ccdf0d1194d1372124d3773fe66ead22b6a0cbc8f0edcb0",
+      "feature_sha256": "844d3a17c72cdeee1ccdf0d1194d1372124d3773fe66ead22b6a0cbc8f0edcb0"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\E\\QL\\0FVUSOARLCJ79PSI62OA1R.uasset",
+      "sha256": "fbff47cbfb7d9065cc4261493b93b3c4d1c7148d957f41369847920c641db4f6",
+      "original_current_sha256": "fbff47cbfb7d9065cc4261493b93b3c4d1c7148d957f41369847920c641db4f6",
+      "feature_sha256": "fbff47cbfb7d9065cc4261493b93b3c4d1c7148d957f41369847920c641db4f6"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\D\\SC\\H4F2WB179QZZONBHYID8O0.uasset",
+      "sha256": "39d8d5ae76f8b074d63562927291eccd1f3ad62893642ca0350da0a02ac1a388",
+      "original_current_sha256": "39d8d5ae76f8b074d63562927291eccd1f3ad62893642ca0350da0a02ac1a388",
+      "feature_sha256": "39d8d5ae76f8b074d63562927291eccd1f3ad62893642ca0350da0a02ac1a388"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\C\\6Q\\3K42UAGMLTPF3PCZPPPYCR.uasset",
+      "sha256": "20a7966b368ccc7899fcda83b9b89e5086a3f199eb7ab1c26407df80abf37f96",
+      "original_current_sha256": "20a7966b368ccc7899fcda83b9b89e5086a3f199eb7ab1c26407df80abf37f96",
+      "feature_sha256": "20a7966b368ccc7899fcda83b9b89e5086a3f199eb7ab1c26407df80abf37f96"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\B\\81\\IWCX7JS32YOAV9K198HB02.uasset",
+      "sha256": "2b982ba61db90aeb43045f858ca73ce7a13e4cc13d48c54edf9d5d2cbd82830b",
+      "original_current_sha256": "2b982ba61db90aeb43045f858ca73ce7a13e4cc13d48c54edf9d5d2cbd82830b",
+      "feature_sha256": "2b982ba61db90aeb43045f858ca73ce7a13e4cc13d48c54edf9d5d2cbd82830b"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\B\\8F\\CHJKNRGBDUPAW44FPQ44PZ.uasset",
+      "sha256": "0df4e1a625e94d8f3ead4cd478819eaac0c8a9feb1656d95c912e269c96d26a7",
+      "original_current_sha256": "0df4e1a625e94d8f3ead4cd478819eaac0c8a9feb1656d95c912e269c96d26a7",
+      "feature_sha256": "0df4e1a625e94d8f3ead4cd478819eaac0c8a9feb1656d95c912e269c96d26a7"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\9\\DS\\MFAB2BQ8KDBVKGDEL9LBEU.uasset",
+      "sha256": "ab30edc2d12b030d10fb1847bfb4220329409245fb0e98435124c8abf4359f0f",
+      "original_current_sha256": "ab30edc2d12b030d10fb1847bfb4220329409245fb0e98435124c8abf4359f0f",
+      "feature_sha256": "ab30edc2d12b030d10fb1847bfb4220329409245fb0e98435124c8abf4359f0f"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\BG\\R5ML2YWL23227PXNQ95T99.uasset",
+      "sha256": "a3534b3a1238f10e24bdfc4c16e619b29efc2ecc22af7aa816250d4e97dc10f6",
+      "original_current_sha256": "a3534b3a1238f10e24bdfc4c16e619b29efc2ecc22af7aa816250d4e97dc10f6",
+      "feature_sha256": "a3534b3a1238f10e24bdfc4c16e619b29efc2ecc22af7aa816250d4e97dc10f6"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\EV\\7OIH7LRFN7THN3ZZ65C9XO.uasset",
+      "sha256": "aa7027780fa686fd3577c4b1e14846b3f9590fa96adac1b019df7a92b9b32f77",
+      "original_current_sha256": "aa7027780fa686fd3577c4b1e14846b3f9590fa96adac1b019df7a92b9b32f77",
+      "feature_sha256": "aa7027780fa686fd3577c4b1e14846b3f9590fa96adac1b019df7a92b9b32f77"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\8\\VM\\T46938KARG8V5IZOPUYDUD.uasset",
+      "sha256": "76e874d4a01cb60d9e98426ee121a2f8397b9914df66cc5e357d274bb8af94c3",
+      "original_current_sha256": "76e874d4a01cb60d9e98426ee121a2f8397b9914df66cc5e357d274bb8af94c3",
+      "feature_sha256": "76e874d4a01cb60d9e98426ee121a2f8397b9914df66cc5e357d274bb8af94c3"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\7\\L6\\7T25OG97O148W27EMK8JRX.uasset",
+      "sha256": "0e70a378537eb60f910bd3db2126ed28042b5b12e5e2a0e4fd680307d58c9a7b",
+      "original_current_sha256": "0e70a378537eb60f910bd3db2126ed28042b5b12e5e2a0e4fd680307d58c9a7b",
+      "feature_sha256": "0e70a378537eb60f910bd3db2126ed28042b5b12e5e2a0e4fd680307d58c9a7b"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\6\\6V\\AQIAW36XCXDG0W18BLJN8R.uasset",
+      "sha256": "e3157b75c13754742074b4d05f3af9bb4ca5c308bed75d7a615a96b6fe3d5c7e",
+      "original_current_sha256": "e3157b75c13754742074b4d05f3af9bb4ca5c308bed75d7a615a96b6fe3d5c7e",
+      "feature_sha256": "e3157b75c13754742074b4d05f3af9bb4ca5c308bed75d7a615a96b6fe3d5c7e"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\6\\KT\\OKTK4YNX6YEY0QR4PIW9N0.uasset",
+      "sha256": "54f3b5213e993e9a7eadde7cded0633c6ead6770c697344e767bde52c19f58ba",
+      "original_current_sha256": "54f3b5213e993e9a7eadde7cded0633c6ead6770c697344e767bde52c19f58ba",
+      "feature_sha256": "54f3b5213e993e9a7eadde7cded0633c6ead6770c697344e767bde52c19f58ba"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\3J\\PPGJ8QPT3U7DO2996F8F6E.uasset",
+      "sha256": "445ced8cdc1c2c0a01b550ea7052df522ffa17f8768dab10d75f88d8edb16d99",
+      "original_current_sha256": "445ced8cdc1c2c0a01b550ea7052df522ffa17f8768dab10d75f88d8edb16d99",
+      "feature_sha256": "445ced8cdc1c2c0a01b550ea7052df522ffa17f8768dab10d75f88d8edb16d99"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\7E\\ICGS1I1YL1VW4SK4OU97TD.uasset",
+      "sha256": "b069e5cca7256cf7627bc239bf237a679241dfccdfb79f4b5e78c92e5c94d60f",
+      "original_current_sha256": "b069e5cca7256cf7627bc239bf237a679241dfccdfb79f4b5e78c92e5c94d60f",
+      "feature_sha256": "b069e5cca7256cf7627bc239bf237a679241dfccdfb79f4b5e78c92e5c94d60f"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\8B\\SRRSMEFJKXF3DM6V9NZ7EA.uasset",
+      "sha256": "9240282e01a94831794fde422ce25f323489857bca265331d3fa9cbb53fc30f1",
+      "original_current_sha256": "9240282e01a94831794fde422ce25f323489857bca265331d3fa9cbb53fc30f1",
+      "feature_sha256": "9240282e01a94831794fde422ce25f323489857bca265331d3fa9cbb53fc30f1"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\KI\\KQB0BSM8A71UVZST3A1BWS.uasset",
+      "sha256": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112",
+      "original_current_sha256": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112",
+      "feature_sha256": "7a2f522231127cfd38b7c097e00243ce9f270bbe481c72d48f0576a121611112"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\S1\\N3XR225AU972IEWKZ5VIKH.uasset",
+      "sha256": "a13f0493074f3c834be0aa19ea643d05e2437f74042daa68e0b9094896138499",
+      "original_current_sha256": "a13f0493074f3c834be0aa19ea643d05e2437f74042daa68e0b9094896138499",
+      "feature_sha256": "a13f0493074f3c834be0aa19ea643d05e2437f74042daa68e0b9094896138499"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\5\\XI\\UHWE9QEYP4574QIYCNQ7XE.uasset",
+      "sha256": "dc990a286343baeec7ddc1c6d8ad75bc31a3b12d1754f135a523de5b463b22ee",
+      "original_current_sha256": "dc990a286343baeec7ddc1c6d8ad75bc31a3b12d1754f135a523de5b463b22ee",
+      "feature_sha256": "dc990a286343baeec7ddc1c6d8ad75bc31a3b12d1754f135a523de5b463b22ee"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\9N\\56OSUCIPCIXQTTGJPODCXJ.uasset",
+      "sha256": "347e74a3f3274e367645aaec911830b6acb4f67079bb5aec130d27b135e495ff",
+      "original_current_sha256": "347e74a3f3274e367645aaec911830b6acb4f67079bb5aec130d27b135e495ff",
+      "feature_sha256": "347e74a3f3274e367645aaec911830b6acb4f67079bb5aec130d27b135e495ff"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\AH\\DS9PU6CFVBRPOKHHD0O6OC.uasset",
+      "sha256": "415cd35ff706afdd9ec942f64736cddf0974eed0d7feefc1c8f3c1cce57a5da6",
+      "original_current_sha256": "415cd35ff706afdd9ec942f64736cddf0974eed0d7feefc1c8f3c1cce57a5da6",
+      "feature_sha256": "415cd35ff706afdd9ec942f64736cddf0974eed0d7feefc1c8f3c1cce57a5da6"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\4\\HB\\8447XCUY35KZCJ0OGQXCFS.uasset",
+      "sha256": "f15cd128e04bc4864ec655da38e44448471144f8fbd6bdb96dda066e7a979017",
+      "original_current_sha256": "f15cd128e04bc4864ec655da38e44448471144f8fbd6bdb96dda066e7a979017",
+      "feature_sha256": "f15cd128e04bc4864ec655da38e44448471144f8fbd6bdb96dda066e7a979017"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\2\\84\\4QCB91H4RTL2XUXXHXHL2N.uasset",
+      "sha256": "4ae0e61742d6c756e66b28bf3769a0c2863d321ab3ffe33b4b91ad060ff7ea84",
+      "original_current_sha256": "4ae0e61742d6c756e66b28bf3769a0c2863d321ab3ffe33b4b91ad060ff7ea84",
+      "feature_sha256": "4ae0e61742d6c756e66b28bf3769a0c2863d321ab3ffe33b4b91ad060ff7ea84"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\06\\KNCLXDEOKR8VCQZUTF9UI5.uasset",
+      "sha256": "f93e8137cc4ecf573d9bb9e40c4bc211089e5d75ba0dce7666862139cf380657",
+      "original_current_sha256": "f93e8137cc4ecf573d9bb9e40c4bc211089e5d75ba0dce7666862139cf380657",
+      "feature_sha256": "f93e8137cc4ecf573d9bb9e40c4bc211089e5d75ba0dce7666862139cf380657"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\AO\\0JX6KGB85VI8FGMJJP50TC.uasset",
+      "sha256": "0317265e8c7a191924a8971eabebfe50ca913be320cb428aaed2cce0b09a6b39",
+      "original_current_sha256": "0317265e8c7a191924a8971eabebfe50ca913be320cb428aaed2cce0b09a6b39",
+      "feature_sha256": "9c1a9bd6ce82631298a1a680065e242c14952c839f33fb110ae9af6e110ba58b"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\1\\MS\\LC9BZZ0JPJBJN9U5MJNJTN.uasset",
+      "sha256": "ac568836647fa96d2670e9038083b08eef8cb841e3e28b8440578475e691b36e",
+      "original_current_sha256": "ac568836647fa96d2670e9038083b08eef8cb841e3e28b8440578475e691b36e",
+      "feature_sha256": "ac568836647fa96d2670e9038083b08eef8cb841e3e28b8440578475e691b36e"
+    },
+    {
+      "path": "Content\\__ExternalActors__\\Levels\\MainMapLevel\\0\\I8\\9UWYX2NDJT6BT9QSQC8N3B.uasset",
+      "sha256": "8a30a77da194f021ef6dda957f4c19b43ef81d743e1b51084ab6462ab223e373",
+      "original_current_sha256": "8a30a77da194f021ef6dda957f4c19b43ef81d743e1b51084ab6462ab223e373",
+      "feature_sha256": "8a30a77da194f021ef6dda957f4c19b43ef81d743e1b51084ab6462ab223e373"
+    },
+    {
+      "path": "Content\\NavalBattle\\Profiles\\DA_LargeShip.uasset",
+      "sha256": "7e2810dc1e7d65b1336a85bdab1e506960da47fa7551e4a7b37278b72be6bd9c",
+      "original_current_sha256": "7e2810dc1e7d65b1336a85bdab1e506960da47fa7551e4a7b37278b72be6bd9c",
+      "feature_sha256": "03906f2e3b70859f890d07af1f2dcd21b6a3f67e0cc209685dbbb35b17cc58cd"
+    },
+    {
+      "path": "Content\\NavalBattle\\Profiles\\DA_MediumShip.uasset",
+      "sha256": "12c71677e53098bd6bfe42bf0d57e54f83e65622c6cfac2803b0268beed3049a",
+      "original_current_sha256": "12c71677e53098bd6bfe42bf0d57e54f83e65622c6cfac2803b0268beed3049a",
+      "feature_sha256": "cbfc0d05afadb585963a59390164328e8c272b4c598c69e39310b71eabcacb49"
+    },
+    {
+      "path": "Content\\NavalBattle\\Profiles\\DA_SmallShip.uasset",
+      "sha256": "4509bed1506795836f3375c9b2b3bdbd82b06da26f671895119146777bd78c52",
+      "original_current_sha256": "4509bed1506795836f3375c9b2b3bdbd82b06da26f671895119146777bd78c52",
+      "feature_sha256": "6664ef4c85c2f69b4ac5ba295ef240d90ce4851f0504e88606aa110a0ea0dcf3"
+    }
+  ]
+}
