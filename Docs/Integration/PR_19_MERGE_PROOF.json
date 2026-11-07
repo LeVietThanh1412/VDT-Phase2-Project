@@ -1,0 +1,28 @@
+{
+  "number": 19,
+  "url": "https://github.com/Mr-Gwenchana/VDT-Phase2-Project/pull/19",
+  "state": "open",
+  "head": "c46eef14b6ba36f90d93997245e0d50ac7fa3ade",
+  "base": "9c74630c7a72716678aff3eecef0e4e0eeea8157",
+  "main": "9c74630c7a72716678aff3eecef0e4e0eeea8157",
+  "main_protected": false,
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "draft": false,
+  "requested_reviewers": [],
+  "check_runs": [],
+  "statuses": [],
+  "reviews": [
+    {
+      "user": "copilot-pull-request-reviewer[bot]",
+      "state": "COMMENTED",
+      "commit_id": "c46eef14b6ba36f90d93997245e0d50ac7fa3ade"
+    }
+  ],
+  "merge_result": {
+    "sha": "9b915b0f1421627e033c3cb8defce13d1174a34a",
+    "merged": true,
+    "message": "Pull Request successfully merged"
+  },
+  "bot_review_note": "Copilot reported insufficient quota and did not perform a review; no human approval or hosted CI result is claimed."
+}

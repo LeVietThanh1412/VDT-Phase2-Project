@@ -61,7 +61,7 @@ Compact results, per-fixture DLL/source hashes and raw evidence fingerprints are
 | Live ship and target relocations | 12 validated relocations, physical continuation | Pass |
 | Six authored ships, four physical A/B arrivals each | Fresh saved-map endurance | Pass; 1350.93 simulation seconds |
 | Natural seeded 3v3 winner and native summary | Autonomous lethal battle | Pass; fresh uninterrupted BLUE WINS at 803.00 simulation seconds |
-| Main-to-feature and merged-main verification | Build, Blueprint and gameplay checks | Pending |
+| Main-to-feature and merged-main verification | Build, Blueprint and gameplay checks | Pass; normal PR #19 merge and original project rebuilt |
 
 ## Authored waypoint clearance correction
 
@@ -80,3 +80,7 @@ The fresh final-candidate seeded mixed-hull 3v3 match reached native **BLUE WINS
 ## Post-main-to-feature regression
 
 After fetch/merge reported Already up to date, a fresh native build, 39 Blueprint requests and all four navigation automation cases passed. The rebuilt DLL then passed the ten-case menu matrix, final Small physical/player input, all-six nonlethal firing opportunities and result/return/restart. Production source digest and assets are unchanged from the 803-second natural result. See [POST_INTEGRATION_VERIFICATION.json](POST_INTEGRATION_VERIFICATION.json). The remote/main verification is recorded separately in the integration report.
+
+## Actual original merged-main verification
+
+Functional main `9b915b0` passed a fresh original-project native build, all39 Blueprint compile requests, four navigation automation cases, actual desktop default-Medium/Small-selection/manual-Start checks, authored Full AI, Medium/Small player movement/steering/aim/fire, all-six firing contact and result/return/restart. No new critical native/Blueprint/Accessed None errors were found. All34 protected packages match the verified feature, and the local font edit retains its pre-update hash. [MERGED_MAIN_VERIFICATION.json](MERGED_MAIN_VERIFICATION.json) records actual project path, DLL/source hashes and per-fixture evidence. This does not repeat or misattribute the separate 803-second natural match.
