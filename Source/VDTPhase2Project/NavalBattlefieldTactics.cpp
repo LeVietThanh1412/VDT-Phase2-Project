@@ -206,6 +206,23 @@ void UNavalBattlefieldSubsystem::UpdateAssault()
         const auto Position=Grid->WorldToChart(A.Ship->GetActorLocation());
         const bool Retreat=C->TacticalState==EShipTacticalState::Retreat || C->TacticalState==EShipTacticalState::Escape || C->TacticalState==EShipTacticalState::BackwardRetreat || C->TacticalState==EShipTacticalState::ReturnToPatrol;
         if(Retreat){A.MissionState=TEXT("Shared retreat; assault objective retained");continue;}
+        // Exhausting a local retry window must not retire a surviving escort.
+        // Reconsider a fresh, validated objective after the existing search
+        // delay; keep each window bounded instead of searching every Tick.
+        if(A.MissionRouteRetries>=3 && !A.bSearchingCircuit && !N->HasTacticalDestination() &&
+            (N->NavigationState==EShipNavigationState::Failed ||
+            N->NavigationState==EShipNavigationState::Idle || N->NavigationState==EShipNavigationState::Arrived))
+        {
+            A.MissionState=TEXT("Assault route cooldown");
+            if(Now<A.MissionRetryAt+FMath::Max(15.f,LostContactSearchDelaySeconds))continue;
+            A.MissionRouteRetries=0;A.bHoldingForLeader=false;
+            if(!AdvanceAssault(A))
+            {
+                A.MissionRouteRetries=3;A.MissionRetryAt=Now;N->StopNavigation();
+                A.MissionState=TEXT("No safe assault alternative; waiting for next retry window");
+            }
+            continue;
+        }
         const auto* Movement=A.Ship->FindComponentByClass<UShipMovementComponent>();
         const auto* Circuit=Assignments.FindByPredicate([](const FNavalSpawnAssignment& B){return B.Team==0 && B.PatrolCircuitEN.Num()>=3;});
         if(C->bEnableCombat && Movement && Movement->HullClass==EShipHullClass::Small && Circuit && A.AssaultPhase>=2 &&
