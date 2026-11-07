@@ -14,6 +14,8 @@
   ["Tools/Testing/verify_return_to_setup.py", "return_setup_probe", {"FULL_AI":false,"EARLY_RESULT":true,"RESULT_HOLD_SECONDS":35,"OUTPUT":"INTEGRATED_RESULT_DURING_LOADING.json"}],
   ["Tools/Testing/verify_preparation_actor_loss.py", "preparation_loss_probe", {}],
   ["Tools/Testing/verify_dynamic_patrol.py", "final_dynamic_observer", {}],
+  ["Tools/Testing/verify_stationary_traffic.py", "stationary_traffic_probe", {}],
+  ["Tools/Testing/verify_assault_retry_window.py", "assault_retry_probe", {}],
   ["Tools/Testing/verify_authored_patrol.py", "authored_patrol_probe", {"FULL_AI":true,"HULL_CLASSES":[2,2,2,2,2,2],"REQUIRED_LEGS":4,"OUTPUT":"INTEGRATED_AUTHORED_SIX_LOOPS.json","WALL_LIMIT_SECONDS":1800}],
   ["Tools/Testing/verify_final_demo.py", "final_demo_probe", {"KIND":"lethal","SEED":20261028,"FULL_AI":true,"LIMIT_SECONDS":1800,"WALL_LIMIT_SECONDS":3000,"OUTPUT":"INTEGRATED_NATURAL_MATCH.json"}]
 ]

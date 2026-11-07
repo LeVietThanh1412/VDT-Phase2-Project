@@ -1,0 +1,19 @@
+{
+  "status": "PASSED",
+  "method": "Execute the actual fixture tick with an ended/replaced world and no gameplay API supplied. Both cases must interrupt before gameplay access and request no world close.",
+  "script_sha256": "0906aeb1ef94d367ad9b49fbb0418260ffecc83e8caca4ee56ec25599874f04b",
+  "cases": [
+    {
+      "case": "ended_world",
+      "status": "PASSED",
+      "closed_or_mutated_replacement_world": false,
+      "completion": "INTERRUPTED_EDITOR_SESSION_CHANGED"
+    },
+    {
+      "case": "replacement_world",
+      "status": "PASSED",
+      "closed_or_mutated_replacement_world": false,
+      "completion": "INTERRUPTED_EDITOR_SESSION_CHANGED"
+    }
+  ]
+}

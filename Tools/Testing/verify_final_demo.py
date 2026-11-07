@@ -15,20 +15,23 @@ builtins.final_demo_probe=st
 lib=unreal.get_default_object(unreal.load_class(None,'/Script/Engine.SubsystemBlueprintLibrary'))
 def sub(w,c):return lib.call_method('GetWorldSubsystem',args=(w,c.static_class()))
 def save():
- data={k:v for k,v in st.items() if k not in ['handle','old_world','last_positions','last_shots']}
+ data={k:v for k,v in st.items() if k not in ['handle','old_world','observed_world','last_positions','last_shots']}
  tmp=root/'Saved'/(name+'.tmp');tmp.write_text(json.dumps(data,indent=2),encoding='utf-8')
  try:tmp.replace(root/'Saved'/name)
  except PermissionError:
   # A concurrent Windows reader may briefly deny rename. Keep the completed
   # temporary snapshot and retry on the next sample instead of aborting PIE.
   pass
-def end(status):
+def end(status,close_world=True):
  st['status']=status;save();unreal.unregister_slate_post_tick_callback(st['handle'])
- if not globals().get('HOLD',False):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
+ if close_world and not globals().get('HOLD',False):unreal.get_editor_subsystem(unreal.LevelEditorSubsystem).editor_request_end_play()
 def tick(dt):
  try:
   assert time.monotonic()-st['started']<float(globals().get('WALL_LIMIT_SECONDS',1400)),'Fixture wall-time bound'
   w=ed.get_game_world()
+  if st['phase']=='observe' and (not w or w!=st['observed_world']):
+   st['interruption_note']='The observed PIE world ended or was replaced outside this fixture.'
+   end('INTERRUPTED_EDITOR_SESSION_CHANGED',False);return
   if not w:return
   t=unreal.GameplayStatics.get_time_seconds(w);pc=unreal.GameplayStatics.get_player_controller(w,0)
   fleet=[a for a in unreal.GameplayStatics.get_all_actors_of_class(w,unreal.Pawn) if a.get_component_by_class(unreal.ShipWeaponComponent)]
@@ -56,7 +59,7 @@ def tick(dt):
    assert not battle.configuration_error.startswith('Full AI:'),battle.configuration_error
    assert t<40,'Native battlefield initialization did not finish'
    if field.ready:
-    st.update(phase='observe',ready_at=t,layout=json.loads(field.layout_report()),controllers={a.get_name():a.get_controller().get_name() if a.get_controller() else None for a in fleet})
+    st.update(phase='observe',observed_world=w,ready_at=t,layout=json.loads(field.layout_report()),controllers={a.get_name():a.get_controller().get_name() if a.get_controller() else None for a in fleet})
     expected_total=int(globals().get('BLUE_COUNT',3))+int(globals().get('RED_COUNT',3));expected_ai=expected_total if full_ai else expected_total-1
     assert len(fleet)==expected_total and sum(bool(a.get_component_by_class(unreal.ShipEnemyNavigationComponent)) for a in fleet)==expected_ai,'Incorrect ship roster'
     assert sum(a.is_player_controlled() for a in fleet)==(0 if full_ai else 1),'Ship possession incorrect'
