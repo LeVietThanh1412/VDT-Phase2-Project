@@ -65,6 +65,8 @@ Lượt chạy map đã lưu với sáu Medium đạt ít nhất bốn arrival A
 
 Hai lỗi độc lập được tách khỏi tuning sóng: tàu cùng hướng vẫn nhường tàu đứng yên dù có traffic priority; và escort dùng hết ba lần thử route rồi ngừng vĩnh viễn. Lỗi đầu được sửa bằng điều kiện lead vessel thực sự đang chạy, vẫn giữ hull sweep và emergency brake. Lỗi sau mở lại cửa sổ thử sau cooldown bằng planner có sẵn, giữ quyền điều khiển của combat/search đang hoạt động. Bài thử hàng đợi vượt 100 m và bài thử retry vượt 50 m đều dùng lực vật lý thật.
 
+Trận 3v3 tự nhiên trên DLL cuối với seed 20261028 đã kết thúc BLUE WINS sau 803.00 giây mô phỏng. Cả sáu tàu bắn; ba tàu Red bị tiêu diệt do hết máu, không do capsize hay sát thương do bài thử chèn vào. Controller và physics được giữ trong suốt thời gian sống. Summary chỉ xuất hiện một lần, bộ đếm Blue 3 / Red 0 chính xác; thao tác chuột Return to Map Setting mở lại đúng Match Settings.\par
+
 \textbf{Phân biệt loại bằng chứng:} build C++, compile Blueprint, automation cô lập, input PIE, fault injection và trận đánh tự nhiên là các mức khác nhau. Bài thử fault chủ động gây lỗi hoặc sát thương không được dùng để tuyên bố trận thắng tự nhiên. Trận tự nhiên bị dừng hoặc bị thay world từ Editor phải ghi interrupted. Nghiệm thu cuối và trạng thái Git được cập nhật trong \path{Docs/Testing/UI_BUOYANCY_REGRESSION.md} và \path{Docs/Integration/GIT_MERGE_REPORT.md}; không coi source cleanup hoàn tất chỉ vì đã dọn Tools/Docs.
 
 \section{Quy trình demo khuyến nghị}

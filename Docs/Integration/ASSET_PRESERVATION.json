@@ -206,5 +206,12 @@
       "original_current_sha256": "4509bed1506795836f3375c9b2b3bdbd82b06da26f671895119146777bd78c52",
       "feature_sha256": "6664ef4c85c2f69b4ac5ba295ef240d90ce4851f0504e88606aa110a0ea0dcf3"
     }
-  ]
+  ],
+  "preserved_user_font": {
+    "path": "Content/Fonts/BlackOpsOne-Regular.uasset",
+    "sha256": "d0e98d5ef17ca931dec15b04d0ba547446ebb25a00e5a8913ef0bf91de3f6764",
+    "backup": "Saved/UserAssetBackup/BlackOpsOne-Regular-before-ui-repair.uasset",
+    "original_worktree": "E:/LeVietThanh1412-Product/VDT-Phase2-Project",
+    "policy": "Uncommitted user edit preserved; feature does not change this package. Recheck after main update."
+  }
 }

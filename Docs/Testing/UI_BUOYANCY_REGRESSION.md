@@ -1,6 +1,6 @@
 # UI and buoyancy integration regression
 
-Status: final regression in progress on `feature/integrate-ui-buoyancy`; this document does not yet certify a release or remote merge.
+Status: native gameplay candidate passed its cumulative 24 checks, including a fresh natural 3v3 result. Post-main-to-feature checks passed before remote integration; a remote merge is certified only in the Git integration report.
 
 ## Evidence boundaries
 
@@ -37,7 +37,7 @@ That build passed the complete manual endurance but its seeded natural run reach
 
 The targeted exhausted-budget fault passed on DLL `bf8b893a3b5ccc88e02bc9744982d81b2f723ec12683e27115a1c38a228519b6`: the mission held through its cooldown, selected a fresh goal and physically moved over 50 m with its original controller and water contact. The injected budget uses the untouched initial retry timestamp of zero; native resumption occurred at world time 45.22 s. See [ASSAULT_RETRY_WINDOW_PIE.json](ASSAULT_RETRY_WINDOW_PIE.json). Native compilation, 39 Blueprint requests without compiler errors and all four navigation automation cases passed again. The subsequent UI/player/natural-result matrix uses this final candidate. The earlier full manual endurance remains applicable because authored mode returns before the generated-assault coordinator and its source path/assets are unchanged.
 
-The final-candidate rerun passed all ten UI configurations and the Small player-input case. Its natural battle was then stopped/replaced from the Editor outside the fixture after 349.05 observed simulation seconds, with two ships sunk. That attempt is explicitly `INTERRUPTED_EDITOR_SESSION_CHANGED`, not a completed result or a new gameplay failure. Own callbacks were removed without changing the user's replacement session or map assets. The fixture now checks the observed world before touching gameplay objects and interrupts without closing a replacement world. Both ended-world and replaced-world contract tests passed: [PIE_WORLD_IDENTITY_GUARD.json](PIE_WORLD_IDENTITY_GUARD.json). An uninterrupted natural-result run, main-to-feature integration and post-merge checks are still required before release certification.
+The final-candidate rerun passed all ten UI configurations and the Small player-input case. Its natural battle was then stopped/replaced from the Editor outside the fixture after 349.05 observed simulation seconds, with two ships sunk. That attempt is explicitly `INTERRUPTED_EDITOR_SESSION_CHANGED`, not a completed result or a new gameplay failure. Own callbacks were removed without changing the user's replacement session or map assets. The fixture now checks the observed world before touching gameplay objects and interrupts without closing a replacement world. Both ended-world and replaced-world contract tests passed: [PIE_WORLD_IDENTITY_GUARD.json](PIE_WORLD_IDENTITY_GUARD.json). At that checkpoint an uninterrupted natural-result run and integration checks were still required. The fresh completed result is recorded below; the interrupted attempt remains separate.
 
 ## Current regression matrix
 
@@ -60,7 +60,7 @@ Compact results, per-fixture DLL/source hashes and raw evidence fingerprints are
 | Actor lost during preparation | Named failure, menu/cursor, fresh retry | Pass |
 | Live ship and target relocations | 12 validated relocations, physical continuation | Pass |
 | Six authored ships, four physical A/B arrivals each | Fresh saved-map endurance | Pass; 1350.93 simulation seconds |
-| Natural seeded 3v3 winner and native summary | Autonomous lethal battle | Pending; final-candidate attempt interrupted externally |
+| Natural seeded 3v3 winner and native summary | Autonomous lethal battle | Pass; fresh uninterrupted BLUE WINS at 803.00 simulation seconds |
 | Main-to-feature and merged-main verification | Build, Blueprint and gameplay checks | Pending |
 
 ## Authored waypoint clearance correction
@@ -72,3 +72,11 @@ A first candidate 150 m from the original target passed the existing individual 
 The final candidate at chart EN (12000, -3000) is approximately 645 m from the original B marker and 481 m from the opposing A marker. All twelve tested headings (30-degree increments) passed full-hull placement and a connected route was found. Only that external target actor package was saved through Unreal Editor; ship starts, all other target positions, terrain, ocean and MainMapLevel.umap are unchanged. The waypoint correction does not alter A*, arrival tolerance or collision filters. Coordinates, package hashes and the original backup reference are in [WAYPOINT_CLEARANCE_CORRECTION.json](WAYPOINT_CLEARANCE_CORRECTION.json).
 
 Cold reload reproduced the saved position exactly. The subsequent untouched six-Medium patrol passed all checks in 1350.93 simulation seconds: every ship physically reached at least four alternating A/B endpoints; the fleet recorded 4–8 arrivals per ship. All original controllers, marker references and physical simulation were preserved, with no tactical route replacement. Minimum water-contact fraction was 99.974%. Maximum recorded pitch/roll was 3.05/4.49 degrees during the extended maneuvering/close-quarters run, distinct from the representative idle wave measurements. The test imposed no angle clamp or ship drive/pose writes. See [AUTHORED_SIX_SHIP_PIE.json](AUTHORED_SIX_SHIP_PIE.json).
+
+## Final uninterrupted natural result
+
+The fresh final-candidate seeded mixed-hull 3v3 match reached native **BLUE WINS** after **802.999 simulation seconds**. All six ships fired (23, 20, 29, 8, 17, 10 shots); all three Red deaths were HEALTH_DEPLETED, with no capsize or injected damage. Every ship preserved physical movement and its AIController through its live lifetime. The native summary appeared exactly once with a usable cursor and correct Blue 3 / Red 0 counters. This is separate from prior diagnostics and the externally interrupted attempt. See [NATURAL_MATCH_PIE.json](NATURAL_MATCH_PIE.json) and [actual native summary](../Integration/images/natural-match-result.png).
+
+## Post-main-to-feature regression
+
+After fetch/merge reported Already up to date, a fresh native build, 39 Blueprint requests and all four navigation automation cases passed. The rebuilt DLL then passed the ten-case menu matrix, final Small physical/player input, all-six nonlethal firing opportunities and result/return/restart. Production source digest and assets are unchanged from the 803-second natural result. See [POST_INTEGRATION_VERIFICATION.json](POST_INTEGRATION_VERIFICATION.json). The remote/main verification is recorded separately in the integration report.
