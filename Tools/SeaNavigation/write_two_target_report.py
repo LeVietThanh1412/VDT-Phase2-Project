@@ -109,9 +109,9 @@ Clean Editor/Game build results: **{final.get('builds','UNVERIFIED')}**. Native 
 
 ## Changed files and assets
 
-* Source/VDTPhase2Project/ShipEnemyNavigationComponent.cpp — startup, actor-backed patrol/tracking, coordinate/lifecycle repairs, safe command/recovery and debug telemetry.
-* Source/VDTPhase2Project/SeaNavigationMap.cpp — segment and temporary-exclusion validation repairs.
-* Source/VDTPhase2Project/ShipEnemyNavigationTests.cpp — planner, actor/mode/arrival, coordinates, lifecycle and turnaround regressions.
+* Source/VDTPhase2Project/Private/Navigation/ShipEnemyNavigationComponent.cpp — startup, actor-backed patrol/tracking, coordinate/lifecycle repairs, safe command/recovery and debug telemetry.
+* Source/VDTPhase2Project/Private/Navigation/SeaNavigationMap.cpp — segment and temporary-exclusion validation repairs.
+* Source/VDTPhase2Project/Private/Tests/ShipEnemyNavigationTests.cpp — planner, actor/mode/arrival, coordinates, lifecycle and turnaround regressions.
 * Content/ShipEnemy/BluePrint/BP_ShipEnemy.uasset — existing navigation integration/defaults, compiled and saved.
 * Existing enemy external actor: Content/__ExternalActors__/Levels/MainMapLevel/B/8F/CHJKNRGBDUPAW44FPQ44PZ.uasset — saved navigation settings and references.
 * Existing A external actor: Content/__ExternalActors__/Levels/MainMapLevel/1/MS/LC9BZZ0JPJBJN9U5MJNJTN.uasset.
