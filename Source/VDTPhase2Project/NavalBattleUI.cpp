@@ -147,27 +147,45 @@ FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const
         }
     }
 
+    const float MaxZoom = 8.0f;
+    const float MinZoom = 1.0f;
+    const float OldZoom = CurrentZoom;
+
+    float NewZoom = OldZoom;
     if (WheelDelta > 0.0f)
     {
-        if (CurrentZoom < 7.9f)
-        {
-            CurrentZoom = 8.0f;
-            PanOffset = LocalCursor - LocalCursor * CurrentZoom;
-            ApplyMinimapTransform();
-            return FReply::Handled();
-        }
+        // Tăng 20% mỗi nấc cuộn chuột lên
+        NewZoom = FMath::Min(OldZoom * 1.2f, MaxZoom);
     }
-    else if (WheelDelta < 0.0f)
+    else
     {
-        if (CurrentZoom > 1.1f)
+        // Giảm 20% mỗi nấc cuộn chuột xuống
+        NewZoom = OldZoom / 1.2f;
+        if (NewZoom <= 1.05f)
         {
-            CurrentZoom = 1.0f;
-            PanOffset = FVector2D::ZeroVector;
-            ApplyMinimapTransform();
-            return FReply::Handled();
+            NewZoom = MinZoom;
         }
     }
 
+    if (FMath::IsNearlyEqual(NewZoom, OldZoom, 0.001f))
+    {
+        return FReply::Handled();
+    }
+
+    if (NewZoom <= 1.0f)
+    {
+        CurrentZoom = 1.0f;
+        PanOffset = FVector2D::ZeroVector;
+    }
+    else
+    {
+        // Giữ nguyên điểm trên bản đồ ngay dưới con trỏ chuột
+        const FVector2D MapPoint = (LocalCursor - PanOffset) / OldZoom;
+        CurrentZoom = NewZoom;
+        PanOffset = LocalCursor - MapPoint * CurrentZoom;
+    }
+
+    ApplyMinimapTransform();
     return FReply::Handled();
 }
 FReply UShipMinimapWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
@@ -318,7 +336,11 @@ void UShipMinimapWidget::UpdateMarkerScales()
     if (!MarkerInner) return;
 
     FScriptArrayHelper Markers(MarkersProperty, MarkersProperty->ContainerPtrToValuePtr<void>(this));
-    const float MarkerScale = CurrentZoom > 0.001f ? (1.0f / CurrentZoom) : 1.0f;
+
+    // Phóng to marker thêm ~30% (từ 1.0x ở zoom 1x lên tối đa 1.3x khi zoom vào)
+    const float Alpha = FMath::Clamp((CurrentZoom - 1.0f) / 3.0f, 0.0f, 1.0f);
+    const float TargetVisualScale = FMath::Lerp(1.0f, 1.3f, Alpha);
+    const float MarkerScale = CurrentZoom > 0.001f ? (TargetVisualScale / CurrentZoom) : 1.0f;
     const FVector2D ScaleVec(MarkerScale, MarkerScale);
     const FVector2D Pivot(0.5f, 0.5f);
 
