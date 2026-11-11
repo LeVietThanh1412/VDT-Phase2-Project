@@ -93,22 +93,6 @@ void UShipMinimapWidget::SetInteractiveMode(bool bActive)
     {
         bIsDragging = false;
     }
-
-    if (!BorderWrap)
-    {
-        BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
-    }
-    if (UBorder* Border = Cast<UBorder>(BorderWrap))
-    {
-        if (bActive)
-        {
-            Border->SetBrushColor(FLinearColor(0.05f, 0.55f, 0.95f, 1.0f));
-        }
-        else
-        {
-            Border->SetBrushColor(FLinearColor(0.006049f, 0.043735f, 0.080220f, 1.0f));
-        }
-    }
 }
 void UShipMinimapWidget::ToggleZoom()
 {
