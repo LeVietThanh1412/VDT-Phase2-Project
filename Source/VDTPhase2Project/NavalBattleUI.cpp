@@ -103,7 +103,7 @@ void UShipMinimapWidget::ToggleZoom()
     }
     else
     {
-        CurrentZoom = 8.0f;
+        CurrentZoom = 9.0f;
         FVector2D Center(195.0f, 182.5f);
         if (BorderWrap)
         {
@@ -115,7 +115,7 @@ void UShipMinimapWidget::ToggleZoom()
 }
 void UShipMinimapWidget::SetMinimapZoom(float InZoom)
 {
-    CurrentZoom = (InZoom >= 4.0f) ? 8.0f : 1.0f;
+    CurrentZoom = (InZoom >= 4.0f) ? 9.0f : 1.0f;
     if (CurrentZoom <= 1.0f)
     {
         PanOffset = FVector2D::ZeroVector;
@@ -147,7 +147,7 @@ FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const
         }
     }
 
-    const float MaxZoom = 8.0f;
+    const float MaxZoom = 9.0f;
     const float MinZoom = 1.0f;
     const float OldZoom = CurrentZoom;
 
@@ -255,7 +255,7 @@ FReply UShipMinimapWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeo
             {
                 if (CurrentZoom <= 1.1f)
                 {
-                    CurrentZoom = 8.0f;
+                    CurrentZoom = 9.0f;
                     PanOffset = LocalPos - LocalPos * CurrentZoom;
                 }
                 else
