@@ -19,7 +19,7 @@ struct FNavalShipScore {
   int32 Eliminations = 0;
 };
 
-/** Native base for WBP_MainMinimap: removes a ship's marker once it is sunk. */
+/** Native minimap: M enters 9x interaction; exiting restores the 1x overview. */
 UCLASS()
 class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
 {

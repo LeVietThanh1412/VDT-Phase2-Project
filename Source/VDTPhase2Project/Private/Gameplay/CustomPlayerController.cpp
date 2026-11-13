@@ -241,6 +241,8 @@ void ACustomPlayerController::ToggleMatchSetup() {
   }
   if (!IsLocalController())
     return;
+  if (bMinimapInteractiveMode)
+    ToggleMinimapInteractiveMode();
   bMinimapInteractiveMode = false;
   SetupWidget =
       CreateWidget<UShipSetupWidget>(this, UShipSetupWidget::StaticClass());

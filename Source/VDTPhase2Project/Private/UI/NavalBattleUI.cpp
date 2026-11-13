@@ -115,10 +115,8 @@ void UShipMinimapWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UShipMinimapWidget::SetInteractiveMode(bool bActive)
 {
     bInteractiveActive = bActive;
-    if (!bActive)
-    {
-        bIsDragging = false;
-    }
+    bIsDragging = false;
+    SetMinimapZoom(bActive ? 9.0f : 1.0f);
 }
 void UShipMinimapWidget::ToggleZoom()
 {
@@ -141,11 +139,15 @@ void UShipMinimapWidget::ToggleZoom()
 }
 void UShipMinimapWidget::SetMinimapZoom(float InZoom)
 {
-    CurrentZoom = (InZoom >= 4.0f) ? 9.0f : 1.0f;
-    if (CurrentZoom <= 1.0f)
-    {
-        PanOffset = FVector2D::ZeroVector;
-    }
+    FVector2D Size = BorderWrap ? BorderWrap->GetCachedGeometry().GetLocalSize()
+                                : FVector2D(390.0f, 365.0f);
+    if (Size.X <= 0.0f || Size.Y <= 0.0f)
+        Size = FVector2D(390.0f, 365.0f);
+    const FVector2D Center = Size * 0.5f;
+    const FVector2D MapPoint = (Center - PanOffset) / CurrentZoom;
+    CurrentZoom = FMath::Clamp(FMath::IsFinite(InZoom) ? InZoom : 1.0f, 1.0f, 9.0f);
+    PanOffset = CurrentZoom <= 1.0f ? FVector2D::ZeroVector
+                                   : Center - MapPoint * CurrentZoom;
     ApplyMinimapTransform();
 }
 FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
