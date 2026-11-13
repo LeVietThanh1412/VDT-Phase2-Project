@@ -42,6 +42,8 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Spectator") void NextTeammate();
   UFUNCTION(BlueprintCallable, Category = "Spectator")
   void ShowBattlefieldOverview();
+  UFUNCTION(BlueprintCallable, Category = "Minimap")
+  void ToggleMinimapInteractiveMode();
   void BeginFullAIDemo(APawn *InitialShip);
   UPROPERTY(BlueprintReadOnly, Category = "Spectator")
   bool bFullAISpectating = false;
@@ -110,6 +112,7 @@ private:
   void EnterDeathSpectator();
   bool bMenuPausedWorld = false;
   bool bBattlefieldOverview = false;
+  bool bMinimapInteractiveMode = false;
   UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
   UPROPERTY()
   TObjectPtr<APawn> PreviousPawn;

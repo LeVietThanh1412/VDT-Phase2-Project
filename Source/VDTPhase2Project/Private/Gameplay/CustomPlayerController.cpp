@@ -189,10 +189,49 @@ void ACustomPlayerController::SetupInputComponent() {
                           &ACustomPlayerController::ToggleBattlefieldOverview);
   InputComponent->BindKey(EKeys::Slash, IE_Pressed, this,
                           &ACustomPlayerController::ToggleButtonTutorials);
+  InputComponent->BindKey(EKeys::M, IE_Pressed, this,
+                          &ACustomPlayerController::ToggleMinimapInteractiveMode);
   InputComponent
       ->BindKey(EKeys::P, IE_Pressed, this,
                 &ACustomPlayerController::ToggleMatchSetup)
       .bExecuteWhenPaused = true;
+}
+
+void ACustomPlayerController::ToggleMinimapInteractiveMode()
+{
+    bMinimapInteractiveMode = !bMinimapInteractiveMode;
+
+    TArray<UUserWidget*> Minimaps;
+    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this, Minimaps, UShipMinimapWidget::StaticClass(), true);
+    UShipMinimapWidget* Minimap = Minimaps.Num() > 0 ? Cast<UShipMinimapWidget>(Minimaps[0]) : nullptr;
+
+    if (bMinimapInteractiveMode)
+    {
+        bShowMouseCursor = true;
+        FInputModeGameAndUI Mode;
+        if (Minimap)
+        {
+            Mode.SetWidgetToFocus(Minimap->TakeWidget());
+        }
+        Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+        Mode.SetHideCursorDuringCapture(false);
+        SetInputMode(Mode);
+
+        if (Minimap)
+        {
+            Minimap->SetInteractiveMode(true);
+        }
+    }
+    else
+    {
+        bShowMouseCursor = false;
+        SetInputMode(FInputModeGameOnly());
+
+        if (Minimap)
+        {
+            Minimap->SetInteractiveMode(false);
+        }
+    }
 }
 
 void ACustomPlayerController::ToggleMatchSetup() {
@@ -202,6 +241,7 @@ void ACustomPlayerController::ToggleMatchSetup() {
   }
   if (!IsLocalController())
     return;
+  bMinimapInteractiveMode = false;
   SetupWidget =
       CreateWidget<UShipSetupWidget>(this, UShipSetupWidget::StaticClass());
   if (!SetupWidget)
@@ -227,6 +267,7 @@ void ACustomPlayerController::CloseMatchSetup() {
     SetupWidget->RemoveFromParent();
     SetupWidget = nullptr;
   }
+  bMinimapInteractiveMode = false;
   bShowMouseCursor = false;
   SetInputMode(FInputModeGameOnly());
   if (bMenuPausedWorld)

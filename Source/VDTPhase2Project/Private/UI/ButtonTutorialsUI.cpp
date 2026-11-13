@@ -68,6 +68,7 @@ TSharedRef<SWidget> UButtonTutorialsUI::RebuildWidget() {
 
   const TCHAR *Entries[][2] = {{TEXT("P"), TEXT("Match settings")},
                                {TEXT("I"), TEXT("Ship details")},
+                               {TEXT("M"), TEXT("Minimap Interaction")},
                                {TEXT("F"), TEXT("Bird's eye camera")},
                                {TEXT("Q"), TEXT("Switch team's camera")},
                                {TEXT("Tab"), TEXT("Next teammate")}};

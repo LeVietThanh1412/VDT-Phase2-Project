@@ -1,4 +1,7 @@
 #include "UI/NavalBattleUI.h"
+#include "Layout/Geometry.h"
+#include "Input/Reply.h"
+#include "Input/Events.h"
 #include "AIController.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -76,17 +79,305 @@ UTexture2D *TeamMarkerIcon(const FString &TeamName,
   return Icon.Get();
 }
 } // namespace
-void UShipMinimapWidget::NativeConstruct() {
-  Super::NativeConstruct();
-  if (UWorld *World = GetWorld())
-    World->GetTimerManager().SetTimer(
-        MarkerTimer, this, &UShipMinimapWidget::RemoveDestroyedMarkers, .1f,
-        true);
+void UShipMinimapWidget::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if(UWorld* World=GetWorld())
+        World->GetTimerManager().SetTimer(MarkerTimer,this,&UShipMinimapWidget::RemoveDestroyedMarkers,.1f,true);
+
+    BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
+    if (BorderWrap)
+    {
+        BorderWrap->SetClipping(EWidgetClipping::ClipToBounds);
+        BorderWrap->SetVisibility(ESlateVisibility::Visible);
+    }
+    ContentOverlay = GetWidgetFromName(TEXT("Overlay_Minimap"));
+    if (ContentOverlay)
+    {
+        ContentOverlay->SetRenderTransformPivot(FVector2D::ZeroVector);
+    }
+    ApplyMinimapTransform();
 }
-void UShipMinimapWidget::NativeDestruct() {
-  if (UWorld *World = GetWorld())
-    World->GetTimerManager().ClearTimer(MarkerTimer);
-  Super::NativeDestruct();
+void UShipMinimapWidget::NativeDestruct()
+{
+    if(UWorld* World=GetWorld())World->GetTimerManager().ClearTimer(MarkerTimer);
+    bIsDragging = false;
+    Super::NativeDestruct();
+}
+void UShipMinimapWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
+{
+    Super::NativeTick(MyGeometry, InDeltaTime);
+    if (CurrentZoom > 1.0f)
+    {
+        UpdateMarkerScales();
+    }
+}
+void UShipMinimapWidget::SetInteractiveMode(bool bActive)
+{
+    bInteractiveActive = bActive;
+    if (!bActive)
+    {
+        bIsDragging = false;
+    }
+}
+void UShipMinimapWidget::ToggleZoom()
+{
+    if (CurrentZoom > 1.1f)
+    {
+        CurrentZoom = 1.0f;
+        PanOffset = FVector2D::ZeroVector;
+    }
+    else
+    {
+        CurrentZoom = 9.0f;
+        FVector2D Center(195.0f, 182.5f);
+        if (BorderWrap)
+        {
+            Center = BorderWrap->GetCachedGeometry().GetLocalSize() * 0.5f;
+        }
+        PanOffset = Center - Center * CurrentZoom;
+    }
+    ApplyMinimapTransform();
+}
+void UShipMinimapWidget::SetMinimapZoom(float InZoom)
+{
+    CurrentZoom = (InZoom >= 4.0f) ? 9.0f : 1.0f;
+    if (CurrentZoom <= 1.0f)
+    {
+        PanOffset = FVector2D::ZeroVector;
+    }
+    ApplyMinimapTransform();
+}
+FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    const float WheelDelta = InMouseEvent.GetWheelDelta();
+    if (FMath::IsNearlyZero(WheelDelta))
+    {
+        return FReply::Unhandled();
+    }
+
+    if (!BorderWrap)
+    {
+        BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
+    }
+
+    FVector2D LocalCursor(195.0f, 182.5f);
+    if (BorderWrap)
+    {
+        const FGeometry& BorderGeom = BorderWrap->GetCachedGeometry();
+        LocalCursor = BorderGeom.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
+        const FVector2D Size = BorderGeom.GetLocalSize();
+        if (LocalCursor.X < 0.f || LocalCursor.X > Size.X || LocalCursor.Y < 0.f || LocalCursor.Y > Size.Y)
+        {
+            return FReply::Unhandled();
+        }
+    }
+
+    const float MaxZoom = 9.0f;
+    const float MinZoom = 1.0f;
+    const float OldZoom = CurrentZoom;
+
+    float NewZoom = OldZoom;
+    if (WheelDelta > 0.0f)
+    {
+        // Tăng 20% mỗi nấc cuộn chuột lên
+        NewZoom = FMath::Min(OldZoom * 1.2f, MaxZoom);
+    }
+    else
+    {
+        // Giảm 20% mỗi nấc cuộn chuột xuống
+        NewZoom = OldZoom / 1.2f;
+        if (NewZoom <= 1.05f)
+        {
+            NewZoom = MinZoom;
+        }
+    }
+
+    if (FMath::IsNearlyEqual(NewZoom, OldZoom, 0.001f))
+    {
+        return FReply::Handled();
+    }
+
+    if (NewZoom <= 1.0f)
+    {
+        CurrentZoom = 1.0f;
+        PanOffset = FVector2D::ZeroVector;
+    }
+    else
+    {
+        // Giữ nguyên điểm trên bản đồ ngay dưới con trỏ chuột
+        const FVector2D MapPoint = (LocalCursor - PanOffset) / OldZoom;
+        CurrentZoom = NewZoom;
+        PanOffset = LocalCursor - MapPoint * CurrentZoom;
+    }
+
+    ApplyMinimapTransform();
+    return FReply::Handled();
+}
+FReply UShipMinimapWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton || InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
+    {
+        if (!BorderWrap)
+        {
+            BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
+        }
+        if (BorderWrap)
+        {
+            const FGeometry& BorderGeom = BorderWrap->GetCachedGeometry();
+            const FVector2D LocalPos = BorderGeom.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
+            const FVector2D LocalSize = BorderGeom.GetLocalSize();
+            if (LocalPos.X < 0.f || LocalPos.X > LocalSize.X || LocalPos.Y < 0.f || LocalPos.Y > LocalSize.Y)
+            {
+                return FReply::Unhandled();
+            }
+        }
+
+        if (CurrentZoom > 1.0f)
+        {
+            bIsDragging = true;
+            DragStartMouse = InMouseEvent.GetScreenSpacePosition();
+            DragStartPan = PanOffset;
+            return FReply::Handled().CaptureMouse(TakeWidget());
+        }
+    }
+    return FReply::Unhandled();
+}
+FReply UShipMinimapWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (bIsDragging && CurrentZoom > 1.0f)
+    {
+        const FVector2D CurrentScreenMouse = InMouseEvent.GetScreenSpacePosition();
+        const FVector2D Delta = CurrentScreenMouse - DragStartMouse;
+        PanOffset = DragStartPan + Delta;
+        ApplyMinimapTransform();
+        return FReply::Handled();
+    }
+    return FReply::Unhandled();
+}
+FReply UShipMinimapWidget::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (bIsDragging && (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton || InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton))
+    {
+        bIsDragging = false;
+        return FReply::Handled().ReleaseMouseCapture();
+    }
+    return FReply::Unhandled();
+}
+FReply UShipMinimapWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
+{
+    if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
+    {
+        if (!BorderWrap)
+        {
+            BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
+        }
+        if (BorderWrap)
+        {
+            const FGeometry& BorderGeom = BorderWrap->GetCachedGeometry();
+            const FVector2D LocalPos = BorderGeom.AbsoluteToLocal(InMouseEvent.GetScreenSpacePosition());
+            const FVector2D LocalSize = BorderGeom.GetLocalSize();
+            if (LocalPos.X >= 0.f && LocalPos.X <= LocalSize.X && LocalPos.Y >= 0.f && LocalPos.Y <= LocalSize.Y)
+            {
+                if (CurrentZoom <= 1.1f)
+                {
+                    CurrentZoom = 9.0f;
+                    PanOffset = LocalPos - LocalPos * CurrentZoom;
+                }
+                else
+                {
+                    CurrentZoom = 1.0f;
+                    PanOffset = FVector2D::ZeroVector;
+                }
+                ApplyMinimapTransform();
+                return FReply::Handled();
+            }
+        }
+    }
+    return FReply::Unhandled();
+}
+void UShipMinimapWidget::NativeOnMouseCaptureLost(const FCaptureLostEvent& CaptureLostEvent)
+{
+    bIsDragging = false;
+    Super::NativeOnMouseCaptureLost(CaptureLostEvent);
+}
+void UShipMinimapWidget::ClampPanOffset()
+{
+    FVector2D MapSize(390.0f, 365.0f);
+    if (const FStructProperty* SizeProp = FindFProperty<FStructProperty>(GetClass(), TEXT("MinimapSize")))
+    {
+        if (SizeProp->Struct == TBaseStructure<FVector2D>::Get())
+        {
+            MapSize = *SizeProp->ContainerPtrToValuePtr<FVector2D>(this);
+        }
+    }
+    if (MapSize.X <= 0.0f || MapSize.Y <= 0.0f)
+    {
+        MapSize = FVector2D(390.0f, 365.0f);
+    }
+
+    if (CurrentZoom <= 1.0f)
+    {
+        PanOffset = FVector2D::ZeroVector;
+        return;
+    }
+
+    const float MinX = -MapSize.X * (CurrentZoom - 1.0f);
+    const float MinY = -MapSize.Y * (CurrentZoom - 1.0f);
+    PanOffset.X = FMath::Clamp(PanOffset.X, MinX, 0.0f);
+    PanOffset.Y = FMath::Clamp(PanOffset.Y, MinY, 0.0f);
+}
+void UShipMinimapWidget::ApplyMinimapTransform()
+{
+    if (!ContentOverlay)
+    {
+        ContentOverlay = GetWidgetFromName(TEXT("Overlay_Minimap"));
+    }
+    if (!BorderWrap)
+    {
+        BorderWrap = GetWidgetFromName(TEXT("Border_Wrap_Minimap"));
+    }
+    if (BorderWrap)
+    {
+        BorderWrap->SetClipping(EWidgetClipping::ClipToBounds);
+        BorderWrap->SetVisibility(ESlateVisibility::Visible);
+    }
+
+    ClampPanOffset();
+
+    if (ContentOverlay)
+    {
+        ContentOverlay->SetRenderTransformPivot(FVector2D::ZeroVector);
+        ContentOverlay->SetRenderScale(FVector2D(CurrentZoom, CurrentZoom));
+        ContentOverlay->SetRenderTranslation(PanOffset);
+    }
+
+    UpdateMarkerScales();
+}
+void UShipMinimapWidget::UpdateMarkerScales()
+{
+    auto* MarkersProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipMarkerWidgets"));
+    if (!MarkersProperty) return;
+    auto* MarkerInner = CastField<FObjectPropertyBase>(MarkersProperty->Inner);
+    if (!MarkerInner) return;
+
+    FScriptArrayHelper Markers(MarkersProperty, MarkersProperty->ContainerPtrToValuePtr<void>(this));
+
+    // Phóng to marker thêm ~30% (từ 1.0x ở zoom 1x lên tối đa 1.3x khi zoom vào)
+    const float Alpha = FMath::Clamp((CurrentZoom - 1.0f) / 3.0f, 0.0f, 1.0f);
+    const float TargetVisualScale = FMath::Lerp(1.0f, 1.3f, Alpha);
+    const float MarkerScale = CurrentZoom > 0.001f ? (TargetVisualScale / CurrentZoom) : 1.0f;
+    const FVector2D ScaleVec(MarkerScale, MarkerScale);
+    const FVector2D Pivot(0.5f, 0.5f);
+
+    for (int32 i = 0; i < Markers.Num(); ++i)
+    {
+        if (UUserWidget* Marker = Cast<UUserWidget>(MarkerInner->GetObjectPropertyValue(Markers.GetRawPtr(i))))
+        {
+            Marker->SetRenderTransformPivot(Pivot);
+            Marker->SetRenderScale(ScaleVec);
+        }
+    }
 }
 void UShipMinimapWidget::RemoveDestroyedMarkers() {
   auto *ActorsProperty =
@@ -138,6 +429,9 @@ void UShipMinimapWidget::RemoveDestroyedMarkers() {
       Markers.RemoveValues(Index);
       Slots.RemoveValues(Index);
     }
+  }
+  if (CurrentZoom > 1.0f) {
+    UpdateMarkerScales();
   }
 }
 void UShipMarkerWidget::NativeTick(const FGeometry &MyGeometry,

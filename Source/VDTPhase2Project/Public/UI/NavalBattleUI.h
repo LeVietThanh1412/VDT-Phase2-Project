@@ -21,16 +21,58 @@ struct FNavalShipScore {
 
 /** Native base for WBP_MainMinimap: removes a ship's marker once it is sunk. */
 UCLASS()
-class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget {
-  GENERATED_BODY()
+class VDTPHASE2PROJECT_API UShipMinimapWidget : public UUserWidget
+{
+    GENERATED_BODY()
+
+public:
+    UFUNCTION(BlueprintCallable, Category="Minimap")
+    void SetInteractiveMode(bool bActive);
+
+    UFUNCTION(BlueprintCallable, Category="Minimap")
+    void ToggleZoom();
+
+    UFUNCTION(BlueprintCallable, Category="Minimap")
+    void SetMinimapZoom(float InZoom);
+
+    UFUNCTION(BlueprintPure, Category="Minimap")
+    bool IsInteractiveActive() const { return bInteractiveActive; }
+
+    UFUNCTION(BlueprintPure, Category="Minimap")
+    float GetCurrentZoom() const { return CurrentZoom; }
+
 protected:
-  virtual void NativeConstruct() override;
-  virtual void NativeDestruct() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
+    virtual void NativeTick(const FGeometry& MyGeometry, float InDeltaTime) override;
+    virtual FReply NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual FReply NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent) override;
+    virtual void NativeOnMouseCaptureLost(const FCaptureLostEvent& CaptureLostEvent) override;
 
 private:
-  void RemoveDestroyedMarkers();
-  FTimerHandle MarkerTimer;
-  bool bWarnedMissingArrays = false;
+    void RemoveDestroyedMarkers();
+    void ApplyMinimapTransform();
+    void UpdateMarkerScales();
+    void ClampPanOffset();
+
+    FTimerHandle MarkerTimer;
+    bool bWarnedMissingArrays=false;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UWidget> ContentOverlay;
+
+    UPROPERTY(Transient)
+    TObjectPtr<UWidget> BorderWrap;
+
+    float CurrentZoom = 1.0f;
+    FVector2D PanOffset = FVector2D::ZeroVector;
+    bool bIsDragging = false;
+    FVector2D DragStartMouse = FVector2D::ZeroVector;
+    FVector2D DragStartPan = FVector2D::ZeroVector;
+    bool bInteractiveActive = false;
 };
 
 /** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's
