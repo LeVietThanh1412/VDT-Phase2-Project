@@ -13,9 +13,18 @@ repeat_path=folder/'SEEDED_REPEATED_PATROL.json'
 provenance=json.loads(repeat_path.read_text(encoding='utf-8')).get('native_binary_provenance',{}) if repeat_path.exists() else {}
 source_commit=provenance.get('compiled_source_commit')
 sources={}
+module=root/'Source/VDTPhase2Project'
+commit_paths=subprocess.check_output(['git','ls-tree','-r','--name-only',source_commit,'--','Source/VDTPhase2Project'],cwd=root,text=True).splitlines() if source_commit else []
 for filename in ['NavalBattlefieldSubsystem.cpp','NavalBattlefieldSubsystem.h','SeaTerrainCollisionComponent.cpp','SeaTerrainCollisionComponent.h','ShipEnemyNavigationComponent.cpp','ShipEnemyNavigationComponent.h','NavalMatchSettings.h','NavalMatchSettings.cpp','ShipSetupWidget.cpp','ShipSetupWidget.h','NavalBattleUI.cpp']:
-    p=root/'Source/VDTPhase2Project'/filename;relative=str(p.relative_to(root)).replace('\\','/')
-    data=subprocess.check_output(['git','show',source_commit+':'+relative],cwd=root) if source_commit else p.read_bytes()
+    if source_commit:
+        matches=[s for s in commit_paths if s.endswith('/'+filename)]
+        if len(matches)!=1:raise RuntimeError('Expected one source in recorded commit: '+filename)
+        relative=matches[0]
+        data=subprocess.check_output(['git','show',source_commit+':'+relative],cwd=root)
+    else:
+        matches=list(module.rglob(filename))
+        if len(matches)!=1:raise RuntimeError('Expected one current source: '+filename)
+        p=matches[0];relative=p.relative_to(root).as_posix();data=p.read_bytes()
     sources[relative]=hashlib.sha256(data).hexdigest()
 suite=json.loads((folder/'SEEDED_SPAWN_SUITE.json').read_text(encoding='utf-8'))
 for r in suite.get('runs',[]):
