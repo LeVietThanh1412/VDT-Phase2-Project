@@ -41,6 +41,13 @@ public:
     UFUNCTION(BlueprintPure, Category="Minimap")
     float GetCurrentZoom() const { return CurrentZoom; }
 
+    UFUNCTION(BlueprintPure, Category="Minimap")
+    bool IsFollowingShip() const { return bFollowShip; }
+
+    /** Unscaled map-space viewport, excluding the outer border's padding. */
+    UFUNCTION(BlueprintPure, Category="Minimap")
+    FVector2D GetMapViewportSize() const;
+
 protected:
     virtual void NativeConstruct() override;
     virtual void NativeDestruct() override;
@@ -53,10 +60,12 @@ protected:
     virtual void NativeOnMouseCaptureLost(const FCaptureLostEvent& CaptureLostEvent) override;
 
 private:
+    friend class FMinimapZoomModeTest;
     void RemoveDestroyedMarkers();
     void ApplyMinimapTransform();
     void UpdateMarkerScales();
     void ClampPanOffset();
+    bool UpdateShipFocus();
 
     FTimerHandle MarkerTimer;
     bool bWarnedMissingArrays=false;
@@ -73,6 +82,7 @@ private:
     FVector2D DragStartMouse = FVector2D::ZeroVector;
     FVector2D DragStartPan = FVector2D::ZeroVector;
     bool bInteractiveActive = false;
+    bool bFollowShip = false;
 };
 
 /** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's

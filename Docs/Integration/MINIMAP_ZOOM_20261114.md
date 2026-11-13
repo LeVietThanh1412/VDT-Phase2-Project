@@ -30,3 +30,22 @@ The first test-only build on the abandoned flat-layout scratch branch used the w
 ## Integration and branch cleanup
 
 Merge the verified `refactor/code` into `main` with normal ancestry, push both refs, and verify the remote hashes. Branch cleanup is limited to obsolete feature/test/codex refs whose exact tips are ancestors of the new main; remote deletion must check the recorded tip. Keep `refactor/code`, all backup refs, and branches with unmerged commits such as `package` and `Thanh`. No history rewrite or broad filesystem cleanup is needed.
+
+## Dynamic ship focus follow-up
+
+M now centers the 9x view on `GetSelectedShip()` and follows its existing Blueprint-projected marker position as it moves. Q/Tab camera selection therefore changes the focus. Without a matching live selected marker, the view follows the centroid of the remaining live markers; invalid/dead markers are ignored. Map-edge clamping remains, so a ship at the edge cannot be centered by exposing blank map space.
+
+The native tick runs after Blueprint tick and reads the paired `ShipMarkerWidgets` / `ShipMarkerSlots` canvas positions. It does not reproject longitude/latitude, retain actor references or change combat/navigation. Focus uses the arranged, unscaled `Overlay_Minimap` viewport, excluding border padding. `GetMapViewportSize()` exposes that size as a vector.
+
+Effective drag, wheel zoom or double-click/manual zoom suspends following. Wheel input already at its limit does not suspend it. M off/on resumes following the currently viewed ship; exit returns to 1x. The tutorial describes ship following.
+
+Verification under `Saved/DynamicMinimap/20261114/`:
+
+- Editor and Game Development compile/link PASS.
+- Native minimap regression PASS, including effective drag/wheel suspension, wheel-at-limit and resume.
+- Final reflected identity / Blueprint check PASS: 41 native identities, 39 Blueprints compiled after the final native API change, commandlet summary zero errors/warnings; no asset saves.
+- Real PIE follow regression: five checks PASS; 91 moving-ship samples; maximum measured map-space centering error 0. Captured `FOLLOW_PIE.png` was visually inspected, showing the player marker at the minimap center.
+- PIE checked initial player centering, camera switch and moving-ship following, manual-view persistence, reopening follow and exit to overview. It changes only camera/minimap input and ends its owned PIE; no actor positions, HP or combat settings are overridden.
+- `Tools/Testing/verify_minimap_follow.py` reproduces this check through the Editor Python API. Native tests inject pointer events; the PIE manual-view phase uses the public zoom action. No physical mouse/keyboard test is claimed here.
+
+Initial Python probes could not read private widget properties and returned unusable `FGeometry` bounds; unconstrained desired sizes also differed from the arranged viewport. Those attempts are harness failures, not a valid RED centering result. The final probe reads authored marker slots, actual rendered overlay translation and native arranged viewport dimensions. An initial C++ local named `Slot` shadowed `UWidget::Slot`; it was renamed `MarkerSlot`, with no compiler suppression or weakened test.

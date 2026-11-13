@@ -5,6 +5,7 @@
 #include "AIController.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
+#include "Components/CanvasPanelSlot.h"
 #include "Components/Image.h"
 #include "Components/ProgressBar.h"
 #include "Components/SizeBox.h"
@@ -107,6 +108,8 @@ void UShipMinimapWidget::NativeDestruct()
 void UShipMinimapWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTime)
 {
     Super::NativeTick(MyGeometry, InDeltaTime);
+    if (bInteractiveActive && bFollowShip && !bIsDragging && CurrentZoom > 1.0f && UpdateShipFocus())
+        return;
     if (CurrentZoom > 1.0f)
     {
         UpdateMarkerScales();
@@ -115,11 +118,70 @@ void UShipMinimapWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 void UShipMinimapWidget::SetInteractiveMode(bool bActive)
 {
     bInteractiveActive = bActive;
+    bFollowShip = bActive;
     bIsDragging = false;
     SetMinimapZoom(bActive ? 9.0f : 1.0f);
+    if (bActive)
+        UpdateShipFocus();
+}
+FVector2D UShipMinimapWidget::GetMapViewportSize() const
+{
+    return ContentOverlay ? FVector2D(ContentOverlay->GetCachedGeometry().GetLocalSize())
+                          : FVector2D::ZeroVector;
+}
+bool UShipMinimapWidget::UpdateShipFocus()
+{
+    if (!BorderWrap || !ContentOverlay)
+        return false;
+    const FVector2D ViewSize = GetMapViewportSize();
+    if (ViewSize.X <= 0.0f || ViewSize.Y <= 0.0f)
+        return false;
+    const auto* MarkersProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipMarkerWidgets"));
+    const auto* SlotsProperty = FindFProperty<FArrayProperty>(GetClass(), TEXT("ShipMarkerSlots"));
+    const auto* MarkerInner = MarkersProperty ? CastField<FObjectPropertyBase>(MarkersProperty->Inner) : nullptr;
+    const auto* SlotInner = SlotsProperty ? CastField<FObjectPropertyBase>(SlotsProperty->Inner) : nullptr;
+    if (!MarkerInner || !SlotInner)
+        return false;
+    FScriptArrayHelper Markers(MarkersProperty, MarkersProperty->ContainerPtrToValuePtr<void>(this));
+    FScriptArrayHelper Slots(SlotsProperty, SlotsProperty->ContainerPtrToValuePtr<void>(this));
+    if (Markers.Num() != Slots.Num())
+        return false;
+    const auto* PC = Cast<ACustomPlayerController>(GetOwningPlayer());
+    const AActor* Selected = PC ? PC->GetSelectedShip() : nullptr;
+    FVector2D Focus = FVector2D::ZeroVector;
+    int32 Count = 0;
+    for (int32 Index = 0; Index < Markers.Num(); ++Index)
+    {
+        const auto* Marker = Cast<UUserWidget>(MarkerInner->GetObjectPropertyValue(Markers.GetRawPtr(Index)));
+        const auto* MarkerSlot = Cast<UCanvasPanelSlot>(SlotInner->GetObjectPropertyValue(Slots.GetRawPtr(Index)));
+        const AActor* Ship = IsValid(Marker) ? MarkerShip(Marker) : nullptr;
+        const auto* Weapon = IsValid(Ship) ? Ship->FindComponentByClass<UShipWeaponComponent>() : nullptr;
+        if (!IsValid(MarkerSlot) || !Weapon || Weapon->bIsDestroyed || Weapon->CurrentHealth <= 0.f)
+            continue;
+        // The existing Blueprint writes projected map centers to these slots.
+        // Read that unscaled position rather than reprojecting geography or
+        // feeding last frame's already-zoomed geometry back into the transform.
+        const FVector2D Point = MarkerSlot->GetPosition();
+        if (!FMath::IsFinite(Point.X) || !FMath::IsFinite(Point.Y))
+            continue;
+        if (Ship == Selected)
+        {
+            Focus = Point;
+            Count = 1;
+            break;
+        }
+        Focus += Point;
+        ++Count;
+    }
+    if (!Count)
+        return false;
+    PanOffset = ViewSize * 0.5f - (Focus / Count) * CurrentZoom;
+    ApplyMinimapTransform();
+    return true;
 }
 void UShipMinimapWidget::ToggleZoom()
 {
+    bFollowShip = false;
     if (CurrentZoom > 1.1f)
     {
         CurrentZoom = 1.0f;
@@ -200,6 +262,7 @@ FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const
         return FReply::Handled();
     }
 
+    bFollowShip = false;
     if (NewZoom <= 1.0f)
     {
         CurrentZoom = 1.0f;
@@ -251,8 +314,11 @@ FReply UShipMinimapWidget::NativeOnMouseMove(const FGeometry& InGeometry, const 
     {
         const FVector2D CurrentScreenMouse = InMouseEvent.GetScreenSpacePosition();
         const FVector2D Delta = CurrentScreenMouse - DragStartMouse;
+        const FVector2D PreviousPan = PanOffset;
         PanOffset = DragStartPan + Delta;
         ApplyMinimapTransform();
+        if (!PanOffset.Equals(PreviousPan, 0.01f))
+            bFollowShip = false;
         return FReply::Handled();
     }
     return FReply::Unhandled();
@@ -281,6 +347,7 @@ FReply UShipMinimapWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeo
             const FVector2D LocalSize = BorderGeom.GetLocalSize();
             if (LocalPos.X >= 0.f && LocalPos.X <= LocalSize.X && LocalPos.Y >= 0.f && LocalPos.Y <= LocalSize.Y)
             {
+                bFollowShip = false;
                 if (CurrentZoom <= 1.1f)
                 {
                     CurrentZoom = 9.0f;
