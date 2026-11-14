@@ -26,6 +26,8 @@ namespace {
 const FLinearColor DetailsPanelFillColor(0.015f, 0.030f, 0.055f, 0.94f);
 const FLinearColor DetailsPanelOutlineColor(0.16f, 0.56f, 0.76f, 0.55f);
 const FLinearColor DetailsAccentColor(0.35f, 0.85f, 1.0f, 1.0f);
+const FLinearColor LowAmmoColor(1.0f, 0.20f, 0.16f, 1.0f);
+constexpr int32 LowAmmoThreshold = 3;
 const FLinearColor LabelColor(0.55f, 0.70f, 0.80f, 1.0f);
 const FLinearColor ValueColor(0.93f, 0.97f, 1.0f, 1.0f);
 
@@ -268,6 +270,7 @@ void UShipDetailsUI::UpdateDetails() {
   }
   APawn *Ship = ResolveSelectedShip();
   DisplayedShip = Ship;
+  MagazineText->SetColorAndOpacity(FSlateColor(DetailsAccentColor));
   if (IsValid(Ship))
     if (const auto *Move = Ship->FindComponentByClass<UShipMovementComponent>();
         Move && Move->bShorelineBlocked) {
@@ -297,6 +300,8 @@ void UShipDetailsUI::UpdateDetails() {
             : FString::Printf(TEXT("AMMO: %d/%d"), Weapon->RoundsRemaining,
                               Weapon->MagazineCapacity);
     MagazineText->SetText(FText::FromString(AmmoText));
+    if (Weapon->RoundsRemaining <= LowAmmoThreshold)
+      MagazineText->SetColorAndOpacity(FSlateColor(LowAmmoColor));
     IdentityText = Weapon->Team() == 0   ? TEXT("BLUE")
                    : Weapon->Team() == 1 ? TEXT("RED")
                                          : TEXT("NEUTRAL");

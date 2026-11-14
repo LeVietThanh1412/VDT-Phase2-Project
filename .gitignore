@@ -15,6 +15,14 @@ Build/
 *.xcworkspace
 *.code-workspace
 .idea/
+*.aux
+*.lof
+*.out
+*.toc
+*.log
+*.lot
+*.synctex.gz
+*.synctex(busy)
 
 # Cesium for Unreal cache files
 cesium-request-cache.sqlite
@@ -47,3 +55,5 @@ Content/ShipSmall/Asset/thumbnail.jpg
 Content/ShipSmall/Asset/thumbnail.uasset
 Content/ShipSmall/Asset/sweedenmilitaryboat.fbx
 Content/ShipSmall/Asset/sweedenmilitaryboat.fbm/
+
+reports/images

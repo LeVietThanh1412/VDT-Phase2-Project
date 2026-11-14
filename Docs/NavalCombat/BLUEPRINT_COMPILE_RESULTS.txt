@@ -1,8 +1,0 @@
-OK: affected battle Blueprints compiled
-/Game/Ship/BluePrint/BP_Ship.BP_Ship: compiled
-/Game/ShipEnemy/BluePrint/BP_ShipEnemy.BP_ShipEnemy: compiled
-/Game/Ship/BluePrint/BP_ShipProjectile.BP_ShipProjectile: compiled
-/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed.BP_ShipProjectileWithSpeed: compiled
-/Game/NavalBattle/UI/WBP_ShipHUD.WBP_ShipHUD: compiled
-/Game/NavalBattle/UI/WBP_ShipHealthBar.WBP_ShipHealthBar: compiled
-/Game/Ship/BluePrint/GMBP.GMBP: compiled
