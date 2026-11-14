@@ -15,7 +15,6 @@ Mô phỏng hải chiến tại Quảng Ninh bằng **Unreal Engine 5.6, Cesium,
 - Tuần tra **xuất phát → A → B → A…**, hoặc bố trí tự động theo seed.
 - Nhận diện địch, bắn đón, sát thương, băng **10 viên**, nạp **30 giây**, cháy/chìm.
 - HUD, kill feed, camera, minimap **9× theo tàu**, bảng kết quả và chơi lại.
-- Terrain/imagery dùng **đường dẫn động theo thư mục project**, có khai báo dữ liệu rời cho bản đóng gói.
 
 ## 1. Cài môi trường
 
@@ -72,7 +71,7 @@ VDT-Phase2-Project/
 
 `{z}/{x}/{y}` mô tả cấp và chỉ số tile, không phải tên thư mục cần tạo nguyên văn. Khi nhận project qua ổ cứng, cần chép cả metadata lẫn các tile con.
 
-## 3. Dữ liệu bản đồ và đường dẫn động
+## 3. Bản đồ Quảng Ninh và dữ liệu mô phỏng
 
 ### UnrealTerrainSet
 
@@ -85,16 +84,11 @@ Nguồn chính là **`Data/UnrealTerrainSet/QuangNinh`**:
 | `Imagery/tilemapresource.xml` | Manifest ảnh TMS: EPSG:4326, tile PNG **256×256**, các mức 6–14 |
 | `Imagery/{z}/{x}/{y}.png` | Ảnh bề mặt phủ lên terrain; không phải dữ liệu độ sâu hoặc vùng đi được |
 
-Actor **`QuangNinh_Terrain`** dùng Cesium 3D Tileset; component **`QuangNinh_Imagery`** dùng Cesium Tile Map Service Raster Overlay. Component **`PortableLocalTerrain`** tự ghép:
+Actor **`QuangNinh_Terrain`** dùng Cesium 3D Tileset để dựng địa hình từ `Terrain/layer.json`. Component **`QuangNinh_Imagery`** dùng Cesium Tile Map Service Raster Overlay để phủ ảnh từ `Imagery/tilemapresource.xml`. Cesium chọn tile theo vị trí camera và mức chi tiết; Unreal Water cung cấp mặt biển và thông tin nước cho buoyancy của tàu.
 
-```text
-ProjectDir + Data/UnrealTerrainSet/QuangNinh/Terrain/layer.json
-ProjectDir + Data/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml
-```
+Đảo và bờ biển ảnh hưởng đến đường đi, khoảng quay và tầm nhìn khi giao chiến. Một hành lang nhìn có màu nước chưa chắc đủ rộng cho toàn bộ thân tàu; AI còn đối chiếu lưới điều hướng và quét vật cản trong thế giới mô phỏng.
 
-Hai đường dẫn được đổi sang URL `file:///`, có mã hóa khoảng trắng và ký tự Unicode. Khi chuyển project hoặc bản đóng gói sang thư mục khác, hệ thống tính lại URL; không cần nhập ổ E:/F: của máy tác giả. Các thuộc tính `TerrainFile` và `ImageryFile` của component lưu **đường dẫn tương đối**. URL được để trống trong actor đã lưu và được dựng lại khi component đăng ký; lúc cook cũng xóa URL preview để không mang đường dẫn máy phát triển vào bản game.
-
-Giữ đầy đủ cây `Data/UnrealTerrainSet/QuangNinh`. Không xóa manifest hoặc đổi cấu trúc tile khi chuyển máy. Hai nguồn local này không cần Cesium ion token; nguồn online bổ sung có cấu hình riêng. Tham khảo [định dạng Cesium hỗ trợ](https://cesium.com/learn/unreal/unreal-faq/#what-file-formats-can-i-load-with-cesium-for-unreal).
+Giữ đầy đủ cây `Data/UnrealTerrainSet/QuangNinh` khi cài project. Hai manifest cần đi cùng các tile con. Hai nguồn local này không cần Cesium ion token; nguồn online bổ sung có cấu hình riêng. Tham khảo [định dạng Cesium hỗ trợ](https://cesium.com/learn/unreal/unreal-faq/#what-file-formats-can-i-load-with-cesium-for-unreal).
 
 ### Ba JSON gameplay
 
@@ -106,21 +100,13 @@ Giữ đầy đủ cây `Data/UnrealTerrainSet/QuangNinh`. Không xóa manifest 
 
 Terrain/imagery tạo môi trường nhìn thấy; ba JSON trên phục vụ điều hướng và nhiệm vụ. Không dùng `halong_navigation.json` thay URL terrain. Khi thay chart cần cập nhật sector tương ứng vì hệ thống kiểm tra mã dữ liệu. Dữ liệu bờ dẫn xuất từ OpenStreetMap **không có độ sâu đáy biển**; xem [attribution](Data/SeaNavigation/ATTRIBUTION.md).
 
-### Dữ liệu khi package
-
-[VDTPhase2Project.Build.cs](Source/VDTPhase2Project/VDTPhase2Project.Build.cs) khai báo:
-
-- Ba JSON gameplay là **UFS**.
-- `.terrain`, `.png`, `.json`, `.xml` dưới `Data/UnrealTerrainSet/QuangNinh` là **NonUFS** để Cesium đọc file rời ngoài pak.
-
-Giữ nguyên cả thư mục Windows được tạo khi package, gồm thư mục dữ liệu của project; không chỉ chép một file `.exe`.
 
 ## 4. Build và mở project
 
 Đóng Editor trước khi build/link đầy đủ. Chạy PowerShell tại thư mục có `.uproject`:
 
 ```powershell
-$ueRoot = 'F:\Epic Games\UE_5.6' # Sửa theo nơi cài UE.
+$ueRoot = Read-Host 'Nhập thư mục cài Unreal Engine 5.6'
 $projectFile = (Resolve-Path '.\VDTPhase2Project.uproject').Path
 
 & "$ueRoot\Engine\Build\BatchFiles\Build.bat" `
@@ -137,7 +123,9 @@ Build thành công rồi mở project:
 
 Hoặc Generate Visual Studio project files từ menu chuột phải `.uproject` rồi build **Development Editor / Win64**. Không cần workspace riêng hoặc `.sln` đã tạo trên máy tác giả để chạy `Build.bat`.
 
-Trong **Edit → Plugins**, kiểm tra Cesium, Water và Procedural Mesh Component đã bật. Mở **`/Game/Levels/MainMapLevel`**, chờ shader/asset lần đầu, nhấn **Play** rồi nhấp viewport để nhận input. Build Editor chỉ tạo module dùng trong Editor; để có bản Windows riêng, thực hiện **Platforms → Windows → Package Project** theo cấu hình bạn muốn và giữ đầy đủ dữ liệu được stage.
+Trong **Edit → Plugins**, kiểm tra Cesium, Water và Procedural Mesh Component đã bật. Mở **`/Game/Levels/MainMapLevel`**, chờ shader/asset lần đầu, nhấn **Play** rồi nhấp viewport để nhận input. Build Editor tạo module dùng trong Editor; để có bản Windows riêng, thực hiện **Platforms → Windows → Package Project**. Giữ toàn bộ thư mục kết quả, gồm dữ liệu bản đồ; không chỉ sao chép file `.exe`.
+
+Trong **Project Settings → Packaging → Additional Asset Directories to Cook**, giữ mục **`/Game/Game/UI/Minimap`** đã cấu hình để icon hai đội có mặt trong bản game. Đây là đường dẫn asset của thư mục `Content/Game/UI/Minimap`.
 
 ## 5. Thiết lập demo
 
@@ -223,11 +211,11 @@ Khi một đội hết tàu sống, **Match Summary** hiển thị kết quả v
 - **RESTART**: tạo lại trận qua luồng khởi tạo mới.
 - **QUIT**: thoát phiên chơi.
 
-## 7. Minimap và bản package
+## 7. Đọc bản đồ và phối hợp quan sát
 
-`Content/Game/UI/Minimap` có đường dẫn asset Unreal là **`/Game/Game/UI/Minimap`**: `/Game` đầu tiên đại diện cho `Content`, phần `Game` thứ hai là thư mục thật. Đây là cùng một thư mục, không phải dữ liệu bị nhân đôi.
+Minimap hiển thị nền địa hình, marker và tên tàu; hai đội dùng icon riêng để nhận biết đội hình. Nhấn **M** để đổi giữa tổng thể và phóng đại **9×** theo tàu đang quan sát. **Q** đổi tàu theo dõi, đồng thời cập nhật HUD và tâm bản đồ.
 
-[DefaultGame.ini](Config/DefaultGame.ini) đã thêm thư mục này vào **Additional Asset Directories to Cook**, vì icon hai đội được nạp bằng đường dẫn chuỗi. Giữ các texture `ShipMarkerIcon-1` và `ShipMarkerIcon-2` khi cook để Blue/Red không bị rơi về cùng hình mặc định.
+Giữ **Left Alt** để kéo/cuộn minimap khi muốn xem một khu vực khác. Kéo thủ công tạm dừng chế độ theo tàu; tắt/bật M để theo lại. Thả Alt để tiếp tục điều khiển và ngắm bắn. Minimap hỗ trợ định hướng; việc chọn đường an toàn còn phụ thuộc kích thước tàu, vật cản và khoảng quay.
 
 ## 8. Hiệu chỉnh và xử lý lỗi
 

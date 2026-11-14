@@ -266,13 +266,10 @@ Một số trường chính trong tệp được trích như sau:
 
 Trong level, actor \texttt{QuangNinh\_Terrain} dùng Cesium 3D Tileset, chọn nguồn \textbf{From URL} và đọc \path{Terrain/layer.json}. Component ảnh \texttt{QuangNinh\_Imagery} dùng TMS Raster Overlay, đọc \path{Imagery/tilemapresource.xml}. Cesium dựng hình học và phủ ảnh lên bề mặt; Water cung cấp mặt biển cùng tương tác nổi riêng.\cite{cesiumfaq}
 
-\subsection{Đường dẫn động và dữ liệu rời khi đóng gói}
-Actor địa hình có component \texttt{PortableLocalTerrain}. Hai thuộc tính cấu hình lưu đường dẫn tương đối đến \path{Data/UnrealTerrainSet/QuangNinh/Terrain/layer.json} và \path{Data/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml}. Khi component đăng ký, hệ thống lấy thư mục project hiện hành, ghép đường dẫn rồi tạo URL \texttt{file:///} cho Cesium. Khoảng trắng và ký tự Unicode được mã hóa phù hợp trong URL.
+Luồng hiển thị bắt đầu từ camera: vị trí và khoảng cách quan sát xác định các tile cần tải, sau đó Cesium dựng lưới địa hình và phủ ảnh tương ứng. Khi camera tiến gần, hệ thống có thể yêu cầu mức chi tiết cao hơn; khi nhìn toàn cảnh, các tile thô giúp bao quát vùng rộng. Hai lớp dữ liệu phải cùng hệ tọa độ để đường bờ trên ảnh khớp với hình học của đảo.
 
-Có thể mô tả cơ chế bằng $P_{\text{tệp}}=P_{\text{project}}+P_{\text{tương đối}}$, trong đó dấu cộng biểu diễn thao tác ghép đường dẫn. Khi chuyển project hoặc bản game sang ổ đĩa/thư mục khác, $P_{\text{project}}$ thay đổi còn cấu trúc dữ liệu tương đối được giữ. Người dùng không phải nhập lại đường dẫn ổ E:/F: của máy phát triển. Nếu thiếu metadata hoặc đường dẫn ra ngoài thư mục project, component báo lỗi thay vì tiếp tục dùng URL cũ.
-
-Các tệp terrain/imagery được khai báo dạng \textbf{NonUFS} trong cấu hình build: chúng được phân phối thành file rời để Cesium mở qua filesystem. Ba JSON gameplay bên dưới vẫn thuộc \textbf{UFS}. Trong quá trình cook, URL preview của actor được xóa; khi bản game chạy, component dựng lại URL theo thư mục cài đặt. Cách tổ chức này giữ một nguồn UnrealTerrainSet trong Data, không yêu cầu nhân đôi bộ tile trong Content.
-\howto{Giữ nguyên cây \texttt{Data/UnrealTerrainSet/QuangNinh} khi di chuyển project hoặc phân phối game. Mở MainMapLevel và chạy bình thường; component tự cấu hình terrain và imagery. Khi package, cần giữ đầy đủ thư mục kết quả cùng dữ liệu được stage, thay vì chỉ lấy một file thực thi.}
+Trong mô phỏng, hình học bờ ảnh hưởng đến va chạm và che khuất, còn ảnh phủ giúp người dùng nhận biết hướng tiếp cận, eo nước và vị trí các đảo. Dữ liệu địa hình vẫn được phân biệt với lớp nước đi được của AI: một vị trí được vẽ đúng không đồng nghĩa nó phù hợp làm điểm xuất phát hoặc điểm quay đầu cho mọi loại tàu.
+\howto{Mở MainMapLevel, chờ địa hình và ảnh phủ được tải rồi quan sát ở góc gần và toàn cảnh. Khi cài đặt hoặc phân phối mô phỏng, giữ đầy đủ các manifest và tile con của UnrealTerrainSet để bản đồ có đủ hình học và màu bề mặt.}
 
 \section{Ba JSON cho điều hướng và bố trí tàu}
 Các JSON trong \path{Content/SeaNavigation} phục vụ gameplay, độc lập với tệp \texttt{layer.json} dùng để vẽ địa hình. Chúng được đọc theo đường dẫn tương đối từ thư mục Content và được khai báo là dữ liệu runtime trong cấu hình build.
@@ -748,7 +745,7 @@ Gọi $\mathbf q$ là vị trí marker trong tọa độ bản đồ, $z$ là h�
 
 M chỉ đổi cách xem bản đồ, không tự chuyển chuột khỏi ngắm bắn. Người chơi giữ Left Alt khi muốn dùng con trỏ để kéo hoặc cuộn bản đồ; thả Alt trả quyền nhìn/ngắm cho gameplay. Kéo thủ công tạm dừng việc tự theo để người dùng xem khu vực khác; tắt/bật M khôi phục theo tàu. Zoom camera pháo và zoom minimap là hai thao tác khác nhau.
 
-Hai đội sử dụng texture marker riêng. Vì texture được nạp bằng đường dẫn chuỗi, thư mục \texttt{/Game/Game/UI/Minimap} được thêm vào danh sách cook để các icon có mặt trong bản đóng gói. Đường dẫn này tương ứng với \path{Content/Game/UI/Minimap}: \texttt{/Game} đầu là gốc asset đại diện cho Content, còn Game tiếp theo là thư mục con. Đây là một vị trí dữ liệu, không phải hai bản sao của minimap.
+Hai đội sử dụng marker riêng kết hợp với tên tàu để phân biệt đồng đội và đối phương. Bản đồ tổng thể hỗ trợ đọc hướng tiếp cận của hai đội; chế độ phóng đại giúp quan sát giao cắt tuyến và vị trí tàu trong khu vực giao chiến. Marker cung cấp thông tin vị trí, không thay thế kiểm tra tầm nhìn hay điều kiện phát bắn của hệ thống chiến đấu.
 
 
 \section{Camera tàu, toàn cảnh và Full AI}
