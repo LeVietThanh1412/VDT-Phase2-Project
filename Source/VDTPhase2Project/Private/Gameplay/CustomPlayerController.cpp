@@ -191,47 +191,74 @@ void ACustomPlayerController::SetupInputComponent() {
                           &ACustomPlayerController::ToggleButtonTutorials);
   InputComponent->BindKey(EKeys::M, IE_Pressed, this,
                           &ACustomPlayerController::ToggleMinimapInteractiveMode);
+  InputComponent->BindKey(EKeys::LeftAlt, IE_Pressed, this,
+                          &ACustomPlayerController::BeginMinimapMouseInteraction);
+  InputComponent->BindKey(EKeys::LeftAlt, IE_Released, this,
+                          &ACustomPlayerController::EndMinimapMouseInteraction);
   InputComponent
       ->BindKey(EKeys::P, IE_Pressed, this,
                 &ACustomPlayerController::ToggleMatchSetup)
       .bExecuteWhenPaused = true;
 }
 
+UShipMinimapWidget* ACustomPlayerController::FindMinimap() const
+{
+    TArray<UUserWidget*> Minimaps;
+    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(GetWorld(), Minimaps, UShipMinimapWidget::StaticClass(), true);
+    return Minimaps.Num() ? Cast<UShipMinimapWidget>(Minimaps[0]) : nullptr;
+}
+bool ACustomPlayerController::HasModalUI() const
+{
+    return IsValid(SetupWidget) || IsValid(MatchSummaryUI) || IsValid(LoadingScreenUI);
+}
+void ACustomPlayerController::UseGameplayMouseInput()
+{
+    bShowMouseCursor = false;
+    FInputModeGameOnly Mode;
+    Mode.SetConsumeCaptureMouseDown(false);
+    SetInputMode(Mode);
+}
+void ACustomPlayerController::ResetMinimapInteraction()
+{
+    bMinimapInteractiveMode = false;
+    bMinimapMouseInteraction = false;
+    if (auto* Minimap = FindMinimap())
+        Minimap->SetInteractiveMode(false);
+}
 void ACustomPlayerController::ToggleMinimapInteractiveMode()
 {
+    if (!IsLocalController() || HasModalUI())
+        return;
     bMinimapInteractiveMode = !bMinimapInteractiveMode;
-
-    TArray<UUserWidget*> Minimaps;
-    UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this, Minimaps, UShipMinimapWidget::StaticClass(), true);
-    UShipMinimapWidget* Minimap = Minimaps.Num() > 0 ? Cast<UShipMinimapWidget>(Minimaps[0]) : nullptr;
-
-    if (bMinimapInteractiveMode)
-    {
-        bShowMouseCursor = true;
-        FInputModeGameAndUI Mode;
-        if (Minimap)
-        {
-            Mode.SetWidgetToFocus(Minimap->TakeWidget());
-        }
-        Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-        Mode.SetHideCursorDuringCapture(false);
-        SetInputMode(Mode);
-
-        if (Minimap)
-        {
-            Minimap->SetInteractiveMode(true);
-        }
-    }
-    else
-    {
-        bShowMouseCursor = false;
-        SetInputMode(FInputModeGameOnly());
-
-        if (Minimap)
-        {
-            Minimap->SetInteractiveMode(false);
-        }
-    }
+    bMinimapMouseInteraction = false;
+    if (auto* Minimap = FindMinimap())
+        Minimap->SetInteractiveMode(bMinimapInteractiveMode);
+    UseGameplayMouseInput();
+}
+void ACustomPlayerController::BeginMinimapMouseInteraction()
+{
+    if (!IsLocalController() || !bMinimapInteractiveMode || bMinimapMouseInteraction || HasModalUI())
+        return;
+    auto* Minimap = FindMinimap();
+    if (!Minimap)
+        return;
+    bMinimapMouseInteraction = true;
+    Minimap->SetMouseInteractionEnabled(true);
+    bShowMouseCursor = true;
+    FInputModeGameAndUI Mode;
+    Mode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
+    Mode.SetHideCursorDuringCapture(false);
+    SetInputMode(Mode);
+}
+void ACustomPlayerController::EndMinimapMouseInteraction()
+{
+    if (!bMinimapMouseInteraction)
+        return;
+    bMinimapMouseInteraction = false;
+    if (auto* Minimap = FindMinimap())
+        Minimap->SetMouseInteractionEnabled(false);
+    if (!HasModalUI())
+        UseGameplayMouseInput();
 }
 
 void ACustomPlayerController::ToggleMatchSetup() {
@@ -241,9 +268,8 @@ void ACustomPlayerController::ToggleMatchSetup() {
   }
   if (!IsLocalController())
     return;
-  if (bMinimapInteractiveMode)
-    ToggleMinimapInteractiveMode();
-  bMinimapInteractiveMode = false;
+  ResetMinimapInteraction();
+  UseGameplayMouseInput();
   SetupWidget =
       CreateWidget<UShipSetupWidget>(this, UShipSetupWidget::StaticClass());
   if (!SetupWidget)
@@ -269,9 +295,8 @@ void ACustomPlayerController::CloseMatchSetup() {
     SetupWidget->RemoveFromParent();
     SetupWidget = nullptr;
   }
-  bMinimapInteractiveMode = false;
-  bShowMouseCursor = false;
-  SetInputMode(FInputModeGameOnly());
+  ResetMinimapInteraction();
+  UseGameplayMouseInput();
   if (bMenuPausedWorld)
     SetPause(false);
   bMenuPausedWorld = false;
@@ -322,6 +347,7 @@ void ACustomPlayerController::ShowLoadingScreen() {
     return;
   }
 
+  ResetMinimapInteraction();
   LoadingScreenUI = CreateWidget<ULoadingScreenWidget>(
       this, ULoadingScreenWidget::StaticClass());
   if (!IsValid(LoadingScreenUI)) {
@@ -426,6 +452,7 @@ void ACustomPlayerController::ShowMatchResult() {
   // that transition first so it cannot later replace the result's cursor/mode.
   if (IsValid(LoadingScreenUI))
     HideLoadingScreen();
+  ResetMinimapInteraction();
   // The summary is its own full-screen widget so the live ship HUD stays
   // independent.
   if (IsValid(MatchSummaryUI)) {
@@ -745,6 +772,8 @@ APawn *ACustomPlayerController::CycleShipView(int32 TeamFilter) {
 
 void ACustomPlayerController::PlayerTick(float DeltaTime) {
   Super::PlayerTick(DeltaTime);
+  if (bMinimapMouseInteraction && (!IsInputKeyDown(EKeys::LeftAlt) || HasModalUI()))
+    EndMinimapMouseInteraction();
   const auto *Weapon =
       IsValid(OriginalPlayerShip)
           ? OriginalPlayerShip->FindComponentByClass<UShipWeaponComponent>()

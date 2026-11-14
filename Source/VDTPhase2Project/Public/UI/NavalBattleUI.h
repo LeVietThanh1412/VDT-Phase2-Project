@@ -30,6 +30,12 @@ public:
     void SetInteractiveMode(bool bActive);
 
     UFUNCTION(BlueprintCallable, Category="Minimap")
+    void SetMouseInteractionEnabled(bool bEnabled);
+
+    UFUNCTION(BlueprintPure, Category="Minimap")
+    bool IsMouseInteractionEnabled() const { return bMouseInteractionEnabled; }
+
+    UFUNCTION(BlueprintCallable, Category="Minimap")
     void ToggleZoom();
 
     UFUNCTION(BlueprintCallable, Category="Minimap")
@@ -83,6 +89,7 @@ private:
     FVector2D DragStartPan = FVector2D::ZeroVector;
     bool bInteractiveActive = false;
     bool bFollowShip = false;
+    bool bMouseInteractionEnabled = false;
 };
 
 /** Native marker base: keeps WBP_ShipMarker's icon in sync with its ship's

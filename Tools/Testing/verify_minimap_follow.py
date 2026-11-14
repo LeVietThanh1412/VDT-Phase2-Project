@@ -78,6 +78,8 @@ def tick(dt):
         if not field.ready:
             return
         m = unreal.WidgetLibrary.get_all_widgets_of_class(world, unreal.ShipMinimapWidget, False)[0]
+        if not m.is_visible():
+            return
         if bound.get('minimap') != m:
             bound.update(minimap=m, border=child(m, 'Border_Wrap_Minimap'), overlay=child(m, 'Overlay_Minimap'))
         border, overlay = bound['border'], bound['overlay']

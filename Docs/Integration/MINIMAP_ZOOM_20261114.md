@@ -1,5 +1,13 @@
 # Minimap 9x interaction fix
 
+## Current controls
+
+- **M:** toggle 1x overview / 9x ship-follow view. Gameplay retains mouse look, aim and fire; the cursor stays hidden.
+- **Hold Left Alt while zoomed:** show the cursor to drag, wheel-zoom or double-click the minimap. Release Alt to restore gameplay, keeping the current map view. Actual manual map movement suspends following; M off/on resumes following.
+- Setup, loading and match-result menus retain their own cursor/input behavior. M cannot replace a modal menu's input mode.
+
+The sections below record the earlier implementation and its follow-ups; the current controls above supersede the original M-to-cursor behavior.
+
 Implemented on the user's `refactor/code`, starting from `6531a0c`. That branch already includes `origin/main` at `4c37eda`, including the original `f7a820f` 9x maximum and `d014f88` tutorial change. The temporary `codex/minimap-9x` branch received no commits and is not the integration source.
 
 ## Behavior
@@ -49,3 +57,26 @@ Verification under `Saved/DynamicMinimap/20261114/`:
 - `Tools/Testing/verify_minimap_follow.py` reproduces this check through the Editor Python API. Native tests inject pointer events; the PIE manual-view phase uses the public zoom action. No physical mouse/keyboard test is claimed here.
 
 Initial Python probes could not read private widget properties and returned unusable `FGeometry` bounds; unconstrained desired sizes also differed from the arranged viewport. Those attempts are harness failures, not a valid RED centering result. The final probe reads authored marker slots, actual rendered overlay translation and native arranged viewport dimensions. An initial C++ local named `Slot` shadowed `UWidget::Slot`; it was renamed `MarkerSlot`, with no compiler suppression or weakened test.
+
+## Gameplay mouse ownership follow-up
+
+Problem: M used GameAndUI, displayed the cursor and left the minimap subtree hit-testable. Its mouse handlers could capture the same buttons used for aiming and firing.
+
+The controller now separates visual zoom from explicit mouse interaction. M uses GameOnly with `SetConsumeCaptureMouseDown(false)`, so a capture click is forwarded to gameplay. The minimap and all children are HitTestInvisible until Left Alt is held; all native mouse handlers also reject passive input. Releasing Alt clears dragging and existing minimap capture. PlayerTick recovers a missed Alt release using current key state. Setup/loading/result transitions reset map interaction without allowing a late release to replace modal input. The existing Enhanced Input mappings, aiming gate and projectile dispatch are preserved.
+
+Evidence: `Saved/MinimapInput/20261114/` and the refreshed `Saved/DynamicMinimap/20261114/FOLLOW_PIE.json`.
+
+| Check | Result |
+|---|---|
+| Native reproduction before fix | FAIL: zoom handled wheel input without explicit map control |
+| Same native regression after fix | PASS: 1 succeeded, 0 failed; includes passive fire-button rejection, manual interaction and follow resume |
+| Editor / Game Development compile and link | PASS / PASS |
+| Reflection and Blueprint commandlet | 41 native identities resolved, 39 Blueprints compiled; 0 errors, 0 warnings; no asset saves |
+| Owned PIE input regression | Eight checks PASS: passive zoom, explicit cursor mode/release, setup transition/late release, modal guard, missed-release recovery, original Enhanced Input aim/fire path, overview restoration |
+| Actual Blueprint firing via Enhanced Input at 9x | Shots 0 to 1; rounds 10 to 9; damage remained enabled |
+| Refreshed dynamic-follow PIE regression | All five checks PASS; 93 samples, maximum map-space centering error 0; selected-ship/camera-switch follow, manual-view persistence, follow resume and overview restoration |
+| Desktop keyboard M | Observed entering 9x while native cursor state stayed false |
+
+Desktop-tool click/drag attempts did not produce a projectile; a diagnostic callback sampled zero LeftMouseButton-down frames in Unreal. These attempts are inconclusive for physical mouse firing and are retained separately as `PHYSICAL_*` evidence, not counted as successful gameplay tests. The final firing check injects the existing IA_Aim/IA_Fire Enhanced Input actions through the original Blueprint path; it does not call FirePlayer directly. Temporary aim callbacks were stopped and owned PIE sessions ended. Real held-Alt dragging/focus-loss and physical RMB+LMB remain manual smoke checks.
+
+`Tools/Testing/verify_minimap_gameplay_input.py` reproduces the eight PIE checks. The follow test now waits until the minimap is visible after loading before toggling M. No ship positions, health, damage settings, collision, buoyancy, navigation, input assets or runtime JSONs changed. Packaging was not rerun.

@@ -31,6 +31,17 @@ bool FMinimapZoomModeTest::RunTest(const FString&)
     Map->SetInteractiveMode(true);
     const FPointerEvent WheelUp(0, FVector2D(120,100), FVector2D(120,100),
         TSet<FKey>(), EKeys::Invalid, 1.f, FModifierKeysState());
+    TestFalse(TEXT("Zoom without explicit map control passes mouse input through"),
+        Map->NativeOnMouseWheel(FGeometry(), WheelUp).IsEventHandled());
+    TestFalse(TEXT("Zoom does not enable map mouse control"), Map->IsMouseInteractionEnabled());
+    TestEqual(TEXT("Map and its children are click-through during gameplay"),
+        Map->GetVisibility(), ESlateVisibility::HitTestInvisible);
+    const FPointerEvent FireClick(0, FVector2D(120,100), FVector2D(120,100),
+        TSet<FKey>{EKeys::LeftMouseButton}, EKeys::LeftMouseButton, 0.f, FModifierKeysState());
+    TestFalse(TEXT("Zoom cannot capture the firing mouse button"),
+        Map->NativeOnMouseButtonDown(FGeometry(), FireClick).IsEventHandled());
+    Map->SetMouseInteractionEnabled(true);
+    TestTrue(TEXT("Explicit map control enables mouse interaction"), Map->IsMouseInteractionEnabled());
     Map->NativeOnMouseWheel(FGeometry(), WheelUp);
     TestTrue(TEXT("Wheel at maximum leaves following enabled"), Map->IsFollowingShip());
     const FPointerEvent WheelDown(0, FVector2D(120,100), FVector2D(120,100),
@@ -38,6 +49,7 @@ bool FMinimapZoomModeTest::RunTest(const FString&)
     Map->NativeOnMouseWheel(FGeometry(), WheelDown);
     TestFalse(TEXT("Effective manual wheel zoom suspends following"), Map->IsFollowingShip());
     Map->SetInteractiveMode(true);
+    Map->SetMouseInteractionEnabled(true);
     Map->bIsDragging = true;
     Map->DragStartMouse = FVector2D(100,100);
     Map->DragStartPan = Map->PanOffset;
@@ -46,6 +58,10 @@ bool FMinimapZoomModeTest::RunTest(const FString&)
     Map->SetInteractiveMode(false);
     Map->SetInteractiveMode(true);
     TestTrue(TEXT("Reopening interaction resumes following"), Map->IsFollowingShip());
+    TestFalse(TEXT("Reopening does not steal the mouse"), Map->IsMouseInteractionEnabled());
+    Map->SetInteractiveMode(false);
+    Map->SetMouseInteractionEnabled(true);
+    TestFalse(TEXT("Map mouse control cannot activate without zoom mode"), Map->IsMouseInteractionEnabled());
     return true;
 }
 #endif
