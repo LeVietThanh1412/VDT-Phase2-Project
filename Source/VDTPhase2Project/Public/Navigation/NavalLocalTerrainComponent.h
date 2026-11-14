@@ -14,9 +14,9 @@ class VDTPHASE2PROJECT_API UNavalLocalTerrainComponent : public UActorComponent 
 public:
   UNavalLocalTerrainComponent();
   UPROPERTY(EditAnywhere, Category = "Local data")
-  FString TerrainFile = TEXT("Data/UnrealTerrainSet/QuangNinh/Terrain/layer.json");
+  FString TerrainFile = TEXT("UnrealTerrainSet/QuangNinh/Terrain/layer.json");
   UPROPERTY(EditAnywhere, Category = "Local data")
-  FString ImageryFile = TEXT("Data/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml");
+  FString ImageryFile = TEXT("UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml");
   UPROPERTY(EditInstanceOnly, Category = "Local data")
   TObjectPtr<UCesiumTileMapServiceRasterOverlay> Imagery;
   UPROPERTY(BlueprintReadOnly, Transient, Category = "Local data")
@@ -31,6 +31,10 @@ public:
   UFUNCTION(BlueprintCallable, Category = "Local data|Editor", meta = (DevelopmentOnly))
   static UNavalLocalTerrainComponent* InstallOnTileset(
       ACesium3DTileset* Tileset, UCesiumTileMapServiceRasterOverlay* Overlay);
+
+  /** Editor migration: inspect first, then insert Content-relative BeginPlay nodes. */
+  UFUNCTION(BlueprintCallable, Category = "Local data|Editor", meta = (DevelopmentOnly))
+  static FString InstallLevelBlueprintPaths(UObject* WorldContextObject, bool bApply = false);
 
 protected:
   virtual void OnRegister() override;

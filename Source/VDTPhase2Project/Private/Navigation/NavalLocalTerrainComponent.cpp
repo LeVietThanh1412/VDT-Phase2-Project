@@ -50,14 +50,14 @@ bool UNavalLocalTerrainComponent::ConfigureLocalPaths() {
         !FApp::IsUnattended() && GetWorld() && GetWorld()->IsGameWorld()) {
       bErrorReported = true;
       FMessageDialog::Open(EAppMsgType::Ok,
-          FText::FromString(Message + TEXT("\nRestore the complete game package, including Data/UnrealTerrainSet/QuangNinh.")),
+          FText::FromString(Message + TEXT("\nRestore the complete game package, including Content/UnrealTerrainSet/QuangNinh.")),
           FText::FromString(TEXT("Local terrain data unavailable")));
     }
     return false;
   };
   if (!Tileset || !IsValid(Imagery) || Imagery->GetOwner() != Tileset)
     return Fail(TEXT("Component requires its owning Cesium tileset and its TMS imagery overlay."));
-  const FString ProjectRoot = FPaths::ConvertRelativePathToFull(FPaths::ProjectDir());
+  const FString ProjectRoot = FPaths::ConvertRelativePathToFull(FPaths::ProjectContentDir());
   auto Resolve = [&](const FString& Relative, FString& Out) {
     if (!FPaths::IsRelative(Relative)) return false;
     Out = FPaths::ConvertRelativePathToFull(ProjectRoot, Relative);
@@ -66,7 +66,7 @@ bool UNavalLocalTerrainComponent::ConfigureLocalPaths() {
   };
   FString TerrainPath, ImageryPath;
   if (!Resolve(TerrainFile, TerrainPath) || !Resolve(ImageryFile, ImageryPath))
-    return Fail(FString::Printf(TEXT("Required local files missing under %s. Stage the complete Data/UnrealTerrainSet/QuangNinh dataset."), *ProjectRoot));
+    return Fail(FString::Printf(TEXT("Required local files missing under %s. Copy the complete UnrealTerrainSet/QuangNinh dataset."), *ProjectRoot));
   const FString TerrainUrl = ToFileUrl(TerrainPath);
   const FString ImageryUrl = ToFileUrl(ImageryPath);
   if (TerrainUrl.IsEmpty() || ImageryUrl.IsEmpty())
