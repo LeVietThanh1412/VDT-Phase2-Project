@@ -2,6 +2,7 @@
 #include "Layout/Geometry.h"
 #include "Input/Reply.h"
 #include "Input/Events.h"
+#include "Framework/Application/SlateApplication.h"
 #include "AIController.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -98,6 +99,7 @@ void UShipMinimapWidget::NativeConstruct()
         ContentOverlay->SetRenderTransformPivot(FVector2D::ZeroVector);
     }
     ApplyMinimapTransform();
+    SetMouseInteractionEnabled(false);
 }
 void UShipMinimapWidget::NativeDestruct()
 {
@@ -119,10 +121,22 @@ void UShipMinimapWidget::SetInteractiveMode(bool bActive)
 {
     bInteractiveActive = bActive;
     bFollowShip = bActive;
-    bIsDragging = false;
+    SetMouseInteractionEnabled(false);
     SetMinimapZoom(bActive ? 9.0f : 1.0f);
     if (bActive)
         UpdateShipFocus();
+}
+void UShipMinimapWidget::SetMouseInteractionEnabled(bool bEnabled)
+{
+    bMouseInteractionEnabled = bInteractiveActive && bEnabled;
+    if (!bMouseInteractionEnabled)
+    {
+        bIsDragging = false;
+        if (FSlateApplication::IsInitialized() && HasMouseCapture())
+            FSlateApplication::Get().ReleaseMouseCapture();
+    }
+    SetVisibility(bMouseInteractionEnabled ? ESlateVisibility::Visible
+                                         : ESlateVisibility::HitTestInvisible);
 }
 FVector2D UShipMinimapWidget::GetMapViewportSize() const
 {
@@ -214,6 +228,8 @@ void UShipMinimapWidget::SetMinimapZoom(float InZoom)
 }
 FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (!bMouseInteractionEnabled)
+        return FReply::Unhandled();
     const float WheelDelta = InMouseEvent.GetWheelDelta();
     if (FMath::IsNearlyZero(WheelDelta))
     {
@@ -281,6 +297,8 @@ FReply UShipMinimapWidget::NativeOnMouseWheel(const FGeometry& InGeometry, const
 }
 FReply UShipMinimapWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (!bMouseInteractionEnabled)
+        return FReply::Unhandled();
     if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton || InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton)
     {
         if (!BorderWrap)
@@ -310,6 +328,8 @@ FReply UShipMinimapWidget::NativeOnMouseButtonDown(const FGeometry& InGeometry, 
 }
 FReply UShipMinimapWidget::NativeOnMouseMove(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (!bMouseInteractionEnabled)
+        return FReply::Unhandled();
     if (bIsDragging && CurrentZoom > 1.0f)
     {
         const FVector2D CurrentScreenMouse = InMouseEvent.GetScreenSpacePosition();
@@ -325,6 +345,8 @@ FReply UShipMinimapWidget::NativeOnMouseMove(const FGeometry& InGeometry, const 
 }
 FReply UShipMinimapWidget::NativeOnMouseButtonUp(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (!bMouseInteractionEnabled)
+        return FReply::Unhandled();
     if (bIsDragging && (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton || InMouseEvent.GetEffectingButton() == EKeys::RightMouseButton))
     {
         bIsDragging = false;
@@ -334,6 +356,8 @@ FReply UShipMinimapWidget::NativeOnMouseButtonUp(const FGeometry& InGeometry, co
 }
 FReply UShipMinimapWidget::NativeOnMouseButtonDoubleClick(const FGeometry& InGeometry, const FPointerEvent& InMouseEvent)
 {
+    if (!bMouseInteractionEnabled)
+        return FReply::Unhandled();
     if (InMouseEvent.GetEffectingButton() == EKeys::LeftMouseButton)
     {
         if (!BorderWrap)

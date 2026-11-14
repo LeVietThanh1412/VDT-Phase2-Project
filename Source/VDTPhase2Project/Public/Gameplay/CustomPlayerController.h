@@ -15,6 +15,7 @@ class UTeamCountBarWidget;
 class UKillFeedWidget;
 class USpringArmComponent;
 class UShipSetupWidget;
+class UShipMinimapWidget;
 
 /** Views ships with Q without taking their AI controllers; F toggles free
  * flight. */
@@ -44,6 +45,10 @@ public:
   void ShowBattlefieldOverview();
   UFUNCTION(BlueprintCallable, Category = "Minimap")
   void ToggleMinimapInteractiveMode();
+  UFUNCTION(BlueprintCallable, Category = "Minimap")
+  void BeginMinimapMouseInteraction();
+  UFUNCTION(BlueprintCallable, Category = "Minimap")
+  void EndMinimapMouseInteraction();
   void BeginFullAIDemo(APawn *InitialShip);
   UPROPERTY(BlueprintReadOnly, Category = "Spectator")
   bool bFullAISpectating = false;
@@ -58,6 +63,10 @@ public:
   APawn *GetSelectedShip() const;
 
 private:
+  UShipMinimapWidget* FindMinimap() const;
+  bool HasModalUI() const;
+  void UseGameplayMouseInput();
+  void ResetMinimapInteraction();
   void ToggleFreeCamera();
   void ToggleBattlefieldOverview();
   void RestoreRecentShipView();
@@ -113,6 +122,7 @@ private:
   bool bMenuPausedWorld = false;
   bool bBattlefieldOverview = false;
   bool bMinimapInteractiveMode = false;
+  bool bMinimapMouseInteraction = false;
   UPROPERTY(Transient) TObjectPtr<APawn> OriginalPlayerShip;
   UPROPERTY()
   TObjectPtr<APawn> PreviousPawn;
