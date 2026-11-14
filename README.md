@@ -1,288 +1,257 @@
-# Current developer entrypoints
+# VDT Phase 2 — Mô phỏng hải chiến trên địa hình thực tế
 
-- Architecture: [project structure](Docs/Architecture/PROJECT_STRUCTURE.md)
-- QA: [test entrypoints](Tools/Testing/README.md)
-- Cleanup/recovery: [audit](Docs/Maintenance/CLEANUP_AUDIT.md)
-- Fixed terrain/sector frame: [battlefield guide](Docs/QuangNinhIntegration/SECTOR_BATTLEFIELD_GUIDE.md)
+Mô phỏng hải chiến tại Quảng Ninh bằng **Unreal Engine 5.6, Cesium, C++ và Blueprint**. Bạn có thể lái một tàu, quan sát hai đội AI, tự đặt điểm xuất phát/tuyến tuần tra A–B hoặc sinh bố trí từ seed.
 
-Current verification: **DEMO_READY_WITH_LIMITATIONS** for the documented island-defense preset. Start with [demo setup](Docs/Demo/DEMO_SETUP.md) or `powershell -NoProfile -ExecutionPolicy Bypass -File .\Tools\RunDemo.ps1`. See [final QA](Docs/Testing/FINAL_QA_REPORT.md), [source audit](Docs/Architecture/CODEBASE_AUDIT.md) and [verified refactors](Docs/Architecture/REFACTOR_REPORT.md). Four natural3v3 matches completed across incremental builds; the final native build won in371.89s. Uncertified alternative fleet/path combinations are explicitly listed.
+![Tàu người chơi, HUD và bản đồ Quảng Ninh](reports/images/details_ship.jpg)
 
-# VDT Phase 2 Project
+**[Báo cáo kỹ thuật và hướng dẫn tính năng](reports/reports.pdf)** · **[Ảnh demo](reports/images)**
 
-Project Unreal Engine cho prototype/trình diễn tác chiến hải quân, tập trung vào điều khiển tàu, ngắm bắn, projectile, hiệu ứng chiến đấu và môi trường biển. Gameplay uses native geographic navigation, tactical missions, shared combat/health/reload, physics profiles and UI, while retaining the original Blueprint propulsion, turret and projectile graphs.
+## Tính năng
 
-## Mục lục
+- Hai đội Blue/Red, mỗi đội **1–3 tàu**, chọn Small/Medium/Large; người chơi mặc định Medium.
+- Địa hình và ảnh phủ Quảng Ninh từ **UnrealTerrainSet**, mặt nước và buoyancy từ Unreal Water.
+- Lực đẩy, bánh lái, quán tính, giới hạn tốc độ và cản nước theo từng profile.
+- AI dùng **A***, bám waypoint, phanh, tránh đảo/tàu và phục hồi khi bị cản.
+- Tuần tra **xuất phát → A → B → A…**, hoặc bố trí tự động theo seed.
+- Nhận diện địch, bắn đón, sát thương, băng **10 viên**, nạp **30 giây**, cháy/chìm.
+- HUD, kill feed, camera, minimap **9× theo tàu**, bảng kết quả và chơi lại.
+- Terrain/imagery dùng **đường dẫn động theo thư mục project**, có khai báo dữ liệu rời cho bản đóng gói.
 
-- [Tổng quan](#tổng-quan)
-- [Yêu cầu môi trường](#yêu-cầu-môi-trường)
-- [Mở project](#mở-project)
-- [Chạy thử](#chạy-thử)
-- [Build](#build)
-- [Cấu trúc project](#cấu-trúc-project)
-- [Gameplay và asset chính](#gameplay-và-asset-chính)
-- [Input](#input)
-- [Cấu hình runtime](#cấu-hình-runtime)
-- [Cesium](#cesium)
-- [Quy trình phát triển](#quy-trình-phát-triển)
-- [Lưu ý khi làm việc với asset](#lưu-ý-khi-làm-việc-với-asset)
-- [Giới hạn tài liệu](#giới-hạn-tài-liệu)
+## 1. Cài môi trường
 
-## Tổng quan
+Hướng dẫn dành cho **Windows 64-bit**, mở project từ mã nguồn.
 
-| Hạng mục | Giá trị |
+| Thành phần | Cấu hình |
 | --- | --- |
-| Tên project | `VDTPhase2Project` |
-| Unreal Engine | `5.6` |
-| Module runtime | `VDTPhase2Project` |
-| Game target | `VDTPhase2Project` |
-| Editor target | `VDTPhase2ProjectEditor` |
-| Map mặc định | `/Game/Levels/MainMapLevel` |
-| Game mode mặc định | `/Game/Ship/BluePrint/GMBP` |
-| Nền tảng cấu hình chính | Windows 64-bit |
-| Rendering | DirectX 12, shader target `PCD3D_SM6` |
+| Unreal Engine | **5.6**; dự án đã sử dụng 5.6.1 |
+| Visual Studio | **2022**, từ 17.8; Epic khuyến nghị 17.14 với UE 5.6 |
+| Toolchain | MSVC v143 **14.38.33130**, Windows SDK **10.0.22621.0** hoặc mới hơn tương thích |
+| Workload | **Game development with C++**, **Desktop development with C++** |
+| Plugin | **Cesium for Unreal** tương thích UE 5.6; **Water**, **Procedural Mesh Component** |
+| Git | Git và **Git LFS** để tải đầy đủ asset/ảnh |
+| Máy | GPU phù hợp DirectX 12/Shader Model 6; SSD và dung lượng cho asset, dữ liệu, shader cache |
 
-Các plugin được bật trong project:
+Cài UE bằng Epic Games Launcher và cài Cesium vào **đúng bản UE 5.6**. Import [.vsconfig](.vsconfig) trong Visual Studio Installer để xem thành phần project dùng. Tham khảo [toolchain chính thức của UE 5.6](https://dev.epicgames.com/documentation/en-us/unreal-engine/setting-up-visual-studio-development-environment-for-cplusplus-projects-in-unreal-engine?application_version=5.6). `VisualStudioTools` là plugin tùy chọn, không thay compiler.
 
-- `CesiumForUnreal`: dữ liệu/địa hình địa lý 3D và các thiết lập Cesium.
-- `ModelingToolsEditorMode`: công cụ modeling trong Unreal Editor.
+## 2. Tải project
 
-## Yêu cầu môi trường
-
-### Bắt buộc
-
-- Unreal Engine `5.6`.
-- Windows với toolchain C++ cho Unreal Engine.
-- Visual Studio với các workload Native Game/Native Desktop.
-- MSVC x86/x64, Windows 11 SDK và Unreal debugger/IDE.
-- Plugin `CesiumForUnreal` tương thích với Unreal Engine `5.6`.
-
-Các thành phần Visual Studio được project ghi nhận trong [.vsconfig](.vsconfig). Có thể dùng Visual Studio Installer để import file này và cài đúng workload.
-
-### Khuyến nghị
-
-- GPU hỗ trợ DirectX 12 và shader model 6.
-- SSD và đủ dung lượng trống cho asset, shader cache và Derived Data Cache.
-- Đăng nhập Cesium ion nếu level yêu cầu dữ liệu Cesium từ ion.
-
-## Mở project
-
-1. Cài đúng Unreal Engine `5.6` và các plugin nêu trên.
-2. Mở [VDTPhase2Project.uproject](VDTPhase2Project.uproject) bằng Unreal Editor.
-3. Chờ Unreal hoàn tất load asset và compile shader lần đầu.
-4. Mở map `/Game/Levels/MainMapLevel` nếu Editor không tự mở map mặc định.
-5. Nếu cần build C++, mở [VDTPhase2Project.code-workspace](VDTPhase2Project.code-workspace) bằng VS Code hoặc mở solution do Unreal generate bằng Visual Studio.
-
-> `VDTPhase2Project.code-workspace` hiện đang tham chiếu Unreal Engine tại `F:\Epic Games\UE_5.6` và workspace tại `E:\LeVietThanh1412-Product\VDT-Phase2-Project`. Nếu máy khác dùng đường dẫn khác, cần cập nhật các task trong file workspace hoặc dùng đường dẫn tới `Build.bat` tương ứng.
-
-## Chạy thử
-
-### Từ Unreal Editor
-
-1. Mở `MainMapLevel`.
-2. Nhấn **Play** để chạy trong editor.
-3. Dùng **Standalone Game** nếu cần kiểm tra gần với runtime độc lập.
-4. Có thể mở `TestLevel` để kiểm tra scene thử nghiệm.
-
-Map mặc định và game mode được cấu hình trong [Config/DefaultEngine.ini](Config/DefaultEngine.ini):
-
-```ini
-GameDefaultMap=/Game/Levels/MainMapLevel.MainMapLevel
-EditorStartupMap=/Game/Levels/MainMapLevel.MainMapLevel
-GlobalDefaultGameMode=/Game/Ship/BluePrint/GMBP.GMBP_C
-```
-
-### Từ command line
-
-Đường dẫn executable phụ thuộc vị trí cài Unreal Engine. Ví dụ với Unreal Engine cài tại `F:\Epic Games\UE_5.6`:
+Mở PowerShell tại nơi muốn lưu project:
 
 ```powershell
-& "F:\Epic Games\UE_5.6\Engine\Binaries\Win64\UnrealEditor.exe" `
-	"E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject" `
-	"/Game/Levels/MainMapLevel"
+git lfs install
+git clone https://github.com/Mr-Gwenchana/VDT-Phase2-Project.git
+Set-Location .\VDT-Phase2-Project
+git lfs pull
+git lfs checkout
 ```
 
-## Build
-
-Project có sẵn task build cho game/editor ở các configuration `Debug`, `DebugGame`, `Development`, `Test` và `Shipping` trong [VDTPhase2Project.code-workspace](VDTPhase2Project.code-workspace).
-
-### Build từ VS Code
-
-1. Mở Command Palette.
-2. Chọn **Tasks: Run Task**.
-3. Chọn task có tiền tố `VDTPhase2Project` cho game hoặc `VDTPhase2ProjectEditor` cho editor.
-4. Chọn `Development Build` cho build phát triển thông thường.
-
-Các task `Rebuild` sẽ gọi `Clean` trước khi build. Chỉ dùng khi cần loại bỏ artifact build cũ hoặc khi build incremental cho kết quả không nhất quán.
-
-### Build trực tiếp bằng PowerShell
-
-```powershell
-$ueRoot = "F:\Epic Games\UE_5.6"
-$project = "E:\LeVietThanh1412-Product\VDT-Phase2-Project\VDTPhase2Project.uproject"
-
-& "$ueRoot\Engine\Build\BatchFiles\Build.bat" `
-	VDTPhase2Project Win64 Development $project -waitmutex
-```
-
-Build editor:
-
-```powershell
-& "$ueRoot\Engine\Build\BatchFiles\Build.bat" `
-	VDTPhase2ProjectEditor Win64 Development $project -waitmutex
-```
-
-Nếu build lỗi sau khi đổi module hoặc target, có thể chạy `Clean.bat` với cùng target/configuration rồi build lại. Không nên đưa các thư mục build/cache sinh ra vào thay đổi gameplay.
-
-## Cấu trúc project
+Chờ LFS tải xong trước khi mở UE. Nếu `.uasset`, `.jpg` hoặc `.png` chỉ chứa dòng `version https://git-lfs.github.com/spec/v1`, đó vẫn là con trỏ, chưa phải asset thật. Bản ZIP có thể chưa chứa đầy đủ dữ liệu LFS.
 
 ```text
-VDTPhase2Project/
-├── Config/
-│   ├── DefaultEditor.ini       # Thiết lập editor dùng chung
-│   ├── DefaultEngine.ini       # Map, game mode, renderer, collision, platform
-│   ├── DefaultGame.ini         # Thiết lập game/CommonUI/ProjectID
-│   └── DefaultInput.ini        # Enhanced Input classes và axis mặc định
-├── Content/
-│   ├── AntiShip/                # Asset phương tiện/pháo và hiệu ứng đối kháng
-│   ├── CesiumSettings/          # Thiết lập Cesium ion/server
-│   ├── LandscapeMaterials/      # Material môi trường, gồm Ocean
-│   ├── Levels/                  # Map chính, map test và HLOD data
-│   ├── Ship/                    # Gameplay tàu, vehicle asset, input, UI, sound
-│   └── __ExternalActors__/      # External actor data của level
-├── Source/
-│   ├── VDTPhase2Project/        # Module C++ runtime
-│   ├── VDTPhase2Project.Target.cs
-│   └── VDTPhase2ProjectEditor.Target.cs
+VDT-Phase2-Project/
 ├── VDTPhase2Project.uproject
-├── VDTPhase2Project.code-workspace
-└── .vsconfig
+├── Config/
+├── Source/
+├── Content/
+│   ├── Levels/MainMapLevel.umap
+│   ├── __ExternalActors__/...
+│   ├── Game/UI/Minimap/...
+│   └── SeaNavigation/
+│       ├── halong_navigation.json
+│       ├── quangninh_sectors.json
+│       └── quangninh_demo_routes.json
+├── Data/UnrealTerrainSet/QuangNinh/
+│   ├── Terrain/layer.json
+│   ├── Terrain/{z}/{x}/{y}.terrain
+│   ├── Imagery/tilemapresource.xml
+│   └── Imagery/{z}/{x}/{y}.png
+└── reports/
+    ├── reports.pdf
+    └── images/
 ```
 
-### Các thư mục cần biết trong `Content`
+`{z}/{x}/{y}` mô tả cấp và chỉ số tile, không phải tên thư mục cần tạo nguyên văn. Khi nhận project qua ổ cứng, cần chép cả metadata lẫn các tile con.
 
-| Thư mục | Vai trò |
+## 3. Dữ liệu bản đồ và đường dẫn động
+
+### UnrealTerrainSet
+
+Nguồn chính là **`Data/UnrealTerrainSet/QuangNinh`**:
+
+| Tệp | Chức năng |
 | --- | --- |
-| `Content/Levels` | `MainMapLevel.umap`, `TestLevel.umap` và HLOD asset tương ứng |
-| `Content/Ship/BluePrint` | `BP_Ship`, animation Blueprint, projectile Blueprint và `GMBP` |
-| `Content/Ship/Inputs` | Input Action và Input Mapping Context cho tàu |
-| `Content/Ship/Widgets` | UI, hiện có `WBP_Crosshair` |
-| `Content/Ship/Assets/VigilanteContent/Vehicles/West_Ship_DDG102` | Model, skeletal asset, material, FX và các level showcase của tàu |
-| `Content/AntiShip/Assets/Vehicles/East_Arty_D30122mm` | Asset pháo/đối tượng anti-ship, material và FX |
-| `Content/Ship/Assets/VigilanteContent/Shared/Particles` | Particle system, Niagara/FX material, mesh và texture dùng chung |
-| `Content/LandscapeMaterials/Ocean` | Material liên quan cảnh quan/mặt biển |
-| `Content/__ExternalActors__` | Actor được Unreal lưu ngoài file map cho `MainMapLevel` và `TestLevel` |
+| `Terrain/layer.json` | Manifest **quantized-mesh-1.0**, EPSG:4326, sơ đồ TMS, phạm vi phủ và mẫu URL tile |
+| `Terrain/{z}/{x}/{y}.terrain` | Hình học độ cao, các mức dữ liệu 0–13 |
+| `Imagery/tilemapresource.xml` | Manifest ảnh TMS: EPSG:4326, tile PNG **256×256**, các mức 6–14 |
+| `Imagery/{z}/{x}/{y}.png` | Ảnh bề mặt phủ lên terrain; không phải dữ liệu độ sâu hoặc vùng đi được |
 
-## Gameplay và asset chính
-
-Các asset gameplay có thể bắt đầu đọc/chỉnh sửa từ những đường dẫn sau:
+Actor **`QuangNinh_Terrain`** dùng Cesium 3D Tileset; component **`QuangNinh_Imagery`** dùng Cesium Tile Map Service Raster Overlay. Component **`PortableLocalTerrain`** tự ghép:
 
 ```text
-/Game/Ship/BluePrint/BP_Ship
-/Game/Ship/BluePrint/ABP_Ship
-/Game/Ship/BluePrint/BP_ShipProjectile
-/Game/Ship/BluePrint/BP_ShipProjectileWithSpeed
-/Game/Ship/BluePrint/GMBP
-/Game/Ship/Widgets/WBP_Crosshair
+ProjectDir + Data/UnrealTerrainSet/QuangNinh/Terrain/layer.json
+ProjectDir + Data/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml
 ```
 
-Nhóm asset phương tiện và trình diễn:
+Hai đường dẫn được đổi sang URL `file:///`, có mã hóa khoảng trắng và ký tự Unicode. Khi chuyển project hoặc bản đóng gói sang thư mục khác, hệ thống tính lại URL; không cần nhập ổ E:/F: của máy tác giả. Các thuộc tính `TerrainFile` và `ImageryFile` của component lưu **đường dẫn tương đối**. URL được để trống trong actor đã lưu và được dựng lại khi component đăng ký; lúc cook cũng xóa URL preview để không mang đường dẫn máy phát triển vào bản game.
 
-- `West_Ship_DDG102`: tàu chính, skeletal mesh, physics asset, animation, material, damaged state, FX và các level phụ.
-- `East_Arty_D30122mm`: asset pháo/đối tượng đối kháng, model, damaged material và hiệu ứng firing/shell ejection.
-- `Content/Levels/MainMapLevel.umap`: map mặc định để chạy game.
-- `Content/Levels/TestLevel.umap`: map dùng cho kiểm thử/thử nghiệm scene.
+Giữ đầy đủ cây `Data/UnrealTerrainSet/QuangNinh`. Không xóa manifest hoặc đổi cấu trúc tile khi chuyển máy. Hai nguồn local này không cần Cesium ion token; nguồn online bổ sung có cấu hình riêng. Tham khảo [định dạng Cesium hỗ trợ](https://cesium.com/learn/unreal/unreal-faq/#what-file-formats-can-i-load-with-cesium-for-unreal).
 
-Module C++ hiện chỉ đăng ký game module trong [Source/VDTPhase2Project/VDTPhase2Project.cpp](Source/VDTPhase2Project/VDTPhase2Project.cpp). Nếu bổ sung gameplay C++, cần cập nhật dependency trong [Source/VDTPhase2Project/VDTPhase2Project.Build.cs](Source/VDTPhase2Project/VDTPhase2Project.Build.cs) và giữ code runtime trong `Source/VDTPhase2Project`.
+### Ba JSON gameplay
 
-Dependency C++ hiện tại:
+| Tệp trong `Content/SeaNavigation` | Chức năng |
+| --- | --- |
+| `halong_navigation.json` | Lưới nước/đất **400×400**, ô **100 m**, vùng đệm bờ và clearance cho A* |
+| `quangninh_sectors.json` | **625 sector**, vùng nhiệm vụ, khả năng phù hợp từng loại tàu và mã kiểm tra chart |
+| `quangninh_demo_routes.json` | Gợi ý tuần tra, tập kết, tiếp cận và seed mẫu |
 
-- `Core`
-- `CoreUObject`
-- `Engine`
-- `InputCore`
-- `EnhancedInput`
+Terrain/imagery tạo môi trường nhìn thấy; ba JSON trên phục vụ điều hướng và nhiệm vụ. Không dùng `halong_navigation.json` thay URL terrain. Khi thay chart cần cập nhật sector tương ứng vì hệ thống kiểm tra mã dữ liệu. Dữ liệu bờ dẫn xuất từ OpenStreetMap **không có độ sâu đáy biển**; xem [attribution](Data/SeaNavigation/ATTRIBUTION.md).
 
-## Input
+### Dữ liệu khi package
 
-Project dùng Enhanced Input làm hệ thống input mặc định:
+[VDTPhase2Project.Build.cs](Source/VDTPhase2Project/VDTPhase2Project.Build.cs) khai báo:
 
-- `IA_MoveForwardBackward`: di chuyển tiến/lùi.
-- `IA_MoveLeftRight`: di chuyển trái/phải.
-- `IA_Aim`: ngắm.
-- `IA_Fire`: bắn.
-- `IA_LookAround`: quan sát xung quanh.
-- `IA_Zoom`: zoom.
-- `IMC_Ship`: mapping context cho tàu.
+- Ba JSON gameplay là **UFS**.
+- `.terrain`, `.png`, `.json`, `.xml` dưới `Data/UnrealTerrainSet/QuangNinh` là **NonUFS** để Cesium đọc file rời ngoài pak.
 
-Các asset này nằm trong `Content/Ship/Inputs`. Mapping phím thực tế được lưu trong asset nhị phân `IMC_Ship`, vì vậy cần mở asset trong Unreal Editor để xem hoặc thay đổi phím. [Config/DefaultInput.ini](Config/DefaultInput.ini) xác nhận `EnhancedPlayerInput` và `EnhancedInputComponent` là class input mặc định, nhưng không thay thế mapping trong `IMC_Ship`.
+Giữ nguyên cả thư mục Windows được tạo khi package, gồm thư mục dữ liệu của project; không chỉ chép một file `.exe`.
 
-## Cấu hình runtime
+## 4. Build và mở project
 
-Một số thiết lập đáng chú ý trong [Config/DefaultEngine.ini](Config/DefaultEngine.ini):
+Đóng Editor trước khi build/link đầy đủ. Chạy PowerShell tại thư mục có `.uproject`:
 
-- DirectX 12 là graphics RHI mặc định trên Windows.
-- Shader target Windows là `PCD3D_SM6`.
-- Ray tracing được bật.
-- Mesh distance fields được bật.
-- Virtual Shadow Maps được bật.
-- Dynamic Global Illumination và reflection method được cấu hình cho desktop/high-quality rendering.
-- Collision profile `WaterBodyCollision` được khai báo cho tương tác với mặt nước.
-- Hardware targeting là desktop và performance target là maximum.
+```powershell
+$ueRoot = 'F:\Epic Games\UE_5.6' # Sửa theo nơi cài UE.
+$projectFile = (Resolve-Path '.\VDTPhase2Project.uproject').Path
 
-Các thiết lập này ưu tiên chất lượng hình ảnh. Khi chạy trên máy yếu hoặc gặp lỗi shader/GPU, hãy kiểm tra DX12, driver GPU và shader cache trước khi thay đổi asset gameplay.
+& "$ueRoot\Engine\Build\BatchFiles\Build.bat" `
+    VDTPhase2ProjectEditor Win64 Development `
+    "-Project=$projectFile" -WaitMutex -NoHotReloadFromIDE
+```
 
-## Cesium
+Build thành công rồi mở project:
 
-Plugin `CesiumForUnreal` được bật trong [VDTPhase2Project.uproject](VDTPhase2Project.uproject). Các thiết lập liên quan nằm trong `Content/CesiumSettings`.
+```powershell
+& "$ueRoot\Engine\Binaries\Win64\UnrealEditor.exe" `
+    $projectFile '/Game/Levels/MainMapLevel'
+```
 
-Khi chuyển project sang máy khác:
+Hoặc Generate Visual Studio project files từ menu chuột phải `.uproject` rồi build **Development Editor / Win64**. Không cần workspace riêng hoặc `.sln` đã tạo trên máy tác giả để chạy `Build.bat`.
 
-1. Cài đúng plugin Cesium cho Unreal Engine `5.6`.
-2. Kiểm tra plugin đang Enabled trong **Edit > Plugins**.
-3. Kiểm tra thông tin Cesium ion/server trong `Content/CesiumSettings`.
-4. Nếu level dùng dữ liệu trực tuyến, đăng nhập hoặc cấu hình token theo môi trường local thay vì commit secret vào repository.
-5. Mở `MainMapLevel` và kiểm tra terrain/imagery sau khi shader và asset load xong.
+Trong **Edit → Plugins**, kiểm tra Cesium, Water và Procedural Mesh Component đã bật. Mở **`/Game/Levels/MainMapLevel`**, chờ shader/asset lần đầu, nhấn **Play** rồi nhấp viewport để nhận input. Build Editor chỉ tạo module dùng trong Editor; để có bản Windows riêng, thực hiện **Platforms → Windows → Package Project** theo cấu hình bạn muốn và giữ đầy đủ dữ liệu được stage.
 
-## Quy trình phát triển
+## 5. Thiết lập demo
 
-### Chỉnh gameplay Blueprint
+<p align="center"><img src="reports/images/start_menu.jpg" alt="Match Settings với hai đội ba tàu" width="480"></p>
 
-1. Mở `BP_Ship`, `BP_ShipProjectile` hoặc `GMBP` trong Content Browser.
-2. Trước khi thay đổi, kiểm tra component, variable và event đang được tham chiếu từ level/game mode.
-3. Nếu thay đổi input, cập nhật `IA_*` và `IMC_Ship` cùng nhau.
-4. Test trên `MainMapLevel`; dùng `TestLevel` hoặc level showcase của tàu để cô lập lỗi nếu cần.
-5. Lưu asset và kiểm tra redirector/reference trước khi đổi tên hoặc di chuyển thư mục.
+1. Chọn độ khó **Easy / Normal / Hard** và **Real-Time / Turn-Based**.
+2. Chọn **GENERATE MANUALLY (A-B)** để dùng bố trí đã lưu, hoặc **GENERATE FROM SEED**.
+3. Chọn **Player + AI** để tự lái, hoặc **Full AI / spectator** để quan sát.
+4. Chọn đội, số lượng và loại tàu. PLAYER mặc định Medium, có thể đổi Small/Large.
+5. Chọn Standard để dùng 100 HP/10 damage, hoặc cân bằng theo class.
+6. Nhấn **START NEW MATCH** và chờ **PREPARING BATTLEFIELD** kết thúc.
 
-### Chỉnh C++
+![Chuẩn bị chiến trường](reports/images/preparing_battlefield.jpg)
 
-1. Thêm class vào `Source/VDTPhase2Project` theo convention của Unreal.
-2. Thêm module dependency cần thiết vào `VDTPhase2Project.Build.cs`.
-3. Build `VDTPhase2ProjectEditor Win64 Development`.
-4. Mở lại editor nếu module hot reload không phản ánh thay đổi đầy đủ.
+Giai đoạn chuẩn bị xác nhận dữ liệu, vị trí và trạng thái thân tàu. Nếu **SETUP FAILED**, dùng P trở lại thiết lập và kiểm tra vị trí/tuyến.
 
-### Kiểm tra trước khi gửi thay đổi
+### Tự đặt vị trí và tuyến A–B
 
-- Mở được project bằng Unreal Engine `5.6`.
-- Map mặc định vẫn là `MainMapLevel`.
-- `GMBP` và các asset input không bị missing reference.
-- Play được map chính và kiểm tra được điều khiển tàu, ngắm, bắn, zoom nếu các tính năng này đã được nối trong Blueprint.
-- Build editor ở configuration phù hợp không có lỗi C++.
-- Không commit token, file tạm, shader cache hoặc dữ liệu local của editor.
+Thực hiện khi **chưa Play**:
 
-## Lưu ý khi làm việc với asset
+1. Đặt AI trên nước, chừa khoảng trống cho toàn bộ thân và vòng quay.
+2. Đặt **PlayerStart** tại vị trí xuất phát của người chơi.
+3. Tạo hai TargetPoint riêng cho mỗi AI, ví dụ `TP_Friendly_01_A/B`.
+4. Gán **PatrolActorA / PatrolActorB** trong **ShipEnemyNavigationComponent**. Để **PatrolCircuitActors** trống nếu chỉ dùng hai điểm.
+5. Dùng Blueprint đã tích hợp điều hướng, như `BP_ShipEnemy` hoặc `BP_ShipSmallAI`; lưu map/actor.
+6. Play, chọn chế độ thủ công rồi bắt đầu trận.
 
-- Không chỉnh sửa trực tiếp file `.uasset` hoặc `.umap` bằng text editor.
-- Không xóa `Content/__ExternalActors__` khi chưa hiểu level đang tham chiếu actor nào.
-- Khi di chuyển asset trong Unreal Editor, dùng **Migrate/Move** và xử lý redirector để giữ reference.
-- `DerivedDataCache`, `Intermediate`, `Saved` và `Binaries` là dữ liệu sinh ra/local; không dùng chúng làm nguồn sự thật cho gameplay.
-- Các thư mục `Content/Developers` và `Content/Collections` có thể chứa dữ liệu làm việc cá nhân/editor; kiểm tra kỹ trước khi chia sẻ hoặc đưa vào release.
+Tàu chạy **xuất phát → A → B → A…**. Bố trí demo dùng bán kính đến 80 m; nên tách A/B hơn hai lần bán kính và chừa vùng quay. Chế độ thủ công giữ A/B nhưng vẫn ngắm/bắn; không tự bỏ tuyến để truy đuổi/rút lui.
 
-## Giới hạn tài liệu
+Trong Player + AI, người chơi tự lái. Full AI cần thêm đúng một marker có tag **`Naval.PlayerPatrol.A`** và một marker khác có tag **`Naval.PlayerPatrol.B`** cho slot thay người chơi. AI đặt sẵn vẫn dùng tham chiếu A/B riêng.
 
-README này được lập từ các file text/config và inventory asset hiện có. Nội dung graph Blueprint, actor cụ thể đặt trong map, phím được gán trong `IMC_Ship`, thông số material/FX, thứ tự gameplay và trạng thái kết nối Cesium ion không thể xác nhận đầy đủ chỉ bằng tên file `.uasset`/`.umap`. Khi cần tài liệu gameplay chính xác hơn, nên mở project bằng Unreal Editor và bổ sung:
+### Sinh từ seed
 
-- sơ đồ flow của `GMBP` và `BP_Ship`;
-- bảng phím thực tế từ `IMC_Ship`;
-- danh sách actor/streaming layer trong `MainMapLevel`;
-- quy trình cấu hình Cesium ion cho môi trường local/CI;
-- ảnh chụp hoặc video build đã được QA xác nhận.
+Chọn GENERATE FROM SEED và nhập seed dương, ví dụ `20261028`; **0** yêu cầu seed mới. Cùng seed, dữ liệu và đội hình giúp tái lập bố trí, không đảm bảo cùng kết quả trận. Chế độ này cho phép AI thay tuyến theo nhiệm vụ/chiến thuật. Seed không xáo vị trí trong chế độ thủ công.
+
+## 6. Điều khiển và quan sát
+
+| Thao tác | Chức năng |
+| --- | --- |
+| W / S | Tiến; hãm hoặc lùi tùy vận tốc |
+| A / D | Bẻ lái trái/phải; thân có quán tính |
+| Di chuột | Đổi góc nhìn/hướng ngắm |
+| Giữ chuột phải | Camera ngắm pháo |
+| Chuột trái | Bắn khi tâm ngắm và vũ khí đủ điều kiện |
+| Cuộn chuột | Zoom camera; khi tương tác minimap thì đổi zoom map |
+| M | Minimap 1×/9× theo tàu đang xem |
+| Giữ Left Alt | Con trỏ để kéo/cuộn minimap; thả để về gameplay |
+| Q | Đổi tàu quan sát, không chuyển quyền lái từ AI |
+| F | Toàn cảnh / trở lại tàu |
+| I | Ẩn/hiện bảng thông tin |
+| P | Tạm dừng và mở thiết lập |
+| Tab | Chuyển đồng đội sống khi người chơi chết; đổi tàu trong Full AI |
+| / | Mở/đóng hướng dẫn |
+| Shift + F1 | Thả chuột ra Unreal Editor trong PIE |
+
+<table>
+<tr><td><img src="reports/images/switch_camera_and_map.jpg" alt="Quan sát tàu Small đội Red"></td><td><img src="reports/images/zoom_map.jpg" alt="Minimap phóng đại khi đang ngắm"></td></tr>
+<tr><td>Q: đổi đối tượng camera và HUD.</td><td>M: xem gần đội hình; giữ Alt khi cần thao tác map.</td></tr>
+</table>
+
+Trong Full AI, camera tự do dùng W/S theo hướng nhìn, A/D dịch ngang, cuộn chuột thay tốc độ bay. Khi người chơi chết, có thể theo đồng đội còn sống hoặc về toàn cảnh.
+
+### Bắn và quản lý đạn
+
+Hướng camera ra ngoài boong, giữ **chuột phải**, chờ tâm ngắm rồi nhấn **chuột trái**. Ngắm vào chính thân có thể ẩn tâm ngắm và chặn bắn. Mỗi phát thành công trừ một viên; hết băng tự nạp 30 giây. **AMMO đỏ khi còn 0–3 viên**, nạp đầy trở lại xanh.
+
+<table>
+<tr><td><img src="reports/images/fighting.jpg" alt="Ngắm pháo trong giao chiến"></td><td><img src="reports/images/effect_fighting.jpg" alt="Khói khi khai hỏa"></td></tr>
+<tr><td>Góc ngắm và thanh HP mục tiêu.</td><td>Pháo, projectile và hiệu ứng dùng chung.</td></tr>
+</table>
+
+Đạn phải trúng đối phương hợp lệ mới gây sát thương. Self/friendly damage và hit trùng được chặn; đảo có thể chắn LOS/đường đạn.
+
+![Tiêu diệt tàu địch và AMMO đỏ khi hết đạn](reports/images/defeat_enemy.jpg)
+
+### Kết thúc trận
+
+Khi một đội hết tàu sống, **Match Summary** hiển thị kết quả và thống kê. Ảnh dưới là ví dụ **DEFEAT** của đội người chơi:
+
+![Kết quả trận và các nút sau trận](reports/images/result.jpg)
+
+- **RETURN TO MAP SETTING**: mở lại thiết lập.
+- **RESTART**: tạo lại trận qua luồng khởi tạo mới.
+- **QUIT**: thoát phiên chơi.
+
+## 7. Minimap và bản package
+
+`Content/Game/UI/Minimap` có đường dẫn asset Unreal là **`/Game/Game/UI/Minimap`**: `/Game` đầu tiên đại diện cho `Content`, phần `Game` thứ hai là thư mục thật. Đây là cùng một thư mục, không phải dữ liệu bị nhân đôi.
+
+[DefaultGame.ini](Config/DefaultGame.ini) đã thêm thư mục này vào **Additional Asset Directories to Cook**, vì icon hai đội được nạp bằng đường dẫn chuỗi. Giữ các texture `ShipMarkerIcon-1` và `ShipMarkerIcon-2` khi cook để Blue/Red không bị rơi về cùng hình mặc định.
+
+## 8. Hiệu chỉnh và xử lý lỗi
+
+Mở DataAsset tại `/Game/NavalBattle/Profiles`. **Forward/Reverse Max Speed** đổi giới hạn tiến/lùi (m/s), **Cruise Speed** đổi tốc độ hành trình AI, **Propulsion Scale** đổi lực đẩy, **Rudder Scale** đổi phản ứng lái. Các hệ số heave/roll/pitch damping điều chỉnh độ cản nhún/lắc. Lưu rồi mở phiên Play mới; khi tăng tốc, thử lại phanh và quay hai chiều.
+
+| Hiện tượng | Kiểm tra |
+| --- | --- |
+| Asset/ảnh không mở | Tải Git LFS đầy đủ; kiểm tra con trỏ |
+| Thiếu Cesium | Cài plugin đúng UE 5.6 và mở lại Editor |
+| Không thấy đảo/ảnh phủ | Giữ đủ `Data/UnrealTerrainSet/QuangNinh`, kiểm tra `PortableLocalTerrain` và `PathError` |
+| SETUP FAILED | Xuất phát/A/B trên đất, tuyến không liên thông, vùng quay hẹp hoặc thiếu marker Full AI |
+| AI đứng yên/không về B | Pause, chết/kết quả, lượt, thời gian chờ, A/B của đúng actor và vật cản |
+| Không bắn/không mất HP | Camera/tâm ngắm, đạn/nạp, cooldown, lượt, địch còn sống, hit có bị chắn không |
+| Chuột chỉ dùng cho map | Thả Left Alt; Shift+F1 là thao tác Editor riêng |
+| C++ sửa mà UI vẫn cũ | Build/link đúng Editor target rồi mở lại UE; compile không link chưa cập nhật DLL |
+| Dòng vàng VSM trên ảnh | Cảnh báo tải Virtual Shadow Map, cần kiểm tra shadow/hiệu năng; khác lỗi JSON hoặc kết quả trận |
+
+## Tìm hiểu thêm
+
+- `Source/VDTPhase2Project`: AI, điều hướng, chiến đấu, vật lý, UI và vòng đời trận.
+- `Content/Ship`, `Content/ShipEnemy`, `Content/ShipSmall`: Blueprint và tài nguyên tàu.
+- `Content/NavalBattle/Profiles`: cấu hình các loại tàu.
+- `Content/Levels`, `Content/__ExternalActors__`: map và actor; giữ cả external actor khi sao chép level.
+- `Data/UnrealTerrainSet`: địa hình/ảnh nền; `Content/SeaNavigation`: JSON gameplay.
+- `reports/reports.pdf`: cơ chế, công thức và hướng dẫn tính năng; `reports/images`: ảnh demo.
+
+Đổi tên/di chuyển `.uasset`, `.umap` trong Unreal Editor để giữ tham chiếu. Ảnh demo chụp trong Editor, không phải benchmark của một gói Windows trên mọi máy.

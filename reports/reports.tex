@@ -17,6 +17,7 @@
 \definecolor{vtx}{HTML}{EE0033}
 \definecolor{navy}{HTML}{203340}
 \definecolor{teal}{HTML}{006C73}
+\definecolor{ViettelRed}{HTML}{EE0033}
 \definecolor{pale}{HTML}{F1F6F7}
 \definecolor{graytext}{HTML}{5B6670}
 \hypersetup{colorlinks=true,linkcolor=navy,urlcolor=teal,citecolor=teal,
@@ -82,7 +83,7 @@
 \vspace{4mm}
 \includegraphics[width=55mm]{icons/Viettel_Aerospace_Institute_(VTX)_logo.png}\par
 \vspace{7mm}
-{\large\bfseries VIETTEL AEROSPACE\par}
+{\fontsize{14}{16}\selectfont \textbf{\color{ViettelRed}TẬP ĐOÀN CÔNG NGHIỆP -- VIỄN THÔNG QUÂN ĐỘI}}\\[0.15cm]
 \vspace{3mm}
 {\normalsize\bfseries VIETTEL DIGITAL TALENT 2026\par}
 {\normalsize GIAI ĐOẠN 2\par}
@@ -180,7 +181,7 @@ Mục tiêu của dự án là xây dựng một vòng chơi hoàn chỉnh: thi�
 
 Nhóm tập trung vào ba yêu cầu. Thứ nhất, các tàu phải di chuyển liên tục bằng lực, có quán tính và khả năng tiến, lùi, quay đầu. Thứ hai, AI phải dùng được cùng phương tiện với người chơi, đi được tuyến đã bố trí và tham gia chiến đấu. Thứ ba, người trình diễn phải chủ động thay đổi đội hình, điểm xuất phát, mục tiêu và chế độ trận mà không cần sửa thuật toán.
 
-\demopic[.78]{minimap_follow.png}{Giao diện trong trận: tàu, mặt nước, địa hình đảo, bộ đếm hai đội và minimap cùng xuất hiện trong không gian mô phỏng.}{fig:overview}
+\demopic[.50]{details_ship.jpg}{Tàu người chơi trên biển Quảng Ninh: HUD ở góc trái hiển thị vị trí, tốc độ, HP, hướng và đạn; minimap ở góc phải cho biết vị trí đội hình.}{fig:overview}
 
 \section{Các nhóm chức năng đã xây dựng}
 Các tính năng được tổ chức thành sáu nhóm liên kết với nhau. Bảng dưới đây tóm tắt nội dung và vai trò của từng nhóm trong một trận mô phỏng.
@@ -226,10 +227,63 @@ Các chương tiếp theo phân tích từng nhóm chức năng theo luồng nà
 \section{Địa hình Quảng Ninh và mặt nước}
 Bản đồ sử dụng Cesium để đưa địa hình và lớp ảnh bề mặt của khu vực Quảng Ninh vào Unreal Engine. Địa hình thể hiện hình dạng đảo, bờ và độ cao; imagery cung cấp màu bề mặt. Mặt nước thuộc hệ thống Water của Unreal, tạo bề mặt biển và cung cấp thông tin độ cao nước cho các điểm nổi của tàu. Hai hệ thống có vai trò khác nhau: Cesium biểu diễn môi trường địa lý, còn Water tham gia tương tác vật lý với phương tiện.
 
-Dữ liệu terrain và imagery được tổ chức trong bộ dữ liệu Quảng Ninh của dự án. Cesium tải các phần địa hình theo vị trí quan sát và mức chi tiết. Vì mức chi tiết hiển thị có thể thay đổi, hệ thống điều hướng không dựa đơn thuần vào màu nước nhìn thấy trên màn hình; nó sử dụng dữ liệu vùng nước và kiểm tra collision của thân tàu.
+Dự án sử dụng bộ dữ liệu \textbf{UnrealTerrainSet}, với khu vực Quảng Ninh đặt tại \path{Data/UnrealTerrainSet/QuangNinh}. Bộ dữ liệu có hai phần: \texttt{Terrain} cung cấp hình học độ cao và \texttt{Imagery} cung cấp ảnh phủ bề mặt. Cesium tải các tile theo vị trí quan sát và mức chi tiết. Màu nước nhìn thấy không tự quyết định vùng tàu đi được; điều hướng còn sử dụng dữ liệu nước riêng và kiểm tra collision của thân.
 
 Hình dạng quần đảo tạo ra nhiều trường hợp demo: tuần tra dọc hành lang nước, tránh đảo giữa hai điểm, mất tầm nhìn khi đối phương đi sau bờ và giao cắt đội hình ở vùng nước mở. Đây là lý do bản đồ ảnh hưởng trực tiếp đến cả AI di chuyển lẫn chiến đấu.
 \howto{Mở level \texttt{MainMapLevel}; chờ địa hình được tải trước khi bố trí hoặc quan sát. Đặt tàu trong vùng nước đủ rộng cho toàn bộ thân và khoảng quay, không chỉ đặt tâm actor vào phần có màu xanh.}
+
+\section{Cấu trúc UnrealTerrainSet và luồng nạp bản đồ}
+Các tệp địa hình và ảnh không được nhập thành từng asset trong Content Browser. Cesium đọc một tệp mô tả, từ đó tìm các tile con tương ứng. Cấu trúc dữ liệu sử dụng trong dự án là:
+\begin{lstlisting}
+Data/UnrealTerrainSet/QuangNinh/
+  Terrain/
+    layer.json
+    {z}/{x}/{y}.terrain
+  Imagery/
+    tilemapresource.xml
+    {z}/{x}/{y}.png
+Content/SeaNavigation/
+  halong_navigation.json
+  quangninh_sectors.json
+  quangninh_demo_routes.json
+\end{lstlisting}
+
+\textbf{Terrain/layer.json} là điểm vào của địa hình. Tệp mô tả định dạng \texttt{quantized-mesh-1.0}, hệ chiếu \texttt{EPSG:4326}, sơ đồ tile \texttt{tms}, phạm vi địa lý và những tile có sẵn ở từng mức. Trường \texttt{tiles} chứa mẫu URL \verb|{z}/{x}/{y}.terrain?v={version}|; $z$ là mức chi tiết, còn $x,y$ xác định tile. Dữ liệu hiện có các mức 0--13. Các tệp \texttt{.terrain} chứa lưới độ cao lượng tử hóa, không phải texture màu.\cite{quantized}
+
+Một số trường chính trong tệp được trích như sau:
+\begin{lstlisting}
+{
+  "format": "quantized-mesh-1.0",
+  "scheme": "tms",
+  "projection": "EPSG:4326",
+  "tiles": ["{z}/{x}/{y}.terrain?v={version}"],
+  "bounds": [107.260192, 20.766175, 107.576040, 21.061271]
+}
+\end{lstlisting}
+Đây là phần trích rút gọn; tệp thật còn chứa \texttt{available}, phần mở rộng và metadata. Thứ tự \texttt{bounds} là kinh độ tây, vĩ độ nam, kinh độ đông và vĩ độ bắc. Các giá trị trên cho biết phạm vi dữ liệu, không phải tọa độ xuất phát của tàu.
+
+\textbf{Imagery/tilemapresource.xml} mô tả lớp ảnh TMS trong hệ \texttt{EPSG:4326}. Nó khai báo tile PNG $256\times256$ pixel, phạm vi phủ và các mức 6--14. Các tệp \texttt{Imagery/\{z\}/\{x\}/\{y\}.png} là ảnh bề mặt được phủ lên hình học terrain. Vì vậy chỉ có \texttt{layer.json} mà thiếu tile con sẽ không tạo được địa hình đầy đủ; chỉ có ảnh PNG cũng không tạo được độ cao đảo.
+
+Trong level, actor \texttt{QuangNinh\_Terrain} dùng Cesium 3D Tileset, chọn nguồn \textbf{From URL} và đọc \path{Terrain/layer.json}. Component ảnh \texttt{QuangNinh\_Imagery} dùng TMS Raster Overlay, đọc \path{Imagery/tilemapresource.xml}. Cesium dựng hình học và phủ ảnh lên bề mặt; Water cung cấp mặt biển cùng tương tác nổi riêng.\cite{cesiumfaq}
+
+\subsection{Đường dẫn động và dữ liệu rời khi đóng gói}
+Actor địa hình có component \texttt{PortableLocalTerrain}. Hai thuộc tính cấu hình lưu đường dẫn tương đối đến \path{Data/UnrealTerrainSet/QuangNinh/Terrain/layer.json} và \path{Data/UnrealTerrainSet/QuangNinh/Imagery/tilemapresource.xml}. Khi component đăng ký, hệ thống lấy thư mục project hiện hành, ghép đường dẫn rồi tạo URL \texttt{file:///} cho Cesium. Khoảng trắng và ký tự Unicode được mã hóa phù hợp trong URL.
+
+Có thể mô tả cơ chế bằng $P_{\text{tệp}}=P_{\text{project}}+P_{\text{tương đối}}$, trong đó dấu cộng biểu diễn thao tác ghép đường dẫn. Khi chuyển project hoặc bản game sang ổ đĩa/thư mục khác, $P_{\text{project}}$ thay đổi còn cấu trúc dữ liệu tương đối được giữ. Người dùng không phải nhập lại đường dẫn ổ E:/F: của máy phát triển. Nếu thiếu metadata hoặc đường dẫn ra ngoài thư mục project, component báo lỗi thay vì tiếp tục dùng URL cũ.
+
+Các tệp terrain/imagery được khai báo dạng \textbf{NonUFS} trong cấu hình build: chúng được phân phối thành file rời để Cesium mở qua filesystem. Ba JSON gameplay bên dưới vẫn thuộc \textbf{UFS}. Trong quá trình cook, URL preview của actor được xóa; khi bản game chạy, component dựng lại URL theo thư mục cài đặt. Cách tổ chức này giữ một nguồn UnrealTerrainSet trong Data, không yêu cầu nhân đôi bộ tile trong Content.
+\howto{Giữ nguyên cây \texttt{Data/UnrealTerrainSet/QuangNinh} khi di chuyển project hoặc phân phối game. Mở MainMapLevel và chạy bình thường; component tự cấu hình terrain và imagery. Khi package, cần giữ đầy đủ thư mục kết quả cùng dữ liệu được stage, thay vì chỉ lấy một file thực thi.}
+
+\section{Ba JSON cho điều hướng và bố trí tàu}
+Các JSON trong \path{Content/SeaNavigation} phục vụ gameplay, độc lập với tệp \texttt{layer.json} dùng để vẽ địa hình. Chúng được đọc theo đường dẫn tương đối từ thư mục Content và được khai báo là dữ liệu runtime trong cấu hình build.
+
+\textbf{halong\_navigation.json} lưu lưới nước/đất và dữ liệu khoảng trống cho A*. Tệp khai báo \texttt{VDT\_SEA\_NAV}, hệ \texttt{WGS84\_ECEF\_FIXED\_ENU\_METERS}, kích thước $400\times400$, ô 100 m và biên an toàn 125 m. Gốc địa lý của chart là $(107.296416,20.992597,0)$. Các trường \texttt{origin\_ecef}, \texttt{east\_axis} và \texttt{north\_axis} xác định phép chiếu trình bày ở phần tọa độ. Hai trường \texttt{cells\_base64} và \texttt{clearance\_base64} mã hóa dữ liệu từng ô; Base64 là cách biểu diễn byte trong JSON, không phải thuật toán tìm đường.
+
+\textbf{quangninh\_sectors.json} mô tả lưới nhiệm vụ $25\times25$, mỗi sector 100 m, tâm EN $(14500,3500)$ và phạm vi $2500\times2500$ m. Mỗi sector có vị trí, mức nước, khoảng trống, vùng liên thông và cờ phù hợp cho từng loại tàu. Các nhóm vùng như Blue defense, Red staging và vùng giao cắt giúp chọn điểm ứng viên. Tệp còn lưu mã kiểm tra của chart; nếu thay lưới điều hướng mà giữ sector cũ, hệ thống có thể từ chối vì hai dữ liệu không còn khớp.
+
+\textbf{quangninh\_demo\_routes.json} chứa gợi ý tuyến và vị trí: vòng tuần tra Small Blue, tuyến thân lớn, vị trí tập kết Red, hướng tiếp cận và điểm phòng thủ. Tọa độ trong các mảng là East/North theo mét, không phải longitude/latitude. Trường \texttt{demo\_seed} cung cấp seed mẫu; các gợi ý vẫn phải qua kiểm tra nước, khoảng trống và collision trước khi dùng.
+
+Luồng dữ liệu có thể tóm tắt thành: UnrealTerrainSet tạo môi trường nhìn thấy; chart tạo vùng nước cho A*; sector/tuyến gợi ý tổ chức nhiệm vụ; bộ điều khiển đưa lệnh tới thân vật lý. Dữ liệu bờ của chart được dẫn xuất từ OpenStreetMap và không có thông tin độ sâu đáy biển. Vì thế lớp nước này không phải hải đồ bảo đảm an toàn hàng hải; kiểm tra keel/collision trong mô phỏng vẫn cần thiết.
 
 \section{Liên kết tọa độ địa lý với tọa độ mô phỏng}
 Dự án sử dụng ba cách biểu diễn vị trí. Tọa độ địa lý gồm kinh độ, vĩ độ và độ cao; tọa độ ECEF biểu diễn vị trí theo một hệ trục địa tâm; tọa độ world của Unreal phục vụ actor, camera và physics. Riêng thuật toán điều hướng làm việc trên mặt phẳng Đông--Bắc cố định theo mét. Cesium đảm nhiệm chuyển đổi giữa hệ địa lý và world.\cite{cesium}
@@ -257,7 +311,19 @@ Với bố trí thủ công, vùng collision được kiểm tra quanh tàu và 
 \section{Lưới sector và vai trò trong bố trí tự động}
 Lưới sector là lớp phân vùng nhiệm vụ, tách biệt với lưới tìm đường. Vùng kịch bản có $25\times25$ ô, mỗi ô 100 m, tương ứng cạnh 2.500 m. Các vùng logic phục vụ khu vực phòng thủ, tuần tra, cảnh giới, tập kết và hướng tiếp cận.
 
-\demopic[.46]{sector_grid.png}{Lưới phân vùng chiến trường trên nền đất--nước. Các dấu màu và tuyến biểu diễn bố trí nhiệm vụ; đây là sơ đồ phân tích, không phải ảnh camera trong trận.}{fig:sector}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[x=.20cm,y=.20cm]
+\fill[blue!8] (0,0) rectangle (12,25);
+\fill[red!8] (12,0) rectangle (25,25);
+\fill[teal!14] (10,7) rectangle (15,18);
+\draw[step=1,gray!45,thin] (0,0) grid (25,25);
+\draw[teal,thick] (0,0) rectangle (25,25);
+\node[fill=white,font=\small] at (5,22) {Blue};
+\node[fill=white,font=\small] at (20,22) {Red};
+\node[fill=white,font=\scriptsize,align=center] at (12.5,12.5) {Vùng giao\\nhiệm vụ};
+\end{tikzpicture}
+\caption{Nguyên lý phân vùng trên lưới sector $25\times25$. Màu biểu diễn vùng nhiệm vụ minh họa; đất/nước được xác định bởi chart và collision riêng.}\label{fig:sector}
+\end{figure}
 
 Với kích thước ô $a$ và góc gốc $(E_0,N_0)$, tọa độ ô được xác định theo:
 \begin{equation}
@@ -286,6 +352,7 @@ Bán kính đến đích của các AI trong bố trí demo là 80 m. Hai đầu
 Trong Player + AI, người chơi tự lái; A/B chỉ điều khiển AI. Trong Full AI, slot thay người chơi cũng cần tuyến. Hai marker của slot này dùng tag \texttt{Naval.PlayerPatrol.A} và \texttt{Naval.PlayerPatrol.B}; mỗi tag cần thuộc đúng một actor, và A/B phải là hai actor khác nhau.
 \howto{Muốn trình diễn tuần tra rõ ràng, đặt các đội xa nhau trước, quan sát ít nhất chu trình xuất phát--A--B--A rồi mới đưa tuyến giao cắt vào vùng chiến đấu. Không đặt nhiều điểm chờ trùng một vị trí hẹp.}
 
+\clearpage
 \section{Sinh bố trí từ seed}
 Chế độ \textbf{GENERATE FROM SEED} để hệ thống lựa chọn vị trí xuất phát và mục tiêu từ các vùng nhiệm vụ. Seed là đầu vào khởi tạo bộ sinh số giả ngẫu nhiên. Có thể mô tả quan hệ bố trí bằng:
 \[
@@ -300,7 +367,7 @@ Seed dương được dùng trực tiếp; giá trị 0 yêu cầu tạo seed m�
 \section{Các loại tàu và cấu hình trang bị}
 Dự án cung cấp ba lựa chọn Small, Medium và Large thông qua profile vật lý và trang bị. Small có mô hình thân riêng, kích thước gọn và cấu hình điều khiển phù hợp. Medium và Large dùng cùng họ mô hình gốc nhưng khác khối lượng, lực đẩy, hệ số lái và cấu hình nổi. Vì vậy ba lựa chọn gameplay không đồng nghĩa ba mô hình 3D hoàn toàn độc lập.
 
-\demopic[.94]{small_ship.png}{Tàu Small trong môi trường biển. Mô hình thân, vật liệu và cơ cấu pháo được tích hợp với các thành phần chuyển động, nổi và chiến đấu dùng chung.}{fig:small}
+\demopic[.84]{switch_camera_and_map.jpg}{Quan sát một tàu Small của đội Red: HUD đổi sang BP\_ShipEnemy2 trong khi các tàu khác tiếp tục hoạt động; minimap giữ thông tin vị trí đội hình.}{fig:small}
 
 \begin{table}[H]\centering\small
 \caption{Các thông số cơ sở của ba profile tàu.}
@@ -455,7 +522,17 @@ Trạng thái tuần tra lưu điểm đang hoạt động, số chặng hoàn t
 \]
 $S$ là vị trí xuất phát đã đặt. Nếu $S$ nằm sẵn trong bán kính A, chặng đầu có thể kết thúc nhanh. Đây là lý do nên bố trí khoảng xuất phát rõ ràng khi trình diễn.
 
-\demopic[.66]{authored_routes.png}{Quỹ đạo của sáu tàu trong bài chạy tuần tra có tạm ngừng sát thương. Tam giác chỉ xuất phát, tròn chỉ A, vuông chỉ B; các đường cong là đường tàu đã di chuyển.}{fig:routes}
+\begin{figure}[H]\centering
+\begin{tikzpicture}[node distance=18mm]
+\node[box,text width=25mm] (s) {Vị trí đầu};
+\node[box,text width=25mm,right=of s] (a) {Target A};
+\node[box,text width=25mm,right=of a] (b) {Target B};
+\draw[arr] (s)--node[above,font=\small]{chặng đầu}(a);
+\draw[arr] (a) to[bend left=25] node[above,font=\small]{đi tới B} (b);
+\draw[arr] (b) to[bend left=25] node[below,font=\small]{quay lại A} (a);
+\end{tikzpicture}
+\caption{Chu trình tuần tra: từ vị trí xuất phát tới A, sau đó lặp A--B. Mỗi chặng được lập đường và thực hiện bằng lực vật lý.}\label{fig:routes}
+\end{figure}
 
 Trong chế độ thủ công, A/B là tuyến do người dùng thiết kế. AI vẫn phát hiện và bắn đối phương, nhưng không tự thay tuyến bằng truy đuổi hoặc rút lui chiến thuật. Nhờ đó, người trình diễn có thể chuẩn bị đường đi và thời điểm gặp nhau. Trong bố trí sinh tự động, quyền thay đổi ý định chiến thuật được mở để AI phản ứng với tình huống.
 \howto{Theo dõi tàu thực sự tới cả A và B; không chỉ nhìn một lần quay mũi. Nếu tàu dừng bất thường, kiểm tra cặp tham chiếu, khoảng cách hai điểm, bán kính đến và không gian quay trước khi thay thuật toán.}
@@ -496,6 +573,8 @@ AI lựa chọn mục tiêu từ các tàu còn sống, khác đội và trong p
 Đối phương nằm trong bán kính chưa chắc bắn được. LOS kiểm tra đường quan sát có bị đảo hoặc địa hình chắn hay không. Sau đó hệ thống còn kiểm tra góc pháo, nghiệm đạn đạo, đường bay và quyền bắn. Nhờ vậy, khoảng cách và hình dạng địa hình cùng tham gia quyết định một phát bắn.
 \howto{Đặt hai tàu khác đội tiến vào vùng nước mở để quan sát bắt mục tiêu; sau đó dùng một đảo ở giữa để quan sát mất LOS và tìm lại địch. Không dùng hai tàu đồng đội để thử sát thương đối phương.}
 
+\demopic[.86]{fighting.jpg}{Góc nhìn ngắm pháo khi hai đội ở gần nhau. Tâm ngắm, thanh HP và nhãn đội cho phép theo dõi mục tiêu trong lúc giao chiến.}{fig:aimdemo}
+
 \section{Bắn đón mục tiêu chuyển động}
 Nếu nhắm đúng vị trí hiện tại của mục tiêu, đạn có thể tới nơi sau khi tàu đã rời đi. Bộ giải bắn đón ước lượng thời gian bay $T$, dự đoán vị trí tương lai của địch rồi tìm vận tốc phóng tương ứng.
 
@@ -525,6 +604,8 @@ Người chơi và AI dùng chung thành phần quản lý phát bắn. Yêu c�
 \end{figure}
 
 Cấu trúc này giúp tránh việc người chơi có một hệ đạn còn AI dùng một hệ sát thương tách biệt. Các callback lặp không được tính thành nhiều phát bắn. Projectile lưu thông tin đội và nguồn gây sát thương, nên vẫn xác định đúng quan hệ địch/ta sau khi actor bắn đã bị dọn.
+
+\demopic[.86]{effect_fighting.jpg}{Khói từ khu vực pháo trong một tình huống khai hỏa; mô hình pháo và hiệu ứng được giữ cùng chuỗi vũ khí dùng chung.}{fig:effects}
 
 \section{Băng đạn, nạp và cảnh báo ít đạn}
 Mỗi tàu bắt đầu với băng 10 viên. Mỗi phát thành công giảm một viên; hết băng tự chuyển sang nạp trong 30 giây thời gian mô phỏng. Trong thời gian nạp, yêu cầu bắn bị chặn. Tàu chết sẽ hủy quá trình nạp; đổi mục tiêu không nạp lại băng.
@@ -582,7 +663,7 @@ Vị trí xác được theo dõi trong khung địa lý phù hợp, tránh vi�
 \section{Thông báo tiêu diệt và xác định thắng thua}
 Kill feed hiển thị tên tàu tiêu diệt và tàu bị tiêu diệt. Tên hiển thị lấy từ định danh dễ đọc, giúp người xem hiểu diễn biến ngay cả khi không nhìn trực tiếp vị trí trúng đạn. Hiệu ứng va chạm phục vụ gameplay; hình cầu debug đỏ không thuộc phần trình diễn thông thường.
 
-\demopic[.78]{kill_feed.png}{Thông báo tiêu diệt ở góc trên trái, bộ đếm Blue/Red ở giữa và thông tin tàu trên chiến trường giúp theo dõi kết quả của một pha giao chiến.}{fig:kill}
+\demopic[.90]{defeat_enemy.jpg}{Player Ship tiêu diệt BP\_ShipEnemy2: thông báo xuất hiện ở góc trên trái và tàu địch cháy trên mặt nước. HUD đồng thời cho thấy băng hết đạn, đang nạp và dòng AMMO màu đỏ.}{fig:kill}
 
 Bộ quản lý trận giữ tập tàu đã chết để không giảm bộ đếm lặp. Khi một bên không còn tàu sống, kết quả được phát một lần. Player + AI hiển thị thắng/thua theo đội người chơi; Full AI cho biết Blue hoặc Red thắng. Bảng tổng kết liệt kê sát thương gây ra, sát thương nhận và số lần tiêu diệt của từng tàu.
 
@@ -592,7 +673,7 @@ Bộ quản lý trận giữ tập tàu đã chết để không giảm bộ đ�
 \section{Match Settings và lựa chọn đội hình}
 Match Settings gom các quyết định trước trận vào một màn hình: độ khó, chế độ trận, cách bố trí, quyền điều khiển, đội người chơi, cân bằng và từng slot tàu. Mỗi đội có từ một đến ba tàu. Trong Player + AI, slot đầu của đội được chọn là người chơi, các slot còn lại dùng AI.
 
-\demopic[.56]{match_settings.png}{Giao diện Match Settings với nhóm thiết lập chung, hai cách bố trí và các slot tàu Blue/Red. Mặc định loại tàu người chơi là Medium.}{fig:settings}
+\demopic[.56]{start_menu.jpg}{Match Settings: chọn độ khó, chế độ trận, cách bố trí, quyền điều khiển và loại tàu cho hai đội. Ảnh minh họa đội hình ba Medium mỗi bên.}{fig:settings}
 
 \begin{table}[H]\centering\small
 \caption{Ý nghĩa các nhóm lựa chọn trước trận.}
@@ -610,6 +691,8 @@ Quit / Back to Game&Thoát ở màn hình khởi đầu hoặc trở lại trậ
 \end{tabularx}\end{table}
 
 Sau khi Start, màn hình chuẩn bị được giữ trong lúc dữ liệu và vị trí tàu được xác nhận. Người dùng cần chờ giai đoạn này hoàn tất trước khi đánh giá việc tàu có chạy hay không. Khi thiết lập không hợp lệ, thông báo lỗi hướng người dùng trở về chỉnh bố trí thay vì tiếp tục một trận thiếu tàu.
+
+\demopic[.86]{preparing_battlefield.jpg}{Màn hình PREPARING BATTLEFIELD trong lúc khởi tạo môi trường và vị trí tàu. Người dùng chờ bước này hoàn tất trước khi bắt đầu điều khiển.}{fig:preparing}
 
 \clearpage\section{Điều khiển tàu và thao tác bắn}
 Input được tổ chức theo các hành động lái, nhìn, ngắm và bắn. Enhanced Input giúp tách phím/chuột cụ thể khỏi hành động gameplay; controller bổ sung các phím quản lý camera và giao diện.\cite{input}
@@ -661,9 +744,11 @@ Gọi $\mathbf q$ là vị trí marker trong tọa độ bản đồ, $z$ là h�
 \end{equation}
 Độ pan sau đó được giới hạn để khung nhìn không lộ vùng trống ngoài nền bản đồ. Vì có giới hạn này, một tàu sát mép bản đồ có thể không nằm đúng tâm khung. Ví dụ khung rộng 400 đơn vị, marker ở $q_x=100$ và zoom $z=9$ cần $p_x=200-900=-700$ trước khi giới hạn biên.
 
-\demopic[.36]{minimap_detail.png}{Phần minimap được phóng lớn từ ảnh trong trận: marker Player Ship và các Friendly AI giúp xác định vị trí tương đối giữa đội hình và các đảo.}{fig:minimapdetail}
+\demopic[.86]{zoom_map.jpg}{Minimap phóng đại ở góc phải tập trung vào Player Ship và các Friendly AI, trong khi góc nhìn ngắm pháo vẫn được giữ cho gameplay.}{fig:minimapdetail}
 
 M chỉ đổi cách xem bản đồ, không tự chuyển chuột khỏi ngắm bắn. Người chơi giữ Left Alt khi muốn dùng con trỏ để kéo hoặc cuộn bản đồ; thả Alt trả quyền nhìn/ngắm cho gameplay. Kéo thủ công tạm dừng việc tự theo để người dùng xem khu vực khác; tắt/bật M khôi phục theo tàu. Zoom camera pháo và zoom minimap là hai thao tác khác nhau.
+
+Hai đội sử dụng texture marker riêng. Vì texture được nạp bằng đường dẫn chuỗi, thư mục \texttt{/Game/Game/UI/Minimap} được thêm vào danh sách cook để các icon có mặt trong bản đóng gói. Đường dẫn này tương ứng với \path{Content/Game/UI/Minimap}: \texttt{/Game} đầu là gốc asset đại diện cho Content, còn Game tiếp theo là thư mục con. Đây là một vị trí dữ liệu, không phải hai bản sao của minimap.
 
 
 \section{Camera tàu, toàn cảnh và Full AI}
@@ -673,20 +758,23 @@ Trong Full AI, các slot đều do AI điều khiển và người dùng đóng 
 
 Khi tàu người chơi chết, Q/Tab cho phép theo đồng đội còn sống; nếu không có đối tượng thích hợp thì trở về toàn cảnh. Hệ thống bảo vệ tham chiếu camera/HUD khi xác tàu được dọn, tránh giữ một actor đã bị hủy làm mục tiêu theo dõi.
 
-\section{Thời gian thực, theo lượt và chơi lại}
+\clearpage\section{Thời gian thực, theo lượt và chơi lại}
 Real-Time cho các tàu đủ điều kiện hoạt động đồng thời. Turn-Based phân cửa sổ hành động 10 giây cho từng tàu và luân phiên giữa các đội, bỏ qua tàu đã chết. Chỉ tàu có lượt được phát lệnh chủ động theo quy tắc; mặt nước, vật lý và projectile đã tạo vẫn tiếp tục được mô phỏng. Vì vậy đây không phải cơ chế đóng băng toàn bộ thế giới giữa hai lượt.
 
 Khi kết thúc trận, Match Summary cho biết bên thắng và thống kê từng tàu. \textbf{RETURN TO MAP SETTING} mở lại menu để thay đội hình hoặc bố trí. \textbf{RESTART} cho phép chơi lại qua luồng trận mới. \textbf{QUIT} kết thúc phiên chơi. Trở về xem trận đã kết thúc không hồi sinh các tàu đã bị tiêu diệt.
 
 Một trận mới đặt lại roster, HP, đạn, bộ đếm, điểm số và các tham chiếu theo dõi thông qua vòng đời khởi tạo. Việc tách trở lại menu với tiếp tục quan sát giúp người dùng hiểu rõ mình đang xem kết quả cũ hay đã bắt đầu một trận khác.
 
-\demopic{natural_result.png}{Bảng tổng kết một trận kết thúc với Blue thắng. Người dùng có thể trở lại thiết lập bản đồ, chơi lại hoặc thoát ngay từ bảng kết quả.}{fig:result}
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth,trim=460bp 450bp 450bp 450bp,clip]{images/result.jpg}
+\caption{Khung Match Summary từ ảnh demo: DEFEAT cho đội người chơi, thống kê hai đội và các nút trở lại thiết lập, chơi lại, thoát.}\label{fig:result}
+\end{figure}
 \begingroup\setstretch{1.1}\setlength{\parskip}{3pt}
 \chapter{Kết quả trình diễn và hướng phát triển}
 \section{Tuần tra nhiều tàu và trận tự động}
 Các bài chạy của dự án đã ghi nhận sáu tàu Medium đi tuần tra liên tục trong khoảng 1.350,93 giây mô phỏng, mỗi tàu có ít nhất bốn lượt tới đích. Với bài này, sát thương được tạm ngừng để quan sát đầy đủ vòng lặp chuyển động. Kết quả thể hiện khả năng phối hợp tuyến, đến đích và quay lại; không nên hiểu nó là thời lượng của một trận chiến tự nhiên.
 
-Trong một trận 3v3 tự động, hai đội đã giao chiến và kết thúc với Blue thắng sau khoảng 803 giây mô phỏng. Cả sáu tàu đều phát bắn; ba tàu Red bị loại do HP cạn. Bảng kết quả ở Hình~\ref{fig:result} minh họa việc nối các thành phần di chuyển, vũ khí, sát thương và quản lý đội thành một vòng đời trận.
+Trong một trận 3v3 tự động, hai đội đã giao chiến và kết thúc với Blue thắng sau khoảng 803 giây mô phỏng. Cả sáu tàu đều phát bắn; ba tàu Red bị loại do HP cạn. Một tình huống trình diễn khác ở Hình~\ref{fig:result} cho thấy đội người chơi thất bại. Cả hai trường hợp sử dụng cùng luồng quản lý đội, thống kê và menu kết thúc trận.
 
 Một kết quả chạy thành công có ý nghĩa với cấu hình tương ứng. Nó không bảo đảm mọi seed, loại tàu và bố trí đều phù hợp: tuyến quá hẹp hoặc điểm cuối sát bờ vẫn có thể không tạo được hành trình an toàn. Vì vậy, người trình diễn cần thiết kế và chạy thử chính kịch bản mình định sử dụng.
 
@@ -770,5 +858,7 @@ Sửa map không được giữ&Dừng PIE, sửa ở Editor world rồi lưu. A
 \bibitem{cesium} Cesium. \textit{ACesiumGeoreference Class Reference}. Tài liệu hệ tọa độ và chuyển đổi vị trí. \url{https://cesium.com/learn/cesium-unreal/ref-doc/classACesiumGeoreference.html}.
 \bibitem{water} Epic Games. \textit{Water Buoyancy Component in Unreal Engine}. Nguyên lý xấp xỉ nổi bằng phao hình cầu. \url{https://dev.epicgames.com/documentation/en-us/unreal-engine/water-buoyancy-component-in-unreal-engine}.
 \bibitem{input} Epic Games. \textit{Enhanced Input in Unreal Engine}. Cơ chế Input Action và Mapping Context. \url{https://dev.epicgames.com/documentation/en-us/unreal-engine/enhanced-input-in-unreal-engine}.
+\bibitem{quantized} CesiumGS. \textit{Quantized-mesh terrain format}. Định dạng terrain và tệp mô tả layer.json. \url{https://github.com/CesiumGS/quantized-mesh/blob/main/SPECIFICATION.md}.
+\bibitem{cesiumfaq} Cesium. \textit{Frequently Asked Questions: Data Formats}. Terrain quantized-mesh và lớp ảnh TMS từ dữ liệu cục bộ. \url{https://cesium.com/learn/unreal/unreal-faq/}.
 \end{thebibliography}
 \end{document}

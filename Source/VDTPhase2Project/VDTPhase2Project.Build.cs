@@ -10,7 +10,7 @@ public class VDTPhase2Project : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "CesiumRuntime", "AIModule", "UMG", "Water" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities", "Slate", "SlateCore", "Niagara", "ProceduralMeshComponent", "Chaos", "PhysicsCore" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Json", "JsonUtilities", "Slate", "SlateCore", "Niagara", "ProceduralMeshComponent", "Chaos", "PhysicsCore", "HTTP" });
 		if (Target.bBuildEditor)
 		{
             PrivateDependencyModuleNames.AddRange(new string[] { "UnrealEd", "BlueprintGraph", "KismetCompiler", "UMGEditor", "AssetRegistry", "MeshDescription", "StaticMeshDescription", "BlueprintEditorLibrary" });
@@ -19,6 +19,18 @@ public class VDTPhase2Project : ModuleRules
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/halong_navigation.json", StagedFileType.UFS);
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_sectors.json", StagedFileType.UFS);
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_demo_routes.json", StagedFileType.UFS);
+
+		// Cesium opens terrain and TMS tiles through file:// URIs, outside pak files.
+		string TerrainRoot = System.IO.Path.Combine(ModuleDirectory, "../../Data/UnrealTerrainSet/QuangNinh");
+		if (!System.IO.File.Exists(System.IO.Path.Combine(TerrainRoot, "Terrain/layer.json")) ||
+			!System.IO.File.Exists(System.IO.Path.Combine(TerrainRoot, "Imagery/tilemapresource.xml")))
+			throw new BuildException("Restore Data/UnrealTerrainSet/QuangNinh (terrain and imagery) before building.");
+		foreach (string TerrainFile in System.IO.Directory.EnumerateFiles(TerrainRoot, "*", System.IO.SearchOption.AllDirectories))
+		{
+			string Extension = System.IO.Path.GetExtension(TerrainFile).ToLowerInvariant();
+			if (Extension == ".terrain" || Extension == ".png" || Extension == ".json" || Extension == ".xml")
+				RuntimeDependencies.Add(System.IO.Path.GetFullPath(TerrainFile), StagedFileType.NonUFS);
+		}
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
