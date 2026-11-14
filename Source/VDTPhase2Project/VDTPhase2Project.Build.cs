@@ -19,6 +19,9 @@ public class VDTPhase2Project : ModuleRules
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/halong_navigation.json", StagedFileType.UFS);
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_sectors.json", StagedFileType.UFS);
 		RuntimeDependencies.Add("$(ProjectDir)/Content/SeaNavigation/quangninh_demo_routes.json", StagedFileType.UFS);
+		// The menu's composite font reads the TTF directly from the content directory.
+		RuntimeDependencies.Add("$(ProjectDir)/Content/Fonts/BlackOpsOne-Regular.ttf", StagedFileType.NonUFS);
+		RuntimeDependencies.Add("$(ProjectDir)/Content/Fonts/OFL.txt", StagedFileType.NonUFS);
 
 		// Cesium opens terrain and TMS tiles through file:// URIs, outside pak files.
 		string TerrainRoot = System.IO.Path.Combine(ModuleDirectory, "../../Data/UnrealTerrainSet/QuangNinh");
