@@ -15,6 +15,14 @@ Build/
 *.xcworkspace
 *.code-workspace
 .idea/
+*.aux
+*.lof
+*.out
+*.toc
+*.log
+*.lot
+*.synctex.gz
+*.synctex(busy)
 
 # Cesium for Unreal cache files
 cesium-request-cache.sqlite
