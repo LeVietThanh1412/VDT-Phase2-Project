@@ -55,15 +55,15 @@ VDT-Phase2-Project/
 │   ├── Levels/MainMapLevel.umap
 │   ├── __ExternalActors__/...
 │   ├── Game/UI/Minimap/...
-│   └── SeaNavigation/
-│       ├── halong_navigation.json
-│       ├── quangninh_sectors.json
-│       └── quangninh_demo_routes.json
-├── Data/UnrealTerrainSet/QuangNinh/
-│   ├── Terrain/layer.json
-│   ├── Terrain/{z}/{x}/{y}.terrain
-│   ├── Imagery/tilemapresource.xml
-│   └── Imagery/{z}/{x}/{y}.png
+│   ├── SeaNavigation/
+│   │   ├── halong_navigation.json
+│   │   ├── quangninh_sectors.json
+│   │   └── quangninh_demo_routes.json
+│   └── UnrealTerrainSet/QuangNinh/
+│       ├── Terrain/layer.json
+│       ├── Terrain/{z}/{x}/{y}.terrain
+│       ├── Imagery/tilemapresource.xml
+│       └── Imagery/{z}/{x}/{y}.png
 └── reports/
     ├── reports.pdf
     └── images/
@@ -75,7 +75,7 @@ VDT-Phase2-Project/
 
 ### UnrealTerrainSet
 
-Nguồn chính là **`Data/UnrealTerrainSet/QuangNinh`**:
+Nguồn chính là **`Content/UnrealTerrainSet/QuangNinh`**:
 
 | Tệp | Chức năng |
 | --- | --- |
@@ -88,7 +88,7 @@ Actor **`QuangNinh_Terrain`** dùng Cesium 3D Tileset để dựng địa hình 
 
 Đảo và bờ biển ảnh hưởng đến đường đi, khoảng quay và tầm nhìn khi giao chiến. Một hành lang nhìn có màu nước chưa chắc đủ rộng cho toàn bộ thân tàu; AI còn đối chiếu lưới điều hướng và quét vật cản trong thế giới mô phỏng.
 
-Giữ đầy đủ cây `Data/UnrealTerrainSet/QuangNinh` khi cài project. Hai manifest cần đi cùng các tile con. Hai nguồn local này không cần Cesium ion token; nguồn online bổ sung có cấu hình riêng. Tham khảo [định dạng Cesium hỗ trợ](https://cesium.com/learn/unreal/unreal-faq/#what-file-formats-can-i-load-with-cesium-for-unreal).
+Giữ đầy đủ cây `Content/UnrealTerrainSet/QuangNinh` khi cài project. Hai manifest cần đi cùng các tile con. Hai nguồn local này không cần Cesium ion token; nguồn online bổ sung có cấu hình riêng. Tham khảo [định dạng Cesium hỗ trợ](https://cesium.com/learn/unreal/unreal-faq/#what-file-formats-can-i-load-with-cesium-for-unreal).
 
 ### Ba JSON gameplay
 
@@ -126,6 +126,8 @@ Hoặc Generate Visual Studio project files từ menu chuột phải `.uproject`
 Trong **Edit → Plugins**, kiểm tra Cesium, Water và Procedural Mesh Component đã bật. Mở **`/Game/Levels/MainMapLevel`**, chờ shader/asset lần đầu, nhấn **Play** rồi nhấp viewport để nhận input. Build Editor tạo module dùng trong Editor; để có bản Windows riêng, thực hiện **Platforms → Windows → Package Project**. Giữ toàn bộ thư mục kết quả, gồm dữ liệu bản đồ; không chỉ sao chép file `.exe`.
 
 Trong **Project Settings → Packaging → Additional Asset Directories to Cook**, giữ mục **`/Game/Game/UI/Minimap`** đã cấu hình để icon hai đội có mặt trong bản game. Đây là đường dẫn asset của thư mục `Content/Game/UI/Minimap`.
+
+Trong **Additional Non-Asset Directories to Copy**, giữ mục **`UnrealTerrainSet`**. Thư mục này nằm trong Content và chứa cả Terrain lẫn Imagery; dữ liệu được phân phối thành file rời để Cesium đọc. Khi cài bản game, giữ đủ cây thư mục cùng các tile con.
 
 ## 5. Thiết lập demo
 
@@ -225,7 +227,7 @@ Mở DataAsset tại `/Game/NavalBattle/Profiles`. **Forward/Reverse Max Speed**
 | --- | --- |
 | Asset/ảnh không mở | Tải Git LFS đầy đủ; kiểm tra con trỏ |
 | Thiếu Cesium | Cài plugin đúng UE 5.6 và mở lại Editor |
-| Không thấy đảo/ảnh phủ | Giữ đủ `Data/UnrealTerrainSet/QuangNinh`, kiểm tra `PortableLocalTerrain` và `PathError` |
+| Không thấy đảo/ảnh phủ | Giữ đủ `Content/UnrealTerrainSet/QuangNinh`, kiểm tra `PortableLocalTerrain` và `PathError` |
 | SETUP FAILED | Xuất phát/A/B trên đất, tuyến không liên thông, vùng quay hẹp hoặc thiếu marker Full AI |
 | AI đứng yên/không về B | Pause, chết/kết quả, lượt, thời gian chờ, A/B của đúng actor và vật cản |
 | Không bắn/không mất HP | Camera/tâm ngắm, đạn/nạp, cooldown, lượt, địch còn sống, hit có bị chắn không |
@@ -239,7 +241,7 @@ Mở DataAsset tại `/Game/NavalBattle/Profiles`. **Forward/Reverse Max Speed**
 - `Content/Ship`, `Content/ShipEnemy`, `Content/ShipSmall`: Blueprint và tài nguyên tàu.
 - `Content/NavalBattle/Profiles`: cấu hình các loại tàu.
 - `Content/Levels`, `Content/__ExternalActors__`: map và actor; giữ cả external actor khi sao chép level.
-- `Data/UnrealTerrainSet`: địa hình/ảnh nền; `Content/SeaNavigation`: JSON gameplay.
+- `Content/UnrealTerrainSet`: địa hình/ảnh nền; `Content/SeaNavigation`: JSON gameplay.
 - `reports/reports.pdf`: cơ chế, công thức và hướng dẫn tính năng; `reports/images`: ảnh demo.
 
 Đổi tên/di chuyển `.uasset`, `.umap` trong Unreal Editor để giữ tham chiếu. Ảnh demo chụp trong Editor, không phải benchmark của một gói Windows trên mọi máy.

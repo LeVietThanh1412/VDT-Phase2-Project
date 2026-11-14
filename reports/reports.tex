@@ -227,7 +227,7 @@ Các chương tiếp theo phân tích từng nhóm chức năng theo luồng nà
 \section{Địa hình Quảng Ninh và mặt nước}
 Bản đồ sử dụng Cesium để đưa địa hình và lớp ảnh bề mặt của khu vực Quảng Ninh vào Unreal Engine. Địa hình thể hiện hình dạng đảo, bờ và độ cao; imagery cung cấp màu bề mặt. Mặt nước thuộc hệ thống Water của Unreal, tạo bề mặt biển và cung cấp thông tin độ cao nước cho các điểm nổi của tàu. Hai hệ thống có vai trò khác nhau: Cesium biểu diễn môi trường địa lý, còn Water tham gia tương tác vật lý với phương tiện.
 
-Dự án sử dụng bộ dữ liệu \textbf{UnrealTerrainSet}, với khu vực Quảng Ninh đặt tại \path{Data/UnrealTerrainSet/QuangNinh}. Bộ dữ liệu có hai phần: \texttt{Terrain} cung cấp hình học độ cao và \texttt{Imagery} cung cấp ảnh phủ bề mặt. Cesium tải các tile theo vị trí quan sát và mức chi tiết. Màu nước nhìn thấy không tự quyết định vùng tàu đi được; điều hướng còn sử dụng dữ liệu nước riêng và kiểm tra collision của thân.
+Dự án sử dụng bộ dữ liệu \textbf{UnrealTerrainSet}, với khu vực Quảng Ninh đặt tại \path{Content/UnrealTerrainSet/QuangNinh}. Bộ dữ liệu có hai phần: \texttt{Terrain} cung cấp hình học độ cao và \texttt{Imagery} cung cấp ảnh phủ bề mặt. Cesium tải các tile theo vị trí quan sát và mức chi tiết. Màu nước nhìn thấy không tự quyết định vùng tàu đi được; điều hướng còn sử dụng dữ liệu nước riêng và kiểm tra collision của thân.
 
 Hình dạng quần đảo tạo ra nhiều trường hợp demo: tuần tra dọc hành lang nước, tránh đảo giữa hai điểm, mất tầm nhìn khi đối phương đi sau bờ và giao cắt đội hình ở vùng nước mở. Đây là lý do bản đồ ảnh hưởng trực tiếp đến cả AI di chuyển lẫn chiến đấu.
 \howto{Mở level \texttt{MainMapLevel}; chờ địa hình được tải trước khi bố trí hoặc quan sát. Đặt tàu trong vùng nước đủ rộng cho toàn bộ thân và khoảng quay, không chỉ đặt tâm actor vào phần có màu xanh.}
@@ -235,7 +235,7 @@ Hình dạng quần đảo tạo ra nhiều trường hợp demo: tuần tra d�
 \section{Cấu trúc UnrealTerrainSet và luồng nạp bản đồ}
 Các tệp địa hình và ảnh không được nhập thành từng asset trong Content Browser. Cesium đọc một tệp mô tả, từ đó tìm các tile con tương ứng. Cấu trúc dữ liệu sử dụng trong dự án là:
 \begin{lstlisting}
-Data/UnrealTerrainSet/QuangNinh/
+Content/UnrealTerrainSet/QuangNinh/
   Terrain/
     layer.json
     {z}/{x}/{y}.terrain
