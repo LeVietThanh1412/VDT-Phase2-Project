@@ -401,4 +401,3 @@ Audit: main `ce3074f`; 14/11/2026. Verification is scoped to each named test, no
 | Validation | source/call path inspection |
 | Evidence | Branch/source comparison recorded in IMPLEMENTATION_EVIDENCE.md |
 | Limitations | Không gọi tên asset là chứng minh tính năng runtime |
-
