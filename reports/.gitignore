@@ -1,6 +1,12 @@
 _build/
+out/
 *.aux
 *.log
 *.toc
 *.out
 *.lof
+*.lot
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.xdv

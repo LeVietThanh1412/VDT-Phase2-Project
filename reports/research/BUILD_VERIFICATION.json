@@ -1,0 +1,10 @@
+{
+  "audited_main": "ce3074f1f17e45e397c782883482f52c4cf00f9e",
+  "report_pdf_sha256": "8d38630b546a48f4bf779686f4e7684ae7ea7f97ecd422e01ac1b4950dfde686",
+  "latex_log_sha256": "2008c3e8ceb2eeeefb573de5874da70980d30163da8fcc7a9eec6b7dd97ef867",
+  "unreal_inspection_exit": 0,
+  "unreal_log_summary": "Success - 0 error(s), 0 warning(s)",
+  "unreal_log_sha256": "4a1be14b319ed1872bc0016a8d02af0d9417fd0fe766ecd770fa1631a5e2924a",
+  "new_gameplay_tests": false,
+  "production_files_modified": false
+}
