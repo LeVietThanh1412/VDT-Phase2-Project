@@ -21,8 +21,11 @@ public:
 
 protected:
   virtual TSharedRef<SWidget> RebuildWidget() override;
+  virtual FReply NativeOnPreviewKeyDown(const FGeometry& Geometry,
+                                       const FKeyEvent& Event) override;
 
 private:
+  friend class FControllerShipCycleTest;
   UFUNCTION()
   void HandleHelpClicked();
 

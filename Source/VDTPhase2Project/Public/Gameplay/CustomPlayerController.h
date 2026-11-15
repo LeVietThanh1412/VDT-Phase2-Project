@@ -63,6 +63,7 @@ public:
   APawn *GetSelectedShip() const;
 
 private:
+  friend class FControllerShipCycleTest;
   UShipMinimapWidget* FindMinimap() const;
   bool HasModalUI() const;
   void UseGameplayMouseInput();
