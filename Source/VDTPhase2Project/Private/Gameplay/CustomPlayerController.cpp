@@ -222,22 +222,24 @@ void ACustomPlayerController::ResetMinimapInteraction()
 {
     bMinimapInteractiveMode = false;
     bMinimapMouseInteraction = false;
-    if (auto* Minimap = FindMinimap())
+    if (auto* Minimap = FindMinimap()) {
+        Minimap->SetMouseInteractionEnabled(false);
         Minimap->SetInteractiveMode(false);
+    }
 }
 void ACustomPlayerController::ToggleMinimapInteractiveMode()
 {
     if (!IsLocalController() || HasModalUI())
         return;
     bMinimapInteractiveMode = !bMinimapInteractiveMode;
-    bMinimapMouseInteraction = false;
     if (auto* Minimap = FindMinimap())
         Minimap->SetInteractiveMode(bMinimapInteractiveMode);
-    UseGameplayMouseInput();
+    if (!bMinimapMouseInteraction)
+        UseGameplayMouseInput();
 }
 void ACustomPlayerController::BeginMinimapMouseInteraction()
 {
-    if (!IsLocalController() || !bMinimapInteractiveMode || bMinimapMouseInteraction || HasModalUI())
+    if (!IsLocalController() || bMinimapMouseInteraction || HasModalUI())
         return;
     auto* Minimap = FindMinimap();
     if (!Minimap)
@@ -521,6 +523,8 @@ void ACustomPlayerController::BeginFullAIDemo(APawn *InitialShip) {
 }
 
 void ACustomPlayerController::NextTeammate() {
+  if (!IsLocalController() || HasModalUI())
+    return;
   // Tab cycles the teammates of whichever team the camera is currently on, so
   // watching a red ship only ever steps through other red ships.
   const int32 Team = ResolveViewedTeam();
@@ -747,22 +751,12 @@ APawn *ACustomPlayerController::CycleShipView(int32 TeamFilter) {
   // A camera change must not unpossess an independently controlled AI ship.
   APawn *CurrentShip = ResolveViewedShip();
 
-  APawn *NextShip = nullptr;
-  if (ShipPawns.Num() == 1) {
-    // Only one candidate: there is no teammate to cycle to, but the camera
-    // must still be pulled back onto that ship if it is somewhere else.
-    NextShip = ShipPawns[0];
-    if (!IsValid(FreeCameraPawn) && NextShip == CurrentShip) {
-      return nullptr;
-    }
-  } else {
-    const int32 CurrentIndex = ShipPawns.IndexOfByKey(CurrentShip);
-    NextShip = ShipPawns[CurrentIndex == INDEX_NONE
-                             ? 0
-                             : (CurrentIndex + 1) % ShipPawns.Num()];
-  }
+  const int32 CurrentIndex = ShipPawns.IndexOfByKey(CurrentShip);
+  APawn *NextShip = ShipPawns[CurrentIndex == INDEX_NONE
+                                ? 0
+                                : (CurrentIndex + 1) % ShipPawns.Num()];
 
-  if (!IsValid(NextShip) || NextShip == CurrentShip) {
+  if (!IsValid(NextShip) || (NextShip == CurrentShip && !bBattlefieldOverview)) {
     return nullptr;
   }
 

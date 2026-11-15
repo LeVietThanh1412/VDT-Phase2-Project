@@ -1,4 +1,6 @@
 #include "UI/ButtonTutorialsUI.h"
+#include "Gameplay/CustomPlayerController.h"
+#include "Input/Events.h"
 
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -68,7 +70,7 @@ TSharedRef<SWidget> UButtonTutorialsUI::RebuildWidget() {
 
   const TCHAR *Entries[][2] = {{TEXT("P"), TEXT("Match settings")},
                                {TEXT("I"), TEXT("Ship details")},
-                               {TEXT("M"), TEXT("Map 9x / follow ship")},
+                               {TEXT("M"), TEXT("Minimap zoom to ship")},
                                {TEXT("Alt"), TEXT("Hold: minimap cursor")},
                                {TEXT("F"), TEXT("Bird's eye camera")},
                                {TEXT("Q"), TEXT("Switch team's camera")},
@@ -122,3 +124,18 @@ void UButtonTutorialsUI::ToggleTutorial() {
 }
 
 void UButtonTutorialsUI::HandleHelpClicked() { ToggleTutorial(); }
+
+FReply UButtonTutorialsUI::NativeOnPreviewKeyDown(const FGeometry& Geometry,
+                                                 const FKeyEvent& Event) {
+  // Slate treats Tab as focus navigation when the help button owns focus.
+  // Route the gameplay shortcut before that button can consume it.
+  if (Event.GetKey() == EKeys::Tab && !Event.IsAltDown() &&
+      !Event.IsControlDown() && !Event.IsShiftDown() && !Event.IsCommandDown()) {
+    if (auto* Controller = Cast<ACustomPlayerController>(GetOwningPlayer())) {
+      if (!Event.IsRepeat())
+        Controller->NextTeammate();
+      return FReply::Handled();
+    }
+  }
+  return Super::NativeOnPreviewKeyDown(Geometry, Event);
+}

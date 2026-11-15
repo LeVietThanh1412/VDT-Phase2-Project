@@ -173,13 +173,13 @@ Chọn GENERATE FROM SEED và nhập seed dương, ví dụ `20261028`; **0** y�
 | Giữ chuột phải | Camera ngắm pháo |
 | Chuột trái | Bắn khi tâm ngắm và vũ khí đủ điều kiện |
 | Cuộn chuột | Zoom camera; khi tương tác minimap thì đổi zoom map |
-| M | Minimap 1×/9× theo tàu đang xem |
-| Giữ Left Alt | Con trỏ để kéo/cuộn minimap; thả để về gameplay |
+| M | Minimap zoom to ship — bật/tắt zoom 9× theo tàu đang xem |
+| Giữ Left Alt | Con trỏ để kéo/cuộn minimap, dùng độc lập với M; thả để về gameplay |
 | Q | Đổi tàu quan sát, không chuyển quyền lái từ AI |
 | F | Toàn cảnh / trở lại tàu |
 | I | Ẩn/hiện bảng thông tin |
 | P | Tạm dừng và mở thiết lập |
-| Tab | Chuyển đồng đội sống khi người chơi chết; đổi tàu trong Full AI |
+| Tab | Chuyển tuần tự các tàu còn sống trong đội đang quan sát |
 | / | Mở/đóng hướng dẫn |
 | Shift + F1 | Thả chuột ra Unreal Editor trong PIE |
 

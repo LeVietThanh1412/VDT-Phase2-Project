@@ -119,16 +119,18 @@ void UShipMinimapWidget::NativeTick(const FGeometry& MyGeometry, float InDeltaTi
 }
 void UShipMinimapWidget::SetInteractiveMode(bool bActive)
 {
+    const bool bKeepMouseInteraction = bMouseInteractionEnabled;
+    SetMouseInteractionEnabled(false);
     bInteractiveActive = bActive;
     bFollowShip = bActive;
-    SetMouseInteractionEnabled(false);
     SetMinimapZoom(bActive ? 9.0f : 1.0f);
     if (bActive)
         UpdateShipFocus();
+    SetMouseInteractionEnabled(bKeepMouseInteraction);
 }
 void UShipMinimapWidget::SetMouseInteractionEnabled(bool bEnabled)
 {
-    bMouseInteractionEnabled = bInteractiveActive && bEnabled;
+    bMouseInteractionEnabled = bEnabled;
     if (!bMouseInteractionEnabled)
     {
         bIsDragging = false;

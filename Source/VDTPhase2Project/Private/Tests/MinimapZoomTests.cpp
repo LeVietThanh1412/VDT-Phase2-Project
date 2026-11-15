@@ -55,13 +55,24 @@ bool FMinimapZoomModeTest::RunTest(const FString&)
     Map->DragStartPan = Map->PanOffset;
     Map->NativeOnMouseMove(FGeometry(), WheelDown);
     TestFalse(TEXT("Effective drag suspends following"), Map->IsFollowingShip());
+    Map->SetMouseInteractionEnabled(false);
     Map->SetInteractiveMode(false);
     Map->SetInteractiveMode(true);
     TestTrue(TEXT("Reopening interaction resumes following"), Map->IsFollowingShip());
     TestFalse(TEXT("Reopening does not steal the mouse"), Map->IsMouseInteractionEnabled());
     Map->SetInteractiveMode(false);
     Map->SetMouseInteractionEnabled(true);
-    TestFalse(TEXT("Map mouse control cannot activate without zoom mode"), Map->IsMouseInteractionEnabled());
+    TestTrue(TEXT("Alt enables map mouse control without M"), Map->IsMouseInteractionEnabled());
+    TestEqual(TEXT("Alt alone keeps the overview at 1x"), Map->GetCurrentZoom(), 1.f);
+    Map->SetInteractiveMode(true);
+    TestTrue(TEXT("M preserves held Alt mouse control"), Map->IsMouseInteractionEnabled());
+    Map->bIsDragging = true;
+    Map->SetInteractiveMode(false);
+    TestFalse(TEXT("Changing M ends the old drag gesture"), Map->bIsDragging);
+    TestTrue(TEXT("Turning M off preserves held Alt mouse control"), Map->IsMouseInteractionEnabled());
+    Map->SetMouseInteractionEnabled(false);
+    TestEqual(TEXT("Releasing Alt restores click-through without changing zoom"),
+        Map->GetVisibility(), ESlateVisibility::HitTestInvisible);
     return true;
 }
 #endif
